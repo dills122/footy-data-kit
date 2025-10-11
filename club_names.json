@@ -1,0 +1,586 @@
+[
+  {
+    "id": "club_1",
+    "name": "AFC Bournemouth"
+  },
+  {
+    "id": "club_2",
+    "name": "AFC Wimbledon"
+  },
+  {
+    "id": "club_3",
+    "name": "Aberdare Athletic"
+  },
+  {
+    "id": "club_4",
+    "name": "Accrington"
+  },
+  {
+    "id": "club_5",
+    "name": "Accrington F.C."
+  },
+  {
+    "id": "club_6",
+    "name": "Accrington Stanley"
+  },
+  {
+    "id": "club_7",
+    "name": "Aldershot"
+  },
+  {
+    "id": "club_8",
+    "name": "Arsenal"
+  },
+  {
+    "id": "club_9",
+    "name": "Ashington"
+  },
+  {
+    "id": "club_10",
+    "name": "Aston Villa"
+  },
+  {
+    "id": "club_11",
+    "name": "Barnet"
+  },
+  {
+    "id": "club_12",
+    "name": "Barnsley"
+  },
+  {
+    "id": "club_13",
+    "name": "Barrow"
+  },
+  {
+    "id": "club_14",
+    "name": "Birmingham City"
+  },
+  {
+    "id": "club_15",
+    "name": "Blackburn Rovers"
+  },
+  {
+    "id": "club_16",
+    "name": "Blackpool"
+  },
+  {
+    "id": "club_17",
+    "name": "Bolton Wanderers"
+  },
+  {
+    "id": "club_18",
+    "name": "Bootle"
+  },
+  {
+    "id": "club_19",
+    "name": "Boston United"
+  },
+  {
+    "id": "club_20",
+    "name": "Bradford City"
+  },
+  {
+    "id": "club_21",
+    "name": "Bradford Park Avenue"
+  },
+  {
+    "id": "club_22",
+    "name": "Brentford"
+  },
+  {
+    "id": "club_23",
+    "name": "Brighton & Hove Albion"
+  },
+  {
+    "id": "club_24",
+    "name": "Bristol City"
+  },
+  {
+    "id": "club_25",
+    "name": "Bristol Rovers"
+  },
+  {
+    "id": "club_26",
+    "name": "Burnley"
+  },
+  {
+    "id": "club_27",
+    "name": "Burton Albion"
+  },
+  {
+    "id": "club_28",
+    "name": "Burton Swifts"
+  },
+  {
+    "id": "club_29",
+    "name": "Burton United"
+  },
+  {
+    "id": "club_30",
+    "name": "Burton Wanderers"
+  },
+  {
+    "id": "club_31",
+    "name": "Bury"
+  },
+  {
+    "id": "club_32",
+    "name": "Cambridge United"
+  },
+  {
+    "id": "club_33",
+    "name": "Cardiff City"
+  },
+  {
+    "id": "club_34",
+    "name": "Carlisle United"
+  },
+  {
+    "id": "club_35",
+    "name": "Charlton Athletic"
+  },
+  {
+    "id": "club_36",
+    "name": "Chelsea"
+  },
+  {
+    "id": "club_37",
+    "name": "Cheltenham"
+  },
+  {
+    "id": "club_38",
+    "name": "Chester"
+  },
+  {
+    "id": "club_39",
+    "name": "Chesterfield"
+  },
+  {
+    "id": "club_40",
+    "name": "Colchester United"
+  },
+  {
+    "id": "club_41",
+    "name": "Coventry City"
+  },
+  {
+    "id": "club_42",
+    "name": "Crawley Town"
+  },
+  {
+    "id": "club_43",
+    "name": "Crewe Alexandra"
+  },
+  {
+    "id": "club_44",
+    "name": "Crystal Palace"
+  },
+  {
+    "id": "club_45",
+    "name": "Dagenham and Redbridge"
+  },
+  {
+    "id": "club_46",
+    "name": "Darlington"
+  },
+  {
+    "id": "club_47",
+    "name": "Darwen"
+  },
+  {
+    "id": "club_48",
+    "name": "Derby County"
+  },
+  {
+    "id": "club_49",
+    "name": "Doncaster Rovers"
+  },
+  {
+    "id": "club_50",
+    "name": "Durham City"
+  },
+  {
+    "id": "club_51",
+    "name": "Everton"
+  },
+  {
+    "id": "club_52",
+    "name": "Exeter City"
+  },
+  {
+    "id": "club_53",
+    "name": "Fleetwood Town"
+  },
+  {
+    "id": "club_54",
+    "name": "Forest Green Rovers"
+  },
+  {
+    "id": "club_55",
+    "name": "Fulham"
+  },
+  {
+    "id": "club_56",
+    "name": "Gainsborough Trinity"
+  },
+  {
+    "id": "club_57",
+    "name": "Gateshead"
+  },
+  {
+    "id": "club_58",
+    "name": "Gillingham"
+  },
+  {
+    "id": "club_59",
+    "name": "Glossop North End"
+  },
+  {
+    "id": "club_60",
+    "name": "Grimsby Town"
+  },
+  {
+    "id": "club_61",
+    "name": "Halifax Town"
+  },
+  {
+    "id": "club_62",
+    "name": "Harrogate Town A.F.C."
+  },
+  {
+    "id": "club_63",
+    "name": "Hartlepool United"
+  },
+  {
+    "id": "club_64",
+    "name": "Hereford United"
+  },
+  {
+    "id": "club_65",
+    "name": "Huddersfield Town"
+  },
+  {
+    "id": "club_66",
+    "name": "Hull City"
+  },
+  {
+    "id": "club_67",
+    "name": "Ipswich Town"
+  },
+  {
+    "id": "club_68",
+    "name": "Kidderminster Harriers"
+  },
+  {
+    "id": "club_69",
+    "name": "Leeds City"
+  },
+  {
+    "id": "club_70",
+    "name": "Leeds United"
+  },
+  {
+    "id": "club_71",
+    "name": "Leicester City"
+  },
+  {
+    "id": "club_72",
+    "name": "Leyton Orient"
+  },
+  {
+    "id": "club_73",
+    "name": "Lincoln City"
+  },
+  {
+    "id": "club_74",
+    "name": "Liverpool"
+  },
+  {
+    "id": "club_75",
+    "name": "Loughborough"
+  },
+  {
+    "id": "club_76",
+    "name": "Luton Town"
+  },
+  {
+    "id": "club_77",
+    "name": "Macclesfield"
+  },
+  {
+    "id": "club_78",
+    "name": "Maidstone United"
+  },
+  {
+    "id": "club_79",
+    "name": "Manchester City"
+  },
+  {
+    "id": "club_80",
+    "name": "Manchester United"
+  },
+  {
+    "id": "club_81",
+    "name": "Mansfield Town"
+  },
+  {
+    "id": "club_82",
+    "name": "Merthyr Town"
+  },
+  {
+    "id": "club_83",
+    "name": "Middlesbrough"
+  },
+  {
+    "id": "club_84",
+    "name": "Middlesbrough Ironopolis"
+  },
+  {
+    "id": "club_85",
+    "name": "Millwall"
+  },
+  {
+    "id": "club_86",
+    "name": "Milton Keynes Dons"
+  },
+  {
+    "id": "club_87",
+    "name": "Morecambe"
+  },
+  {
+    "id": "club_88",
+    "name": "Nelson"
+  },
+  {
+    "id": "club_89",
+    "name": "New Brighton"
+  },
+  {
+    "id": "club_90",
+    "name": "New Brighton Tower"
+  },
+  {
+    "id": "club_91",
+    "name": "Newcastle United"
+  },
+  {
+    "id": "club_92",
+    "name": "Newport County"
+  },
+  {
+    "id": "club_93",
+    "name": "Northampton Town"
+  },
+  {
+    "id": "club_94",
+    "name": "Northwich Victoria"
+  },
+  {
+    "id": "club_95",
+    "name": "Norwich City"
+  },
+  {
+    "id": "club_96",
+    "name": "Nottingham Forest"
+  },
+  {
+    "id": "club_97",
+    "name": "Notts County"
+  },
+  {
+    "id": "club_98",
+    "name": "Oldham Athletic"
+  },
+  {
+    "id": "club_99",
+    "name": "Oxford United"
+  },
+  {
+    "id": "club_100",
+    "name": "Peterborough United"
+  },
+  {
+    "id": "club_101",
+    "name": "Plymouth Argyle"
+  },
+  {
+    "id": "club_102",
+    "name": "Port Vale"
+  },
+  {
+    "id": "club_103",
+    "name": "Portsmouth"
+  },
+  {
+    "id": "club_104",
+    "name": "Preston North End"
+  },
+  {
+    "id": "club_105",
+    "name": "Queens Park Rangers"
+  },
+  {
+    "id": "club_106",
+    "name": "Reading"
+  },
+  {
+    "id": "club_107",
+    "name": "Rochdale"
+  },
+  {
+    "id": "club_108",
+    "name": "Rotherham County"
+  },
+  {
+    "id": "club_109",
+    "name": "Rotherham Town"
+  },
+  {
+    "id": "club_110",
+    "name": "Rotherham United"
+  },
+  {
+    "id": "club_111",
+    "name": "Rushden & Diamonds"
+  },
+  {
+    "id": "club_112",
+    "name": "Salford City"
+  },
+  {
+    "id": "club_113",
+    "name": "Scarborough"
+  },
+  {
+    "id": "club_114",
+    "name": "Scunthorpe United"
+  },
+  {
+    "id": "club_115",
+    "name": "Sheffield United"
+  },
+  {
+    "id": "club_116",
+    "name": "Sheffield Wednesday"
+  },
+  {
+    "id": "club_117",
+    "name": "Shrewsbury Town"
+  },
+  {
+    "id": "club_118",
+    "name": "South Shields"
+  },
+  {
+    "id": "club_119",
+    "name": "Southampton"
+  },
+  {
+    "id": "club_120",
+    "name": "Southend United"
+  },
+  {
+    "id": "club_121",
+    "name": "Southport"
+  },
+  {
+    "id": "club_122",
+    "name": "Stalybridge Celtic"
+  },
+  {
+    "id": "club_123",
+    "name": "Stevenage Borough"
+  },
+  {
+    "id": "club_124",
+    "name": "Stockport County"
+  },
+  {
+    "id": "club_125",
+    "name": "Stoke City"
+  },
+  {
+    "id": "club_126",
+    "name": "Sunderland"
+  },
+  {
+    "id": "club_127",
+    "name": "Sutton United"
+  },
+  {
+    "id": "club_128",
+    "name": "Swansea City"
+  },
+  {
+    "id": "club_129",
+    "name": "Swindon Town"
+  },
+  {
+    "id": "club_130",
+    "name": "Thames"
+  },
+  {
+    "id": "club_131",
+    "name": "Torquay United"
+  },
+  {
+    "id": "club_132",
+    "name": "Tottenham Hotspur"
+  },
+  {
+    "id": "club_133",
+    "name": "Tranmere Rovers"
+  },
+  {
+    "id": "club_134",
+    "name": "Walsall"
+  },
+  {
+    "id": "club_135",
+    "name": "Watford"
+  },
+  {
+    "id": "club_136",
+    "name": "West Bromwich Albion"
+  },
+  {
+    "id": "club_137",
+    "name": "West Ham United"
+  },
+  {
+    "id": "club_138",
+    "name": "Wigan Athletic"
+  },
+  {
+    "id": "club_139",
+    "name": "Wigan Borough"
+  },
+  {
+    "id": "club_140",
+    "name": "Wimbledon"
+  },
+  {
+    "id": "club_141",
+    "name": "Wolverhampton Wanderers"
+  },
+  {
+    "id": "club_142",
+    "name": "Workington"
+  },
+  {
+    "id": "club_143",
+    "name": "Wrexham"
+  },
+  {
+    "id": "club_144",
+    "name": "Wycombe Wanderers"
+  },
+  {
+    "id": "club_145",
+    "name": "Yeovil"
+  },
+  {
+    "id": "club_146",
+    "name": "York City"
+  }
+]

@@ -1,0 +1,254 @@
+{
+  "Bolton Wanderers": {
+    "promoted": 9,
+    "relegated": 10
+  },
+  "Sheffield Wednesday": {
+    "promoted": 8,
+    "relegated": 9
+  },
+  "Manchester City": {
+    "promoted": 11,
+    "relegated": 10
+  },
+  "Glossop North End": {
+    "promoted": 1,
+    "relegated": 1
+  },
+  "Burnley": {
+    "promoted": 5,
+    "relegated": 7
+  },
+  "Preston North End": {
+    "promoted": 5,
+    "relegated": 6
+  },
+  "West Bromwich Albion": {
+    "promoted": 9,
+    "relegated": 11
+  },
+  "Grimsby Town": {
+    "promoted": 3,
+    "relegated": 3
+  },
+  "Birmingham City": {
+    "promoted": 9,
+    "relegated": 11
+  },
+  "Middlesbrough": {
+    "promoted": 9,
+    "relegated": 8
+  },
+  "Liverpool": {
+    "promoted": 2,
+    "relegated": 2
+  },
+  "Arsenal": {
+    "promoted": 1,
+    "relegated": 1
+  },
+  "Bury": {
+    "promoted": 1,
+    "relegated": 3
+  },
+  "Notts County": {
+    "promoted": 3,
+    "relegated": 6
+  },
+  "Nottingham Forest": {
+    "promoted": 6,
+    "relegated": 7
+  },
+  "Wolverhampton Wanderers": {
+    "promoted": 8,
+    "relegated": 6
+  },
+  "Bristol City": {
+    "promoted": 2,
+    "relegated": 1
+  },
+  "Manchester United": {
+    "promoted": 5,
+    "relegated": 4
+  },
+  "Derby County": {
+    "promoted": 9,
+    "relegated": 8
+  },
+  "Stoke City": {
+    "promoted": 4,
+    "relegated": 6
+  },
+  "Chelsea": {
+    "promoted": 7,
+    "relegated": 6
+  },
+  "Bradford City": {
+    "promoted": 2,
+    "relegated": 2
+  },
+  "Leicester City": {
+    "promoted": 10,
+    "relegated": 11
+  },
+  "Tottenham Hotspur": {
+    "promoted": 4,
+    "relegated": 4
+  },
+  "Oldham Athletic": {
+    "promoted": 3,
+    "relegated": 2
+  },
+  "Bradford Park Avenue": {
+    "promoted": 1,
+    "relegated": 1
+  },
+  "Huddersfield Town": {
+    "promoted": 4,
+    "relegated": 4
+  },
+  "Cardiff City": {
+    "promoted": 5,
+    "relegated": 5
+  },
+  "West Ham United": {
+    "promoted": 6,
+    "relegated": 5
+  },
+  "Leeds United": {
+    "promoted": 8,
+    "relegated": 6
+  },
+  "Portsmouth": {
+    "promoted": 4,
+    "relegated": 3
+  },
+  "Everton": {
+    "promoted": 2,
+    "relegated": 2
+  },
+  "Blackpool": {
+    "promoted": 3,
+    "relegated": 4
+  },
+  "Newcastle United": {
+    "promoted": 7,
+    "relegated": 6
+  },
+  "Sheffield United": {
+    "promoted": 9,
+    "relegated": 8
+  },
+  "Brentford": {
+    "promoted": 3,
+    "relegated": 1
+  },
+  "Aston Villa": {
+    "promoted": 4,
+    "relegated": 5
+  },
+  "Blackburn Rovers": {
+    "promoted": 3,
+    "relegated": 5
+  },
+  "Charlton Athletic": {
+    "promoted": 3,
+    "relegated": 4
+  },
+  "Fulham": {
+    "promoted": 5,
+    "relegated": 5
+  },
+  "Luton Town": {
+    "promoted": 3,
+    "relegated": 3
+  },
+  "Sunderland": {
+    "promoted": 9,
+    "relegated": 8
+  },
+  "Ipswich Town": {
+    "promoted": 6,
+    "relegated": 4
+  },
+  "Leyton Orient": {
+    "promoted": 1,
+    "relegated": 1
+  },
+  "Northampton Town": {
+    "promoted": 1,
+    "relegated": 1
+  },
+  "Southampton": {
+    "promoted": 3,
+    "relegated": 2
+  },
+  "Coventry City": {
+    "promoted": 1,
+    "relegated": 2
+  },
+  "Queens Park Rangers": {
+    "promoted": 4,
+    "relegated": 4
+  },
+  "Crystal Palace": {
+    "promoted": 4,
+    "relegated": 5
+  },
+  "Norwich City": {
+    "promoted": 8,
+    "relegated": 8
+  },
+  "Carlisle United": {
+    "promoted": 0,
+    "relegated": 1
+  },
+  "Brighton & Hove Albion": {
+    "promoted": 3,
+    "relegated": 1
+  },
+  "Watford": {
+    "promoted": 5,
+    "relegated": 5
+  },
+  "Swansea City": {
+    "promoted": 1,
+    "relegated": 2
+  },
+  "Oxford United": {
+    "promoted": 1,
+    "relegated": 1
+  },
+  "Wimbledon": {
+    "promoted": 1,
+    "relegated": 1
+  },
+  "Millwall": {
+    "promoted": 2,
+    "relegated": 1
+  },
+  "Swindon Town": {
+    "promoted": 0,
+    "relegated": 1
+  },
+  "Reading": {
+    "promoted": 4,
+    "relegated": 2
+  },
+  "Barnsley": {
+    "promoted": 1,
+    "relegated": 1
+  },
+  "Wigan Athletic": {
+    "promoted": 1,
+    "relegated": 1
+  },
+  "Hull City": {
+    "promoted": 2,
+    "relegated": 3
+  },
+  "AFC Bournemouth": {
+    "promoted": 2,
+    "relegated": 1
+  }
+}
