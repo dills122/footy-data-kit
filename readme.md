@@ -21,60 +21,49 @@ pnpm i
 
 ## 🧾 Usage
 
-There are two main scripts in the `wikipedia/` directory:
+The `wiki-league` CLI (located at `wikipedia/cli.js`) builds a promotions and relegations dataset for the English Football League by scraping Wikipedia season pages.
 
-### 1. `generate-wiki.js`
-
-This module contains the main logic for generating Wikipedia-based data. It can be imported and used programmatically or invoked via the CLI.
-
-**Example (programmatic use):**
-
-```js
-import { generateWikiData } from './wikipedia/generate-wiki.js';
-
-await generateWikiData({
-  league: 'premier-league',
-  season: '2020-21',
-  outputDir: './data-output',
-});
-```
-
-### 2. `cli.js`
-
-This script acts as a command-line interface wrapper around `generate-wiki.js`, allowing you to run Wikipedia generation tasks directly from the terminal.
-
-**Example CLI usage:**
+Run it directly with Node or execute the script file:
 
 ```bash
-pnpm cli --league premier-league --season 2020-21 --output ./data-output
+node wikipedia/cli.js build --start 1888 --end 2000 --output ./data-output
+# or, if the file is executable:
+./wikipedia/cli.js build --start 1888 --end 2000 --output ./data-output
 ```
 
-**Available options:**
+**Command:** `wiki-league build`
 
-| Flag        | Description                  | Required | Example          |
-| ----------- | ---------------------------- | -------- | ---------------- |
-| `--league`  | The league name to scrape    | ✅       | `premier-league` |
-| `--season`  | The season to process        | ✅       | `2020-21`        |
-| `--output`  | Directory for processed data | ❌       | `./data-output`  |
-| `--verbose` | Enable detailed logging      | ❌       | `--verbose`      |
+| Flag                  | Default         | Description                               |
+| --------------------- | --------------- | ----------------------------------------- |
+| `-s, --start <year>`  | `1888`          | First season to include (inclusive).      |
+| `-e, --end <year>`    | `2000`          | Final season to include (inclusive).      |
+| `-o, --output <path>` | `./data-output` | Directory to write the JSON results file. |
 
-### Example full workflow
+The CLI writes a file named `wiki_promotion_relegations_by_season.json` in the chosen output directory. The directory is created if it does not exist.
+
+### Example workflow
 
 ```bash
-# Install dependencies
 pnpm i
-
-# Run Wikipedia data generation for Premier League 2020–21
-pnpm cli --league premier-league --season 2020-21 --output ./data-output
-
-# Process and clean data using additional scripts in /scripts
-pnpm run clean-data
+node wikipedia/cli.js build --start 1888 --end 2023 --output ./data-output
 ```
+
+Interrupting the script with `Ctrl+C` will stop the run after saving any data collected up to that point.
 
 ---
 
 📘 **Notes:**
 
-- Make sure your Node.js version supports ES modules (v18+ recommended).
-- Output files will be placed under `/data-output` unless otherwise specified.
-- You can modify or extend `generate-wiki.js` to include new data sources or scraping patterns.
+- Use Node.js 20+ (the project is configured for ES modules).
+- Ensure the output directory exists or let the CLI create it.
+- Extend the logic in `wikipedia/parse-season-pages.js` if you need to capture additional league details.
+
+## 🧪 Testing
+
+Install dependencies with `pnpm i`, then run the Jest suite:
+
+```bash
+pnpm test
+```
+
+Set `NODE_OPTIONS=--experimental-vm-modules` (added automatically via the `test` script) to enable ESM support in Jest.
