@@ -1,0 +1,10 @@
+pre-commit:
+  parallel: true
+  commands:
+    lint-staged:
+      run: npx --no-install lint-staged
+
+pre-push:
+  commands:
+    lint:
+      run: npm run -s lint
