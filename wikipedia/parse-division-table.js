@@ -1,4 +1,5 @@
 import * as cheerio from 'cheerio';
+import { isFirstDivision } from '../utils.js';
 
 /**
  * Normalize header text to map columns reliably across eras.
@@ -92,14 +93,6 @@ function fallbackHeadersForEarlyYears($) {
 
   // Nothing found
   return null;
-}
-
-/**
- * Util methods
- */
-
-function isFirstDivision(division) {
-  return `${division}`.toLowerCase().includes('first');
 }
 
 /**
