@@ -1,0 +1,70 @@
+{
+  "name": "footy-data-kit",
+  "description": "Tools and scripts to gather, parse, and clean English football data for downstream use in other apps.",
+  "language": "JavaScript",
+  "runtime": "Node.js",
+  "type": "module",
+  "packageManager": "pnpm",
+  "framework": null,
+  "version": "0.1.0",
+  "projectType": "CLI + Data Processing",
+  "structure": {
+    "data": {
+      "description": "Raw scraped or collected football data before cleaning",
+      "path": "data"
+    },
+    "dataOutput": {
+      "description": "Processed and cleaned data, ready for use in other apps",
+      "path": "data-output"
+    },
+    "scripts": {
+      "description": "Data cleaning and transformation utilities",
+      "path": "scripts"
+    },
+    "wikipedia": {
+      "description": "Scraping and generation scripts for Wikipedia-based datasets",
+      "path": "wikipedia",
+      "main": "generate-wiki.js",
+      "cli": "cli.js"
+    },
+    "tests": {
+      "description": "Jest unit tests covering season-building and division parsing logic",
+      "path": "wikipedia/__tests__"
+    }
+  },
+  "build": {
+    "tool": "pnpm",
+    "scripts": {
+      "install": "pnpm i",
+      "generate": "node wikipedia/cli.js build --start 1888 --end 2000 --output ./data-output",
+      "lint": "pnpm run lint",
+      "format": "pnpm run format",
+      "test": "pnpm test"
+    }
+  },
+  "dependencies": {
+    "core": ["cheerio", "commander", "entities", "fast-csv", "wikipedia"],
+    "dev": ["jest", "cross-env", "eslint", "prettier"]
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "aiContext": {
+    "purpose": "Assist with data scraping, parsing, and transformation scripts for English football datasets.",
+    "preferred_style": "Functional, modular, and reusable Node.js scripts with clear CLI support.",
+    "focus": [
+      "Data cleaning automation",
+      "Web scraping using Cheerio",
+      "Structured CSV and JSON output generation",
+      "CLI usability improvements",
+      "Unit testing coverage for data parsers"
+    ],
+    "notes": [
+      "Ensure compatibility with ESM syntax.",
+      "Preserve reproducibility for historic datasets (pre and post-2000).",
+      "Make scripts idempotent and configurable by league/season.",
+      "Prefer fast, deterministic tests without hitting live Wikipedia."
+    ]
+  },
+  "license": "MIT"
+}
