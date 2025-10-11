@@ -1,21 +1,9 @@
-// generation-wiki.js
-import * as fs from 'node:fs';
-import * as path from 'node:path';
-import wikipedia from 'wikipedia';
 import parseDivisionTable from './parse-division-table.js';
-
-// --- Utility helpers ---
-export function wait(ms) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
-
-export function saveResults(results, outputFile) {
-  fs.mkdirSync(path.dirname(outputFile), { recursive: true });
-  fs.writeFileSync(outputFile, JSON.stringify(results, null, 2));
-  console.log(`💾 Progress saved to ${outputFile}`);
-}
+import { getWikipediaClient, saveResults, wait } from './utils.js';
+export { saveResults, wait } from './utils.js';
 
 export async function fetchSeasonTeams(seasonSlug) {
+  const wikipedia = await getWikipediaClient();
   const pageUrl = `https://en.wikipedia.org/wiki/${seasonSlug}`;
   let html;
 
