@@ -61,7 +61,12 @@ Both commands save progress after each season and can be interrupted with `Ctrl+
 pnpm i
 node wikipedia/cli.js build --start 1888 --end 2023 --output ./data-output
 node wikipedia/cli.js overview --start 2008 --end 2010 --output ./data-output
+node wikipedia/combine-output-files.js --output ./data-output/all-seasons.json \
+  ./data-output/wiki_overview_tables_by_season.json \
+  ./data-output/wiki_promotion_relegations_by_season.json
 ```
+
+The `combine-output-files` script merges multiple FootballData JSON files, keeping the richest record for each season by default. Pass `--include-empty` to keep placeholder seasons and `--compact` to skip pretty-printing.
 
 ### RSSSF CLI (`rsssf-scraper`)
 
@@ -97,6 +102,23 @@ node rsssf/cli.js scrape --from-file ./html-cache/1960-61.html --output ./data-o
 ```
 
 ---
+
+### JSON Utilities
+
+- `wikipedia/combine-output-files.js` – merge one or more FootballData JSON files and optionally emit a list of missing seasons grouped by WW1, WW2, or “needs attention”.
+- `scripts/minify-json.js` – minify JSON output in-place or alongside the originals.
+
+**Examples**
+
+```bash
+# Combine overview + promotion/relegation data, keeping richer season records
+node wikipedia/combine-output-files.js --output ./data-output/all-seasons.json \
+  ./data-output/wiki_overview_tables_by_season.json \
+  ./data-output/wiki_promotion_relegations_by_season.json
+
+# Minify the merged dataset next to the original (writes all-seasons.min.json)
+node scripts/minify-json.js ./data-output/all-seasons.json
+```
 
 📘 **Notes:**
 
