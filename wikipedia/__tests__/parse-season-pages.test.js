@@ -1,14 +1,27 @@
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
+import { ReadableStream, TransformStream, WritableStream } from 'node:stream/web';
 import { jest } from '@jest/globals';
-import wikipedia from 'wikipedia';
 import {
   constructTier1SeasonResults,
   saveResults,
   fetchSeasonTeams,
   buildPromotionRelegation,
 } from '../parse-season-pages.js';
+
+if (typeof globalThis.ReadableStream === 'undefined') {
+  globalThis.ReadableStream = ReadableStream;
+}
+if (typeof globalThis.WritableStream === 'undefined') {
+  globalThis.WritableStream = WritableStream;
+}
+if (typeof globalThis.TransformStream === 'undefined') {
+  globalThis.TransformStream = TransformStream;
+}
+
+const wikipediaModule = await import('wikipedia');
+const wikipedia = wikipediaModule.default ?? wikipediaModule;
 
 describe('constructTier1SeasonResults', () => {
   test('captures relegated and promoted teams for a season', () => {
@@ -22,17 +35,18 @@ describe('constructTier1SeasonResults', () => {
       { team: 'Notts County', wasPromoted: false },
     ];
 
-    const result = constructTier1SeasonResults(
+    const { tier1, tier2 } = constructTier1SeasonResults(
       tier1SeasonTable,
       tier2SeasonTable,
       1897,
       '1897-98_Football_League'
     );
 
-    expect(result.season).toBe(1897);
-    expect(result.table).toBe(tier1SeasonTable);
-    expect(result.relegated).toEqual(['Oldham Athletic']);
-    expect(result.promoted).toEqual(['Sunderland']);
+    expect(tier1.season).toBe(1897);
+    expect(tier1.relegated).toEqual(['Oldham Athletic']);
+    expect(tier1.promoted).toEqual(['Sunderland']);
+    expect(tier2.promoted).toEqual(['Sunderland']);
+    expect(tier1.table[0]).toMatchObject({ team: 'Oldham Athletic', wasRelegated: true });
   });
 });
 
@@ -198,12 +212,14 @@ describe('buildPromotionRelegation', () => {
 
       expect(Object.keys(result.seasons)).toEqual(['1897', '1898']);
       expect(pageSpy).toHaveBeenCalledTimes(2);
-      expect(result.seasons[1897].tier1.relegated).toEqual(['Club B']);
-      expect(result.seasons[1897].tier1.promoted).toEqual(['Club C']);
-      expect(result.seasons[1898].tier1.promoted).toEqual(['Club G']);
+      expect(result.seasons['1897'].tier1.relegated).toEqual(['Club B']);
+      expect(result.seasons['1897'].tier1.promoted).toEqual(['Club C']);
+      expect(result.seasons['1897'].seasonInfo.promoted).toEqual(['Club C']);
+      expect(result.seasons['1898'].tier2.seasonSlug).toBe('1898-99_Football_League');
 
       const written = JSON.parse(fs.readFileSync(outputFile, 'utf8'));
       expect(written.seasons['1898'].tier1.promoted).toEqual(['Club G']);
+      expect(written.seasons['1898'].seasonInfo.promoted).toEqual(['Club G']);
     } finally {
       jest.restoreAllMocks();
       jest.useRealTimers();

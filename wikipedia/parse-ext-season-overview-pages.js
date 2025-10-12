@@ -5,12 +5,17 @@ import {
   getWikipediaClient,
   isExpansionTeam,
   normalizeHeader,
-  saveResults,
   wait,
   wasPromoted,
   wasRelegated,
 } from './utils.js';
-export { saveResults, wait } from './utils.js';
+import {
+  buildTierData,
+  loadFootballData,
+  saveFootballData,
+  setSeasonRecord,
+} from './generate-output-files.js';
+export { wait } from './utils.js';
 
 function shouldTreatAsTopFlight(title) {
   const normalized = String(title || '').toLowerCase();
@@ -19,6 +24,87 @@ function shouldTreatAsTopFlight(title) {
     normalized.includes('first division') ||
     normalized.includes('football league premier division')
   );
+}
+
+function findLeagueSectionHeading($) {
+  const idCandidates = [
+    'League_tables',
+    'League_table',
+    'League_season',
+    "League_season_(Men's)",
+    'League_competitions',
+    "League_competitions_(Men's)",
+    'League_Competitions',
+    "League_Competitions_(Men's)",
+    'Final_standings',
+    'Final_Standings',
+    "Men's_football",
+    'Mens_football',
+  ];
+
+  for (const id of idCandidates) {
+    const match = $('h2').filter((_, el) => $(el).attr('id') === id);
+    if (match.length) return match.first();
+  }
+
+  let bestHeading = null;
+  let bestScore = -Infinity;
+
+  $('h2').each((_, el) => {
+    const $el = $(el);
+    const text = $el.text().trim();
+    if (!text) return;
+
+    const normalized = text.toLowerCase();
+    let score = 0;
+
+    if (/^league tables?/.test(normalized)) score = 100;
+    else if (/^league season/.test(normalized)) score = 90;
+    else if (/^league competitions/.test(normalized)) score = 80;
+    else if (/^men's football/.test(normalized)) score = 75;
+    else if (/^final standings/.test(normalized)) score = 95;
+    else if (normalized.includes('league') && normalized.includes('table')) score = 70;
+
+    if (!score) return;
+
+    if (normalized.includes('men')) score += 5;
+    if (normalized.includes('women')) score -= 5;
+
+    if (score > bestScore || (score === bestScore && !bestHeading)) {
+      bestHeading = $el;
+      bestScore = score;
+    }
+  });
+
+  return bestHeading;
+}
+
+function getHeadingLevel($el) {
+  if (!$el || !$el.length) return null;
+  const classes = String($el.attr('class') || '');
+  const match = classes.match(/mw-heading(\d)/);
+  if (!match) return null;
+  const level = parseInt(match[1], 10);
+  return Number.isFinite(level) ? level : null;
+}
+
+function skipSection($, headingEl, level) {
+  if (!headingEl || !headingEl.length) return headingEl;
+  let cursor = headingEl.next();
+
+  while (cursor.length) {
+    const cursorLevel = getHeadingLevel(cursor);
+    if (cursorLevel) {
+      if (cursorLevel <= level) {
+        return cursor;
+      }
+      cursor = skipSection($, cursor, cursorLevel);
+      continue;
+    }
+    cursor = cursor.next();
+  }
+
+  return cursor;
 }
 
 function parseLeagueTable($, tableEl, { suppressPromotionFlags }) {
@@ -134,28 +220,44 @@ function parseLeagueTable($, tableEl, { suppressPromotionFlags }) {
 export function parseOverviewLeagueTables(html) {
   const $ = cheerio.load(html);
 
-  const leagueHeading = $('#League_tables');
-  if (!leagueHeading.length) {
+  const leagueHeading = findLeagueSectionHeading($);
+  if (!leagueHeading || !leagueHeading.length) {
     console.warn('⚠️ League tables section not found on this page');
     return [];
   }
 
   const overview = [];
-  let pointer = leagueHeading.parent().next();
+  const headingWrapper = leagueHeading.closest('.mw-heading');
+  let pointer = headingWrapper.length ? headingWrapper.next() : leagueHeading.next();
 
   while (pointer.length) {
-    if (pointer.hasClass('mw-heading2')) break;
+    const level = getHeadingLevel(pointer);
+    if (level === 2) break;
 
-    if (pointer.hasClass('mw-heading3')) {
-      const h3 = pointer.find('h3').first();
-      const leagueId = h3.attr('id') || null;
-      const leagueTitle = h3.text().trim() || leagueId || 'Unknown league';
+    if (level && level >= 3 && level <= 5) {
+      const headingTag = `h${level}`;
+      const headingEl = pointer.find(headingTag).first();
+      if (!headingEl.length) {
+        pointer = pointer.next();
+        continue;
+      }
+      const leagueId =
+        headingEl.attr('id') ||
+        headingEl.find('[id]').first().attr('id') ||
+        pointer.find('[id]').first().attr('id') ||
+        null;
+      const leagueTitle = headingEl.text().trim() || leagueId || 'Unknown league';
       const suppressPromotionFlags = shouldTreatAsTopFlight(leagueTitle);
 
       const tables = [];
       let searchNode = pointer.next();
       while (searchNode.length) {
-        if (searchNode.hasClass('mw-heading2') || searchNode.hasClass('mw-heading3')) break;
+        const searchLevel = getHeadingLevel(searchNode);
+        if (searchLevel) {
+          if (searchLevel <= level) break;
+          searchNode = skipSection($, searchNode, searchLevel);
+          continue;
+        }
 
         if (searchNode.is('table') && searchNode.hasClass('wikitable')) {
           tables.push(searchNode);
@@ -224,39 +326,100 @@ function resolveOverviewOutputFile(outputFile) {
   return path.resolve('./data-output/wiki_overview_tables_by_season.json');
 }
 
+function deriveSeasonKeyFromSlug(slug) {
+  if (!slug) return 'unknown-season';
+  const match = String(slug).match(/\d{4}/);
+  return match ? match[0] : String(slug);
+}
+
+function deriveSeasonYearFromSlug(slug) {
+  const key = deriveSeasonKeyFromSlug(slug);
+  const numeric = Number.parseInt(key, 10);
+  return Number.isFinite(numeric) ? numeric : null;
+}
+
+function buildSeasonOverviewSeasonRecord({ seasonKey, seasonYear, seasonSlug, tables }) {
+  const numericSeason = Number.isFinite(seasonYear)
+    ? /** @type {number} */ (seasonYear)
+    : Number.parseInt(seasonKey, 10);
+  const safeSeason = Number.isFinite(numericSeason) ? numericSeason : 0;
+
+  const seasonInfo = buildTierData(safeSeason, [], {
+    metadata: {
+      seasonSlug,
+      tableCount: tables.length,
+    },
+  });
+
+  const record = { seasonInfo };
+
+  tables.forEach((table, index) => {
+    const tierKey = `tier${index + 1}`;
+    record[tierKey] = buildTierData(safeSeason, table.rows, {
+      metadata: {
+        title: table.title,
+        seasonMetadata: {
+          leagueId: table.id || null,
+          tableIndex: table.tableIndex ?? index,
+          tableCount: tables.length,
+          seasonSlug,
+        },
+      },
+    });
+  });
+
+  return record;
+}
+
 export async function buildSeasonOverview(startYear, endYear, outputFile) {
-  const results = { seasons: {} };
   const resolvedOutputFile = resolveOverviewOutputFile(outputFile);
+  const dataset = loadFootballData(resolvedOutputFile);
 
   for (let year = startYear; year <= endYear; year++) {
     const slug = buildSeasonOverviewSlug(year);
     console.log(`\n📖 Fetching ${slug}...`);
 
     const tables = await fetchSeasonOverviewTables(slug);
-    results.seasons[year] = { slug, tables };
+    const seasonKey = String(year);
+    const seasonRecord = buildSeasonOverviewSeasonRecord({
+      seasonKey,
+      seasonYear: year,
+      seasonSlug: slug,
+      tables,
+    });
 
-    saveResults(results, resolvedOutputFile);
+    setSeasonRecord(dataset, seasonKey, seasonRecord);
+    saveFootballData(resolvedOutputFile, dataset);
   }
 
   console.log(
-    `\n✅ Finished building overview data for ${Object.keys(results.seasons).length} seasons.`
+    `\n✅ Finished building overview data for ${Object.keys(dataset.seasons).length} seasons.`
   );
-  return results;
+  return dataset;
 }
 
 export async function buildSeasonOverviewForSlug(seasonSlug, outputFile) {
   const resolvedOutputFile = resolveOverviewOutputFile(outputFile);
   console.log(`\n📖 Fetching ${seasonSlug}...`);
   const tables = await fetchSeasonOverviewTables(seasonSlug);
-  const result = { slug: seasonSlug, tables };
-  saveResults(result, resolvedOutputFile);
+  const seasonKey = deriveSeasonKeyFromSlug(seasonSlug);
+  const seasonYear = deriveSeasonYearFromSlug(seasonSlug);
+  const dataset = loadFootballData(resolvedOutputFile);
+  const seasonRecord = buildSeasonOverviewSeasonRecord({
+    seasonKey,
+    seasonYear,
+    seasonSlug,
+    tables,
+  });
+
+  setSeasonRecord(dataset, seasonKey, seasonRecord);
+  saveFootballData(resolvedOutputFile, dataset);
   console.log(`\n📂 Overview tables written to ${resolvedOutputFile}`);
-  return result;
+  return { seasonKey, record: dataset.seasons[seasonKey] };
 }
 
 export default {
   wait,
-  saveResults,
   fetchSeasonOverviewTables,
   buildSeasonOverviewSlug,
   buildSeasonOverview,

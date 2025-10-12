@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 import { Command } from 'commander';
 import * as path from 'node:path';
-import { buildPromotionRelegation, saveResults } from './parse-season-pages.js';
 import { buildSeasonOverview } from './parse-ext-season-overview-pages.js';
+import { buildPromotionRelegation } from './parse-season-pages.js';
 
 const program = new Command();
 
@@ -30,8 +30,7 @@ program
       process.exit(0);
     });
 
-    const data = await buildPromotionRelegation(startYear, endYear, outputFile);
-    saveResults(data, outputFile);
+    await buildPromotionRelegation(startYear, endYear, outputFile);
     console.log(`\n📂 Final output written to ${outputFile}`);
   });
 
@@ -54,8 +53,7 @@ program
       process.exit(0);
     });
 
-    const data = await buildSeasonOverview(startYear, endYear, outputFile);
-    saveResults(data, outputFile);
+    await buildSeasonOverview(startYear, endYear, outputFile);
     console.log(`\n📂 Final overview output written to ${outputFile}`);
   });
 
