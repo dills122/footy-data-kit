@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 import { Command } from 'commander';
 import * as path from 'node:path';
-import { buildPromotionRelegation, saveResults } from './parse-season-pages.js';
+import { buildSeasonOverview } from './parse-ext-season-overview-pages.js';
+import { buildPromotionRelegation } from './parse-season-pages.js';
 
 const program = new Command();
 
@@ -29,9 +30,31 @@ program
       process.exit(0);
     });
 
-    const data = await buildPromotionRelegation(startYear, endYear, outputFile);
-    saveResults(data, outputFile);
+    await buildPromotionRelegation(startYear, endYear, outputFile);
     console.log(`\n📂 Final output written to ${outputFile}`);
+  });
+
+program
+  .command('overview')
+  .description('Build season overview league tables between given start and end years')
+  .option('-s, --start <year>', 'Start year', '2008')
+  .option('-e, --end <year>', 'End year', '2008')
+  .option('-o, --output <path>', 'Output directory', './data-output')
+  .action(async (opts) => {
+    const startYear = parseInt(opts.start, 10);
+    const endYear = parseInt(opts.end, 10);
+    const outputDir = path.resolve(opts.output);
+    const outputFile = path.join(outputDir, 'wiki_overview_tables_by_season.json');
+
+    console.log(`🏁 Generating overview data from ${startYear} to ${endYear}...`);
+
+    process.on('SIGINT', () => {
+      console.log('\n🛑 Interrupted, Last entry saved will be last one');
+      process.exit(0);
+    });
+
+    await buildSeasonOverview(startYear, endYear, outputFile);
+    console.log(`\n📂 Final overview output written to ${outputFile}`);
   });
 
 program.parse(process.argv);

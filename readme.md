@@ -21,36 +21,104 @@ pnpm i
 
 ## 🧾 Usage
 
-The `wiki-league` CLI (located at `wikipedia/cli.js`) builds a promotions and relegations dataset for the English Football League by scraping Wikipedia season pages.
+### Wikipedia CLI (`wiki-league`)
 
-Run it directly with Node or execute the script file:
+The Wikipedia CLI lives at `wikipedia/cli.js`. Run it with Node (or mark it executable) to build JSON datasets extracted from Wikipedia.
 
 ```bash
-node wikipedia/cli.js build --start 1888 --end 2000 --output ./data-output
-# or, if the file is executable:
-./wikipedia/cli.js build --start 1888 --end 2000 --output ./data-output
+node wikipedia/cli.js <command> [options]
 ```
 
-**Command:** `wiki-league build`
+#### `build`
+
+Build the promotion/relegation dataset across Football League seasons.
 
 | Flag                  | Default         | Description                               |
 | --------------------- | --------------- | ----------------------------------------- |
 | `-s, --start <year>`  | `1888`          | First season to include (inclusive).      |
 | `-e, --end <year>`    | `2000`          | Final season to include (inclusive).      |
-| `-o, --output <path>` | `./data-output` | Directory to write the JSON results file. |
+| `-o, --output <path>` | `./data-output` | Directory where the JSON file is written. |
 
-The CLI writes a file named `wiki_promotion_relegations_by_season.json` in the chosen output directory. The directory is created if it does not exist.
+Output file: `wiki_promotion_relegations_by_season.json`
 
-### Example workflow
+#### `overview`
+
+Scrape season overview pages (e.g. “2008–09 in English football”) and gather the league tables listed there.
+
+| Flag                  | Default         | Description                               |
+| --------------------- | --------------- | ----------------------------------------- |
+| `-s, --start <year>`  | `2008`          | First season overview to include.         |
+| `-e, --end <year>`    | `2008`          | Final season overview to include.         |
+| `-o, --output <path>` | `./data-output` | Directory where the JSON file is written. |
+
+Output file: `wiki_overview_tables_by_season.json`
+
+Both commands save progress after each season and can be interrupted with `Ctrl+C`; the most recent state will already be written to disk.
+
+**Example workflow**
 
 ```bash
 pnpm i
 node wikipedia/cli.js build --start 1888 --end 2023 --output ./data-output
+node wikipedia/cli.js overview --start 2008 --end 2010 --output ./data-output
+node wikipedia/combine-output-files.js --output ./data-output/all-seasons.json \
+  ./data-output/wiki_overview_tables_by_season.json \
+  ./data-output/wiki_promotion_relegations_by_season.json
 ```
 
-Interrupting the script with `Ctrl+C` will stop the run after saving any data collected up to that point.
+The `combine-output-files` script merges multiple FootballData JSON files, keeping the richest record for each season by default. Pass `--include-empty` to keep placeholder seasons and `--compact` to skip pretty-printing.
+
+### RSSSF CLI (`rsssf-scraper`)
+
+The RSSSF CLI at `rsssf/cli.js` fetches or parses RSSSF HTML pages into structured JSON.
+
+```bash
+node rsssf/cli.js scrape [options]
+```
+
+| Option                                    | Description                                                                                                    |
+| ----------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| `-u, --url <url>`                         | One or more RSSSF page URLs to fetch. Repeatable.                                                              |
+| `-f, --from-file <file>`                  | Parse local HTML instead of fetching. Repeatable.                                                              |
+| `-s, --start <year>` / `-e, --end <year>` | Generate and scrape a season range using the template below (inclusive). Both flags must be supplied together. |
+| `--url-template <template>`               | Override the season URL template (default: `https://www.rsssf.org/engpaul/FLA/{seasonSlug}.html`).             |
+| `-o, --output <file>`                     | Output path. With multiple sources this is treated as a directory; range mode saves an aggregate JSON file.    |
+| `--pretty`                                | Pretty-print the generated JSON.                                                                               |
+| `--save-html <file>`                      | Persist the raw HTML response(s) to disk.                                                                      |
+
+`scrape` writes individual JSON files for each URL or file you provide. When using `--start/--end`, it also creates (and continually updates) an aggregate file named `rsssf_promotion_relegations_by_season.json` in `data-output/rsssf` unless you override `--output`.
+
+**Example invocations**
+
+```bash
+# Fetch a single season from RSSSF and pretty-print the JSON
+node rsssf/cli.js scrape --url https://www.rsssf.org/engpaul/FLA/1908-09.html --pretty
+
+# Scrape multiple seasons using the default template and save outputs to data-output/rsssf
+node rsssf/cli.js scrape --start 1950 --end 1952 --output ./data-output/rsssf
+
+# Parse a local HTML file and save both JSON and HTML copies
+node rsssf/cli.js scrape --from-file ./html-cache/1960-61.html --output ./data-output/rsssf --save-html ./data-output/rsssf/html
+```
 
 ---
+
+### JSON Utilities
+
+- `wikipedia/combine-output-files.js` – merge one or more FootballData JSON files and optionally emit a list of missing seasons grouped by WW1, WW2, or “needs attention”.
+- `scripts/minify-json.js` – minify JSON output in-place or alongside the originals.
+
+**Examples**
+
+```bash
+# Combine overview + promotion/relegation data, keeping richer season records
+node wikipedia/combine-output-files.js --output ./data-output/all-seasons.json \
+  ./data-output/wiki_overview_tables_by_season.json \
+  ./data-output/wiki_promotion_relegations_by_season.json
+
+# Minify the merged dataset next to the original (writes all-seasons.min.json)
+node scripts/minify-json.js ./data-output/all-seasons.json
+```
 
 📘 **Notes:**
 
