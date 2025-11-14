@@ -60,10 +60,10 @@
             "won": 12,
             "drawn": 4,
             "lost": 6,
-            "goalsFor": 50,
+            "goalsFor": 51,
             "goalsAgainst": 37,
             "goalDifference": null,
-            "goalAverage": 1.351,
+            "goalAverage": 1.378,
             "points": 28,
             "notes": null,
             "wasRelegated": false,
@@ -156,9 +156,9 @@
             "drawn": 2,
             "lost": 11,
             "goalsFor": 35,
-            "goalsAgainst": 46,
+            "goalsAgainst": 47,
             "goalDifference": null,
-            "goalAverage": 0.761,
+            "goalAverage": 0.745,
             "points": 20,
             "notes": null,
             "wasRelegated": false,
@@ -298,10 +298,10 @@
             "won": 12,
             "drawn": 4,
             "lost": 6,
-            "goalsFor": 50,
+            "goalsFor": 51,
             "goalsAgainst": 37,
             "goalDifference": null,
-            "goalAverage": 1.351,
+            "goalAverage": 1.378,
             "points": 28,
             "notes": null,
             "wasRelegated": false,
@@ -394,9 +394,9 @@
             "drawn": 2,
             "lost": 11,
             "goalsFor": 35,
-            "goalsAgainst": 46,
+            "goalsAgainst": 47,
             "goalDifference": null,
-            "goalAverage": 0.761,
+            "goalAverage": 0.745,
             "points": 20,
             "notes": null,
             "wasRelegated": false,
@@ -6133,10 +6133,7 @@
           "Bolton Wanderers",
           "The Wednesday"
         ],
-        "promoted": [
-          "Manchester City",
-          "Glossop North End"
-        ]
+        "promoted": []
       },
       "tier2": {
         "seasonSlug": "1898-99_Football_League",
@@ -6862,10 +6859,7 @@
           "Burnley",
           "Glossop"
         ],
-        "promoted": [
-          "The Wednesday",
-          "Bolton Wanderers"
-        ]
+        "promoted": []
       },
       "tier2": {
         "seasonSlug": "1899-1900_Football_League",
@@ -7593,10 +7587,7 @@
           "Preston North End",
           "West Bromwich Albion"
         ],
-        "promoted": [
-          "Grimsby Town",
-          "Small Heath"
-        ]
+        "promoted": []
       },
       "tier2": {
         "seasonSlug": "1900-01_Football_League",
@@ -8322,10 +8313,7 @@
           "Small Heath",
           "Manchester City"
         ],
-        "promoted": [
-          "West Bromwich Albion",
-          "Middlesbrough"
-        ]
+        "promoted": []
       },
       "tier2": {
         "seasonSlug": "1901-02_Football_League",
@@ -9051,10 +9039,7 @@
           "Grimsby Town",
           "Bolton Wanderers"
         ],
-        "promoted": [
-          "Manchester City",
-          "Small Heath"
-        ]
+        "promoted": []
       },
       "tier2": {
         "seasonSlug": "1902-03_Football_League",
@@ -9780,10 +9765,7 @@
           "Liverpool",
           "West Bromwich Albion"
         ],
-        "promoted": [
-          "Preston North End",
-          "Woolwich Arsenal"
-        ]
+        "promoted": []
       },
       "tier2": {
         "seasonSlug": "1903-04_Football_League",
@@ -10503,10 +10485,7 @@
           }
         ],
         "relegated": [],
-        "promoted": [
-          "Liverpool",
-          "Bolton Wanderers"
-        ]
+        "promoted": []
       },
       "tier2": {
         "seasonSlug": "1904-05_Football_League",
@@ -11270,10 +11249,7 @@
           "Nottingham Forest",
           "Wolverhampton Wanderers"
         ],
-        "promoted": [
-          "Bristol City",
-          "Manchester United"
-        ]
+        "promoted": []
       },
       "tier2": {
         "seasonSlug": "1905-06_Football_League",
@@ -12075,10 +12051,7 @@
           "Derby County",
           "Stoke"
         ],
-        "promoted": [
-          "Nottingham Forest",
-          "Chelsea"
-        ]
+        "promoted": []
       },
       "tier2": {
         "seasonSlug": "1906-07_Football_League",
@@ -12880,10 +12853,7 @@
           "Bolton Wanderers",
           "Birmingham"
         ],
-        "promoted": [
-          "Bradford City",
-          "Leicester Fosse"
-        ]
+        "promoted": []
       },
       "tier2": {
         "seasonSlug": "1907-08_Football_League",
@@ -13685,10 +13655,7 @@
           "Manchester City",
           "Leicester Fosse"
         ],
-        "promoted": [
-          "Bolton Wanderers",
-          "Tottenham Hotspur"
-        ]
+        "promoted": []
       },
       "tier2": {
         "seasonSlug": "1908-09_Football_League",
@@ -14490,10 +14457,7 @@
           "Chelsea",
           "Bolton Wanderers"
         ],
-        "promoted": [
-          "Manchester City",
-          "Oldham Athletic"
-        ]
+        "promoted": []
       },
       "tier2": {
         "seasonSlug": "1909-10_Football_League",
@@ -15295,10 +15259,7 @@
           "Bristol City",
           "Nottingham Forest"
         ],
-        "promoted": [
-          "West Bromwich Albion",
-          "Bolton Wanderers"
-        ]
+        "promoted": []
       },
       "tier2": {
         "seasonSlug": "1910-11_Football_League",
@@ -16100,10 +16061,7 @@
           "Preston North End",
           "Bury"
         ],
-        "promoted": [
-          "Derby County",
-          "Chelsea"
-        ]
+        "promoted": []
       },
       "tier2": {
         "seasonSlug": "1911-12_Football_League",
@@ -16905,10 +16863,7 @@
           "Notts County",
           "Woolwich Arsenal"
         ],
-        "promoted": [
-          "Preston North End",
-          "Burnley"
-        ]
+        "promoted": []
       },
       "tier2": {
         "seasonSlug": "1912-13_Football_League",
@@ -17710,10 +17665,7 @@
           "Preston North End",
           "Derby County"
         ],
-        "promoted": [
-          "Notts County",
-          "Bradford (Park Avenue)"
-        ]
+        "promoted": []
       },
       "tier2": {
         "seasonSlug": "1913-14_Football_League",
@@ -18514,11 +18466,7 @@
         "relegated": [
           "Tottenham Hotspur"
         ],
-        "promoted": [
-          "Derby County",
-          "Preston North End",
-          "Arsenal"
-        ]
+        "promoted": []
       },
       "tier2": {
         "seasonSlug": "1914-15_Football_League",
@@ -19471,10 +19419,7 @@
           "Notts County",
           "The Wednesday"
         ],
-        "promoted": [
-          "Tottenham Hotspur",
-          "Huddersfield Town"
-        ]
+        "promoted": []
       },
       "tier2": {
         "seasonSlug": "1919-20_Football_League",
@@ -20354,10 +20299,7 @@
           "Derby County",
           "Bradford (Park Avenue)"
         ],
-        "promoted": [
-          "Birmingham",
-          "Cardiff City"
-        ]
+        "promoted": []
       },
       "tier2": {
         "seasonSlug": "1920-21_Football_League",
@@ -21237,10 +21179,7 @@
           "Bradford City",
           "Manchester United"
         ],
-        "promoted": [
-          "Nottingham Forest",
-          "Stoke"
-        ]
+        "promoted": []
       },
       "tier2": {
         "seasonSlug": "1921-22_Football_League",
@@ -22121,10 +22060,7 @@
           "Stoke",
           "Oldham Athletic"
         ],
-        "promoted": [
-          "Notts County",
-          "West Ham United"
-        ]
+        "promoted": []
       },
       "tier2": {
         "seasonSlug": "1922-23_Football_League",
@@ -23005,10 +22941,7 @@
           "Chelsea",
           "Middlesbrough"
         ],
-        "promoted": [
-          "Leeds United",
-          "Bury"
-        ]
+        "promoted": []
       },
       "tier2": {
         "seasonSlug": "1923-24_Football_League",
@@ -23889,10 +23822,7 @@
           "Preston North End",
           "Nottingham Forest"
         ],
-        "promoted": [
-          "Leicester City",
-          "Manchester United"
-        ]
+        "promoted": []
       },
       "tier2": {
         "seasonSlug": "1924-25_Football_League",
@@ -24773,10 +24703,7 @@
           "Manchester City",
           "Notts County"
         ],
-        "promoted": [
-          "The Wednesday",
-          "Derby County"
-        ]
+        "promoted": []
       },
       "tier2": {
         "seasonSlug": "1925-26_Football_League",
@@ -25657,10 +25584,7 @@
           "Leeds United",
           "West Bromwich Albion"
         ],
-        "promoted": [
-          "Middlesbrough",
-          "Portsmouth"
-        ]
+        "promoted": []
       },
       "tier2": {
         "seasonSlug": "1926-27_Football_League",
@@ -26541,10 +26465,7 @@
           "Tottenham Hotspur",
           "Middlesbrough"
         ],
-        "promoted": [
-          "Manchester City",
-          "Leeds United"
-        ]
+        "promoted": []
       },
       "tier2": {
         "seasonSlug": "1927-28_Football_League",
@@ -27425,10 +27346,7 @@
           "Bury",
           "Cardiff City"
         ],
-        "promoted": [
-          "Middlesbrough",
-          "Grimsby Town"
-        ]
+        "promoted": []
       },
       "tier2": {
         "seasonSlug": "1928-29_Football_League",
@@ -28309,10 +28227,7 @@
           "Burnley",
           "Everton"
         ],
-        "promoted": [
-          "Blackpool",
-          "Chelsea"
-        ]
+        "promoted": []
       },
       "tier2": {
         "seasonSlug": "1929-30_Football_League",
@@ -29193,10 +29108,7 @@
           "Leeds United",
           "Manchester United"
         ],
-        "promoted": [
-          "Everton",
-          "West Bromwich Albion"
-        ]
+        "promoted": []
       },
       "tier2": {
         "seasonSlug": "1930-31_Football_League",
@@ -30077,10 +29989,7 @@
           "Grimsby Town",
           "West Ham United"
         ],
-        "promoted": [
-          "Wolverhampton Wanderers",
-          "Leeds United"
-        ]
+        "promoted": []
       },
       "tier2": {
         "seasonSlug": "1931-32_Football_League",
@@ -30961,10 +30870,7 @@
           "Bolton Wanderers",
           "Blackpool"
         ],
-        "promoted": [
-          "Stoke City",
-          "Tottenham Hotspur"
-        ]
+        "promoted": []
       },
       "tier2": {
         "seasonSlug": "1932-33_Football_League",
@@ -31845,10 +31751,7 @@
           "Newcastle United",
           "Sheffield United"
         ],
-        "promoted": [
-          "Grimsby Town",
-          "Preston North End"
-        ]
+        "promoted": []
       },
       "tier2": {
         "seasonSlug": "1933-34_Football_League",
@@ -32729,10 +32632,7 @@
           "Leicester City",
           "Tottenham Hotspur"
         ],
-        "promoted": [
-          "Brentford",
-          "Bolton Wanderers"
-        ]
+        "promoted": []
       },
       "tier2": {
         "seasonSlug": "1934-35_Football_League",
@@ -33613,10 +33513,7 @@
           "Aston Villa",
           "Blackburn Rovers"
         ],
-        "promoted": [
-          "Manchester United",
-          "Charlton Athletic"
-        ]
+        "promoted": []
       },
       "tier2": {
         "seasonSlug": "1935-36_Football_League",
@@ -34497,10 +34394,7 @@
           "Manchester United",
           "Sheffield Wednesday"
         ],
-        "promoted": [
-          "Leicester City",
-          "Blackpool"
-        ]
+        "promoted": []
       },
       "tier2": {
         "seasonSlug": "1936-37_Football_League",
@@ -35381,10 +35275,7 @@
           "Manchester City",
           "West Bromwich Albion"
         ],
-        "promoted": [
-          "Aston Villa",
-          "Manchester United"
-        ]
+        "promoted": []
       },
       "tier2": {
         "seasonSlug": "1937-38_Football_League",
@@ -36265,10 +36156,7 @@
           "Birmingham",
           "Leicester City"
         ],
-        "promoted": [
-          "Blackburn Rovers",
-          "Sheffield United"
-        ]
+        "promoted": []
       },
       "tier2": {
         "seasonSlug": "1938-39_Football_League",
@@ -37149,10 +37037,7 @@
           "Middlesbrough",
           "Leeds United"
         ],
-        "promoted": [
-          "Luton Town",
-          "Birmingham"
-        ]
+        "promoted": []
       },
       "tier2": {
         "seasonSlug": "1939-40_Football_League",
@@ -38201,10 +38086,7 @@
           "Brentford",
           "Leeds United"
         ],
-        "promoted": [
-          "Manchester City",
-          "Burnley"
-        ]
+        "promoted": []
       },
       "tier2": {
         "seasonSlug": "1946-47_Football_League",
@@ -39085,10 +38967,7 @@
           "Blackburn Rovers",
           "Grimsby Town"
         ],
-        "promoted": [
-          "Birmingham City",
-          "Newcastle United"
-        ]
+        "promoted": []
       },
       "tier2": {
         "seasonSlug": "1947-48_Football_League",
@@ -39969,10 +39848,7 @@
           "Preston North End",
           "Sheffield United"
         ],
-        "promoted": [
-          "Fulham",
-          "West Bromwich Albion"
-        ]
+        "promoted": []
       },
       "tier2": {
         "seasonSlug": "1948-49_Football_League",
@@ -40853,10 +40729,7 @@
           "Manchester City",
           "Birmingham City"
         ],
-        "promoted": [
-          "Tottenham Hotspur",
-          "Sheffield Wednesday"
-        ]
+        "promoted": []
       },
       "tier2": {
         "seasonSlug": "1949-50_Football_League",
@@ -41737,10 +41610,7 @@
           "Sheffield Wednesday",
           "Everton"
         ],
-        "promoted": [
-          "Preston North End",
-          "Manchester City"
-        ]
+        "promoted": []
       },
       "tier2": {
         "seasonSlug": "1950-51_Football_League",
@@ -42621,10 +42491,7 @@
           "Huddersfield Town",
           "Fulham"
         ],
-        "promoted": [
-          "Sheffield Wednesday",
-          "Cardiff City"
-        ]
+        "promoted": []
       },
       "tier2": {
         "seasonSlug": "1951-52_Football_League",
@@ -43505,10 +43372,7 @@
           "Stoke City",
           "Derby County"
         ],
-        "promoted": [
-          "Sheffield United",
-          "Huddersfield Town"
-        ]
+        "promoted": []
       },
       "tier2": {
         "seasonSlug": "1952-53_Football_League",
@@ -44389,10 +44253,7 @@
           "Middlesbrough",
           "Liverpool"
         ],
-        "promoted": [
-          "Leicester City",
-          "Everton"
-        ]
+        "promoted": []
       },
       "tier2": {
         "seasonSlug": "1953-54_Football_League",
@@ -45273,10 +45134,7 @@
           "Leicester City",
           "Sheffield Wednesday"
         ],
-        "promoted": [
-          "Birmingham City",
-          "Luton Town"
-        ]
+        "promoted": []
       },
       "tier2": {
         "seasonSlug": "1954-55_Football_League",
@@ -46157,10 +46015,7 @@
           "Huddersfield Town",
           "Sheffield United"
         ],
-        "promoted": [
-          "Sheffield Wednesday",
-          "Leeds United"
-        ]
+        "promoted": []
       },
       "tier2": {
         "seasonSlug": "1955-56_Football_League",
@@ -47041,10 +46896,7 @@
           "Cardiff City",
           "Charlton Athletic"
         ],
-        "promoted": [
-          "Leicester City",
-          "Nottingham Forest"
-        ]
+        "promoted": []
       },
       "tier2": {
         "seasonSlug": "1956-57_Football_League",
@@ -47925,10 +47777,7 @@
           "Sunderland",
           "Sheffield Wednesday"
         ],
-        "promoted": [
-          "West Ham United",
-          "Blackburn Rovers"
-        ]
+        "promoted": []
       },
       "tier2": {
         "seasonSlug": "1957-58_Football_League",
@@ -48809,10 +48658,7 @@
           "Aston Villa",
           "Portsmouth"
         ],
-        "promoted": [
-          "Sheffield Wednesday",
-          "Fulham"
-        ]
+        "promoted": []
       },
       "tier2": {
         "seasonSlug": "1958-59_Football_League",
@@ -49693,10 +49539,7 @@
           "Leeds United",
           "Luton Town"
         ],
-        "promoted": [
-          "Aston Villa",
-          "Cardiff City"
-        ]
+        "promoted": []
       },
       "tier2": {
         "seasonSlug": "1959-60_Football_League",
@@ -50289,13 +50132,13 @@
           },
           {
             "pos": 8,
-            "team": "Aston Villa",
+            "team": "Blackburn Rovers",
             "played": 42,
-            "won": 17,
-            "drawn": 9,
-            "lost": 16,
-            "goalsFor": 78,
-            "goalsAgainst": 77,
+            "won": 15,
+            "drawn": 13,
+            "lost": 14,
+            "goalsFor": 77,
+            "goalsAgainst": 76,
             "goalDifference": null,
             "goalAverage": 1.013,
             "points": 43,
@@ -50308,13 +50151,13 @@
           },
           {
             "pos": 9,
-            "team": "Blackburn Rovers",
+            "team": "Aston Villa",
             "played": 42,
-            "won": 15,
-            "drawn": 13,
-            "lost": 14,
-            "goalsFor": 77,
-            "goalsAgainst": 76,
+            "won": 17,
+            "drawn": 9,
+            "lost": 16,
+            "goalsFor": 78,
+            "goalsAgainst": 77,
             "goalDifference": null,
             "goalAverage": 1.013,
             "points": 43,
@@ -50577,10 +50420,7 @@
           "Newcastle United",
           "Preston North End"
         ],
-        "promoted": [
-          "Ipswich Town",
-          "Sheffield United"
-        ]
+        "promoted": []
       },
       "tier2": {
         "seasonSlug": "1960-61_Football_League",
@@ -51461,10 +51301,7 @@
           "Cardiff City",
           "Chelsea"
         ],
-        "promoted": [
-          "Liverpool",
-          "Leyton Orient"
-        ]
+        "promoted": []
       },
       "tier2": {
         "seasonSlug": "1961-62_Football_League",
@@ -52345,10 +52182,7 @@
           "Manchester City",
           "Leyton Orient"
         ],
-        "promoted": [
-          "Stoke City",
-          "Chelsea"
-        ]
+        "promoted": []
       },
       "tier2": {
         "seasonSlug": "1962-63_Football_League",
@@ -53229,10 +53063,7 @@
           "Bolton Wanderers",
           "Ipswich Town"
         ],
-        "promoted": [
-          "Leeds United",
-          "Sunderland"
-        ]
+        "promoted": []
       },
       "tier2": {
         "seasonSlug": "1963-64_Football_League",
@@ -54113,10 +53944,7 @@
           "Wolverhampton Wanderers",
           "Birmingham City"
         ],
-        "promoted": [
-          "Newcastle United",
-          "Northampton Town"
-        ]
+        "promoted": []
       },
       "tier2": {
         "seasonSlug": "1964-65_Football_League",
@@ -54997,10 +54825,7 @@
           "Northampton Town",
           "Blackburn Rovers"
         ],
-        "promoted": [
-          "Manchester City",
-          "Southampton"
-        ]
+        "promoted": []
       },
       "tier2": {
         "seasonSlug": "1965-66_Football_League",
@@ -55881,10 +55706,7 @@
           "Aston Villa",
           "Blackpool"
         ],
-        "promoted": [
-          "Coventry City",
-          "Wolverhampton Wanderers"
-        ]
+        "promoted": []
       },
       "tier2": {
         "seasonSlug": "1966-67_Football_League",
@@ -56765,10 +56587,7 @@
           "Sheffield United",
           "Fulham"
         ],
-        "promoted": [
-          "Ipswich Town",
-          "Queens Park Rangers"
-        ]
+        "promoted": []
       },
       "tier2": {
         "seasonSlug": "1967-68_Football_League",
@@ -57649,10 +57468,7 @@
           "Leicester City",
           "Queens Park Rangers"
         ],
-        "promoted": [
-          "Derby County",
-          "Crystal Palace"
-        ]
+        "promoted": []
       },
       "tier2": {
         "seasonSlug": "1968-69_Football_League",
@@ -58533,10 +58349,7 @@
           "Sunderland",
           "Sheffield Wednesday"
         ],
-        "promoted": [
-          "Huddersfield Town",
-          "Blackpool"
-        ]
+        "promoted": []
       },
       "tier2": {
         "seasonSlug": "1969-70_Football_League",
@@ -59417,10 +59230,7 @@
           "Burnley",
           "Blackpool"
         ],
-        "promoted": [
-          "Leicester City",
-          "Sheffield United"
-        ]
+        "promoted": []
       },
       "tier2": {
         "seasonSlug": "1970-71_Football_League",
@@ -60301,10 +60111,7 @@
           "Nottingham Forest",
           "Huddersfield Town"
         ],
-        "promoted": [
-          "Norwich City",
-          "Birmingham City"
-        ]
+        "promoted": []
       },
       "tier2": {
         "seasonSlug": "1971-72_Football_League",
@@ -61185,10 +60992,7 @@
           "Crystal Palace",
           "West Bromwich Albion"
         ],
-        "promoted": [
-          "Burnley",
-          "Queens Park Rangers"
-        ]
+        "promoted": []
       },
       "tier2": {
         "seasonSlug": "1972-73_Football_League",
@@ -62072,11 +61876,7 @@
           "Manchester United",
           "Norwich City"
         ],
-        "promoted": [
-          "Middlesbrough",
-          "Luton Town",
-          "Carlisle United"
-        ]
+        "promoted": []
       },
       "tier2": {
         "seasonSlug": "1973-74_Football_League",
@@ -62962,11 +62762,7 @@
           "Chelsea",
           "Carlisle United"
         ],
-        "promoted": [
-          "Manchester United",
-          "Aston Villa",
-          "Norwich City"
-        ]
+        "promoted": []
       },
       "tier2": {
         "seasonSlug": "1974-75_Football_League",
@@ -63852,11 +63648,7 @@
           "Burnley",
           "Sheffield United"
         ],
-        "promoted": [
-          "Sunderland",
-          "Bristol City",
-          "West Bromwich Albion"
-        ]
+        "promoted": []
       },
       "tier2": {
         "seasonSlug": "1975-76_Football_League",
@@ -64742,11 +64534,7 @@
           "Stoke City",
           "Tottenham Hotspur"
         ],
-        "promoted": [
-          "Wolverhampton Wanderers",
-          "Chelsea",
-          "Nottingham Forest"
-        ]
+        "promoted": []
       },
       "tier2": {
         "seasonSlug": "1976-77_Football_League",
@@ -65632,11 +65420,7 @@
           "Newcastle United",
           "Leicester City"
         ],
-        "promoted": [
-          "Bolton Wanderers",
-          "Southampton",
-          "Tottenham Hotspur"
-        ]
+        "promoted": []
       },
       "tier2": {
         "seasonSlug": "1977-78_Football_League",
@@ -66522,11 +66306,7 @@
           "Birmingham City",
           "Chelsea"
         ],
-        "promoted": [
-          "Crystal Palace",
-          "Brighton & Hove Albion",
-          "Stoke City"
-        ]
+        "promoted": []
       },
       "tier2": {
         "seasonSlug": "1978-79_Football_League",
@@ -67412,11 +67192,7 @@
           "Derby County",
           "Bolton Wanderers"
         ],
-        "promoted": [
-          "Leicester City",
-          "Sunderland",
-          "Birmingham City"
-        ]
+        "promoted": []
       },
       "tier2": {
         "seasonSlug": "1979-80_Football_League",
@@ -68302,11 +68078,7 @@
           "Leicester City",
           "Crystal Palace"
         ],
-        "promoted": [
-          "West Ham United",
-          "Notts County",
-          "Swansea City"
-        ]
+        "promoted": []
       },
       "tier2": {
         "seasonSlug": "1980-81_Football_League",
@@ -69192,11 +68964,7 @@
           "Wolverhampton Wanderers",
           "Middlesbrough"
         ],
-        "promoted": [
-          "Luton Town",
-          "Watford",
-          "Norwich City"
-        ]
+        "promoted": []
       },
       "tier2": {
         "seasonSlug": "1981-82_Football_League",
@@ -70082,11 +69850,7 @@
           "Swansea City",
           "Brighton & Hove Albion"
         ],
-        "promoted": [
-          "Queens Park Rangers",
-          "Wolverhampton Wanderers",
-          "Leicester City"
-        ]
+        "promoted": []
       },
       "tier2": {
         "seasonSlug": "1982-83_Football_League",
@@ -70972,11 +70736,7 @@
           "Notts County",
           "Wolverhampton Wanderers"
         ],
-        "promoted": [
-          "Chelsea",
-          "Sheffield Wednesday",
-          "Newcastle United"
-        ]
+        "promoted": []
       },
       "tier2": {
         "seasonSlug": "1983-84_Football_League",
@@ -71862,11 +71622,7 @@
           "Sunderland",
           "Stoke City"
         ],
-        "promoted": [
-          "Oxford United",
-          "Birmingham City",
-          "Manchester City"
-        ]
+        "promoted": []
       },
       "tier2": {
         "seasonSlug": "1984-85_Football_League",
@@ -72752,11 +72508,7 @@
           "Birmingham City",
           "West Bromwich Albion"
         ],
-        "promoted": [
-          "Norwich City",
-          "Charlton Athletic",
-          "Wimbledon"
-        ]
+        "promoted": []
       },
       "tier2": {
         "seasonSlug": "1985-86_Football_League",
@@ -73641,10 +73393,7 @@
           "Manchester City",
           "Aston Villa"
         ],
-        "promoted": [
-          "Derby County",
-          "Portsmouth"
-        ]
+        "promoted": []
       },
       "tier2": {
         "seasonSlug": "1986-87_Football_League",
@@ -74508,10 +74257,7 @@
           "Watford",
           "Oxford United"
         ],
-        "promoted": [
-          "Millwall",
-          "Aston Villa"
-        ]
+        "promoted": []
       },
       "tier2": {
         "seasonSlug": "1987-88_Football_League",
@@ -75375,10 +75121,7 @@
           "West Ham United",
           "Newcastle United"
         ],
-        "promoted": [
-          "Chelsea",
-          "Manchester City"
-        ]
+        "promoted": []
       },
       "tier2": {
         "seasonSlug": "1988-89_Football_League",
@@ -76262,10 +76005,7 @@
           "Charlton Athletic",
           "Millwall"
         ],
-        "promoted": [
-          "Leeds United",
-          "Sheffield United"
-        ]
+        "promoted": []
       },
       "tier2": {
         "seasonSlug": "1989-90_Football_League",
@@ -77148,11 +76888,7 @@
           "Sunderland",
           "Derby County"
         ],
-        "promoted": [
-          "Oldham Athletic",
-          "West Ham United",
-          "Sheffield Wednesday"
-        ]
+        "promoted": []
       },
       "tier2": {
         "seasonSlug": "1990-91_Football_League",
@@ -78074,10 +77810,7 @@
           "Notts County",
           "West Ham United"
         ],
-        "promoted": [
-          "Ipswich Town",
-          "Middlesbrough"
-        ]
+        "promoted": []
       },
       "tier2": {
         "seasonSlug": "1991-92_Football_League",
@@ -79037,10 +78770,7 @@
           "Cambridge United",
           "Bristol Rovers"
         ],
-        "promoted": [
-          "Stoke City",
-          "Bolton Wanderers"
-        ]
+        "promoted": []
       },
       "tier2": {
         "seasonSlug": "1992-93_Football_League",
@@ -80001,10 +79731,7 @@
           "Oxford United",
           "Peterborough United"
         ],
-        "promoted": [
-          "Reading",
-          "Port Vale"
-        ]
+        "promoted": []
       },
       "tier2": {
         "seasonSlug": "1993-94_Football_League",
@@ -80966,9 +80693,7 @@
           "Bristol City",
           "Notts County"
         ],
-        "promoted": [
-          "Birmingham City"
-        ]
+        "promoted": []
       },
       "tier2": {
         "seasonSlug": "1994-95_Football_League",
@@ -81929,10 +81654,7 @@
           "Watford",
           "Luton Town"
         ],
-        "promoted": [
-          "Swindon Town",
-          "Oxford United"
-        ]
+        "promoted": []
       },
       "tier2": {
         "seasonSlug": "1995-96_Football_League",
@@ -82893,10 +82615,7 @@
           "Oldham Athletic",
           "Southend United"
         ],
-        "promoted": [
-          "Bury",
-          "Stockport County"
-        ]
+        "promoted": []
       },
       "tier2": {
         "seasonSlug": "1996-97_Football_League",
@@ -83857,10 +83576,7 @@
           "Stoke City",
           "Reading"
         ],
-        "promoted": [
-          "Watford",
-          "Bristol City"
-        ]
+        "promoted": []
       },
       "tier2": {
         "seasonSlug": "1997-98_Football_League",
@@ -84821,10 +84537,7 @@
           "Oxford United",
           "Bristol City"
         ],
-        "promoted": [
-          "Fulham",
-          "Walsall"
-        ]
+        "promoted": []
       },
       "tier2": {
         "seasonSlug": "1998-99_Football_League",
@@ -85785,10 +85498,7 @@
           "Port Vale",
           "Swindon Town"
         ],
-        "promoted": [
-          "Preston North End",
-          "Burnley"
-        ]
+        "promoted": []
       },
       "tier2": {
         "seasonSlug": "1999-2000_Football_League",
@@ -86749,10 +86459,7 @@
           "Queens Park Rangers",
           "Tranmere Rovers"
         ],
-        "promoted": [
-          "Millwall",
-          "Rotherham United"
-        ]
+        "promoted": []
       },
       "tier2": {
         "seasonSlug": "2000-01_Football_League",
@@ -87713,10 +87420,7 @@
           "Barnsley",
           "Stockport County"
         ],
-        "promoted": [
-          "Brighton & Hove Albion",
-          "Reading"
-        ]
+        "promoted": []
       },
       "tier2": {
         "seasonSlug": "2001-02_Football_League",
@@ -88677,10 +88381,7 @@
           "Brighton & Hove Albion",
           "Grimsby Town"
         ],
-        "promoted": [
-          "Wigan Athletic",
-          "Crewe Alexandra"
-        ]
+        "promoted": []
       },
       "tier2": {
         "seasonSlug": "2002-03_Football_League",
@@ -89639,10 +89340,7 @@
           "Walsall",
           "Bradford City"
         ],
-        "promoted": [
-          "Plymouth Argyle",
-          "Queens Park Rangers"
-        ]
+        "promoted": []
       },
       "tier2": {
         "seasonSlug": "2003-04_Football_League",
@@ -90117,566 +89815,6 @@
           "Plymouth Argyle",
           "Queens Park Rangers"
         ]
-      }
-    },
-    "2004": {
-      "seasonInfo": {
-        "seasonSlug": "2004-05_Football_League",
-        "sourceUrl": "https://en.wikipedia.org/wiki/2004-05_Football_League",
-        "season": 2004,
-        "table": [],
-        "relegated": [],
-        "promoted": []
-      },
-      "tier1": {
-        "seasonSlug": "2004-05_Football_League",
-        "sourceUrl": "https://en.wikipedia.org/wiki/2004-05_Football_League",
-        "tier": "tier1",
-        "season": 2004,
-        "table": [],
-        "relegated": [],
-        "promoted": []
-      },
-      "tier2": {
-        "seasonSlug": "2004-05_Football_League",
-        "sourceUrl": "https://en.wikipedia.org/wiki/2004-05_Football_League",
-        "tier": "tier2",
-        "season": 2004,
-        "table": [],
-        "relegated": [],
-        "promoted": []
-      }
-    },
-    "2005": {
-      "seasonInfo": {
-        "seasonSlug": "2005-06_Football_League",
-        "sourceUrl": "https://en.wikipedia.org/wiki/2005-06_Football_League",
-        "season": 2005,
-        "table": [],
-        "relegated": [],
-        "promoted": []
-      },
-      "tier1": {
-        "seasonSlug": "2005-06_Football_League",
-        "sourceUrl": "https://en.wikipedia.org/wiki/2005-06_Football_League",
-        "tier": "tier1",
-        "season": 2005,
-        "table": [],
-        "relegated": [],
-        "promoted": []
-      },
-      "tier2": {
-        "seasonSlug": "2005-06_Football_League",
-        "sourceUrl": "https://en.wikipedia.org/wiki/2005-06_Football_League",
-        "tier": "tier2",
-        "season": 2005,
-        "table": [],
-        "relegated": [],
-        "promoted": []
-      }
-    },
-    "2006": {
-      "seasonInfo": {
-        "seasonSlug": "2006-07_Football_League",
-        "sourceUrl": "https://en.wikipedia.org/wiki/2006-07_Football_League",
-        "season": 2006,
-        "table": [],
-        "relegated": [],
-        "promoted": []
-      },
-      "tier1": {
-        "seasonSlug": "2006-07_Football_League",
-        "sourceUrl": "https://en.wikipedia.org/wiki/2006-07_Football_League",
-        "tier": "tier1",
-        "season": 2006,
-        "table": [],
-        "relegated": [],
-        "promoted": []
-      },
-      "tier2": {
-        "seasonSlug": "2006-07_Football_League",
-        "sourceUrl": "https://en.wikipedia.org/wiki/2006-07_Football_League",
-        "tier": "tier2",
-        "season": 2006,
-        "table": [],
-        "relegated": [],
-        "promoted": []
-      }
-    },
-    "2007": {
-      "seasonInfo": {
-        "seasonSlug": "2007-08_Football_League",
-        "sourceUrl": "https://en.wikipedia.org/wiki/2007-08_Football_League",
-        "season": 2007,
-        "table": [],
-        "relegated": [],
-        "promoted": []
-      },
-      "tier1": {
-        "seasonSlug": "2007-08_Football_League",
-        "sourceUrl": "https://en.wikipedia.org/wiki/2007-08_Football_League",
-        "tier": "tier1",
-        "season": 2007,
-        "table": [],
-        "relegated": [],
-        "promoted": []
-      },
-      "tier2": {
-        "seasonSlug": "2007-08_Football_League",
-        "sourceUrl": "https://en.wikipedia.org/wiki/2007-08_Football_League",
-        "tier": "tier2",
-        "season": 2007,
-        "table": [],
-        "relegated": [],
-        "promoted": []
-      }
-    },
-    "2008": {
-      "seasonInfo": {
-        "seasonSlug": "2008-09_Football_League",
-        "sourceUrl": "https://en.wikipedia.org/wiki/2008-09_Football_League",
-        "season": 2008,
-        "table": [],
-        "relegated": [],
-        "promoted": []
-      },
-      "tier1": {
-        "seasonSlug": "2008-09_Football_League",
-        "sourceUrl": "https://en.wikipedia.org/wiki/2008-09_Football_League",
-        "tier": "tier1",
-        "season": 2008,
-        "table": [],
-        "relegated": [],
-        "promoted": []
-      },
-      "tier2": {
-        "seasonSlug": "2008-09_Football_League",
-        "sourceUrl": "https://en.wikipedia.org/wiki/2008-09_Football_League",
-        "tier": "tier2",
-        "season": 2008,
-        "table": [],
-        "relegated": [],
-        "promoted": []
-      }
-    },
-    "2009": {
-      "seasonInfo": {
-        "seasonSlug": "2009-10_Football_League",
-        "sourceUrl": "https://en.wikipedia.org/wiki/2009-10_Football_League",
-        "season": 2009,
-        "table": [],
-        "relegated": [],
-        "promoted": []
-      },
-      "tier1": {
-        "seasonSlug": "2009-10_Football_League",
-        "sourceUrl": "https://en.wikipedia.org/wiki/2009-10_Football_League",
-        "tier": "tier1",
-        "season": 2009,
-        "table": [],
-        "relegated": [],
-        "promoted": []
-      },
-      "tier2": {
-        "seasonSlug": "2009-10_Football_League",
-        "sourceUrl": "https://en.wikipedia.org/wiki/2009-10_Football_League",
-        "tier": "tier2",
-        "season": 2009,
-        "table": [],
-        "relegated": [],
-        "promoted": []
-      }
-    },
-    "2010": {
-      "seasonInfo": {
-        "seasonSlug": "2010-11_Football_League",
-        "sourceUrl": "https://en.wikipedia.org/wiki/2010-11_Football_League",
-        "season": 2010,
-        "table": [],
-        "relegated": [],
-        "promoted": []
-      },
-      "tier1": {
-        "seasonSlug": "2010-11_Football_League",
-        "sourceUrl": "https://en.wikipedia.org/wiki/2010-11_Football_League",
-        "tier": "tier1",
-        "season": 2010,
-        "table": [],
-        "relegated": [],
-        "promoted": []
-      },
-      "tier2": {
-        "seasonSlug": "2010-11_Football_League",
-        "sourceUrl": "https://en.wikipedia.org/wiki/2010-11_Football_League",
-        "tier": "tier2",
-        "season": 2010,
-        "table": [],
-        "relegated": [],
-        "promoted": []
-      }
-    },
-    "2011": {
-      "seasonInfo": {
-        "seasonSlug": "2011-12_Football_League",
-        "sourceUrl": "https://en.wikipedia.org/wiki/2011-12_Football_League",
-        "season": 2011,
-        "table": [],
-        "relegated": [],
-        "promoted": []
-      },
-      "tier1": {
-        "seasonSlug": "2011-12_Football_League",
-        "sourceUrl": "https://en.wikipedia.org/wiki/2011-12_Football_League",
-        "tier": "tier1",
-        "season": 2011,
-        "table": [],
-        "relegated": [],
-        "promoted": []
-      },
-      "tier2": {
-        "seasonSlug": "2011-12_Football_League",
-        "sourceUrl": "https://en.wikipedia.org/wiki/2011-12_Football_League",
-        "tier": "tier2",
-        "season": 2011,
-        "table": [],
-        "relegated": [],
-        "promoted": []
-      }
-    },
-    "2012": {
-      "seasonInfo": {
-        "seasonSlug": "2012-13_Football_League",
-        "sourceUrl": "https://en.wikipedia.org/wiki/2012-13_Football_League",
-        "season": 2012,
-        "table": [],
-        "relegated": [],
-        "promoted": []
-      },
-      "tier1": {
-        "seasonSlug": "2012-13_Football_League",
-        "sourceUrl": "https://en.wikipedia.org/wiki/2012-13_Football_League",
-        "tier": "tier1",
-        "season": 2012,
-        "table": [],
-        "relegated": [],
-        "promoted": []
-      },
-      "tier2": {
-        "seasonSlug": "2012-13_Football_League",
-        "sourceUrl": "https://en.wikipedia.org/wiki/2012-13_Football_League",
-        "tier": "tier2",
-        "season": 2012,
-        "table": [],
-        "relegated": [],
-        "promoted": []
-      }
-    },
-    "2013": {
-      "seasonInfo": {
-        "seasonSlug": "2013-14_Football_League",
-        "sourceUrl": "https://en.wikipedia.org/wiki/2013-14_Football_League",
-        "season": 2013,
-        "table": [],
-        "relegated": [],
-        "promoted": []
-      },
-      "tier1": {
-        "seasonSlug": "2013-14_Football_League",
-        "sourceUrl": "https://en.wikipedia.org/wiki/2013-14_Football_League",
-        "tier": "tier1",
-        "season": 2013,
-        "table": [],
-        "relegated": [],
-        "promoted": []
-      },
-      "tier2": {
-        "seasonSlug": "2013-14_Football_League",
-        "sourceUrl": "https://en.wikipedia.org/wiki/2013-14_Football_League",
-        "tier": "tier2",
-        "season": 2013,
-        "table": [],
-        "relegated": [],
-        "promoted": []
-      }
-    },
-    "2014": {
-      "seasonInfo": {
-        "seasonSlug": "2014-15_Football_League",
-        "sourceUrl": "https://en.wikipedia.org/wiki/2014-15_Football_League",
-        "season": 2014,
-        "table": [],
-        "relegated": [],
-        "promoted": []
-      },
-      "tier1": {
-        "seasonSlug": "2014-15_Football_League",
-        "sourceUrl": "https://en.wikipedia.org/wiki/2014-15_Football_League",
-        "tier": "tier1",
-        "season": 2014,
-        "table": [],
-        "relegated": [],
-        "promoted": []
-      },
-      "tier2": {
-        "seasonSlug": "2014-15_Football_League",
-        "sourceUrl": "https://en.wikipedia.org/wiki/2014-15_Football_League",
-        "tier": "tier2",
-        "season": 2014,
-        "table": [],
-        "relegated": [],
-        "promoted": []
-      }
-    },
-    "2015": {
-      "seasonInfo": {
-        "seasonSlug": "2015-16_Football_League",
-        "sourceUrl": "https://en.wikipedia.org/wiki/2015-16_Football_League",
-        "season": 2015,
-        "table": [],
-        "relegated": [],
-        "promoted": []
-      },
-      "tier1": {
-        "seasonSlug": "2015-16_Football_League",
-        "sourceUrl": "https://en.wikipedia.org/wiki/2015-16_Football_League",
-        "tier": "tier1",
-        "season": 2015,
-        "table": [],
-        "relegated": [],
-        "promoted": []
-      },
-      "tier2": {
-        "seasonSlug": "2015-16_Football_League",
-        "sourceUrl": "https://en.wikipedia.org/wiki/2015-16_Football_League",
-        "tier": "tier2",
-        "season": 2015,
-        "table": [],
-        "relegated": [],
-        "promoted": []
-      }
-    },
-    "2016": {
-      "seasonInfo": {
-        "seasonSlug": "2016-17_Football_League",
-        "sourceUrl": "https://en.wikipedia.org/wiki/2016-17_Football_League",
-        "season": 2016,
-        "table": [],
-        "relegated": [],
-        "promoted": []
-      },
-      "tier1": {
-        "seasonSlug": "2016-17_Football_League",
-        "sourceUrl": "https://en.wikipedia.org/wiki/2016-17_Football_League",
-        "tier": "tier1",
-        "season": 2016,
-        "table": [],
-        "relegated": [],
-        "promoted": []
-      },
-      "tier2": {
-        "seasonSlug": "2016-17_Football_League",
-        "sourceUrl": "https://en.wikipedia.org/wiki/2016-17_Football_League",
-        "tier": "tier2",
-        "season": 2016,
-        "table": [],
-        "relegated": [],
-        "promoted": []
-      }
-    },
-    "2017": {
-      "seasonInfo": {
-        "seasonSlug": "2017-18_Football_League",
-        "sourceUrl": "https://en.wikipedia.org/wiki/2017-18_Football_League",
-        "season": 2017,
-        "table": [],
-        "relegated": [],
-        "promoted": []
-      },
-      "tier1": {
-        "seasonSlug": "2017-18_Football_League",
-        "sourceUrl": "https://en.wikipedia.org/wiki/2017-18_Football_League",
-        "tier": "tier1",
-        "season": 2017,
-        "table": [],
-        "relegated": [],
-        "promoted": []
-      },
-      "tier2": {
-        "seasonSlug": "2017-18_Football_League",
-        "sourceUrl": "https://en.wikipedia.org/wiki/2017-18_Football_League",
-        "tier": "tier2",
-        "season": 2017,
-        "table": [],
-        "relegated": [],
-        "promoted": []
-      }
-    },
-    "2018": {
-      "seasonInfo": {
-        "seasonSlug": "2018-19_Football_League",
-        "sourceUrl": "https://en.wikipedia.org/wiki/2018-19_Football_League",
-        "season": 2018,
-        "table": [],
-        "relegated": [],
-        "promoted": []
-      },
-      "tier1": {
-        "seasonSlug": "2018-19_Football_League",
-        "sourceUrl": "https://en.wikipedia.org/wiki/2018-19_Football_League",
-        "tier": "tier1",
-        "season": 2018,
-        "table": [],
-        "relegated": [],
-        "promoted": []
-      },
-      "tier2": {
-        "seasonSlug": "2018-19_Football_League",
-        "sourceUrl": "https://en.wikipedia.org/wiki/2018-19_Football_League",
-        "tier": "tier2",
-        "season": 2018,
-        "table": [],
-        "relegated": [],
-        "promoted": []
-      }
-    },
-    "2019": {
-      "seasonInfo": {
-        "seasonSlug": "2019-20_Football_League",
-        "sourceUrl": "https://en.wikipedia.org/wiki/2019-20_Football_League",
-        "season": 2019,
-        "table": [],
-        "relegated": [],
-        "promoted": []
-      },
-      "tier1": {
-        "seasonSlug": "2019-20_Football_League",
-        "sourceUrl": "https://en.wikipedia.org/wiki/2019-20_Football_League",
-        "tier": "tier1",
-        "season": 2019,
-        "table": [],
-        "relegated": [],
-        "promoted": []
-      },
-      "tier2": {
-        "seasonSlug": "2019-20_Football_League",
-        "sourceUrl": "https://en.wikipedia.org/wiki/2019-20_Football_League",
-        "tier": "tier2",
-        "season": 2019,
-        "table": [],
-        "relegated": [],
-        "promoted": []
-      }
-    },
-    "2020": {
-      "seasonInfo": {
-        "seasonSlug": "2020-21_Football_League",
-        "sourceUrl": "https://en.wikipedia.org/wiki/2020-21_Football_League",
-        "season": 2020,
-        "table": [],
-        "relegated": [],
-        "promoted": []
-      },
-      "tier1": {
-        "seasonSlug": "2020-21_Football_League",
-        "sourceUrl": "https://en.wikipedia.org/wiki/2020-21_Football_League",
-        "tier": "tier1",
-        "season": 2020,
-        "table": [],
-        "relegated": [],
-        "promoted": []
-      },
-      "tier2": {
-        "seasonSlug": "2020-21_Football_League",
-        "sourceUrl": "https://en.wikipedia.org/wiki/2020-21_Football_League",
-        "tier": "tier2",
-        "season": 2020,
-        "table": [],
-        "relegated": [],
-        "promoted": []
-      }
-    },
-    "2021": {
-      "seasonInfo": {
-        "seasonSlug": "2021-22_Football_League",
-        "sourceUrl": "https://en.wikipedia.org/wiki/2021-22_Football_League",
-        "season": 2021,
-        "table": [],
-        "relegated": [],
-        "promoted": []
-      },
-      "tier1": {
-        "seasonSlug": "2021-22_Football_League",
-        "sourceUrl": "https://en.wikipedia.org/wiki/2021-22_Football_League",
-        "tier": "tier1",
-        "season": 2021,
-        "table": [],
-        "relegated": [],
-        "promoted": []
-      },
-      "tier2": {
-        "seasonSlug": "2021-22_Football_League",
-        "sourceUrl": "https://en.wikipedia.org/wiki/2021-22_Football_League",
-        "tier": "tier2",
-        "season": 2021,
-        "table": [],
-        "relegated": [],
-        "promoted": []
-      }
-    },
-    "2022": {
-      "seasonInfo": {
-        "seasonSlug": "2022-23_Football_League",
-        "sourceUrl": "https://en.wikipedia.org/wiki/2022-23_Football_League",
-        "season": 2022,
-        "table": [],
-        "relegated": [],
-        "promoted": []
-      },
-      "tier1": {
-        "seasonSlug": "2022-23_Football_League",
-        "sourceUrl": "https://en.wikipedia.org/wiki/2022-23_Football_League",
-        "tier": "tier1",
-        "season": 2022,
-        "table": [],
-        "relegated": [],
-        "promoted": []
-      },
-      "tier2": {
-        "seasonSlug": "2022-23_Football_League",
-        "sourceUrl": "https://en.wikipedia.org/wiki/2022-23_Football_League",
-        "tier": "tier2",
-        "season": 2022,
-        "table": [],
-        "relegated": [],
-        "promoted": []
-      }
-    },
-    "2023": {
-      "seasonInfo": {
-        "seasonSlug": "2023-24_Football_League",
-        "sourceUrl": "https://en.wikipedia.org/wiki/2023-24_Football_League",
-        "season": 2023,
-        "table": [],
-        "relegated": [],
-        "promoted": []
-      },
-      "tier1": {
-        "seasonSlug": "2023-24_Football_League",
-        "sourceUrl": "https://en.wikipedia.org/wiki/2023-24_Football_League",
-        "tier": "tier1",
-        "season": 2023,
-        "table": [],
-        "relegated": [],
-        "promoted": []
-      },
-      "tier2": {
-        "seasonSlug": "2023-24_Football_League",
-        "sourceUrl": "https://en.wikipedia.org/wiki/2023-24_Football_League",
-        "tier": "tier2",
-        "season": 2023,
-        "table": [],
-        "relegated": [],
-        "promoted": []
       }
     }
   }
