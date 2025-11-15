@@ -5,6 +5,9 @@
   "type": "module",
   "scripts": {
     "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest",
+    "test:integration": "cross-env NODE_OPTIONS=--experimental-vm-modules jest -c jest.integration.config.js",
+    "test:integration:promotion": "cross-env NODE_OPTIONS=--experimental-vm-modules WIKI_TEST_SOURCE=promotion jest -c jest.integration.config.js",
+    "test:integration:overview": "cross-env NODE_OPTIONS=--experimental-vm-modules WIKI_TEST_SOURCE=overview jest -c jest.integration.config.js",
     "test:coverage": "cross-env NODE_OPTIONS=--experimental-vm-modules jest --coverage",
     "test:watch": "cross-env NODE_OPTIONS=--experimental-vm-modules jest --watch",
     "lint": "eslint . --ext .js,.mjs",
