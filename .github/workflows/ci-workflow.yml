@@ -13,27 +13,24 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
       # Install pnpm (puts it on PATH)
       - name: Install pnpm
         uses: pnpm/action-setup@v4
         with:
           version: 10.13.1
-
       # Setup Node.js (reads from .nvmrc if present)
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version-file: '.nvmrc'
           cache: 'pnpm'
-
       # Install dependencies
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      # Lint
+      - name: Test
+        run: pnpm test
       - name: Lint
         run: pnpm lint
-
       - name: Formatter Check
         run: pnpm format:check

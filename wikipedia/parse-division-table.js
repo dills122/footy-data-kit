@@ -1,105 +1,141 @@
 import * as cheerio from 'cheerio';
+import { isFirstDivision } from '../utils.js';
+import { cellText, isExpansionTeam, normalizeHeader, wasPromoted, wasRelegated } from './utils.js';
 
-/**
- * Normalize header text to map columns reliably across eras.
- */
-function normalizeHeader(txt) {
-  const t = txt.trim().toLowerCase().replace(/\s+/g, ' ').replace(/[.]/g, '');
+const DIVISION_HEADER_SLUGS = {
+  first: ['#First_Division', '#Football_League_First_Division', '#First_Division_table'],
+  second: ['#Second_Division', '#Football_League_Second_Division', '#Second_Division_table'],
+};
 
-  if (t === 'pos' || t === 'position' || t === 'no') return 'pos';
-  if (t === 'team' || t === 'club' || t === 'side') return 'team';
-  if (t === 'pld' || t === 'p' || t === 'played') return 'played';
-  if (t === 'w' || t === 'won') return 'won';
-  if (t === 'd' || t === 'draw' || t === 'drawn') return 'drawn';
-  if (t === 'l' || t === 'lost') return 'lost';
-  if (t === 'gf' || t === 'goals for') return 'goalsFor';
-  if (t === 'ga' || t === 'goals against') return 'goalsAgainst';
-  if (t === 'gd' || t === 'goal difference') return 'goalDifference';
-  if (t === 'gav' || t === 'gavg' || t === 'goal average' || t === 'ga v' || t === 'g av')
-    return 'goalAverage';
-  if (t === 'pts' || t === 'points') return 'points';
-  if (t.includes('qualification') || t.includes('relegation') || t === 'notes' || t === 'remarks')
-    return 'notes';
-  return t; // unknown, keep raw (won't be mapped)
+const GENERIC_TABLE_FALLBACKS = ['#Final_league_table', '#League_table'];
+
+function splitLegendCodes(raw) {
+  return String(raw || '')
+    .split(/[,/]|(?:\band\b)|(?:\bor\b)/gi)
+    .map((code) =>
+      code
+        .replace(/[^A-Za-z0-9+]/g, '')
+        .trim()
+        .toUpperCase()
+    )
+    .filter(Boolean);
 }
 
-/**
- * Note flag helpers
- */
-function wasRelegated(note) {
-  const n = String(note || '').toLowerCase();
-  if (!n) return false;
-
-  if (n.includes('relegat')) return true;
-  if (n.includes('demoted to the')) return true;
-
-  // Explicit cases that mean NOT relegated
-  if (n.includes('re-elected')) return false;
-  if (n.includes('reprived from re-election') || n.includes('reprieved from re-election'))
-    return false;
-
-  return false;
-}
-
-function wasPromoted(note) {
-  return String(note || '')
-    .toLowerCase()
-    .includes('promot');
-}
-
-function isExpansionTeam(note) {
-  const n = String(note || '').toLowerCase();
-  return (
-    n.includes('expansion') ||
-    n.includes('new club') ||
-    n.includes('admitted') ||
-    n.includes('joined league')
-  );
-}
-
-/**
- * Extract clean text from a cell: strips references/footnotes.
- */
-function cellText($, cell) {
-  const clone = $(cell).clone();
-  clone.find('sup.reference, span.reference, style, script, .navbar, .plainlinks, .hlist').remove();
-  return clone
-    .text()
-    .replace(/\[\d+\]/g, '')
+function parseLegendText(rawText) {
+  const text = String(rawText || '')
+    .replace(/\s+/g, ' ')
     .trim();
-}
+  if (!text) return null;
 
-function mapDivisionToSlug(division) {
-  switch (division) {
-    case 'first':
-      return '#First_Division';
-    case 'second':
-      return '#Second_Division';
-    default:
-      return '';
-  }
-}
-
-function fallbackHeadersForEarlyYears($) {
-  const possibleHeaders = ['#Final_league_table', '#League_table'];
-
-  for (const slug of possibleHeaders) {
-    const header = $(slug);
-    if (header.length) {
-      return header;
+  /** @type {Record<string, { promoted: boolean; relegated: boolean }>} */
+  const legend = {};
+  const regex = /\(([^)]+)\)\s*([^();]+)/g;
+  let match;
+  while ((match = regex.exec(text))) {
+    const codes = splitLegendCodes(match[1]);
+    const descriptor = match[2].trim().toLowerCase();
+    if (!codes.length) continue;
+    for (const code of codes) {
+      if (!legend[code]) {
+        legend[code] = { promoted: false, relegated: false };
+      }
+      if (/promot/.test(descriptor) || /play-?off/.test(descriptor)) {
+        legend[code].promoted = true;
+      }
+      if (/relegat/.test(descriptor) || /demot/.test(descriptor)) {
+        legend[code].relegated = true;
+      }
     }
   }
 
-  // Nothing found
+  return Object.keys(legend).length ? legend : null;
+}
+
+function extractLegendSymbols($, teamCell) {
+  const symbols = new Set();
+  if (!teamCell || !teamCell.length) return symbols;
+
+  const capture = (text) => {
+    if (!text) return;
+    const regex = /\(([^)]+)\)/g;
+    let match;
+    while ((match = regex.exec(text))) {
+      splitLegendCodes(match[1]).forEach((code) => symbols.add(code));
+    }
+  };
+
+  capture(teamCell.text());
+  teamCell.find('*').each((_, node) => {
+    const nodeText = $(node).text();
+    capture(nodeText);
+    splitLegendCodes(nodeText).forEach((code) => symbols.add(code));
+  });
+
+  return symbols;
+}
+
+function applyLegendStatuses($, teamCell, row, legendMap, division) {
+  if (!legendMap) return;
+  const suppressPromotion = isFirstDivision(division);
+  const symbols = extractLegendSymbols($, teamCell);
+  symbols.forEach((symbol) => {
+    const entry = legendMap[symbol];
+    if (!entry) return;
+    if (entry.promoted && !suppressPromotion) row.wasPromoted = true;
+    if (entry.relegated) row.wasRelegated = true;
+  });
+}
+
+function extractLegendForTable($, tableEl) {
+  if (!tableEl || !tableEl.length) return null;
+  let cursor = tableEl.next();
+
+  const isLegendNode = (node) => {
+    if (!node || !node.length) return false;
+    const cls = String(node.attr('class') || '');
+    return /sports-table-notes/i.test(cls) || /legend/i.test(cls);
+  };
+
+  while (cursor.length) {
+    if (isLegendNode(cursor)) {
+      const legendText = cursor
+        .clone()
+        .find('sup.reference, .reference, style, script')
+        .remove()
+        .end()
+        .text();
+      const parsed = parseLegendText(legendText);
+      if (parsed) return parsed;
+    }
+
+    if (cursor.is('table')) break;
+    const tag = String(cursor.prop('tagName') || '');
+    if (/^H[1-6]$/.test(tag)) break;
+    cursor = cursor.next();
+  }
+
   return null;
 }
 
-/**
- * Util methods
- */
+function findDivisionHeader($, division) {
+  const candidateSlugs = DIVISION_HEADER_SLUGS[division] || [];
+  for (const slug of candidateSlugs) {
+    const header = $(slug);
+    if (header.length) return header;
+  }
 
-function isFirstDivision(division) {
-  return `${division}`.toLowerCase().includes('first');
+  const normalizedDivisionText = division === 'second' ? 'second division' : 'first division';
+  const headlineMatch = $('span.mw-headline')
+    .filter((_, el) => $(el).text().trim().toLowerCase().includes(normalizedDivisionText))
+    .first();
+  if (headlineMatch.length) return headlineMatch;
+
+  for (const slug of GENERIC_TABLE_FALLBACKS) {
+    const header = $(slug);
+    if (header.length) return header;
+  }
+
+  return null;
 }
 
 /**
@@ -108,22 +144,22 @@ function isFirstDivision(division) {
 export function parseDivisionTable(html, division) {
   const $ = cheerio.load(html);
 
-  const headerSlug = mapDivisionToSlug(division);
-
-  //fallback check, if no header found with that, check if league table or final league table League_table,
-
   // Step 1: Find the header
-  let header = $(headerSlug);
-  if (!header.length) {
-    header = fallbackHeadersForEarlyYears($);
-    if (!header) {
-      console.warn('⚠️ No known league table header found for this season');
-      return []; //exit early
-    }
+  const header = findDivisionHeader($, division);
+  if (!header) {
+    console.warn(
+      `⚠️ No known league table header found for ${division} division in this season; returning empty table`
+    );
+    return [];
   }
 
   // Step 2: From that header, traverse forward to the first .wikitable
   const table = header.closest('div').nextAll('.wikitable').first();
+  if (!table.length) {
+    console.warn('⚠️ No league table element found after division header');
+    return [];
+  }
+  const legendMap = extractLegendForTable($, table);
 
   // Build header map (index -> field)
   const headerRow = table.find('tr').first();
@@ -151,16 +187,15 @@ export function parseDivisionTable(html, division) {
       // Skip sub-headers or separators
       const dataCells = $tr.find('td, th[scope="row"]');
       if (dataCells.length === 0) return;
+      const cellElements = dataCells.toArray();
 
       // Collect texts
-      const texts = [];
-      dataCells.each((_, c) => {
+      const texts = cellElements.map((c) => {
         if ($(c).is('th[scope="row"]')) {
           const teamLink = $(c).find('a').first().text().trim();
-          texts.push(teamLink || cellText($, c));
-        } else {
-          texts.push(cellText($, c));
+          return teamLink || cellText($, c);
         }
+        return cellText($, c);
       });
 
       const isProbablyHeader =
@@ -237,6 +272,11 @@ export function parseDivisionTable(html, division) {
       row.wasReprieved = /repriv(?:ed|ed) from re-election/.test(
         String(row.notes || '').toLowerCase()
       );
+
+      const teamIdx = idxOf('team');
+      if (teamIdx !== -1 && cellElements[teamIdx]) {
+        applyLegendStatuses($, $(cellElements[teamIdx]), row, legendMap, division);
+      }
 
       if (row.team && row.pos != null) {
         results.push(row);
