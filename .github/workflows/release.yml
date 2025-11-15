@@ -1,0 +1,78 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.13.1
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Test
+        run: pnpm test
+
+      - name: Integration tests
+        run: pnpm test:integration
+
+      - name: Lint
+        run: pnpm lint
+
+      - name: Formatter Check
+        run: pnpm format:check
+
+      - name: Derive release metadata
+        id: release_meta
+        run: |
+          TAG_NAME="${GITHUB_REF#refs/tags/}"
+          echo "tag=${TAG_NAME}" >> "$GITHUB_OUTPUT"
+
+      - name: Generate Wikipedia datasets
+        run: |
+          rm -rf data-output
+          mkdir -p data-output
+          pnpm exec node wikipedia/cli.js build --start 1888 --end 1990 --output ./data-output
+          pnpm exec node wikipedia/cli.js overview --start 1991 --end 2024 --output ./data-output
+          pnpm exec node wikipedia/combine-output-files.js --output ./data-output/all-seasons.json \
+            ./data-output/wiki_overview_tables_by_season.json \
+            ./data-output/wiki_promotion_relegations_by_season.json
+          pnpm exec node scripts/verify-football-data.js --fail-on-issues ./data-output
+          pnpm exec node scripts/minify-json.js ./data-output/all-seasons.json
+          pnpm exec node scripts/minify-json.js ./data-output/wiki_overview_tables_by_season.json
+          pnpm exec node scripts/minify-json.js ./data-output/wiki_promotion_relegations_by_season.json
+
+      - name: Archive generated data
+        run: |
+          zip -r "footy-data-kit-${{ steps.release_meta.outputs.tag }}-data.zip" data-output
+
+      - name: Create GitHub release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ steps.release_meta.outputs.tag }}
+          name: Release ${{ steps.release_meta.outputs.tag }}
+          files: footy-data-kit-${{ steps.release_meta.outputs.tag }}-data.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
