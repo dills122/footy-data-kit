@@ -2,8 +2,8 @@ name: Wikipedia Integration Check
 
 on:
   schedule:
-    # 8:00 PM ET on Mon/Wed/Fri ~= 01:00 UTC on Tue/Thu/Sat
-    - cron: '0 1 * * 2,4,6'
+    # 8:00 PM ET on Mon/Thu ~= 01:00 UTC on Tue/Fri
+    - cron: '0 1 * * 2,5'
   workflow_dispatch:
 
 jobs:
