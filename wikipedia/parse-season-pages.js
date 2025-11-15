@@ -135,8 +135,11 @@ export async function buildPromotionRelegation(startYear, endYear, outputFile, o
         metadata: { seasonSlug: slug, sourceUrl: `https://en.wikipedia.org/wiki/${slug}` },
       }),
       tier1: tier1Results,
-      tier2: tier2Results,
     };
+
+    if (Array.isArray(tier2) && tier2.length > 0) {
+      seasonRecord.tier2 = tier2Results;
+    }
 
     setSeasonRecord(dataset, year, seasonRecord);
     saveFootballData(outputFile, dataset);
