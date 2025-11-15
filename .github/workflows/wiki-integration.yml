@@ -1,0 +1,32 @@
+name: Wikipedia Integration Check
+
+on:
+  schedule:
+    # 8:00 PM ET on Mon/Thu ~= 01:00 UTC on Tue/Fri
+    - cron: '0 1 * * 2,5'
+  workflow_dispatch:
+
+jobs:
+  wiki-integration:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.13.1
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run Wikipedia integration tests
+        run: pnpm test:integration

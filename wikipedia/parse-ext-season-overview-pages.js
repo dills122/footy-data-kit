@@ -204,10 +204,23 @@ function extractLegendSymbols($, teamCell) {
   if (!teamCell || !teamCell.length) return symbols;
   const capture = (text) => {
     if (!text) return;
-    const regex = /\(([A-Za-z0-9+]+)\)/g;
+    const regex = /\(([^()]+)\)/g;
     let match;
     while ((match = regex.exec(text))) {
-      symbols.add(match[1].toUpperCase());
+      String(match[1] || '')
+        .split(/[,/]/)
+        .map((token) => token.trim())
+        .filter((token) => token.length)
+        .forEach((token) => {
+          if (/^[A-Za-z0-9+]{1,3}$/.test(token)) {
+            symbols.add(token.toUpperCase());
+          }
+        });
+    }
+
+    const stripped = text.replace(/[()]/g, '').trim();
+    if (/^[A-Za-z0-9+]{1,3}$/.test(stripped)) {
+      symbols.add(stripped.toUpperCase());
     }
   };
 
@@ -215,11 +228,8 @@ function extractLegendSymbols($, teamCell) {
   teamCell.find('*').each((_, node) => {
     const nodeText = $(node).text();
     capture(nodeText);
-    const stripped = nodeText.replace(/[()]/g, '').trim();
-    if (/^[A-Za-z0-9+]{1,3}$/.test(stripped)) {
-      symbols.add(stripped.toUpperCase());
-    }
   });
+
   return symbols;
 }
 
@@ -400,6 +410,7 @@ function parseTablesForHeading($, headingWrapper, { leagueTitle, leagueId } = {}
       title: tableTitle,
       id: headingId,
       tableIndex: tables.length > 1 ? index : 0,
+      isTopFlight: suppressPromotionFlags,
       rows,
     });
   });
@@ -571,25 +582,77 @@ function isWarSuspensionYear(year) {
   return WWI_SUSPENSION_YEARS.has(year) || WWII_SUSPENSION_YEARS.has(year);
 }
 
-function collectOutcomeTeams(tables, flag) {
+function deriveMajorTierIndexes(tables) {
+  if (!Array.isArray(tables) || !tables.length) {
+    return { topFlightIndex: null, secondTierIndex: null };
+  }
+
+  const hasPremierLeagueHeading = tables.some((table) =>
+    String(table?.title || '')
+      .toLowerCase()
+      .includes('premier league')
+  );
+
+  let topFlightIndex = tables.findIndex((table) => {
+    if (!table) return false;
+    if (typeof table.isTopFlight === 'boolean') return table.isTopFlight;
+    return shouldTreatAsTopFlight(table.title, { hasPremierLeagueHeading });
+  });
+
+  if (topFlightIndex === -1) {
+    topFlightIndex = tables.length ? 0 : -1;
+  }
+
+  let secondTierIndex = null;
+  if (topFlightIndex !== -1) {
+    for (let i = topFlightIndex + 1; i < tables.length; i++) {
+      const candidate = tables[i];
+      if (!candidate || !Array.isArray(candidate.rows) || !candidate.rows.length) continue;
+      secondTierIndex = i;
+      break;
+    }
+  }
+
+  return {
+    topFlightIndex: topFlightIndex === -1 ? null : topFlightIndex,
+    secondTierIndex,
+  };
+}
+
+function collectOutcomeTeams(tables, flag, options = {}) {
+  const indexes = Array.isArray(options?.includeIndexes)
+    ? options.includeIndexes.filter((index) => Number.isInteger(index) && index >= 0)
+    : [];
+  const allowedIndexes = indexes.length ? new Set(indexes) : null;
   const teams = new Set();
-  tables.forEach((table) => {
+
+  tables.forEach((table, index) => {
+    if (allowedIndexes && !allowedIndexes.has(index)) return;
+    if (!table || !Array.isArray(table.rows)) return;
     table.rows.forEach((row) => {
       if (row && row[flag] && row.team) {
         teams.add(row.team);
       }
     });
   });
+
   return Array.from(teams);
 }
 
-function buildSeasonOverviewSeasonRecord({ seasonKey, seasonYear, seasonSlug, tables }) {
+export function buildSeasonOverviewSeasonRecord({ seasonKey, seasonYear, seasonSlug, tables }) {
   const numericSeason = Number.isFinite(seasonYear)
     ? /** @type {number} */ (seasonYear)
     : Number.parseInt(seasonKey, 10);
   const safeSeason = Number.isFinite(numericSeason) ? numericSeason : 0;
-  const promotedTeams = collectOutcomeTeams(tables, 'wasPromoted');
-  const relegatedTeams = collectOutcomeTeams(tables, 'wasRelegated');
+  const { topFlightIndex, secondTierIndex } = deriveMajorTierIndexes(tables);
+  const promotedTeams =
+    secondTierIndex != null
+      ? collectOutcomeTeams(tables, 'wasPromoted', { includeIndexes: [secondTierIndex] })
+      : [];
+  const relegatedTeams =
+    topFlightIndex != null
+      ? collectOutcomeTeams(tables, 'wasRelegated', { includeIndexes: [topFlightIndex] })
+      : [];
 
   const seasonInfo = buildTierData(safeSeason, [], {
     promoted: promotedTeams,
@@ -696,5 +759,6 @@ export default {
   buildSeasonOverviewSlug,
   buildSeasonOverview,
   buildSeasonOverviewForSlug,
+  buildSeasonOverviewSeasonRecord,
   parseOverviewLeagueTables,
 };
