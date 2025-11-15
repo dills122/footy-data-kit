@@ -2,6 +2,7 @@
 import { Command } from 'commander';
 import * as fs from 'node:fs';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { createFootballData, loadFootballData, saveFootballData } from './generate-output-files.js';
 
 const TIER_KEY_PATTERN = /^tier/i;
@@ -129,138 +130,205 @@ function normaliseGoalDifferences(dataset) {
   }
 }
 
-const program = new Command();
-
-program
-  .name('combine-output-files')
-  .description('Combine multiple FootballData JSON files into a single dataset.')
-  .argument('<inputs...>', 'Paths to FootballData JSON files to merge')
-  .requiredOption('-o, --output <file>', 'Path to write the merged FootballData JSON file')
-  .option('--include-empty', 'Keep seasons that have no table/promoted/relegated entries', false)
-  .option('--compact', 'Write the output without indentation', false)
-  .parse(process.argv);
-
-const inputFiles = program.args;
-const { output, includeEmpty, compact } = program.opts();
-
-if (!inputFiles.length) {
-  program.error('At least one input file must be provided.');
-}
-
-const resolvedOutput = path.resolve(process.cwd(), output);
-const pretty = compact ? false : 2;
-
-const combinedDataset = createFootballData();
-let totalInputSeasons = 0;
-
-for (const input of inputFiles) {
-  const resolvedInput = path.resolve(process.cwd(), input);
-
-  if (!fs.existsSync(resolvedInput)) {
-    program.error(`Input file not found: ${input}`);
+export function combineFootballDataFiles({
+  inputs,
+  output,
+  includeEmpty = false,
+  compact = false,
+  cwd = process.cwd(),
+} = {}) {
+  if (!inputs || !inputs.length) {
+    throw new Error('At least one input file must be provided.');
   }
 
-  try {
-    const incoming = loadFootballData(resolvedInput);
-    totalInputSeasons += Object.keys(incoming.seasons).length;
-    for (const [seasonKey, seasonValue] of Object.entries(incoming.seasons)) {
-      const existingRecord = combinedDataset.seasons[seasonKey];
-      if (!existingRecord) {
-        combinedDataset.seasons[seasonKey] = seasonValue;
-        continue;
+  const resolvedOutput = path.resolve(cwd, output);
+  const pretty = compact ? false : 2;
+  const combinedDataset = createFootballData();
+  let totalInputSeasons = 0;
+
+  for (const input of inputs) {
+    const resolvedInput = path.resolve(cwd, input);
+
+    if (!fs.existsSync(resolvedInput)) {
+      throw new Error(`Input file not found: ${input}`);
+    }
+
+    try {
+      const incoming = loadFootballData(resolvedInput);
+      totalInputSeasons += Object.keys(incoming.seasons).length;
+      for (const [seasonKey, seasonValue] of Object.entries(incoming.seasons)) {
+        const existingRecord = combinedDataset.seasons[seasonKey];
+        if (!existingRecord) {
+          combinedDataset.seasons[seasonKey] = seasonValue;
+          continue;
+        }
+
+        combinedDataset.seasons[seasonKey] = mergeSeasonRecords(
+          existingRecord,
+          seasonValue,
+          includeEmpty
+        );
       }
-
-      combinedDataset.seasons[seasonKey] = mergeSeasonRecords(
-        existingRecord,
-        seasonValue,
-        includeEmpty
-      );
+    } catch (error) {
+      throw new Error(`Failed to load ${input}: ${/** @type {Error} */ (error).message}`);
     }
-  } catch (error) {
-    program.error(`Failed to load ${input}: ${/** @type {Error} */ (error).message}`);
   }
-}
 
-const mergedSeasonEntries = Object.entries(combinedDataset.seasons);
-const nonWarSeasonEntries = mergedSeasonEntries.filter(
-  ([seasonKey]) => !isWarSuspensionSeason(seasonKey)
-);
-const removedWarSeasons = mergedSeasonEntries.length - nonWarSeasonEntries.length;
-if (removedWarSeasons) {
-  console.log(
-    `Removing ${removedWarSeasons} war suspension season${
-      removedWarSeasons === 1 ? '' : 's'
-    } from output`
+  const mergedSeasonEntries = Object.entries(combinedDataset.seasons);
+  const nonWarSeasonEntries = mergedSeasonEntries.filter(
+    ([seasonKey]) => !isWarSuspensionSeason(seasonKey)
   );
-}
-const filteredSeasonEntries = includeEmpty
-  ? nonWarSeasonEntries
-  : nonWarSeasonEntries.filter(([, seasonValue]) => seasonHasData(seasonValue));
-const filteredSeasonKeys = new Set(filteredSeasonEntries.map(([seasonKey]) => seasonKey));
-const excludedSeasonEntries = nonWarSeasonEntries.filter(
-  ([seasonKey]) => !filteredSeasonKeys.has(seasonKey)
-);
-const excludedCount = excludedSeasonEntries.length;
-const finalDataset = createFootballData({
-  seasons: Object.fromEntries(filteredSeasonEntries),
-});
+  const removedWarSeasons = mergedSeasonEntries.length - nonWarSeasonEntries.length;
+  const filteredSeasonEntries = includeEmpty
+    ? nonWarSeasonEntries
+    : nonWarSeasonEntries.filter(([, seasonValue]) => seasonHasData(seasonValue));
+  const filteredSeasonKeys = new Set(filteredSeasonEntries.map(([seasonKey]) => seasonKey));
+  const excludedSeasonEntries = nonWarSeasonEntries.filter(
+    ([seasonKey]) => !filteredSeasonKeys.has(seasonKey)
+  );
+  const excludedCount = excludedSeasonEntries.length;
+  const finalDataset = createFootballData({
+    seasons: Object.fromEntries(filteredSeasonEntries),
+  });
 
-normaliseGoalDifferences(finalDataset);
+  normaliseGoalDifferences(finalDataset);
+  saveFootballData(resolvedOutput, finalDataset, { pretty });
 
-saveFootballData(resolvedOutput, finalDataset, { pretty });
-
-console.log(
-  [
-    `Merged ${filteredSeasonEntries.length} seasons`,
-    `from ${inputFiles.length} file${inputFiles.length === 1 ? '' : 's'}`,
-    excludedCount ? `(skipped ${excludedCount} empty season${excludedCount === 1 ? '' : 's'})` : '',
-    `→ ${resolvedOutput}`,
-  ]
-    .filter(Boolean)
-    .join(' ')
-);
-console.log(`Total seasons encountered across inputs: ${totalInputSeasons}`);
-
-const missingSeasonNumbers = excludedSeasonEntries
-  .map(([seasonKey]) => parseSeasonKey(seasonKey))
-  .filter((value) => value != null);
-
-if (missingSeasonNumbers.length) {
-  const groupedMissing = {
-    ww1: [],
-    ww2: [],
-    other: [],
-  };
-
-  for (const seasonNumber of missingSeasonNumbers.sort((a, b) => a - b)) {
-    // Heuristic: seasons paused during WW1 (1915-1919) or WW2 (1940-1946) are expected gaps.
-    if (seasonNumber >= 1915 && seasonNumber <= 1919) {
-      groupedMissing.ww1.push(seasonNumber);
-    } else if (seasonNumber >= 1940 && seasonNumber <= 1946) {
-      groupedMissing.ww2.push(seasonNumber);
-    } else {
-      groupedMissing.other.push(seasonNumber);
-    }
-  }
-
-  console.log('\nMissing seasons (no table/promoted/relegated data in output):');
-  if (groupedMissing.ww1.length) {
-    console.log(`  WW1 suspensions: ${groupedMissing.ww1.join(', ')}`);
-  }
-  if (groupedMissing.ww2.length) {
-    console.log(`  WW2 suspensions: ${groupedMissing.ww2.join(', ')}`);
-  }
-  if (groupedMissing.other.length) {
-    console.log(`  Needs attention: ${groupedMissing.other.join(', ')}`);
-  }
+  const missingSeasonNumbers = excludedSeasonEntries
+    .map(([seasonKey]) => parseSeasonKey(seasonKey))
+    .filter((value) => value != null);
 
   const nonNumericMissing = excludedSeasonEntries
     .map(([seasonKey]) => seasonKey)
     .filter((seasonKey) => parseSeasonKey(seasonKey) == null);
 
-  if (nonNumericMissing.length) {
-    console.log(`  Unparsed season keys: ${nonNumericMissing.join(', ')}`);
-  }
-} else {
-  console.log('\nAll encountered seasons were included in the merged output.');
+  return {
+    dataset: finalDataset,
+    outputPath: resolvedOutput,
+    stats: {
+      mergedSeasonCount: filteredSeasonEntries.length,
+      inputCount: inputs.length,
+      excludedCount,
+      totalInputSeasons,
+      removedWarSeasons,
+      missingSeasonNumbers,
+      nonNumericMissing,
+    },
+  };
 }
+
+export function runCli(argv = process.argv) {
+  const program = new Command();
+
+  program
+    .name('combine-output-files')
+    .description('Combine multiple FootballData JSON files into a single dataset.')
+    .argument('<inputs...>', 'Paths to FootballData JSON files to merge')
+    .requiredOption('-o, --output <file>', 'Path to write the merged FootballData JSON file')
+    .option('--include-empty', 'Keep seasons that have no table/promoted/relegated entries', false)
+    .option('--compact', 'Write the output without indentation', false);
+
+  program.parse(argv);
+
+  const inputFiles = program.args;
+  const { output, includeEmpty, compact } = program.opts();
+
+  if (!inputFiles.length) {
+    program.error('At least one input file must be provided.');
+  }
+
+  try {
+    const result = combineFootballDataFiles({
+      inputs: inputFiles,
+      output,
+      includeEmpty,
+      compact,
+      cwd: process.cwd(),
+    });
+
+    const { stats, outputPath } = result;
+    const {
+      mergedSeasonCount,
+      inputCount,
+      excludedCount,
+      totalInputSeasons,
+      removedWarSeasons,
+      missingSeasonNumbers,
+      nonNumericMissing,
+    } = stats;
+
+    if (removedWarSeasons) {
+      console.log(
+        `Removing ${removedWarSeasons} war suspension season${
+          removedWarSeasons === 1 ? '' : 's'
+        } from output`
+      );
+    }
+
+    console.log(
+      [
+        `Merged ${mergedSeasonCount} seasons`,
+        `from ${inputCount} file${inputCount === 1 ? '' : 's'}`,
+        excludedCount
+          ? `(skipped ${excludedCount} empty season${excludedCount === 1 ? '' : 's'})`
+          : '',
+        `→ ${outputPath}`,
+      ]
+        .filter(Boolean)
+        .join(' ')
+    );
+    console.log(`Total seasons encountered across inputs: ${totalInputSeasons}`);
+
+    if (missingSeasonNumbers.length) {
+      const groupedMissing = {
+        ww1: [],
+        ww2: [],
+        other: [],
+      };
+
+      for (const seasonNumber of missingSeasonNumbers.sort((a, b) => a - b)) {
+        if (seasonNumber >= 1915 && seasonNumber <= 1919) {
+          groupedMissing.ww1.push(seasonNumber);
+        } else if (seasonNumber >= 1940 && seasonNumber <= 1946) {
+          groupedMissing.ww2.push(seasonNumber);
+        } else {
+          groupedMissing.other.push(seasonNumber);
+        }
+      }
+
+      console.log('\nMissing seasons (no table/promoted/relegated data in output):');
+      if (groupedMissing.ww1.length) {
+        console.log(`  WW1 suspensions: ${groupedMissing.ww1.join(', ')}`);
+      }
+      if (groupedMissing.ww2.length) {
+        console.log(`  WW2 suspensions: ${groupedMissing.ww2.join(', ')}`);
+      }
+      if (groupedMissing.other.length) {
+        console.log(`  Needs attention: ${groupedMissing.other.join(', ')}`);
+      }
+
+      if (nonNumericMissing.length) {
+        console.log(`  Unparsed season keys: ${nonNumericMissing.join(', ')}`);
+      }
+    } else {
+      console.log('\nAll encountered seasons were included in the merged output.');
+    }
+
+    return result;
+  } catch (error) {
+    program.error(error instanceof Error ? error.message : String(error));
+  }
+}
+
+const isDirectExecution = process.argv[1]
+  ? path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)
+  : false;
+
+if (isDirectExecution) {
+  runCli(process.argv);
+}
+
+export default {
+  combineFootballDataFiles,
+  runCli,
+};
