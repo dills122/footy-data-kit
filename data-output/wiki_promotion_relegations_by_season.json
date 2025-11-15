@@ -246,244 +246,6 @@
         ],
         "relegated": [],
         "promoted": []
-      },
-      "tier2": {
-        "seasonSlug": "1888-89_Football_League",
-        "sourceUrl": "https://en.wikipedia.org/wiki/1888-89_Football_League",
-        "tier": "tier2",
-        "season": 1888,
-        "table": [
-          {
-            "pos": 1,
-            "team": "Preston North End",
-            "played": 22,
-            "won": 18,
-            "drawn": 4,
-            "lost": 0,
-            "goalsFor": 74,
-            "goalsAgainst": 15,
-            "goalDifference": 59,
-            "goalAverage": 4.933,
-            "points": 40,
-            "notes": null,
-            "wasRelegated": false,
-            "wasPromoted": false,
-            "isExpansionTeam": false,
-            "wasReElected": false,
-            "wasReprieved": false
-          },
-          {
-            "pos": 2,
-            "team": "Aston Villa",
-            "played": 22,
-            "won": 12,
-            "drawn": 5,
-            "lost": 5,
-            "goalsFor": 61,
-            "goalsAgainst": 43,
-            "goalDifference": 18,
-            "goalAverage": 1.419,
-            "points": 29,
-            "notes": null,
-            "wasRelegated": false,
-            "wasPromoted": false,
-            "isExpansionTeam": false,
-            "wasReElected": false,
-            "wasReprieved": false
-          },
-          {
-            "pos": 3,
-            "team": "Wolverhampton Wanderers",
-            "played": 22,
-            "won": 12,
-            "drawn": 4,
-            "lost": 6,
-            "goalsFor": 51,
-            "goalsAgainst": 37,
-            "goalDifference": 14,
-            "goalAverage": 1.378,
-            "points": 28,
-            "notes": null,
-            "wasRelegated": false,
-            "wasPromoted": false,
-            "isExpansionTeam": false,
-            "wasReElected": false,
-            "wasReprieved": false
-          },
-          {
-            "pos": 4,
-            "team": "Blackburn Rovers",
-            "played": 22,
-            "won": 10,
-            "drawn": 6,
-            "lost": 6,
-            "goalsFor": 66,
-            "goalsAgainst": 45,
-            "goalDifference": 21,
-            "goalAverage": 1.467,
-            "points": 26,
-            "notes": null,
-            "wasRelegated": false,
-            "wasPromoted": false,
-            "isExpansionTeam": false,
-            "wasReElected": false,
-            "wasReprieved": false
-          },
-          {
-            "pos": 5,
-            "team": "Bolton Wanderers",
-            "played": 22,
-            "won": 10,
-            "drawn": 2,
-            "lost": 10,
-            "goalsFor": 63,
-            "goalsAgainst": 59,
-            "goalDifference": 4,
-            "goalAverage": 1.068,
-            "points": 22,
-            "notes": null,
-            "wasRelegated": false,
-            "wasPromoted": false,
-            "isExpansionTeam": false,
-            "wasReElected": false,
-            "wasReprieved": false
-          },
-          {
-            "pos": 6,
-            "team": "West Bromwich Albion",
-            "played": 22,
-            "won": 10,
-            "drawn": 2,
-            "lost": 10,
-            "goalsFor": 40,
-            "goalsAgainst": 46,
-            "goalDifference": -6,
-            "goalAverage": 0.87,
-            "points": 22,
-            "notes": null,
-            "wasRelegated": false,
-            "wasPromoted": false,
-            "isExpansionTeam": false,
-            "wasReElected": false,
-            "wasReprieved": false
-          },
-          {
-            "pos": 7,
-            "team": "Accrington",
-            "played": 22,
-            "won": 6,
-            "drawn": 8,
-            "lost": 8,
-            "goalsFor": 48,
-            "goalsAgainst": 48,
-            "goalDifference": 0,
-            "goalAverage": 1,
-            "points": 20,
-            "notes": null,
-            "wasRelegated": false,
-            "wasPromoted": false,
-            "isExpansionTeam": false,
-            "wasReElected": false,
-            "wasReprieved": false
-          },
-          {
-            "pos": 8,
-            "team": "Everton",
-            "played": 22,
-            "won": 9,
-            "drawn": 2,
-            "lost": 11,
-            "goalsFor": 35,
-            "goalsAgainst": 47,
-            "goalDifference": -12,
-            "goalAverage": 0.745,
-            "points": 20,
-            "notes": null,
-            "wasRelegated": false,
-            "wasPromoted": false,
-            "isExpansionTeam": false,
-            "wasReElected": false,
-            "wasReprieved": false
-          },
-          {
-            "pos": 9,
-            "team": "Burnley",
-            "played": 22,
-            "won": 7,
-            "drawn": 3,
-            "lost": 12,
-            "goalsFor": 42,
-            "goalsAgainst": 62,
-            "goalDifference": -20,
-            "goalAverage": 0.677,
-            "points": 17,
-            "notes": "Re-elected",
-            "wasRelegated": false,
-            "wasPromoted": false,
-            "isExpansionTeam": false,
-            "wasReElected": true,
-            "wasReprieved": false
-          },
-          {
-            "pos": 10,
-            "team": "Derby County",
-            "played": 22,
-            "won": 7,
-            "drawn": 2,
-            "lost": 13,
-            "goalsFor": 41,
-            "goalsAgainst": 61,
-            "goalDifference": -20,
-            "goalAverage": 0.672,
-            "points": 16,
-            "notes": "Re-elected",
-            "wasRelegated": false,
-            "wasPromoted": false,
-            "isExpansionTeam": false,
-            "wasReElected": true,
-            "wasReprieved": false
-          },
-          {
-            "pos": 11,
-            "team": "Notts County",
-            "played": 22,
-            "won": 5,
-            "drawn": 2,
-            "lost": 15,
-            "goalsFor": 40,
-            "goalsAgainst": 73,
-            "goalDifference": -33,
-            "goalAverage": 0.548,
-            "points": 12,
-            "notes": "Re-elected",
-            "wasRelegated": false,
-            "wasPromoted": false,
-            "isExpansionTeam": false,
-            "wasReElected": true,
-            "wasReprieved": false
-          },
-          {
-            "pos": 12,
-            "team": "Stoke",
-            "played": 22,
-            "won": 4,
-            "drawn": 4,
-            "lost": 14,
-            "goalsFor": 26,
-            "goalsAgainst": 51,
-            "goalDifference": -25,
-            "goalAverage": 0.51,
-            "points": 12,
-            "notes": "Re-elected",
-            "wasRelegated": false,
-            "wasPromoted": false,
-            "isExpansionTeam": false,
-            "wasReElected": true,
-            "wasReprieved": false
-          }
-        ],
-        "relegated": [],
-        "promoted": []
       }
     },
     "1889": {
@@ -736,246 +498,6 @@
           "Stoke"
         ],
         "promoted": []
-      },
-      "tier2": {
-        "seasonSlug": "1889-90_Football_League",
-        "sourceUrl": "https://en.wikipedia.org/wiki/1889-90_Football_League",
-        "tier": "tier2",
-        "season": 1889,
-        "table": [
-          {
-            "pos": 1,
-            "team": "Preston North End",
-            "played": 22,
-            "won": 15,
-            "drawn": 3,
-            "lost": 4,
-            "goalsFor": 71,
-            "goalsAgainst": 30,
-            "goalDifference": 41,
-            "goalAverage": 2.367,
-            "points": 33,
-            "notes": null,
-            "wasRelegated": false,
-            "wasPromoted": false,
-            "isExpansionTeam": false,
-            "wasReElected": false,
-            "wasReprieved": false
-          },
-          {
-            "pos": 2,
-            "team": "Everton",
-            "played": 22,
-            "won": 14,
-            "drawn": 3,
-            "lost": 5,
-            "goalsFor": 65,
-            "goalsAgainst": 40,
-            "goalDifference": 25,
-            "goalAverage": 1.625,
-            "points": 31,
-            "notes": null,
-            "wasRelegated": false,
-            "wasPromoted": false,
-            "isExpansionTeam": false,
-            "wasReElected": false,
-            "wasReprieved": false
-          },
-          {
-            "pos": 3,
-            "team": "Blackburn Rovers",
-            "played": 22,
-            "won": 12,
-            "drawn": 3,
-            "lost": 7,
-            "goalsFor": 78,
-            "goalsAgainst": 41,
-            "goalDifference": 37,
-            "goalAverage": 1.902,
-            "points": 27,
-            "notes": null,
-            "wasRelegated": false,
-            "wasPromoted": false,
-            "isExpansionTeam": false,
-            "wasReElected": false,
-            "wasReprieved": false
-          },
-          {
-            "pos": 4,
-            "team": "Wolverhampton Wanderers",
-            "played": 22,
-            "won": 10,
-            "drawn": 5,
-            "lost": 7,
-            "goalsFor": 51,
-            "goalsAgainst": 38,
-            "goalDifference": 13,
-            "goalAverage": 1.342,
-            "points": 25,
-            "notes": null,
-            "wasRelegated": false,
-            "wasPromoted": false,
-            "isExpansionTeam": false,
-            "wasReElected": false,
-            "wasReprieved": false
-          },
-          {
-            "pos": 5,
-            "team": "West Bromwich Albion",
-            "played": 22,
-            "won": 11,
-            "drawn": 3,
-            "lost": 8,
-            "goalsFor": 47,
-            "goalsAgainst": 50,
-            "goalDifference": -3,
-            "goalAverage": 0.94,
-            "points": 25,
-            "notes": null,
-            "wasRelegated": false,
-            "wasPromoted": false,
-            "isExpansionTeam": false,
-            "wasReElected": false,
-            "wasReprieved": false
-          },
-          {
-            "pos": 6,
-            "team": "Accrington",
-            "played": 22,
-            "won": 9,
-            "drawn": 6,
-            "lost": 7,
-            "goalsFor": 53,
-            "goalsAgainst": 56,
-            "goalDifference": -3,
-            "goalAverage": 0.946,
-            "points": 24,
-            "notes": null,
-            "wasRelegated": false,
-            "wasPromoted": false,
-            "isExpansionTeam": false,
-            "wasReElected": false,
-            "wasReprieved": false
-          },
-          {
-            "pos": 7,
-            "team": "Derby County",
-            "played": 22,
-            "won": 9,
-            "drawn": 3,
-            "lost": 10,
-            "goalsFor": 43,
-            "goalsAgainst": 55,
-            "goalDifference": -12,
-            "goalAverage": 0.782,
-            "points": 21,
-            "notes": null,
-            "wasRelegated": false,
-            "wasPromoted": false,
-            "isExpansionTeam": false,
-            "wasReElected": false,
-            "wasReprieved": false
-          },
-          {
-            "pos": 8,
-            "team": "Aston Villa",
-            "played": 22,
-            "won": 7,
-            "drawn": 5,
-            "lost": 10,
-            "goalsFor": 43,
-            "goalsAgainst": 51,
-            "goalDifference": -8,
-            "goalAverage": 0.843,
-            "points": 19,
-            "notes": null,
-            "wasRelegated": false,
-            "wasPromoted": false,
-            "isExpansionTeam": false,
-            "wasReElected": false,
-            "wasReprieved": false
-          },
-          {
-            "pos": 9,
-            "team": "Bolton Wanderers",
-            "played": 22,
-            "won": 9,
-            "drawn": 1,
-            "lost": 12,
-            "goalsFor": 54,
-            "goalsAgainst": 65,
-            "goalDifference": -11,
-            "goalAverage": 0.831,
-            "points": 19,
-            "notes": null,
-            "wasRelegated": false,
-            "wasPromoted": false,
-            "isExpansionTeam": false,
-            "wasReElected": false,
-            "wasReprieved": false
-          },
-          {
-            "pos": 10,
-            "team": "Notts County",
-            "played": 22,
-            "won": 6,
-            "drawn": 5,
-            "lost": 11,
-            "goalsFor": 43,
-            "goalsAgainst": 51,
-            "goalDifference": -8,
-            "goalAverage": 0.843,
-            "points": 17,
-            "notes": "Re-elected",
-            "wasRelegated": false,
-            "wasPromoted": false,
-            "isExpansionTeam": false,
-            "wasReElected": true,
-            "wasReprieved": false
-          },
-          {
-            "pos": 11,
-            "team": "Burnley",
-            "played": 22,
-            "won": 4,
-            "drawn": 5,
-            "lost": 13,
-            "goalsFor": 36,
-            "goalsAgainst": 65,
-            "goalDifference": -29,
-            "goalAverage": 0.554,
-            "points": 13,
-            "notes": "Re-elected",
-            "wasRelegated": false,
-            "wasPromoted": false,
-            "isExpansionTeam": false,
-            "wasReElected": true,
-            "wasReprieved": false
-          },
-          {
-            "pos": 12,
-            "team": "Stoke",
-            "played": 22,
-            "won": 3,
-            "drawn": 4,
-            "lost": 15,
-            "goalsFor": 27,
-            "goalsAgainst": 69,
-            "goalDifference": -42,
-            "goalAverage": 0.391,
-            "points": 10,
-            "notes": "Failed re-election and demoted to the Football Alliance",
-            "wasRelegated": true,
-            "wasPromoted": false,
-            "isExpansionTeam": false,
-            "wasReElected": false,
-            "wasReprieved": false
-          }
-        ],
-        "relegated": [
-          "Stoke"
-        ],
-        "promoted": []
       }
     },
     "1890": {
@@ -991,244 +513,6 @@
         "seasonSlug": "1890-91_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/1890-91_Football_League",
         "tier": "tier1",
-        "season": 1890,
-        "table": [
-          {
-            "pos": 1,
-            "team": "Everton",
-            "played": 22,
-            "won": 14,
-            "drawn": 1,
-            "lost": 7,
-            "goalsFor": 63,
-            "goalsAgainst": 29,
-            "goalDifference": 34,
-            "goalAverage": 2.172,
-            "points": 29,
-            "notes": null,
-            "wasRelegated": false,
-            "wasPromoted": false,
-            "isExpansionTeam": false,
-            "wasReElected": false,
-            "wasReprieved": false
-          },
-          {
-            "pos": 2,
-            "team": "Preston North End",
-            "played": 22,
-            "won": 12,
-            "drawn": 3,
-            "lost": 7,
-            "goalsFor": 44,
-            "goalsAgainst": 23,
-            "goalDifference": 21,
-            "goalAverage": 1.913,
-            "points": 27,
-            "notes": null,
-            "wasRelegated": false,
-            "wasPromoted": false,
-            "isExpansionTeam": false,
-            "wasReElected": false,
-            "wasReprieved": false
-          },
-          {
-            "pos": 3,
-            "team": "Notts County",
-            "played": 22,
-            "won": 11,
-            "drawn": 4,
-            "lost": 7,
-            "goalsFor": 52,
-            "goalsAgainst": 35,
-            "goalDifference": 17,
-            "goalAverage": 1.486,
-            "points": 26,
-            "notes": null,
-            "wasRelegated": false,
-            "wasPromoted": false,
-            "isExpansionTeam": false,
-            "wasReElected": false,
-            "wasReprieved": false
-          },
-          {
-            "pos": 4,
-            "team": "Wolverhampton Wanderers",
-            "played": 22,
-            "won": 12,
-            "drawn": 2,
-            "lost": 8,
-            "goalsFor": 39,
-            "goalsAgainst": 50,
-            "goalDifference": -11,
-            "goalAverage": 0.78,
-            "points": 26,
-            "notes": null,
-            "wasRelegated": false,
-            "wasPromoted": false,
-            "isExpansionTeam": false,
-            "wasReElected": false,
-            "wasReprieved": false
-          },
-          {
-            "pos": 5,
-            "team": "Bolton Wanderers",
-            "played": 22,
-            "won": 12,
-            "drawn": 1,
-            "lost": 9,
-            "goalsFor": 47,
-            "goalsAgainst": 34,
-            "goalDifference": 13,
-            "goalAverage": 1.382,
-            "points": 25,
-            "notes": null,
-            "wasRelegated": false,
-            "wasPromoted": false,
-            "isExpansionTeam": false,
-            "wasReElected": false,
-            "wasReprieved": false
-          },
-          {
-            "pos": 6,
-            "team": "Blackburn Rovers",
-            "played": 22,
-            "won": 11,
-            "drawn": 2,
-            "lost": 9,
-            "goalsFor": 52,
-            "goalsAgainst": 43,
-            "goalDifference": 9,
-            "goalAverage": 1.209,
-            "points": 24,
-            "notes": null,
-            "wasRelegated": false,
-            "wasPromoted": false,
-            "isExpansionTeam": false,
-            "wasReElected": false,
-            "wasReprieved": false
-          },
-          {
-            "pos": 7,
-            "team": "Sunderland",
-            "played": 22,
-            "won": 10,
-            "drawn": 5,
-            "lost": 7,
-            "goalsFor": 51,
-            "goalsAgainst": 31,
-            "goalDifference": 20,
-            "goalAverage": 1.645,
-            "points": 23,
-            "notes": null,
-            "wasRelegated": false,
-            "wasPromoted": false,
-            "isExpansionTeam": false,
-            "wasReElected": false,
-            "wasReprieved": false
-          },
-          {
-            "pos": 8,
-            "team": "Burnley",
-            "played": 22,
-            "won": 9,
-            "drawn": 3,
-            "lost": 10,
-            "goalsFor": 52,
-            "goalsAgainst": 63,
-            "goalDifference": -11,
-            "goalAverage": 0.825,
-            "points": 21,
-            "notes": null,
-            "wasRelegated": false,
-            "wasPromoted": false,
-            "isExpansionTeam": false,
-            "wasReElected": false,
-            "wasReprieved": false
-          },
-          {
-            "pos": 9,
-            "team": "Aston Villa",
-            "played": 22,
-            "won": 7,
-            "drawn": 4,
-            "lost": 11,
-            "goalsFor": 45,
-            "goalsAgainst": 58,
-            "goalDifference": -13,
-            "goalAverage": 0.776,
-            "points": 18,
-            "notes": "Re-elected",
-            "wasRelegated": false,
-            "wasPromoted": false,
-            "isExpansionTeam": false,
-            "wasReElected": true,
-            "wasReprieved": false
-          },
-          {
-            "pos": 10,
-            "team": "Accrington",
-            "played": 22,
-            "won": 6,
-            "drawn": 4,
-            "lost": 12,
-            "goalsFor": 28,
-            "goalsAgainst": 50,
-            "goalDifference": -22,
-            "goalAverage": 0.56,
-            "points": 16,
-            "notes": "Re-elected",
-            "wasRelegated": false,
-            "wasPromoted": false,
-            "isExpansionTeam": false,
-            "wasReElected": true,
-            "wasReprieved": false
-          },
-          {
-            "pos": 11,
-            "team": "Derby County",
-            "played": 22,
-            "won": 7,
-            "drawn": 1,
-            "lost": 14,
-            "goalsFor": 47,
-            "goalsAgainst": 81,
-            "goalDifference": -34,
-            "goalAverage": 0.58,
-            "points": 15,
-            "notes": "Re-elected",
-            "wasRelegated": false,
-            "wasPromoted": false,
-            "isExpansionTeam": false,
-            "wasReElected": true,
-            "wasReprieved": false
-          },
-          {
-            "pos": 12,
-            "team": "West Bromwich Albion",
-            "played": 22,
-            "won": 5,
-            "drawn": 2,
-            "lost": 15,
-            "goalsFor": 34,
-            "goalsAgainst": 57,
-            "goalDifference": -23,
-            "goalAverage": 0.596,
-            "points": 12,
-            "notes": "Re-elected",
-            "wasRelegated": false,
-            "wasPromoted": false,
-            "isExpansionTeam": false,
-            "wasReElected": true,
-            "wasReprieved": false
-          }
-        ],
-        "relegated": [],
-        "promoted": []
-      },
-      "tier2": {
-        "seasonSlug": "1890-91_Football_League",
-        "sourceUrl": "https://en.wikipedia.org/wiki/1890-91_Football_League",
-        "tier": "tier2",
         "season": 1890,
         "table": [
           {
@@ -1752,284 +1036,6 @@
           "Darwen"
         ],
         "promoted": []
-      },
-      "tier2": {
-        "seasonSlug": "1891-92_Football_League",
-        "sourceUrl": "https://en.wikipedia.org/wiki/1891-92_Football_League",
-        "tier": "tier2",
-        "season": 1891,
-        "table": [
-          {
-            "pos": 1,
-            "team": "Sunderland",
-            "played": 26,
-            "won": 21,
-            "drawn": 0,
-            "lost": 5,
-            "goalsFor": 93,
-            "goalsAgainst": 36,
-            "goalDifference": 57,
-            "goalAverage": 2.583,
-            "points": 42,
-            "notes": null,
-            "wasRelegated": false,
-            "wasPromoted": false,
-            "isExpansionTeam": false,
-            "wasReElected": false,
-            "wasReprieved": false
-          },
-          {
-            "pos": 2,
-            "team": "Preston North End",
-            "played": 26,
-            "won": 18,
-            "drawn": 1,
-            "lost": 7,
-            "goalsFor": 61,
-            "goalsAgainst": 31,
-            "goalDifference": 30,
-            "goalAverage": 1.968,
-            "points": 37,
-            "notes": null,
-            "wasRelegated": false,
-            "wasPromoted": false,
-            "isExpansionTeam": false,
-            "wasReElected": false,
-            "wasReprieved": false
-          },
-          {
-            "pos": 3,
-            "team": "Bolton Wanderers",
-            "played": 26,
-            "won": 17,
-            "drawn": 2,
-            "lost": 7,
-            "goalsFor": 51,
-            "goalsAgainst": 37,
-            "goalDifference": 14,
-            "goalAverage": 1.378,
-            "points": 36,
-            "notes": null,
-            "wasRelegated": false,
-            "wasPromoted": false,
-            "isExpansionTeam": false,
-            "wasReElected": false,
-            "wasReprieved": false
-          },
-          {
-            "pos": 4,
-            "team": "Aston Villa",
-            "played": 26,
-            "won": 15,
-            "drawn": 0,
-            "lost": 11,
-            "goalsFor": 89,
-            "goalsAgainst": 56,
-            "goalDifference": 33,
-            "goalAverage": 1.589,
-            "points": 30,
-            "notes": null,
-            "wasRelegated": false,
-            "wasPromoted": false,
-            "isExpansionTeam": false,
-            "wasReElected": false,
-            "wasReprieved": false
-          },
-          {
-            "pos": 5,
-            "team": "Everton",
-            "played": 26,
-            "won": 12,
-            "drawn": 4,
-            "lost": 10,
-            "goalsFor": 49,
-            "goalsAgainst": 49,
-            "goalDifference": 0,
-            "goalAverage": 1,
-            "points": 28,
-            "notes": null,
-            "wasRelegated": false,
-            "wasPromoted": false,
-            "isExpansionTeam": false,
-            "wasReElected": false,
-            "wasReprieved": false
-          },
-          {
-            "pos": 6,
-            "team": "Wolverhampton Wanderers",
-            "played": 26,
-            "won": 11,
-            "drawn": 4,
-            "lost": 11,
-            "goalsFor": 59,
-            "goalsAgainst": 46,
-            "goalDifference": 13,
-            "goalAverage": 1.283,
-            "points": 26,
-            "notes": null,
-            "wasRelegated": false,
-            "wasPromoted": false,
-            "isExpansionTeam": false,
-            "wasReElected": false,
-            "wasReprieved": false
-          },
-          {
-            "pos": 7,
-            "team": "Burnley",
-            "played": 26,
-            "won": 11,
-            "drawn": 4,
-            "lost": 11,
-            "goalsFor": 49,
-            "goalsAgainst": 45,
-            "goalDifference": 4,
-            "goalAverage": 1.089,
-            "points": 26,
-            "notes": null,
-            "wasRelegated": false,
-            "wasPromoted": false,
-            "isExpansionTeam": false,
-            "wasReElected": false,
-            "wasReprieved": false
-          },
-          {
-            "pos": 8,
-            "team": "Notts County",
-            "played": 26,
-            "won": 11,
-            "drawn": 4,
-            "lost": 11,
-            "goalsFor": 55,
-            "goalsAgainst": 51,
-            "goalDifference": 4,
-            "goalAverage": 1.078,
-            "points": 26,
-            "notes": null,
-            "wasRelegated": false,
-            "wasPromoted": false,
-            "isExpansionTeam": false,
-            "wasReElected": false,
-            "wasReprieved": false
-          },
-          {
-            "pos": 9,
-            "team": "Blackburn Rovers",
-            "played": 26,
-            "won": 10,
-            "drawn": 6,
-            "lost": 10,
-            "goalsFor": 58,
-            "goalsAgainst": 65,
-            "goalDifference": -7,
-            "goalAverage": 0.892,
-            "points": 26,
-            "notes": null,
-            "wasRelegated": false,
-            "wasPromoted": false,
-            "isExpansionTeam": false,
-            "wasReElected": false,
-            "wasReprieved": false
-          },
-          {
-            "pos": 10,
-            "team": "Derby County",
-            "played": 26,
-            "won": 10,
-            "drawn": 4,
-            "lost": 12,
-            "goalsFor": 46,
-            "goalsAgainst": 52,
-            "goalDifference": -6,
-            "goalAverage": 0.885,
-            "points": 24,
-            "notes": null,
-            "wasRelegated": false,
-            "wasPromoted": false,
-            "isExpansionTeam": false,
-            "wasReElected": false,
-            "wasReprieved": false
-          },
-          {
-            "pos": 11,
-            "team": "Accrington",
-            "played": 26,
-            "won": 8,
-            "drawn": 4,
-            "lost": 14,
-            "goalsFor": 40,
-            "goalsAgainst": 78,
-            "goalDifference": -38,
-            "goalAverage": 0.513,
-            "points": 20,
-            "notes": "Re-elected",
-            "wasRelegated": false,
-            "wasPromoted": false,
-            "isExpansionTeam": false,
-            "wasReElected": true,
-            "wasReprieved": false
-          },
-          {
-            "pos": 12,
-            "team": "West Bromwich Albion",
-            "played": 26,
-            "won": 6,
-            "drawn": 6,
-            "lost": 14,
-            "goalsFor": 51,
-            "goalsAgainst": 58,
-            "goalDifference": -7,
-            "goalAverage": 0.879,
-            "points": 18,
-            "notes": "Reprived from re-election",
-            "wasRelegated": false,
-            "wasPromoted": false,
-            "isExpansionTeam": false,
-            "wasReElected": false,
-            "wasReprieved": true
-          },
-          {
-            "pos": 13,
-            "team": "Stoke",
-            "played": 26,
-            "won": 5,
-            "drawn": 4,
-            "lost": 17,
-            "goalsFor": 38,
-            "goalsAgainst": 61,
-            "goalDifference": -23,
-            "goalAverage": 0.623,
-            "points": 14,
-            "notes": "Re-elected",
-            "wasRelegated": false,
-            "wasPromoted": false,
-            "isExpansionTeam": false,
-            "wasReElected": true,
-            "wasReprieved": false
-          },
-          {
-            "pos": 14,
-            "team": "Darwen",
-            "played": 26,
-            "won": 4,
-            "drawn": 3,
-            "lost": 19,
-            "goalsFor": 38,
-            "goalsAgainst": 112,
-            "goalDifference": -74,
-            "goalAverage": 0.339,
-            "points": 11,
-            "notes": "Failed re-election and demoted to the Second Division",
-            "wasRelegated": true,
-            "wasPromoted": false,
-            "isExpansionTeam": false,
-            "wasReElected": false,
-            "wasReprieved": false
-          }
-        ],
-        "relegated": [
-          "Darwen"
-        ],
-        "promoted": []
       }
     },
     "1892": {
@@ -2038,8 +1044,14 @@
         "sourceUrl": "https://en.wikipedia.org/wiki/1892-93_Football_League",
         "season": 1892,
         "table": [],
-        "relegated": [],
-        "promoted": []
+        "relegated": [
+          "Notts County",
+          "Accrington"
+        ],
+        "promoted": [
+          "Sheffield United",
+          "Darwen"
+        ]
       },
       "tier1": {
         "seasonSlug": "1892-93_Football_League",
@@ -2307,7 +1319,7 @@
             "goalAverage": 0.869,
             "points": 24,
             "notes": "Qualification for test matches",
-            "wasRelegated": false,
+            "wasRelegated": true,
             "wasPromoted": false,
             "isExpansionTeam": false,
             "wasReElected": false,
@@ -2326,7 +1338,7 @@
             "goalAverage": 0.704,
             "points": 23,
             "notes": "Resigned from league after test matches",
-            "wasRelegated": false,
+            "wasRelegated": true,
             "wasPromoted": false,
             "isExpansionTeam": false,
             "wasReElected": false,
@@ -2352,7 +1364,10 @@
             "wasReprieved": false
           }
         ],
-        "relegated": [],
+        "relegated": [
+          "Notts County",
+          "Accrington"
+        ],
         "promoted": []
       },
       "tier2": {
@@ -2394,7 +1409,7 @@
             "points": 35,
             "notes": "Qualification for test matches",
             "wasRelegated": false,
-            "wasPromoted": false,
+            "wasPromoted": true,
             "isExpansionTeam": false,
             "wasReElected": false,
             "wasReprieved": false
@@ -2413,7 +1428,7 @@
             "points": 30,
             "notes": "Qualification for test matches",
             "wasRelegated": false,
-            "wasPromoted": false,
+            "wasPromoted": true,
             "isExpansionTeam": false,
             "wasReElected": false,
             "wasReprieved": false
@@ -2591,7 +1606,10 @@
           }
         ],
         "relegated": [],
-        "promoted": []
+        "promoted": [
+          "Sheffield United",
+          "Darwen"
+        ]
       }
     },
     "1893": {
@@ -2600,8 +1618,14 @@
         "sourceUrl": "https://en.wikipedia.org/wiki/1893-94_Football_League",
         "season": 1893,
         "table": [],
-        "relegated": [],
-        "promoted": []
+        "relegated": [
+          "Darwen",
+          "Newton Heath"
+        ],
+        "promoted": [
+          "Liverpool",
+          "Small Heath"
+        ]
       },
       "tier1": {
         "seasonSlug": "1893-94_Football_League",
@@ -2888,7 +1912,7 @@
             "goalAverage": 0.446,
             "points": 19,
             "notes": "Qualification for test matches",
-            "wasRelegated": false,
+            "wasRelegated": true,
             "wasPromoted": false,
             "isExpansionTeam": false,
             "wasReElected": false,
@@ -2907,14 +1931,17 @@
             "goalAverage": 0.5,
             "points": 14,
             "notes": "Qualification for test matches",
-            "wasRelegated": false,
+            "wasRelegated": true,
             "wasPromoted": false,
             "isExpansionTeam": false,
             "wasReElected": false,
             "wasReprieved": false
           }
         ],
-        "relegated": [],
+        "relegated": [
+          "Darwen",
+          "Newton Heath"
+        ],
         "promoted": []
       },
       "tier2": {
@@ -2937,7 +1964,7 @@
             "points": 50,
             "notes": "Qualification for test matches",
             "wasRelegated": false,
-            "wasPromoted": false,
+            "wasPromoted": true,
             "isExpansionTeam": false,
             "wasReElected": false,
             "wasReprieved": false
@@ -2956,7 +1983,7 @@
             "points": 42,
             "notes": "Qualification for test matches",
             "wasRelegated": false,
-            "wasPromoted": false,
+            "wasPromoted": true,
             "isExpansionTeam": false,
             "wasReElected": false,
             "wasReprieved": false
@@ -3202,15 +2229,20 @@
             "goalAverage": 0.306,
             "points": 9,
             "notes": "Resigned from league",
-            "wasRelegated": false,
+            "wasRelegated": true,
             "wasPromoted": false,
             "isExpansionTeam": false,
             "wasReElected": false,
             "wasReprieved": false
           }
         ],
-        "relegated": [],
-        "promoted": []
+        "relegated": [
+          "Northwich Victoria"
+        ],
+        "promoted": [
+          "Liverpool",
+          "Small Heath"
+        ]
       }
     },
     "1894": {
@@ -3219,8 +2251,12 @@
         "sourceUrl": "https://en.wikipedia.org/wiki/1894-95_Football_League",
         "season": 1894,
         "table": [],
-        "relegated": [],
-        "promoted": []
+        "relegated": [
+          "Liverpool"
+        ],
+        "promoted": [
+          "Bury"
+        ]
       },
       "tier1": {
         "seasonSlug": "1894-95_Football_League",
@@ -3526,14 +2562,16 @@
             "goalAverage": 0.729,
             "points": 22,
             "notes": "Qualification for test matches",
-            "wasRelegated": false,
+            "wasRelegated": true,
             "wasPromoted": false,
             "isExpansionTeam": false,
             "wasReElected": false,
             "wasReprieved": false
           }
         ],
-        "relegated": [],
+        "relegated": [
+          "Liverpool"
+        ],
         "promoted": []
       },
       "tier2": {
@@ -3556,7 +2594,7 @@
             "points": 48,
             "notes": "Qualification for test matches",
             "wasRelegated": false,
-            "wasPromoted": false,
+            "wasPromoted": true,
             "isExpansionTeam": false,
             "wasReElected": false,
             "wasReprieved": false
@@ -3802,7 +2840,7 @@
             "goalAverage": 0.511,
             "points": 20,
             "notes": "Resigned from league",
-            "wasRelegated": false,
+            "wasRelegated": true,
             "wasPromoted": false,
             "isExpansionTeam": false,
             "wasReElected": false,
@@ -3847,8 +2885,12 @@
             "wasReprieved": false
           }
         ],
-        "relegated": [],
-        "promoted": []
+        "relegated": [
+          "Walsall Town Swifts"
+        ],
+        "promoted": [
+          "Bury"
+        ]
       }
     },
     "1895": {
@@ -3857,8 +2899,12 @@
         "sourceUrl": "https://en.wikipedia.org/wiki/1895-96_Football_League",
         "season": 1895,
         "table": [],
-        "relegated": [],
-        "promoted": []
+        "relegated": [
+          "Small Heath"
+        ],
+        "promoted": [
+          "Liverpool"
+        ]
       },
       "tier1": {
         "seasonSlug": "1895-96_Football_League",
@@ -4145,7 +3191,7 @@
             "goalAverage": 0.494,
             "points": 20,
             "notes": "Qualification for test matches",
-            "wasRelegated": false,
+            "wasRelegated": true,
             "wasPromoted": false,
             "isExpansionTeam": false,
             "wasReElected": false,
@@ -4171,7 +3217,9 @@
             "wasReprieved": false
           }
         ],
-        "relegated": [],
+        "relegated": [
+          "Small Heath"
+        ],
         "promoted": []
       },
       "tier2": {
@@ -4194,7 +3242,7 @@
             "points": 46,
             "notes": "Qualification for test matches",
             "wasRelegated": false,
-            "wasPromoted": false,
+            "wasPromoted": true,
             "isExpansionTeam": false,
             "wasReElected": false,
             "wasReprieved": false
@@ -4440,7 +3488,7 @@
             "goalAverage": 0.551,
             "points": 18,
             "notes": "Resigned from league",
-            "wasRelegated": false,
+            "wasRelegated": true,
             "wasPromoted": false,
             "isExpansionTeam": false,
             "wasReElected": false,
@@ -4478,15 +3526,20 @@
             "goalAverage": 0.316,
             "points": 13,
             "notes": "Resigned from league",
-            "wasRelegated": false,
+            "wasRelegated": true,
             "wasPromoted": false,
             "isExpansionTeam": false,
             "wasReElected": false,
             "wasReprieved": false
           }
         ],
-        "relegated": [],
-        "promoted": []
+        "relegated": [
+          "Burslem Port Vale",
+          "Crewe Alexandra"
+        ],
+        "promoted": [
+          "Liverpool"
+        ]
       }
     },
     "1896": {
@@ -4495,8 +3548,12 @@
         "sourceUrl": "https://en.wikipedia.org/wiki/1896-97_Football_League",
         "season": 1896,
         "table": [],
-        "relegated": [],
-        "promoted": []
+        "relegated": [
+          "Burnley"
+        ],
+        "promoted": [
+          "Notts County"
+        ]
       },
       "tier1": {
         "seasonSlug": "1896-97_Football_League",
@@ -4802,14 +3859,16 @@
             "goalAverage": 0.705,
             "points": 19,
             "notes": "Qualification for test matches",
-            "wasRelegated": false,
+            "wasRelegated": true,
             "wasPromoted": false,
             "isExpansionTeam": false,
             "wasReElected": false,
             "wasReprieved": false
           }
         ],
-        "relegated": [],
+        "relegated": [
+          "Burnley"
+        ],
         "promoted": []
       },
       "tier2": {
@@ -4832,7 +3891,7 @@
             "points": 42,
             "notes": "Qualification for test matches",
             "wasRelegated": false,
-            "wasPromoted": false,
+            "wasPromoted": true,
             "isExpansionTeam": false,
             "wasReElected": false,
             "wasReprieved": false
@@ -5097,7 +4156,7 @@
             "goalAverage": 0.463,
             "points": 20,
             "notes": "Failed re-election and demoted",
-            "wasRelegated": false,
+            "wasRelegated": true,
             "wasPromoted": false,
             "isExpansionTeam": false,
             "wasReElected": false,
@@ -5123,8 +4182,12 @@
             "wasReprieved": false
           }
         ],
-        "relegated": [],
-        "promoted": []
+        "relegated": [
+          "Burton Wanderers"
+        ],
+        "promoted": [
+          "Notts County"
+        ]
       }
     },
     "1897": {
@@ -5134,7 +4197,10 @@
         "season": 1897,
         "table": [],
         "relegated": [],
-        "promoted": []
+        "promoted": [
+          "Burnley",
+          "Newcastle United"
+        ]
       },
       "tier1": {
         "seasonSlug": "1897-98_Football_League",
@@ -5470,7 +4536,7 @@
             "points": 48,
             "notes": "Qualification for test matches",
             "wasRelegated": false,
-            "wasPromoted": false,
+            "wasPromoted": true,
             "isExpansionTeam": false,
             "wasReElected": false,
             "wasReprieved": false
@@ -5489,7 +4555,7 @@
             "points": 45,
             "notes": "Qualification for test matches",
             "wasRelegated": false,
-            "wasPromoted": false,
+            "wasPromoted": true,
             "isExpansionTeam": false,
             "wasReElected": false,
             "wasReprieved": false
@@ -5762,7 +4828,10 @@
           }
         ],
         "relegated": [],
-        "promoted": []
+        "promoted": [
+          "Burnley",
+          "Newcastle United"
+        ]
       }
     },
     "1898": {
@@ -6439,7 +5508,7 @@
             "goalAverage": 0.544,
             "points": 20,
             "notes": "Failed re-election and demoted",
-            "wasRelegated": false,
+            "wasRelegated": true,
             "wasPromoted": false,
             "isExpansionTeam": false,
             "wasReElected": false,
@@ -6477,14 +5546,17 @@
             "goalAverage": 0.156,
             "points": 9,
             "notes": "Failed re-election and demoted",
-            "wasRelegated": false,
+            "wasRelegated": true,
             "wasPromoted": false,
             "isExpansionTeam": false,
             "wasReElected": false,
             "wasReprieved": false
           }
         ],
-        "relegated": [],
+        "relegated": [
+          "Blackpool",
+          "Darwen"
+        ],
         "promoted": [
           "Manchester City",
           "Glossop North End"
@@ -7893,7 +6965,7 @@
             "goalAverage": 0.714,
             "points": 27,
             "notes": "Failed re-election and demoted",
-            "wasRelegated": false,
+            "wasRelegated": true,
             "wasPromoted": false,
             "isExpansionTeam": false,
             "wasReElected": false,
@@ -7938,7 +7010,9 @@
             "wasReprieved": false
           }
         ],
-        "relegated": [],
+        "relegated": [
+          "Walsall"
+        ],
         "promoted": [
           "Grimsby Town",
           "Small Heath"
@@ -9345,7 +8419,7 @@
             "goalAverage": 0.486,
             "points": 25,
             "notes": "Failed re-election and demoted",
-            "wasRelegated": false,
+            "wasRelegated": true,
             "wasPromoted": false,
             "isExpansionTeam": false,
             "wasReElected": false,
@@ -9390,7 +8464,9 @@
             "wasReprieved": false
           }
         ],
-        "relegated": [],
+        "relegated": [
+          "Doncaster Rovers"
+        ],
         "promoted": [
           "Manchester City",
           "Small Heath"
@@ -10071,7 +9147,7 @@
             "goalAverage": 0.556,
             "points": 27,
             "notes": "Failed re-election and demoted",
-            "wasRelegated": false,
+            "wasRelegated": true,
             "wasPromoted": false,
             "isExpansionTeam": false,
             "wasReElected": false,
@@ -10116,7 +9192,9 @@
             "wasReprieved": false
           }
         ],
-        "relegated": [],
+        "relegated": [
+          "Stockport County"
+        ],
         "promoted": [
           "Preston North End",
           "Woolwich Arsenal"
@@ -10829,14 +9907,16 @@
             "goalAverage": 0.284,
             "points": 8,
             "notes": "Failed re-election and demoted",
-            "wasRelegated": false,
+            "wasRelegated": true,
             "wasPromoted": false,
             "isExpansionTeam": false,
             "wasReElected": false,
             "wasReprieved": false
           }
         ],
-        "relegated": [],
+        "relegated": [
+          "Doncaster Rovers"
+        ],
         "promoted": [
           "Liverpool",
           "Bolton Wanderers"
@@ -12357,7 +11437,7 @@
             "goalAverage": 0.723,
             "points": 31,
             "notes": "Resigned from the league",
-            "wasRelegated": false,
+            "wasRelegated": true,
             "wasPromoted": false,
             "isExpansionTeam": false,
             "wasReElected": false,
@@ -12433,14 +11513,17 @@
             "goalAverage": 0.5,
             "points": 23,
             "notes": "Failed re-election and demoted",
-            "wasRelegated": false,
+            "wasRelegated": true,
             "wasPromoted": false,
             "isExpansionTeam": false,
             "wasReElected": false,
             "wasReprieved": false
           }
         ],
-        "relegated": [],
+        "relegated": [
+          "Burslem Port Vale",
+          "Burton United"
+        ],
         "promoted": [
           "Nottingham Forest",
           "Chelsea"
@@ -13045,7 +12128,7 @@
             "goalAverage": 1.096,
             "points": 37,
             "notes": "Resigned from the league",
-            "wasRelegated": false,
+            "wasRelegated": true,
             "wasPromoted": false,
             "isExpansionTeam": false,
             "wasReElected": false,
@@ -13235,14 +12318,17 @@
             "goalAverage": 0.554,
             "points": 21,
             "notes": "Failed re-election and demoted",
-            "wasRelegated": false,
+            "wasRelegated": true,
             "wasPromoted": false,
             "isExpansionTeam": false,
             "wasReElected": false,
             "wasReprieved": false
           }
         ],
-        "relegated": [],
+        "relegated": [
+          "Stoke",
+          "Lincoln City"
+        ],
         "promoted": [
           "Bradford City",
           "Leicester Fosse"
@@ -14018,7 +13104,7 @@
             "goalAverage": 0.552,
             "points": 30,
             "notes": "Failed re-election and demoted",
-            "wasRelegated": false,
+            "wasRelegated": true,
             "wasPromoted": false,
             "isExpansionTeam": false,
             "wasReElected": false,
@@ -14044,7 +13130,9 @@
             "wasReprieved": false
           }
         ],
-        "relegated": [],
+        "relegated": [
+          "Chesterfield Town"
+        ],
         "promoted": [
           "Bolton Wanderers",
           "Tottenham Hotspur"
@@ -14820,7 +13908,7 @@
             "goalAverage": 0.649,
             "points": 24,
             "notes": "Failed re-election and demoted",
-            "wasRelegated": false,
+            "wasRelegated": true,
             "wasPromoted": false,
             "isExpansionTeam": false,
             "wasReElected": false,
@@ -14846,7 +13934,9 @@
             "wasReprieved": false
           }
         ],
-        "relegated": [],
+        "relegated": [
+          "Grimsby Town"
+        ],
         "promoted": [
           "Manchester City",
           "Oldham Athletic"
@@ -15641,14 +14731,16 @@
             "goalAverage": 0.389,
             "points": 24,
             "notes": "Failed re-election and demoted",
-            "wasRelegated": false,
+            "wasRelegated": true,
             "wasPromoted": false,
             "isExpansionTeam": false,
             "wasReElected": false,
             "wasReprieved": false
           }
         ],
-        "relegated": [],
+        "relegated": [
+          "Lincoln City"
+        ],
         "promoted": [
           "West Bromwich Albion",
           "Bolton Wanderers"
@@ -16443,14 +15535,16 @@
             "goalAverage": 0.469,
             "points": 23,
             "notes": "Failed re-election and demoted",
-            "wasRelegated": false,
+            "wasRelegated": true,
             "wasPromoted": false,
             "isExpansionTeam": false,
             "wasReElected": false,
             "wasReprieved": false
           }
         ],
-        "relegated": [],
+        "relegated": [
+          "Gainsborough Trinity"
+        ],
         "promoted": [
           "Derby County",
           "Chelsea"
@@ -18848,14 +17942,16 @@
             "goalAverage": 0.356,
             "points": 18,
             "notes": "Failed re-election and demoted",
-            "wasRelegated": false,
+            "wasRelegated": true,
             "wasPromoted": false,
             "isExpansionTeam": false,
             "wasReElected": false,
             "wasReprieved": false
           }
         ],
-        "relegated": [],
+        "relegated": [
+          "Glossop"
+        ],
         "promoted": [
           "Derby County",
           "Preston North End",
@@ -19820,7 +18916,7 @@
             "goalAverage": 0.436,
             "points": 27,
             "notes": "Failed re-election and demoted",
-            "wasRelegated": false,
+            "wasRelegated": true,
             "wasPromoted": false,
             "isExpansionTeam": false,
             "wasReElected": false,
@@ -19847,6 +18943,7 @@
           }
         ],
         "relegated": [
+          "Lincoln City",
           "Grimsby Town"
         ],
         "promoted": [
@@ -73775,7 +72872,7 @@
             "goalAverage": null,
             "points": 48,
             "notes": "Qualification for the Third Division play-offs",
-            "wasRelegated": false,
+            "wasRelegated": true,
             "wasPromoted": false,
             "isExpansionTeam": false,
             "wasReElected": false,
@@ -73821,6 +72918,7 @@
           }
         ],
         "relegated": [
+          "Sunderland",
           "Grimsby Town",
           "Brighton & Hove Albion"
         ],
@@ -73837,13 +72935,15 @@
         "season": 1987,
         "table": [],
         "relegated": [
+          "Chelsea",
           "Portsmouth",
           "Watford",
           "Oxford United"
         ],
         "promoted": [
           "Millwall",
-          "Aston Villa"
+          "Aston Villa",
+          "Middlesbrough"
         ]
       },
       "tier1": {
@@ -74188,7 +73288,7 @@
             "goalAverage": null,
             "points": 42,
             "notes": "Qualified for Second Division play-offs",
-            "wasRelegated": false,
+            "wasRelegated": true,
             "wasPromoted": false,
             "isExpansionTeam": false,
             "wasReElected": false,
@@ -74253,6 +73353,7 @@
           }
         ],
         "relegated": [
+          "Chelsea",
           "Portsmouth",
           "Watford",
           "Oxford United"
@@ -74317,7 +73418,7 @@
             "points": 78,
             "notes": "Qualification for the Second Division play-offs",
             "wasRelegated": false,
-            "wasPromoted": false,
+            "wasPromoted": true,
             "isExpansionTeam": false,
             "wasReElected": false,
             "wasReprieved": false
@@ -74658,7 +73759,7 @@
             "goalAverage": null,
             "points": 46,
             "notes": "Qualification for the Third Division play-offs",
-            "wasRelegated": false,
+            "wasRelegated": true,
             "wasPromoted": false,
             "isExpansionTeam": false,
             "wasReElected": false,
@@ -74704,12 +73805,14 @@
           }
         ],
         "relegated": [
+          "Sheffield United",
           "Reading",
           "Huddersfield Town"
         ],
         "promoted": [
           "Millwall",
-          "Aston Villa"
+          "Aston Villa",
+          "Middlesbrough"
         ]
       }
     },
@@ -74726,7 +73829,8 @@
         ],
         "promoted": [
           "Chelsea",
-          "Manchester City"
+          "Manchester City",
+          "Crystal Palace"
         ]
       },
       "tier1": {
@@ -75181,7 +74285,7 @@
             "points": 81,
             "notes": "Qualification for the Second Division play-offs",
             "wasRelegated": false,
-            "wasPromoted": false,
+            "wasPromoted": true,
             "isExpansionTeam": false,
             "wasReElected": false,
             "wasReprieved": false
@@ -75593,7 +74697,8 @@
         ],
         "promoted": [
           "Chelsea",
-          "Manchester City"
+          "Manchester City",
+          "Crystal Palace"
         ]
       }
     },
@@ -75610,7 +74715,9 @@
         ],
         "promoted": [
           "Leeds United",
-          "Sheffield United"
+          "Sheffield United",
+          "Swindon Town",
+          "Sunderland"
         ]
       },
       "tier1": {
@@ -76084,7 +75191,7 @@
             "points": 74,
             "notes": "Qualification for the Second Division play-offs",
             "wasRelegated": false,
-            "wasPromoted": false,
+            "wasPromoted": true,
             "isExpansionTeam": false,
             "wasReElected": false,
             "wasReprieved": false
@@ -76122,7 +75229,7 @@
             "points": 74,
             "notes": "Qualification for the Second Division play-offs",
             "wasRelegated": false,
-            "wasPromoted": false,
+            "wasPromoted": true,
             "isExpansionTeam": false,
             "wasReElected": false,
             "wasReprieved": false
@@ -76477,7 +75584,9 @@
         ],
         "promoted": [
           "Leeds United",
-          "Sheffield United"
+          "Sheffield United",
+          "Swindon Town",
+          "Sunderland"
         ]
       }
     },
@@ -76494,7 +75603,8 @@
         "promoted": [
           "Oldham Athletic",
           "West Ham United",
-          "Sheffield Wednesday"
+          "Sheffield Wednesday",
+          "Notts County"
         ]
       },
       "tier1": {
@@ -76967,7 +76077,7 @@
             "points": 80,
             "notes": "Qualification for the Second Division play-offs",
             "wasRelegated": false,
-            "wasPromoted": false,
+            "wasPromoted": true,
             "isExpansionTeam": false,
             "wasReElected": false,
             "wasReprieved": false
@@ -77360,7 +76470,8 @@
         "promoted": [
           "Oldham Athletic",
           "West Ham United",
-          "Sheffield Wednesday"
+          "Sheffield Wednesday",
+          "Notts County"
         ]
       }
     },
@@ -77377,7 +76488,8 @@
         ],
         "promoted": [
           "Ipswich Town",
-          "Middlesbrough"
+          "Middlesbrough",
+          "Blackburn Rovers"
         ]
       },
       "tier1": {
@@ -77927,7 +77039,7 @@
             "points": 74,
             "notes": "Qualification for the Second Division play-offs",
             "wasRelegated": false,
-            "wasPromoted": false,
+            "wasPromoted": true,
             "isExpansionTeam": false,
             "wasReElected": false,
             "wasReprieved": false
@@ -78282,7 +77394,8 @@
         ],
         "promoted": [
           "Ipswich Town",
-          "Middlesbrough"
+          "Middlesbrough",
+          "Blackburn Rovers"
         ]
       }
     },
@@ -78299,7 +77412,8 @@
         ],
         "promoted": [
           "Stoke City",
-          "Bolton Wanderers"
+          "Bolton Wanderers",
+          "West Bromwich Albion"
         ]
       },
       "tier1": {
@@ -78849,7 +77963,7 @@
             "points": 85,
             "notes": "Qualification for the Second Division play-offs",
             "wasRelegated": false,
-            "wasPromoted": false,
+            "wasPromoted": true,
             "isExpansionTeam": false,
             "wasReElected": false,
             "wasReprieved": false
@@ -79243,7 +78357,8 @@
         ],
         "promoted": [
           "Stoke City",
-          "Bolton Wanderers"
+          "Bolton Wanderers",
+          "West Bromwich Albion"
         ]
       }
     },
@@ -79260,7 +78375,8 @@
         ],
         "promoted": [
           "Reading",
-          "Port Vale"
+          "Port Vale",
+          "Burnley"
         ]
       },
       "tier1": {
@@ -79848,7 +78964,7 @@
             "points": 73,
             "notes": "Qualification for the Second Division play-offs",
             "wasRelegated": false,
-            "wasPromoted": false,
+            "wasPromoted": true,
             "isExpansionTeam": false,
             "wasReElected": false,
             "wasReprieved": false
@@ -80204,7 +79320,8 @@
         ],
         "promoted": [
           "Reading",
-          "Port Vale"
+          "Port Vale",
+          "Burnley"
         ]
       }
     },
@@ -80221,7 +79338,8 @@
           "Notts County"
         ],
         "promoted": [
-          "Birmingham City"
+          "Birmingham City",
+          "Huddersfield Town"
         ]
       },
       "tier1": {
@@ -80791,7 +79909,7 @@
             "points": 81,
             "notes": "Qualification for the Second Division play-offs",
             "wasRelegated": false,
-            "wasPromoted": false,
+            "wasPromoted": true,
             "isExpansionTeam": false,
             "wasReElected": false,
             "wasReprieved": false
@@ -81166,7 +80284,8 @@
           "Leyton Orient"
         ],
         "promoted": [
-          "Birmingham City"
+          "Birmingham City",
+          "Huddersfield Town"
         ]
       }
     },
@@ -81183,7 +80302,8 @@
         ],
         "promoted": [
           "Swindon Town",
-          "Oxford United"
+          "Oxford United",
+          "Bradford City"
         ]
       },
       "tier1": {
@@ -81771,7 +80891,7 @@
             "points": 73,
             "notes": "Qualification for the Second Division play-offs",
             "wasRelegated": false,
-            "wasPromoted": false,
+            "wasPromoted": true,
             "isExpansionTeam": false,
             "wasReElected": false,
             "wasReprieved": false
@@ -82127,7 +81247,8 @@
         ],
         "promoted": [
           "Swindon Town",
-          "Oxford United"
+          "Oxford United",
+          "Bradford City"
         ]
       }
     },
@@ -82144,7 +81265,8 @@
         ],
         "promoted": [
           "Bury",
-          "Stockport County"
+          "Stockport County",
+          "Crewe Alexandra"
         ]
       },
       "tier1": {
@@ -82732,7 +81854,7 @@
             "points": 73,
             "notes": "Qualification for the Second Division play-offs",
             "wasRelegated": false,
-            "wasPromoted": false,
+            "wasPromoted": true,
             "isExpansionTeam": false,
             "wasReElected": false,
             "wasReprieved": false
@@ -83088,7 +82210,8 @@
         ],
         "promoted": [
           "Bury",
-          "Stockport County"
+          "Stockport County",
+          "Crewe Alexandra"
         ]
       }
     },
@@ -83105,7 +82228,8 @@
         ],
         "promoted": [
           "Watford",
-          "Bristol City"
+          "Bristol City",
+          "Grimsby Town"
         ]
       },
       "tier1": {
@@ -83636,7 +82760,7 @@
             "points": 72,
             "notes": "Qualification for the Second Division play-offs",
             "wasRelegated": false,
-            "wasPromoted": false,
+            "wasPromoted": true,
             "isExpansionTeam": false,
             "wasReElected": false,
             "wasReprieved": false
@@ -84049,7 +83173,8 @@
         ],
         "promoted": [
           "Watford",
-          "Bristol City"
+          "Bristol City",
+          "Grimsby Town"
         ]
       }
     },
@@ -84066,7 +83191,8 @@
         ],
         "promoted": [
           "Fulham",
-          "Walsall"
+          "Walsall",
+          "Manchester City"
         ]
       },
       "tier1": {
@@ -84597,7 +83723,7 @@
             "points": 82,
             "notes": "Qualification for the Second Division play-offs",
             "wasRelegated": false,
-            "wasPromoted": false,
+            "wasPromoted": true,
             "isExpansionTeam": false,
             "wasReElected": false,
             "wasReprieved": false
@@ -85010,7 +84136,8 @@
         ],
         "promoted": [
           "Fulham",
-          "Walsall"
+          "Walsall",
+          "Manchester City"
         ]
       }
     },
@@ -85027,7 +84154,8 @@
         ],
         "promoted": [
           "Preston North End",
-          "Burnley"
+          "Burnley",
+          "Gillingham"
         ]
       },
       "tier1": {
@@ -85558,7 +84686,7 @@
             "points": 85,
             "notes": "Qualification for the Second Division play-offs",
             "wasRelegated": false,
-            "wasPromoted": false,
+            "wasPromoted": true,
             "isExpansionTeam": false,
             "wasReElected": false,
             "wasReprieved": false
@@ -85971,7 +85099,8 @@
         ],
         "promoted": [
           "Preston North End",
-          "Burnley"
+          "Burnley",
+          "Gillingham"
         ]
       }
     },
@@ -85988,7 +85117,8 @@
         ],
         "promoted": [
           "Millwall",
-          "Rotherham United"
+          "Rotherham United",
+          "Walsall"
         ]
       },
       "tier1": {
@@ -86538,7 +85668,7 @@
             "points": 81,
             "notes": "Qualification for the Second Division play-offs",
             "wasRelegated": false,
-            "wasPromoted": false,
+            "wasPromoted": true,
             "isExpansionTeam": false,
             "wasReElected": false,
             "wasReprieved": false
@@ -86932,7 +86062,8 @@
         ],
         "promoted": [
           "Millwall",
-          "Rotherham United"
+          "Rotherham United",
+          "Walsall"
         ]
       }
     },
@@ -86949,7 +86080,8 @@
         ],
         "promoted": [
           "Brighton & Hove Albion",
-          "Reading"
+          "Reading",
+          "Stoke City"
         ]
       },
       "tier1": {
@@ -87518,7 +86650,7 @@
             "points": 80,
             "notes": "Qualification for the Second Division play-offs",
             "wasRelegated": false,
-            "wasPromoted": false,
+            "wasPromoted": true,
             "isExpansionTeam": false,
             "wasReElected": false,
             "wasReprieved": false
@@ -87893,7 +87025,8 @@
         ],
         "promoted": [
           "Brighton & Hove Albion",
-          "Reading"
+          "Reading",
+          "Stoke City"
         ]
       }
     },
@@ -87910,7 +87043,8 @@
         ],
         "promoted": [
           "Wigan Athletic",
-          "Crewe Alexandra"
+          "Crewe Alexandra",
+          "Cardiff City"
         ]
       },
       "tier1": {
@@ -88498,7 +87632,7 @@
             "points": 81,
             "notes": "Qualification for the Second Division play-offs",
             "wasRelegated": false,
-            "wasPromoted": false,
+            "wasPromoted": true,
             "isExpansionTeam": false,
             "wasReElected": false,
             "wasReprieved": false
@@ -88854,7 +87988,8 @@
         ],
         "promoted": [
           "Wigan Athletic",
-          "Crewe Alexandra"
+          "Crewe Alexandra",
+          "Cardiff City"
         ]
       }
     },
@@ -88866,11 +88001,13 @@
         "table": [],
         "relegated": [
           "Walsall",
-          "Bradford City"
+          "Bradford City",
+          "Wimbledon"
         ],
         "promoted": [
           "Plymouth Argyle",
-          "Queens Park Rangers"
+          "Queens Park Rangers",
+          "Brighton & Hove Albion"
         ]
       },
       "tier1": {
@@ -89329,7 +88466,7 @@
             "goalAverage": null,
             "points": 29,
             "notes": "Renamed Milton Keynes Dons in Football League One",
-            "wasRelegated": false,
+            "wasRelegated": true,
             "wasPromoted": false,
             "isExpansionTeam": false,
             "wasReElected": false,
@@ -89338,7 +88475,8 @@
         ],
         "relegated": [
           "Walsall",
-          "Bradford City"
+          "Bradford City",
+          "Wimbledon"
         ],
         "promoted": []
       },
@@ -89419,7 +88557,7 @@
             "points": 77,
             "notes": "Qualification for the Second Division play-offs",
             "wasRelegated": false,
-            "wasPromoted": false,
+            "wasPromoted": true,
             "isExpansionTeam": false,
             "wasReElected": false,
             "wasReprieved": false
@@ -89813,7 +88951,8 @@
         ],
         "promoted": [
           "Plymouth Argyle",
-          "Queens Park Rangers"
+          "Queens Park Rangers",
+          "Brighton & Hove Albion"
         ]
       }
     }
