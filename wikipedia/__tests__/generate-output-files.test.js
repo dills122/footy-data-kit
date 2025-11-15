@@ -29,7 +29,7 @@ describe('normaliseLeagueTableEntry', () => {
     expect(entry.team).toBe('Sample FC');
     expect(entry.wasPromoted).toBe(true);
     expect(entry.wasRelegated).toBe(false);
-    expect(entry.goalDifference).toBeNull();
+    expect(entry.goalDifference).toBe(38);
   });
 });
 

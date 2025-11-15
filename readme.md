@@ -128,6 +128,7 @@ node rsssf/cli.js scrape --from-file ./html-cache/1960-61.html --output ./data-o
 
 - `wikipedia/combine-output-files.js` – merge one or more FootballData JSON files and optionally emit a list of missing seasons grouped by WW1, WW2, or “needs attention”.
 - `scripts/minify-json.js` – minify JSON output in-place or alongside the originals.
+- `scripts/verify-football-data.js` – scan FootballData exports for empty seasons, duplicate teams, mismatched goal differences, etc.
 
 **Examples**
 
@@ -139,6 +140,9 @@ node wikipedia/combine-output-files.js --output ./data-output/all-seasons.json \
 
 # Minify the merged dataset next to the original (writes all-seasons.min.json)
 node scripts/minify-json.js ./data-output/all-seasons.json
+
+# Verify all JSON files under ./data-output and fail when issues are found
+node scripts/verify-football-data.js --fail-on-issues ./data-output
 ```
 
 📘 **Notes:**

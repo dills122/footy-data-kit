@@ -4,29 +4,129 @@ import * as fs from 'node:fs';
 import path from 'node:path';
 import { createFootballData, loadFootballData, saveFootballData } from './generate-output-files.js';
 
+const TIER_KEY_PATTERN = /^tier/i;
+const WAR_YEAR_SPANS = [
+  [1915, 1918],
+  [1940, 1945],
+];
+
+const parseSeasonKey = (seasonKey) => {
+  const numeric = Number.parseInt(String(seasonKey), 10);
+  return Number.isFinite(numeric) ? numeric : null;
+};
+
+function isWarSuspensionSeason(seasonKey) {
+  const numeric = parseSeasonKey(seasonKey);
+  if (numeric == null) return false;
+  return WAR_YEAR_SPANS.some(([start, end]) => numeric >= start && numeric <= end);
+}
+
+function blockHasData(block) {
+  if (!block) return false;
+  if (Array.isArray(block)) {
+    return block.length > 0;
+  }
+
+  if (typeof block !== 'object') {
+    return false;
+  }
+
+  const table = Array.isArray(block.table) ? block.table : [];
+  const promoted = Array.isArray(block.promoted) ? block.promoted : [];
+  const relegated = Array.isArray(block.relegated) ? block.relegated : [];
+
+  if (table.length || promoted.length || relegated.length) {
+    return true;
+  }
+
+  const metadata = block.seasonMetadata;
+  return Boolean(metadata && typeof metadata === 'object' && Object.keys(metadata).length);
+}
+
 function seasonHasData(seasonRecord) {
   if (!seasonRecord || typeof seasonRecord !== 'object') return false;
+  return Object.values(seasonRecord).some((value) => blockHasData(value));
+}
 
-  return Object.values(seasonRecord).some((tierValue) => {
-    if (Array.isArray(tierValue)) {
-      return tierValue.length > 0;
+function tierHasData(tierValue) {
+  return blockHasData(tierValue);
+}
+
+function mergeTier(existingTier, incomingTier, includeEmpty) {
+  if (!existingTier) {
+    return incomingTier;
+  }
+
+  if (!incomingTier) {
+    return includeEmpty ? incomingTier : existingTier;
+  }
+
+  const existingHasData = tierHasData(existingTier);
+  const incomingHasData = tierHasData(incomingTier);
+
+  if (!existingHasData && incomingHasData) {
+    return incomingTier;
+  }
+
+  if (!incomingHasData) {
+    return includeEmpty ? incomingTier : existingTier;
+  }
+
+  // Prefer whichever tier was loaded first when both contain data.
+  return existingTier;
+}
+
+function mergeSeasonRecords(currentRecord, incomingRecord, includeEmpty) {
+  if (!currentRecord || typeof currentRecord !== 'object') {
+    return incomingRecord;
+  }
+  if (!incomingRecord || typeof incomingRecord !== 'object') {
+    return currentRecord;
+  }
+
+  const merged = { ...currentRecord };
+
+  for (const [key, incomingValue] of Object.entries(incomingRecord)) {
+    if (TIER_KEY_PATTERN.test(key)) {
+      merged[key] = mergeTier(merged[key], incomingValue, includeEmpty);
+      continue;
     }
 
-    if (!tierValue || typeof tierValue !== 'object') {
-      return false;
+    if (!(key in merged) || merged[key] == null) {
+      merged[key] = incomingValue;
     }
+  }
 
-    const table = Array.isArray(tierValue.table) ? tierValue.table : [];
-    const promoted = Array.isArray(tierValue.promoted) ? tierValue.promoted : [];
-    const relegated = Array.isArray(tierValue.relegated) ? tierValue.relegated : [];
+  return merged;
+}
 
-    if (table.length || promoted.length || relegated.length) {
-      return true;
+function normaliseGoalDifferences(dataset) {
+  if (!dataset || !dataset.seasons) return;
+  for (const seasonRecord of Object.values(dataset.seasons)) {
+    if (!seasonRecord || typeof seasonRecord !== 'object') continue;
+
+    for (const tierValue of Object.values(seasonRecord)) {
+      const table = Array.isArray(tierValue)
+        ? tierValue
+        : tierValue && typeof tierValue === 'object'
+        ? tierValue.table
+        : null;
+      if (!Array.isArray(table)) continue;
+
+      for (const row of table) {
+        if (!row || typeof row !== 'object') continue;
+
+        const gf = Number.isFinite(row.goalsFor) ? row.goalsFor : null;
+        const ga = Number.isFinite(row.goalsAgainst) ? row.goalsAgainst : null;
+        if (gf == null || ga == null) continue;
+
+        const expected = gf - ga;
+        if (row.goalDifference !== expected) {
+          row.goalDifference = expected;
+        }
+      }
     }
-
-    const metadata = tierValue.seasonMetadata;
-    return Boolean(metadata && typeof metadata === 'object' && Object.keys(metadata).length);
-  });
+  }
 }
 
 const program = new Command();
@@ -64,16 +164,17 @@ for (const input of inputFiles) {
     const incoming = loadFootballData(resolvedInput);
     totalInputSeasons += Object.keys(incoming.seasons).length;
     for (const [seasonKey, seasonValue] of Object.entries(incoming.seasons)) {
-      const incomingHasData = seasonHasData(seasonValue);
       const existingRecord = combinedDataset.seasons[seasonKey];
-      const existingHasData = seasonHasData(existingRecord);
-
-      if (!includeEmpty && !incomingHasData && existingHasData) {
-        // Skip replacing richer data with an empty placeholder.
+      if (!existingRecord) {
+        combinedDataset.seasons[seasonKey] = seasonValue;
         continue;
       }
 
-      combinedDataset.seasons[seasonKey] = seasonValue;
+      combinedDataset.seasons[seasonKey] = mergeSeasonRecords(
+        existingRecord,
+        seasonValue,
+        includeEmpty
+      );
     }
   } catch (error) {
     program.error(`Failed to load ${input}: ${/** @type {Error} */ (error).message}`);
@@ -81,17 +182,30 @@ for (const input of inputFiles) {
 }
 
 const mergedSeasonEntries = Object.entries(combinedDataset.seasons);
+const nonWarSeasonEntries = mergedSeasonEntries.filter(
+  ([seasonKey]) => !isWarSuspensionSeason(seasonKey)
+);
+const removedWarSeasons = mergedSeasonEntries.length - nonWarSeasonEntries.length;
+if (removedWarSeasons) {
+  console.log(
+    `Removing ${removedWarSeasons} war suspension season${
+      removedWarSeasons === 1 ? '' : 's'
+    } from output`
+  );
+}
 const filteredSeasonEntries = includeEmpty
-  ? mergedSeasonEntries
-  : mergedSeasonEntries.filter(([, seasonValue]) => seasonHasData(seasonValue));
+  ? nonWarSeasonEntries
+  : nonWarSeasonEntries.filter(([, seasonValue]) => seasonHasData(seasonValue));
 const filteredSeasonKeys = new Set(filteredSeasonEntries.map(([seasonKey]) => seasonKey));
-const excludedSeasonEntries = mergedSeasonEntries.filter(
+const excludedSeasonEntries = nonWarSeasonEntries.filter(
   ([seasonKey]) => !filteredSeasonKeys.has(seasonKey)
 );
 const excludedCount = excludedSeasonEntries.length;
 const finalDataset = createFootballData({
   seasons: Object.fromEntries(filteredSeasonEntries),
 });
+
+normaliseGoalDifferences(finalDataset);
 
 saveFootballData(resolvedOutput, finalDataset, { pretty });
 
@@ -106,11 +220,6 @@ console.log(
     .join(' ')
 );
 console.log(`Total seasons encountered across inputs: ${totalInputSeasons}`);
-
-const parseSeasonKey = (seasonKey) => {
-  const numeric = Number.parseInt(String(seasonKey), 10);
-  return Number.isFinite(numeric) ? numeric : null;
-};
 
 const missingSeasonNumbers = excludedSeasonEntries
   .map(([seasonKey]) => parseSeasonKey(seasonKey))

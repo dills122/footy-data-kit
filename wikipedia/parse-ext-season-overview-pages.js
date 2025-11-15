@@ -276,7 +276,9 @@ function parseLeagueTable($, tableEl, { suppressPromotionFlags, legendMap }) {
 
       const num = (value) => {
         if (value == null) return null;
-        const normalizedValue = String(value).replace(/[^\d.-]/g, '');
+        const normalizedValue = String(value)
+          .replace(/[−–—]/g, '-') // normalize unicode minus variants
+          .replace(/[^\d.-]/g, '');
         if (normalizedValue === '') return null;
         const parsed = parseFloat(normalizedValue);
         return Number.isNaN(parsed) ? null : parsed;
