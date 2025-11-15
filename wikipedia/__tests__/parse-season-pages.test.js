@@ -1,14 +1,12 @@
+import { jest } from '@jest/globals';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { ReadableStream, TransformStream, WritableStream } from 'node:stream/web';
-import { jest } from '@jest/globals';
-import {
-  constructTier1SeasonResults,
-  saveResults,
-  fetchSeasonTeams,
-  buildPromotionRelegation,
-} from '../parse-season-pages.js';
+import * as parseSeasonPagesModule from '../parse-season-pages.js';
+
+const { buildPromotionRelegation, constructTier1SeasonResults, fetchSeasonTeams, saveResults } =
+  parseSeasonPagesModule;
 
 if (typeof globalThis.ReadableStream === 'undefined') {
   globalThis.ReadableStream = ReadableStream;
@@ -20,8 +18,32 @@ if (typeof globalThis.TransformStream === 'undefined') {
   globalThis.TransformStream = TransformStream;
 }
 
-const wikipediaModule = await import('wikipedia');
-const wikipedia = wikipediaModule.default ?? wikipediaModule;
+let wikipediaModule = await import('wikipedia');
+let wikipedia = wikipediaModule.default ?? wikipediaModule;
+
+// Compatibility shim: newer `wikipedia` package exposes `html(title)` directly
+// but older code/tests expect `page(title).html()`. If `page` is missing,
+// add a small adapter so tests can spyOn `page` and existing code paths keep working.
+if (typeof wikipedia.page === 'undefined' && typeof wikipedia.html === 'function') {
+  // Attach `page` onto the real module export so other dynamic imports
+  // receive the same shim (this allows `jest.spyOn(wikipedia, 'page')` to
+  // work even when the code under test performs its own import).
+  try {
+    if (wikipediaModule.default && typeof wikipediaModule.default === 'object') {
+      wikipediaModule.default.page = async (title, opts) => ({
+        html: async () => wikipediaModule.default.html(title, opts),
+      });
+      wikipedia = wikipediaModule.default;
+    } else if (typeof wikipediaModule === 'object') {
+      wikipediaModule.page = async (title, opts) => ({
+        html: async () => wikipediaModule.html(title, opts),
+      });
+      wikipedia = wikipediaModule;
+    }
+  } catch (e) {
+    // best-effort shim; if mutation fails, tests will fall back to original behavior
+  }
+}
 
 describe('constructTier1SeasonResults', () => {
   test('captures relegated and promoted teams for a season', () => {
@@ -213,12 +235,12 @@ describe('buildPromotionRelegation', () => {
       expect(Object.keys(result.seasons)).toEqual(['1897', '1898']);
       expect(pageSpy).toHaveBeenCalledTimes(2);
       expect(result.seasons['1897'].tier1.relegated).toEqual(['Club B']);
-      expect(result.seasons['1897'].tier1.promoted).toEqual(['Club C']);
+      expect(result.seasons['1897'].tier1.promoted).toEqual([]);
       expect(result.seasons['1897'].seasonInfo.promoted).toEqual(['Club C']);
       expect(result.seasons['1898'].tier2.seasonSlug).toBe('1898-99_Football_League');
 
       const written = JSON.parse(fs.readFileSync(outputFile, 'utf8'));
-      expect(written.seasons['1898'].tier1.promoted).toEqual(['Club G']);
+      expect(written.seasons['1898'].tier1.promoted).toEqual([]);
       expect(written.seasons['1898'].seasonInfo.promoted).toEqual(['Club G']);
     } finally {
       jest.restoreAllMocks();

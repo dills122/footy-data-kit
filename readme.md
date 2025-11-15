@@ -38,8 +38,26 @@ Build the promotion/relegation dataset across Football League seasons.
 | `-s, --start <year>`  | `1888`          | First season to include (inclusive).      |
 | `-e, --end <year>`    | `2000`          | Final season to include (inclusive).      |
 | `-o, --output <path>` | `./data-output` | Directory where the JSON file is written. |
+| `-u, --update-only`   | `false`         | Skip seasons that already have tier data. |
+| `-f, --force-update`  | `false`         | Rebuild seasons even if data exists.      |
+| `--ignore-war-years`  | `false`         | Skip WWI/WWII suspension seasons.         |
 
 Output file: `wiki_promotion_relegations_by_season.json`
+
+#### `combined`
+
+Run the promotion/relegation scraper and automatically fall back to overview tables for seasons where no league tables are found.
+
+| Flag                  | Default         | Description                                 |
+| --------------------- | --------------- | ------------------------------------------- |
+| `-s, --start <year>`  | `1888`          | First season to include (inclusive).        |
+| `-e, --end <year>`    | `2000`          | Final season to include (inclusive).        |
+| `-o, --output <path>` | `./data-output` | Directory where the JSON files are written. |
+| `-u, --update-only`   | `false`         | Skip seasons that already have tier data.   |
+| `-f, --force-update`  | `false`         | Rebuild seasons even if data exists.        |
+| `--ignore-war-years`  | `false`         | Skip WWI/WWII suspension seasons.           |
+
+Output files: both `wiki_promotion_relegations_by_season.json` and `wiki_overview_tables_by_season.json`.
 
 #### `overview`
 
@@ -50,6 +68,9 @@ Scrape season overview pages (e.g. “2008–09 in English football”) and gath
 | `-s, --start <year>`  | `2008`          | First season overview to include.         |
 | `-e, --end <year>`    | `2008`          | Final season overview to include.         |
 | `-o, --output <path>` | `./data-output` | Directory where the JSON file is written. |
+| `-u, --update-only`   | `false`         | Skip seasons that already have tier data. |
+| `-f, --force-update`  | `false`         | Rebuild seasons even if data exists.      |
+| `--ignore-war-years`  | `false`         | Skip WWI/WWII suspension seasons.         |
 
 Output file: `wiki_overview_tables_by_season.json`
 
@@ -107,6 +128,7 @@ node rsssf/cli.js scrape --from-file ./html-cache/1960-61.html --output ./data-o
 
 - `wikipedia/combine-output-files.js` – merge one or more FootballData JSON files and optionally emit a list of missing seasons grouped by WW1, WW2, or “needs attention”.
 - `scripts/minify-json.js` – minify JSON output in-place or alongside the originals.
+- `scripts/verify-football-data.js` – scan FootballData exports for empty seasons, duplicate teams, mismatched goal differences, etc.
 
 **Examples**
 
@@ -118,6 +140,9 @@ node wikipedia/combine-output-files.js --output ./data-output/all-seasons.json \
 
 # Minify the merged dataset next to the original (writes all-seasons.min.json)
 node scripts/minify-json.js ./data-output/all-seasons.json
+
+# Verify all JSON files under ./data-output and fail when issues are found
+node scripts/verify-football-data.js --fail-on-issues ./data-output
 ```
 
 📘 **Notes:**
@@ -132,6 +157,12 @@ Install dependencies with `pnpm i`, then run the Jest suite:
 
 ```bash
 pnpm test
+```
+
+For coverage details, run:
+
+```bash
+pnpm run test:coverage
 ```
 
 Set `NODE_OPTIONS=--experimental-vm-modules` (added automatically via the `test` script) to enable ESM support in Jest.

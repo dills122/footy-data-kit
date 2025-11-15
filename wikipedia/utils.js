@@ -16,7 +16,40 @@ export async function getWikipediaClient() {
   if (!wikipediaClient) {
     const mod = await import('wikipedia');
     wikipediaClient = mod.default || mod;
+    // Set a sensible default user agent to avoid 403 from Wikimedia APIs.
+    try {
+      const ua =
+        process.env.WIKIPEDIA_USER_AGENT ||
+        'footy-data-kit (+https://github.com/dills122/footy-data-kit)';
+      if (typeof wikipediaClient.setUserAgent === 'function') {
+        wikipediaClient.setUserAgent(ua);
+      }
+    } catch (e) {
+      // ignore failures setting user agent
+    }
   }
+  // Adapt newer `wikipedia` package which exposes functions like `html(title)`
+  // but does not provide `page(title)` returning an object with `.html()`.
+  // Provide a lightweight adapter so existing code can continue calling
+  // `const page = await wikipedia.page(title); await page.html()`.
+  if (typeof wikipediaClient.page !== 'function' && typeof wikipediaClient.html === 'function') {
+    const orig = wikipediaClient;
+    const adapted = Object.assign({}, orig);
+    adapted.page = (title, opts) => ({
+      html: async () => orig.html(title, opts),
+      summary: async () =>
+        typeof orig.summary === 'function' ? orig.summary(title, opts) : undefined,
+      content: async () =>
+        typeof orig.content === 'function' ? orig.content(title, opts) : undefined,
+      images: async () =>
+        typeof orig.images === 'function' ? orig.images(title, opts) : undefined,
+      tables: async () =>
+        typeof orig.tables === 'function' ? orig.tables(title, opts) : undefined,
+      // allow spies on `.html` by returning functions on the page object
+    });
+    wikipediaClient = adapted;
+  }
+
   return wikipediaClient;
 }
 
@@ -77,4 +110,44 @@ export function cellText($, cell) {
     .text()
     .replace(/\[\d+\]/g, '')
     .trim();
+}
+
+// Robust HTML fetch for a wiki slug. Tries in order:
+// 1) wikipedia.page(slug).html()
+// 2) wikipedia.html(slug)
+// 3) direct GET of https://en.wikipedia.org/wiki/<encoded slug>
+export async function fetchHtmlForSlug(slug) {
+  const wikipedia = await getWikipediaClient();
+
+  // 1) try page().html()
+  try {
+    if (typeof wikipedia.page === 'function') {
+      const page = await wikipedia.page(slug);
+      if (page && typeof page.html === 'function') {
+        return await page.html();
+      }
+    }
+  } catch (e) {
+    // continue to next fallback
+  }
+
+  // 2) try wikipedia.html(slug)
+  try {
+    if (typeof wikipedia.html === 'function') {
+      return await wikipedia.html(slug);
+    }
+  } catch (e) {
+    // continue to next fallback
+  }
+
+  // 3) direct fetch of the article HTML
+  const url = `https://en.wikipedia.org/wiki/${encodeURIComponent(slug)}`;
+  const headers = {
+    'User-Agent':
+      process.env.WIKIPEDIA_USER_AGENT ||
+      'footy-data-kit (+https://github.com/dills122/footy-data-kit)',
+  };
+  const res = await fetch(url, { headers });
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  return await res.text();
 }

@@ -138,6 +138,12 @@ export function normaliseLeagueTableEntry(raw) {
     record[key] = toNumber(record[key], true);
   }
 
+  const goalsForNumber = Number.isFinite(record.goalsFor) ? record.goalsFor : null;
+  const goalsAgainstNumber = Number.isFinite(record.goalsAgainst) ? record.goalsAgainst : null;
+  if (goalsForNumber != null && goalsAgainstNumber != null) {
+    record.goalDifference = goalsForNumber - goalsAgainstNumber;
+  }
+
   const teamName = toStringValue(record.team);
   if (!teamName) {
     throw new TypeError('League table entry is missing a team name');
