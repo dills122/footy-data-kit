@@ -35,6 +35,9 @@ jobs:
       - name: Test
         run: pnpm test
 
+      - name: Integration tests
+        run: pnpm test:integration
+
       - name: Lint
         run: pnpm lint
 
@@ -50,7 +53,16 @@ jobs:
       - name: Generate Wikipedia datasets
         run: |
           rm -rf data-output
-          pnpm exec node wikipedia/cli.js build --start 1888 --end 2023 --output ./data-output
+          mkdir -p data-output
+          pnpm exec node wikipedia/cli.js build --start 1888 --end 1990 --output ./data-output
+          pnpm exec node wikipedia/cli.js overview --start 1991 --end 2024 --output ./data-output
+          pnpm exec node wikipedia/combine-output-files.js --output ./data-output/all-seasons.json \
+            ./data-output/wiki_overview_tables_by_season.json \
+            ./data-output/wiki_promotion_relegations_by_season.json
+          pnpm exec node scripts/verify-football-data.js --fail-on-issues ./data-output
+          pnpm exec node scripts/minify-json.js ./data-output/all-seasons.json
+          pnpm exec node scripts/minify-json.js ./data-output/wiki_overview_tables_by_season.json
+          pnpm exec node scripts/minify-json.js ./data-output/wiki_promotion_relegations_by_season.json
 
       - name: Archive generated data
         run: |
