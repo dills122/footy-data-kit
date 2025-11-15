@@ -139,7 +139,7 @@ export const testPages = /** @type {TestPages} */ ([
           },
         },
         {
-          tier: 'tier1',
+          tier: 'tier2',
           data: {
             team: 'Grimsby Town',
             wasPromoted: false,
@@ -260,6 +260,37 @@ export const testPages = /** @type {TestPages} */ ([
         },
       ],
     },
+  },
+  {
+    url: 'https://en.wikipedia.org/wiki/2013%E2%80%9314_in_English_football',
+    season: '2013',
+    source: 'overview',
+    tests: {
+      promoted: ['Burnley', 'Leicester City', 'Queens Park Rangers'],
+      relegated: ['Cardiff City', 'Fulham', 'Norwich City'],
+    },
+    tableEntries: [
+      {
+        tier: 'tier2',
+        data: {
+          team: 'Derby County',
+          wasPromoted: false,
+          points: 85,
+          won: 25,
+          drawn: 10,
+        },
+      },
+      {
+        tier: 'tier2',
+        data: {
+          team: 'Reading',
+          wasPromoted: false,
+          points: 71,
+          won: 19,
+          drawn: 14,
+        },
+      },
+    ],
   },
   {
     url: 'https://en.wikipedia.org/wiki/2018%E2%80%9319_in_English_football',
