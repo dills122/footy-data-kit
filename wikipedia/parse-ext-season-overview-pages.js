@@ -15,7 +15,6 @@ import {
   wasPromoted,
   wasRelegated,
 } from './utils.js';
-export { wait } from './utils.js';
 
 const LEAGUE_KEYWORDS = [
   'league',

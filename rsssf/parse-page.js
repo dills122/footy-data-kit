@@ -1,5 +1,5 @@
 import * as cheerio from 'cheerio';
-import { toTitleCase } from '../utils.js';
+import { toTitleCase } from '../shared/utils.js';
 
 const DEFAULT_ENCODING = 'windows-1252';
 const STAT_COLUMN_TITLES = [

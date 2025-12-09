@@ -6,7 +6,6 @@ import {
 } from './generate-output-files.js';
 import parseDivisionTable from './parse-division-table.js';
 import { fetchHtmlForSlug, wait } from './utils.js';
-export { saveResults, wait } from './utils.js';
 
 export async function fetchSeasonTeams(seasonSlug) {
   const pageUrl = `https://en.wikipedia.org/wiki/${seasonSlug}`;

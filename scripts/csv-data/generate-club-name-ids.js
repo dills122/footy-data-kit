@@ -5,9 +5,10 @@ import { fileURLToPath } from 'node:url';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+const repoRoot = path.resolve(__dirname, '..', '..');
 
-const inputFile = path.join(__dirname, 'data', 'england.csv');
-const outputFile = path.join(__dirname, 'club_names.json');
+const inputFile = path.join(repoRoot, 'data', 'england.csv');
+const outputFile = path.join(repoRoot, 'club_names.json');
 
 const clubSet = new Set();
 
