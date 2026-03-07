@@ -134,7 +134,7 @@ describe('wikipedia pipeline smoke test', () => {
               wasReprieved: false,
             },
             {
-              pos: 22,
+              pos: 2,
               team: 'Bottom Club',
               played: 42,
               won: 6,

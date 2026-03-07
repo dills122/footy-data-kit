@@ -33,7 +33,8 @@ if (typeof globalThis.DOMException === 'undefined') {
 }
 
 const overviewModule = await import('../parse-ext-season-overview-pages.js');
-const { parseOverviewLeagueTables, buildSeasonOverview } = overviewModule;
+const { parseOverviewLeagueTables, buildSeasonOverview, buildSeasonOverviewSeasonRecord } =
+  overviewModule;
 
 function buildTableHtml(teamName, points = 30) {
   return `
@@ -135,6 +136,37 @@ describe('parseOverviewLeagueTables', () => {
     expect(result).toHaveLength(2);
     expect(result[1].rows[0].wasPromoted).toBe(true);
   });
+
+  test('does not treat League One as the second tier when the Championship table is absent', () => {
+    const seasonRecord = buildSeasonOverviewSeasonRecord({
+      seasonKey: '2019',
+      seasonYear: 2019,
+      seasonSlug: '2019–20_in_English_football',
+      tables: [
+        {
+          title: 'Premier League',
+          id: 'Premier_League',
+          tableIndex: 0,
+          rows: [
+            { pos: 1, team: 'Liverpool', played: 38, points: 99 },
+            { pos: 20, team: 'Norwich City', played: 38, points: 21, wasRelegated: true },
+          ],
+        },
+        {
+          title: 'League One',
+          id: 'League_One',
+          tableIndex: 1,
+          rows: [
+            { pos: 1, team: 'Coventry City', played: 34, points: 67, wasPromoted: true },
+            { pos: 2, team: 'Rotherham United', played: 35, points: 62, wasPromoted: true },
+          ],
+        },
+      ],
+    });
+
+    expect(seasonRecord.seasonInfo.relegated).toEqual(['Norwich City']);
+    expect(seasonRecord.seasonInfo.promoted).toEqual([]);
+  });
 });
 
 describe('buildSeasonOverview', () => {
@@ -167,8 +199,8 @@ describe('buildSeasonOverview', () => {
     const mockTablesBySlug = {
       '1901–02_in_English_football': [
         {
-          title: 'Test League',
-          id: 'Test',
+          title: 'Premier League',
+          id: 'Premier_League',
           tableIndex: 0,
           rows: [
             { pos: 1, team: 'Update FC', played: 30, points: 60, wasPromoted: false },
@@ -176,8 +208,8 @@ describe('buildSeasonOverview', () => {
           ],
         },
         {
-          title: 'Second League',
-          id: 'Second',
+          title: 'Championship',
+          id: 'Championship',
           tableIndex: 1,
           rows: [
             { pos: 1, team: 'Rising Club', played: 30, points: 70, wasPromoted: true },
@@ -211,8 +243,8 @@ describe('buildSeasonOverview', () => {
     expect(season1901.tier1.metadata).toMatchObject({
       source: 'wikipedia-overview',
       sourceUrl: 'https://en.wikipedia.org/wiki/1901–02_in_English_football',
-      title: 'Test League',
-      leagueId: 'Test',
+      title: 'Premier League',
+      leagueId: 'Premier_League',
       tableIndex: 0,
       tableCount: 2,
       seasonSlug: '1901–02_in_English_football',

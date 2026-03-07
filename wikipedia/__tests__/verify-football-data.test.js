@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
-import { analyzeFile, expandTargets } from '../verify-football-data.js';
+import { analyzeDataset, analyzeFile, expandTargets } from '../verify-football-data.js';
 
 describe('verify-football-data', () => {
   const tmpDirs = [];
@@ -84,5 +84,127 @@ describe('verify-football-data', () => {
 
     expect(issueTypes).toContain('duplicate-teams');
     expect(issueTypes).toContain('duplicate-positions');
+  });
+
+  test('analyzeDataset reports tier contract and football-context issues', () => {
+    const issues = analyzeDataset({
+      seasons: {
+        2001: {
+          seasonInfo: {
+            season: 2001,
+            table: [{ bogus: true }],
+            promoted: ['Alpha FC'],
+            relegated: ['Legacy Town'],
+            seasonSlug: '2001-02',
+            sourceUrl: 'https://example.com/2001',
+            tableCount: 2,
+          },
+          tier1: {
+            season: 2001,
+            table: [
+              {
+                pos: 1,
+                team: 'Alpha FC',
+                played: 10,
+                won: 7,
+                drawn: 2,
+                lost: 1,
+                goalsFor: 20,
+                goalsAgainst: 9,
+                goalDifference: 11,
+                goalAverage: null,
+                points: 23,
+                notes: null,
+                wasRelegated: false,
+                wasPromoted: true,
+                isExpansionTeam: false,
+                wasReElected: false,
+                wasReprieved: false,
+              },
+              {
+                pos: 3,
+                team: 'Beta FC',
+                played: 10,
+                won: 5,
+                drawn: 3,
+                lost: 2,
+                goalsFor: 15,
+                goalsAgainst: 10,
+                goalDifference: 5,
+                goalAverage: null,
+                points: 18,
+                notes: null,
+                wasRelegated: false,
+                wasPromoted: false,
+                isExpansionTeam: false,
+                wasReElected: false,
+                wasReprieved: false,
+              },
+            ],
+            promoted: ['Alpha FC'],
+            relegated: [],
+            seasonSlug: 'legacy-field',
+            metadata: {
+              source: 'wikipedia-promotion',
+              seasonSlug: '2001-02',
+            },
+          },
+        },
+        2002: {
+          seasonInfo: {
+            season: 2002,
+            table: [],
+            promoted: [],
+            relegated: [],
+            seasonSlug: '2002-03',
+            sourceUrl: 'https://example.com/2002',
+            tableCount: 1,
+          },
+          tier1: {
+            season: 2002,
+            table: [
+              {
+                pos: 1,
+                team: 'Legacy Town',
+                played: 10,
+                won: 8,
+                drawn: 1,
+                lost: 1,
+                goalsFor: 22,
+                goalsAgainst: 8,
+                goalDifference: 14,
+                goalAverage: null,
+                points: 25,
+                notes: null,
+                wasRelegated: false,
+                wasPromoted: false,
+                isExpansionTeam: false,
+                wasReElected: false,
+                wasReprieved: false,
+              },
+            ],
+            promoted: [],
+            relegated: [],
+            metadata: {
+              source: 'wikipedia-overview',
+              seasonSlug: '2002-03',
+              tierKey: 'tier2',
+            },
+          },
+        },
+      },
+    });
+
+    const issueTypes = issues.map((issue) => issue.type);
+    expect(issueTypes).toContain('unexpected-season-info-table');
+    expect(issueTypes).toContain('legacy-tier-metadata-fields');
+    expect(issueTypes).toContain('incomplete-tier-metadata');
+    expect(issueTypes).toContain('position-gap');
+    expect(issueTypes).toContain('unexpected-top-flight-promotion-flag');
+    expect(issueTypes).toContain('unexpected-top-flight-promoted-list');
+    expect(issueTypes).toContain('tier-metadata-mismatch');
+    expect(issueTypes).toContain('incomplete-overview-metadata');
+    expect(issueTypes).toContain('promotion-continuity-mismatch');
+    expect(issueTypes).toContain('relegation-continuity-mismatch');
   });
 });
