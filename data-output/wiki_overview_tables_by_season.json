@@ -2,8 +2,6 @@
   "seasons": {
     "1991": {
       "seasonInfo": {
-        "seasonSlug": "1991–92_in_English_football",
-        "tableCount": 4,
         "season": 1991,
         "table": [],
         "relegated": [
@@ -15,16 +13,12 @@
           "Ipswich Town",
           "Middlesbrough",
           "Blackburn Rovers"
-        ]
+        ],
+        "seasonSlug": "1991–92_in_English_football",
+        "sourceUrl": null,
+        "tableCount": 4
       },
       "tier1": {
-        "title": "First Division",
-        "seasonMetadata": {
-          "leagueId": "First_Division_2",
-          "tableIndex": 0,
-          "tableCount": 4,
-          "seasonSlug": "1991–92_in_English_football"
-        },
         "season": 1991,
         "table": [
           {
@@ -58,7 +52,7 @@
             "goalDifference": 30,
             "goalAverage": null,
             "points": 78,
-            "notes": "Qualification for the UEFA Cup first round and qualifcation for the FA Premier League",
+            "notes": "Qualification for the UEFA Cup first round and qualification for the FA Premier League",
             "wasRelegated": false,
             "wasPromoted": false,
             "isExpansionTeam": false,
@@ -77,7 +71,7 @@
             "goalDifference": 13,
             "goalAverage": null,
             "points": 75,
-            "notes": "Qualification for the UEFA Cup first round and qualifcation for the FA Premier League",
+            "notes": "Qualification for the UEFA Cup first round and qualification for the FA Premier League",
             "wasRelegated": false,
             "wasPromoted": false,
             "isExpansionTeam": false,
@@ -451,16 +445,19 @@
           "Notts County",
           "West Ham United"
         ],
-        "promoted": []
-      },
-      "tier2": {
-        "title": "Second Division",
-        "seasonMetadata": {
-          "leagueId": "Second_Division_2",
+        "promoted": [],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/1991–92_in_English_football",
+          "seasonSlug": "1991–92_in_English_football",
+          "leagueId": "First_Division_2",
+          "title": "First Division",
           "tableIndex": 0,
           "tableCount": 4,
-          "seasonSlug": "1991–92_in_English_football"
-        },
+          "tierKey": "tier1"
+        }
+      },
+      "tier2": {
         "season": 1991,
         "table": [
           {
@@ -929,16 +926,19 @@
           "Ipswich Town",
           "Middlesbrough",
           "Blackburn Rovers"
-        ]
-      },
-      "tier3": {
-        "title": "Third Division",
-        "seasonMetadata": {
-          "leagueId": "Third_Division_2",
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/1991–92_in_English_football",
+          "seasonSlug": "1991–92_in_English_football",
+          "leagueId": "Second_Division_2",
+          "title": "Second Division",
           "tableIndex": 0,
           "tableCount": 4,
-          "seasonSlug": "1991–92_in_English_football"
-        },
+          "tierKey": "tier2"
+        }
+      },
+      "tier3": {
         "season": 1991,
         "table": [
           {
@@ -1408,16 +1408,19 @@
           "Brentford",
           "Birmingham City",
           "Peterborough United"
-        ]
-      },
-      "tier4": {
-        "title": "Fourth Division",
-        "seasonMetadata": {
-          "leagueId": "Fourth_Division_2",
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/1991–92_in_English_football",
+          "seasonSlug": "1991–92_in_English_football",
+          "leagueId": "Third_Division_2",
+          "title": "Third Division",
           "tableIndex": 0,
           "tableCount": 4,
-          "seasonSlug": "1991–92_in_English_football"
-        },
+          "tierKey": "tier3"
+        }
+      },
+      "tier4": {
         "season": 1991,
         "table": [
           {
@@ -1864,13 +1867,21 @@
           "Rotherham United",
           "Mansfield Town",
           "Blackpool"
-        ]
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/1991–92_in_English_football",
+          "seasonSlug": "1991–92_in_English_football",
+          "leagueId": "Fourth_Division_2",
+          "title": "Fourth Division",
+          "tableIndex": 0,
+          "tableCount": 4,
+          "tierKey": "tier4"
+        }
       }
     },
     "1992": {
       "seasonInfo": {
-        "seasonSlug": "1992–93_in_English_football",
-        "tableCount": 4,
         "season": 1992,
         "table": [],
         "relegated": [
@@ -1882,16 +1893,12 @@
           "Newcastle United",
           "West Ham United",
           "Swindon Town"
-        ]
+        ],
+        "seasonSlug": "1992–93_in_English_football",
+        "sourceUrl": null,
+        "tableCount": 4
       },
       "tier1": {
-        "title": "FA Premier League",
-        "seasonMetadata": {
-          "leagueId": "FA_Premier_League",
-          "tableIndex": 0,
-          "tableCount": 4,
-          "seasonSlug": "1992–93_in_English_football"
-        },
         "season": 1992,
         "table": [
           {
@@ -2318,16 +2325,19 @@
           "Middlesbrough",
           "Nottingham Forest"
         ],
-        "promoted": []
-      },
-      "tier2": {
-        "title": "League Division One",
-        "seasonMetadata": {
-          "leagueId": "League_Division_One",
+        "promoted": [],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/1992–93_in_English_football",
+          "seasonSlug": "1992–93_in_English_football",
+          "leagueId": "FA_Premier_League",
+          "title": "FA Premier League",
           "tableIndex": 0,
           "tableCount": 4,
-          "seasonSlug": "1992–93_in_English_football"
-        },
+          "tierKey": "tier1"
+        }
+      },
+      "tier2": {
         "season": 1992,
         "table": [
           {
@@ -2796,16 +2806,19 @@
           "Newcastle United",
           "West Ham United",
           "Swindon Town"
-        ]
-      },
-      "tier3": {
-        "title": "League Division Two",
-        "seasonMetadata": {
-          "leagueId": "League_Division_Two",
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/1992–93_in_English_football",
+          "seasonSlug": "1992–93_in_English_football",
+          "leagueId": "League_Division_One",
+          "title": "League Division One",
           "tableIndex": 0,
           "tableCount": 4,
-          "seasonSlug": "1992–93_in_English_football"
-        },
+          "tierKey": "tier2"
+        }
+      },
+      "tier3": {
         "season": 1992,
         "table": [
           {
@@ -3275,16 +3288,19 @@
           "Stoke City",
           "Bolton Wanderers",
           "West Bromwich Albion"
-        ]
-      },
-      "tier4": {
-        "title": "League Division Three",
-        "seasonMetadata": {
-          "leagueId": "League_Division_Three",
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/1992–93_in_English_football",
+          "seasonSlug": "1992–93_in_English_football",
+          "leagueId": "League_Division_Two",
+          "title": "League Division Two",
           "tableIndex": 0,
           "tableCount": 4,
-          "seasonSlug": "1992–93_in_English_football"
-        },
+          "tierKey": "tier3"
+        }
+      },
+      "tier4": {
         "season": 1992,
         "table": [
           {
@@ -3465,9 +3481,9 @@
             "won": 18,
             "drawn": 5,
             "lost": 19,
-            "goalsFor": 67,
+            "goalsFor": 66,
             "goalsAgainst": 76,
-            "goalDifference": -9,
+            "goalDifference": -10,
             "goalAverage": null,
             "points": 59,
             "notes": null,
@@ -3504,8 +3520,8 @@
             "drawn": 11,
             "lost": 16,
             "goalsFor": 59,
-            "goalsAgainst": 63,
-            "goalDifference": -4,
+            "goalsAgainst": 62,
+            "goalDifference": -3,
             "goalAverage": null,
             "points": 56,
             "notes": null,
@@ -3733,13 +3749,21 @@
           "Wrexham",
           "Barnet",
           "York City"
-        ]
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/1992–93_in_English_football",
+          "seasonSlug": "1992–93_in_English_football",
+          "leagueId": "League_Division_Three",
+          "title": "League Division Three",
+          "tableIndex": 0,
+          "tableCount": 4,
+          "tierKey": "tier4"
+        }
       }
     },
     "1993": {
       "seasonInfo": {
-        "seasonSlug": "1993–94_in_English_football",
-        "tableCount": 4,
         "season": 1993,
         "table": [],
         "relegated": [
@@ -3751,16 +3775,12 @@
           "Crystal Palace",
           "Nottingham Forest",
           "Leicester City"
-        ]
+        ],
+        "seasonSlug": "1993–94_in_English_football",
+        "sourceUrl": null,
+        "tableCount": 4
       },
       "tier1": {
-        "title": "FA Premiership",
-        "seasonMetadata": {
-          "leagueId": "FA_Premiership",
-          "tableIndex": 0,
-          "tableCount": 4,
-          "seasonSlug": "1993–94_in_English_football"
-        },
         "season": 1993,
         "table": [
           {
@@ -4187,16 +4207,19 @@
           "Oldham Athletic",
           "Swindon Town"
         ],
-        "promoted": []
-      },
-      "tier2": {
-        "title": "League Division One",
-        "seasonMetadata": {
-          "leagueId": "League_Division_One",
+        "promoted": [],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/1993–94_in_English_football",
+          "seasonSlug": "1993–94_in_English_football",
+          "leagueId": "FA_Premiership",
+          "title": "FA Premiership",
           "tableIndex": 0,
           "tableCount": 4,
-          "seasonSlug": "1993–94_in_English_football"
-        },
+          "tierKey": "tier1"
+        }
+      },
+      "tier2": {
         "season": 1993,
         "table": [
           {
@@ -4665,16 +4688,19 @@
           "Crystal Palace",
           "Nottingham Forest",
           "Leicester City"
-        ]
-      },
-      "tier3": {
-        "title": "League Division Two",
-        "seasonMetadata": {
-          "leagueId": "League_Division_Two",
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/1993–94_in_English_football",
+          "seasonSlug": "1993–94_in_English_football",
+          "leagueId": "League_Division_One",
+          "title": "League Division One",
           "tableIndex": 0,
           "tableCount": 4,
-          "seasonSlug": "1993–94_in_English_football"
-        },
+          "tierKey": "tier2"
+        }
+      },
+      "tier3": {
         "season": 1993,
         "table": [
           {
@@ -5144,16 +5170,19 @@
           "Reading",
           "Port Vale",
           "Burnley"
-        ]
-      },
-      "tier4": {
-        "title": "League Division Three",
-        "seasonMetadata": {
-          "leagueId": "League_Division_Three",
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/1993–94_in_English_football",
+          "seasonSlug": "1993–94_in_English_football",
+          "leagueId": "League_Division_Two",
+          "title": "League Division Two",
           "tableIndex": 0,
           "tableCount": 4,
-          "seasonSlug": "1993–94_in_English_football"
-        },
+          "tierKey": "tier3"
+        }
+      },
+      "tier4": {
         "season": 1993,
         "table": [
           {
@@ -5583,13 +5612,21 @@
           "Chester City",
           "Crewe Alexandra",
           "Wycombe Wanderers"
-        ]
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/1993–94_in_English_football",
+          "seasonSlug": "1993–94_in_English_football",
+          "leagueId": "League_Division_Three",
+          "title": "League Division Three",
+          "tableIndex": 0,
+          "tableCount": 4,
+          "tierKey": "tier4"
+        }
       }
     },
     "1994": {
       "seasonInfo": {
-        "seasonSlug": "1994–95_in_English_football",
-        "tableCount": 4,
         "season": 1994,
         "table": [],
         "relegated": [
@@ -5601,16 +5638,12 @@
         "promoted": [
           "Middlesbrough",
           "Bolton Wanderers"
-        ]
+        ],
+        "seasonSlug": "1994–95_in_English_football",
+        "sourceUrl": null,
+        "tableCount": 4
       },
       "tier1": {
-        "title": "FA Premier League",
-        "seasonMetadata": {
-          "leagueId": "FA_Premier_League",
-          "tableIndex": 0,
-          "tableCount": 4,
-          "seasonSlug": "1994–95_in_English_football"
-        },
         "season": 1994,
         "table": [
           {
@@ -6038,16 +6071,19 @@
           "Leicester City",
           "Ipswich Town"
         ],
-        "promoted": []
-      },
-      "tier2": {
-        "title": "First Division",
-        "seasonMetadata": {
-          "leagueId": "First_Division",
+        "promoted": [],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/1994–95_in_English_football",
+          "seasonSlug": "1994–95_in_English_football",
+          "leagueId": "FA_Premier_League",
+          "title": "FA Premier League",
           "tableIndex": 0,
           "tableCount": 4,
-          "seasonSlug": "1994–95_in_English_football"
-        },
+          "tierKey": "tier1"
+        }
+      },
+      "tier2": {
         "season": 1994,
         "table": [
           {
@@ -6516,16 +6552,19 @@
         "promoted": [
           "Middlesbrough",
           "Bolton Wanderers"
-        ]
-      },
-      "tier3": {
-        "title": "Second Division",
-        "seasonMetadata": {
-          "leagueId": "Second_Division",
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/1994–95_in_English_football",
+          "seasonSlug": "1994–95_in_English_football",
+          "leagueId": "First_Division",
+          "title": "First Division",
           "tableIndex": 0,
           "tableCount": 4,
-          "seasonSlug": "1994–95_in_English_football"
-        },
+          "tierKey": "tier2"
+        }
+      },
+      "tier3": {
         "season": 1994,
         "table": [
           {
@@ -6995,16 +7034,19 @@
         "promoted": [
           "Birmingham City",
           "Huddersfield Town"
-        ]
-      },
-      "tier4": {
-        "title": "Third Division",
-        "seasonMetadata": {
-          "leagueId": "Third_Division",
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/1994–95_in_English_football",
+          "seasonSlug": "1994–95_in_English_football",
+          "leagueId": "Second_Division",
+          "title": "Second Division",
           "tableIndex": 0,
           "tableCount": 4,
-          "seasonSlug": "1994–95_in_English_football"
-        },
+          "tierKey": "tier3"
+        }
+      },
+      "tier4": {
         "season": 1994,
         "table": [
           {
@@ -7433,13 +7475,21 @@
           "Carlisle United",
           "Walsall",
           "Chesterfield"
-        ]
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/1994–95_in_English_football",
+          "seasonSlug": "1994–95_in_English_football",
+          "leagueId": "Third_Division",
+          "title": "Third Division",
+          "tableIndex": 0,
+          "tableCount": 4,
+          "tierKey": "tier4"
+        }
       }
     },
     "1995": {
       "seasonInfo": {
-        "seasonSlug": "1995–96_in_English_football",
-        "tableCount": 4,
         "season": 1995,
         "table": [],
         "relegated": [
@@ -7451,16 +7501,12 @@
           "Sunderland",
           "Derby County",
           "Leicester City"
-        ]
+        ],
+        "seasonSlug": "1995–96_in_English_football",
+        "sourceUrl": null,
+        "tableCount": 4
       },
       "tier1": {
-        "title": "Premiership",
-        "seasonMetadata": {
-          "leagueId": "Premiership_2",
-          "tableIndex": 0,
-          "tableCount": 4,
-          "seasonSlug": "1995–96_in_English_football"
-        },
         "season": 1995,
         "table": [
           {
@@ -7849,16 +7895,19 @@
           "Queens Park Rangers",
           "Bolton Wanderers"
         ],
-        "promoted": []
-      },
-      "tier2": {
-        "title": "Division One",
-        "seasonMetadata": {
-          "leagueId": "Division_One_2",
+        "promoted": [],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/1995–96_in_English_football",
+          "seasonSlug": "1995–96_in_English_football",
+          "leagueId": "Premiership_2",
+          "title": "Premiership",
           "tableIndex": 0,
           "tableCount": 4,
-          "seasonSlug": "1995–96_in_English_football"
-        },
+          "tierKey": "tier1"
+        }
+      },
+      "tier2": {
         "season": 1995,
         "table": [
           {
@@ -8327,16 +8376,19 @@
           "Sunderland",
           "Derby County",
           "Leicester City"
-        ]
-      },
-      "tier3": {
-        "title": "Division Two",
-        "seasonMetadata": {
-          "leagueId": "Division_Two_2",
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/1995–96_in_English_football",
+          "seasonSlug": "1995–96_in_English_football",
+          "leagueId": "Division_One_2",
+          "title": "Division One",
           "tableIndex": 0,
           "tableCount": 4,
-          "seasonSlug": "1995–96_in_English_football"
-        },
+          "tierKey": "tier2"
+        }
+      },
+      "tier3": {
         "season": 1995,
         "table": [
           {
@@ -8806,16 +8858,19 @@
           "Swindon Town",
           "Oxford United",
           "Bradford City"
-        ]
-      },
-      "tier4": {
-        "title": "Division Three",
-        "seasonMetadata": {
-          "leagueId": "Division_Three_2",
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/1995–96_in_English_football",
+          "seasonSlug": "1995–96_in_English_football",
+          "leagueId": "Division_Two_2",
+          "title": "Division Two",
           "tableIndex": 0,
           "tableCount": 4,
-          "seasonSlug": "1995–96_in_English_football"
-        },
+          "tierKey": "tier3"
+        }
+      },
+      "tier4": {
         "season": 1995,
         "table": [
           {
@@ -9283,13 +9338,21 @@
           "Gillingham",
           "Bury",
           "Plymouth Argyle"
-        ]
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/1995–96_in_English_football",
+          "seasonSlug": "1995–96_in_English_football",
+          "leagueId": "Division_Three_2",
+          "title": "Division Three",
+          "tableIndex": 0,
+          "tableCount": 4,
+          "tierKey": "tier4"
+        }
       }
     },
     "1996": {
       "seasonInfo": {
-        "seasonSlug": "1996–97_in_English_football",
-        "tableCount": 4,
         "season": 1996,
         "table": [],
         "relegated": [
@@ -9301,16 +9364,12 @@
           "Bolton Wanderers",
           "Barnsley",
           "Crystal Palace"
-        ]
+        ],
+        "seasonSlug": "1996–97_in_English_football",
+        "sourceUrl": null,
+        "tableCount": 4
       },
       "tier1": {
-        "title": "FA Premier League",
-        "seasonMetadata": {
-          "leagueId": "FA_Premier_League",
-          "tableIndex": 0,
-          "tableCount": 4,
-          "seasonSlug": "1996–97_in_English_football"
-        },
         "season": 1996,
         "table": [
           {
@@ -9699,16 +9758,19 @@
           "Middlesbrough",
           "Nottingham Forest"
         ],
-        "promoted": []
-      },
-      "tier2": {
-        "title": "First Division",
-        "seasonMetadata": {
-          "leagueId": "First_Division",
+        "promoted": [],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/1996–97_in_English_football",
+          "seasonSlug": "1996–97_in_English_football",
+          "leagueId": "FA_Premier_League",
+          "title": "FA Premier League",
           "tableIndex": 0,
           "tableCount": 4,
-          "seasonSlug": "1996–97_in_English_football"
-        },
+          "tierKey": "tier1"
+        }
+      },
+      "tier2": {
         "season": 1996,
         "table": [
           {
@@ -10177,16 +10239,19 @@
           "Bolton Wanderers",
           "Barnsley",
           "Crystal Palace"
-        ]
-      },
-      "tier3": {
-        "title": "Second Division",
-        "seasonMetadata": {
-          "leagueId": "Second_Division",
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/1996–97_in_English_football",
+          "seasonSlug": "1996–97_in_English_football",
+          "leagueId": "First_Division",
+          "title": "First Division",
           "tableIndex": 0,
           "tableCount": 4,
-          "seasonSlug": "1996–97_in_English_football"
-        },
+          "tierKey": "tier2"
+        }
+      },
+      "tier3": {
         "season": 1996,
         "table": [
           {
@@ -10656,16 +10721,19 @@
           "Bury",
           "Stockport County",
           "Crewe Alexandra"
-        ]
-      },
-      "tier4": {
-        "title": "Third Division",
-        "seasonMetadata": {
-          "leagueId": "Third_Division",
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/1996–97_in_English_football",
+          "seasonSlug": "1996–97_in_English_football",
+          "leagueId": "Second_Division",
+          "title": "Second Division",
           "tableIndex": 0,
           "tableCount": 4,
-          "seasonSlug": "1996–97_in_English_football"
-        },
+          "tierKey": "tier3"
+        }
+      },
+      "tier4": {
         "season": 1996,
         "table": [
           {
@@ -11133,13 +11201,21 @@
           "Fulham",
           "Carlisle United",
           "Northampton Town"
-        ]
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/1996–97_in_English_football",
+          "seasonSlug": "1996–97_in_English_football",
+          "leagueId": "Third_Division",
+          "title": "Third Division",
+          "tableIndex": 0,
+          "tableCount": 4,
+          "tierKey": "tier4"
+        }
       }
     },
     "1997": {
       "seasonInfo": {
-        "seasonSlug": "1997–98_in_English_football",
-        "tableCount": 4,
         "season": 1997,
         "table": [],
         "relegated": [
@@ -11151,16 +11227,12 @@
           "Nottingham Forest",
           "Middlesbrough",
           "Charlton Athletic"
-        ]
+        ],
+        "seasonSlug": "1997–98_in_English_football",
+        "sourceUrl": null,
+        "tableCount": 4
       },
       "tier1": {
-        "title": "FA Premier League",
-        "seasonMetadata": {
-          "leagueId": "FA_Premier_League",
-          "tableIndex": 0,
-          "tableCount": 4,
-          "seasonSlug": "1997–98_in_English_football"
-        },
         "season": 1997,
         "table": [
           {
@@ -11549,16 +11621,19 @@
           "Barnsley",
           "Crystal Palace"
         ],
-        "promoted": []
-      },
-      "tier2": {
-        "title": "First Division",
-        "seasonMetadata": {
-          "leagueId": "First_Division",
+        "promoted": [],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/1997–98_in_English_football",
+          "seasonSlug": "1997–98_in_English_football",
+          "leagueId": "FA_Premier_League",
+          "title": "FA Premier League",
           "tableIndex": 0,
           "tableCount": 4,
-          "seasonSlug": "1997–98_in_English_football"
-        },
+          "tierKey": "tier1"
+        }
+      },
+      "tier2": {
         "season": 1997,
         "table": [
           {
@@ -12027,16 +12102,19 @@
           "Nottingham Forest",
           "Middlesbrough",
           "Charlton Athletic"
-        ]
-      },
-      "tier3": {
-        "title": "Second Division",
-        "seasonMetadata": {
-          "leagueId": "Second_Division",
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/1997–98_in_English_football",
+          "seasonSlug": "1997–98_in_English_football",
+          "leagueId": "First_Division",
+          "title": "First Division",
           "tableIndex": 0,
           "tableCount": 4,
-          "seasonSlug": "1997–98_in_English_football"
-        },
+          "tierKey": "tier2"
+        }
+      },
+      "tier3": {
         "season": 1997,
         "table": [
           {
@@ -12506,16 +12584,19 @@
           "Watford",
           "Bristol City",
           "Grimsby Town"
-        ]
-      },
-      "tier4": {
-        "title": "Third Division",
-        "seasonMetadata": {
-          "leagueId": "Third_Division",
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/1997–98_in_English_football",
+          "seasonSlug": "1997–98_in_English_football",
+          "leagueId": "Second_Division",
+          "title": "Second Division",
           "tableIndex": 0,
           "tableCount": 4,
-          "seasonSlug": "1997–98_in_English_football"
-        },
+          "tierKey": "tier3"
+        }
+      },
+      "tier4": {
         "season": 1997,
         "table": [
           {
@@ -12983,13 +13064,21 @@
           "Macclesfield Town",
           "Lincoln City",
           "Colchester United"
-        ]
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/1997–98_in_English_football",
+          "seasonSlug": "1997–98_in_English_football",
+          "leagueId": "Third_Division",
+          "title": "Third Division",
+          "tableIndex": 0,
+          "tableCount": 4,
+          "tierKey": "tier4"
+        }
       }
     },
     "1998": {
       "seasonInfo": {
-        "seasonSlug": "1998–99_in_English_football",
-        "tableCount": 4,
         "season": 1998,
         "table": [],
         "relegated": [
@@ -13001,16 +13090,12 @@
           "Sunderland",
           "Bradford City",
           "Watford"
-        ]
+        ],
+        "seasonSlug": "1998–99_in_English_football",
+        "sourceUrl": null,
+        "tableCount": 4
       },
       "tier1": {
-        "title": "FA Premier League",
-        "seasonMetadata": {
-          "leagueId": "FA_Premier_League",
-          "tableIndex": 0,
-          "tableCount": 4,
-          "seasonSlug": "1998–99_in_English_football"
-        },
         "season": 1998,
         "table": [
           {
@@ -13399,16 +13484,19 @@
           "Blackburn Rovers",
           "Nottingham Forest"
         ],
-        "promoted": []
-      },
-      "tier2": {
-        "title": "Division One",
-        "seasonMetadata": {
-          "leagueId": "Division_One_2",
+        "promoted": [],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/1998–99_in_English_football",
+          "seasonSlug": "1998–99_in_English_football",
+          "leagueId": "FA_Premier_League",
+          "title": "FA Premier League",
           "tableIndex": 0,
           "tableCount": 4,
-          "seasonSlug": "1998–99_in_English_football"
-        },
+          "tierKey": "tier1"
+        }
+      },
+      "tier2": {
         "season": 1998,
         "table": [
           {
@@ -13877,16 +13965,19 @@
           "Sunderland",
           "Bradford City",
           "Watford"
-        ]
-      },
-      "tier3": {
-        "title": "Division Two",
-        "seasonMetadata": {
-          "leagueId": "Division_Two_2",
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/1998–99_in_English_football",
+          "seasonSlug": "1998–99_in_English_football",
+          "leagueId": "Division_One_2",
+          "title": "Division One",
           "tableIndex": 0,
           "tableCount": 4,
-          "seasonSlug": "1998–99_in_English_football"
-        },
+          "tierKey": "tier2"
+        }
+      },
+      "tier3": {
         "season": 1998,
         "table": [
           {
@@ -14356,16 +14447,19 @@
           "Fulham",
           "Walsall",
           "Manchester City"
-        ]
-      },
-      "tier4": {
-        "title": "Division Three",
-        "seasonMetadata": {
-          "leagueId": "Division_Three_2",
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/1998–99_in_English_football",
+          "seasonSlug": "1998–99_in_English_football",
+          "leagueId": "Division_Two_2",
+          "title": "Division Two",
           "tableIndex": 0,
           "tableCount": 4,
-          "seasonSlug": "1998–99_in_English_football"
-        },
+          "tierKey": "tier3"
+        }
+      },
+      "tier4": {
         "season": 1998,
         "table": [
           {
@@ -14833,13 +14927,21 @@
           "Cambridge United",
           "Cardiff City",
           "Scunthorpe United"
-        ]
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/1998–99_in_English_football",
+          "seasonSlug": "1998–99_in_English_football",
+          "leagueId": "Division_Three_2",
+          "title": "Division Three",
+          "tableIndex": 0,
+          "tableCount": 4,
+          "tierKey": "tier4"
+        }
       }
     },
     "1999": {
       "seasonInfo": {
-        "seasonSlug": "1999–2000_in_English_football",
-        "tableCount": 4,
         "season": 1999,
         "table": [],
         "relegated": [
@@ -14851,16 +14953,12 @@
           "Charlton Athletic",
           "Manchester City",
           "Ipswich Town"
-        ]
+        ],
+        "seasonSlug": "1999–2000_in_English_football",
+        "sourceUrl": null,
+        "tableCount": 4
       },
       "tier1": {
-        "title": "FA Premier League",
-        "seasonMetadata": {
-          "leagueId": "FA_Premier_League",
-          "tableIndex": 0,
-          "tableCount": 4,
-          "seasonSlug": "1999–2000_in_English_football"
-        },
         "season": 1999,
         "table": [
           {
@@ -15249,16 +15347,19 @@
           "Sheffield Wednesday",
           "Watford"
         ],
-        "promoted": []
-      },
-      "tier2": {
-        "title": "Football League Division One",
-        "seasonMetadata": {
-          "leagueId": "Football_League_Division_One",
+        "promoted": [],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/1999–2000_in_English_football",
+          "seasonSlug": "1999–2000_in_English_football",
+          "leagueId": "FA_Premier_League",
+          "title": "FA Premier League",
           "tableIndex": 0,
           "tableCount": 4,
-          "seasonSlug": "1999–2000_in_English_football"
-        },
+          "tierKey": "tier1"
+        }
+      },
+      "tier2": {
         "season": 1999,
         "table": [
           {
@@ -15727,16 +15828,19 @@
           "Charlton Athletic",
           "Manchester City",
           "Ipswich Town"
-        ]
-      },
-      "tier3": {
-        "title": "Football League Division Two",
-        "seasonMetadata": {
-          "leagueId": "Football_League_Division_Two",
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/1999–2000_in_English_football",
+          "seasonSlug": "1999–2000_in_English_football",
+          "leagueId": "Football_League_Division_One",
+          "title": "Football League Division One",
           "tableIndex": 0,
           "tableCount": 4,
-          "seasonSlug": "1999–2000_in_English_football"
-        },
+          "tierKey": "tier2"
+        }
+      },
+      "tier3": {
         "season": 1999,
         "table": [
           {
@@ -16206,16 +16310,19 @@
           "Preston North End",
           "Burnley",
           "Gillingham"
-        ]
-      },
-      "tier4": {
-        "title": "Football League Division Three",
-        "seasonMetadata": {
-          "leagueId": "Football_League_Division_Three",
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/1999–2000_in_English_football",
+          "seasonSlug": "1999–2000_in_English_football",
+          "leagueId": "Football_League_Division_Two",
+          "title": "Football League Division Two",
           "tableIndex": 0,
           "tableCount": 4,
-          "seasonSlug": "1999–2000_in_English_football"
-        },
+          "tierKey": "tier3"
+        }
+      },
+      "tier4": {
         "season": 1999,
         "table": [
           {
@@ -16683,13 +16790,21 @@
           "Rotherham United",
           "Northampton Town",
           "Peterborough United"
-        ]
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/1999–2000_in_English_football",
+          "seasonSlug": "1999–2000_in_English_football",
+          "leagueId": "Football_League_Division_Three",
+          "title": "Football League Division Three",
+          "tableIndex": 0,
+          "tableCount": 4,
+          "tierKey": "tier4"
+        }
       }
     },
     "2000": {
       "seasonInfo": {
-        "seasonSlug": "2000–01_in_English_football",
-        "tableCount": 4,
         "season": 2000,
         "table": [],
         "relegated": [
@@ -16701,16 +16816,12 @@
           "Fulham",
           "Blackburn Rovers",
           "Bolton Wanderers"
-        ]
+        ],
+        "seasonSlug": "2000–01_in_English_football",
+        "sourceUrl": null,
+        "tableCount": 4
       },
       "tier1": {
-        "title": "FA Premier League",
-        "seasonMetadata": {
-          "leagueId": "FA_Premier_League",
-          "tableIndex": 0,
-          "tableCount": 4,
-          "seasonSlug": "2000–01_in_English_football"
-        },
         "season": 2000,
         "table": [
           {
@@ -17099,16 +17210,19 @@
           "Coventry City",
           "Bradford City"
         ],
-        "promoted": []
-      },
-      "tier2": {
-        "title": "Football League First Division",
-        "seasonMetadata": {
-          "leagueId": "Football_League_First_Division",
+        "promoted": [],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2000–01_in_English_football",
+          "seasonSlug": "2000–01_in_English_football",
+          "leagueId": "FA_Premier_League",
+          "title": "FA Premier League",
           "tableIndex": 0,
           "tableCount": 4,
-          "seasonSlug": "2000–01_in_English_football"
-        },
+          "tierKey": "tier1"
+        }
+      },
+      "tier2": {
         "season": 2000,
         "table": [
           {
@@ -17577,16 +17691,19 @@
           "Fulham",
           "Blackburn Rovers",
           "Bolton Wanderers"
-        ]
-      },
-      "tier3": {
-        "title": "Football League Second Division",
-        "seasonMetadata": {
-          "leagueId": "Football_League_Second_Division",
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2000–01_in_English_football",
+          "seasonSlug": "2000–01_in_English_football",
+          "leagueId": "Football_League_First_Division",
+          "title": "Football League First Division",
           "tableIndex": 0,
           "tableCount": 4,
-          "seasonSlug": "2000–01_in_English_football"
-        },
+          "tierKey": "tier2"
+        }
+      },
+      "tier3": {
         "season": 2000,
         "table": [
           {
@@ -18056,16 +18173,19 @@
           "Millwall",
           "Rotherham United",
           "Walsall"
-        ]
-      },
-      "tier4": {
-        "title": "Football League Third Division",
-        "seasonMetadata": {
-          "leagueId": "Football_League_Third_Division",
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2000–01_in_English_football",
+          "seasonSlug": "2000–01_in_English_football",
+          "leagueId": "Football_League_Second_Division",
+          "title": "Football League Second Division",
           "tableIndex": 0,
           "tableCount": 4,
-          "seasonSlug": "2000–01_in_English_football"
-        },
+          "tierKey": "tier3"
+        }
+      },
+      "tier4": {
         "season": 2000,
         "table": [
           {
@@ -18533,13 +18653,21 @@
           "Cardiff City",
           "Chesterfield",
           "Blackpool"
-        ]
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2000–01_in_English_football",
+          "seasonSlug": "2000–01_in_English_football",
+          "leagueId": "Football_League_Third_Division",
+          "title": "Football League Third Division",
+          "tableIndex": 0,
+          "tableCount": 4,
+          "tierKey": "tier4"
+        }
       }
     },
     "2001": {
       "seasonInfo": {
-        "seasonSlug": "2001–02_in_English_football",
-        "tableCount": 4,
         "season": 2001,
         "table": [],
         "relegated": [
@@ -18551,16 +18679,12 @@
           "Manchester City",
           "West Bromwich Albion",
           "Birmingham City"
-        ]
+        ],
+        "seasonSlug": "2001–02_in_English_football",
+        "sourceUrl": null,
+        "tableCount": 4
       },
       "tier1": {
-        "title": "FA Premier League",
-        "seasonMetadata": {
-          "leagueId": "FA_Premier_League",
-          "tableIndex": 0,
-          "tableCount": 4,
-          "seasonSlug": "2001–02_in_English_football"
-        },
         "season": 2001,
         "table": [
           {
@@ -18949,16 +19073,19 @@
           "Derby County",
           "Leicester City"
         ],
-        "promoted": []
-      },
-      "tier2": {
-        "title": "First Division",
-        "seasonMetadata": {
-          "leagueId": "First_Division",
+        "promoted": [],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2001–02_in_English_football",
+          "seasonSlug": "2001–02_in_English_football",
+          "leagueId": "FA_Premier_League",
+          "title": "FA Premier League",
           "tableIndex": 0,
           "tableCount": 4,
-          "seasonSlug": "2001–02_in_English_football"
-        },
+          "tierKey": "tier1"
+        }
+      },
+      "tier2": {
         "season": 2001,
         "table": [
           {
@@ -19427,16 +19554,19 @@
           "Manchester City",
           "West Bromwich Albion",
           "Birmingham City"
-        ]
-      },
-      "tier3": {
-        "title": "Second Division",
-        "seasonMetadata": {
-          "leagueId": "Second_Division",
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2001–02_in_English_football",
+          "seasonSlug": "2001–02_in_English_football",
+          "leagueId": "First_Division",
+          "title": "First Division",
           "tableIndex": 0,
           "tableCount": 4,
-          "seasonSlug": "2001–02_in_English_football"
-        },
+          "tierKey": "tier2"
+        }
+      },
+      "tier3": {
         "season": 2001,
         "table": [
           {
@@ -19906,16 +20036,19 @@
           "Brighton & Hove Albion",
           "Reading",
           "Stoke City"
-        ]
-      },
-      "tier4": {
-        "title": "Third Division",
-        "seasonMetadata": {
-          "leagueId": "Third_Division",
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2001–02_in_English_football",
+          "seasonSlug": "2001–02_in_English_football",
+          "leagueId": "Second_Division",
+          "title": "Second Division",
           "tableIndex": 0,
           "tableCount": 4,
-          "seasonSlug": "2001–02_in_English_football"
-        },
+          "tierKey": "tier3"
+        }
+      },
+      "tier4": {
         "season": 2001,
         "table": [
           {
@@ -20383,13 +20516,21 @@
           "Luton Town",
           "Mansfield Town",
           "Cheltenham Town"
-        ]
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2001–02_in_English_football",
+          "seasonSlug": "2001–02_in_English_football",
+          "leagueId": "Third_Division",
+          "title": "Third Division",
+          "tableIndex": 0,
+          "tableCount": 4,
+          "tierKey": "tier4"
+        }
       }
     },
     "2002": {
       "seasonInfo": {
-        "seasonSlug": "2002–03_in_English_football",
-        "tableCount": 4,
         "season": 2002,
         "table": [],
         "relegated": [
@@ -20401,16 +20542,12 @@
           "Portsmouth",
           "Leicester City",
           "Wolverhampton Wanderers"
-        ]
+        ],
+        "seasonSlug": "2002–03_in_English_football",
+        "sourceUrl": null,
+        "tableCount": 4
       },
       "tier1": {
-        "title": "FA Premier League",
-        "seasonMetadata": {
-          "leagueId": "FA_Premier_League",
-          "tableIndex": 0,
-          "tableCount": 4,
-          "seasonSlug": "2002–03_in_English_football"
-        },
         "season": 2002,
         "table": [
           {
@@ -20799,16 +20936,19 @@
           "West Bromwich Albion",
           "Sunderland"
         ],
-        "promoted": []
-      },
-      "tier2": {
-        "title": "Football League First Division",
-        "seasonMetadata": {
-          "leagueId": "Football_League_First_Division",
+        "promoted": [],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2002–03_in_English_football",
+          "seasonSlug": "2002–03_in_English_football",
+          "leagueId": "FA_Premier_League",
+          "title": "FA Premier League",
           "tableIndex": 0,
           "tableCount": 4,
-          "seasonSlug": "2002–03_in_English_football"
-        },
+          "tierKey": "tier1"
+        }
+      },
+      "tier2": {
         "season": 2002,
         "table": [
           {
@@ -21277,16 +21417,19 @@
           "Portsmouth",
           "Leicester City",
           "Wolverhampton Wanderers"
-        ]
-      },
-      "tier3": {
-        "title": "Football League Second Division",
-        "seasonMetadata": {
-          "leagueId": "Football_League_Second_Division",
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2002–03_in_English_football",
+          "seasonSlug": "2002–03_in_English_football",
+          "leagueId": "Football_League_First_Division",
+          "title": "Football League First Division",
           "tableIndex": 0,
           "tableCount": 4,
-          "seasonSlug": "2002–03_in_English_football"
-        },
+          "tierKey": "tier2"
+        }
+      },
+      "tier3": {
         "season": 2002,
         "table": [
           {
@@ -21756,16 +21899,19 @@
           "Wigan Athletic",
           "Crewe Alexandra",
           "Cardiff City"
-        ]
-      },
-      "tier4": {
-        "title": "Football League Third Division",
-        "seasonMetadata": {
-          "leagueId": "Football_League_Third_Division",
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2002–03_in_English_football",
+          "seasonSlug": "2002–03_in_English_football",
+          "leagueId": "Football_League_Second_Division",
+          "title": "Football League Second Division",
           "tableIndex": 0,
           "tableCount": 4,
-          "seasonSlug": "2002–03_in_English_football"
-        },
+          "tierKey": "tier3"
+        }
+      },
+      "tier4": {
         "season": 2002,
         "table": [
           {
@@ -22234,13 +22380,21 @@
           "Hartlepool United",
           "Wrexham",
           "Bournemouth"
-        ]
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2002–03_in_English_football",
+          "seasonSlug": "2002–03_in_English_football",
+          "leagueId": "Football_League_Third_Division",
+          "title": "Football League Third Division",
+          "tableIndex": 0,
+          "tableCount": 4,
+          "tierKey": "tier4"
+        }
       }
     },
     "2003": {
       "seasonInfo": {
-        "seasonSlug": "2003–04_in_English_football",
-        "tableCount": 4,
         "season": 2003,
         "table": [],
         "relegated": [
@@ -22252,16 +22406,12 @@
           "Norwich City",
           "West Bromwich Albion",
           "Crystal Palace"
-        ]
+        ],
+        "seasonSlug": "2003–04_in_English_football",
+        "sourceUrl": null,
+        "tableCount": 4
       },
       "tier1": {
-        "title": "FA Premier League",
-        "seasonMetadata": {
-          "leagueId": "FA_Premier_League",
-          "tableIndex": 0,
-          "tableCount": 4,
-          "seasonSlug": "2003–04_in_English_football"
-        },
         "season": 2003,
         "table": [
           {
@@ -22650,16 +22800,19 @@
           "Leeds United",
           "Wolverhampton Wanderers"
         ],
-        "promoted": []
-      },
-      "tier2": {
-        "title": "Football League First Division",
-        "seasonMetadata": {
-          "leagueId": "Football_League_First_Division",
+        "promoted": [],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2003–04_in_English_football",
+          "seasonSlug": "2003–04_in_English_football",
+          "leagueId": "FA_Premier_League",
+          "title": "FA Premier League",
           "tableIndex": 0,
           "tableCount": 4,
-          "seasonSlug": "2003–04_in_English_football"
-        },
+          "tierKey": "tier1"
+        }
+      },
+      "tier2": {
         "season": 2003,
         "table": [
           {
@@ -23128,16 +23281,19 @@
           "Norwich City",
           "West Bromwich Albion",
           "Crystal Palace"
-        ]
-      },
-      "tier3": {
-        "title": "Football League Second Division",
-        "seasonMetadata": {
-          "leagueId": "Football_League_Second_Division",
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2003–04_in_English_football",
+          "seasonSlug": "2003–04_in_English_football",
+          "leagueId": "Football_League_First_Division",
+          "title": "Football League First Division",
           "tableIndex": 0,
           "tableCount": 4,
-          "seasonSlug": "2003–04_in_English_football"
-        },
+          "tierKey": "tier2"
+        }
+      },
+      "tier3": {
         "season": 2003,
         "table": [
           {
@@ -23607,16 +23763,19 @@
           "Plymouth Argyle",
           "Queens Park Rangers",
           "Brighton & Hove Albion"
-        ]
-      },
-      "tier4": {
-        "title": "Football League Third Division",
-        "seasonMetadata": {
-          "leagueId": "Football_League_Third_Division",
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2003–04_in_English_football",
+          "seasonSlug": "2003–04_in_English_football",
+          "leagueId": "Football_League_Second_Division",
+          "title": "Football League Second Division",
           "tableIndex": 0,
           "tableCount": 4,
-          "seasonSlug": "2003–04_in_English_football"
-        },
+          "tierKey": "tier3"
+        }
+      },
+      "tier4": {
         "season": 2003,
         "table": [
           {
@@ -24085,13 +24244,21 @@
           "Hull City",
           "Torquay United",
           "Huddersfield Town"
-        ]
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2003–04_in_English_football",
+          "seasonSlug": "2003–04_in_English_football",
+          "leagueId": "Football_League_Third_Division",
+          "title": "Football League Third Division",
+          "tableIndex": 0,
+          "tableCount": 4,
+          "tierKey": "tier4"
+        }
       }
     },
     "2004": {
       "seasonInfo": {
-        "seasonSlug": "2004–05_in_English_football",
-        "tableCount": 4,
         "season": 2004,
         "table": [],
         "relegated": [
@@ -24103,16 +24270,12 @@
           "Sunderland",
           "Wigan Athletic",
           "West Ham United"
-        ]
+        ],
+        "seasonSlug": "2004–05_in_English_football",
+        "sourceUrl": null,
+        "tableCount": 4
       },
       "tier1": {
-        "title": "FA Premier League",
-        "seasonMetadata": {
-          "leagueId": "FA_Premier_League",
-          "tableIndex": 0,
-          "tableCount": 4,
-          "seasonSlug": "2004–05_in_English_football"
-        },
         "season": 2004,
         "table": [
           {
@@ -24501,16 +24664,19 @@
           "Norwich City",
           "Southampton"
         ],
-        "promoted": []
-      },
-      "tier2": {
-        "title": "Football League Championship",
-        "seasonMetadata": {
-          "leagueId": "Football_League_Championship",
+        "promoted": [],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2004–05_in_English_football",
+          "seasonSlug": "2004–05_in_English_football",
+          "leagueId": "FA_Premier_League",
+          "title": "FA Premier League",
           "tableIndex": 0,
           "tableCount": 4,
-          "seasonSlug": "2004–05_in_English_football"
-        },
+          "tierKey": "tier1"
+        }
+      },
+      "tier2": {
         "season": 2004,
         "table": [
           {
@@ -24979,16 +25145,19 @@
           "Sunderland",
           "Wigan Athletic",
           "West Ham United"
-        ]
-      },
-      "tier3": {
-        "title": "Football League One",
-        "seasonMetadata": {
-          "leagueId": "Football_League_One",
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2004–05_in_English_football",
+          "seasonSlug": "2004–05_in_English_football",
+          "leagueId": "Football_League_Championship",
+          "title": "Football League Championship",
           "tableIndex": 0,
           "tableCount": 4,
-          "seasonSlug": "2004–05_in_English_football"
-        },
+          "tierKey": "tier2"
+        }
+      },
+      "tier3": {
         "season": 2004,
         "table": [
           {
@@ -25458,16 +25627,19 @@
           "Luton Town",
           "Hull City",
           "Sheffield Wednesday"
-        ]
-      },
-      "tier4": {
-        "title": "Football League Two",
-        "seasonMetadata": {
-          "leagueId": "Football_League_Two",
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2004–05_in_English_football",
+          "seasonSlug": "2004–05_in_English_football",
+          "leagueId": "Football_League_One",
+          "title": "Football League One",
           "tableIndex": 0,
           "tableCount": 4,
-          "seasonSlug": "2004–05_in_English_football"
-        },
+          "tierKey": "tier3"
+        }
+      },
+      "tier4": {
         "season": 2004,
         "table": [
           {
@@ -25936,13 +26108,21 @@
           "Scunthorpe United",
           "Swansea City",
           "Southend United"
-        ]
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2004–05_in_English_football",
+          "seasonSlug": "2004–05_in_English_football",
+          "leagueId": "Football_League_Two",
+          "title": "Football League Two",
+          "tableIndex": 0,
+          "tableCount": 4,
+          "tierKey": "tier4"
+        }
       }
     },
     "2005": {
       "seasonInfo": {
-        "seasonSlug": "2005–06_in_English_football",
-        "tableCount": 4,
         "season": 2005,
         "table": [],
         "relegated": [
@@ -25954,16 +26134,12 @@
           "Reading",
           "Sheffield United",
           "Watford"
-        ]
+        ],
+        "seasonSlug": "2005–06_in_English_football",
+        "sourceUrl": null,
+        "tableCount": 4
       },
       "tier1": {
-        "title": "FA Premier League",
-        "seasonMetadata": {
-          "leagueId": "FA_Premier_League",
-          "tableIndex": 0,
-          "tableCount": 4,
-          "seasonSlug": "2005–06_in_English_football"
-        },
         "season": 2005,
         "table": [
           {
@@ -26352,16 +26528,19 @@
           "West Bromwich Albion",
           "Sunderland"
         ],
-        "promoted": []
-      },
-      "tier2": {
-        "title": "Football League Championship",
-        "seasonMetadata": {
-          "leagueId": "Football_League_Championship",
+        "promoted": [],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2005–06_in_English_football",
+          "seasonSlug": "2005–06_in_English_football",
+          "leagueId": "FA_Premier_League",
+          "title": "FA Premier League",
           "tableIndex": 0,
           "tableCount": 4,
-          "seasonSlug": "2005–06_in_English_football"
-        },
+          "tierKey": "tier1"
+        }
+      },
+      "tier2": {
         "season": 2005,
         "table": [
           {
@@ -26830,16 +27009,19 @@
           "Reading",
           "Sheffield United",
           "Watford"
-        ]
-      },
-      "tier3": {
-        "title": "Football League One",
-        "seasonMetadata": {
-          "leagueId": "Football_League_One",
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2005–06_in_English_football",
+          "seasonSlug": "2005–06_in_English_football",
+          "leagueId": "Football_League_Championship",
+          "title": "Football League Championship",
           "tableIndex": 0,
           "tableCount": 4,
-          "seasonSlug": "2005–06_in_English_football"
-        },
+          "tierKey": "tier2"
+        }
+      },
+      "tier3": {
         "season": 2005,
         "table": [
           {
@@ -27309,16 +27491,19 @@
           "Southend United",
           "Colchester United",
           "Barnsley"
-        ]
-      },
-      "tier4": {
-        "title": "Football League Two",
-        "seasonMetadata": {
-          "leagueId": "Football_League_Two",
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2005–06_in_English_football",
+          "seasonSlug": "2005–06_in_English_football",
+          "leagueId": "Football_League_One",
+          "title": "Football League One",
           "tableIndex": 0,
           "tableCount": 4,
-          "seasonSlug": "2005–06_in_English_football"
-        },
+          "tierKey": "tier3"
+        }
+      },
+      "tier4": {
         "season": 2005,
         "table": [
           {
@@ -27787,13 +27972,21 @@
           "Northampton Town",
           "Leyton Orient",
           "Cheltenham Town"
-        ]
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2005–06_in_English_football",
+          "seasonSlug": "2005–06_in_English_football",
+          "leagueId": "Football_League_Two",
+          "title": "Football League Two",
+          "tableIndex": 0,
+          "tableCount": 4,
+          "tierKey": "tier4"
+        }
       }
     },
     "2006": {
       "seasonInfo": {
-        "seasonSlug": "2006–07_in_English_football",
-        "tableCount": 4,
         "season": 2006,
         "table": [],
         "relegated": [
@@ -27805,16 +27998,12 @@
           "Sunderland",
           "Birmingham City",
           "Derby County"
-        ]
+        ],
+        "seasonSlug": "2006–07_in_English_football",
+        "sourceUrl": null,
+        "tableCount": 4
       },
       "tier1": {
-        "title": "FA Premier League",
-        "seasonMetadata": {
-          "leagueId": "FA_Premier_League",
-          "tableIndex": 0,
-          "tableCount": 4,
-          "seasonSlug": "2006–07_in_English_football"
-        },
         "season": 2006,
         "table": [
           {
@@ -28203,16 +28392,19 @@
           "Charlton Athletic",
           "Watford"
         ],
-        "promoted": []
-      },
-      "tier2": {
-        "title": "Football League Championship",
-        "seasonMetadata": {
-          "leagueId": "Football_League_Championship",
+        "promoted": [],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2006–07_in_English_football",
+          "seasonSlug": "2006–07_in_English_football",
+          "leagueId": "FA_Premier_League",
+          "title": "FA Premier League",
           "tableIndex": 0,
           "tableCount": 4,
-          "seasonSlug": "2006–07_in_English_football"
-        },
+          "tierKey": "tier1"
+        }
+      },
+      "tier2": {
         "season": 2006,
         "table": [
           {
@@ -28681,16 +28873,19 @@
           "Sunderland",
           "Birmingham City",
           "Derby County"
-        ]
-      },
-      "tier3": {
-        "title": "Football League One",
-        "seasonMetadata": {
-          "leagueId": "Football_League_One",
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2006–07_in_English_football",
+          "seasonSlug": "2006–07_in_English_football",
+          "leagueId": "Football_League_Championship",
+          "title": "Football League Championship",
           "tableIndex": 0,
           "tableCount": 4,
-          "seasonSlug": "2006–07_in_English_football"
-        },
+          "tierKey": "tier2"
+        }
+      },
+      "tier3": {
         "season": 2006,
         "table": [
           {
@@ -29160,16 +29355,19 @@
           "Scunthorpe United",
           "Bristol City",
           "Blackpool"
-        ]
-      },
-      "tier4": {
-        "title": "Football League Two",
-        "seasonMetadata": {
-          "leagueId": "Football_League_Two",
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2006–07_in_English_football",
+          "seasonSlug": "2006–07_in_English_football",
+          "leagueId": "Football_League_One",
+          "title": "Football League One",
           "tableIndex": 0,
           "tableCount": 4,
-          "seasonSlug": "2006–07_in_English_football"
-        },
+          "tierKey": "tier3"
+        }
+      },
+      "tier4": {
         "season": 2006,
         "table": [
           {
@@ -29638,13 +29836,21 @@
           "Hartlepool United",
           "Swindon Town",
           "Bristol Rovers"
-        ]
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2006–07_in_English_football",
+          "seasonSlug": "2006–07_in_English_football",
+          "leagueId": "Football_League_Two",
+          "title": "Football League Two",
+          "tableIndex": 0,
+          "tableCount": 4,
+          "tierKey": "tier4"
+        }
       }
     },
     "2007": {
       "seasonInfo": {
-        "seasonSlug": "2007–08_in_English_football",
-        "tableCount": 4,
         "season": 2007,
         "table": [],
         "relegated": [
@@ -29656,16 +29862,12 @@
           "West Bromwich Albion",
           "Stoke City",
           "Hull City"
-        ]
+        ],
+        "seasonSlug": "2007–08_in_English_football",
+        "sourceUrl": null,
+        "tableCount": 4
       },
       "tier1": {
-        "title": "Premier League",
-        "seasonMetadata": {
-          "leagueId": "Premier_League_3",
-          "tableIndex": 0,
-          "tableCount": 4,
-          "seasonSlug": "2007–08_in_English_football"
-        },
         "season": 2007,
         "table": [
           {
@@ -30054,16 +30256,19 @@
           "Birmingham City",
           "Derby County"
         ],
-        "promoted": []
-      },
-      "tier2": {
-        "title": "Football League Championship",
-        "seasonMetadata": {
-          "leagueId": "Football_League_Championship",
+        "promoted": [],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2007–08_in_English_football",
+          "seasonSlug": "2007–08_in_English_football",
+          "leagueId": "Premier_League_3",
+          "title": "Premier League",
           "tableIndex": 0,
           "tableCount": 4,
-          "seasonSlug": "2007–08_in_English_football"
-        },
+          "tierKey": "tier1"
+        }
+      },
+      "tier2": {
         "season": 2007,
         "table": [
           {
@@ -30532,16 +30737,19 @@
           "West Bromwich Albion",
           "Stoke City",
           "Hull City"
-        ]
-      },
-      "tier3": {
-        "title": "Football League One",
-        "seasonMetadata": {
-          "leagueId": "Football_League_One",
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2007–08_in_English_football",
+          "seasonSlug": "2007–08_in_English_football",
+          "leagueId": "Football_League_Championship",
+          "title": "Football League Championship",
           "tableIndex": 0,
           "tableCount": 4,
-          "seasonSlug": "2007–08_in_English_football"
-        },
+          "tierKey": "tier2"
+        }
+      },
+      "tier3": {
         "season": 2007,
         "table": [
           {
@@ -31011,16 +31219,19 @@
           "Swansea City",
           "Nottingham Forest",
           "Doncaster Rovers"
-        ]
-      },
-      "tier4": {
-        "title": "Football League Two",
-        "seasonMetadata": {
-          "leagueId": "Football_League_Two",
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2007–08_in_English_football",
+          "seasonSlug": "2007–08_in_English_football",
+          "leagueId": "Football_League_One",
+          "title": "Football League One",
           "tableIndex": 0,
           "tableCount": 4,
-          "seasonSlug": "2007–08_in_English_football"
-        },
+          "tierKey": "tier3"
+        }
+      },
+      "tier4": {
         "season": 2007,
         "table": [
           {
@@ -31489,13 +31700,21 @@
           "Peterborough United",
           "Hereford United",
           "Stockport County"
-        ]
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2007–08_in_English_football",
+          "seasonSlug": "2007–08_in_English_football",
+          "leagueId": "Football_League_Two",
+          "title": "Football League Two",
+          "tableIndex": 0,
+          "tableCount": 4,
+          "tierKey": "tier4"
+        }
       }
     },
     "2008": {
       "seasonInfo": {
-        "seasonSlug": "2008–09_in_English_football",
-        "tableCount": 4,
         "season": 2008,
         "table": [],
         "relegated": [
@@ -31507,16 +31726,12 @@
           "Wolverhampton Wanderers",
           "Birmingham City",
           "Burnley"
-        ]
+        ],
+        "seasonSlug": "2008–09_in_English_football",
+        "sourceUrl": null,
+        "tableCount": 4
       },
       "tier1": {
-        "title": "Premier League",
-        "seasonMetadata": {
-          "leagueId": "Premier_League",
-          "tableIndex": 0,
-          "tableCount": 4,
-          "seasonSlug": "2008–09_in_English_football"
-        },
         "season": 2008,
         "table": [
           {
@@ -31905,16 +32120,19 @@
           "Middlesbrough",
           "West Bromwich Albion"
         ],
-        "promoted": []
-      },
-      "tier2": {
-        "title": "Football League Championship",
-        "seasonMetadata": {
-          "leagueId": "Football_League_Championship",
+        "promoted": [],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2008–09_in_English_football",
+          "seasonSlug": "2008–09_in_English_football",
+          "leagueId": "Premier_League",
+          "title": "Premier League",
           "tableIndex": 0,
           "tableCount": 4,
-          "seasonSlug": "2008–09_in_English_football"
-        },
+          "tierKey": "tier1"
+        }
+      },
+      "tier2": {
         "season": 2008,
         "table": [
           {
@@ -32383,16 +32601,19 @@
           "Wolverhampton Wanderers",
           "Birmingham City",
           "Burnley"
-        ]
-      },
-      "tier3": {
-        "title": "Football League One",
-        "seasonMetadata": {
-          "leagueId": "Football_League_One",
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2008–09_in_English_football",
+          "seasonSlug": "2008–09_in_English_football",
+          "leagueId": "Football_League_Championship",
+          "title": "Football League Championship",
           "tableIndex": 0,
           "tableCount": 4,
-          "seasonSlug": "2008–09_in_English_football"
-        },
+          "tierKey": "tier2"
+        }
+      },
+      "tier3": {
         "season": 2008,
         "table": [
           {
@@ -32862,16 +33083,19 @@
           "Leicester City",
           "Peterborough United",
           "Scunthorpe United"
-        ]
-      },
-      "tier4": {
-        "title": "Football League Two",
-        "seasonMetadata": {
-          "leagueId": "Football_League_Two",
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2008–09_in_English_football",
+          "seasonSlug": "2008–09_in_English_football",
+          "leagueId": "Football_League_One",
+          "title": "Football League One",
           "tableIndex": 0,
           "tableCount": 4,
-          "seasonSlug": "2008–09_in_English_football"
-        },
+          "tierKey": "tier3"
+        }
+      },
+      "tier4": {
         "season": 2008,
         "table": [
           {
@@ -33340,13 +33564,21 @@
           "Exeter City",
           "Wycombe Wanderers",
           "Gillingham"
-        ]
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2008–09_in_English_football",
+          "seasonSlug": "2008–09_in_English_football",
+          "leagueId": "Football_League_Two",
+          "title": "Football League Two",
+          "tableIndex": 0,
+          "tableCount": 4,
+          "tierKey": "tier4"
+        }
       }
     },
     "2009": {
       "seasonInfo": {
-        "seasonSlug": "2009–10_in_English_football",
-        "tableCount": 4,
         "season": 2009,
         "table": [],
         "relegated": [
@@ -33358,16 +33590,12 @@
           "Newcastle United",
           "West Bromwich Albion",
           "Blackpool"
-        ]
+        ],
+        "seasonSlug": "2009–10_in_English_football",
+        "sourceUrl": null,
+        "tableCount": 4
       },
       "tier1": {
-        "title": "Table",
-        "seasonMetadata": {
-          "leagueId": "Table",
-          "tableIndex": 0,
-          "tableCount": 4,
-          "seasonSlug": "2009–10_in_English_football"
-        },
         "season": 2009,
         "table": [
           {
@@ -33756,16 +33984,19 @@
           "Hull City",
           "Portsmouth"
         ],
-        "promoted": []
-      },
-      "tier2": {
-        "title": "Football League Championship",
-        "seasonMetadata": {
-          "leagueId": "Football_League_Championship",
+        "promoted": [],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2009–10_in_English_football",
+          "seasonSlug": "2009–10_in_English_football",
+          "leagueId": "Table",
+          "title": "Table",
           "tableIndex": 0,
           "tableCount": 4,
-          "seasonSlug": "2009–10_in_English_football"
-        },
+          "tierKey": "tier1"
+        }
+      },
+      "tier2": {
         "season": 2009,
         "table": [
           {
@@ -34234,16 +34465,19 @@
           "Newcastle United",
           "West Bromwich Albion",
           "Blackpool"
-        ]
-      },
-      "tier3": {
-        "title": "Football League One",
-        "seasonMetadata": {
-          "leagueId": "Football_League_One",
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2009–10_in_English_football",
+          "seasonSlug": "2009–10_in_English_football",
+          "leagueId": "Football_League_Championship",
+          "title": "Football League Championship",
           "tableIndex": 0,
           "tableCount": 4,
-          "seasonSlug": "2009–10_in_English_football"
-        },
+          "tierKey": "tier2"
+        }
+      },
+      "tier3": {
         "season": 2009,
         "table": [
           {
@@ -34713,16 +34947,19 @@
           "Norwich City",
           "Leeds United",
           "Millwall"
-        ]
-      },
-      "tier4": {
-        "title": "Football League Two",
-        "seasonMetadata": {
-          "leagueId": "Football_League_Two",
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2009–10_in_English_football",
+          "seasonSlug": "2009–10_in_English_football",
+          "leagueId": "Football_League_One",
+          "title": "Football League One",
           "tableIndex": 0,
           "tableCount": 4,
-          "seasonSlug": "2009–10_in_English_football"
-        },
+          "tierKey": "tier3"
+        }
+      },
+      "tier4": {
         "season": 2009,
         "table": [
           {
@@ -35191,13 +35428,21 @@
           "Bournemouth",
           "Rochdale",
           "Dagenham & Redbridge"
-        ]
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2009–10_in_English_football",
+          "seasonSlug": "2009–10_in_English_football",
+          "leagueId": "Football_League_Two",
+          "title": "Football League Two",
+          "tableIndex": 0,
+          "tableCount": 4,
+          "tierKey": "tier4"
+        }
       }
     },
     "2010": {
       "seasonInfo": {
-        "seasonSlug": "2010–11_in_English_football",
-        "tableCount": 4,
         "season": 2010,
         "table": [],
         "relegated": [
@@ -35209,16 +35454,12 @@
           "Queens Park Rangers",
           "Norwich City",
           "Swansea City"
-        ]
+        ],
+        "seasonSlug": "2010–11_in_English_football",
+        "sourceUrl": null,
+        "tableCount": 4
       },
       "tier1": {
-        "title": "Premier League",
-        "seasonMetadata": {
-          "leagueId": "Premier_League",
-          "tableIndex": 0,
-          "tableCount": 4,
-          "seasonSlug": "2010–11_in_English_football"
-        },
         "season": 2010,
         "table": [
           {
@@ -35607,16 +35848,19 @@
           "Blackpool",
           "West Ham United"
         ],
-        "promoted": []
-      },
-      "tier2": {
-        "title": "Football League Championship",
-        "seasonMetadata": {
-          "leagueId": "Football_League_Championship",
+        "promoted": [],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2010–11_in_English_football",
+          "seasonSlug": "2010–11_in_English_football",
+          "leagueId": "Premier_League",
+          "title": "Premier League",
           "tableIndex": 0,
           "tableCount": 4,
-          "seasonSlug": "2010–11_in_English_football"
-        },
+          "tierKey": "tier1"
+        }
+      },
+      "tier2": {
         "season": 2010,
         "table": [
           {
@@ -36085,16 +36329,19 @@
           "Queens Park Rangers",
           "Norwich City",
           "Swansea City"
-        ]
-      },
-      "tier3": {
-        "title": "Football League One",
-        "seasonMetadata": {
-          "leagueId": "Football_League_One",
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2010–11_in_English_football",
+          "seasonSlug": "2010–11_in_English_football",
+          "leagueId": "Football_League_Championship",
+          "title": "Football League Championship",
           "tableIndex": 0,
           "tableCount": 4,
-          "seasonSlug": "2010–11_in_English_football"
-        },
+          "tierKey": "tier2"
+        }
+      },
+      "tier3": {
         "season": 2010,
         "table": [
           {
@@ -36564,16 +36811,19 @@
           "Brighton & Hove Albion",
           "Southampton",
           "Peterborough United"
-        ]
-      },
-      "tier4": {
-        "title": "Football League Two",
-        "seasonMetadata": {
-          "leagueId": "Football_League_Two",
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2010–11_in_English_football",
+          "seasonSlug": "2010–11_in_English_football",
+          "leagueId": "Football_League_One",
+          "title": "Football League One",
           "tableIndex": 0,
           "tableCount": 4,
-          "seasonSlug": "2010–11_in_English_football"
-        },
+          "tierKey": "tier3"
+        }
+      },
+      "tier4": {
         "season": 2010,
         "table": [
           {
@@ -37042,13 +37292,21 @@
           "Bury",
           "Wycombe Wanderers",
           "Stevenage"
-        ]
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2010–11_in_English_football",
+          "seasonSlug": "2010–11_in_English_football",
+          "leagueId": "Football_League_Two",
+          "title": "Football League Two",
+          "tableIndex": 0,
+          "tableCount": 4,
+          "tierKey": "tier4"
+        }
       }
     },
     "2011": {
       "seasonInfo": {
-        "seasonSlug": "2011–12_in_English_football",
-        "tableCount": 4,
         "season": 2011,
         "table": [],
         "relegated": [
@@ -37060,16 +37318,12 @@
           "Reading",
           "Southampton",
           "West Ham United"
-        ]
+        ],
+        "seasonSlug": "2011–12_in_English_football",
+        "sourceUrl": null,
+        "tableCount": 4
       },
       "tier1": {
-        "title": "Premier League",
-        "seasonMetadata": {
-          "leagueId": "Premier_League",
-          "tableIndex": 0,
-          "tableCount": 4,
-          "seasonSlug": "2011–12_in_English_football"
-        },
         "season": 2011,
         "table": [
           {
@@ -37458,16 +37712,19 @@
           "Blackburn Rovers",
           "Wolverhampton Wanderers"
         ],
-        "promoted": []
-      },
-      "tier2": {
-        "title": "Football League Championship",
-        "seasonMetadata": {
-          "leagueId": "Football_League_Championship",
+        "promoted": [],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2011–12_in_English_football",
+          "seasonSlug": "2011–12_in_English_football",
+          "leagueId": "Premier_League",
+          "title": "Premier League",
           "tableIndex": 0,
           "tableCount": 4,
-          "seasonSlug": "2011–12_in_English_football"
-        },
+          "tierKey": "tier1"
+        }
+      },
+      "tier2": {
         "season": 2011,
         "table": [
           {
@@ -37936,16 +38193,19 @@
           "Reading",
           "Southampton",
           "West Ham United"
-        ]
-      },
-      "tier3": {
-        "title": "League One",
-        "seasonMetadata": {
-          "leagueId": "League_One",
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2011–12_in_English_football",
+          "seasonSlug": "2011–12_in_English_football",
+          "leagueId": "Football_League_Championship",
+          "title": "Football League Championship",
           "tableIndex": 0,
           "tableCount": 4,
-          "seasonSlug": "2011–12_in_English_football"
-        },
+          "tierKey": "tier2"
+        }
+      },
+      "tier3": {
         "season": 2011,
         "table": [
           {
@@ -38415,16 +38675,19 @@
           "Charlton Athletic",
           "Sheffield Wednesday",
           "Huddersfield Town"
-        ]
-      },
-      "tier4": {
-        "title": "League Two",
-        "seasonMetadata": {
-          "leagueId": "League_Two",
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2011–12_in_English_football",
+          "seasonSlug": "2011–12_in_English_football",
+          "leagueId": "League_One",
+          "title": "League One",
           "tableIndex": 0,
           "tableCount": 4,
-          "seasonSlug": "2011–12_in_English_football"
-        },
+          "tierKey": "tier3"
+        }
+      },
+      "tier4": {
         "season": 2011,
         "table": [
           {
@@ -38893,13 +39156,21 @@
           "Shrewsbury Town",
           "Crawley Town",
           "Crewe Alexandra"
-        ]
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2011–12_in_English_football",
+          "seasonSlug": "2011–12_in_English_football",
+          "leagueId": "League_Two",
+          "title": "League Two",
+          "tableIndex": 0,
+          "tableCount": 4,
+          "tierKey": "tier4"
+        }
       }
     },
     "2012": {
       "seasonInfo": {
-        "seasonSlug": "2012–13_in_English_football",
-        "tableCount": 5,
         "season": 2012,
         "table": [],
         "relegated": [
@@ -38911,16 +39182,12 @@
           "Cardiff City",
           "Hull City",
           "Crystal Palace"
-        ]
+        ],
+        "seasonSlug": "2012–13_in_English_football",
+        "sourceUrl": null,
+        "tableCount": 5
       },
       "tier1": {
-        "title": "League table",
-        "seasonMetadata": {
-          "leagueId": "League_table",
-          "tableIndex": 0,
-          "tableCount": 5,
-          "seasonSlug": "2012–13_in_English_football"
-        },
         "season": 2012,
         "table": [
           {
@@ -39309,16 +39576,19 @@
           "Reading",
           "Queens Park Rangers"
         ],
-        "promoted": []
-      },
-      "tier2": {
-        "title": "League table",
-        "seasonMetadata": {
-          "leagueId": "League_table_2",
+        "promoted": [],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2012–13_in_English_football",
+          "seasonSlug": "2012–13_in_English_football",
+          "leagueId": "League_table",
+          "title": "League table",
           "tableIndex": 0,
           "tableCount": 5,
-          "seasonSlug": "2012–13_in_English_football"
-        },
+          "tierKey": "tier1"
+        }
+      },
+      "tier2": {
         "season": 2012,
         "table": [
           {
@@ -39787,16 +40057,19 @@
           "Cardiff City",
           "Hull City",
           "Crystal Palace"
-        ]
-      },
-      "tier3": {
-        "title": "League table",
-        "seasonMetadata": {
-          "leagueId": "League_table_3",
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2012–13_in_English_football",
+          "seasonSlug": "2012–13_in_English_football",
+          "leagueId": "League_table_2",
+          "title": "League table",
           "tableIndex": 0,
           "tableCount": 5,
-          "seasonSlug": "2012–13_in_English_football"
-        },
+          "tierKey": "tier2"
+        }
+      },
+      "tier3": {
         "season": 2012,
         "table": [
           {
@@ -40266,16 +40539,19 @@
           "Doncaster Rovers",
           "Bournemouth",
           "Yeovil Town"
-        ]
-      },
-      "tier4": {
-        "title": "League table",
-        "seasonMetadata": {
-          "leagueId": "League_table_4",
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2012–13_in_English_football",
+          "seasonSlug": "2012–13_in_English_football",
+          "leagueId": "League_table_3",
+          "title": "League table",
           "tableIndex": 0,
           "tableCount": 5,
-          "seasonSlug": "2012–13_in_English_football"
-        },
+          "tierKey": "tier3"
+        }
+      },
+      "tier4": {
         "season": 2012,
         "table": [
           {
@@ -40744,16 +41020,19 @@
           "Rotherham United",
           "Port Vale",
           "Bradford City"
-        ]
-      },
-      "tier5": {
-        "title": "League table",
-        "seasonMetadata": {
-          "leagueId": "League_table_5",
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2012–13_in_English_football",
+          "seasonSlug": "2012–13_in_English_football",
+          "leagueId": "League_table_4",
+          "title": "League table",
           "tableIndex": 0,
           "tableCount": 5,
-          "seasonSlug": "2012–13_in_English_football"
-        },
+          "tierKey": "tier4"
+        }
+      },
+      "tier5": {
         "season": 2012,
         "table": [
           {
@@ -41222,13 +41501,21 @@
         "promoted": [
           "Mansfield Town",
           "Newport County"
-        ]
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2012–13_in_English_football",
+          "seasonSlug": "2012–13_in_English_football",
+          "leagueId": "League_table_5",
+          "title": "League table",
+          "tableIndex": 0,
+          "tableCount": 5,
+          "tierKey": "tier5"
+        }
       }
     },
     "2013": {
       "seasonInfo": {
-        "seasonSlug": "2013–14_in_English_football",
-        "tableCount": 5,
         "season": 2013,
         "table": [],
         "relegated": [
@@ -41240,16 +41527,12 @@
           "Leicester City",
           "Burnley",
           "Queens Park Rangers"
-        ]
+        ],
+        "seasonSlug": "2013–14_in_English_football",
+        "sourceUrl": null,
+        "tableCount": 5
       },
       "tier1": {
-        "title": "League table",
-        "seasonMetadata": {
-          "leagueId": "League_table",
-          "tableIndex": 0,
-          "tableCount": 5,
-          "seasonSlug": "2013–14_in_English_football"
-        },
         "season": 2013,
         "table": [
           {
@@ -41638,16 +41921,19 @@
           "Fulham",
           "Cardiff City"
         ],
-        "promoted": []
-      },
-      "tier2": {
-        "title": "League table",
-        "seasonMetadata": {
-          "leagueId": "League_table_2",
+        "promoted": [],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2013–14_in_English_football",
+          "seasonSlug": "2013–14_in_English_football",
+          "leagueId": "League_table",
+          "title": "League table",
           "tableIndex": 0,
           "tableCount": 5,
-          "seasonSlug": "2013–14_in_English_football"
-        },
+          "tierKey": "tier1"
+        }
+      },
+      "tier2": {
         "season": 2013,
         "table": [
           {
@@ -42116,16 +42402,19 @@
           "Leicester City",
           "Burnley",
           "Queens Park Rangers"
-        ]
-      },
-      "tier3": {
-        "title": "League table",
-        "seasonMetadata": {
-          "leagueId": "League_table_3",
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2013–14_in_English_football",
+          "seasonSlug": "2013–14_in_English_football",
+          "leagueId": "League_table_2",
+          "title": "League table",
           "tableIndex": 0,
           "tableCount": 5,
-          "seasonSlug": "2013–14_in_English_football"
-        },
+          "tierKey": "tier2"
+        }
+      },
+      "tier3": {
         "season": 2013,
         "table": [
           {
@@ -42595,16 +42884,19 @@
           "Wolverhampton Wanderers",
           "Brentford",
           "Rotherham United"
-        ]
-      },
-      "tier4": {
-        "title": "League table",
-        "seasonMetadata": {
-          "leagueId": "League_table_4",
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2013–14_in_English_football",
+          "seasonSlug": "2013–14_in_English_football",
+          "leagueId": "League_table_3",
+          "title": "League table",
           "tableIndex": 0,
           "tableCount": 5,
-          "seasonSlug": "2013–14_in_English_football"
-        },
+          "tierKey": "tier3"
+        }
+      },
+      "tier4": {
         "season": 2013,
         "table": [
           {
@@ -43073,16 +43365,19 @@
           "Scunthorpe United",
           "Rochdale",
           "Fleetwood Town"
-        ]
-      },
-      "tier5": {
-        "title": "League table",
-        "seasonMetadata": {
-          "leagueId": "League_table_5",
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2013–14_in_English_football",
+          "seasonSlug": "2013–14_in_English_football",
+          "leagueId": "League_table_4",
+          "title": "League table",
           "tableIndex": 0,
           "tableCount": 5,
-          "seasonSlug": "2013–14_in_English_football"
-        },
+          "tierKey": "tier4"
+        }
+      },
+      "tier5": {
         "season": 2013,
         "table": [
           {
@@ -43306,7 +43601,7 @@
             "goalDifference": -5,
             "goalAverage": null,
             "points": 67,
-            "notes": "Club folded",
+            "notes": "Club expelled & folded",
             "wasRelegated": false,
             "wasPromoted": false,
             "isExpansionTeam": false,
@@ -43550,13 +43845,21 @@
         "promoted": [
           "Luton Town",
           "Cambridge United"
-        ]
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2013–14_in_English_football",
+          "seasonSlug": "2013–14_in_English_football",
+          "leagueId": "League_table_5",
+          "title": "League table",
+          "tableIndex": 0,
+          "tableCount": 5,
+          "tierKey": "tier5"
+        }
       }
     },
     "2014": {
       "seasonInfo": {
-        "seasonSlug": "2014–15_in_English_football",
-        "tableCount": 5,
         "season": 2014,
         "table": [],
         "relegated": [
@@ -43568,16 +43871,12 @@
           "Bournemouth",
           "Watford",
           "Norwich City"
-        ]
+        ],
+        "seasonSlug": "2014–15_in_English_football",
+        "sourceUrl": null,
+        "tableCount": 5
       },
       "tier1": {
-        "title": "Premier League",
-        "seasonMetadata": {
-          "leagueId": "Premier_League",
-          "tableIndex": 0,
-          "tableCount": 5,
-          "seasonSlug": "2014–15_in_English_football"
-        },
         "season": 2014,
         "table": [
           {
@@ -43966,16 +44265,19 @@
           "Burnley",
           "Queens Park Rangers"
         ],
-        "promoted": []
-      },
-      "tier2": {
-        "title": "Football League Championship",
-        "seasonMetadata": {
-          "leagueId": "Football_League_Championship",
+        "promoted": [],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2014–15_in_English_football",
+          "seasonSlug": "2014–15_in_English_football",
+          "leagueId": "Premier_League",
+          "title": "Premier League",
           "tableIndex": 0,
           "tableCount": 5,
-          "seasonSlug": "2014–15_in_English_football"
-        },
+          "tierKey": "tier1"
+        }
+      },
+      "tier2": {
         "season": 2014,
         "table": [
           {
@@ -44444,16 +44746,19 @@
           "Bournemouth",
           "Watford",
           "Norwich City"
-        ]
-      },
-      "tier3": {
-        "title": "Football League One",
-        "seasonMetadata": {
-          "leagueId": "Football_League_One",
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2014–15_in_English_football",
+          "seasonSlug": "2014–15_in_English_football",
+          "leagueId": "Football_League_Championship",
+          "title": "Football League Championship",
           "tableIndex": 0,
           "tableCount": 5,
-          "seasonSlug": "2014–15_in_English_football"
-        },
+          "tierKey": "tier2"
+        }
+      },
+      "tier3": {
         "season": 2014,
         "table": [
           {
@@ -44923,16 +45228,19 @@
           "Bristol City",
           "Milton Keynes Dons",
           "Preston North End"
-        ]
-      },
-      "tier4": {
-        "title": "Football League Two",
-        "seasonMetadata": {
-          "leagueId": "Football_League_Two",
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2014–15_in_English_football",
+          "seasonSlug": "2014–15_in_English_football",
+          "leagueId": "Football_League_One",
+          "title": "Football League One",
           "tableIndex": 0,
           "tableCount": 5,
-          "seasonSlug": "2014–15_in_English_football"
-        },
+          "tierKey": "tier3"
+        }
+      },
+      "tier4": {
         "season": 2014,
         "table": [
           {
@@ -45401,16 +45709,19 @@
           "Shrewsbury Town",
           "Bury",
           "Southend United"
-        ]
-      },
-      "tier5": {
-        "title": "Conference Premier",
-        "seasonMetadata": {
-          "leagueId": "Conference_Premier",
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2014–15_in_English_football",
+          "seasonSlug": "2014–15_in_English_football",
+          "leagueId": "Football_League_Two",
+          "title": "Football League Two",
           "tableIndex": 0,
           "tableCount": 5,
-          "seasonSlug": "2014–15_in_English_football"
-        },
+          "tierKey": "tier4"
+        }
+      },
+      "tier5": {
         "season": 2014,
         "table": [
           {
@@ -45879,13 +46190,21 @@
         "promoted": [
           "Barnet",
           "Bristol Rovers"
-        ]
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2014–15_in_English_football",
+          "seasonSlug": "2014–15_in_English_football",
+          "leagueId": "Conference_Premier",
+          "title": "Conference Premier",
+          "tableIndex": 0,
+          "tableCount": 5,
+          "tierKey": "tier5"
+        }
       }
     },
     "2015": {
       "seasonInfo": {
-        "seasonSlug": "2015–16_in_English_football",
-        "tableCount": 5,
         "season": 2015,
         "table": [],
         "relegated": [
@@ -45897,16 +46216,12 @@
           "Burnley",
           "Middlesbrough",
           "Hull City"
-        ]
+        ],
+        "seasonSlug": "2015–16_in_English_football",
+        "sourceUrl": null,
+        "tableCount": 5
       },
       "tier1": {
-        "title": "Premier League",
-        "seasonMetadata": {
-          "leagueId": "Premier_League",
-          "tableIndex": 0,
-          "tableCount": 5,
-          "seasonSlug": "2015–16_in_English_football"
-        },
         "season": 2015,
         "table": [
           {
@@ -46295,16 +46610,19 @@
           "Norwich City",
           "Aston Villa"
         ],
-        "promoted": []
-      },
-      "tier2": {
-        "title": "Football League Championship",
-        "seasonMetadata": {
-          "leagueId": "Football_League_Championship",
+        "promoted": [],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2015–16_in_English_football",
+          "seasonSlug": "2015–16_in_English_football",
+          "leagueId": "Premier_League",
+          "title": "Premier League",
           "tableIndex": 0,
           "tableCount": 5,
-          "seasonSlug": "2015–16_in_English_football"
-        },
+          "tierKey": "tier1"
+        }
+      },
+      "tier2": {
         "season": 2015,
         "table": [
           {
@@ -46773,16 +47091,19 @@
           "Burnley",
           "Middlesbrough",
           "Hull City"
-        ]
-      },
-      "tier3": {
-        "title": "Football League One",
-        "seasonMetadata": {
-          "leagueId": "Football_League_One",
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2015–16_in_English_football",
+          "seasonSlug": "2015–16_in_English_football",
+          "leagueId": "Football_League_Championship",
+          "title": "Football League Championship",
           "tableIndex": 0,
           "tableCount": 5,
-          "seasonSlug": "2015–16_in_English_football"
-        },
+          "tierKey": "tier2"
+        }
+      },
+      "tier3": {
         "season": 2015,
         "table": [
           {
@@ -47252,16 +47573,19 @@
           "Wigan Athletic",
           "Burton Albion",
           "Barnsley"
-        ]
-      },
-      "tier4": {
-        "title": "Football League Two",
-        "seasonMetadata": {
-          "leagueId": "Football_League_Two",
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2015–16_in_English_football",
+          "seasonSlug": "2015–16_in_English_football",
+          "leagueId": "Football_League_One",
+          "title": "Football League One",
           "tableIndex": 0,
           "tableCount": 5,
-          "seasonSlug": "2015–16_in_English_football"
-        },
+          "tierKey": "tier3"
+        }
+      },
+      "tier4": {
         "season": 2015,
         "table": [
           {
@@ -47730,16 +48054,19 @@
           "Oxford United",
           "Bristol Rovers",
           "AFC Wimbledon"
-        ]
-      },
-      "tier5": {
-        "title": "National League Top Division",
-        "seasonMetadata": {
-          "leagueId": "National_League_Top_Division",
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2015–16_in_English_football",
+          "seasonSlug": "2015–16_in_English_football",
+          "leagueId": "Football_League_Two",
+          "title": "Football League Two",
           "tableIndex": 0,
           "tableCount": 5,
-          "seasonSlug": "2015–16_in_English_football"
-        },
+          "tierKey": "tier4"
+        }
+      },
+      "tier5": {
         "season": 2015,
         "table": [
           {
@@ -48208,13 +48535,21 @@
         "promoted": [
           "Cheltenham Town",
           "Grimsby Town"
-        ]
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2015–16_in_English_football",
+          "seasonSlug": "2015–16_in_English_football",
+          "leagueId": "National_League_Top_Division",
+          "title": "National League Top Division",
+          "tableIndex": 0,
+          "tableCount": 5,
+          "tierKey": "tier5"
+        }
       }
     },
     "2016": {
       "seasonInfo": {
-        "seasonSlug": "2016–17_in_English_football",
-        "tableCount": 5,
         "season": 2016,
         "table": [],
         "relegated": [
@@ -48226,16 +48561,12 @@
           "Newcastle United",
           "Brighton & Hove Albion",
           "Huddersfield Town"
-        ]
+        ],
+        "seasonSlug": "2016–17_in_English_football",
+        "sourceUrl": null,
+        "tableCount": 5
       },
       "tier1": {
-        "title": "Premier League",
-        "seasonMetadata": {
-          "leagueId": "Premier_League",
-          "tableIndex": 0,
-          "tableCount": 5,
-          "seasonSlug": "2016–17_in_English_football"
-        },
         "season": 2016,
         "table": [
           {
@@ -48624,16 +48955,19 @@
           "Middlesbrough",
           "Sunderland"
         ],
-        "promoted": []
-      },
-      "tier2": {
-        "title": "Championship",
-        "seasonMetadata": {
-          "leagueId": "Championship",
+        "promoted": [],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2016–17_in_English_football",
+          "seasonSlug": "2016–17_in_English_football",
+          "leagueId": "Premier_League",
+          "title": "Premier League",
           "tableIndex": 0,
           "tableCount": 5,
-          "seasonSlug": "2016–17_in_English_football"
-        },
+          "tierKey": "tier1"
+        }
+      },
+      "tier2": {
         "season": 2016,
         "table": [
           {
@@ -49102,16 +49436,19 @@
           "Newcastle United",
           "Brighton & Hove Albion",
           "Huddersfield Town"
-        ]
-      },
-      "tier3": {
-        "title": "League One",
-        "seasonMetadata": {
-          "leagueId": "League_One",
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2016–17_in_English_football",
+          "seasonSlug": "2016–17_in_English_football",
+          "leagueId": "Championship",
+          "title": "Championship",
           "tableIndex": 0,
           "tableCount": 5,
-          "seasonSlug": "2016–17_in_English_football"
-        },
+          "tierKey": "tier2"
+        }
+      },
+      "tier3": {
         "season": 2016,
         "table": [
           {
@@ -49581,16 +49918,19 @@
           "Sheffield United",
           "Bolton Wanderers",
           "Millwall"
-        ]
-      },
-      "tier4": {
-        "title": "League Two",
-        "seasonMetadata": {
-          "leagueId": "League_Two",
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2016–17_in_English_football",
+          "seasonSlug": "2016–17_in_English_football",
+          "leagueId": "League_One",
+          "title": "League One",
           "tableIndex": 0,
           "tableCount": 5,
-          "seasonSlug": "2016–17_in_English_football"
-        },
+          "tierKey": "tier3"
+        }
+      },
+      "tier4": {
         "season": 2016,
         "table": [
           {
@@ -50059,16 +50399,19 @@
           "Plymouth Argyle",
           "Doncaster Rovers",
           "Blackpool"
-        ]
-      },
-      "tier5": {
-        "title": "National League Top Division",
-        "seasonMetadata": {
-          "leagueId": "National_League_Top_Division",
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2016–17_in_English_football",
+          "seasonSlug": "2016–17_in_English_football",
+          "leagueId": "League_Two",
+          "title": "League Two",
           "tableIndex": 0,
           "tableCount": 5,
-          "seasonSlug": "2016–17_in_English_football"
-        },
+          "tierKey": "tier4"
+        }
+      },
+      "tier5": {
         "season": 2016,
         "table": [
           {
@@ -50537,13 +50880,21 @@
         "promoted": [
           "Lincoln City",
           "Forest Green Rovers"
-        ]
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2016–17_in_English_football",
+          "seasonSlug": "2016–17_in_English_football",
+          "leagueId": "National_League_Top_Division",
+          "title": "National League Top Division",
+          "tableIndex": 0,
+          "tableCount": 5,
+          "tierKey": "tier5"
+        }
       }
     },
     "2017": {
       "seasonInfo": {
-        "seasonSlug": "2017–18_in_English_football",
-        "tableCount": 5,
         "season": 2017,
         "table": [],
         "relegated": [
@@ -50555,16 +50906,12 @@
           "Wolverhampton Wanderers",
           "Cardiff City",
           "Fulham"
-        ]
+        ],
+        "seasonSlug": "2017–18_in_English_football",
+        "sourceUrl": null,
+        "tableCount": 5
       },
       "tier1": {
-        "title": "Premier League",
-        "seasonMetadata": {
-          "leagueId": "Premier_League",
-          "tableIndex": 0,
-          "tableCount": 5,
-          "seasonSlug": "2017–18_in_English_football"
-        },
         "season": 2017,
         "table": [
           {
@@ -50953,16 +51300,19 @@
           "Stoke City",
           "West Bromwich Albion"
         ],
-        "promoted": []
-      },
-      "tier2": {
-        "title": "Championship",
-        "seasonMetadata": {
-          "leagueId": "Championship",
+        "promoted": [],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2017–18_in_English_football",
+          "seasonSlug": "2017–18_in_English_football",
+          "leagueId": "Premier_League",
+          "title": "Premier League",
           "tableIndex": 0,
           "tableCount": 5,
-          "seasonSlug": "2017–18_in_English_football"
-        },
+          "tierKey": "tier1"
+        }
+      },
+      "tier2": {
         "season": 2017,
         "table": [
           {
@@ -51431,16 +51781,19 @@
           "Wolverhampton Wanderers",
           "Cardiff City",
           "Fulham"
-        ]
-      },
-      "tier3": {
-        "title": "League One",
-        "seasonMetadata": {
-          "leagueId": "League_One",
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2017–18_in_English_football",
+          "seasonSlug": "2017–18_in_English_football",
+          "leagueId": "Championship",
+          "title": "Championship",
           "tableIndex": 0,
           "tableCount": 5,
-          "seasonSlug": "2017–18_in_English_football"
-        },
+          "tierKey": "tier2"
+        }
+      },
+      "tier3": {
         "season": 2017,
         "table": [
           {
@@ -51910,16 +52263,19 @@
           "Wigan Athletic",
           "Blackburn Rovers",
           "Rotherham United"
-        ]
-      },
-      "tier4": {
-        "title": "League Two",
-        "seasonMetadata": {
-          "leagueId": "League_Two",
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2017–18_in_English_football",
+          "seasonSlug": "2017–18_in_English_football",
+          "leagueId": "League_One",
+          "title": "League One",
           "tableIndex": 0,
           "tableCount": 5,
-          "seasonSlug": "2017–18_in_English_football"
-        },
+          "tierKey": "tier3"
+        }
+      },
+      "tier4": {
         "season": 2017,
         "table": [
           {
@@ -52388,16 +52744,19 @@
           "Luton Town",
           "Wycombe Wanderers",
           "Coventry City"
-        ]
-      },
-      "tier5": {
-        "title": "National League Top Division",
-        "seasonMetadata": {
-          "leagueId": "National_League_Top_Division",
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2017–18_in_English_football",
+          "seasonSlug": "2017–18_in_English_football",
+          "leagueId": "League_Two",
+          "title": "League Two",
           "tableIndex": 0,
           "tableCount": 5,
-          "seasonSlug": "2017–18_in_English_football"
-        },
+          "tierKey": "tier4"
+        }
+      },
+      "tier5": {
         "season": 2017,
         "table": [
           {
@@ -52866,13 +53225,21 @@
         "promoted": [
           "Macclesfield Town",
           "Tranmere Rovers"
-        ]
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2017–18_in_English_football",
+          "seasonSlug": "2017–18_in_English_football",
+          "leagueId": "National_League_Top_Division",
+          "title": "National League Top Division",
+          "tableIndex": 0,
+          "tableCount": 5,
+          "tierKey": "tier5"
+        }
       }
     },
     "2018": {
       "seasonInfo": {
-        "seasonSlug": "2018–19_in_English_football",
-        "tableCount": 5,
         "season": 2018,
         "table": [],
         "relegated": [
@@ -52884,16 +53251,12 @@
           "Norwich City",
           "Sheffield United",
           "Aston Villa"
-        ]
+        ],
+        "seasonSlug": "2018–19_in_English_football",
+        "sourceUrl": null,
+        "tableCount": 5
       },
       "tier1": {
-        "title": "Premier League",
-        "seasonMetadata": {
-          "leagueId": "Premier_League",
-          "tableIndex": 0,
-          "tableCount": 5,
-          "seasonSlug": "2018–19_in_English_football"
-        },
         "season": 2018,
         "table": [
           {
@@ -53282,16 +53645,19 @@
           "Fulham",
           "Huddersfield Town"
         ],
-        "promoted": []
-      },
-      "tier2": {
-        "title": "Championship",
-        "seasonMetadata": {
-          "leagueId": "Championship",
+        "promoted": [],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2018–19_in_English_football",
+          "seasonSlug": "2018–19_in_English_football",
+          "leagueId": "Premier_League",
+          "title": "Premier League",
           "tableIndex": 0,
           "tableCount": 5,
-          "seasonSlug": "2018–19_in_English_football"
-        },
+          "tierKey": "tier1"
+        }
+      },
+      "tier2": {
         "season": 2018,
         "table": [
           {
@@ -53760,16 +54126,19 @@
           "Norwich City",
           "Sheffield United",
           "Aston Villa"
-        ]
-      },
-      "tier3": {
-        "title": "League One",
-        "seasonMetadata": {
-          "leagueId": "League_One",
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2018–19_in_English_football",
+          "seasonSlug": "2018–19_in_English_football",
+          "leagueId": "Championship",
+          "title": "Championship",
           "tableIndex": 0,
           "tableCount": 5,
-          "seasonSlug": "2018–19_in_English_football"
-        },
+          "tierKey": "tier2"
+        }
+      },
+      "tier3": {
         "season": 2018,
         "table": [
           {
@@ -54239,16 +54608,19 @@
           "Luton Town",
           "Barnsley",
           "Charlton Athletic"
-        ]
-      },
-      "tier4": {
-        "title": "League Two",
-        "seasonMetadata": {
-          "leagueId": "League_Two",
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2018–19_in_English_football",
+          "seasonSlug": "2018–19_in_English_football",
+          "leagueId": "League_One",
+          "title": "League One",
           "tableIndex": 0,
           "tableCount": 5,
-          "seasonSlug": "2018–19_in_English_football"
-        },
+          "tierKey": "tier3"
+        }
+      },
+      "tier4": {
         "season": 2018,
         "table": [
           {
@@ -54717,16 +55089,19 @@
           "Bury",
           "Milton Keynes Dons",
           "Tranmere Rovers"
-        ]
-      },
-      "tier5": {
-        "title": "National League Top Division",
-        "seasonMetadata": {
-          "leagueId": "National_League_Top_Division",
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2018–19_in_English_football",
+          "seasonSlug": "2018–19_in_English_football",
+          "leagueId": "League_Two",
+          "title": "League Two",
           "tableIndex": 0,
           "tableCount": 5,
-          "seasonSlug": "2018–19_in_English_football"
-        },
+          "tierKey": "tier4"
+        }
+      },
+      "tier5": {
         "season": 2018,
         "table": [
           {
@@ -55195,13 +55570,21 @@
         "promoted": [
           "Leyton Orient",
           "Salford City"
-        ]
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2018–19_in_English_football",
+          "seasonSlug": "2018–19_in_English_football",
+          "leagueId": "National_League_Top_Division",
+          "title": "National League Top Division",
+          "tableIndex": 0,
+          "tableCount": 5,
+          "tierKey": "tier5"
+        }
       }
     },
     "2019": {
       "seasonInfo": {
-        "seasonSlug": "2019–20_in_English_football",
-        "tableCount": 5,
         "season": 2019,
         "table": [],
         "relegated": [
@@ -55210,19 +55593,15 @@
           "Norwich City"
         ],
         "promoted": [
-          "Leeds United",
-          "West Bromwich Albion",
-          "Fulham"
-        ]
+          "Coventry City",
+          "Rotherham United",
+          "Wycombe Wanderers"
+        ],
+        "seasonSlug": "2019–20_in_English_football",
+        "sourceUrl": null,
+        "tableCount": 4
       },
       "tier1": {
-        "title": "Premier League",
-        "seasonMetadata": {
-          "leagueId": "Premier_League",
-          "tableIndex": 0,
-          "tableCount": 5,
-          "seasonSlug": "2019–20_in_English_football"
-        },
         "season": 2019,
         "table": [
           {
@@ -55611,494 +55990,19 @@
           "Watford",
           "Norwich City"
         ],
-        "promoted": []
+        "promoted": [],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2019–20_in_English_football",
+          "seasonSlug": "2019–20_in_English_football",
+          "leagueId": "Premier_League",
+          "title": "Premier League",
+          "tableIndex": 0,
+          "tableCount": 4,
+          "tierKey": "tier1"
+        }
       },
       "tier2": {
-        "title": "Championship",
-        "seasonMetadata": {
-          "leagueId": "Championship",
-          "tableIndex": 0,
-          "tableCount": 5,
-          "seasonSlug": "2019–20_in_English_football"
-        },
-        "season": 2019,
-        "table": [
-          {
-            "pos": 1,
-            "team": "Leeds United",
-            "played": 46,
-            "won": 28,
-            "drawn": 9,
-            "lost": 9,
-            "goalsFor": 77,
-            "goalsAgainst": 35,
-            "goalDifference": 42,
-            "goalAverage": null,
-            "points": 93,
-            "notes": "Promotion to the Premier League",
-            "wasRelegated": false,
-            "wasPromoted": true,
-            "isExpansionTeam": false,
-            "wasReElected": false,
-            "wasReprieved": false
-          },
-          {
-            "pos": 2,
-            "team": "West Bromwich Albion",
-            "played": 46,
-            "won": 22,
-            "drawn": 17,
-            "lost": 7,
-            "goalsFor": 77,
-            "goalsAgainst": 45,
-            "goalDifference": 32,
-            "goalAverage": null,
-            "points": 83,
-            "notes": "Promotion to the Premier League",
-            "wasRelegated": false,
-            "wasPromoted": true,
-            "isExpansionTeam": false,
-            "wasReElected": false,
-            "wasReprieved": false
-          },
-          {
-            "pos": 3,
-            "team": "Brentford",
-            "played": 46,
-            "won": 24,
-            "drawn": 9,
-            "lost": 13,
-            "goalsFor": 80,
-            "goalsAgainst": 38,
-            "goalDifference": 42,
-            "goalAverage": null,
-            "points": 81,
-            "notes": "Qualification for Championship play-offs",
-            "wasRelegated": false,
-            "wasPromoted": false,
-            "isExpansionTeam": false,
-            "wasReElected": false,
-            "wasReprieved": false
-          },
-          {
-            "pos": 4,
-            "team": "Fulham",
-            "played": 46,
-            "won": 23,
-            "drawn": 12,
-            "lost": 11,
-            "goalsFor": 64,
-            "goalsAgainst": 48,
-            "goalDifference": 16,
-            "goalAverage": null,
-            "points": 81,
-            "notes": "Qualification for Championship play-offs",
-            "wasRelegated": false,
-            "wasPromoted": true,
-            "isExpansionTeam": false,
-            "wasReElected": false,
-            "wasReprieved": false
-          },
-          {
-            "pos": 5,
-            "team": "Cardiff City",
-            "played": 46,
-            "won": 19,
-            "drawn": 16,
-            "lost": 11,
-            "goalsFor": 68,
-            "goalsAgainst": 58,
-            "goalDifference": 10,
-            "goalAverage": null,
-            "points": 73,
-            "notes": "Qualification for Championship play-offs",
-            "wasRelegated": false,
-            "wasPromoted": false,
-            "isExpansionTeam": false,
-            "wasReElected": false,
-            "wasReprieved": false
-          },
-          {
-            "pos": 6,
-            "team": "Swansea City",
-            "played": 46,
-            "won": 18,
-            "drawn": 16,
-            "lost": 12,
-            "goalsFor": 62,
-            "goalsAgainst": 53,
-            "goalDifference": 9,
-            "goalAverage": null,
-            "points": 70,
-            "notes": "Qualification for Championship play-offs",
-            "wasRelegated": false,
-            "wasPromoted": false,
-            "isExpansionTeam": false,
-            "wasReElected": false,
-            "wasReprieved": false
-          },
-          {
-            "pos": 7,
-            "team": "Nottingham Forest",
-            "played": 46,
-            "won": 18,
-            "drawn": 16,
-            "lost": 12,
-            "goalsFor": 58,
-            "goalsAgainst": 50,
-            "goalDifference": 8,
-            "goalAverage": null,
-            "points": 70,
-            "notes": null,
-            "wasRelegated": false,
-            "wasPromoted": false,
-            "isExpansionTeam": false,
-            "wasReElected": false,
-            "wasReprieved": false
-          },
-          {
-            "pos": 8,
-            "team": "Millwall",
-            "played": 46,
-            "won": 17,
-            "drawn": 17,
-            "lost": 12,
-            "goalsFor": 57,
-            "goalsAgainst": 51,
-            "goalDifference": 6,
-            "goalAverage": null,
-            "points": 68,
-            "notes": null,
-            "wasRelegated": false,
-            "wasPromoted": false,
-            "isExpansionTeam": false,
-            "wasReElected": false,
-            "wasReprieved": false
-          },
-          {
-            "pos": 9,
-            "team": "Preston North End",
-            "played": 46,
-            "won": 18,
-            "drawn": 12,
-            "lost": 16,
-            "goalsFor": 59,
-            "goalsAgainst": 54,
-            "goalDifference": 5,
-            "goalAverage": null,
-            "points": 66,
-            "notes": null,
-            "wasRelegated": false,
-            "wasPromoted": false,
-            "isExpansionTeam": false,
-            "wasReElected": false,
-            "wasReprieved": false
-          },
-          {
-            "pos": 10,
-            "team": "Derby County",
-            "played": 46,
-            "won": 17,
-            "drawn": 13,
-            "lost": 16,
-            "goalsFor": 62,
-            "goalsAgainst": 64,
-            "goalDifference": -2,
-            "goalAverage": null,
-            "points": 64,
-            "notes": null,
-            "wasRelegated": false,
-            "wasPromoted": false,
-            "isExpansionTeam": false,
-            "wasReElected": false,
-            "wasReprieved": false
-          },
-          {
-            "pos": 11,
-            "team": "Blackburn Rovers",
-            "played": 46,
-            "won": 17,
-            "drawn": 12,
-            "lost": 17,
-            "goalsFor": 66,
-            "goalsAgainst": 63,
-            "goalDifference": 3,
-            "goalAverage": null,
-            "points": 63,
-            "notes": null,
-            "wasRelegated": false,
-            "wasPromoted": false,
-            "isExpansionTeam": false,
-            "wasReElected": false,
-            "wasReprieved": false
-          },
-          {
-            "pos": 12,
-            "team": "Bristol City",
-            "played": 46,
-            "won": 17,
-            "drawn": 12,
-            "lost": 17,
-            "goalsFor": 60,
-            "goalsAgainst": 65,
-            "goalDifference": -5,
-            "goalAverage": null,
-            "points": 63,
-            "notes": null,
-            "wasRelegated": false,
-            "wasPromoted": false,
-            "isExpansionTeam": false,
-            "wasReElected": false,
-            "wasReprieved": false
-          },
-          {
-            "pos": 13,
-            "team": "Queens Park Rangers",
-            "played": 46,
-            "won": 16,
-            "drawn": 10,
-            "lost": 20,
-            "goalsFor": 67,
-            "goalsAgainst": 76,
-            "goalDifference": -9,
-            "goalAverage": null,
-            "points": 58,
-            "notes": null,
-            "wasRelegated": false,
-            "wasPromoted": false,
-            "isExpansionTeam": false,
-            "wasReElected": false,
-            "wasReprieved": false
-          },
-          {
-            "pos": 14,
-            "team": "Reading",
-            "played": 46,
-            "won": 15,
-            "drawn": 11,
-            "lost": 20,
-            "goalsFor": 59,
-            "goalsAgainst": 58,
-            "goalDifference": 1,
-            "goalAverage": null,
-            "points": 56,
-            "notes": null,
-            "wasRelegated": false,
-            "wasPromoted": false,
-            "isExpansionTeam": false,
-            "wasReElected": false,
-            "wasReprieved": false
-          },
-          {
-            "pos": 15,
-            "team": "Stoke City",
-            "played": 46,
-            "won": 16,
-            "drawn": 8,
-            "lost": 22,
-            "goalsFor": 62,
-            "goalsAgainst": 68,
-            "goalDifference": -6,
-            "goalAverage": null,
-            "points": 56,
-            "notes": null,
-            "wasRelegated": false,
-            "wasPromoted": false,
-            "isExpansionTeam": false,
-            "wasReElected": false,
-            "wasReprieved": false
-          },
-          {
-            "pos": 16,
-            "team": "Sheffield Wednesday",
-            "played": 46,
-            "won": 15,
-            "drawn": 11,
-            "lost": 20,
-            "goalsFor": 58,
-            "goalsAgainst": 66,
-            "goalDifference": -8,
-            "goalAverage": null,
-            "points": 56,
-            "notes": null,
-            "wasRelegated": false,
-            "wasPromoted": false,
-            "isExpansionTeam": false,
-            "wasReElected": false,
-            "wasReprieved": false
-          },
-          {
-            "pos": 17,
-            "team": "Middlesbrough",
-            "played": 46,
-            "won": 13,
-            "drawn": 14,
-            "lost": 19,
-            "goalsFor": 48,
-            "goalsAgainst": 61,
-            "goalDifference": -13,
-            "goalAverage": null,
-            "points": 53,
-            "notes": null,
-            "wasRelegated": false,
-            "wasPromoted": false,
-            "isExpansionTeam": false,
-            "wasReElected": false,
-            "wasReprieved": false
-          },
-          {
-            "pos": 18,
-            "team": "Huddersfield Town",
-            "played": 46,
-            "won": 13,
-            "drawn": 12,
-            "lost": 21,
-            "goalsFor": 52,
-            "goalsAgainst": 70,
-            "goalDifference": -18,
-            "goalAverage": null,
-            "points": 51,
-            "notes": null,
-            "wasRelegated": false,
-            "wasPromoted": false,
-            "isExpansionTeam": false,
-            "wasReElected": false,
-            "wasReprieved": false
-          },
-          {
-            "pos": 19,
-            "team": "Luton Town",
-            "played": 46,
-            "won": 14,
-            "drawn": 9,
-            "lost": 23,
-            "goalsFor": 54,
-            "goalsAgainst": 82,
-            "goalDifference": -28,
-            "goalAverage": null,
-            "points": 51,
-            "notes": null,
-            "wasRelegated": false,
-            "wasPromoted": false,
-            "isExpansionTeam": false,
-            "wasReElected": false,
-            "wasReprieved": false
-          },
-          {
-            "pos": 20,
-            "team": "Birmingham City",
-            "played": 46,
-            "won": 12,
-            "drawn": 14,
-            "lost": 20,
-            "goalsFor": 54,
-            "goalsAgainst": 75,
-            "goalDifference": -21,
-            "goalAverage": null,
-            "points": 50,
-            "notes": null,
-            "wasRelegated": false,
-            "wasPromoted": false,
-            "isExpansionTeam": false,
-            "wasReElected": false,
-            "wasReprieved": false
-          },
-          {
-            "pos": 21,
-            "team": "Barnsley",
-            "played": 46,
-            "won": 12,
-            "drawn": 13,
-            "lost": 21,
-            "goalsFor": 49,
-            "goalsAgainst": 69,
-            "goalDifference": -20,
-            "goalAverage": null,
-            "points": 49,
-            "notes": null,
-            "wasRelegated": false,
-            "wasPromoted": false,
-            "isExpansionTeam": false,
-            "wasReElected": false,
-            "wasReprieved": false
-          },
-          {
-            "pos": 22,
-            "team": "Charlton Athletic",
-            "played": 46,
-            "won": 12,
-            "drawn": 12,
-            "lost": 22,
-            "goalsFor": 50,
-            "goalsAgainst": 65,
-            "goalDifference": -15,
-            "goalAverage": null,
-            "points": 48,
-            "notes": "Relegation to EFL League One",
-            "wasRelegated": true,
-            "wasPromoted": false,
-            "isExpansionTeam": false,
-            "wasReElected": false,
-            "wasReprieved": false
-          },
-          {
-            "pos": 23,
-            "team": "Wigan Athletic",
-            "played": 46,
-            "won": 15,
-            "drawn": 14,
-            "lost": 17,
-            "goalsFor": 57,
-            "goalsAgainst": 56,
-            "goalDifference": 1,
-            "goalAverage": null,
-            "points": 47,
-            "notes": "Relegation to EFL League One",
-            "wasRelegated": true,
-            "wasPromoted": false,
-            "isExpansionTeam": false,
-            "wasReElected": false,
-            "wasReprieved": false
-          },
-          {
-            "pos": 24,
-            "team": "Hull City",
-            "played": 46,
-            "won": 12,
-            "drawn": 9,
-            "lost": 25,
-            "goalsFor": 57,
-            "goalsAgainst": 87,
-            "goalDifference": -30,
-            "goalAverage": null,
-            "points": 45,
-            "notes": "Relegation to EFL League One",
-            "wasRelegated": true,
-            "wasPromoted": false,
-            "isExpansionTeam": false,
-            "wasReElected": false,
-            "wasReprieved": false
-          }
-        ],
-        "relegated": [
-          "Charlton Athletic",
-          "Wigan Athletic",
-          "Hull City"
-        ],
-        "promoted": [
-          "Leeds United",
-          "West Bromwich Albion",
-          "Fulham"
-        ]
-      },
-      "tier3": {
-        "title": "League One",
-        "seasonMetadata": {
-          "leagueId": "League_One",
-          "tableIndex": 0,
-          "tableCount": 5,
-          "seasonSlug": "2019–20_in_English_football"
-        },
         "season": 2019,
         "table": [
           {
@@ -56550,7 +56454,7 @@
             "goalDifference": 0,
             "goalAverage": null,
             "points": -12,
-            "notes": "Club expelled, and no Phoenix club received",
+            "notes": "Club expelled",
             "wasRelegated": true,
             "wasPromoted": false,
             "isExpansionTeam": false,
@@ -56568,16 +56472,19 @@
           "Coventry City",
           "Rotherham United",
           "Wycombe Wanderers"
-        ]
-      },
-      "tier4": {
-        "title": "League Two",
-        "seasonMetadata": {
-          "leagueId": "League_Two",
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2019–20_in_English_football",
+          "seasonSlug": "2019–20_in_English_football",
+          "leagueId": "League_One",
+          "title": "League One",
           "tableIndex": 0,
-          "tableCount": 5,
-          "seasonSlug": "2019–20_in_English_football"
-        },
+          "tableCount": 4,
+          "tierKey": "tier2"
+        }
+      },
+      "tier3": {
         "season": 2019,
         "table": [
           {
@@ -57046,16 +56953,19 @@
           "Crewe Alexandra",
           "Plymouth Argyle",
           "Northampton Town"
-        ]
-      },
-      "tier5": {
-        "title": "National League Top Division",
-        "seasonMetadata": {
-          "leagueId": "National_League_Top_Division",
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2019–20_in_English_football",
+          "seasonSlug": "2019–20_in_English_football",
+          "leagueId": "League_Two",
+          "title": "League Two",
           "tableIndex": 0,
-          "tableCount": 5,
-          "seasonSlug": "2019–20_in_English_football"
-        },
+          "tableCount": 4,
+          "tierKey": "tier3"
+        }
+      },
+      "tier4": {
         "season": 2019,
         "table": [
           {
@@ -57524,13 +57434,21 @@
         "promoted": [
           "Barrow",
           "Harrogate Town"
-        ]
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2019–20_in_English_football",
+          "seasonSlug": "2019–20_in_English_football",
+          "leagueId": "National_League_Top_Division",
+          "title": "National League Top Division",
+          "tableIndex": 0,
+          "tableCount": 4,
+          "tierKey": "tier4"
+        }
       }
     },
     "2020": {
       "seasonInfo": {
-        "seasonSlug": "2020–21_in_English_football",
-        "tableCount": 5,
         "season": 2020,
         "table": [],
         "relegated": [
@@ -57542,16 +57460,12 @@
           "Norwich City",
           "Watford",
           "Brentford"
-        ]
+        ],
+        "seasonSlug": "2020–21_in_English_football",
+        "sourceUrl": null,
+        "tableCount": 5
       },
       "tier1": {
-        "title": "Premier League",
-        "seasonMetadata": {
-          "leagueId": "Premier_League",
-          "tableIndex": 0,
-          "tableCount": 5,
-          "seasonSlug": "2020–21_in_English_football"
-        },
         "season": 2020,
         "table": [
           {
@@ -57940,16 +57854,19 @@
           "West Bromwich Albion",
           "Sheffield United"
         ],
-        "promoted": []
-      },
-      "tier2": {
-        "title": "Championship",
-        "seasonMetadata": {
-          "leagueId": "Championship",
+        "promoted": [],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2020–21_in_English_football",
+          "seasonSlug": "2020–21_in_English_football",
+          "leagueId": "Premier_League",
+          "title": "Premier League",
           "tableIndex": 0,
           "tableCount": 5,
-          "seasonSlug": "2020–21_in_English_football"
-        },
+          "tierKey": "tier1"
+        }
+      },
+      "tier2": {
         "season": 2020,
         "table": [
           {
@@ -58418,16 +58335,19 @@
           "Norwich City",
           "Watford",
           "Brentford"
-        ]
-      },
-      "tier3": {
-        "title": "League One",
-        "seasonMetadata": {
-          "leagueId": "League_One",
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2020–21_in_English_football",
+          "seasonSlug": "2020–21_in_English_football",
+          "leagueId": "Championship",
+          "title": "Championship",
           "tableIndex": 0,
           "tableCount": 5,
-          "seasonSlug": "2020–21_in_English_football"
-        },
+          "tierKey": "tier2"
+        }
+      },
+      "tier3": {
         "season": 2020,
         "table": [
           {
@@ -58897,16 +58817,19 @@
           "Hull City",
           "Peterborough United",
           "Blackpool"
-        ]
-      },
-      "tier4": {
-        "title": "League Two",
-        "seasonMetadata": {
-          "leagueId": "League_Two",
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2020–21_in_English_football",
+          "seasonSlug": "2020–21_in_English_football",
+          "leagueId": "League_One",
+          "title": "League One",
           "tableIndex": 0,
           "tableCount": 5,
-          "seasonSlug": "2020–21_in_English_football"
-        },
+          "tierKey": "tier3"
+        }
+      },
+      "tier4": {
         "season": 2020,
         "table": [
           {
@@ -59375,16 +59298,19 @@
           "Cambridge United",
           "Bolton Wanderers",
           "Morecambe"
-        ]
-      },
-      "tier5": {
-        "title": "National League",
-        "seasonMetadata": {
-          "leagueId": "National_League",
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2020–21_in_English_football",
+          "seasonSlug": "2020–21_in_English_football",
+          "leagueId": "League_Two",
+          "title": "League Two",
           "tableIndex": 0,
           "tableCount": 5,
-          "seasonSlug": "2020–21_in_English_football"
-        },
+          "tierKey": "tier4"
+        }
+      },
+      "tier5": {
         "season": 2020,
         "table": [
           {
@@ -59851,13 +59777,21 @@
         "promoted": [
           "Sutton United",
           "Hartlepool United"
-        ]
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2020–21_in_English_football",
+          "seasonSlug": "2020–21_in_English_football",
+          "leagueId": "National_League",
+          "title": "National League",
+          "tableIndex": 0,
+          "tableCount": 5,
+          "tierKey": "tier5"
+        }
       }
     },
     "2021": {
       "seasonInfo": {
-        "seasonSlug": "2021–22_in_English_football",
-        "tableCount": 7,
         "season": 2021,
         "table": [],
         "relegated": [
@@ -59869,16 +59803,12 @@
           "Fulham",
           "Bournemouth",
           "Nottingham Forest"
-        ]
+        ],
+        "seasonSlug": "2021–22_in_English_football",
+        "sourceUrl": null,
+        "tableCount": 7
       },
       "tier1": {
-        "title": "Premier League",
-        "seasonMetadata": {
-          "leagueId": "Premier_League",
-          "tableIndex": 0,
-          "tableCount": 7,
-          "seasonSlug": "2021–22_in_English_football"
-        },
         "season": 2021,
         "table": [
           {
@@ -60267,16 +60197,19 @@
           "Watford",
           "Norwich City"
         ],
-        "promoted": []
-      },
-      "tier2": {
-        "title": "Championship",
-        "seasonMetadata": {
-          "leagueId": "Championship",
+        "promoted": [],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2021–22_in_English_football",
+          "seasonSlug": "2021–22_in_English_football",
+          "leagueId": "Premier_League",
+          "title": "Premier League",
           "tableIndex": 0,
           "tableCount": 7,
-          "seasonSlug": "2021–22_in_English_football"
-        },
+          "tierKey": "tier1"
+        }
+      },
+      "tier2": {
         "season": 2021,
         "table": [
           {
@@ -60745,16 +60678,19 @@
           "Fulham",
           "Bournemouth",
           "Nottingham Forest"
-        ]
-      },
-      "tier3": {
-        "title": "League One",
-        "seasonMetadata": {
-          "leagueId": "League_One",
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2021–22_in_English_football",
+          "seasonSlug": "2021–22_in_English_football",
+          "leagueId": "Championship",
+          "title": "Championship",
           "tableIndex": 0,
           "tableCount": 7,
-          "seasonSlug": "2021–22_in_English_football"
-        },
+          "tierKey": "tier2"
+        }
+      },
+      "tier3": {
         "season": 2021,
         "table": [
           {
@@ -61224,16 +61160,19 @@
           "Wigan Athletic",
           "Rotherham United",
           "Sunderland"
-        ]
-      },
-      "tier4": {
-        "title": "League Two",
-        "seasonMetadata": {
-          "leagueId": "League_Two",
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2021–22_in_English_football",
+          "seasonSlug": "2021–22_in_English_football",
+          "leagueId": "League_One",
+          "title": "League One",
           "tableIndex": 0,
           "tableCount": 7,
-          "seasonSlug": "2021–22_in_English_football"
-        },
+          "tierKey": "tier3"
+        }
+      },
+      "tier4": {
         "season": 2021,
         "table": [
           {
@@ -61702,16 +61641,19 @@
           "Exeter City",
           "Bristol Rovers",
           "Port Vale"
-        ]
-      },
-      "tier5": {
-        "title": "National League",
-        "seasonMetadata": {
-          "leagueId": "National_League",
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2021–22_in_English_football",
+          "seasonSlug": "2021–22_in_English_football",
+          "leagueId": "League_Two",
+          "title": "League Two",
           "tableIndex": 0,
           "tableCount": 7,
-          "seasonSlug": "2021–22_in_English_football"
-        },
+          "tierKey": "tier4"
+        }
+      },
+      "tier5": {
         "season": 2021,
         "table": [
           {
@@ -62160,16 +62102,19 @@
         "promoted": [
           "Stockport County",
           "Grimsby Town"
-        ]
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2021–22_in_English_football",
+          "seasonSlug": "2021–22_in_English_football",
+          "leagueId": "National_League",
+          "title": "National League",
+          "tableIndex": 0,
+          "tableCount": 7,
+          "tierKey": "tier5"
+        }
       },
       "tier6": {
-        "title": "National League",
-        "seasonMetadata": {
-          "leagueId": "National_League",
-          "tableIndex": 1,
-          "tableCount": 7,
-          "seasonSlug": "2021–22_in_English_football"
-        },
         "season": 2021,
         "table": [
           {
@@ -62597,16 +62542,19 @@
         "promoted": [
           "Gateshead",
           "York City"
-        ]
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2021–22_in_English_football",
+          "seasonSlug": "2021–22_in_English_football",
+          "leagueId": "National_League",
+          "title": "National League",
+          "tableIndex": 1,
+          "tableCount": 7,
+          "tierKey": "tier6"
+        }
       },
       "tier7": {
-        "title": "National League",
-        "seasonMetadata": {
-          "leagueId": "National_League",
-          "tableIndex": 2,
-          "tableCount": 7,
-          "seasonSlug": "2021–22_in_English_football"
-        },
         "season": 2021,
         "table": [
           {
@@ -63015,13 +62963,21 @@
         "promoted": [
           "Maidstone United",
           "Dorking Wanderers"
-        ]
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2021–22_in_English_football",
+          "seasonSlug": "2021–22_in_English_football",
+          "leagueId": "National_League",
+          "title": "National League",
+          "tableIndex": 2,
+          "tableCount": 7,
+          "tierKey": "tier7"
+        }
       }
     },
     "2022": {
       "seasonInfo": {
-        "seasonSlug": "2022–23_in_English_football",
-        "tableCount": 7,
         "season": 2022,
         "table": [],
         "relegated": [
@@ -63033,16 +62989,12 @@
           "Burnley",
           "Sheffield United",
           "Luton Town"
-        ]
+        ],
+        "seasonSlug": "2022–23_in_English_football",
+        "sourceUrl": null,
+        "tableCount": 7
       },
       "tier1": {
-        "title": "Premier League",
-        "seasonMetadata": {
-          "leagueId": "Premier_League",
-          "tableIndex": 0,
-          "tableCount": 7,
-          "seasonSlug": "2022–23_in_English_football"
-        },
         "season": 2022,
         "table": [
           {
@@ -63431,16 +63383,19 @@
           "Leeds United",
           "Southampton"
         ],
-        "promoted": []
-      },
-      "tier2": {
-        "title": "Championship",
-        "seasonMetadata": {
-          "leagueId": "Championship",
+        "promoted": [],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2022–23_in_English_football",
+          "seasonSlug": "2022–23_in_English_football",
+          "leagueId": "Premier_League",
+          "title": "Premier League",
           "tableIndex": 0,
           "tableCount": 7,
-          "seasonSlug": "2022–23_in_English_football"
-        },
+          "tierKey": "tier1"
+        }
+      },
+      "tier2": {
         "season": 2022,
         "table": [
           {
@@ -63909,16 +63864,19 @@
           "Burnley",
           "Sheffield United",
           "Luton Town"
-        ]
-      },
-      "tier3": {
-        "title": "League One",
-        "seasonMetadata": {
-          "leagueId": "League_One",
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2022–23_in_English_football",
+          "seasonSlug": "2022–23_in_English_football",
+          "leagueId": "Championship",
+          "title": "Championship",
           "tableIndex": 0,
           "tableCount": 7,
-          "seasonSlug": "2022–23_in_English_football"
-        },
+          "tierKey": "tier2"
+        }
+      },
+      "tier3": {
         "season": 2022,
         "table": [
           {
@@ -64388,16 +64346,19 @@
           "Plymouth Argyle",
           "Ipswich Town",
           "Sheffield Wednesday"
-        ]
-      },
-      "tier4": {
-        "title": "League Two",
-        "seasonMetadata": {
-          "leagueId": "League_Two",
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2022–23_in_English_football",
+          "seasonSlug": "2022–23_in_English_football",
+          "leagueId": "League_One",
+          "title": "League One",
           "tableIndex": 0,
           "tableCount": 7,
-          "seasonSlug": "2022–23_in_English_football"
-        },
+          "tierKey": "tier3"
+        }
+      },
+      "tier4": {
         "season": 2022,
         "table": [
           {
@@ -64866,16 +64827,19 @@
           "Stevenage",
           "Northampton Town",
           "Carlisle United"
-        ]
-      },
-      "tier5": {
-        "title": "National League",
-        "seasonMetadata": {
-          "leagueId": "National_League",
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2022–23_in_English_football",
+          "seasonSlug": "2022–23_in_English_football",
+          "leagueId": "League_Two",
+          "title": "League Two",
           "tableIndex": 0,
           "tableCount": 7,
-          "seasonSlug": "2022–23_in_English_football"
-        },
+          "tierKey": "tier4"
+        }
+      },
+      "tier5": {
         "season": 2022,
         "table": [
           {
@@ -65344,16 +65308,19 @@
         "promoted": [
           "Wrexham",
           "Notts County"
-        ]
-      },
-      "tier6": {
-        "title": "North",
-        "seasonMetadata": {
-          "leagueId": "North",
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2022–23_in_English_football",
+          "seasonSlug": "2022–23_in_English_football",
+          "leagueId": "National_League",
+          "title": "National League",
           "tableIndex": 0,
           "tableCount": 7,
-          "seasonSlug": "2022–23_in_English_football"
-        },
+          "tierKey": "tier5"
+        }
+      },
+      "tier6": {
         "season": 2022,
         "table": [
           {
@@ -65822,16 +65789,19 @@
         "promoted": [
           "AFC Fylde",
           "Kidderminster Harriers"
-        ]
-      },
-      "tier7": {
-        "title": "South",
-        "seasonMetadata": {
-          "leagueId": "South",
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2022–23_in_English_football",
+          "seasonSlug": "2022–23_in_English_football",
+          "leagueId": "North",
+          "title": "North",
           "tableIndex": 0,
           "tableCount": 7,
-          "seasonSlug": "2022–23_in_English_football"
-        },
+          "tierKey": "tier6"
+        }
+      },
+      "tier7": {
         "season": 2022,
         "table": [
           {
@@ -66300,13 +66270,21 @@
         "promoted": [
           "Ebbsfleet United",
           "Oxford City"
-        ]
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2022–23_in_English_football",
+          "seasonSlug": "2022–23_in_English_football",
+          "leagueId": "South",
+          "title": "South",
+          "tableIndex": 0,
+          "tableCount": 7,
+          "tierKey": "tier7"
+        }
       }
     },
     "2023": {
       "seasonInfo": {
-        "seasonSlug": "2023–24_in_English_football",
-        "tableCount": 7,
         "season": 2023,
         "table": [],
         "relegated": [
@@ -66318,16 +66296,12 @@
           "Leicester City",
           "Ipswich Town",
           "Southampton"
-        ]
+        ],
+        "seasonSlug": "2023–24_in_English_football",
+        "sourceUrl": null,
+        "tableCount": 7
       },
       "tier1": {
-        "title": "Premier League",
-        "seasonMetadata": {
-          "leagueId": "Premier_League",
-          "tableIndex": 0,
-          "tableCount": 7,
-          "seasonSlug": "2023–24_in_English_football"
-        },
         "season": 2023,
         "table": [
           {
@@ -66716,16 +66690,19 @@
           "Burnley",
           "Sheffield United"
         ],
-        "promoted": []
-      },
-      "tier2": {
-        "title": "Championship",
-        "seasonMetadata": {
-          "leagueId": "Championship",
+        "promoted": [],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2023–24_in_English_football",
+          "seasonSlug": "2023–24_in_English_football",
+          "leagueId": "Premier_League",
+          "title": "Premier League",
           "tableIndex": 0,
           "tableCount": 7,
-          "seasonSlug": "2023–24_in_English_football"
-        },
+          "tierKey": "tier1"
+        }
+      },
+      "tier2": {
         "season": 2023,
         "table": [
           {
@@ -67194,16 +67171,19 @@
           "Leicester City",
           "Ipswich Town",
           "Southampton"
-        ]
-      },
-      "tier3": {
-        "title": "League One",
-        "seasonMetadata": {
-          "leagueId": "League_One",
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2023–24_in_English_football",
+          "seasonSlug": "2023–24_in_English_football",
+          "leagueId": "Championship",
+          "title": "Championship",
           "tableIndex": 0,
           "tableCount": 7,
-          "seasonSlug": "2023–24_in_English_football"
-        },
+          "tierKey": "tier2"
+        }
+      },
+      "tier3": {
         "season": 2023,
         "table": [
           {
@@ -67673,16 +67653,19 @@
           "Portsmouth",
           "Derby County",
           "Oxford United"
-        ]
-      },
-      "tier4": {
-        "title": "League Two",
-        "seasonMetadata": {
-          "leagueId": "League_Two",
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2023–24_in_English_football",
+          "seasonSlug": "2023–24_in_English_football",
+          "leagueId": "League_One",
+          "title": "League One",
           "tableIndex": 0,
           "tableCount": 7,
-          "seasonSlug": "2023–24_in_English_football"
-        },
+          "tierKey": "tier3"
+        }
+      },
+      "tier4": {
         "season": 2023,
         "table": [
           {
@@ -68151,16 +68134,19 @@
           "Wrexham",
           "Mansfield Town",
           "Crawley Town"
-        ]
-      },
-      "tier5": {
-        "title": "National League",
-        "seasonMetadata": {
-          "leagueId": "National_League",
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2023–24_in_English_football",
+          "seasonSlug": "2023–24_in_English_football",
+          "leagueId": "League_Two",
+          "title": "League Two",
           "tableIndex": 0,
           "tableCount": 7,
-          "seasonSlug": "2023–24_in_English_football"
-        },
+          "tierKey": "tier4"
+        }
+      },
+      "tier5": {
         "season": 2023,
         "table": [
           {
@@ -68629,16 +68615,19 @@
         "promoted": [
           "Chesterfield",
           "Bromley"
-        ]
-      },
-      "tier6": {
-        "title": "North",
-        "seasonMetadata": {
-          "leagueId": "North",
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2023–24_in_English_football",
+          "seasonSlug": "2023–24_in_English_football",
+          "leagueId": "National_League",
+          "title": "National League",
           "tableIndex": 0,
           "tableCount": 7,
-          "seasonSlug": "2023–24_in_English_football"
-        },
+          "tierKey": "tier5"
+        }
+      },
+      "tier6": {
         "season": 2023,
         "table": [
           {
@@ -69107,16 +69096,19 @@
         "promoted": [
           "Tamworth",
           "Boston United"
-        ]
-      },
-      "tier7": {
-        "title": "South",
-        "seasonMetadata": {
-          "leagueId": "South",
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2023–24_in_English_football",
+          "seasonSlug": "2023–24_in_English_football",
+          "leagueId": "North",
+          "title": "North",
           "tableIndex": 0,
           "tableCount": 7,
-          "seasonSlug": "2023–24_in_English_football"
-        },
+          "tierKey": "tier6"
+        }
+      },
+      "tier7": {
         "season": 2023,
         "table": [
           {
@@ -69585,13 +69577,21 @@
         "promoted": [
           "Yeovil Town",
           "Braintree Town"
-        ]
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2023–24_in_English_football",
+          "seasonSlug": "2023–24_in_English_football",
+          "leagueId": "South",
+          "title": "South",
+          "tableIndex": 0,
+          "tableCount": 7,
+          "tierKey": "tier7"
+        }
       }
     },
     "2024": {
       "seasonInfo": {
-        "seasonSlug": "2024–25_in_English_football",
-        "tableCount": 7,
         "season": 2024,
         "table": [],
         "relegated": [
@@ -69603,16 +69603,12 @@
           "Leeds United",
           "Burnley",
           "Sunderland"
-        ]
+        ],
+        "seasonSlug": "2024–25_in_English_football",
+        "sourceUrl": null,
+        "tableCount": 7
       },
       "tier1": {
-        "title": "Premier League",
-        "seasonMetadata": {
-          "leagueId": "Premier_League",
-          "tableIndex": 0,
-          "tableCount": 7,
-          "seasonSlug": "2024–25_in_English_football"
-        },
         "season": 2024,
         "table": [
           {
@@ -70001,16 +69997,19 @@
           "Ipswich Town",
           "Southampton"
         ],
-        "promoted": []
-      },
-      "tier2": {
-        "title": "Championship",
-        "seasonMetadata": {
-          "leagueId": "Championship",
+        "promoted": [],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2024–25_in_English_football",
+          "seasonSlug": "2024–25_in_English_football",
+          "leagueId": "Premier_League",
+          "title": "Premier League",
           "tableIndex": 0,
           "tableCount": 7,
-          "seasonSlug": "2024–25_in_English_football"
-        },
+          "tierKey": "tier1"
+        }
+      },
+      "tier2": {
         "season": 2024,
         "table": [
           {
@@ -70479,16 +70478,19 @@
           "Leeds United",
           "Burnley",
           "Sunderland"
-        ]
-      },
-      "tier3": {
-        "title": "League One",
-        "seasonMetadata": {
-          "leagueId": "League_One",
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2024–25_in_English_football",
+          "seasonSlug": "2024–25_in_English_football",
+          "leagueId": "Championship",
+          "title": "Championship",
           "tableIndex": 0,
           "tableCount": 7,
-          "seasonSlug": "2024–25_in_English_football"
-        },
+          "tierKey": "tier2"
+        }
+      },
+      "tier3": {
         "season": 2024,
         "table": [
           {
@@ -70958,16 +70960,19 @@
           "Birmingham City",
           "Wrexham",
           "Charlton Athletic"
-        ]
-      },
-      "tier4": {
-        "title": "League Two",
-        "seasonMetadata": {
-          "leagueId": "League_Two",
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2024–25_in_English_football",
+          "seasonSlug": "2024–25_in_English_football",
+          "leagueId": "League_One",
+          "title": "League One",
           "tableIndex": 0,
           "tableCount": 7,
-          "seasonSlug": "2024–25_in_English_football"
-        },
+          "tierKey": "tier3"
+        }
+      },
+      "tier4": {
         "season": 2024,
         "table": [
           {
@@ -71436,16 +71441,19 @@
           "Port Vale",
           "Bradford City",
           "AFC Wimbledon"
-        ]
-      },
-      "tier5": {
-        "title": "National League",
-        "seasonMetadata": {
-          "leagueId": "National_League_2",
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2024–25_in_English_football",
+          "seasonSlug": "2024–25_in_English_football",
+          "leagueId": "League_Two",
+          "title": "League Two",
           "tableIndex": 0,
           "tableCount": 7,
-          "seasonSlug": "2024–25_in_English_football"
-        },
+          "tierKey": "tier4"
+        }
+      },
+      "tier5": {
         "season": 2024,
         "table": [
           {
@@ -71914,16 +71922,19 @@
         "promoted": [
           "Barnet",
           "Oldham Athletic"
-        ]
-      },
-      "tier6": {
-        "title": "North",
-        "seasonMetadata": {
-          "leagueId": "North",
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2024–25_in_English_football",
+          "seasonSlug": "2024–25_in_English_football",
+          "leagueId": "National_League_2",
+          "title": "National League",
           "tableIndex": 0,
           "tableCount": 7,
-          "seasonSlug": "2024–25_in_English_football"
-        },
+          "tierKey": "tier5"
+        }
+      },
+      "tier6": {
         "season": 2024,
         "table": [
           {
@@ -72392,16 +72403,19 @@
         "promoted": [
           "Brackley Town",
           "Scunthorpe United"
-        ]
-      },
-      "tier7": {
-        "title": "South",
-        "seasonMetadata": {
-          "leagueId": "South",
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2024–25_in_English_football",
+          "seasonSlug": "2024–25_in_English_football",
+          "leagueId": "North",
+          "title": "North",
           "tableIndex": 0,
           "tableCount": 7,
-          "seasonSlug": "2024–25_in_English_football"
-        },
+          "tierKey": "tier6"
+        }
+      },
+      "tier7": {
         "season": 2024,
         "table": [
           {
@@ -72870,7 +72884,17 @@
         "promoted": [
           "Truro City",
           "Boreham Wood"
-        ]
+        ],
+        "metadata": {
+          "source": "wikipedia-overview",
+          "sourceUrl": "https://en.wikipedia.org/wiki/2024–25_in_English_football",
+          "seasonSlug": "2024–25_in_English_football",
+          "leagueId": "South",
+          "title": "South",
+          "tableIndex": 0,
+          "tableCount": 7,
+          "tierKey": "tier7"
+        }
       }
     }
   }
