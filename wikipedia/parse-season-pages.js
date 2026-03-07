@@ -1,4 +1,5 @@
 import {
+  buildSeasonInfo,
   buildTierData,
   loadFootballData,
   saveFootballData,
@@ -55,11 +56,21 @@ export function constructTier1SeasonResults(tier1SeasonTable, tier2SeasonTable, 
 
   const tier1 = buildTierData(year, tier1SeasonTable, {
     promoted: tier2PromotedTeams,
-    metadata: { seasonSlug: slug, sourceUrl: pageUrl, tier: 'tier1' },
+    metadata: {
+      source: 'wikipedia-promotion',
+      sourceUrl: pageUrl,
+      seasonSlug: slug,
+      tierKey: 'tier1',
+    },
   });
 
   const tier2 = buildTierData(year, tier2SeasonTable, {
-    metadata: { seasonSlug: slug, sourceUrl: pageUrl, tier: 'tier2' },
+    metadata: {
+      source: 'wikipedia-promotion',
+      sourceUrl: pageUrl,
+      seasonSlug: slug,
+      tierKey: 'tier2',
+    },
   });
 
   return { tier1, tier2 };
@@ -128,7 +139,7 @@ export async function buildPromotionRelegation(startYear, endYear, outputFile, o
     const incomingPromoted = Array.isArray(tier1Results.promoted) ? [...tier1Results.promoted] : [];
     tier1Results.promoted = [];
     const seasonRecord = {
-      seasonInfo: buildTierData(year, [], {
+      seasonInfo: buildSeasonInfo(year, {
         promoted: incomingPromoted,
         relegated: tier1Results.relegated,
         metadata: { seasonSlug: slug, sourceUrl: `https://en.wikipedia.org/wiki/${slug}` },

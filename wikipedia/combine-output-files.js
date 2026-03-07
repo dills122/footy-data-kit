@@ -3,6 +3,7 @@ import { Command } from 'commander';
 import * as fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { canonicalizeTeamName } from './data-quality-config.js';
 import { createFootballData, loadFootballData, saveFootballData } from './generate-output-files.js';
 
 const TIER_KEY_PATTERN = /^tier/i;
@@ -15,6 +16,8 @@ const parseSeasonKey = (seasonKey) => {
   const numeric = Number.parseInt(String(seasonKey), 10);
   return Number.isFinite(numeric) ? numeric : null;
 };
+
+const PREMIER_LEAGUE_START_SEASON = 1992;
 
 function isWarSuspensionSeason(seasonKey) {
   const numeric = parseSeasonKey(seasonKey);
@@ -40,7 +43,7 @@ function blockHasData(block) {
     return true;
   }
 
-  const metadata = block.seasonMetadata;
+  const metadata = block.metadata;
   return Boolean(metadata && typeof metadata === 'object' && Object.keys(metadata).length);
 }
 
@@ -109,7 +112,33 @@ function compareTierRichness(existingTier, incomingTier) {
   return incomingMetadata - existingMetadata;
 }
 
-function mergeTier(existingTier, incomingTier, includeEmpty) {
+function getTierSource(tierValue) {
+  if (!tierValue || Array.isArray(tierValue) || typeof tierValue !== 'object') {
+    return null;
+  }
+  return typeof tierValue.metadata?.source === 'string' ? tierValue.metadata.source : null;
+}
+
+function shouldPreferOverviewTier(existingTier, incomingTier, seasonKey) {
+  const seasonNumber = parseSeasonKey(seasonKey);
+  if (seasonNumber == null || seasonNumber < PREMIER_LEAGUE_START_SEASON) {
+    return false;
+  }
+
+  const existingSource = getTierSource(existingTier);
+  const incomingSource = getTierSource(incomingTier);
+
+  if (existingSource === 'wikipedia-overview' && incomingSource === 'wikipedia-promotion') {
+    return true;
+  }
+  if (existingSource === 'wikipedia-promotion' && incomingSource === 'wikipedia-overview') {
+    return true;
+  }
+
+  return false;
+}
+
+function mergeTier(existingTier, incomingTier, includeEmpty, seasonKey) {
   if (!existingTier) {
     return incomingTier;
   }
@@ -129,10 +158,14 @@ function mergeTier(existingTier, incomingTier, includeEmpty) {
     return includeEmpty ? incomingTier : existingTier;
   }
 
+  if (shouldPreferOverviewTier(existingTier, incomingTier, seasonKey)) {
+    return getTierSource(existingTier) === 'wikipedia-overview' ? existingTier : incomingTier;
+  }
+
   return compareTierRichness(existingTier, incomingTier) > 0 ? incomingTier : existingTier;
 }
 
-function mergeSeasonRecords(currentRecord, incomingRecord, includeEmpty) {
+function mergeSeasonRecords(currentRecord, incomingRecord, includeEmpty, seasonKey) {
   if (!currentRecord || typeof currentRecord !== 'object') {
     return incomingRecord;
   }
@@ -144,7 +177,7 @@ function mergeSeasonRecords(currentRecord, incomingRecord, includeEmpty) {
 
   for (const [key, incomingValue] of Object.entries(incomingRecord)) {
     if (TIER_KEY_PATTERN.test(key)) {
-      merged[key] = mergeTier(merged[key], incomingValue, includeEmpty);
+      merged[key] = mergeTier(merged[key], incomingValue, includeEmpty, seasonKey);
       continue;
     }
 
@@ -185,6 +218,43 @@ function normaliseGoalDifferences(dataset) {
   }
 }
 
+function getSeasonTierTable(seasonRecord, tierKey) {
+  const tierValue = seasonRecord?.[tierKey];
+  return Array.isArray(tierValue?.table) ? tierValue.table : [];
+}
+
+function reconcileSeasonInfoContinuity(dataset) {
+  if (!dataset?.seasons) return;
+
+  const seasonNumbers = Object.keys(dataset.seasons)
+    .map((seasonKey) => parseSeasonKey(seasonKey))
+    .filter((seasonNumber) => seasonNumber != null)
+    .sort((a, b) => a - b);
+
+  for (const seasonNumber of seasonNumbers) {
+    const currentRecord = dataset.seasons[String(seasonNumber)];
+    const nextRecord = dataset.seasons[String(seasonNumber + 1)];
+    if (!currentRecord?.seasonInfo || !nextRecord) continue;
+
+    const currentTopFlight = getSeasonTierTable(currentRecord, 'tier1');
+    const nextTopFlight = getSeasonTierTable(nextRecord, 'tier1');
+    if (!currentTopFlight.length || !nextTopFlight.length) continue;
+
+    const currentNames = new Set(currentTopFlight.map((row) => canonicalizeTeamName(row.team)));
+    const nextNames = new Set(nextTopFlight.map((row) => canonicalizeTeamName(row.team)));
+
+    const promoted = nextTopFlight
+      .filter((row) => !currentNames.has(canonicalizeTeamName(row.team)))
+      .map((row) => row.team);
+    const relegated = currentTopFlight
+      .filter((row) => !nextNames.has(canonicalizeTeamName(row.team)))
+      .map((row) => row.team);
+
+    currentRecord.seasonInfo.promoted = promoted;
+    currentRecord.seasonInfo.relegated = relegated;
+  }
+}
+
 export function combineFootballDataFiles({
   inputs,
   output,
@@ -221,7 +291,8 @@ export function combineFootballDataFiles({
         combinedDataset.seasons[seasonKey] = mergeSeasonRecords(
           existingRecord,
           seasonValue,
-          includeEmpty
+          includeEmpty,
+          seasonKey
         );
       }
     } catch (error) {
@@ -246,6 +317,7 @@ export function combineFootballDataFiles({
     seasons: Object.fromEntries(filteredSeasonEntries),
   });
 
+  reconcileSeasonInfoContinuity(finalDataset);
   normaliseGoalDifferences(finalDataset);
   saveFootballData(resolvedOutput, finalDataset, { pretty });
 

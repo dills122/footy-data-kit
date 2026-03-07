@@ -134,7 +134,7 @@ describe('wikipedia pipeline smoke test', () => {
               wasReprieved: false,
             },
             {
-              pos: 22,
+              pos: 2,
               team: 'Bottom Club',
               played: 42,
               won: 6,
@@ -217,6 +217,15 @@ describe('wikipedia pipeline smoke test', () => {
     expect(Object.keys(combined.seasons)).toEqual(['1897', '1993']);
     expect(combined.seasons['1897'].seasonInfo.promoted).toEqual(['Club C']);
     expect(combined.seasons['1993'].seasonInfo.relegated).toEqual(['Bottom Club']);
+    expect(combined.seasons['1897'].tier1.metadata).toMatchObject({
+      source: 'wikipedia-promotion',
+      tierKey: 'tier1',
+    });
+    expect(combined.seasons['1993'].tier1.metadata).toMatchObject({
+      source: 'wikipedia-overview',
+      title: 'Premier League',
+      tierKey: 'tier1',
+    });
 
     const report = analyzeFile(combinedOutput);
     expect(report.issues).toEqual([]);

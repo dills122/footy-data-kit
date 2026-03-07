@@ -9,6 +9,7 @@ import { isExpansionTeam, wasPromoted, wasRelegated } from './utils.js';
 /** @typedef {import('./models/output-file').SeasonData} SeasonData */
 /** @typedef {import('./models/output-file').SeasonsMap} SeasonsMap */
 /** @typedef {import('./models/output-file').FootballData} FootballData */
+/** @typedef {import('./models/output-file').SeasonInfo} SeasonInfo */
 
 const NUMBER_FIELDS = [
   'pos',
@@ -224,6 +225,87 @@ function isTierData(tierValue) {
 }
 
 /**
+ * @param {Record<string, unknown>} value
+ */
+function normaliseTierMetadata(value) {
+  const directMetadata =
+    value.metadata && typeof value.metadata === 'object'
+      ? { .../** @type {Record<string, unknown>} */ (value.metadata) }
+      : {};
+  const legacySeasonMetadata =
+    value.seasonMetadata && typeof value.seasonMetadata === 'object'
+      ? { .../** @type {Record<string, unknown>} */ (value.seasonMetadata) }
+      : {};
+
+  const metadata = {
+    ...directMetadata,
+  };
+
+  if (value.sourceUrl != null && metadata.sourceUrl == null) {
+    metadata.sourceUrl = value.sourceUrl;
+  }
+  if (value.seasonSlug != null && metadata.seasonSlug == null) {
+    metadata.seasonSlug = value.seasonSlug;
+  }
+  if (value.tier != null && metadata.tierKey == null) {
+    metadata.tierKey = value.tier;
+  }
+  if (value.title != null && metadata.title == null) {
+    metadata.title = value.title;
+  }
+  if (legacySeasonMetadata.leagueId != null && metadata.leagueId == null) {
+    metadata.leagueId = legacySeasonMetadata.leagueId;
+  }
+  if (legacySeasonMetadata.tableIndex != null && metadata.tableIndex == null) {
+    metadata.tableIndex = legacySeasonMetadata.tableIndex;
+  }
+  if (legacySeasonMetadata.tableCount != null && metadata.tableCount == null) {
+    metadata.tableCount = legacySeasonMetadata.tableCount;
+  }
+  if (legacySeasonMetadata.seasonSlug != null && metadata.seasonSlug == null) {
+    metadata.seasonSlug = legacySeasonMetadata.seasonSlug;
+  }
+
+  if (metadata.source == null) {
+    if (metadata.leagueId != null || metadata.title != null || value.seasonMetadata != null) {
+      metadata.source = 'wikipedia-overview';
+    } else if (metadata.sourceUrl != null || metadata.tierKey != null) {
+      metadata.source = 'wikipedia-promotion';
+    }
+  }
+
+  const cleaned = Object.fromEntries(Object.entries(metadata).filter(([, entry]) => entry != null));
+  return Object.keys(cleaned).length ? cleaned : undefined;
+}
+
+/**
+ * @param {Record<string, unknown>} seasonInfoValue
+ * @param {string} seasonKey
+ * @returns {SeasonInfo}
+ */
+function normaliseSeasonInfo(seasonInfoValue, seasonKey) {
+  const parsedSeason = Number.parseInt(String(seasonInfoValue.season ?? seasonKey), 10);
+  const fallbackSeason = Number.parseInt(seasonKey, 10);
+  const season = Number.isFinite(parsedSeason)
+    ? parsedSeason
+    : Number.isFinite(fallbackSeason)
+    ? fallbackSeason
+    : 0;
+
+  return /** @type {SeasonInfo} */ ({
+    season,
+    table: [],
+    relegated: normaliseOutcomeList(seasonInfoValue.relegated, [], 'wasRelegated'),
+    promoted: normaliseOutcomeList(seasonInfoValue.promoted, [], 'wasPromoted'),
+    seasonSlug: toStringValue(seasonInfoValue.seasonSlug),
+    sourceUrl: toStringValue(seasonInfoValue.sourceUrl),
+    tableCount: Number.isFinite(Number(seasonInfoValue.tableCount))
+      ? Number(seasonInfoValue.tableCount)
+      : null,
+  });
+}
+
+/**
  * @param {Record<string, unknown>} tierValue
  * @param {string} seasonKey
  */
@@ -244,6 +326,14 @@ function normaliseTierData(tierValue, seasonKey) {
   delete extra.season;
   delete extra.relegated;
   delete extra.promoted;
+  delete extra.metadata;
+  delete extra.sourceUrl;
+  delete extra.seasonSlug;
+  delete extra.tier;
+  delete extra.title;
+  delete extra.seasonMetadata;
+
+  const metadata = normaliseTierMetadata(tierValue);
 
   return /** @type {TierData} */ ({
     ...extra,
@@ -251,6 +341,7 @@ function normaliseTierData(tierValue, seasonKey) {
     table: normalisedTable,
     relegated: normaliseOutcomeList(tierValue.relegated, normalisedTable, 'wasRelegated'),
     promoted: normaliseOutcomeList(tierValue.promoted, normalisedTable, 'wasPromoted'),
+    ...(metadata ? { metadata } : {}),
   });
 }
 
@@ -266,7 +357,17 @@ function normaliseSeasonRecord(seasonValue, seasonKey) {
   const entries = seasonValue && typeof seasonValue === 'object' ? seasonValue : {};
 
   for (const [tierKey, tierValue] of Object.entries(entries)) {
-    if (Array.isArray(tierValue)) {
+    if (
+      tierKey === 'seasonInfo' &&
+      tierValue &&
+      typeof tierValue === 'object' &&
+      !Array.isArray(tierValue)
+    ) {
+      result[tierKey] = normaliseSeasonInfo(
+        /** @type {Record<string, unknown>} */ (tierValue),
+        seasonKey
+      );
+    } else if (Array.isArray(tierValue)) {
       const sanitized = sanitizeRows(tierValue);
       result[tierKey] = sanitized.map((row) => normaliseLeagueTableEntry(row));
     } else if (isTierData(tierValue)) {
@@ -334,15 +435,39 @@ export function buildTierData(season, tableRows, options = {}) {
   });
 
   if (options.metadata && typeof options.metadata === 'object') {
-    Object.assign(
-      tierData,
-      Object.fromEntries(
-        Object.entries(options.metadata).filter(([key]) => !['season', 'table'].includes(key))
-      )
-    );
+    const metadata = normaliseTierMetadata({ metadata: options.metadata });
+    if (metadata) {
+      tierData.metadata = metadata;
+    }
   }
 
   return tierData;
+}
+
+/**
+ * Build the season-level summary object stored as `seasonInfo`.
+ * @param {string | number} season
+ * @param {{
+ *   promoted?: unknown;
+ *   relegated?: unknown;
+ *   metadata?: Record<string, unknown>;
+ * }} [options]
+ * @returns {SeasonInfo}
+ */
+export function buildSeasonInfo(season, options = {}) {
+  const seasonNumber = Number.parseInt(String(season), 10);
+  const safeSeason = Number.isFinite(seasonNumber) ? seasonNumber : 0;
+
+  return normaliseSeasonInfo(
+    {
+      season: safeSeason,
+      table: [],
+      promoted: options.promoted,
+      relegated: options.relegated,
+      ...(options.metadata && typeof options.metadata === 'object' ? options.metadata : {}),
+    },
+    String(season)
+  );
 }
 
 /**

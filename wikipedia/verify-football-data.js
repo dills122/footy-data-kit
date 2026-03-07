@@ -4,7 +4,18 @@ import { Command } from 'commander';
 import * as fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { canonicalizeTeamName } from './data-quality-config.js';
 import { loadFootballData } from './generate-output-files.js';
+
+const TIER_KEY_PATTERN = /^tier(\d+)$/i;
+const LEGACY_TIER_METADATA_FIELDS = ['seasonSlug', 'sourceUrl', 'tier', 'title', 'seasonMetadata'];
+const REQUIRED_TIER_METADATA_FIELDS = ['source', 'seasonSlug', 'tierKey'];
+const REQUIRED_OVERVIEW_METADATA_FIELDS = ['title', 'leagueId', 'tableIndex', 'tableCount'];
+const CONTINUITY_CONFIG = {
+  topFlightTierKey: 'tier1',
+  seasonPromotedPath: 'promoted',
+  seasonRelegatedPath: 'relegated',
+};
 
 /**
  * @param {string[]} targets
@@ -50,33 +61,8 @@ export function expandTargets(targets) {
  */
 export function analyzeFile(filePath) {
   const dataset = loadFootballData(filePath);
+  const issues = analyzeDataset(dataset);
   const seasonEntries = Object.entries(dataset.seasons);
-
-  /** @type {Array<Issue>} */
-  const issues = [];
-
-  for (const [seasonKey, seasonValue] of seasonEntries) {
-    const tierEntries = Object.entries(seasonValue).filter(([key]) => /^tier/i.test(key));
-    /** @type {Array<TierAnalysis>} */
-    const tierAnalyses = tierEntries.map(([tierKey, tierValue]) =>
-      analyzeTier(seasonKey, tierKey, tierValue)
-    );
-
-    const seasonHasContent = tierAnalyses.some((entry) => entry.hasContent);
-    if (!tierEntries.length || !seasonHasContent) {
-      issues.push({
-        type: 'missing-season-data',
-        file: filePath,
-        season: seasonKey,
-        message: 'No tier table/promoted/relegated data detected for this season',
-      });
-      continue;
-    }
-
-    for (const tierAnalysis of tierAnalyses) {
-      issues.push(...tierAnalysis.issues);
-    }
-  }
 
   issues.sort((a, b) => {
     const seasonCompare = compareSeasonKeys(a.season, b.season);
@@ -95,6 +81,42 @@ export function analyzeFile(filePath) {
 }
 
 /**
+ * @param {import('./models/output-file.js').FootballData} dataset
+ * @returns {Issue[]}
+ */
+export function analyzeDataset(dataset) {
+  const seasonEntries = Object.entries(dataset.seasons || {});
+  /** @type {Array<Issue>} */
+  const issues = [];
+
+  for (const [seasonKey, seasonValue] of seasonEntries) {
+    const tierEntries = Object.entries(seasonValue).filter(([key]) => TIER_KEY_PATTERN.test(key));
+    /** @type {Array<TierAnalysis>} */
+    const tierAnalyses = tierEntries.map(([tierKey, tierValue]) =>
+      analyzeTier(seasonKey, tierKey, tierValue)
+    );
+
+    const seasonHasContent = tierAnalyses.some((entry) => entry.hasContent);
+    if (!tierEntries.length || !seasonHasContent) {
+      issues.push({
+        type: 'missing-season-data',
+        season: seasonKey,
+        message: 'No tier table/promoted/relegated data detected for this season',
+      });
+      continue;
+    }
+
+    issues.push(...analyzeSeasonContract(seasonKey, seasonValue));
+    for (const tierAnalysis of tierAnalyses) {
+      issues.push(...tierAnalysis.issues);
+    }
+  }
+
+  issues.push(...analyzeSeasonContinuity(dataset));
+  return issues;
+}
+
+/**
  * @param {string} seasonKey
  * @param {string} tierKey
  * @param {import('./models/output-file.js').TierData | import('./models/output-file.js').LeagueTableEntry[]} tierValue
@@ -103,6 +125,8 @@ export function analyzeFile(filePath) {
 function analyzeTier(seasonKey, tierKey, tierValue) {
   const tierMeta = extractTierMeta(tierValue, seasonKey);
   const tierIssues = [];
+  const tierNumberMatch = tierKey.match(TIER_KEY_PATTERN);
+  const tierNumber = tierNumberMatch ? Number.parseInt(tierNumberMatch[1], 10) : null;
 
   if (!tierMeta.hasContent) {
     tierIssues.push(
@@ -155,6 +179,20 @@ function analyzeTier(seasonKey, tierKey, tierValue) {
         season: seasonKey,
         tier: tierKey,
         message: `Duplicate position values detected: ${duplicatePositions.join(', ')}`,
+      })
+    );
+  }
+
+  const missingPositions = findMissingPositions(
+    tierMeta.table.map((row) => row.pos).filter((pos) => Number.isFinite(pos))
+  );
+  if (missingPositions.length) {
+    tierIssues.push(
+      createIssue({
+        type: 'position-gap',
+        season: seasonKey,
+        tier: tierKey,
+        message: `Missing position values detected: ${missingPositions.join(', ')}`,
       })
     );
   }
@@ -255,6 +293,33 @@ function analyzeTier(seasonKey, tierKey, tierValue) {
     }
   }
 
+  if (tierNumber === 1) {
+    const promotedFlags = tierMeta.table.filter((row) => row.wasPromoted).map((row) => row.team);
+    if (promotedFlags.length) {
+      tierIssues.push(
+        createIssue({
+          type: 'unexpected-top-flight-promotion-flag',
+          season: seasonKey,
+          tier: tierKey,
+          message: `Top-flight rows should not be marked as promoted: ${promotedFlags.join(', ')}`,
+        })
+      );
+    }
+
+    if (tierMeta.promoted.length) {
+      tierIssues.push(
+        createIssue({
+          type: 'unexpected-top-flight-promoted-list',
+          season: seasonKey,
+          tier: tierKey,
+          message: `Top-flight tier should not include promoted teams: ${tierMeta.promoted.join(
+            ', '
+          )}`,
+        })
+      );
+    }
+  }
+
   return {
     hasContent: tierMeta.hasContent,
     issues: tierIssues,
@@ -279,6 +344,10 @@ function extractTierMeta(tierValue, seasonKey) {
   const hasExplicitRelegatedList = !Array.isArray(tierValue) && Array.isArray(tierValue.relegated);
 
   const normSeason = parseSeasonNumber(seasonKey);
+  const metadata =
+    !Array.isArray(tierValue) && tierValue.metadata && typeof tierValue.metadata === 'object'
+      ? tierValue.metadata
+      : null;
 
   return {
     table,
@@ -290,7 +359,191 @@ function extractTierMeta(tierValue, seasonKey) {
     seasonNumber:
       !Array.isArray(tierValue) && typeof tierValue.season === 'number' ? tierValue.season : null,
     normalisedSeasonKey: normSeason,
+    metadata,
+    rawValue: tierValue,
   };
+}
+
+/**
+ * @param {string} seasonKey
+ * @param {import('./models/output-file.js').SeasonData} seasonValue
+ * @returns {Issue[]}
+ */
+function analyzeSeasonContract(seasonKey, seasonValue) {
+  /** @type {Issue[]} */
+  const issues = [];
+  const seasonInfo = seasonValue.seasonInfo;
+
+  if (!seasonInfo || typeof seasonInfo !== 'object' || Array.isArray(seasonInfo)) {
+    issues.push(
+      createIssue({
+        type: 'missing-season-info',
+        season: seasonKey,
+        message: 'Season record is missing the seasonInfo summary object',
+      })
+    );
+  } else {
+    if (!Array.isArray(seasonInfo.table) || seasonInfo.table.length !== 0) {
+      issues.push(
+        createIssue({
+          type: 'unexpected-season-info-table',
+          season: seasonKey,
+          message: 'seasonInfo.table should be present and empty',
+        })
+      );
+    }
+  }
+
+  for (const [tierKey, tierValue] of Object.entries(seasonValue)) {
+    if (!TIER_KEY_PATTERN.test(tierKey)) continue;
+    if (!tierValue || typeof tierValue !== 'object' || Array.isArray(tierValue)) {
+      issues.push(
+        createIssue({
+          type: 'invalid-tier-shape',
+          season: seasonKey,
+          tier: tierKey,
+          message: 'Tier entries must be object-shaped with table/promoted/relegated fields',
+        })
+      );
+      continue;
+    }
+
+    const legacyFields = LEGACY_TIER_METADATA_FIELDS.filter((field) => field in tierValue);
+    if (legacyFields.length) {
+      issues.push(
+        createIssue({
+          type: 'legacy-tier-metadata-fields',
+          season: seasonKey,
+          tier: tierKey,
+          message: `Tier still exposes legacy top-level metadata fields: ${legacyFields.join(
+            ', '
+          )}`,
+        })
+      );
+    }
+
+    const metadata = tierValue.metadata;
+    if (!metadata || typeof metadata !== 'object' || Array.isArray(metadata)) {
+      issues.push(
+        createIssue({
+          type: 'missing-tier-metadata',
+          season: seasonKey,
+          tier: tierKey,
+          message: 'Tier is missing the metadata object',
+        })
+      );
+      continue;
+    }
+
+    const missingMetadata = REQUIRED_TIER_METADATA_FIELDS.filter(
+      (field) => metadata[field] == null
+    );
+    if (missingMetadata.length) {
+      issues.push(
+        createIssue({
+          type: 'incomplete-tier-metadata',
+          season: seasonKey,
+          tier: tierKey,
+          message: `Tier metadata missing required fields: ${missingMetadata.join(', ')}`,
+        })
+      );
+    }
+
+    if (metadata.tierKey != null && metadata.tierKey !== tierKey) {
+      issues.push(
+        createIssue({
+          type: 'tier-metadata-mismatch',
+          season: seasonKey,
+          tier: tierKey,
+          message: `metadata.tierKey (${metadata.tierKey}) does not match ${tierKey}`,
+        })
+      );
+    }
+
+    if (metadata.source === 'wikipedia-overview') {
+      const missingOverviewFields = REQUIRED_OVERVIEW_METADATA_FIELDS.filter(
+        (field) => metadata[field] == null
+      );
+      if (missingOverviewFields.length) {
+        issues.push(
+          createIssue({
+            type: 'incomplete-overview-metadata',
+            season: seasonKey,
+            tier: tierKey,
+            message: `Overview tier metadata missing fields: ${missingOverviewFields.join(', ')}`,
+          })
+        );
+      }
+    }
+  }
+
+  return issues;
+}
+
+/**
+ * @param {import('./models/output-file.js').FootballData} dataset
+ * @returns {Issue[]}
+ */
+function analyzeSeasonContinuity(dataset) {
+  /** @type {Issue[]} */
+  const issues = [];
+  const seasons = Object.keys(dataset.seasons || {})
+    .map((seasonKey) => parseSeasonNumber(seasonKey))
+    .filter((seasonKey) => seasonKey != null)
+    .sort((a, b) => a - b);
+
+  for (const seasonNumber of seasons) {
+    const nextSeason = seasonNumber + 1;
+    const currentRecord = dataset.seasons[String(seasonNumber)];
+    const nextRecord = dataset.seasons[String(nextSeason)];
+    if (!currentRecord || !nextRecord) continue;
+
+    const currentSeasonInfo = currentRecord.seasonInfo;
+    const nextTopFlight = nextRecord[CONTINUITY_CONFIG.topFlightTierKey];
+    const nextTopFlightTeams = new Set(
+      Array.isArray(nextTopFlight?.table)
+        ? nextTopFlight.table.map((row) => normalizeName(row.team))
+        : []
+    );
+    if (!nextTopFlightTeams.size) continue;
+
+    const promoted = Array.isArray(currentSeasonInfo?.[CONTINUITY_CONFIG.seasonPromotedPath])
+      ? currentSeasonInfo[CONTINUITY_CONFIG.seasonPromotedPath]
+      : [];
+    const relegated = Array.isArray(currentSeasonInfo?.[CONTINUITY_CONFIG.seasonRelegatedPath])
+      ? currentSeasonInfo[CONTINUITY_CONFIG.seasonRelegatedPath]
+      : [];
+
+    const missingPromoted = promoted.filter((team) => !nextTopFlightTeams.has(normalizeName(team)));
+    if (missingPromoted.length) {
+      issues.push(
+        createIssue({
+          type: 'promotion-continuity-mismatch',
+          season: String(seasonNumber),
+          message: `Promoted teams missing from next season top flight (${nextSeason}): ${missingPromoted.join(
+            ', '
+          )}`,
+        })
+      );
+    }
+
+    const lingeringRelegated = relegated.filter((team) =>
+      nextTopFlightTeams.has(normalizeName(team))
+    );
+    if (lingeringRelegated.length) {
+      issues.push(
+        createIssue({
+          type: 'relegation-continuity-mismatch',
+          season: String(seasonNumber),
+          message: `Relegated teams still present in next season top flight (${nextSeason}): ${lingeringRelegated.join(
+            ', '
+          )}`,
+        })
+      );
+    }
+  }
+
+  return issues;
 }
 
 /**
@@ -310,7 +563,7 @@ function createIssue(input) {
  * @param {number | string | null | undefined} value
  */
 function normalizeName(value) {
-  return typeof value === 'string' ? value.trim().toLowerCase() : value;
+  return typeof value === 'string' ? canonicalizeTeamName(value) : value;
 }
 
 /**
@@ -335,6 +588,28 @@ function findDuplicates(values, normalizer) {
   return Array.from(counts.entries())
     .filter(([, count]) => count > 1)
     .map(([key]) => originals.get(key));
+}
+
+/**
+ * @param {number[]} positions
+ * @returns {number[]}
+ */
+function findMissingPositions(positions) {
+  if (!positions.length) return [];
+  const uniquePositions = Array.from(new Set(positions)).sort((a, b) => a - b);
+  if (uniquePositions[0] !== 1) {
+    return [1];
+  }
+
+  const missing = [];
+  for (let index = 1; index < uniquePositions.length; index += 1) {
+    const previous = uniquePositions[index - 1];
+    const current = uniquePositions[index];
+    for (let value = previous + 1; value < current; value += 1) {
+      missing.push(value);
+    }
+  }
+  return missing;
 }
 
 /**

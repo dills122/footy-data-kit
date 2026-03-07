@@ -1,6 +1,7 @@
 import * as cheerio from 'cheerio';
 import * as path from 'node:path';
 import {
+  buildSeasonInfo,
   buildTierData,
   loadFootballData,
   saveFootballData,
@@ -42,6 +43,7 @@ const GENERIC_LEAGUE_HEADINGS = [
 function shouldTreatAsTopFlight(title, context = {}) {
   const normalized = String(title || '').toLowerCase();
   if (normalized.includes('premier league')) return true;
+  if (normalized.includes('premiership')) return true;
   if (normalized.includes('football league premier division')) return true;
   if (normalized.includes('first division')) {
     if (context.hasPremierLeagueHeading) return false;
@@ -587,9 +589,11 @@ function deriveMajorTierIndexes(tables) {
   }
 
   const hasPremierLeagueHeading = tables.some((table) =>
-    String(table?.title || '')
-      .toLowerCase()
-      .includes('premier league')
+    ['premier league', 'premiership', 'football league premier division'].some((keyword) =>
+      String(table?.title || '')
+        .toLowerCase()
+        .includes(keyword)
+    )
   );
 
   let topFlightIndex = tables.findIndex((table) => {
@@ -602,11 +606,28 @@ function deriveMajorTierIndexes(tables) {
     topFlightIndex = tables.length ? 0 : -1;
   }
 
+  const isSecondTierTitle = (title) => {
+    const normalized = String(title || '').toLowerCase();
+    if (!normalized) return false;
+    if (isGenericLeagueHeading(title)) return true;
+
+    if (hasPremierLeagueHeading) {
+      return (
+        normalized.includes('championship') ||
+        normalized.includes('division one') ||
+        normalized.includes('first division')
+      );
+    }
+
+    return normalized.includes('second division');
+  };
+
   let secondTierIndex = null;
   if (topFlightIndex !== -1) {
     for (let i = topFlightIndex + 1; i < tables.length; i++) {
       const candidate = tables[i];
       if (!candidate || !Array.isArray(candidate.rows) || !candidate.rows.length) continue;
+      if (!isSecondTierTitle(candidate.title)) continue;
       secondTierIndex = i;
       break;
     }
@@ -653,7 +674,7 @@ export function buildSeasonOverviewSeasonRecord({ seasonKey, seasonYear, seasonS
       ? collectOutcomeTeams(tables, 'wasRelegated', { includeIndexes: [topFlightIndex] })
       : [];
 
-  const seasonInfo = buildTierData(safeSeason, [], {
+  const seasonInfo = buildSeasonInfo(safeSeason, {
     promoted: promotedTeams,
     relegated: relegatedTeams,
     metadata: {
@@ -668,13 +689,14 @@ export function buildSeasonOverviewSeasonRecord({ seasonKey, seasonYear, seasonS
     const tierKey = `tier${index + 1}`;
     record[tierKey] = buildTierData(safeSeason, table.rows, {
       metadata: {
+        source: 'wikipedia-overview',
+        sourceUrl: `https://en.wikipedia.org/wiki/${seasonSlug}`,
+        seasonSlug,
+        leagueId: table.id || null,
         title: table.title,
-        seasonMetadata: {
-          leagueId: table.id || null,
-          tableIndex: table.tableIndex ?? index,
-          tableCount: tables.length,
-          seasonSlug,
-        },
+        tableIndex: table.tableIndex ?? index,
+        tableCount: tables.length,
+        tierKey,
       },
     });
   });
