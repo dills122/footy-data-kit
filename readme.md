@@ -3,11 +3,18 @@
 [![CI](https://github.com/dills122/footy-data-kit/actions/workflows/ci-workflow.yml/badge.svg)](https://github.com/dills122/footy-data-kit/actions/workflows/ci-workflow.yml)
 [![Wikipedia Integration Check](https://github.com/dills122/footy-data-kit/actions/workflows/wiki-integration.yml/badge.svg)](https://github.com/dills122/footy-data-kit/actions/workflows/wiki-integration.yml)
 
-This repo scrapes, normalises, and validates historic English league tables (Football League, Premier League era, and lower tiers) so the resulting JSON can be embedded in other projects or visualisations.
+This repo scrapes, normalises, and validates historic English league tables from Wikipedia so the resulting JSON can be embedded in other projects or visualisations.
 
-- Scrapers for both Wikipedia and RSSSF that can resume after interruptions.
+- A supported Wikipedia scraping workflow that can resume after interruptions.
 - Utilities to merge overlapping sources, verify season integrity, and minify the resulting datasets.
-- Jest unit + integration tests to guard the scraping logic and data shapers.
+- Jest unit + integration tests focused on the active Wikipedia pipeline.
+
+## Supported Scope
+
+- `wikipedia/` is the actively supported ingestion path.
+- `rsssf/`, `scripts/csv-data/`, and older reference exports should be treated as legacy tooling unless you are intentionally doing archive work.
+- The promotion/relegation scraper (`node wikipedia/cli.js build`) is mainly a Tier 1/Tier 2 workflow.
+- The overview scraper (`node wikipedia/cli.js overview`) is the broader Wikipedia table parser and is the preferred path for more recent seasons.
 
 ## Requirements
 
@@ -38,7 +45,7 @@ pnpm i
    ```
 3. **Validate and test**
    ```bash
-   node scripts/verify-football-data.js --fail-on-issues ./data-output
+   node wikipedia/verify-football-data.js --fail-on-issues ./data-output
    pnpm test:integration
    ```
 4. **Minify for distribution (optional)**
@@ -63,7 +70,7 @@ node wikipedia/combine-output-files.js --output ./data-output/all-seasons.json \
   ./data-output/wiki_overview_tables_by_season.json \
   ./data-output/wiki_promotion_relegations_by_season.json
 # Verify the generated data
-node scripts/verify-football-data.js --fail-on-issues ./data-output
+node wikipedia/verify-football-data.js --fail-on-issues ./data-output
 pnpm test:integration
 # If all is good, finally minify data ready for external use
 node scripts/minify-json.js ./data-output/all-seasons.json
@@ -75,10 +82,10 @@ node scripts/minify-json.js ./data-output/wiki_promotion_relegations_by_season.j
 
 - `data/` – raw reference files and one-off exports.
 - `data-output/` – canonical JSON outputs grouped by source (e.g. `data-output/rsssf`).
-- `scripts/` – helper utilities such as `minify-json.js` and `verify-football-data.js`.
+- `scripts/` – helper utilities such as `minify-json.js` plus older one-off generators.
 - `wikipedia/` – the main scraper, parsers, and FootballData models.
-- `rsssf/` – RSSSF HTML parser + CLI for structured JSON output.
-- `utils.js`, `club_names.json` – shared helpers and canonicalised club naming.
+- `rsssf/` – legacy RSSSF parsing experiments.
+- `shared/`, `club_names.json` – shared helpers and canonicalised club naming.
 
 ## Wikipedia CLI (`wiki-league`)
 
@@ -86,7 +93,7 @@ Run `node wikipedia/cli.js <command> [options]` to build FootballData-format JSO
 
 | Command    | Purpose                                                                                                               | Default output                                           |
 | ---------- | --------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------- |
-| `build`    | Deep scrape promotion/relegation tables for every tier inside “English Football League” pages.                        | `data-output/wiki_promotion_relegations_by_season.json`  |
+| `build`    | Deep scrape promotion/relegation tables from classic Football League season pages, mainly for Tier 1 and Tier 2.      | `data-output/wiki_promotion_relegations_by_season.json`  |
 | `overview` | Parse overview pages (e.g. “2015–16 in English football”) and capture every league table it lists.                    | `data-output/wiki_overview_tables_by_season.json`        |
 | `combined` | Run the promotion scraper first, then fill in any missing seasons using the overview parser (best one to start with). | Both files above, reusing the same `--output` directory. |
 
@@ -107,7 +114,7 @@ Each run saves season-by-season progress immediately, so reruns are fast. The `c
 
 ## RSSSF CLI (`rsssf-scraper`)
 
-`node rsssf/cli.js scrape [options]` converts RSSSF HTML into the same FootballData schema so you can compare or fill gaps.
+`node rsssf/cli.js scrape [options]` converts RSSSF HTML into the same FootballData schema. This path is kept for legacy/archive work and is not the primary maintained workflow.
 
 | Option                                    | Description                                                                                                                                  |
 | ----------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -136,9 +143,9 @@ node rsssf/cli.js scrape --from-file ./rsssf-cache/1960-61.html --from-file ./rs
 
 ## JSON Utilities
 
-- `wikipedia/combine-output-files.js` – merge multiple FootballData JSON files, drop war-year placeholders, keep the richest tier record for each season, and show a grouped “missing seasons” summary. Use `--include-empty` to keep placeholder entries and `--compact` for minified JSON.
+- `wikipedia/combine-output-files.js` – merge multiple FootballData JSON files, drop war-year placeholders, prefer the richest tier record for each season, and show a grouped “missing seasons” summary. Use `--include-empty` to keep placeholder entries and `--compact` for minified JSON.
 - `scripts/minify-json.js` – shrink JSON files in place or alongside (`foo.min.json`) so they are ready for publishing.
-- `scripts/verify-football-data.js` – lint FootballData exports for empty tiers, duplicate teams, stat mismatches, or promotion/relegation inconsistencies. Pass `--fail-on-issues` to exit non-zero when anomalies exist.
+- `wikipedia/verify-football-data.js` – lint FootballData exports for empty tiers, duplicate teams, stat mismatches, or promotion/relegation inconsistencies. Pass `--fail-on-issues` to exit non-zero when anomalies exist.
 
 ### Utility examples
 
@@ -149,7 +156,7 @@ node wikipedia/combine-output-files.js --output ./data-output/all-seasons.json \
   ./data-output/wiki_promotion_relegations_by_season.json
 
 # Run the data lint pass on every JSON file under ./data-output
-node scripts/verify-football-data.js --fail-on-issues ./data-output
+node wikipedia/verify-football-data.js --fail-on-issues ./data-output
 
 # Minify the merged dataset next to its original (writes all-seasons.min.json)
 node scripts/minify-json.js ./data-output/all-seasons.json
@@ -163,7 +170,7 @@ Run the full Jest suite (unit + lightweight parsing checks):
 pnpm test
 ```
 
-Target just the integration suite (which exercises the Wikipedia scrapers end-to-end) when validating new data runs:
+Target just the integration suite (which exercises the supported Wikipedia scrapers end-to-end) when validating new data runs:
 
 ```bash
 pnpm test:integration
