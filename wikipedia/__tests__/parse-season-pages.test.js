@@ -238,11 +238,14 @@ describe('buildPromotionRelegation', () => {
       expect(result.seasons['1897'].tier1.relegated).toEqual(['Club B']);
       expect(result.seasons['1897'].tier1.promoted).toEqual([]);
       expect(result.seasons['1897'].seasonInfo.promoted).toEqual(['Club C']);
+      expect(result.seasons['1897'].seasonInfo.relegated).toEqual(['Club B']);
+      expect(result.seasons['1897'].seasonInfo.table).toEqual([]);
       expect(result.seasons['1898'].tier2.seasonSlug).toBe('1898-99_Football_League');
 
       const written = JSON.parse(fs.readFileSync(outputFile, 'utf8'));
       expect(written.seasons['1898'].tier1.promoted).toEqual([]);
       expect(written.seasons['1898'].seasonInfo.promoted).toEqual(['Club G']);
+      expect(written.seasons['1898'].seasonInfo.table).toEqual([]);
     } finally {
       jest.restoreAllMocks();
       jest.useRealTimers();

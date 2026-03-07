@@ -1,4 +1,3 @@
-// ✅ Represents a single team's record in a season table
 export interface LeagueTableEntry {
   pos: number;
   team: string;
@@ -19,12 +18,23 @@ export interface LeagueTableEntry {
   wasReprieved: boolean;
 }
 
-// ✅ A single tier for a given season (e.g., tier1 or tier2)
+export interface TierMetadata {
+  source?: 'wikipedia-promotion' | 'wikipedia-overview' | string;
+  sourceUrl?: string | null;
+  seasonSlug?: string | null;
+  leagueId?: string | null;
+  title?: string | null;
+  tableIndex?: number | null;
+  tableCount?: number | null;
+  tierKey?: string | null;
+}
+
 export interface TierData {
   season: number;
   table: LeagueTableEntry[];
   relegated: string[];
   promoted: string[];
+  // Legacy flattened metadata fields are still present in current exports.
   seasonSlug?: string | null;
   sourceUrl?: string | null;
   tier?: string | null;
@@ -32,18 +42,32 @@ export interface TierData {
   seasonMetadata?: Record<string, unknown>;
 }
 
-// ✅ A season's data, containing multiple tiers (tier1, tier2, etc.)
-export interface SeasonData {
-  [tierKey: string]: TierData | LeagueTableEntry[];
-  // Example: { tier1: TierData, tier2: LeagueTableEntry[] }
+export interface SeasonInfo {
+  season: number;
+  table: [];
+  relegated: string[];
+  promoted: string[];
+  seasonSlug?: string | null;
+  sourceUrl?: string | null;
+  tableCount?: number | null;
 }
 
-// ✅ The full dataset, mapping seasons (like "1950") to their data
+export interface SeasonData {
+  seasonInfo: SeasonInfo;
+  tier1: TierData;
+  tier2?: TierData;
+  tier3?: TierData;
+  tier4?: TierData;
+  tier5?: TierData;
+  tier6?: TierData;
+  tier7?: TierData;
+  [tierKey: string]: SeasonInfo | TierData | undefined;
+}
+
 export interface SeasonsMap {
   [seasonYear: string]: SeasonData;
 }
 
-// ✅ The root object
 export interface FootballData {
   seasons: SeasonsMap;
 }

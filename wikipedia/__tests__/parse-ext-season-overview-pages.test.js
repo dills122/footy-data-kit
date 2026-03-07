@@ -207,6 +207,12 @@ describe('buildSeasonOverview', () => {
     expect(season1901.tier1.table[0].team).toBe('Update FC');
     expect(season1901.seasonInfo.promoted).toEqual(['Rising Club']);
     expect(season1901.seasonInfo.relegated).toEqual(['Relegated Town']);
+    expect(season1901.seasonInfo.table).toEqual([]);
+    expect(season1901.tier1.seasonMetadata).toMatchObject({
+      leagueId: 'Test',
+      tableIndex: 0,
+      seasonSlug: '1901–02_in_English_football',
+    });
   });
 
   test('skips WWI/WWII suspension years when ignoreWarYears is true', async () => {

@@ -147,6 +147,23 @@ node rsssf/cli.js scrape --from-file ./rsssf-cache/1960-61.html --from-file ./rs
 - `scripts/minify-json.js` – shrink JSON files in place or alongside (`foo.min.json`) so they are ready for publishing.
 - `wikipedia/verify-football-data.js` – lint FootballData exports for empty tiers, duplicate teams, stat mismatches, or promotion/relegation inconsistencies. Pass `--fail-on-issues` to exit non-zero when anomalies exist.
 
+## Exported Data Shape
+
+- The final contract is the merged file: `data-output/all-seasons.json`.
+- Each season contains a `seasonInfo` summary object plus one or more `tierN` objects.
+- `seasonInfo` is not a league table. It is a season-level summary that currently stores:
+  - `season`
+  - `promoted`
+  - `relegated`
+  - source metadata such as `seasonSlug`, `sourceUrl`, or `tableCount`
+- `seasonInfo.promoted` means clubs moving into the top flight for the following season.
+- `seasonInfo.relegated` means clubs leaving the top flight at the end of that season.
+- Every `tierN` entry is an object with `season`, `table`, `promoted`, and `relegated`.
+- Current exports still carry source-specific metadata fields on tiers:
+  - promotion-derived seasons use flattened fields like `seasonSlug`, `sourceUrl`, and `tier`
+  - overview-derived seasons use `title` and `seasonMetadata`
+- That mixed metadata shape is intentional for now and will be normalized in a later schema pass.
+
 ### Utility examples
 
 ```bash
