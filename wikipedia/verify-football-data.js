@@ -3,47 +3,34 @@
 import { Command } from 'commander';
 import * as fs from 'node:fs';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { loadFootballData } from './generate-output-files.js';
-
-const program = new Command();
-
-program
-  .name('verify-football-data')
-  .description('Scan FootballData JSON files for seasons and tiers that may need attention.')
-  .argument(
-    '[targets...]',
-    'JSON files or directories containing FootballData exports (defaults to ./data-output)'
-  )
-  .option('-d, --data-dir <dir>', 'Directory to scan when no targets are supplied', './data-output')
-  .option('--fail-on-issues', 'Exit with code 1 if any issues are detected', false)
-  .parse(process.argv);
-
-const options = program.opts();
-const suppliedTargets = program.args.length ? program.args : [options.dataDir];
-
-const filesToCheck = expandTargets(suppliedTargets);
-if (!filesToCheck.length) {
-  program.error('No JSON files found to inspect.');
-}
-
-let totalIssues = 0;
-for (const filePath of filesToCheck) {
-  const report = analyzeFile(filePath);
-  totalIssues += report.issues.length;
-  printReport(report);
-}
-
-if (options.failOnIssues && totalIssues > 0) {
-  process.exitCode = 1;
-}
 
 /**
  * @param {string[]} targets
  */
-function expandTargets(targets) {
+export function expandTargets(targets) {
   /** @type {string[]} */
   const files = [];
   const seen = new Set();
+
+  const visit = (resolved, originalTarget) => {
+    const stats = fs.statSync(resolved);
+    if (stats.isDirectory()) {
+      for (const entry of fs.readdirSync(resolved)) {
+        const child = path.join(resolved, entry);
+        visit(child, originalTarget);
+      }
+      return;
+    }
+
+    if (stats.isFile() && resolved.toLowerCase().endsWith('.json')) {
+      if (!seen.has(resolved)) {
+        files.push(resolved);
+        seen.add(resolved);
+      }
+    }
+  };
 
   for (const target of targets) {
     const resolved = path.resolve(process.cwd(), target);
@@ -52,25 +39,7 @@ function expandTargets(targets) {
       continue;
     }
 
-    const stats = fs.statSync(resolved);
-    if (stats.isDirectory()) {
-      for (const entry of fs.readdirSync(resolved)) {
-        const child = path.join(resolved, entry);
-        if (fs.statSync(child).isFile() && entry.toLowerCase().endsWith('.json')) {
-          if (!seen.has(child)) {
-            files.push(child);
-            seen.add(child);
-          }
-        }
-      }
-    } else if (stats.isFile() && resolved.toLowerCase().endsWith('.json')) {
-      if (!seen.has(resolved)) {
-        files.push(resolved);
-        seen.add(resolved);
-      }
-    } else {
-      console.warn(`Skipping unsupported path: ${target}`);
-    }
+    visit(resolved, target);
   }
 
   return files.sort();
@@ -79,7 +48,7 @@ function expandTargets(targets) {
 /**
  * @param {string} filePath
  */
-function analyzeFile(filePath) {
+export function analyzeFile(filePath) {
   const dataset = loadFootballData(filePath);
   const seasonEntries = Object.entries(dataset.seasons);
 
@@ -400,7 +369,7 @@ function namesMatch(a, b) {
 /**
  * @param {FileReport} report
  */
-function printReport(report) {
+export function printReport(report) {
   const relativePath = path.relative(process.cwd(), report.filePath);
   console.log(`\n${relativePath}`);
   console.log(`  Seasons scanned: ${report.seasonCount}`);
@@ -439,3 +408,49 @@ function printReport(report) {
  * @property {string} type
  * @property {string} message
  */
+
+export function runCli(argv = process.argv) {
+  const program = new Command();
+
+  program
+    .name('verify-football-data')
+    .description('Scan FootballData JSON files for seasons and tiers that may need attention.')
+    .argument(
+      '[targets...]',
+      'JSON files or directories containing FootballData exports (defaults to ./data-output)'
+    )
+    .option(
+      '-d, --data-dir <dir>',
+      'Directory to scan when no targets are supplied',
+      './data-output'
+    )
+    .option('--fail-on-issues', 'Exit with code 1 if any issues are detected', false)
+    .parse(argv);
+
+  const options = program.opts();
+  const suppliedTargets = program.args.length ? program.args : [options.dataDir];
+
+  const filesToCheck = expandTargets(suppliedTargets);
+  if (!filesToCheck.length) {
+    program.error('No JSON files found to inspect.');
+  }
+
+  let totalIssues = 0;
+  for (const filePath of filesToCheck) {
+    const report = analyzeFile(filePath);
+    totalIssues += report.issues.length;
+    printReport(report);
+  }
+
+  if (options.failOnIssues && totalIssues > 0) {
+    process.exitCode = 1;
+  }
+}
+
+const isDirectExecution = process.argv[1]
+  ? path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)
+  : false;
+
+if (isDirectExecution) {
+  runCli(process.argv);
+}

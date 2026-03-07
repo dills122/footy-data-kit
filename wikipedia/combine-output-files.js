@@ -53,6 +53,62 @@ function tierHasData(tierValue) {
   return blockHasData(tierValue);
 }
 
+function getTierTable(tierValue) {
+  if (Array.isArray(tierValue)) {
+    return tierValue;
+  }
+
+  if (tierValue && typeof tierValue === 'object' && Array.isArray(tierValue.table)) {
+    return tierValue.table;
+  }
+
+  return [];
+}
+
+function getTierOutcomeCount(tierValue) {
+  if (!tierValue || Array.isArray(tierValue) || typeof tierValue !== 'object') {
+    return 0;
+  }
+
+  const promoted = Array.isArray(tierValue.promoted) ? tierValue.promoted.length : 0;
+  const relegated = Array.isArray(tierValue.relegated) ? tierValue.relegated.length : 0;
+  return promoted + relegated;
+}
+
+function getTierMetadataCount(tierValue) {
+  if (!tierValue || Array.isArray(tierValue) || typeof tierValue !== 'object') {
+    return 0;
+  }
+
+  return Object.entries(tierValue).filter(([key, value]) => {
+    if (key === 'season' || key === 'table' || key === 'promoted' || key === 'relegated') {
+      return false;
+    }
+    if (value == null) return false;
+    if (Array.isArray(value)) return value.length > 0;
+    if (typeof value === 'object') return Object.keys(value).length > 0;
+    return true;
+  }).length;
+}
+
+function compareTierRichness(existingTier, incomingTier) {
+  const existingTable = getTierTable(existingTier);
+  const incomingTable = getTierTable(incomingTier);
+  if (incomingTable.length !== existingTable.length) {
+    return incomingTable.length - existingTable.length;
+  }
+
+  const existingOutcomes = getTierOutcomeCount(existingTier);
+  const incomingOutcomes = getTierOutcomeCount(incomingTier);
+  if (incomingOutcomes !== existingOutcomes) {
+    return incomingOutcomes - existingOutcomes;
+  }
+
+  const existingMetadata = getTierMetadataCount(existingTier);
+  const incomingMetadata = getTierMetadataCount(incomingTier);
+  return incomingMetadata - existingMetadata;
+}
+
 function mergeTier(existingTier, incomingTier, includeEmpty) {
   if (!existingTier) {
     return incomingTier;
@@ -73,8 +129,7 @@ function mergeTier(existingTier, incomingTier, includeEmpty) {
     return includeEmpty ? incomingTier : existingTier;
   }
 
-  // Prefer whichever tier was loaded first when both contain data.
-  return existingTier;
+  return compareTierRichness(existingTier, incomingTier) > 0 ? incomingTier : existingTier;
 }
 
 function mergeSeasonRecords(currentRecord, incomingRecord, includeEmpty) {

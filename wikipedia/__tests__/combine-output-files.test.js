@@ -189,6 +189,125 @@ describe('combine-output-files CLI', () => {
     expect(result.stats.nonNumericMissing).toEqual(['abc']);
   });
 
+  test('combineFootballDataFiles prefers the richer populated tier when both inputs contain data', () => {
+    const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'combine-output-test-'));
+    tmpDirs.push(tmpDir);
+
+    const sparseInput = path.join(tmpDir, 'sparse.json');
+    const richInput = path.join(tmpDir, 'rich.json');
+    const outputFile = path.join(tmpDir, 'merged.json');
+
+    fs.writeFileSync(
+      sparseInput,
+      JSON.stringify(
+        {
+          seasons: {
+            2002: {
+              tier1: {
+                season: 2002,
+                table: [
+                  {
+                    pos: 1,
+                    team: 'Alpha FC',
+                    played: 1,
+                    won: 1,
+                    drawn: 0,
+                    lost: 0,
+                    goalsFor: 2,
+                    goalsAgainst: 0,
+                    goalDifference: 2,
+                    goalAverage: null,
+                    points: 3,
+                    notes: null,
+                    wasRelegated: false,
+                    wasPromoted: false,
+                    isExpansionTeam: false,
+                    wasReElected: false,
+                    wasReprieved: false,
+                  },
+                ],
+                promoted: [],
+                relegated: [],
+              },
+            },
+          },
+        },
+        null,
+        2
+      )
+    );
+
+    fs.writeFileSync(
+      richInput,
+      JSON.stringify(
+        {
+          seasons: {
+            2002: {
+              tier1: {
+                season: 2002,
+                table: [
+                  {
+                    pos: 1,
+                    team: 'Alpha FC',
+                    played: 2,
+                    won: 2,
+                    drawn: 0,
+                    lost: 0,
+                    goalsFor: 5,
+                    goalsAgainst: 1,
+                    goalDifference: 4,
+                    goalAverage: null,
+                    points: 6,
+                    notes: null,
+                    wasRelegated: false,
+                    wasPromoted: true,
+                    isExpansionTeam: false,
+                    wasReElected: false,
+                    wasReprieved: false,
+                  },
+                  {
+                    pos: 2,
+                    team: 'Beta FC',
+                    played: 2,
+                    won: 1,
+                    drawn: 0,
+                    lost: 1,
+                    goalsFor: 3,
+                    goalsAgainst: 3,
+                    goalDifference: 0,
+                    goalAverage: null,
+                    points: 3,
+                    notes: null,
+                    wasRelegated: false,
+                    wasPromoted: false,
+                    isExpansionTeam: false,
+                    wasReElected: false,
+                    wasReprieved: false,
+                  },
+                ],
+                promoted: ['Alpha FC'],
+                relegated: [],
+                title: 'Rich League',
+              },
+            },
+          },
+        },
+        null,
+        2
+      )
+    );
+
+    const result = combineFootballDataFiles({
+      inputs: [sparseInput, richInput],
+      output: outputFile,
+      cwd: process.cwd(),
+    });
+
+    expect(result.dataset.seasons['2002'].tier1.table).toHaveLength(2);
+    expect(result.dataset.seasons['2002'].tier1.promoted).toEqual(['Alpha FC']);
+    expect(result.dataset.seasons['2002'].tier1.title).toBe('Rich League');
+  });
+
   test('combineFootballDataFiles throws when an input file is missing', () => {
     const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'combine-output-test-'));
     tmpDirs.push(tmpDir);
