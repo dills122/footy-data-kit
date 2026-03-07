@@ -54,8 +54,8 @@ jobs:
         run: |
           rm -rf data-output
           mkdir -p data-output
-          pnpm exec node wikipedia/cli.js build --start 1888 --end 1990 --output ./data-output
-          pnpm exec node wikipedia/cli.js overview --start 1991 --end 2024 --output ./data-output
+          pnpm exec node wikipedia/cli.js build --start 1888 --end 1990 --output ./data-output --ignore-war-years
+          pnpm exec node wikipedia/cli.js overview --start 1991 --end 2024 --output ./data-output --ignore-war-years
           pnpm exec node wikipedia/combine-output-files.js --output ./data-output/all-seasons.json \
             ./data-output/wiki_overview_tables_by_season.json \
             ./data-output/wiki_promotion_relegations_by_season.json
