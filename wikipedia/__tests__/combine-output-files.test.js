@@ -287,7 +287,11 @@ describe('combine-output-files CLI', () => {
                 ],
                 promoted: ['Alpha FC'],
                 relegated: [],
-                title: 'Rich League',
+                metadata: {
+                  source: 'wikipedia-overview',
+                  title: 'Rich League',
+                  tierKey: 'tier1',
+                },
               },
             },
           },
@@ -305,7 +309,10 @@ describe('combine-output-files CLI', () => {
 
     expect(result.dataset.seasons['2002'].tier1.table).toHaveLength(2);
     expect(result.dataset.seasons['2002'].tier1.promoted).toEqual(['Alpha FC']);
-    expect(result.dataset.seasons['2002'].tier1.title).toBe('Rich League');
+    expect(result.dataset.seasons['2002'].tier1.metadata).toMatchObject({
+      title: 'Rich League',
+      tierKey: 'tier1',
+    });
   });
 
   test('combineFootballDataFiles throws when an input file is missing', () => {

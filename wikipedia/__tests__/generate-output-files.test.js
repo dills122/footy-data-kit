@@ -246,14 +246,23 @@ describe('setSeasonRecord', () => {
             wasReprieved: false,
           },
         ],
-        title: 'Premier League',
-        leagueId: 'Premier_League',
-        seasonSlug: '1955–56_in_English_football',
+        metadata: {
+          source: 'wikipedia-overview',
+          title: 'Premier League',
+          leagueId: 'Premier_League',
+          seasonSlug: '1955–56_in_English_football',
+          tierKey: 'tier1',
+        },
       },
     };
 
     setSeasonRecord(dataset, '1955', seasonRecord);
     expect(dataset.seasons['1955'].seasonInfo.seasonSlug).toBe('1955–56_in_English_football');
-    expect(dataset.seasons['1955'].tier1.title).toBe('Premier League');
+    expect(dataset.seasons['1955'].tier1.metadata).toMatchObject({
+      title: 'Premier League',
+      leagueId: 'Premier_League',
+      seasonSlug: '1955–56_in_English_football',
+      tierKey: 'tier1',
+    });
   });
 });

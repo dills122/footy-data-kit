@@ -208,10 +208,15 @@ describe('buildSeasonOverview', () => {
     expect(season1901.seasonInfo.promoted).toEqual(['Rising Club']);
     expect(season1901.seasonInfo.relegated).toEqual(['Relegated Town']);
     expect(season1901.seasonInfo.table).toEqual([]);
-    expect(season1901.tier1.seasonMetadata).toMatchObject({
+    expect(season1901.tier1.metadata).toMatchObject({
+      source: 'wikipedia-overview',
+      sourceUrl: 'https://en.wikipedia.org/wiki/1901–02_in_English_football',
+      title: 'Test League',
       leagueId: 'Test',
       tableIndex: 0,
+      tableCount: 2,
       seasonSlug: '1901–02_in_English_football',
+      tierKey: 'tier1',
     });
   });
 

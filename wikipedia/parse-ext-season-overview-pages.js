@@ -1,6 +1,7 @@
 import * as cheerio from 'cheerio';
 import * as path from 'node:path';
 import {
+  buildSeasonInfo,
   buildTierData,
   loadFootballData,
   saveFootballData,
@@ -653,7 +654,7 @@ export function buildSeasonOverviewSeasonRecord({ seasonKey, seasonYear, seasonS
       ? collectOutcomeTeams(tables, 'wasRelegated', { includeIndexes: [topFlightIndex] })
       : [];
 
-  const seasonInfo = buildTierData(safeSeason, [], {
+  const seasonInfo = buildSeasonInfo(safeSeason, {
     promoted: promotedTeams,
     relegated: relegatedTeams,
     metadata: {
@@ -668,13 +669,14 @@ export function buildSeasonOverviewSeasonRecord({ seasonKey, seasonYear, seasonS
     const tierKey = `tier${index + 1}`;
     record[tierKey] = buildTierData(safeSeason, table.rows, {
       metadata: {
+        source: 'wikipedia-overview',
+        sourceUrl: `https://en.wikipedia.org/wiki/${seasonSlug}`,
+        seasonSlug,
+        leagueId: table.id || null,
         title: table.title,
-        seasonMetadata: {
-          leagueId: table.id || null,
-          tableIndex: table.tableIndex ?? index,
-          tableCount: tables.length,
-          seasonSlug,
-        },
+        tableIndex: table.tableIndex ?? index,
+        tableCount: tables.length,
+        tierKey,
       },
     });
   });

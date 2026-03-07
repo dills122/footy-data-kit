@@ -159,10 +159,15 @@ node rsssf/cli.js scrape --from-file ./rsssf-cache/1960-61.html --from-file ./rs
 - `seasonInfo.promoted` means clubs moving into the top flight for the following season.
 - `seasonInfo.relegated` means clubs leaving the top flight at the end of that season.
 - Every `tierN` entry is an object with `season`, `table`, `promoted`, and `relegated`.
-- Current exports still carry source-specific metadata fields on tiers:
-  - promotion-derived seasons use flattened fields like `seasonSlug`, `sourceUrl`, and `tier`
-  - overview-derived seasons use `title` and `seasonMetadata`
-- That mixed metadata shape is intentional for now and will be normalized in a later schema pass.
+- Every `tierN` entry now carries a single `metadata` object:
+  - `source`
+  - `sourceUrl`
+  - `seasonSlug`
+  - `leagueId`
+  - `title`
+  - `tableIndex`
+  - `tableCount`
+  - `tierKey`
 
 ### Utility examples
 

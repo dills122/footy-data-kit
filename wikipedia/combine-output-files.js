@@ -40,7 +40,7 @@ function blockHasData(block) {
     return true;
   }
 
-  const metadata = block.seasonMetadata;
+  const metadata = block.metadata;
   return Boolean(metadata && typeof metadata === 'object' && Object.keys(metadata).length);
 }
 

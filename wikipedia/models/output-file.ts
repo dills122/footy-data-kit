@@ -34,12 +34,7 @@ export interface TierData {
   table: LeagueTableEntry[];
   relegated: string[];
   promoted: string[];
-  // Legacy flattened metadata fields are still present in current exports.
-  seasonSlug?: string | null;
-  sourceUrl?: string | null;
-  tier?: string | null;
-  title?: string | null;
-  seasonMetadata?: Record<string, unknown>;
+  metadata?: TierMetadata;
 }
 
 export interface SeasonInfo {
