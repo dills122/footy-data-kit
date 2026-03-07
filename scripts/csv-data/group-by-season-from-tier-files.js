@@ -5,9 +5,10 @@ import { fileURLToPath } from 'node:url';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+const repoRoot = path.resolve(__dirname, '..', '..');
 
-const inputDir = path.join(__dirname, 'data');
-const outputDir = path.join(__dirname, 'data', 'season_groups');
+const inputDir = path.join(repoRoot, 'data');
+const outputDir = path.join(repoRoot, 'data', 'season_groups');
 
 // Ensure output directory exists
 if (!fs.existsSync(outputDir)) {

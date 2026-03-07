@@ -3,7 +3,7 @@
 import { Command } from 'commander';
 import * as fs from 'node:fs';
 import path from 'node:path';
-import { loadFootballData } from '../wikipedia/generate-output-files.js';
+import { loadFootballData } from './generate-output-files.js';
 
 const program = new Command();
 
@@ -128,7 +128,7 @@ function analyzeFile(filePath) {
 /**
  * @param {string} seasonKey
  * @param {string} tierKey
- * @param {import('../wikipedia/models/output-file').TierData | import('../wikipedia/models/output-file').LeagueTableEntry[]} tierValue
+ * @param {import('./models/output-file.js').TierData | import('./models/output-file.js').LeagueTableEntry[]} tierValue
  * @returns {TierAnalysis}
  */
 function analyzeTier(seasonKey, tierKey, tierValue) {
@@ -293,7 +293,7 @@ function analyzeTier(seasonKey, tierKey, tierValue) {
 }
 
 /**
- * @param {import('../wikipedia/models/output-file').TierData | import('../wikipedia/models/output-file').LeagueTableEntry[]} tierValue
+ * @param {import('./models/output-file.js').TierData | import('./models/output-file.js').LeagueTableEntry[]} tierValue
  * @param {string} seasonKey
  */
 function extractTierMeta(tierValue, seasonKey) {

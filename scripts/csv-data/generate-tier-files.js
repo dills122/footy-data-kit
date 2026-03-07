@@ -5,9 +5,10 @@ import { fileURLToPath } from 'node:url';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+const repoRoot = path.resolve(__dirname, '..', '..');
 
-const inputFile = path.join(__dirname, 'data', 'england.csv');
-const outputDir = path.join(__dirname, 'data');
+const inputFile = path.join(repoRoot, 'data', 'england.csv');
+const outputDir = path.join(repoRoot, 'data');
 
 const rowsByTier = {};
 

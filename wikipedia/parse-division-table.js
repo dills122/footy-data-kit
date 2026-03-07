@@ -1,5 +1,5 @@
 import * as cheerio from 'cheerio';
-import { isFirstDivision } from '../utils.js';
+import { isFirstDivision } from '../shared/utils.js';
 import { cellText, isExpansionTeam, normalizeHeader, wasPromoted, wasRelegated } from './utils.js';
 
 const DIVISION_HEADER_SLUGS = {
