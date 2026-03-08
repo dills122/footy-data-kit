@@ -1,4 +1,5 @@
 import {
+  buildDatasetMetadata,
   buildSeasonInfo,
   buildTierData,
   loadFootballData,
@@ -149,6 +150,16 @@ export async function buildPromotionRelegation(startYear, endYear, outputFile, o
   const updateOnly = Boolean(options.updateOnly);
   const forceUpdate = Boolean(options.forceUpdate);
   const ignoreWarYears = Boolean(options.ignoreWarYears);
+  const outputMetadata = buildDatasetMetadata({
+    generator: 'wikipedia-promotion',
+    buildOptions: {
+      startYear,
+      endYear,
+      updateOnly,
+      forceUpdate,
+      ignoreWarYears,
+    },
+  });
 
   for (let year = startYear; year <= endYear; year++) {
     const existingRecord = dataset.seasons?.[String(year)];
@@ -201,11 +212,11 @@ export async function buildPromotionRelegation(startYear, endYear, outputFile, o
     }
 
     setSeasonRecord(dataset, year, seasonRecord);
-    saveFootballData(outputFile, dataset);
+    saveFootballData(outputFile, dataset, { metadata: outputMetadata });
   }
 
   finalizePromotionDataset(dataset, { ignoreWarYears });
-  saveFootballData(outputFile, dataset);
+  saveFootballData(outputFile, dataset, { metadata: outputMetadata });
 
   console.log(`\n✅ Finished building data for ${Object.keys(dataset.seasons).length} seasons.`);
   return dataset;

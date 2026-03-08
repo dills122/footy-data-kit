@@ -1,5 +1,6 @@
 // @ts-check
 
+import { execSync } from 'node:child_process';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import { isExpansionTeam, wasPromoted, wasRelegated } from './utils.js';
@@ -10,6 +11,7 @@ import { isExpansionTeam, wasPromoted, wasRelegated } from './utils.js';
 /** @typedef {import('./models/output-file').SeasonsMap} SeasonsMap */
 /** @typedef {import('./models/output-file').FootballData} FootballData */
 /** @typedef {import('./models/output-file').SeasonInfo} SeasonInfo */
+/** @typedef {import('./models/output-file').DatasetMetadata} DatasetMetadata */
 
 const NUMBER_FIELDS = [
   'pos',
@@ -29,6 +31,8 @@ const BOOLEAN_FIELDS = [
   'wasReElected',
   'wasReprieved',
 ];
+const DATASET_SCHEMA_VERSION = 1;
+let cachedGitSha;
 
 /**
  * @param {string | number | null | undefined} value
@@ -53,6 +57,83 @@ function toStringValue(value) {
   if (value == null) return null;
   const text = String(value).trim();
   return text.length ? text : null;
+}
+
+function normalizeStringArray(value) {
+  if (!Array.isArray(value)) return [];
+  return Array.from(
+    new Set(value.map((entry) => toStringValue(entry)).filter((entry) => entry != null))
+  );
+}
+
+function normalizeBuildOptions(value) {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return undefined;
+  const entries = Object.entries(value)
+    .map(([key, entry]) => {
+      if (entry == null) return [key, null];
+      if (['string', 'number', 'boolean'].includes(typeof entry)) return [key, entry];
+      return null;
+    })
+    .filter(Boolean);
+
+  if (!entries.length) return undefined;
+  return Object.fromEntries(entries);
+}
+
+function normaliseDatasetMetadata(value) {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return undefined;
+
+  const schemaVersion = Number(value.schemaVersion);
+  const metadata = {
+    schemaVersion: Number.isFinite(schemaVersion) ? schemaVersion : DATASET_SCHEMA_VERSION,
+    generator: toStringValue(value.generator),
+    generatedAt: toStringValue(value.generatedAt),
+    gitSha: toStringValue(value.gitSha),
+    sourceFiles: normalizeStringArray(value.sourceFiles),
+    buildOptions: normalizeBuildOptions(value.buildOptions),
+  };
+
+  return Object.fromEntries(
+    Object.entries(metadata).filter(([, entry]) => {
+      if (entry == null) return false;
+      if (Array.isArray(entry)) return entry.length > 0;
+      if (typeof entry === 'object') return Object.keys(entry).length > 0;
+      return true;
+    })
+  );
+}
+
+function getCurrentGitSha(cwd = process.cwd()) {
+  if (cachedGitSha !== undefined) return cachedGitSha;
+
+  try {
+    cachedGitSha = execSync('git rev-parse --short HEAD', {
+      cwd,
+      encoding: 'utf8',
+      stdio: ['ignore', 'pipe', 'ignore'],
+    }).trim();
+  } catch {
+    cachedGitSha = null;
+  }
+
+  return cachedGitSha;
+}
+
+export function buildDatasetMetadata({
+  generator,
+  sourceFiles,
+  buildOptions,
+  generatedAt = new Date().toISOString(),
+  gitSha = getCurrentGitSha(),
+} = {}) {
+  return normaliseDatasetMetadata({
+    schemaVersion: DATASET_SCHEMA_VERSION,
+    generator,
+    generatedAt,
+    gitSha,
+    sourceFiles,
+    buildOptions,
+  });
 }
 
 /**
@@ -389,6 +470,10 @@ function normaliseSeasonRecord(seasonValue, seasonKey) {
  * @returns {FootballData}
  */
 export function createFootballData(initial) {
+  const metadata =
+    initial && typeof initial === 'object' && 'metadata' in initial
+      ? normaliseDatasetMetadata(initial.metadata)
+      : undefined;
   const seasonsSource =
     initial && typeof initial === 'object' && 'seasons' in initial
       ? /** @type {Record<string, unknown>} */ (initial?.seasons)
@@ -404,7 +489,10 @@ export function createFootballData(initial) {
     );
   }
 
-  return /** @type {FootballData} */ ({ seasons });
+  return /** @type {FootballData} */ ({
+    ...(metadata ? { metadata } : {}),
+    seasons,
+  });
 }
 
 /**
@@ -541,6 +629,10 @@ export function mergeFootballData(target, source) {
   }
   if (!source || !source.seasons) return target;
 
+  if (source.metadata) {
+    target.metadata = source.metadata;
+  }
+
   for (const [seasonKey, seasonValue] of Object.entries(source.seasons)) {
     setSeasonRecord(target, seasonKey, seasonValue);
   }
@@ -570,11 +662,21 @@ export function loadFootballData(filePath) {
  * Persist FootballData to disk.
  * @param {string} filePath
  * @param {FootballData} data
- * @param {{ pretty?: boolean | number }} [options]
+ * @param {{ pretty?: boolean | number, metadata?: DatasetMetadata | Record<string, unknown> }} [options]
  */
 export function saveFootballData(filePath, data, options) {
   const pretty = options?.pretty ?? true;
   const spacing = typeof pretty === 'number' ? pretty : pretty ? 2 : 0;
+  const metadata = options?.metadata
+    ? buildDatasetMetadata({
+        .../** @type {Record<string, unknown>} */ (data.metadata || {}),
+        .../** @type {Record<string, unknown>} */ (options.metadata),
+      })
+    : normaliseDatasetMetadata(data.metadata);
+
+  if (metadata) {
+    data.metadata = metadata;
+  }
   fs.mkdirSync(path.dirname(filePath), { recursive: true });
   fs.writeFileSync(filePath, JSON.stringify(data, null, spacing));
 }
@@ -596,6 +698,7 @@ export function updateFootballDataFile(filePath, seasonKey, tierKey, tierValue, 
 }
 
 export default {
+  buildDatasetMetadata,
   createFootballData,
   normaliseLeagueTableEntry,
   buildTierData,

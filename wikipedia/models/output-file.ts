@@ -63,6 +63,16 @@ export interface SeasonsMap {
   [seasonYear: string]: SeasonData;
 }
 
+export interface DatasetMetadata {
+  schemaVersion?: number;
+  generator?: string | null;
+  generatedAt?: string | null;
+  gitSha?: string | null;
+  sourceFiles?: string[];
+  buildOptions?: Record<string, string | number | boolean | null>;
+}
+
 export interface FootballData {
+  metadata?: DatasetMetadata;
   seasons: SeasonsMap;
 }

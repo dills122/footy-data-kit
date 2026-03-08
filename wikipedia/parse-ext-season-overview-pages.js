@@ -1,6 +1,7 @@
 import * as cheerio from 'cheerio';
 import * as path from 'node:path';
 import {
+  buildDatasetMetadata,
   buildSeasonInfo,
   buildTierData,
   loadFootballData,
@@ -714,6 +715,16 @@ export async function buildSeasonOverview(startYear, endYear, outputFile, option
     typeof options.fetchSeasonOverviewTables === 'function'
       ? options.fetchSeasonOverviewTables
       : fetchSeasonOverviewTables;
+  const outputMetadata = buildDatasetMetadata({
+    generator: 'wikipedia-overview',
+    buildOptions: {
+      startYear,
+      endYear,
+      updateOnly,
+      forceUpdate,
+      ignoreWarYears,
+    },
+  });
 
   for (let year = startYear; year <= endYear; year++) {
     const seasonKey = String(year);
@@ -745,7 +756,7 @@ export async function buildSeasonOverview(startYear, endYear, outputFile, option
     });
 
     setSeasonRecord(dataset, seasonKey, seasonRecord);
-    saveFootballData(resolvedOutputFile, dataset);
+    saveFootballData(resolvedOutputFile, dataset, { metadata: outputMetadata });
   }
 
   console.log(
@@ -769,7 +780,15 @@ export async function buildSeasonOverviewForSlug(seasonSlug, outputFile) {
   });
 
   setSeasonRecord(dataset, seasonKey, seasonRecord);
-  saveFootballData(resolvedOutputFile, dataset);
+  saveFootballData(resolvedOutputFile, dataset, {
+    metadata: buildDatasetMetadata({
+      generator: 'wikipedia-overview',
+      buildOptions: {
+        seasonSlug,
+        mode: 'single-season',
+      },
+    }),
+  });
   console.log(`\n📂 Overview tables written to ${resolvedOutputFile}`);
   return { seasonKey, record: dataset.seasons[seasonKey] };
 }

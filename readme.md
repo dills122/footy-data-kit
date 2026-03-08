@@ -151,6 +151,13 @@ node rsssf/cli.js scrape --from-file ./rsssf-cache/1960-61.html --from-file ./rs
 ## Exported Data Shape
 
 - The final contract is the merged file: `data-output/all-seasons.json`.
+- Every FootballData export may include a top-level `metadata` object with release provenance:
+  - `schemaVersion`
+  - `generator`
+  - `generatedAt`
+  - `gitSha`
+  - `sourceFiles`
+  - `buildOptions`
 - Each season contains a `seasonInfo` summary object plus one or more `tierN` objects.
 - `seasonInfo` is not a league table. It is a season-level summary that currently stores:
   - `season`

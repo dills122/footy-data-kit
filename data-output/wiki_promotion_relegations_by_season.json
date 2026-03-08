@@ -88644,5 +88644,16 @@
         }
       }
     }
+  },
+  "metadata": {
+    "schemaVersion": 1,
+    "generator": "wikipedia-promotion",
+    "generatedAt": "2026-03-08T04:05:43.157Z",
+    "gitSha": "1782d5e",
+    "buildOptions": {
+      "startYear": 1888,
+      "endYear": 1990,
+      "ignoreWarYears": true
+    }
   }
 }
