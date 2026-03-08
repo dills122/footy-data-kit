@@ -1,4 +1,15 @@
 {
+  "metadata": {
+    "schemaVersion": 1,
+    "generator": "wikipedia-overview",
+    "generatedAt": "2026-03-08T04:05:43.116Z",
+    "gitSha": "1782d5e",
+    "buildOptions": {
+      "startYear": 1991,
+      "endYear": 2024,
+      "ignoreWarYears": true
+    }
+  },
   "seasons": {
     "1991": {
       "seasonInfo": {
@@ -55977,12 +55988,12 @@
             "wasReprieved": false
           }
         ],
+        "promoted": [],
         "relegated": [
           "Bournemouth",
           "Watford",
           "Norwich City"
         ],
-        "promoted": [],
         "metadata": {
           "source": "wikipedia-overview",
           "sourceUrl": "https://en.wikipedia.org/wiki/2019–20_in_English_football",
@@ -55994,7 +56005,7 @@
           "tierKey": "tier1"
         }
       },
-      "tier2": {
+      "tier3": {
         "season": 2019,
         "table": [
           {
@@ -56454,16 +56465,16 @@
             "wasReprieved": false
           }
         ],
+        "promoted": [
+          "Coventry City",
+          "Rotherham United",
+          "Wycombe Wanderers"
+        ],
         "relegated": [
           "Tranmere Rovers",
           "Southend United",
           "Bolton Wanderers",
           "Bury"
-        ],
-        "promoted": [
-          "Coventry City",
-          "Rotherham United",
-          "Wycombe Wanderers"
         ],
         "metadata": {
           "source": "wikipedia-overview",
@@ -56473,10 +56484,10 @@
           "title": "League One",
           "tableIndex": 0,
           "tableCount": 4,
-          "tierKey": "tier2"
+          "tierKey": "tier3"
         }
       },
-      "tier3": {
+      "tier4": {
         "season": 2019,
         "table": [
           {
@@ -56936,15 +56947,15 @@
             "wasReprieved": false
           }
         ],
-        "relegated": [
-          "Stevenage",
-          "Macclesfield Town"
-        ],
         "promoted": [
           "Swindon Town",
           "Crewe Alexandra",
           "Plymouth Argyle",
           "Northampton Town"
+        ],
+        "relegated": [
+          "Stevenage",
+          "Macclesfield Town"
         ],
         "metadata": {
           "source": "wikipedia-overview",
@@ -56954,10 +56965,10 @@
           "title": "League Two",
           "tableIndex": 0,
           "tableCount": 4,
-          "tierKey": "tier3"
+          "tierKey": "tier4"
         }
       },
-      "tier4": {
+      "tier5": {
         "season": 2019,
         "table": [
           {
@@ -57417,15 +57428,15 @@
             "wasReprieved": false
           }
         ],
+        "promoted": [
+          "Barrow",
+          "Harrogate Town"
+        ],
         "relegated": [
           "Maidenhead United",
           "Ebbsfleet United",
           "AFC Fylde",
           "Chorley"
-        ],
-        "promoted": [
-          "Barrow",
-          "Harrogate Town"
         ],
         "metadata": {
           "source": "wikipedia-overview",
@@ -57435,7 +57446,7 @@
           "title": "National League Top Division",
           "tableIndex": 0,
           "tableCount": 4,
-          "tierKey": "tier4"
+          "tierKey": "tier5"
         }
       }
     },
@@ -72888,17 +72899,6 @@
           "tierKey": "tier7"
         }
       }
-    }
-  },
-  "metadata": {
-    "schemaVersion": 1,
-    "generator": "wikipedia-overview",
-    "generatedAt": "2026-03-08T04:05:43.116Z",
-    "gitSha": "1782d5e",
-    "buildOptions": {
-      "startYear": 1991,
-      "endYear": 2024,
-      "ignoreWarYears": true
     }
   }
 }
