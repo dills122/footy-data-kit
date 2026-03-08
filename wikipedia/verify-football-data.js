@@ -11,6 +11,7 @@ const TIER_KEY_PATTERN = /^tier(\d+)$/i;
 const LEGACY_TIER_METADATA_FIELDS = ['seasonSlug', 'sourceUrl', 'tier', 'title', 'seasonMetadata'];
 const REQUIRED_TIER_METADATA_FIELDS = ['source', 'seasonSlug', 'tierKey'];
 const REQUIRED_OVERVIEW_METADATA_FIELDS = ['title', 'leagueId', 'tableIndex', 'tableCount'];
+const REQUIRED_DATASET_METADATA_FIELDS = ['schemaVersion', 'generator', 'generatedAt'];
 const CONTINUITY_CONFIG = {
   topFlightTierKey: 'tier1',
   seasonPromotedPath: 'promoted',
@@ -92,6 +93,8 @@ export function analyzeDataset(dataset, options = {}) {
   const issues = [];
   const profile = options.profile || detectDatasetProfile(dataset);
 
+  issues.push(...analyzeDatasetContract(dataset, profile));
+
   for (const [seasonKey, seasonValue] of seasonEntries) {
     const tierEntries = Object.entries(seasonValue).filter(([key]) => TIER_KEY_PATTERN.test(key));
     /** @type {Array<TierAnalysis>} */
@@ -112,12 +115,60 @@ export function analyzeDataset(dataset, options = {}) {
     }
 
     issues.push(...analyzeSeasonContract(seasonKey, seasonValue));
+    issues.push(...analyzeSeasonTierCoverage(seasonKey, seasonValue, profile));
+    issues.push(...analyzeSeasonLeagueOrdering(seasonKey, seasonValue));
     for (const tierAnalysis of tierAnalyses) {
       issues.push(...tierAnalysis.issues);
     }
   }
 
   issues.push(...analyzeSeasonContinuity(dataset, profile));
+  return issues;
+}
+
+/**
+ * @param {import('./models/output-file.js').FootballData} dataset
+ * @param {DatasetProfile} profile
+ * @returns {Issue[]}
+ */
+function analyzeDatasetContract(dataset, profile) {
+  /** @type {Issue[]} */
+  const issues = [];
+
+  if (profile.kind !== 'promotion-only') {
+    const metadata =
+      dataset &&
+      typeof dataset === 'object' &&
+      dataset.metadata &&
+      typeof dataset.metadata === 'object'
+        ? dataset.metadata
+        : null;
+
+    if (!metadata || Array.isArray(metadata)) {
+      issues.push(
+        createIssue({
+          type: 'missing-dataset-metadata',
+          season: 'dataset',
+          message: 'FootballData export is missing the top-level metadata object',
+        })
+      );
+      return issues;
+    }
+
+    const missingFields = REQUIRED_DATASET_METADATA_FIELDS.filter(
+      (field) => metadata[field] == null
+    );
+    if (missingFields.length) {
+      issues.push(
+        createIssue({
+          type: 'incomplete-dataset-metadata',
+          season: 'dataset',
+          message: `Dataset metadata missing required fields: ${missingFields.join(', ')}`,
+        })
+      );
+    }
+  }
+
   return issues;
 }
 
@@ -486,6 +537,70 @@ function analyzeSeasonContract(seasonKey, seasonValue) {
 }
 
 /**
+ * @param {string} seasonKey
+ * @param {import('./models/output-file.js').SeasonData} seasonValue
+ * @param {DatasetProfile} profile
+ * @returns {Issue[]}
+ */
+function analyzeSeasonTierCoverage(seasonKey, seasonValue, profile) {
+  if (profile.kind === 'promotion-only') return [];
+
+  const seasonNumber = parseSeasonNumber(seasonKey);
+  if (seasonNumber == null) return [];
+
+  const tierCount = Object.keys(seasonValue).filter((key) => TIER_KEY_PATTERN.test(key)).length;
+  const expectedMinimum = getExpectedMinimumTierCount(seasonNumber);
+  if (expectedMinimum == null || tierCount >= expectedMinimum) return [];
+
+  return [
+    createIssue({
+      type: 'insufficient-tier-coverage',
+      season: seasonKey,
+      message: `Season has ${tierCount} tiers but expected at least ${expectedMinimum} for this era`,
+    }),
+  ];
+}
+
+/**
+ * @param {string} seasonKey
+ * @param {import('./models/output-file.js').SeasonData} seasonValue
+ * @returns {Issue[]}
+ */
+function analyzeSeasonLeagueOrdering(seasonKey, seasonValue) {
+  const seasonNumber = parseSeasonNumber(seasonKey);
+  if (seasonNumber == null) return [];
+
+  /** @type {Issue[]} */
+  const issues = [];
+  for (const [tierKey, tierValue] of Object.entries(seasonValue)) {
+    if (!TIER_KEY_PATTERN.test(tierKey)) continue;
+    const tierNumberMatch = tierKey.match(TIER_KEY_PATTERN);
+    const tierNumber = tierNumberMatch ? Number.parseInt(tierNumberMatch[1], 10) : null;
+    if (tierNumber == null) continue;
+
+    const metadata =
+      tierValue && typeof tierValue === 'object' && !Array.isArray(tierValue)
+        ? tierValue.metadata
+        : null;
+    if (!metadata || metadata.source !== 'wikipedia-overview') continue;
+
+    const inferredTier = inferLeagueTierFromMetadata(metadata, seasonNumber);
+    if (inferredTier == null || inferredTier === tierNumber) continue;
+
+    issues.push(
+      createIssue({
+        type: 'league-order-mismatch',
+        season: seasonKey,
+        tier: tierKey,
+        message: `Overview tier title/id looks like level ${inferredTier}, not ${tierKey}`,
+      })
+    );
+  }
+
+  return issues;
+}
+
+/**
  * @param {import('./models/output-file.js').FootballData} dataset
  * @param {DatasetProfile} profile
  * @returns {Issue[]}
@@ -582,6 +697,53 @@ function detectDatasetProfile(dataset) {
     return { kind: 'overview-only' };
   }
   return { kind: 'mixed' };
+}
+
+/**
+ * @param {number} seasonNumber
+ * @returns {number | null}
+ */
+function getExpectedMinimumTierCount(seasonNumber) {
+  if (seasonNumber >= 1991) return 4;
+  if (seasonNumber >= 1888) return 2;
+  return null;
+}
+
+/**
+ * @param {import('./models/output-file.js').TierMetadata} metadata
+ * @param {number} seasonNumber
+ * @returns {number | null}
+ */
+function inferLeagueTierFromMetadata(metadata, seasonNumber) {
+  const text = `${metadata?.title || ''} ${metadata?.leagueId || ''}`.toLowerCase();
+  if (!text.trim()) return null;
+
+  if (
+    text.includes('premier league') ||
+    text.includes('premiership') ||
+    text.includes('football league premier division')
+  ) {
+    return 1;
+  }
+
+  if (seasonNumber < 1992 && text.includes('first division')) return 1;
+  if (seasonNumber >= 1992 && (text.includes('championship') || text.includes('first division'))) {
+    return 2;
+  }
+  if (seasonNumber < 1992 && text.includes('second division')) return 2;
+  if (text.includes('league one')) return 3;
+  if (seasonNumber < 1992 && text.includes('third division')) return 3;
+  if (text.includes('league two')) return 4;
+  if (seasonNumber < 1992 && text.includes('fourth division')) return 4;
+  if (
+    text.includes('national league top division') ||
+    text.includes('conference national') ||
+    text.includes('conference premier')
+  ) {
+    return 5;
+  }
+
+  return null;
 }
 
 function isWarSuspensionSeason(seasonKey) {
