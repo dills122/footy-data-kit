@@ -266,6 +266,86 @@ export function compareFootballDataFiles(beforePath, afterPath) {
   return diffFootballData(loadFootballData(beforePath), loadFootballData(afterPath));
 }
 
+function summarizeChangedSeasons(changedSeasons, limit = 10) {
+  return changedSeasons.slice(0, limit).map((season) => {
+    const detailParts = [];
+
+    if (season.addedTiers.length) detailParts.push(`added tiers: ${season.addedTiers.join(', ')}`);
+    if (season.removedTiers.length)
+      detailParts.push(`removed tiers: ${season.removedTiers.join(', ')}`);
+    if (season.changedTiers.length)
+      detailParts.push(`changed tiers: ${season.changedTiers.length}`);
+
+    const seasonInfoChanges = season.seasonInfoChanges;
+    if (seasonInfoChanges) {
+      const seasonInfoBits = [];
+      if (
+        seasonInfoChanges.promotedChanges.added.length ||
+        seasonInfoChanges.promotedChanges.removed.length
+      ) {
+        seasonInfoBits.push('promoted list');
+      }
+      if (
+        seasonInfoChanges.relegatedChanges.added.length ||
+        seasonInfoChanges.relegatedChanges.removed.length
+      ) {
+        seasonInfoBits.push('relegated list');
+      }
+      if (seasonInfoChanges.metadataChangedFields.length) {
+        seasonInfoBits.push('season metadata');
+      }
+      if (seasonInfoBits.length) detailParts.push(`season info: ${seasonInfoBits.join(', ')}`);
+    }
+
+    return `- ${season.season}: ${detailParts.join(' | ') || 'record changed'}`;
+  });
+}
+
+export function renderMarkdownSummary(diff, beforeDataset, afterDataset, options = {}) {
+  const beforeMeta = asObject(beforeDataset?.metadata) || {};
+  const afterMeta = asObject(afterDataset?.metadata) || {};
+  const maxChangedSeasons = Number.isFinite(options.maxChangedSeasons)
+    ? options.maxChangedSeasons
+    : 10;
+  const lines = [
+    '# Release Diff Summary',
+    '',
+    '## Metadata',
+    `- Previous generator: ${beforeMeta.generator || 'unknown'}`,
+    `- Previous generatedAt: ${beforeMeta.generatedAt || 'unknown'}`,
+    `- Previous gitSha: ${beforeMeta.gitSha || 'unknown'}`,
+    `- Current generator: ${afterMeta.generator || 'unknown'}`,
+    `- Current generatedAt: ${afterMeta.generatedAt || 'unknown'}`,
+    `- Current gitSha: ${afterMeta.gitSha || 'unknown'}`,
+    '',
+    '## Summary',
+    `- Seasons before: ${diff.summary.beforeSeasonCount}`,
+    `- Seasons after: ${diff.summary.afterSeasonCount}`,
+    `- Added seasons: ${diff.summary.addedSeasonCount}`,
+    `- Removed seasons: ${diff.summary.removedSeasonCount}`,
+    `- Changed seasons: ${diff.summary.changedSeasonCount}`,
+  ];
+
+  if (diff.addedSeasons.length) {
+    lines.push(`- Added season keys: ${diff.addedSeasons.join(', ')}`);
+  }
+  if (diff.removedSeasons.length) {
+    lines.push(`- Removed season keys: ${diff.removedSeasons.join(', ')}`);
+  }
+
+  lines.push('', '## Changed Seasons');
+  if (!diff.changedSeasons.length) {
+    lines.push('- No season-level differences detected.');
+  } else {
+    lines.push(...summarizeChangedSeasons(diff.changedSeasons, maxChangedSeasons));
+    if (diff.changedSeasons.length > maxChangedSeasons) {
+      lines.push(`- ...and ${diff.changedSeasons.length - maxChangedSeasons} more changed seasons`);
+    }
+  }
+
+  return `${lines.join('\n')}\n`;
+}
+
 function printTextReport(diff, beforePath, afterPath) {
   const { summary, addedSeasons, removedSeasons, changedSeasons } = diff;
   console.log(`Compared ${beforePath} -> ${afterPath}`);
@@ -354,19 +434,27 @@ export function runCli(argv = process.argv) {
     .description('Compare two FootballData JSON exports and report the release diff.')
     .argument('<before>', 'Path to the older FootballData export')
     .argument('<after>', 'Path to the newer FootballData export')
-    .option('--json', 'Print the diff as JSON instead of a text summary', false);
+    .option('--json', 'Print the diff as JSON instead of a text summary', false)
+    .option('--markdown', 'Print a markdown release summary instead of a text summary', false);
 
   program.parse(argv);
 
   const [before, after] = program.args;
-  const { json } = program.opts();
+  const { json, markdown } = program.opts();
 
   const beforePath = path.resolve(process.cwd(), before);
   const afterPath = path.resolve(process.cwd(), after);
-  const diff = compareFootballDataFiles(beforePath, afterPath);
+  const beforeDataset = loadFootballData(beforePath);
+  const afterDataset = loadFootballData(afterPath);
+  const diff = diffFootballData(beforeDataset, afterDataset);
 
   if (json) {
     console.log(JSON.stringify(diff, null, 2));
+    return diff;
+  }
+
+  if (markdown) {
+    console.log(renderMarkdownSummary(diff, beforeDataset, afterDataset));
     return diff;
   }
 
@@ -385,5 +473,6 @@ if (isDirectExecution) {
 export default {
   diffFootballData,
   compareFootballDataFiles,
+  renderMarkdownSummary,
   runCli,
 };
