@@ -144,6 +144,7 @@ node rsssf/cli.js scrape --from-file ./rsssf-cache/1960-61.html --from-file ./rs
 ## JSON Utilities
 
 - `wikipedia/combine-output-files.js` – merge multiple FootballData JSON files, drop war-year placeholders, prefer the richest tier record for each season, and show a grouped “missing seasons” summary. Use `--include-empty` to keep placeholder entries and `--compact` for minified JSON.
+- `wikipedia/compare-football-data.js` – compare two FootballData JSON files and report season, tier, table, outcome-list, and metadata changes between releases. Pass `--json` for machine-readable output.
 - `scripts/minify-json.js` – shrink JSON files in place or alongside (`foo.min.json`) so they are ready for publishing.
 - `wikipedia/verify-football-data.js` – lint FootballData exports for empty tiers, duplicate teams, stat mismatches, or promotion/relegation inconsistencies. Pass `--fail-on-issues` to exit non-zero when anomalies exist.
 
@@ -179,6 +180,9 @@ node wikipedia/combine-output-files.js --output ./data-output/all-seasons.json \
 
 # Run the data lint pass on every JSON file under ./data-output
 node wikipedia/verify-football-data.js --fail-on-issues ./data-output
+
+# Compare a previous release file against a freshly generated one
+node wikipedia/compare-football-data.js ./releases/all-seasons-prev.json ./data-output/all-seasons.json
 
 # Minify the merged dataset next to its original (writes all-seasons.min.json)
 node scripts/minify-json.js ./data-output/all-seasons.json
