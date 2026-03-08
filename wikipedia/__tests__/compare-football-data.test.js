@@ -1,4 +1,4 @@
-import { diffFootballData } from '../compare-football-data.js';
+import { diffFootballData, renderMarkdownSummary } from '../compare-football-data.js';
 import { canonicalizeTeamName } from '../data-quality-config.js';
 
 describe('compare-football-data', () => {
@@ -222,5 +222,65 @@ describe('compare-football-data', () => {
     expect(canonicalizeTeamName('Woolwich Arsenal')).toBe('arsenal');
     expect(canonicalizeTeamName('Ardwick')).toBe('manchester city');
     expect(canonicalizeTeamName('Small Heath')).toBe('birmingham city');
+  });
+
+  test('renderMarkdownSummary produces a compact release-friendly summary', () => {
+    const beforeDataset = {
+      metadata: {
+        generator: 'wikipedia-combined',
+        generatedAt: '2026-03-01T00:00:00.000Z',
+        gitSha: 'abc1234',
+      },
+      seasons: {
+        1900: {
+          seasonInfo: { season: 1900, table: [], promoted: [], relegated: [] },
+          tier1: {
+            season: 1900,
+            table: [],
+            promoted: [],
+            relegated: [],
+            metadata: { source: 'wikipedia-promotion', seasonSlug: '1899-00', tierKey: 'tier1' },
+          },
+        },
+      },
+    };
+    const afterDataset = {
+      metadata: {
+        generator: 'wikipedia-combined',
+        generatedAt: '2026-03-08T00:00:00.000Z',
+        gitSha: 'def5678',
+      },
+      seasons: {
+        1900: {
+          seasonInfo: { season: 1900, table: [], promoted: ['Glossop'], relegated: [] },
+          tier1: {
+            season: 1900,
+            table: [],
+            promoted: [],
+            relegated: [],
+            metadata: { source: 'wikipedia-overview', seasonSlug: '1899-00', tierKey: 'tier1' },
+          },
+        },
+        1901: {
+          seasonInfo: { season: 1901, table: [], promoted: [], relegated: [] },
+          tier1: {
+            season: 1901,
+            table: [],
+            promoted: [],
+            relegated: [],
+            metadata: { source: 'wikipedia-overview', seasonSlug: '1900-01', tierKey: 'tier1' },
+          },
+        },
+      },
+    };
+
+    const diff = diffFootballData(beforeDataset, afterDataset);
+    const markdown = renderMarkdownSummary(diff, beforeDataset, afterDataset);
+
+    expect(markdown).toContain('# Release Diff Summary');
+    expect(markdown).toContain('- Previous gitSha: abc1234');
+    expect(markdown).toContain('- Current gitSha: def5678');
+    expect(markdown).toContain('- Added seasons: 1');
+    expect(markdown).toContain('- 1900: changed tiers: 1 | season info: promoted list');
   });
 });

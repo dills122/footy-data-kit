@@ -207,4 +207,426 @@ describe('verify-football-data', () => {
     expect(issueTypes).toContain('promotion-continuity-mismatch');
     expect(issueTypes).toContain('relegation-continuity-mismatch');
   });
+
+  test('analyzeDataset ignores expected promotion-flow continuity limits after 1991', () => {
+    const issues = analyzeDataset({
+      seasons: {
+        1991: {
+          seasonInfo: {
+            season: 1991,
+            table: [],
+            promoted: ['Ipswich Town', 'Middlesbrough', 'Blackburn Rovers'],
+            relegated: ['Luton Town', 'Notts County', 'West Ham United'],
+            seasonSlug: '1991-92_Football_League',
+            sourceUrl: 'https://example.com/1991',
+            tableCount: 0,
+          },
+          tier1: {
+            season: 1991,
+            table: [
+              {
+                pos: 20,
+                team: 'Luton Town',
+                played: 42,
+                won: 10,
+                drawn: 12,
+                lost: 20,
+                goalsFor: 35,
+                goalsAgainst: 55,
+                goalDifference: -20,
+                goalAverage: null,
+                points: 42,
+                notes: 'Relegated',
+                wasRelegated: true,
+                wasPromoted: false,
+                isExpansionTeam: false,
+                wasReElected: false,
+                wasReprieved: false,
+              },
+            ],
+            promoted: [],
+            relegated: ['Luton Town', 'Notts County', 'West Ham United'],
+            metadata: {
+              source: 'wikipedia-promotion',
+              seasonSlug: '1991-92',
+              sourceUrl: 'https://example.com/1991',
+              tierKey: 'tier1',
+            },
+          },
+          tier2: {
+            season: 1991,
+            table: [
+              {
+                pos: 1,
+                team: 'Ipswich Town',
+                played: 46,
+                won: 24,
+                drawn: 12,
+                lost: 10,
+                goalsFor: 70,
+                goalsAgainst: 40,
+                goalDifference: 30,
+                goalAverage: null,
+                points: 84,
+                notes: 'Promotion to the FA Premier League',
+                wasRelegated: false,
+                wasPromoted: true,
+                isExpansionTeam: false,
+                wasReElected: false,
+                wasReprieved: false,
+              },
+            ],
+            promoted: ['Ipswich Town', 'Middlesbrough', 'Blackburn Rovers'],
+            relegated: [],
+            metadata: {
+              source: 'wikipedia-promotion',
+              seasonSlug: '1991-92',
+              sourceUrl: 'https://example.com/1991',
+              tierKey: 'tier2',
+            },
+          },
+        },
+        1992: {
+          seasonInfo: {
+            season: 1992,
+            table: [],
+            promoted: [],
+            relegated: [],
+            seasonSlug: '1992-93_Football_League',
+            sourceUrl: 'https://example.com/1992',
+            tableCount: 0,
+          },
+          tier1: {
+            season: 1992,
+            table: [
+              {
+                pos: 1,
+                team: 'Portsmouth',
+                played: 46,
+                won: 20,
+                drawn: 12,
+                lost: 14,
+                goalsFor: 60,
+                goalsAgainst: 52,
+                goalDifference: 8,
+                goalAverage: null,
+                points: 72,
+                notes: null,
+                wasRelegated: false,
+                wasPromoted: false,
+                isExpansionTeam: false,
+                wasReElected: false,
+                wasReprieved: false,
+              },
+            ],
+            promoted: ['Stoke City'],
+            relegated: [],
+            metadata: {
+              source: 'wikipedia-promotion',
+              seasonSlug: '1992-93',
+              sourceUrl: 'https://example.com/1992',
+              tierKey: 'tier1',
+            },
+          },
+          tier2: {
+            season: 1992,
+            table: [],
+            promoted: [],
+            relegated: [],
+            metadata: {
+              source: 'wikipedia-promotion',
+              seasonSlug: '1992-93',
+              sourceUrl: 'https://example.com/1992',
+              tierKey: 'tier2',
+            },
+          },
+        },
+      },
+    });
+
+    const issueTypes = issues.map((issue) => issue.type);
+    expect(issueTypes).not.toContain('promotion-continuity-mismatch');
+    expect(issueTypes).not.toContain('relegation-continuity-mismatch');
+  });
+
+  test('analyzeDataset requires top-level metadata and era-appropriate tier coverage for canonical datasets', () => {
+    const issues = analyzeDataset({
+      seasons: {
+        1995: {
+          seasonInfo: {
+            season: 1995,
+            table: [],
+            promoted: [],
+            relegated: [],
+            seasonSlug: '1995-96_in_English_football',
+            sourceUrl: 'https://example.com/1995',
+            tableCount: 3,
+          },
+          tier1: {
+            season: 1995,
+            table: [
+              {
+                pos: 1,
+                team: 'Chelsea',
+                played: 38,
+                won: 30,
+                drawn: 3,
+                lost: 5,
+                goalsFor: 85,
+                goalsAgainst: 33,
+                goalDifference: 52,
+                goalAverage: null,
+                points: 93,
+                notes: null,
+                wasRelegated: false,
+                wasPromoted: false,
+                isExpansionTeam: false,
+                wasReElected: false,
+                wasReprieved: false,
+              },
+            ],
+            promoted: [],
+            relegated: [],
+            metadata: {
+              source: 'wikipedia-overview',
+              seasonSlug: '1995-96',
+              sourceUrl: 'https://example.com/1995',
+              tierKey: 'tier1',
+              title: 'Premier League',
+              leagueId: 'Premier_League',
+              tableIndex: 0,
+              tableCount: 3,
+            },
+          },
+          tier2: {
+            season: 1995,
+            table: [],
+            promoted: [],
+            relegated: [],
+            metadata: {
+              source: 'wikipedia-overview',
+              seasonSlug: '1995-96',
+              sourceUrl: 'https://example.com/1995',
+              tierKey: 'tier2',
+              title: 'Championship',
+              leagueId: 'Football_League_Championship',
+              tableIndex: 1,
+              tableCount: 3,
+            },
+          },
+          tier3: {
+            season: 1995,
+            table: [],
+            promoted: [],
+            relegated: [],
+            metadata: {
+              source: 'wikipedia-overview',
+              seasonSlug: '1995-96',
+              sourceUrl: 'https://example.com/1995',
+              tierKey: 'tier3',
+              title: 'League One',
+              leagueId: 'Football_League_One',
+              tableIndex: 2,
+              tableCount: 3,
+            },
+          },
+        },
+      },
+    });
+
+    const issueTypes = issues.map((issue) => issue.type);
+    expect(issueTypes).toContain('missing-dataset-metadata');
+    expect(issueTypes).toContain('insufficient-tier-coverage');
+  });
+
+  test('analyzeDataset accepts canonical metadata and tier depth that matches the era', () => {
+    const issues = analyzeDataset({
+      metadata: {
+        schemaVersion: 1,
+        generator: 'wikipedia-combined',
+        generatedAt: '2026-03-08T05:00:00.000Z',
+      },
+      seasons: {
+        2021: {
+          seasonInfo: {
+            season: 2021,
+            table: [],
+            promoted: [],
+            relegated: [],
+            seasonSlug: '2021-22_in_English_football',
+            sourceUrl: 'https://example.com/2021',
+            tableCount: 4,
+          },
+          tier1: {
+            season: 2021,
+            table: [
+              {
+                pos: 1,
+                team: 'Manchester City',
+                played: 38,
+                won: 29,
+                drawn: 6,
+                lost: 3,
+                goalsFor: 99,
+                goalsAgainst: 26,
+                goalDifference: 73,
+                goalAverage: null,
+                points: 93,
+                notes: null,
+                wasRelegated: false,
+                wasPromoted: false,
+                isExpansionTeam: false,
+                wasReElected: false,
+                wasReprieved: false,
+              },
+            ],
+            promoted: [],
+            relegated: [],
+            metadata: {
+              source: 'wikipedia-overview',
+              seasonSlug: '2021-22',
+              sourceUrl: 'https://example.com/2021',
+              tierKey: 'tier1',
+              title: 'Premier League',
+              leagueId: 'Premier_League',
+              tableIndex: 0,
+              tableCount: 4,
+            },
+          },
+          tier2: {
+            season: 2021,
+            table: [],
+            promoted: [],
+            relegated: [],
+            metadata: {
+              source: 'wikipedia-overview',
+              seasonSlug: '2021-22',
+              sourceUrl: 'https://example.com/2021',
+              tierKey: 'tier2',
+              title: 'Championship',
+              leagueId: 'Championship',
+              tableIndex: 1,
+              tableCount: 4,
+            },
+          },
+          tier3: {
+            season: 2021,
+            table: [],
+            promoted: [],
+            relegated: [],
+            metadata: {
+              source: 'wikipedia-overview',
+              seasonSlug: '2021-22',
+              sourceUrl: 'https://example.com/2021',
+              tierKey: 'tier3',
+              title: 'League One',
+              leagueId: 'League_One',
+              tableIndex: 2,
+              tableCount: 4,
+            },
+          },
+          tier4: {
+            season: 2021,
+            table: [],
+            promoted: [],
+            relegated: [],
+            metadata: {
+              source: 'wikipedia-overview',
+              seasonSlug: '2021-22',
+              sourceUrl: 'https://example.com/2021',
+              tierKey: 'tier4',
+              title: 'League Two',
+              leagueId: 'League_Two',
+              tableIndex: 3,
+              tableCount: 4,
+            },
+          },
+        },
+      },
+    });
+
+    const issueTypes = issues.map((issue) => issue.type);
+    expect(issueTypes).not.toContain('missing-dataset-metadata');
+    expect(issueTypes).not.toContain('incomplete-dataset-metadata');
+    expect(issueTypes).not.toContain('insufficient-tier-coverage');
+    expect(issueTypes).not.toContain('league-order-mismatch');
+  });
+
+  test('analyzeDataset reports overview tiers that are shifted upward when a middle league is missing', () => {
+    const issues = analyzeDataset({
+      metadata: {
+        schemaVersion: 1,
+        generator: 'wikipedia-overview',
+        generatedAt: '2026-03-08T05:00:00.000Z',
+      },
+      seasons: {
+        2019: {
+          seasonInfo: {
+            season: 2019,
+            table: [],
+            promoted: [],
+            relegated: [],
+            seasonSlug: '2019-20_in_English_football',
+            sourceUrl: 'https://example.com/2019',
+            tableCount: 4,
+          },
+          tier1: {
+            season: 2019,
+            table: [
+              {
+                pos: 1,
+                team: 'Liverpool',
+                played: 38,
+                won: 32,
+                drawn: 3,
+                lost: 3,
+                goalsFor: 85,
+                goalsAgainst: 33,
+                goalDifference: 52,
+                goalAverage: null,
+                points: 99,
+                notes: null,
+                wasRelegated: false,
+                wasPromoted: false,
+                isExpansionTeam: false,
+                wasReElected: false,
+                wasReprieved: false,
+              },
+            ],
+            promoted: [],
+            relegated: [],
+            metadata: {
+              source: 'wikipedia-overview',
+              seasonSlug: '2019-20',
+              sourceUrl: 'https://example.com/2019',
+              tierKey: 'tier1',
+              title: 'Premier League',
+              leagueId: 'Premier_League',
+              tableIndex: 0,
+              tableCount: 4,
+            },
+          },
+          tier2: {
+            season: 2019,
+            table: [],
+            promoted: [],
+            relegated: [],
+            metadata: {
+              source: 'wikipedia-overview',
+              seasonSlug: '2019-20',
+              sourceUrl: 'https://example.com/2019',
+              tierKey: 'tier2',
+              title: 'League One',
+              leagueId: 'League_One',
+              tableIndex: 1,
+              tableCount: 4,
+            },
+          },
+        },
+      },
+    });
+
+    const issueTypes = issues.map((issue) => issue.type);
+    expect(issueTypes).toContain('league-order-mismatch');
+  });
 });

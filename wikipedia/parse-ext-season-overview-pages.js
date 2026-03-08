@@ -1,6 +1,7 @@
 import * as cheerio from 'cheerio';
 import * as path from 'node:path';
 import {
+  buildDatasetMetadata,
   buildSeasonInfo,
   buildTierData,
   loadFootballData,
@@ -639,6 +640,38 @@ function deriveMajorTierIndexes(tables) {
   };
 }
 
+function inferOverviewTierNumber(table, seasonNumber) {
+  const text = `${table?.title || ''} ${table?.id || ''}`.toLowerCase();
+  if (!text.trim()) return null;
+
+  if (
+    text.includes('premier league') ||
+    text.includes('premiership') ||
+    text.includes('football league premier division')
+  ) {
+    return 1;
+  }
+
+  if (seasonNumber < 1992 && text.includes('first division')) return 1;
+  if (seasonNumber >= 1992 && (text.includes('championship') || text.includes('first division'))) {
+    return 2;
+  }
+  if (seasonNumber < 1992 && text.includes('second division')) return 2;
+  if (text.includes('league one')) return 3;
+  if (seasonNumber < 1992 && text.includes('third division')) return 3;
+  if (text.includes('league two')) return 4;
+  if (seasonNumber < 1992 && text.includes('fourth division')) return 4;
+  if (
+    text.includes('national league top division') ||
+    text.includes('conference national') ||
+    text.includes('conference premier')
+  ) {
+    return 5;
+  }
+
+  return null;
+}
+
 function collectOutcomeTeams(tables, flag, options = {}) {
   const indexes = Array.isArray(options?.includeIndexes)
     ? options.includeIndexes.filter((index) => Number.isInteger(index) && index >= 0)
@@ -684,9 +717,25 @@ export function buildSeasonOverviewSeasonRecord({ seasonKey, seasonYear, seasonS
   });
 
   const record = { seasonInfo };
+  const usedTierNumbers = new Set();
+  let nextSequentialTier = 1;
 
   tables.forEach((table, index) => {
-    const tierKey = `tier${index + 1}`;
+    let tierNumber = inferOverviewTierNumber(table, safeSeason);
+
+    if (tierNumber == null || usedTierNumbers.has(tierNumber)) {
+      while (usedTierNumbers.has(nextSequentialTier)) {
+        nextSequentialTier += 1;
+      }
+      tierNumber = nextSequentialTier;
+    }
+
+    usedTierNumbers.add(tierNumber);
+    while (usedTierNumbers.has(nextSequentialTier)) {
+      nextSequentialTier += 1;
+    }
+
+    const tierKey = `tier${tierNumber}`;
     record[tierKey] = buildTierData(safeSeason, table.rows, {
       metadata: {
         source: 'wikipedia-overview',
@@ -714,6 +763,16 @@ export async function buildSeasonOverview(startYear, endYear, outputFile, option
     typeof options.fetchSeasonOverviewTables === 'function'
       ? options.fetchSeasonOverviewTables
       : fetchSeasonOverviewTables;
+  const outputMetadata = buildDatasetMetadata({
+    generator: 'wikipedia-overview',
+    buildOptions: {
+      startYear,
+      endYear,
+      updateOnly,
+      forceUpdate,
+      ignoreWarYears,
+    },
+  });
 
   for (let year = startYear; year <= endYear; year++) {
     const seasonKey = String(year);
@@ -745,7 +804,7 @@ export async function buildSeasonOverview(startYear, endYear, outputFile, option
     });
 
     setSeasonRecord(dataset, seasonKey, seasonRecord);
-    saveFootballData(resolvedOutputFile, dataset);
+    saveFootballData(resolvedOutputFile, dataset, { metadata: outputMetadata });
   }
 
   console.log(
@@ -769,7 +828,15 @@ export async function buildSeasonOverviewForSlug(seasonSlug, outputFile) {
   });
 
   setSeasonRecord(dataset, seasonKey, seasonRecord);
-  saveFootballData(resolvedOutputFile, dataset);
+  saveFootballData(resolvedOutputFile, dataset, {
+    metadata: buildDatasetMetadata({
+      generator: 'wikipedia-overview',
+      buildOptions: {
+        seasonSlug,
+        mode: 'single-season',
+      },
+    }),
+  });
   console.log(`\n📂 Overview tables written to ${resolvedOutputFile}`);
   return { seasonKey, record: dataset.seasons[seasonKey] };
 }

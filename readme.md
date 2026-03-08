@@ -145,12 +145,20 @@ node rsssf/cli.js scrape --from-file ./rsssf-cache/1960-61.html --from-file ./rs
 
 - `wikipedia/combine-output-files.js` – merge multiple FootballData JSON files, drop war-year placeholders, prefer the richest tier record for each season, and show a grouped “missing seasons” summary. Use `--include-empty` to keep placeholder entries and `--compact` for minified JSON.
 - `wikipedia/compare-football-data.js` – compare two FootballData JSON files and report season, tier, table, outcome-list, and metadata changes between releases. Pass `--json` for machine-readable output.
+  Pass `--markdown` for a release-note-friendly summary.
 - `scripts/minify-json.js` – shrink JSON files in place or alongside (`foo.min.json`) so they are ready for publishing.
 - `wikipedia/verify-football-data.js` – lint FootballData exports for empty tiers, duplicate teams, stat mismatches, or promotion/relegation inconsistencies. Pass `--fail-on-issues` to exit non-zero when anomalies exist.
 
 ## Exported Data Shape
 
 - The final contract is the merged file: `data-output/all-seasons.json`.
+- Every FootballData export may include a top-level `metadata` object with release provenance:
+  - `schemaVersion`
+  - `generator`
+  - `generatedAt`
+  - `gitSha`
+  - `sourceFiles`
+  - `buildOptions`
 - Each season contains a `seasonInfo` summary object plus one or more `tierN` objects.
 - `seasonInfo` is not a league table. It is a season-level summary that currently stores:
   - `season`
@@ -183,6 +191,9 @@ node wikipedia/verify-football-data.js --fail-on-issues ./data-output
 
 # Compare a previous release file against a freshly generated one
 node wikipedia/compare-football-data.js ./releases/all-seasons-prev.json ./data-output/all-seasons.json
+
+# Generate a markdown release summary
+node wikipedia/compare-football-data.js --markdown ./releases/all-seasons-prev.json ./data-output/all-seasons.json
 
 # Minify the merged dataset next to its original (writes all-seasons.min.json)
 node scripts/minify-json.js ./data-output/all-seasons.json

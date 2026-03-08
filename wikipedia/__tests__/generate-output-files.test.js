@@ -2,10 +2,12 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import {
+  buildDatasetMetadata,
   normaliseLeagueTableEntry,
   createFootballData,
   updateFootballDataFile,
   loadFootballData,
+  saveFootballData,
   setSeasonRecord,
 } from '../generate-output-files.js';
 
@@ -100,6 +102,35 @@ describe('createFootballData', () => {
     const tier2 = dataset.seasons['1901'].tier2;
     expect(Array.isArray(tier2)).toBe(true);
     expect(tier2[0].wasPromoted).toBe(true);
+  });
+
+  test('preserves top-level dataset metadata', () => {
+    const dataset = createFootballData({
+      metadata: {
+        schemaVersion: 1,
+        generator: 'wikipedia-combined',
+        generatedAt: '2026-03-08T12:00:00.000Z',
+        gitSha: 'abc1234',
+        sourceFiles: ['a.json', 'b.json', 'a.json'],
+        buildOptions: {
+          includeEmpty: false,
+          compact: false,
+        },
+      },
+      seasons: {},
+    });
+
+    expect(dataset.metadata).toMatchObject({
+      schemaVersion: 1,
+      generator: 'wikipedia-combined',
+      generatedAt: '2026-03-08T12:00:00.000Z',
+      gitSha: 'abc1234',
+      sourceFiles: ['a.json', 'b.json'],
+      buildOptions: {
+        includeEmpty: false,
+        compact: false,
+      },
+    });
   });
 });
 
@@ -209,6 +240,51 @@ describe('updateFootballDataFile', () => {
     expect(Array.isArray(savedTier2)).toBe(true);
     expect(savedTier2[0].team).toBe('Promotion United');
     expect(savedTier2[0].wasPromoted).toBe(true);
+  });
+});
+
+describe('saveFootballData', () => {
+  const tmpDirs = [];
+
+  afterEach(() => {
+    while (tmpDirs.length) {
+      fs.rmSync(tmpDirs.pop(), { recursive: true, force: true });
+    }
+  });
+
+  test('writes dataset provenance metadata alongside seasons', () => {
+    const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'footy-data-kit-'));
+    tmpDirs.push(tmpDir);
+    const outputFile = path.join(tmpDir, 'output.json');
+    const dataset = createFootballData({ seasons: {} });
+
+    saveFootballData(outputFile, dataset, {
+      metadata: buildDatasetMetadata({
+        generator: 'wikipedia-overview',
+        generatedAt: '2026-03-08T13:00:00.000Z',
+        gitSha: 'def5678',
+        sourceFiles: ['/tmp/a.json'],
+        buildOptions: {
+          startYear: 1991,
+          endYear: 2024,
+          ignoreWarYears: true,
+        },
+      }),
+    });
+
+    const reloaded = loadFootballData(outputFile);
+    expect(reloaded.metadata).toMatchObject({
+      schemaVersion: 1,
+      generator: 'wikipedia-overview',
+      generatedAt: '2026-03-08T13:00:00.000Z',
+      gitSha: 'def5678',
+      sourceFiles: ['/tmp/a.json'],
+      buildOptions: {
+        startYear: 1991,
+        endYear: 2024,
+        ignoreWarYears: true,
+      },
+    });
   });
 });
 

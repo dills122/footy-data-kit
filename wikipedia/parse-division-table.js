@@ -39,7 +39,7 @@ function parseLegendText(rawText) {
       if (!legend[code]) {
         legend[code] = { promoted: false, relegated: false };
       }
-      if (/promot/.test(descriptor) || /play-?off/.test(descriptor)) {
+      if (/promot/.test(descriptor) || /play-?off winners?/.test(descriptor)) {
         legend[code].promoted = true;
       }
       if (/relegat/.test(descriptor) || /demot/.test(descriptor)) {

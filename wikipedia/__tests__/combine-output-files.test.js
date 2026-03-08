@@ -315,6 +315,160 @@ describe('combine-output-files CLI', () => {
     });
   });
 
+  test('combineFootballDataFiles reconciles season continuity across canonical club aliases', () => {
+    const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'combine-output-test-'));
+    tmpDirs.push(tmpDir);
+
+    const promoInput = path.join(tmpDir, 'promo.json');
+    const outputFile = path.join(tmpDir, 'merged.json');
+
+    fs.writeFileSync(
+      promoInput,
+      JSON.stringify(
+        {
+          seasons: {
+            1904: {
+              seasonInfo: {
+                season: 1904,
+                table: [],
+                promoted: ['Liverpool', 'Bolton Wanderers', 'Birmingham'],
+                relegated: ['Small Heath'],
+                seasonSlug: '1904-05_Football_League',
+                sourceUrl: 'https://example.com/1904',
+                tableCount: 0,
+              },
+              tier1: {
+                season: 1904,
+                table: [
+                  {
+                    pos: 1,
+                    team: 'Small Heath',
+                    played: 34,
+                    won: 20,
+                    drawn: 8,
+                    lost: 6,
+                    goalsFor: 50,
+                    goalsAgainst: 30,
+                    goalDifference: 20,
+                    goalAverage: null,
+                    points: 48,
+                    notes: null,
+                    wasRelegated: false,
+                    wasPromoted: false,
+                    isExpansionTeam: false,
+                    wasReElected: false,
+                    wasReprieved: false,
+                  },
+                ],
+                promoted: [],
+                relegated: [],
+                metadata: {
+                  source: 'wikipedia-promotion',
+                  seasonSlug: '1904-05',
+                  tierKey: 'tier1',
+                },
+              },
+            },
+            1905: {
+              seasonInfo: {
+                season: 1905,
+                table: [],
+                promoted: ['Bristol City', 'Manchester United'],
+                relegated: ['Nottingham Forest', 'Wolverhampton Wanderers'],
+                seasonSlug: '1905-06_Football_League',
+                sourceUrl: 'https://example.com/1905',
+                tableCount: 0,
+              },
+              tier1: {
+                season: 1905,
+                table: [
+                  {
+                    pos: 1,
+                    team: 'Birmingham',
+                    played: 38,
+                    won: 24,
+                    drawn: 7,
+                    lost: 7,
+                    goalsFor: 65,
+                    goalsAgainst: 31,
+                    goalDifference: 34,
+                    goalAverage: null,
+                    points: 55,
+                    notes: null,
+                    wasRelegated: false,
+                    wasPromoted: false,
+                    isExpansionTeam: false,
+                    wasReElected: false,
+                    wasReprieved: false,
+                  },
+                  {
+                    pos: 19,
+                    team: 'Nottingham Forest',
+                    played: 38,
+                    won: 12,
+                    drawn: 6,
+                    lost: 20,
+                    goalsFor: 40,
+                    goalsAgainst: 60,
+                    goalDifference: -20,
+                    goalAverage: null,
+                    points: 30,
+                    notes: null,
+                    wasRelegated: true,
+                    wasPromoted: false,
+                    isExpansionTeam: false,
+                    wasReElected: false,
+                    wasReprieved: false,
+                  },
+                  {
+                    pos: 20,
+                    team: 'Wolverhampton Wanderers',
+                    played: 38,
+                    won: 10,
+                    drawn: 8,
+                    lost: 20,
+                    goalsFor: 35,
+                    goalsAgainst: 61,
+                    goalDifference: -26,
+                    goalAverage: null,
+                    points: 28,
+                    notes: null,
+                    wasRelegated: true,
+                    wasPromoted: false,
+                    isExpansionTeam: false,
+                    wasReElected: false,
+                    wasReprieved: false,
+                  },
+                ],
+                promoted: [],
+                relegated: ['Nottingham Forest', 'Wolverhampton Wanderers'],
+                metadata: {
+                  source: 'wikipedia-promotion',
+                  seasonSlug: '1905-06',
+                  tierKey: 'tier1',
+                },
+              },
+            },
+          },
+        },
+        null,
+        2
+      )
+    );
+
+    const result = combineFootballDataFiles({
+      inputs: [promoInput],
+      output: outputFile,
+      cwd: process.cwd(),
+    });
+
+    expect(result.dataset.seasons['1904'].seasonInfo.promoted).toEqual([
+      'Nottingham Forest',
+      'Wolverhampton Wanderers',
+    ]);
+    expect(result.dataset.seasons['1904'].seasonInfo.relegated).toEqual([]);
+  });
+
   test('combineFootballDataFiles preserves overview tier ordering for Premier League-era overlaps', () => {
     const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'combine-output-test-'));
     tmpDirs.push(tmpDir);

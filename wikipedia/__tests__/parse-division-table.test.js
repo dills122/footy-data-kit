@@ -127,4 +127,56 @@ describe('parseDivisionTable', () => {
     const html = '<div><p>No table here</p></div>';
     expect(parseDivisionTable(html, 'second')).toEqual([]);
   });
+
+  test('does not treat play-off qualification legend markers as automatic promotion', () => {
+    const html = `
+      <div>
+        <span id="Second_Division"></span>
+      </div>
+      <div class="wikitable">
+        <table>
+          <tr>
+            <th>Pos</th>
+            <th>Club</th>
+            <th>Pld</th>
+            <th>Pts</th>
+            <th>Notes</th>
+          </tr>
+          <tr>
+            <td>1</td>
+            <th scope="row"><a>Club A</a></th>
+            <td>46</td>
+            <td>90</td>
+            <td>Promotion to First Division</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <th scope="row"><a>Club B</a> (Q)</th>
+            <td>46</td>
+            <td>74</td>
+            <td>Qualification for the Second Division play-offs</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <th scope="row"><a>Club C</a> (W)</th>
+            <td>46</td>
+            <td>73</td>
+            <td>Second Division play-off winners</td>
+          </tr>
+        </table>
+      </div>
+      <div class="legend">(Q) Qualification for the Second Division play-offs; (W) Second Division play-off winners</div>
+    `;
+
+    const rows = parseDivisionTable(html, 'second');
+
+    expect(rows[1]).toMatchObject({
+      team: 'Club B',
+      wasPromoted: false,
+    });
+    expect(rows[2]).toMatchObject({
+      team: 'Club C',
+      wasPromoted: true,
+    });
+  });
 });

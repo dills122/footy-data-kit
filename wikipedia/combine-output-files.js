@@ -4,7 +4,12 @@ import * as fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { canonicalizeTeamName } from './data-quality-config.js';
-import { createFootballData, loadFootballData, saveFootballData } from './generate-output-files.js';
+import {
+  buildDatasetMetadata,
+  createFootballData,
+  loadFootballData,
+  saveFootballData,
+} from './generate-output-files.js';
 
 const TIER_KEY_PATTERN = /^tier/i;
 const WAR_YEAR_SPANS = [
@@ -319,7 +324,17 @@ export function combineFootballDataFiles({
 
   reconcileSeasonInfoContinuity(finalDataset);
   normaliseGoalDifferences(finalDataset);
-  saveFootballData(resolvedOutput, finalDataset, { pretty });
+  saveFootballData(resolvedOutput, finalDataset, {
+    pretty,
+    metadata: buildDatasetMetadata({
+      generator: 'wikipedia-combined',
+      sourceFiles: inputs.map((input) => path.resolve(cwd, input)),
+      buildOptions: {
+        includeEmpty,
+        compact,
+      },
+    }),
+  });
 
   const missingSeasonNumbers = excludedSeasonEntries
     .map(([seasonKey]) => parseSeasonKey(seasonKey))

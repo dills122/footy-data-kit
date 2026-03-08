@@ -166,6 +166,17 @@ describe('parseOverviewLeagueTables', () => {
 
     expect(seasonRecord.seasonInfo.relegated).toEqual(['Norwich City']);
     expect(seasonRecord.seasonInfo.promoted).toEqual([]);
+    expect(seasonRecord.tier1.metadata).toMatchObject({
+      title: 'Premier League',
+      leagueId: 'Premier_League',
+      tierKey: 'tier1',
+    });
+    expect(seasonRecord.tier2).toBeUndefined();
+    expect(seasonRecord.tier3.metadata).toMatchObject({
+      title: 'League One',
+      leagueId: 'League_One',
+      tierKey: 'tier3',
+    });
   });
 });
 
