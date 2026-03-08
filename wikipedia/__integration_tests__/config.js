@@ -28,6 +28,34 @@ export const testPages = /** @type {TestPages} */ ([
     },
   },
   {
+    url: 'https://en.wikipedia.org/wiki/1919-20_Football_League',
+    season: '1919',
+    source: 'promotion',
+    tests: {
+      promoted: ['Tottenham Hotspur', 'Huddersfield Town'],
+      relegated: ['Notts County', 'The Wednesday'],
+      tableEntries: [
+        {
+          tier: 'tier2',
+          data: {
+            team: 'Tottenham Hotspur',
+            wasPromoted: true,
+            points: 70,
+            won: 32,
+          },
+        },
+        {
+          tier: 'tier2',
+          data: {
+            team: 'Birmingham',
+            wasPromoted: false,
+            points: 56,
+          },
+        },
+      ],
+    },
+  },
+  {
     url: 'https://en.wikipedia.org/wiki/1925-26_Football_League',
     season: '1925',
     source: 'promotion',
@@ -108,6 +136,35 @@ export const testPages = /** @type {TestPages} */ ([
     tests: {
       promoted: ['Derby County', 'Portsmouth'],
       relegated: ['Leicester City', 'Manchester City', 'Aston Villa'],
+    },
+  },
+  {
+    url: 'https://en.wikipedia.org/wiki/1992%E2%80%9393_in_English_football',
+    season: '1992',
+    source: 'overview',
+    tests: {
+      promoted: ['Newcastle United', 'West Ham United', 'Swindon Town'],
+      relegated: ['Crystal Palace', 'Middlesbrough', 'Nottingham Forest'],
+      tableEntries: [
+        {
+          tier: 'tier1',
+          data: {
+            team: 'Manchester United',
+            wasPromoted: false,
+            wasRelegated: false,
+            points: 84,
+            goalDifference: 36,
+          },
+        },
+        {
+          tier: 'tier2',
+          data: {
+            team: 'Newcastle United',
+            wasPromoted: true,
+            points: 96,
+          },
+        },
+      ],
     },
   },
   {
@@ -291,6 +348,35 @@ export const testPages = /** @type {TestPages} */ ([
         },
       },
     ],
+  },
+  {
+    url: 'https://en.wikipedia.org/wiki/2016%E2%80%9317_in_English_football',
+    season: '2016',
+    source: 'overview',
+    tests: {
+      promoted: ['Newcastle United', 'Brighton & Hove Albion', 'Huddersfield Town'],
+      relegated: ['Hull City', 'Middlesbrough', 'Sunderland'],
+      tableEntries: [
+        {
+          tier: 'tier1',
+          data: {
+            team: 'Chelsea',
+            wasPromoted: false,
+            wasRelegated: false,
+            points: 93,
+            goalDifference: 52,
+          },
+        },
+        {
+          tier: 'tier5',
+          data: {
+            team: 'Lincoln City',
+            wasPromoted: true,
+            points: 99,
+          },
+        },
+      ],
+    },
   },
   {
     url: 'https://en.wikipedia.org/wiki/2018%E2%80%9319_in_English_football',
