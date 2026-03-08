@@ -207,4 +207,145 @@ describe('verify-football-data', () => {
     expect(issueTypes).toContain('promotion-continuity-mismatch');
     expect(issueTypes).toContain('relegation-continuity-mismatch');
   });
+
+  test('analyzeDataset ignores expected promotion-flow continuity limits after 1991', () => {
+    const issues = analyzeDataset({
+      seasons: {
+        1991: {
+          seasonInfo: {
+            season: 1991,
+            table: [],
+            promoted: ['Ipswich Town', 'Middlesbrough', 'Blackburn Rovers'],
+            relegated: ['Luton Town', 'Notts County', 'West Ham United'],
+            seasonSlug: '1991-92_Football_League',
+            sourceUrl: 'https://example.com/1991',
+            tableCount: 0,
+          },
+          tier1: {
+            season: 1991,
+            table: [
+              {
+                pos: 20,
+                team: 'Luton Town',
+                played: 42,
+                won: 10,
+                drawn: 12,
+                lost: 20,
+                goalsFor: 35,
+                goalsAgainst: 55,
+                goalDifference: -20,
+                goalAverage: null,
+                points: 42,
+                notes: 'Relegated',
+                wasRelegated: true,
+                wasPromoted: false,
+                isExpansionTeam: false,
+                wasReElected: false,
+                wasReprieved: false,
+              },
+            ],
+            promoted: [],
+            relegated: ['Luton Town', 'Notts County', 'West Ham United'],
+            metadata: {
+              source: 'wikipedia-promotion',
+              seasonSlug: '1991-92',
+              sourceUrl: 'https://example.com/1991',
+              tierKey: 'tier1',
+            },
+          },
+          tier2: {
+            season: 1991,
+            table: [
+              {
+                pos: 1,
+                team: 'Ipswich Town',
+                played: 46,
+                won: 24,
+                drawn: 12,
+                lost: 10,
+                goalsFor: 70,
+                goalsAgainst: 40,
+                goalDifference: 30,
+                goalAverage: null,
+                points: 84,
+                notes: 'Promotion to the FA Premier League',
+                wasRelegated: false,
+                wasPromoted: true,
+                isExpansionTeam: false,
+                wasReElected: false,
+                wasReprieved: false,
+              },
+            ],
+            promoted: ['Ipswich Town', 'Middlesbrough', 'Blackburn Rovers'],
+            relegated: [],
+            metadata: {
+              source: 'wikipedia-promotion',
+              seasonSlug: '1991-92',
+              sourceUrl: 'https://example.com/1991',
+              tierKey: 'tier2',
+            },
+          },
+        },
+        1992: {
+          seasonInfo: {
+            season: 1992,
+            table: [],
+            promoted: [],
+            relegated: [],
+            seasonSlug: '1992-93_Football_League',
+            sourceUrl: 'https://example.com/1992',
+            tableCount: 0,
+          },
+          tier1: {
+            season: 1992,
+            table: [
+              {
+                pos: 1,
+                team: 'Portsmouth',
+                played: 46,
+                won: 20,
+                drawn: 12,
+                lost: 14,
+                goalsFor: 60,
+                goalsAgainst: 52,
+                goalDifference: 8,
+                goalAverage: null,
+                points: 72,
+                notes: null,
+                wasRelegated: false,
+                wasPromoted: false,
+                isExpansionTeam: false,
+                wasReElected: false,
+                wasReprieved: false,
+              },
+            ],
+            promoted: ['Stoke City'],
+            relegated: [],
+            metadata: {
+              source: 'wikipedia-promotion',
+              seasonSlug: '1992-93',
+              sourceUrl: 'https://example.com/1992',
+              tierKey: 'tier1',
+            },
+          },
+          tier2: {
+            season: 1992,
+            table: [],
+            promoted: [],
+            relegated: [],
+            metadata: {
+              source: 'wikipedia-promotion',
+              seasonSlug: '1992-93',
+              sourceUrl: 'https://example.com/1992',
+              tierKey: 'tier2',
+            },
+          },
+        },
+      },
+    });
+
+    const issueTypes = issues.map((issue) => issue.type);
+    expect(issueTypes).not.toContain('promotion-continuity-mismatch');
+    expect(issueTypes).not.toContain('relegation-continuity-mismatch');
+  });
 });

@@ -10320,13 +10320,10 @@
       "seasonInfo": {
         "season": 1904,
         "table": [],
-        "relegated": [
-          "Small Heath"
-        ],
+        "relegated": [],
         "promoted": [
           "Liverpool",
-          "Bolton Wanderers",
-          "Birmingham"
+          "Bolton Wanderers"
         ],
         "seasonSlug": "1904-05_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/1904-05_Football_League",
@@ -27150,12 +27147,10 @@
         "season": 1928,
         "table": [],
         "relegated": [
-          "The Wednesday",
           "Bury",
           "Cardiff City"
         ],
         "promoted": [
-          "Sheffield Wednesday",
           "Middlesbrough",
           "Grimsby Town"
         ],

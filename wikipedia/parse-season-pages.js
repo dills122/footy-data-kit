@@ -5,6 +5,7 @@ import {
   saveFootballData,
   setSeasonRecord,
 } from './generate-output-files.js';
+import { canonicalizeTeamName } from './data-quality-config.js';
 import parseDivisionTable from './parse-division-table.js';
 import { fetchHtmlForSlug, wait } from './utils.js';
 
@@ -78,6 +79,7 @@ export function constructTier1SeasonResults(tier1SeasonTable, tier2SeasonTable, 
 
 const WWI_SUSPENSION_YEARS = new Set([1915, 1916, 1917, 1918, 1919]);
 const WWII_SUSPENSION_YEARS = new Set([1940, 1941, 1942, 1943, 1944, 1945, 1946]);
+const RAW_PROMOTION_CONTINUITY_FINAL_SEASON = 1990;
 
 function seasonHasTierData(record) {
   if (!record || typeof record !== 'object') return false;
@@ -93,6 +95,53 @@ function seasonHasTierData(record) {
 function isWarSuspensionYear(year) {
   if (!Number.isFinite(year)) return false;
   return WWI_SUSPENSION_YEARS.has(year) || WWII_SUSPENSION_YEARS.has(year);
+}
+
+function getTierTable(record, tierKey) {
+  return Array.isArray(record?.[tierKey]?.table) ? record[tierKey].table : [];
+}
+
+export function finalizePromotionDataset(dataset, options = {}) {
+  if (!dataset?.seasons || typeof dataset.seasons !== 'object') return dataset;
+
+  const ignoreWarYears = Boolean(options.ignoreWarYears);
+  if (ignoreWarYears) {
+    for (const seasonKey of Object.keys(dataset.seasons)) {
+      const seasonNumber = Number.parseInt(seasonKey, 10);
+      if (Number.isFinite(seasonNumber) && isWarSuspensionYear(seasonNumber)) {
+        delete dataset.seasons[seasonKey];
+      }
+    }
+  }
+
+  const seasonNumbers = Object.keys(dataset.seasons)
+    .map((seasonKey) => Number.parseInt(seasonKey, 10))
+    .filter((seasonNumber) => Number.isFinite(seasonNumber))
+    .sort((a, b) => a - b);
+
+  for (const seasonNumber of seasonNumbers) {
+    if (seasonNumber > RAW_PROMOTION_CONTINUITY_FINAL_SEASON) continue;
+
+    const currentRecord = dataset.seasons[String(seasonNumber)];
+    const nextRecord = dataset.seasons[String(seasonNumber + 1)];
+    if (!currentRecord?.seasonInfo || !nextRecord) continue;
+
+    const currentTopFlight = getTierTable(currentRecord, 'tier1');
+    const nextTopFlight = getTierTable(nextRecord, 'tier1');
+    if (!currentTopFlight.length || !nextTopFlight.length) continue;
+
+    const currentNames = new Set(currentTopFlight.map((row) => canonicalizeTeamName(row.team)));
+    const nextNames = new Set(nextTopFlight.map((row) => canonicalizeTeamName(row.team)));
+
+    currentRecord.seasonInfo.promoted = nextTopFlight
+      .filter((row) => !currentNames.has(canonicalizeTeamName(row.team)))
+      .map((row) => row.team);
+    currentRecord.seasonInfo.relegated = currentTopFlight
+      .filter((row) => !nextNames.has(canonicalizeTeamName(row.team)))
+      .map((row) => row.team);
+  }
+
+  return dataset;
 }
 
 export async function buildPromotionRelegation(startYear, endYear, outputFile, options = {}) {
@@ -154,6 +203,9 @@ export async function buildPromotionRelegation(startYear, endYear, outputFile, o
     setSeasonRecord(dataset, year, seasonRecord);
     saveFootballData(outputFile, dataset);
   }
+
+  finalizePromotionDataset(dataset, { ignoreWarYears });
+  saveFootballData(outputFile, dataset);
 
   console.log(`\n✅ Finished building data for ${Object.keys(dataset.seasons).length} seasons.`);
   return dataset;

@@ -16,6 +16,7 @@ const CONTINUITY_CONFIG = {
   seasonPromotedPath: 'promoted',
   seasonRelegatedPath: 'relegated',
 };
+const PROMOTION_CONTINUITY_FINAL_SEASON = 1990;
 
 /**
  * @param {string[]} targets
@@ -61,7 +62,7 @@ export function expandTargets(targets) {
  */
 export function analyzeFile(filePath) {
   const dataset = loadFootballData(filePath);
-  const issues = analyzeDataset(dataset);
+  const issues = analyzeDataset(dataset, { profile: detectDatasetProfile(dataset) });
   const seasonEntries = Object.entries(dataset.seasons);
 
   issues.sort((a, b) => {
@@ -82,12 +83,14 @@ export function analyzeFile(filePath) {
 
 /**
  * @param {import('./models/output-file.js').FootballData} dataset
+ * @param {{ profile?: DatasetProfile }} [options]
  * @returns {Issue[]}
  */
-export function analyzeDataset(dataset) {
+export function analyzeDataset(dataset, options = {}) {
   const seasonEntries = Object.entries(dataset.seasons || {});
   /** @type {Array<Issue>} */
   const issues = [];
+  const profile = options.profile || detectDatasetProfile(dataset);
 
   for (const [seasonKey, seasonValue] of seasonEntries) {
     const tierEntries = Object.entries(seasonValue).filter(([key]) => TIER_KEY_PATTERN.test(key));
@@ -98,11 +101,13 @@ export function analyzeDataset(dataset) {
 
     const seasonHasContent = tierAnalyses.some((entry) => entry.hasContent);
     if (!tierEntries.length || !seasonHasContent) {
-      issues.push({
-        type: 'missing-season-data',
-        season: seasonKey,
-        message: 'No tier table/promoted/relegated data detected for this season',
-      });
+      if (!shouldIgnoreMissingSeasonData(profile, seasonKey)) {
+        issues.push({
+          type: 'missing-season-data',
+          season: seasonKey,
+          message: 'No tier table/promoted/relegated data detected for this season',
+        });
+      }
       continue;
     }
 
@@ -112,7 +117,7 @@ export function analyzeDataset(dataset) {
     }
   }
 
-  issues.push(...analyzeSeasonContinuity(dataset));
+  issues.push(...analyzeSeasonContinuity(dataset, profile));
   return issues;
 }
 
@@ -482,9 +487,10 @@ function analyzeSeasonContract(seasonKey, seasonValue) {
 
 /**
  * @param {import('./models/output-file.js').FootballData} dataset
+ * @param {DatasetProfile} profile
  * @returns {Issue[]}
  */
-function analyzeSeasonContinuity(dataset) {
+function analyzeSeasonContinuity(dataset, profile) {
   /** @type {Issue[]} */
   const issues = [];
   const seasons = Object.keys(dataset.seasons || {})
@@ -493,6 +499,10 @@ function analyzeSeasonContinuity(dataset) {
     .sort((a, b) => a - b);
 
   for (const seasonNumber of seasons) {
+    if (shouldSkipContinuityForSeason(profile, seasonNumber)) {
+      continue;
+    }
+
     const nextSeason = seasonNumber + 1;
     const currentRecord = dataset.seasons[String(seasonNumber)];
     const nextRecord = dataset.seasons[String(nextSeason)];
@@ -544,6 +554,58 @@ function analyzeSeasonContinuity(dataset) {
   }
 
   return issues;
+}
+
+/**
+ * @param {import('./models/output-file.js').FootballData} dataset
+ * @returns {DatasetProfile}
+ */
+function detectDatasetProfile(dataset) {
+  const sources = new Set();
+
+  for (const seasonRecord of Object.values(dataset.seasons || {})) {
+    if (!seasonRecord || typeof seasonRecord !== 'object') continue;
+
+    for (const [key, tierValue] of Object.entries(seasonRecord)) {
+      if (!TIER_KEY_PATTERN.test(key)) continue;
+      const source = tierValue?.metadata?.source;
+      if (typeof source === 'string' && source.length) {
+        sources.add(source);
+      }
+    }
+  }
+
+  if (sources.size === 1 && sources.has('wikipedia-promotion')) {
+    return { kind: 'promotion-only' };
+  }
+  if (sources.size === 1 && sources.has('wikipedia-overview')) {
+    return { kind: 'overview-only' };
+  }
+  return { kind: 'mixed' };
+}
+
+function isWarSuspensionSeason(seasonKey) {
+  const seasonNumber = parseSeasonNumber(seasonKey);
+  if (seasonNumber == null) return false;
+  return (
+    (seasonNumber >= 1915 && seasonNumber <= 1918) || (seasonNumber >= 1940 && seasonNumber <= 1945)
+  );
+}
+
+/**
+ * @param {DatasetProfile} profile
+ * @param {string} seasonKey
+ */
+function shouldIgnoreMissingSeasonData(profile, seasonKey) {
+  return profile.kind === 'promotion-only' && isWarSuspensionSeason(seasonKey);
+}
+
+/**
+ * @param {DatasetProfile} profile
+ * @param {number} seasonNumber
+ */
+function shouldSkipContinuityForSeason(profile, seasonNumber) {
+  return profile.kind === 'promotion-only' && seasonNumber >= 1991;
 }
 
 /**
@@ -682,6 +744,8 @@ export function printReport(report) {
  * @property {string} [tier]
  * @property {string} type
  * @property {string} message
+ *
+ * @typedef {{ kind: 'promotion-only' | 'overview-only' | 'mixed' }} DatasetProfile
  */
 
 export function runCli(argv = process.argv) {

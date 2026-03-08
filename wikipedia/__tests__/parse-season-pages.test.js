@@ -186,6 +186,7 @@ describe('buildPromotionRelegation', () => {
               <tr><th>Pos</th><th>Club</th><th>Pld</th><th>Pts</th><th>Notes</th></tr>
               <tr><td>1</td><th scope="row"><a>Club A</a></th><td>30</td><td>45</td><td></td></tr>
               <tr><td>2</td><th scope="row"><a>Club B</a></th><td>30</td><td>40</td><td>Relegated</td></tr>
+              <tr><td>3</td><th scope="row"><a>Club F</a></th><td>30</td><td>38</td><td></td></tr>
             </table>
           </div>
           <div><span id="Second_Division"></span></div>
@@ -204,8 +205,9 @@ describe('buildPromotionRelegation', () => {
           <div class="wikitable">
             <table>
               <tr><th>Pos</th><th>Club</th><th>Pld</th><th>Pts</th><th>Notes</th></tr>
-              <tr><td>1</td><th scope="row"><a>Club E</a></th><td>30</td><td>48</td><td></td></tr>
-              <tr><td>2</td><th scope="row"><a>Club F</a></th><td>30</td><td>41</td><td>Relegated</td></tr>
+              <tr><td>1</td><th scope="row"><a>Club A</a></th><td>30</td><td>48</td><td></td></tr>
+              <tr><td>2</td><th scope="row"><a>Club C</a></th><td>30</td><td>41</td><td></td></tr>
+              <tr><td>3</td><th scope="row"><a>Club F</a></th><td>30</td><td>36</td><td>Relegated</td></tr>
             </table>
           </div>
           <div><span id="Second_Division"></span></div>
@@ -254,6 +256,88 @@ describe('buildPromotionRelegation', () => {
         source: 'wikipedia-promotion',
         tierKey: 'tier1',
       });
+    } finally {
+      jest.restoreAllMocks();
+      jest.useRealTimers();
+      fs.rmSync(tmpDir, { recursive: true, force: true });
+    }
+  });
+
+  test('reconciles promotion season summaries from next-season continuity before the Premier League split', async () => {
+    const htmlBySlug = {
+      '1989-90_Football_League': `
+        <div>
+          <div><span id="First_Division"></span></div>
+          <div class="wikitable">
+            <table>
+              <tr><th>Pos</th><th>Club</th><th>Pld</th><th>Pts</th><th>Notes</th></tr>
+              <tr><td>1</td><th scope="row"><a>Existing Club</a></th><td>38</td><td>60</td><td></td></tr>
+              <tr><td>2</td><th scope="row"><a>Derby County</a></th><td>38</td><td>46</td><td></td></tr>
+              <tr><td>3</td><th scope="row"><a>Sheffield Wednesday</a></th><td>38</td><td>43</td><td>Relegated</td></tr>
+              <tr><td>4</td><th scope="row"><a>Charlton Athletic</a></th><td>38</td><td>30</td><td>Relegated</td></tr>
+              <tr><td>5</td><th scope="row"><a>Millwall</a></th><td>38</td><td>26</td><td>Relegated</td></tr>
+            </table>
+          </div>
+          <div><span id="Second_Division"></span></div>
+          <div class="wikitable">
+            <table>
+              <tr><th>Pos</th><th>Club</th><th>Pld</th><th>Pts</th><th>Notes</th></tr>
+              <tr><td>1</td><th scope="row"><a>Leeds United</a></th><td>46</td><td>85</td><td>Promotion to the First Division</td></tr>
+              <tr><td>2</td><th scope="row"><a>Sheffield United</a></th><td>46</td><td>85</td><td>Promotion to the First Division</td></tr>
+              <tr><td>4</td><th scope="row"><a>Swindon Town (Q)</a></th><td>46</td><td>74</td><td>Qualification for the Second Division play-offs</td></tr>
+              <tr><td>6</td><th scope="row"><a>Sunderland (W)</a></th><td>46</td><td>74</td><td>Second Division play-off winners</td></tr>
+            </table>
+          </div>
+          <div class="legend">(Q) Qualification for the Second Division play-offs; (W) Second Division play-off winners</div>
+        </div>
+      `,
+      '1990-91_Football_League': `
+        <div>
+          <div><span id="First_Division"></span></div>
+          <div class="wikitable">
+            <table>
+              <tr><th>Pos</th><th>Club</th><th>Pld</th><th>Pts</th><th>Notes</th></tr>
+              <tr><td>1</td><th scope="row"><a>Existing Club</a></th><td>38</td><td>66</td><td></td></tr>
+              <tr><td>2</td><th scope="row"><a>Leeds United</a></th><td>38</td><td>64</td><td></td></tr>
+              <tr><td>3</td><th scope="row"><a>Sheffield United</a></th><td>38</td><td>55</td><td></td></tr>
+              <tr><td>4</td><th scope="row"><a>Derby County</a></th><td>38</td><td>46</td><td></td></tr>
+              <tr><td>5</td><th scope="row"><a>Sunderland</a></th><td>38</td><td>34</td><td>Relegated</td></tr>
+            </table>
+          </div>
+          <div><span id="Second_Division"></span></div>
+          <div class="wikitable">
+            <table>
+              <tr><th>Pos</th><th>Club</th><th>Pld</th><th>Pts</th><th>Notes</th></tr>
+              <tr><td>1</td><th scope="row"><a>Oldham Athletic</a></th><td>46</td><td>88</td><td>Promotion to the First Division</td></tr>
+            </table>
+          </div>
+        </div>
+      `,
+    };
+
+    jest.spyOn(wikipedia, 'page').mockImplementation(async (slug) => ({
+      html: jest.fn().mockResolvedValue(htmlBySlug[slug]),
+    }));
+
+    jest.useFakeTimers();
+
+    const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'footy-data-kit-'));
+    try {
+      const outputFile = path.join(tmpDir, 'output.json');
+      const resultPromise = buildPromotionRelegation(1989, 1990, outputFile);
+      await jest.runAllTimersAsync();
+      const result = await resultPromise;
+
+      expect(result.seasons['1989'].seasonInfo.promoted).toEqual([
+        'Leeds United',
+        'Sheffield United',
+        'Sunderland',
+      ]);
+      expect(result.seasons['1989'].seasonInfo.relegated).toEqual([
+        'Sheffield Wednesday',
+        'Charlton Athletic',
+        'Millwall',
+      ]);
     } finally {
       jest.restoreAllMocks();
       jest.useRealTimers();
