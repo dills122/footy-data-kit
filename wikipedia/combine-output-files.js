@@ -65,17 +65,11 @@ export function combineFootballDataFiles({
   }
 
   const mergedSeasonEntries = Object.entries(combinedDataset.seasons);
-  const nonWarSeasonEntries = mergedSeasonEntries.filter(
-    ([seasonKey]) => !isWarSuspensionSeason(seasonKey)
-  );
-  const removedWarSeasons = mergedSeasonEntries.length - nonWarSeasonEntries.length;
-  const filteredSeasonEntries = includeEmpty
-    ? nonWarSeasonEntries
-    : nonWarSeasonEntries.filter(([, seasonValue]) => seasonHasData(seasonValue));
-  const filteredSeasonKeys = new Set(filteredSeasonEntries.map(([seasonKey]) => seasonKey));
-  const excludedSeasonEntries = nonWarSeasonEntries.filter(
-    ([seasonKey]) => !filteredSeasonKeys.has(seasonKey)
-  );
+  const { filteredSeasonEntries, excludedSeasonEntries, removedWarSeasons } =
+    splitSeasonEntriesForOutput({
+      seasonEntries: mergedSeasonEntries,
+      includeEmpty,
+    });
   const excludedCount = excludedSeasonEntries.length;
   const finalDataset = createFootballData({
     seasons: Object.fromEntries(filteredSeasonEntries),
@@ -181,22 +175,7 @@ export function runCli(argv = process.argv) {
     console.log(`Total seasons encountered across inputs: ${totalInputSeasons}`);
 
     if (missingSeasonNumbers.length) {
-      const groupedMissing = {
-        ww1: [],
-        ww2: [],
-        other: [],
-      };
-
-      for (const seasonNumber of missingSeasonNumbers.sort((a, b) => a - b)) {
-        const warLabel = getWikipediaWarSuspensionLabel(seasonNumber);
-        if (warLabel === 'ww1') {
-          groupedMissing.ww1.push(seasonNumber);
-        } else if (warLabel === 'ww2') {
-          groupedMissing.ww2.push(seasonNumber);
-        } else {
-          groupedMissing.other.push(seasonNumber);
-        }
-      }
+      const groupedMissing = groupMissingSeasons(missingSeasonNumbers);
 
       console.log('\nMissing seasons (no table/promoted/relegated data in output):');
       if (groupedMissing.ww1.length) {
@@ -220,6 +199,46 @@ export function runCli(argv = process.argv) {
   } catch (error) {
     program.error(error instanceof Error ? error.message : String(error));
   }
+}
+
+export function splitSeasonEntriesForOutput({ seasonEntries, includeEmpty }) {
+  const nonWarSeasonEntries = seasonEntries.filter(
+    ([seasonKey]) => !isWarSuspensionSeason(seasonKey)
+  );
+  const filteredSeasonEntries = includeEmpty
+    ? nonWarSeasonEntries
+    : nonWarSeasonEntries.filter(([, seasonValue]) => seasonHasData(seasonValue));
+  const filteredSeasonKeys = new Set(filteredSeasonEntries.map(([seasonKey]) => seasonKey));
+  const excludedSeasonEntries = nonWarSeasonEntries.filter(
+    ([seasonKey]) => !filteredSeasonKeys.has(seasonKey)
+  );
+
+  return {
+    filteredSeasonEntries,
+    excludedSeasonEntries,
+    removedWarSeasons: seasonEntries.length - nonWarSeasonEntries.length,
+  };
+}
+
+export function groupMissingSeasons(missingSeasonNumbers) {
+  const groupedMissing = {
+    ww1: [],
+    ww2: [],
+    other: [],
+  };
+
+  for (const seasonNumber of [...missingSeasonNumbers].sort((a, b) => a - b)) {
+    const warLabel = getWikipediaWarSuspensionLabel(seasonNumber);
+    if (warLabel === 'ww1') {
+      groupedMissing.ww1.push(seasonNumber);
+    } else if (warLabel === 'ww2') {
+      groupedMissing.ww2.push(seasonNumber);
+    } else {
+      groupedMissing.other.push(seasonNumber);
+    }
+  }
+
+  return groupedMissing;
 }
 
 const isDirectExecution = process.argv[1]
