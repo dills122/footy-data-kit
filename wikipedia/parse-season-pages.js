@@ -6,12 +6,21 @@ import {
   saveFootballData,
   setSeasonRecord,
 } from './generate-output-files.js';
+import {
+  buildPromotionSeasonSlug,
+  buildWikipediaArticleUrl,
+  isWikipediaWarSuspensionYear,
+  WIKIPEDIA_DATA_SOURCES,
+  WIKIPEDIA_GENERATORS,
+  WIKIPEDIA_FETCH_DELAY_MS,
+  WIKIPEDIA_SEASON_RANGES,
+} from './config.js';
 import { canonicalizeTeamName } from './data-quality-config.js';
 import parseDivisionTable from './parse-division-table.js';
 import { fetchHtmlForSlug, wait } from './utils.js';
 
 export async function fetchSeasonTeams(seasonSlug) {
-  const pageUrl = `https://en.wikipedia.org/wiki/${seasonSlug}`;
+  const pageUrl = buildWikipediaArticleUrl(seasonSlug);
   let html;
 
   try {
@@ -21,7 +30,7 @@ export async function fetchSeasonTeams(seasonSlug) {
     return { first: [], second: [] };
   }
 
-  await wait(1000);
+  await wait(WIKIPEDIA_FETCH_DELAY_MS);
 
   const firstDivTable = parseDivisionTable(html, 'first');
   if (!firstDivTable.length) {
@@ -37,7 +46,7 @@ export async function fetchSeasonTeams(seasonSlug) {
 }
 
 export function constructTier1SeasonResults(tier1SeasonTable, tier2SeasonTable, year, slug) {
-  const pageUrl = `https://en.wikipedia.org/wiki/${slug}`;
+  const pageUrl = buildWikipediaArticleUrl(slug);
 
   const tier1RelegatedTeams = tier1SeasonTable
     .filter((team) => team.wasRelegated)
@@ -59,7 +68,7 @@ export function constructTier1SeasonResults(tier1SeasonTable, tier2SeasonTable, 
   const tier1 = buildTierData(year, tier1SeasonTable, {
     promoted: tier2PromotedTeams,
     metadata: {
-      source: 'wikipedia-promotion',
+      source: WIKIPEDIA_DATA_SOURCES.promotion.sourceId,
       sourceUrl: pageUrl,
       seasonSlug: slug,
       tierKey: 'tier1',
@@ -68,7 +77,7 @@ export function constructTier1SeasonResults(tier1SeasonTable, tier2SeasonTable, 
 
   const tier2 = buildTierData(year, tier2SeasonTable, {
     metadata: {
-      source: 'wikipedia-promotion',
+      source: WIKIPEDIA_DATA_SOURCES.promotion.sourceId,
       sourceUrl: pageUrl,
       seasonSlug: slug,
       tierKey: 'tier2',
@@ -78,9 +87,7 @@ export function constructTier1SeasonResults(tier1SeasonTable, tier2SeasonTable, 
   return { tier1, tier2 };
 }
 
-const WWI_SUSPENSION_YEARS = new Set([1915, 1916, 1917, 1918, 1919]);
-const WWII_SUSPENSION_YEARS = new Set([1940, 1941, 1942, 1943, 1944, 1945, 1946]);
-const RAW_PROMOTION_CONTINUITY_FINAL_SEASON = 1990;
+const RAW_PROMOTION_CONTINUITY_FINAL_SEASON = WIKIPEDIA_SEASON_RANGES.classicPromotionFinalSeason;
 
 function seasonHasTierData(record) {
   if (!record || typeof record !== 'object') return false;
@@ -94,8 +101,7 @@ function seasonHasTierData(record) {
 }
 
 function isWarSuspensionYear(year) {
-  if (!Number.isFinite(year)) return false;
-  return WWI_SUSPENSION_YEARS.has(year) || WWII_SUSPENSION_YEARS.has(year);
+  return isWikipediaWarSuspensionYear(year);
 }
 
 function getTierTable(record, tierKey) {
@@ -151,7 +157,7 @@ export async function buildPromotionRelegation(startYear, endYear, outputFile, o
   const forceUpdate = Boolean(options.forceUpdate);
   const ignoreWarYears = Boolean(options.ignoreWarYears);
   const outputMetadata = buildDatasetMetadata({
-    generator: 'wikipedia-promotion',
+    generator: WIKIPEDIA_GENERATORS.promotion,
     buildOptions: {
       startYear,
       endYear,
@@ -173,10 +179,7 @@ export async function buildPromotionRelegation(startYear, endYear, outputFile, o
       continue;
     }
 
-    const endYearEndingDigits = String(year + 1).slice(-2);
-    const slug = `${year}-${
-      endYearEndingDigits === '00' ? String(year + 1) : endYearEndingDigits
-    }_Football_League`;
+    const slug = buildPromotionSeasonSlug(year);
 
     console.log(`\n📖 Fetching ${slug}...`);
     const divisionResultTables = await fetchSeasonTeams(slug);
@@ -202,7 +205,7 @@ export async function buildPromotionRelegation(startYear, endYear, outputFile, o
       seasonInfo: buildSeasonInfo(year, {
         promoted: incomingPromoted,
         relegated: tier1Results.relegated,
-        metadata: { seasonSlug: slug, sourceUrl: `https://en.wikipedia.org/wiki/${slug}` },
+        metadata: { seasonSlug: slug, sourceUrl: buildWikipediaArticleUrl(slug) },
       }),
       tier1: tier1Results,
     };

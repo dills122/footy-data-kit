@@ -344,4 +344,73 @@ describe('buildPromotionRelegation', () => {
       fs.rmSync(tmpDir, { recursive: true, force: true });
     }
   });
+
+  test('does not treat 1919-20 as a skipped WWI suspension season', async () => {
+    const htmlBySlug = {
+      '1914-15_Football_League': `
+        <div>
+          <div><span id="First_Division"></span></div>
+          <div class="wikitable">
+            <table>
+              <tr><th>Pos</th><th>Club</th><th>Pld</th><th>Pts</th><th>Notes</th></tr>
+              <tr><td>1</td><th scope="row"><a>Pre-War FC</a></th><td>38</td><td>60</td><td></td></tr>
+            </table>
+          </div>
+          <div><span id="Second_Division"></span></div>
+          <div class="wikitable">
+            <table>
+              <tr><th>Pos</th><th>Club</th><th>Pld</th><th>Pts</th><th>Notes</th></tr>
+              <tr><td>1</td><th scope="row"><a>Second Tier FC</a></th><td>38</td><td>55</td><td>Promoted</td></tr>
+            </table>
+          </div>
+        </div>
+      `,
+      '1919-20_Football_League': `
+        <div>
+          <div><span id="First_Division"></span></div>
+          <div class="wikitable">
+            <table>
+              <tr><th>Pos</th><th>Club</th><th>Pld</th><th>Pts</th><th>Notes</th></tr>
+              <tr><td>1</td><th scope="row"><a>Post-War FC</a></th><td>42</td><td>70</td><td></td></tr>
+              <tr><td>22</td><th scope="row"><a>Relegated FC</a></th><td>42</td><td>20</td><td>Relegated</td></tr>
+            </table>
+          </div>
+          <div><span id="Second_Division"></span></div>
+          <div class="wikitable">
+            <table>
+              <tr><th>Pos</th><th>Club</th><th>Pld</th><th>Pts</th><th>Notes</th></tr>
+              <tr><td>1</td><th scope="row"><a>Promoted FC</a></th><td>42</td><td>72</td><td>Promoted</td></tr>
+            </table>
+          </div>
+        </div>
+      `,
+    };
+
+    const pageSpy = jest.spyOn(wikipedia, 'page').mockImplementation(async (slug) => ({
+      html: jest.fn().mockResolvedValue(htmlBySlug[slug]),
+    }));
+
+    jest.useFakeTimers();
+
+    const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'footy-data-kit-'));
+    try {
+      const outputFile = path.join(tmpDir, 'output.json');
+      const resultPromise = buildPromotionRelegation(1914, 1919, outputFile, {
+        ignoreWarYears: true,
+      });
+      await jest.runAllTimersAsync();
+      const result = await resultPromise;
+
+      expect(pageSpy).toHaveBeenCalledTimes(2);
+      expect(pageSpy).toHaveBeenNthCalledWith(1, '1914-15_Football_League');
+      expect(pageSpy).toHaveBeenNthCalledWith(2, '1919-20_Football_League');
+      expect(Object.keys(result.seasons)).toEqual(['1914', '1919']);
+      expect(result.seasons['1919'].seasonInfo.promoted).toEqual(['Promoted FC']);
+      expect(result.seasons['1919'].seasonInfo.relegated).toEqual(['Relegated FC']);
+    } finally {
+      jest.restoreAllMocks();
+      jest.useRealTimers();
+      fs.rmSync(tmpDir, { recursive: true, force: true });
+    }
+  });
 });

@@ -3,6 +3,7 @@
 import { execSync } from 'node:child_process';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
+import { WIKIPEDIA_DATA_SOURCES } from './config.js';
 import { isExpansionTeam, wasPromoted, wasRelegated } from './utils.js';
 
 /** @typedef {import('./models/output-file').LeagueTableEntry} LeagueTableEntry */
@@ -349,9 +350,9 @@ function normaliseTierMetadata(value) {
 
   if (metadata.source == null) {
     if (metadata.leagueId != null || metadata.title != null || value.seasonMetadata != null) {
-      metadata.source = 'wikipedia-overview';
+      metadata.source = WIKIPEDIA_DATA_SOURCES.overview.sourceId;
     } else if (metadata.sourceUrl != null || metadata.tierKey != null) {
-      metadata.source = 'wikipedia-promotion';
+      metadata.source = WIKIPEDIA_DATA_SOURCES.promotion.sourceId;
     }
   }
 

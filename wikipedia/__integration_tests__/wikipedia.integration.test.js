@@ -2,6 +2,7 @@ import { jest } from '@jest/globals';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { WIKIPEDIA_DATA_SOURCES } from '../config.js';
 import { constructTier1SeasonResults, fetchSeasonTeams } from '../parse-season-pages.js';
 import {
   buildSeasonOverviewSeasonRecord,
@@ -16,16 +17,15 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, '..', '..');
 
-const DATA_SOURCES = {
-  promotion: {
-    datasetPath: path.join(repoRoot, 'data-output', 'wiki_promotion_relegations_by_season.json'),
-    liveLabel: 'Promotion flow',
-  },
-  overview: {
-    datasetPath: path.join(repoRoot, 'data-output', 'wiki_overview_tables_by_season.json'),
-    liveLabel: 'Overview flow',
-  },
-};
+const DATA_SOURCES = Object.fromEntries(
+  Object.entries(WIKIPEDIA_DATA_SOURCES).map(([key, config]) => [
+    key,
+    {
+      datasetPath: path.join(repoRoot, 'data-output', config.datasetFileName),
+      liveLabel: config.liveLabel,
+    },
+  ])
+);
 
 const savedDatasets = {};
 const savedDatasetErrors = {};

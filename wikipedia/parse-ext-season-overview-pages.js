@@ -1,6 +1,16 @@
 import * as cheerio from 'cheerio';
 import * as path from 'node:path';
 import {
+  buildOverviewSeasonSlug as buildOverviewSeasonSlugFromConfig,
+  buildWikipediaArticleUrl,
+  inferEnglishLeagueTier,
+  isWikipediaWarSuspensionYear,
+  resolveWikipediaDatasetPath,
+  WIKIPEDIA_DATA_SOURCES,
+  WIKIPEDIA_FETCH_DELAY_MS,
+  WIKIPEDIA_OVERVIEW_CONFIG,
+} from './config.js';
+import {
   buildDatasetMetadata,
   buildSeasonInfo,
   buildTierData,
@@ -18,34 +28,11 @@ import {
   wasRelegated,
 } from './utils.js';
 
-const LEAGUE_KEYWORDS = [
-  'league',
-  'division',
-  'championship',
-  'premier',
-  'conference',
-  'alliance',
-  'combination',
-  'section',
-  'group',
-];
-
-const GENERIC_LEAGUE_HEADINGS = [
-  'league table',
-  'league tables',
-  'final table',
-  'final tables',
-  'table',
-  'tables',
-  'league standings',
-  'standings',
-];
-
 function shouldTreatAsTopFlight(title, context = {}) {
   const normalized = String(title || '').toLowerCase();
-  if (normalized.includes('premier league')) return true;
-  if (normalized.includes('premiership')) return true;
-  if (normalized.includes('football league premier division')) return true;
+  if (WIKIPEDIA_OVERVIEW_CONFIG.topFlightKeywords.some((keyword) => normalized.includes(keyword))) {
+    return true;
+  }
   if (normalized.includes('first division')) {
     if (context.hasPremierLeagueHeading) return false;
     return true;
@@ -54,20 +41,7 @@ function shouldTreatAsTopFlight(title, context = {}) {
 }
 
 function findLeagueSectionHeading($) {
-  const idCandidates = [
-    'League_tables',
-    'League_table',
-    'League_season',
-    "League_season_(Men's)",
-    'League_competitions',
-    "League_competitions_(Men's)",
-    'League_Competitions',
-    "League_Competitions_(Men's)",
-    'Final_standings',
-    'Final_Standings',
-    "Men's_football",
-    'Mens_football',
-  ];
+  const idCandidates = WIKIPEDIA_OVERVIEW_CONFIG.sectionHeadingIds;
 
   for (const id of idCandidates) {
     const match = $('h2').filter((_, el) => $(el).attr('id') === id);
@@ -108,13 +82,13 @@ function findLeagueSectionHeading($) {
 
 function headingHasLeagueKeyword(title) {
   const normalized = String(title || '').toLowerCase();
-  return LEAGUE_KEYWORDS.some((keyword) => normalized.includes(keyword));
+  return WIKIPEDIA_OVERVIEW_CONFIG.leagueKeywords.some((keyword) => normalized.includes(keyword));
 }
 
 function isGenericLeagueHeading(title) {
   if (!title) return false;
   const normalized = String(title).trim().toLowerCase();
-  return GENERIC_LEAGUE_HEADINGS.includes(normalized);
+  return WIKIPEDIA_OVERVIEW_CONFIG.genericLeagueHeadings.includes(normalized);
 }
 
 function getHeadingLevel($el) {
@@ -513,7 +487,7 @@ export function parseOverviewLeagueTables(html) {
 }
 
 export async function fetchSeasonOverviewTables(seasonSlug) {
-  const pageUrl = `https://en.wikipedia.org/wiki/${seasonSlug}`;
+  const pageUrl = buildWikipediaArticleUrl(seasonSlug);
   let html;
 
   try {
@@ -523,7 +497,7 @@ export async function fetchSeasonOverviewTables(seasonSlug) {
     return [];
   }
 
-  await wait(1000);
+  await wait(WIKIPEDIA_FETCH_DELAY_MS);
 
   const leagueTables = parseOverviewLeagueTables(html);
   if (!leagueTables.length) {
@@ -536,15 +510,13 @@ export async function fetchSeasonOverviewTables(seasonSlug) {
 }
 
 export function buildSeasonOverviewSlug(year) {
-  const nextYear = year + 1;
-  const nextYearPart =
-    nextYear % 100 === 0 ? String(nextYear) : String(nextYear).slice(-2).padStart(2, '0');
-  return `${year}\u2013${nextYearPart}_in_English_football`;
+  return buildOverviewSeasonSlugFromConfig(year);
 }
 
 function resolveOverviewOutputFile(outputFile) {
-  if (outputFile) return path.resolve(outputFile);
-  return path.resolve('./data-output/wiki_overview_tables_by_season.json');
+  return outputFile
+    ? path.resolve(outputFile)
+    : resolveWikipediaDatasetPath(WIKIPEDIA_DATA_SOURCES.overview.key);
 }
 
 function deriveSeasonKeyFromSlug(slug) {
@@ -558,9 +530,6 @@ function deriveSeasonYearFromSlug(slug) {
   const numeric = Number.parseInt(key, 10);
   return Number.isFinite(numeric) ? numeric : null;
 }
-
-const WWI_SUSPENSION_YEARS = new Set([1915, 1916, 1917, 1918, 1919]);
-const WWII_SUSPENSION_YEARS = new Set([1940, 1941, 1942, 1943, 1944, 1945, 1946]);
 
 function seasonHasTierData(record) {
   if (!record || typeof record !== 'object') return false;
@@ -580,8 +549,7 @@ function seasonHasTierData(record) {
 }
 
 function isWarSuspensionYear(year) {
-  if (!Number.isFinite(year)) return false;
-  return WWI_SUSPENSION_YEARS.has(year) || WWII_SUSPENSION_YEARS.has(year);
+  return isWikipediaWarSuspensionYear(year);
 }
 
 function deriveMajorTierIndexes(tables) {
@@ -590,7 +558,7 @@ function deriveMajorTierIndexes(tables) {
   }
 
   const hasPremierLeagueHeading = tables.some((table) =>
-    ['premier league', 'premiership', 'football league premier division'].some((keyword) =>
+    WIKIPEDIA_OVERVIEW_CONFIG.topFlightKeywords.some((keyword) =>
       String(table?.title || '')
         .toLowerCase()
         .includes(keyword)
@@ -613,10 +581,8 @@ function deriveMajorTierIndexes(tables) {
     if (isGenericLeagueHeading(title)) return true;
 
     if (hasPremierLeagueHeading) {
-      return (
-        normalized.includes('championship') ||
-        normalized.includes('division one') ||
-        normalized.includes('first division')
+      return WIKIPEDIA_OVERVIEW_CONFIG.secondTierPostPremierKeywords.some((keyword) =>
+        normalized.includes(keyword)
       );
     }
 
@@ -641,35 +607,7 @@ function deriveMajorTierIndexes(tables) {
 }
 
 function inferOverviewTierNumber(table, seasonNumber) {
-  const text = `${table?.title || ''} ${table?.id || ''}`.toLowerCase();
-  if (!text.trim()) return null;
-
-  if (
-    text.includes('premier league') ||
-    text.includes('premiership') ||
-    text.includes('football league premier division')
-  ) {
-    return 1;
-  }
-
-  if (seasonNumber < 1992 && text.includes('first division')) return 1;
-  if (seasonNumber >= 1992 && (text.includes('championship') || text.includes('first division'))) {
-    return 2;
-  }
-  if (seasonNumber < 1992 && text.includes('second division')) return 2;
-  if (text.includes('league one')) return 3;
-  if (seasonNumber < 1992 && text.includes('third division')) return 3;
-  if (text.includes('league two')) return 4;
-  if (seasonNumber < 1992 && text.includes('fourth division')) return 4;
-  if (
-    text.includes('national league top division') ||
-    text.includes('conference national') ||
-    text.includes('conference premier')
-  ) {
-    return 5;
-  }
-
-  return null;
+  return inferEnglishLeagueTier(`${table?.title || ''} ${table?.id || ''}`, seasonNumber);
 }
 
 function collectOutcomeTeams(tables, flag, options = {}) {
@@ -738,8 +676,8 @@ export function buildSeasonOverviewSeasonRecord({ seasonKey, seasonYear, seasonS
     const tierKey = `tier${tierNumber}`;
     record[tierKey] = buildTierData(safeSeason, table.rows, {
       metadata: {
-        source: 'wikipedia-overview',
-        sourceUrl: `https://en.wikipedia.org/wiki/${seasonSlug}`,
+        source: WIKIPEDIA_DATA_SOURCES.overview.sourceId,
+        sourceUrl: buildWikipediaArticleUrl(seasonSlug),
         seasonSlug,
         leagueId: table.id || null,
         title: table.title,
@@ -764,7 +702,7 @@ export async function buildSeasonOverview(startYear, endYear, outputFile, option
       ? options.fetchSeasonOverviewTables
       : fetchSeasonOverviewTables;
   const outputMetadata = buildDatasetMetadata({
-    generator: 'wikipedia-overview',
+    generator: WIKIPEDIA_DATA_SOURCES.overview.generator,
     buildOptions: {
       startYear,
       endYear,
@@ -830,7 +768,7 @@ export async function buildSeasonOverviewForSlug(seasonSlug, outputFile) {
   setSeasonRecord(dataset, seasonKey, seasonRecord);
   saveFootballData(resolvedOutputFile, dataset, {
     metadata: buildDatasetMetadata({
-      generator: 'wikipedia-overview',
+      generator: WIKIPEDIA_DATA_SOURCES.overview.generator,
       buildOptions: {
         seasonSlug,
         mode: 'single-season',

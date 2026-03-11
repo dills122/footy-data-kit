@@ -3,6 +3,13 @@ import { Command } from 'commander';
 import * as fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import {
+  getWikipediaWarSuspensionLabel,
+  isWikipediaWarSuspensionYear,
+  WIKIPEDIA_DATA_SOURCES,
+  WIKIPEDIA_GENERATORS,
+  WIKIPEDIA_SEASON_RANGES,
+} from './config.js';
 import { canonicalizeTeamName } from './data-quality-config.js';
 import {
   buildDatasetMetadata,
@@ -12,22 +19,17 @@ import {
 } from './generate-output-files.js';
 
 const TIER_KEY_PATTERN = /^tier/i;
-const WAR_YEAR_SPANS = [
-  [1915, 1918],
-  [1940, 1945],
-];
 
 const parseSeasonKey = (seasonKey) => {
   const numeric = Number.parseInt(String(seasonKey), 10);
   return Number.isFinite(numeric) ? numeric : null;
 };
 
-const PREMIER_LEAGUE_START_SEASON = 1992;
+const PREMIER_LEAGUE_START_SEASON = WIKIPEDIA_SEASON_RANGES.premierLeagueStartSeason;
 
 function isWarSuspensionSeason(seasonKey) {
   const numeric = parseSeasonKey(seasonKey);
-  if (numeric == null) return false;
-  return WAR_YEAR_SPANS.some(([start, end]) => numeric >= start && numeric <= end);
+  return numeric == null ? false : isWikipediaWarSuspensionYear(numeric);
 }
 
 function blockHasData(block) {
@@ -133,10 +135,16 @@ function shouldPreferOverviewTier(existingTier, incomingTier, seasonKey) {
   const existingSource = getTierSource(existingTier);
   const incomingSource = getTierSource(incomingTier);
 
-  if (existingSource === 'wikipedia-overview' && incomingSource === 'wikipedia-promotion') {
+  if (
+    existingSource === WIKIPEDIA_DATA_SOURCES.overview.sourceId &&
+    incomingSource === WIKIPEDIA_DATA_SOURCES.promotion.sourceId
+  ) {
     return true;
   }
-  if (existingSource === 'wikipedia-promotion' && incomingSource === 'wikipedia-overview') {
+  if (
+    existingSource === WIKIPEDIA_DATA_SOURCES.promotion.sourceId &&
+    incomingSource === WIKIPEDIA_DATA_SOURCES.overview.sourceId
+  ) {
     return true;
   }
 
@@ -164,7 +172,9 @@ function mergeTier(existingTier, incomingTier, includeEmpty, seasonKey) {
   }
 
   if (shouldPreferOverviewTier(existingTier, incomingTier, seasonKey)) {
-    return getTierSource(existingTier) === 'wikipedia-overview' ? existingTier : incomingTier;
+    return getTierSource(existingTier) === WIKIPEDIA_DATA_SOURCES.overview.sourceId
+      ? existingTier
+      : incomingTier;
   }
 
   return compareTierRichness(existingTier, incomingTier) > 0 ? incomingTier : existingTier;
@@ -327,7 +337,7 @@ export function combineFootballDataFiles({
   saveFootballData(resolvedOutput, finalDataset, {
     pretty,
     metadata: buildDatasetMetadata({
-      generator: 'wikipedia-combined',
+      generator: WIKIPEDIA_GENERATORS.combined,
       sourceFiles: inputs.map((input) => path.resolve(cwd, input)),
       buildOptions: {
         includeEmpty,
@@ -429,9 +439,10 @@ export function runCli(argv = process.argv) {
       };
 
       for (const seasonNumber of missingSeasonNumbers.sort((a, b) => a - b)) {
-        if (seasonNumber >= 1915 && seasonNumber <= 1919) {
+        const warLabel = getWikipediaWarSuspensionLabel(seasonNumber);
+        if (warLabel === 'ww1') {
           groupedMissing.ww1.push(seasonNumber);
-        } else if (seasonNumber >= 1940 && seasonNumber <= 1946) {
+        } else if (warLabel === 'ww2') {
           groupedMissing.ww2.push(seasonNumber);
         } else {
           groupedMissing.other.push(seasonNumber);

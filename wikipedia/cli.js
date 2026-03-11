@@ -1,6 +1,11 @@
 #!/usr/bin/env node
 import { Command } from 'commander';
-import * as path from 'node:path';
+import {
+  isWikipediaWarSuspensionYear,
+  resolveWikipediaDatasetPath,
+  WIKIPEDIA_DATA_SOURCES,
+  WIKIPEDIA_DEFAULT_OUTPUT_DIR,
+} from './config.js';
 import { loadFootballData } from './generate-output-files.js';
 import {
   buildSeasonOverview,
@@ -19,8 +24,7 @@ program
 async function buildSeasonData(opts) {
   const startYear = parseInt(opts.start, 10);
   const endYear = parseInt(opts.end, 10);
-  const outputDir = path.resolve(opts.output);
-  const outputFile = path.join(outputDir, 'wiki_promotion_relegations_by_season.json');
+  const outputFile = resolveWikipediaDatasetPath(WIKIPEDIA_DATA_SOURCES.promotion.key, opts.output);
 
   console.log(`🏁 Generating data from ${startYear} to ${endYear}...`);
 
@@ -42,7 +46,7 @@ program
   .description('Build dataset between given start and end years')
   .option('-s, --start <year>', 'Start year', '1888')
   .option('-e, --end <year>', 'End year', '2000')
-  .option('-o, --output <path>', 'Output directory', './data-output')
+  .option('-o, --output <path>', 'Output directory', WIKIPEDIA_DEFAULT_OUTPUT_DIR)
   .option('-u, --update-only', 'Skip seasons that already contain tier data', false)
   .option('-f, --force-update', 'Rebuild seasons even if data exists', false)
   .option('--ignore-war-years', 'Skip WWI/WWII suspension seasons', false)
@@ -53,15 +57,17 @@ program
   .description('Build season overview league tables between given start and end years')
   .option('-s, --start <year>', 'Start year', '2008')
   .option('-e, --end <year>', 'End year', '2008')
-  .option('-o, --output <path>', 'Output directory', './data-output')
+  .option('-o, --output <path>', 'Output directory', WIKIPEDIA_DEFAULT_OUTPUT_DIR)
   .option('-u, --update-only', 'Skip seasons that already contain tier data', false)
   .option('-f, --force-update', 'Rebuild seasons even if data exists', false)
   .option('--ignore-war-years', 'Skip WWI/WWII suspension seasons', false)
   .action(async (opts) => {
     const startYear = parseInt(opts.start, 10);
     const endYear = parseInt(opts.end, 10);
-    const outputDir = path.resolve(opts.output);
-    const outputFile = path.join(outputDir, 'wiki_overview_tables_by_season.json');
+    const outputFile = resolveWikipediaDatasetPath(
+      WIKIPEDIA_DATA_SOURCES.overview.key,
+      opts.output
+    );
 
     console.log(`🏁 Generating overview data from ${startYear} to ${endYear}...`);
 
@@ -85,16 +91,21 @@ program
   )
   .option('-s, --start <year>', 'Start year', '1888')
   .option('-e, --end <year>', 'End year', '2000')
-  .option('-o, --output <path>', 'Output directory', './data-output')
+  .option('-o, --output <path>', 'Output directory', WIKIPEDIA_DEFAULT_OUTPUT_DIR)
   .option('-u, --update-only', 'Skip seasons that already contain tier data', false)
   .option('-f, --force-update', 'Rebuild seasons even if data exists', false)
   .option('--ignore-war-years', 'Skip WWI/WWII suspension seasons', false)
   .action(async (opts) => {
     const startYear = parseInt(opts.start, 10);
     const endYear = parseInt(opts.end, 10);
-    const outputDir = path.resolve(opts.output);
-    const promoOutput = path.join(outputDir, 'wiki_promotion_relegations_by_season.json');
-    const overviewOutput = path.join(outputDir, 'wiki_overview_tables_by_season.json');
+    const promoOutput = resolveWikipediaDatasetPath(
+      WIKIPEDIA_DATA_SOURCES.promotion.key,
+      opts.output
+    );
+    const overviewOutput = resolveWikipediaDatasetPath(
+      WIKIPEDIA_DATA_SOURCES.overview.key,
+      opts.output
+    );
     const updateOnly = Boolean(opts.updateOnly);
     const forceUpdate = Boolean(opts.forceUpdate);
     const ignoreWarYears = Boolean(opts.ignoreWarYears);
@@ -120,10 +131,9 @@ program
       });
     } else {
       const promoData = loadFootballData(promoOutput);
-      const isWarYear = (year) => (year >= 1915 && year <= 1919) || (year >= 1940 && year <= 1946);
       const missingSeasons = [];
       for (let year = startYear; year <= endYear; year++) {
-        if (ignoreWarYears && isWarYear(year)) continue;
+        if (ignoreWarYears && isWikipediaWarSuspensionYear(year)) continue;
         const record = promoData.seasons?.[String(year)];
         const tier1Table = record?.tier1?.table;
         if (!Array.isArray(tier1Table) || tier1Table.length === 0) {

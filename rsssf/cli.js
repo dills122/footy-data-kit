@@ -2,14 +2,20 @@
 import { Command } from 'commander';
 import * as fs from 'node:fs/promises';
 import * as path from 'node:path';
+import {
+  RSSSF_AGGREGATE_FILE_NAME,
+  RSSSF_COMMAND_NAME,
+  RSSSF_DEFAULT_OUTPUT_DIR,
+  RSSSF_PAGE_FILE_FALLBACK,
+  RSSSF_SEASON_FILE_PREFIX,
+  RSSSF_URL_TEMPLATE,
+} from './config.js';
 import { decodeRsssfBuffer, fetchRsssfPage, parseRsssfPage } from './parse-page.js';
-
-const DEFAULT_URL_TEMPLATE = 'https://www.rsssf.org/engpaul/FLA/{seasonSlug}.html';
 
 function ensureJsonOutputPath(parsedResult, explicitPath) {
   if (explicitPath) return path.resolve(explicitPath);
 
-  const baseDir = path.resolve(process.cwd(), 'data-output', 'rsssf');
+  const baseDir = RSSSF_DEFAULT_OUTPUT_DIR;
   const slugSource = (() => {
     if (parsedResult.seasonSlug) return parsedResult.seasonSlug;
     if (typeof parsedResult.season === 'string') return parsedResult.season;
@@ -27,7 +33,7 @@ function ensureJsonOutputPath(parsedResult, explicitPath) {
     .replace(/[^a-z0-9-]+/g, '-')
     .replace(/^-|-$/g, '');
 
-  const fileName = `rsssf-${safeSlug || fallback}.json`;
+  const fileName = `${RSSSF_SEASON_FILE_PREFIX}${safeSlug || fallback}.json`;
   return path.join(baseDir, fileName);
 }
 
@@ -83,8 +89,7 @@ function buildSeasonRangeUrls(startYear, endYear, template) {
 
 function ensureAggregateOutputPath(explicitPath) {
   if (explicitPath) return path.resolve(explicitPath);
-  const baseDir = path.resolve(process.cwd(), 'data-output', 'rsssf');
-  return path.join(baseDir, 'rsssf_promotion_relegations_by_season.json');
+  return path.join(RSSSF_DEFAULT_OUTPUT_DIR, RSSSF_AGGREGATE_FILE_NAME);
 }
 
 function extractSeasonYear(seasonValue, parts) {
@@ -173,7 +178,7 @@ async function readLocalHtml(filePath) {
 const program = new Command();
 
 program
-  .name('rsssf-scraper')
+  .name(RSSSF_COMMAND_NAME)
   .description('Scrape RSSSF league tables into structured JSON')
   .version('1.0.0');
 
@@ -192,7 +197,7 @@ program
   .option(
     '--url-template <template>',
     'Template for season URLs (supports {seasonSlug}, {startYear}, {endYear}, {endYearShort}, {seasonSlugUnderscore}, {seasonSlugFull}, {seasonSlugCompact}, {seasonLabel})',
-    DEFAULT_URL_TEMPLATE
+    RSSSF_URL_TEMPLATE
   )
   .option('-o, --output <file>', 'Optional JSON output path')
   .option('--pretty', 'Pretty-print JSON output', false)
@@ -353,7 +358,8 @@ program
           if (multipleSources) {
             const htmlDir = path.resolve(saveHtml);
             await fs.mkdir(htmlDir, { recursive: true });
-            const htmlFileName = defaultFileName.replace(/\.json$/i, '') || 'rsssf-page';
+            const htmlFileName =
+              defaultFileName.replace(/\.json$/i, '') || RSSSF_PAGE_FILE_FALLBACK;
             htmlPath = path.join(htmlDir, `${htmlFileName}.html`);
           } else {
             htmlPath = path.resolve(saveHtml);
