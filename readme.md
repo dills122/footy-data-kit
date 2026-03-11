@@ -33,9 +33,9 @@ pnpm i
 1. **Generate Wikipedia data**
    ```bash
    # Promotion/relegation parser handles pre-Premier League seasons best
-   node wikipedia/cli.js build --start 1888 --end 1990 --output ./data-output
+   node wikipedia/cli.js build --start 1888 --end 1990 --output ./data-output --ignore-war-years
    # Overview parser is more reliable for 1991 onward
-   node wikipedia/cli.js overview --start 1991 --end 2024 --output ./data-output
+   node wikipedia/cli.js overview --start 1991 --end 2024 --output ./data-output --ignore-war-years
    ```
 2. **Merge and normalise**
    ```bash
@@ -63,8 +63,8 @@ The exact sequence we use for fresh data pulls is below. It runs both Wikipedia 
 # Setup Repo, Install Deps
 pnpm i
 # Generate Data
-node wikipedia/cli.js build --start 1888 --end 1990 --output ./data-output
-node wikipedia/cli.js overview --start 1991 --end 2024 --output ./data-output
+node wikipedia/cli.js build --start 1888 --end 1990 --output ./data-output --force-update --ignore-war-years
+node wikipedia/cli.js overview --start 1991 --end 2024 --output ./data-output --force-update --ignore-war-years
 # Combine data into all-seasons file
 node wikipedia/combine-output-files.js --output ./data-output/all-seasons.json \
   ./data-output/wiki_overview_tables_by_season.json \
@@ -76,6 +76,24 @@ pnpm test:integration
 node scripts/minify-json.js ./data-output/all-seasons.json
 node scripts/minify-json.js ./data-output/wiki_overview_tables_by_season.json
 node scripts/minify-json.js ./data-output/wiki_promotion_relegations_by_season.json
+```
+
+### Promotion fixture rebuild flow
+
+When `data-output/wiki_promotion_relegations_by_season.json` needs to be refreshed, rebuild it from code instead of patching individual seasons by hand:
+
+```bash
+pnpm build:wikipedia:promotion
+pnpm minify:wikipedia:promotion
+pnpm test:integration:promotion
+```
+
+For a single-season repair while preserving the checked-in dataset shape, use the same command with a narrow range and keep `--ignore-war-years` enabled. Example for the 1919-20 edge season:
+
+```bash
+node wikipedia/cli.js build --start 1919 --end 1919 --output ./data-output --force-update --ignore-war-years
+node scripts/minify-json.js ./data-output/wiki_promotion_relegations_by_season.json
+pnpm test:integration:promotion
 ```
 
 ## Project Structure
@@ -110,7 +128,7 @@ Common flags across commands:
 
 Each run saves season-by-season progress immediately, so reruns are fast. The `combined` command automatically calls `overview` when a season is missing Tier 1 data, mirroring the manual fallback we used while cleaning the dataset.
 
-> Tip: in practice we run `build` for 1888–1990 and `overview` for 1991 onwards because the promotion scraper becomes unreliable for modern Premier League formats while the overview parser continues to capture every table.
+> Tip: in practice we run `build` for 1888–1990 and `overview` for 1991 onwards because the promotion scraper becomes unreliable for modern Premier League formats while the overview parser continues to capture every table. For the checked-in promotion dataset, keep `--ignore-war-years` enabled so suspended seasons stay out of the saved export while valid post-war seasons such as `1919-20` still rebuild normally.
 
 ## RSSSF CLI (`rsssf-scraper`)
 
