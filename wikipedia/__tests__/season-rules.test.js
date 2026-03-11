@@ -88,6 +88,52 @@ describe('season-rules', () => {
     expect(dataset.seasons['1904'].seasonInfo.relegated).toEqual(['Bolton Wanderers']);
   });
 
+  test('can limit continuity reconciliation to an upper season boundary', () => {
+    const baseDataset = {
+      seasons: {
+        1899: {
+          seasonInfo: {
+            promoted: [],
+            relegated: [],
+          },
+          tier1: {
+            table: [{ team: 'A' }, { team: 'B' }],
+          },
+        },
+        1900: {
+          seasonInfo: {
+            promoted: [],
+            relegated: [],
+          },
+          tier1: {
+            table: [{ team: 'A' }, { team: 'C' }],
+          },
+        },
+        1901: {
+          seasonInfo: {
+            promoted: [],
+            relegated: [],
+          },
+          tier1: {
+            table: [{ team: 'B' }, { team: 'C' }],
+          },
+        },
+      },
+    };
+
+    const earlyDataset = JSON.parse(JSON.stringify(baseDataset));
+    reconcileSeasonInfoContinuity(earlyDataset, { maxContinuitySeason: 1899 });
+    expect(earlyDataset.seasons['1899'].seasonInfo.promoted).toEqual(['C']);
+    expect(earlyDataset.seasons['1899'].seasonInfo.relegated).toEqual(['B']);
+
+    const boundedDataset = JSON.parse(JSON.stringify(baseDataset));
+    reconcileSeasonInfoContinuity(boundedDataset, { maxContinuitySeason: 1900 });
+    expect(boundedDataset.seasons['1899'].seasonInfo.promoted).toEqual(['C']);
+    expect(boundedDataset.seasons['1899'].seasonInfo.relegated).toEqual(['B']);
+    expect(boundedDataset.seasons['1900'].seasonInfo.promoted).toEqual(['B']);
+    expect(boundedDataset.seasons['1900'].seasonInfo.relegated).toEqual(['A']);
+  });
+
   test('normaliseGoalDifference fixes incorrect values in-place', () => {
     const dataset = {
       seasons: {

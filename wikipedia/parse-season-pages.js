@@ -14,10 +14,13 @@ import {
   WIKIPEDIA_FETCH_DELAY_MS,
   WIKIPEDIA_SEASON_RANGES,
 } from './config.js';
-import { canonicalizeTeamName } from './data-quality-config.js';
 import parseDivisionTable from './parse-division-table.js';
 import { fetchHtmlForSlug, wait } from './utils.js';
-import { isWarSuspensionSeason, getTierTable, seasonHasTierData } from './season-rules.js';
+import {
+  isWarSuspensionSeason,
+  reconcileSeasonInfoContinuity,
+  seasonHasTierData,
+} from './season-rules.js';
 
 export async function fetchSeasonTeams(seasonSlug) {
   const pageUrl = buildWikipediaArticleUrl(seasonSlug);
@@ -102,32 +105,9 @@ export function finalizePromotionDataset(dataset, options = {}) {
     }
   }
 
-  const seasonNumbers = Object.keys(dataset.seasons)
-    .map((seasonKey) => Number.parseInt(seasonKey, 10))
-    .filter((seasonNumber) => Number.isFinite(seasonNumber))
-    .sort((a, b) => a - b);
-
-  for (const seasonNumber of seasonNumbers) {
-    if (seasonNumber > RAW_PROMOTION_CONTINUITY_FINAL_SEASON) continue;
-
-    const currentRecord = dataset.seasons[String(seasonNumber)];
-    const nextRecord = dataset.seasons[String(seasonNumber + 1)];
-    if (!currentRecord?.seasonInfo || !nextRecord) continue;
-
-    const currentTopFlight = getTierTable(currentRecord?.tier1);
-    const nextTopFlight = getTierTable(nextRecord?.tier1);
-    if (!currentTopFlight.length || !nextTopFlight.length) continue;
-
-    const currentNames = new Set(currentTopFlight.map((row) => canonicalizeTeamName(row.team)));
-    const nextNames = new Set(nextTopFlight.map((row) => canonicalizeTeamName(row.team)));
-
-    currentRecord.seasonInfo.promoted = nextTopFlight
-      .filter((row) => !currentNames.has(canonicalizeTeamName(row.team)))
-      .map((row) => row.team);
-    currentRecord.seasonInfo.relegated = currentTopFlight
-      .filter((row) => !nextNames.has(canonicalizeTeamName(row.team)))
-      .map((row) => row.team);
-  }
+  reconcileSeasonInfoContinuity(dataset, {
+    maxContinuitySeason: RAW_PROMOTION_CONTINUITY_FINAL_SEASON,
+  });
 
   return dataset;
 }

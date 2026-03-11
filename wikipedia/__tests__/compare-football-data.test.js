@@ -222,6 +222,11 @@ describe('compare-football-data', () => {
     expect(canonicalizeTeamName('Woolwich Arsenal')).toBe('arsenal');
     expect(canonicalizeTeamName('Ardwick')).toBe('manchester city');
     expect(canonicalizeTeamName('Small Heath')).toBe('birmingham city');
+    expect(canonicalizeTeamName('QPR')).toBe('queens park rangers');
+    expect(canonicalizeTeamName('Wolves')).toBe('wolverhampton wanderers');
+    expect(canonicalizeTeamName('West Brom')).toBe('west bromwich albion');
+    expect(canonicalizeTeamName('WBA')).toBe('west bromwich albion');
+    expect(canonicalizeTeamName('Wrexham AFC')).toBe('wrexham');
   });
 
   test('renderMarkdownSummary produces a compact release-friendly summary', () => {

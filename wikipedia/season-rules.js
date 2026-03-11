@@ -237,6 +237,8 @@ export function reconcileSeasonInfoContinuity(dataset, options = {}) {
   const topFlightTierKey = options.topFlightTierKey || CONTINUITY_CONFIG.topFlightTierKey;
   const seasonPromotedPath = options.seasonPromotedPath || CONTINUITY_CONFIG.seasonPromotedPath;
   const seasonRelegatedPath = options.seasonRelegatedPath || CONTINUITY_CONFIG.seasonRelegatedPath;
+  const maxContinuitySeason = Number.parseInt(String(options.maxContinuitySeason), 10);
+  const shouldSkipSeason = options.shouldSkipSeason || (() => false);
 
   const seasonNumbers = Object.keys(dataset.seasons)
     .map((seasonKey) => parseSeasonNumber(seasonKey))
@@ -244,6 +246,9 @@ export function reconcileSeasonInfoContinuity(dataset, options = {}) {
     .sort((a, b) => a - b);
 
   for (const seasonNumber of seasonNumbers) {
+    if (Number.isFinite(maxContinuitySeason) && seasonNumber > maxContinuitySeason) continue;
+    if (shouldSkipSeason(seasonNumber)) continue;
+
     const currentRecord = dataset.seasons[String(seasonNumber)];
     const nextRecord = dataset.seasons[String(seasonNumber + 1)];
     if (!currentRecord?.seasonInfo || !nextRecord) continue;
