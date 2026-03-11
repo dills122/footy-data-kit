@@ -58,4 +58,4 @@ jobs:
 
       - name: Verify published datasets
         run: |
-          node wikipedia/verify-football-data.js --fail-on-issues ./data-output/wiki_overview_tables_by_season.json
+          node wikipedia/data/verify-football-data.js --fail-on-issues ./data-output/wiki_overview_tables_by_season.json

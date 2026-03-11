@@ -60,21 +60,21 @@ jobs:
           fi
           rm -rf data-output
           mkdir -p data-output
-          pnpm exec node wikipedia/cli.js build --start 1888 --end 1990 --output ./data-output --ignore-war-years
-          pnpm exec node wikipedia/cli.js overview --start 1991 --end 2024 --output ./data-output --ignore-war-years
-          pnpm exec node wikipedia/combine-output-files.js --output ./data-output/all-seasons.json \
+          pnpm exec node wikipedia/cli/index.js build --start 1888 --end 1990 --output ./data-output --ignore-war-years
+          pnpm exec node wikipedia/cli/index.js overview --start 1991 --end 2024 --output ./data-output --ignore-war-years
+          pnpm exec node wikipedia/data/combine-output-files.js --output ./data-output/all-seasons.json \
             ./data-output/wiki_overview_tables_by_season.json \
             ./data-output/wiki_promotion_relegations_by_season.json
           # Gate releases on the supported public artifacts. The raw promotion file is an
           # intermediate scrape output and can contain expected historical gaps/quirks that
           # are reconciled in the canonical merged dataset.
-          pnpm exec node wikipedia/verify-football-data.js --fail-on-issues ./data-output/all-seasons.json
-          pnpm exec node wikipedia/verify-football-data.js --fail-on-issues ./data-output/wiki_overview_tables_by_season.json
+          pnpm exec node wikipedia/data/verify-football-data.js --fail-on-issues ./data-output/all-seasons.json
+          pnpm exec node wikipedia/data/verify-football-data.js --fail-on-issues ./data-output/wiki_overview_tables_by_season.json
           pnpm exec node scripts/minify-json.js ./data-output/all-seasons.json
           pnpm exec node scripts/minify-json.js ./data-output/wiki_overview_tables_by_season.json
           pnpm exec node scripts/minify-json.js ./data-output/wiki_promotion_relegations_by_season.json
-          pnpm exec node wikipedia/compare-football-data.js --json ./release-baseline/all-seasons.previous.json ./data-output/all-seasons.json > ./data-output/release-diff.json
-          pnpm exec node wikipedia/compare-football-data.js --markdown ./release-baseline/all-seasons.previous.json ./data-output/all-seasons.json > ./data-output/release-diff.md
+          pnpm exec node wikipedia/data/compare-football-data.js --json ./release-baseline/all-seasons.previous.json ./data-output/all-seasons.json > ./data-output/release-diff.json
+          pnpm exec node wikipedia/data/compare-football-data.js --markdown ./release-baseline/all-seasons.previous.json ./data-output/all-seasons.json > ./data-output/release-diff.md
 
       - name: Archive generated data
         run: |
