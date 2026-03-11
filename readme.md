@@ -83,8 +83,8 @@ node scripts/minify-json.js ./data-output/wiki_promotion_relegations_by_season.j
 When `data-output/wiki_promotion_relegations_by_season.json` needs to be refreshed, rebuild it from code instead of patching individual seasons by hand:
 
 ```bash
-pnpm build:wikipedia:promotion
-pnpm minify:wikipedia:promotion
+pnpm wiki:build:promotion
+pnpm wiki:minify:promotion
 pnpm test:integration:promotion
 ```
 
