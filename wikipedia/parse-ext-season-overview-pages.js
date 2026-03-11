@@ -18,15 +18,8 @@ import {
   saveFootballData,
   setSeasonRecord,
 } from './generate-output-files.js';
-import {
-  cellText,
-  fetchHtmlForSlug,
-  isExpansionTeam,
-  normalizeHeader,
-  wait,
-  wasPromoted,
-  wasRelegated,
-} from './utils.js';
+import { fetchHtmlForSlug, wait } from './utils.js';
+import { extractLegendForTable, parseLeagueTableRows } from './parser-core/league-table-parser.js';
 
 function shouldTreatAsTopFlight(title, context = {}) {
   const normalized = String(title || '').toLowerCase();
@@ -119,223 +112,6 @@ function skipSection($, headingEl, level) {
   return cursor;
 }
 
-function parseLegendText(rawText) {
-  const text = String(rawText || '')
-    .replace(/\s+/g, ' ')
-    .trim();
-  if (!text) return null;
-
-  /** @type {Record<string, { promoted: boolean; relegated: boolean }>} */
-  const legend = {};
-  const regex = /\(([A-Za-z0-9+]+)\)\s*([^();]+)/g;
-  let match;
-  while ((match = regex.exec(text))) {
-    const code = match[1].trim().toUpperCase();
-    const descriptor = match[2].trim().toLowerCase();
-    if (!code) continue;
-    if (!legend[code]) {
-      legend[code] = { promoted: false, relegated: false };
-    }
-    if (/promot/.test(descriptor) || /play-?off/.test(descriptor)) {
-      legend[code].promoted = true;
-    }
-    if (/relegat/.test(descriptor) || /demot/.test(descriptor)) {
-      legend[code].relegated = true;
-    }
-  }
-
-  return Object.keys(legend).length ? legend : null;
-}
-
-function extractLegendForTable($, tableEl) {
-  let cursor = tableEl.next();
-  const isLegendNode = (node) => {
-    if (!node || !node.length) return false;
-    const cls = String(node.attr('class') || '');
-    return /sports-table-notes/.test(cls) || /legend/.test(cls);
-  };
-
-  while (cursor.length) {
-    if (isLegendNode(cursor)) {
-      const legendText = cursor
-        .clone()
-        .find('sup.reference, .reference, style, script')
-        .remove()
-        .end()
-        .text();
-      const parsed = parseLegendText(legendText);
-      if (parsed) return parsed;
-    }
-
-    if (cursor.is('table')) break;
-    if (getHeadingLevel(cursor)) break;
-    cursor = cursor.next();
-  }
-
-  return null;
-}
-
-function extractLegendSymbols($, teamCell) {
-  const symbols = new Set();
-  if (!teamCell || !teamCell.length) return symbols;
-  const capture = (text) => {
-    if (!text) return;
-    const regex = /\(([^()]+)\)/g;
-    let match;
-    while ((match = regex.exec(text))) {
-      String(match[1] || '')
-        .split(/[,/]/)
-        .map((token) => token.trim())
-        .filter((token) => token.length)
-        .forEach((token) => {
-          if (/^[A-Za-z0-9+]{1,3}$/.test(token)) {
-            symbols.add(token.toUpperCase());
-          }
-        });
-    }
-
-    const stripped = text.replace(/[()]/g, '').trim();
-    if (/^[A-Za-z0-9+]{1,3}$/.test(stripped)) {
-      symbols.add(stripped.toUpperCase());
-    }
-  };
-
-  capture(teamCell.text());
-  teamCell.find('*').each((_, node) => {
-    const nodeText = $(node).text();
-    capture(nodeText);
-  });
-
-  return symbols;
-}
-
-function applyLegendStatuses($, teamCell, row, legendMap) {
-  if (!legendMap) return;
-  const symbols = extractLegendSymbols($, teamCell);
-  symbols.forEach((symbol) => {
-    const entry = legendMap[symbol];
-    if (!entry) return;
-    if (entry.promoted) row.wasPromoted = true;
-    if (entry.relegated) row.wasRelegated = true;
-  });
-}
-
-function parseLeagueTable($, tableEl, { suppressPromotionFlags, legendMap }) {
-  const headerRow = tableEl.find('tr').first();
-  const headerCells = headerRow.find('th, td');
-  const headerMap = [];
-  headerCells.each((i, cell) => {
-    headerMap[i] = normalizeHeader(cellText($, cell));
-  });
-
-  const idxOf = (field) => headerMap.findIndex((h) => h === field);
-  const results = [];
-  let notesCarry = { text: null, remaining: 0 };
-
-  tableEl
-    .find('tr')
-    .slice(1)
-    .each((_, tr) => {
-      const $tr = $(tr);
-      const dataCells = $tr.find('td, th[scope="row"]');
-      if (!dataCells.length) return;
-
-      const cellElements = dataCells.toArray();
-      const texts = cellElements.map((cell) => {
-        if ($(cell).is('th[scope="row"]')) {
-          const teamLinkText = $(cell).find('a').first().text().trim();
-          return teamLinkText || cellText($, cell);
-        }
-        return cellText($, cell);
-      });
-
-      const isProbablyHeader =
-        texts.every((t) => Number.isNaN(parseInt(t, 10))) &&
-        texts.some((t) => /team|club|pld|pts/i.test(t));
-      if (isProbablyHeader) return;
-
-      const get = (field) => {
-        const idx = idxOf(field);
-        if (idx === -1) return undefined;
-        return texts[idx];
-      };
-
-      const num = (value) => {
-        if (value == null) return null;
-        const normalizedValue = String(value)
-          .replace(/[−–—]/g, '-') // normalize unicode minus variants
-          .replace(/[^\d.-]/g, '');
-        if (normalizedValue === '') return null;
-        const parsed = parseFloat(normalizedValue);
-        return Number.isNaN(parsed) ? null : parsed;
-      };
-
-      const row = {
-        pos: num(get('pos')),
-        team: get('team') || null,
-        played: num(get('played')),
-        won: num(get('won')),
-        drawn: num(get('drawn')),
-        lost: num(get('lost')),
-        goalsFor: num(get('goalsFor')),
-        goalsAgainst: num(get('goalsAgainst')),
-        goalDifference: num(get('goalDifference')),
-        goalAverage: num(get('goalAverage')),
-        points: num(get('points')),
-        notes: null,
-        wasRelegated: null,
-        wasPromoted: null,
-        isExpansionTeam: null,
-        wasReElected: null,
-        wasReprieved: null,
-      };
-
-      let notesIdx = idxOf('notes');
-      if (notesIdx === -1 && headerMap.length > 0) {
-        notesIdx = headerMap.length - 1;
-      }
-
-      if (notesIdx !== -1) {
-        const rawNotesCell = $tr.find('td, th').get(notesIdx);
-        if (rawNotesCell) {
-          const text = cellText($, rawNotesCell) || null;
-          row.notes = text?.length ? text : null;
-
-          const rowspan = parseInt($(rawNotesCell).attr('rowspan') || '1', 10);
-          if (!Number.isNaN(rowspan) && rowspan > 1) {
-            notesCarry = { text: row.notes, remaining: rowspan - 1 };
-          } else {
-            notesCarry = { text: null, remaining: 0 };
-          }
-        } else if (notesCarry.remaining > 0) {
-          row.notes = notesCarry.text;
-          notesCarry.remaining -= 1;
-        }
-      }
-
-      row.wasRelegated = wasRelegated(row.notes);
-      row.wasPromoted = suppressPromotionFlags ? false : wasPromoted(row.notes);
-      row.isExpansionTeam = isExpansionTeam(row.notes);
-      row.wasReElected = String(row.notes || '')
-        .toLowerCase()
-        .includes('re-elected');
-      row.wasReprieved = /repriv(?:ed|ed) from re-election/.test(
-        String(row.notes || '').toLowerCase()
-      );
-
-      const teamIdx = idxOf('team');
-      if (teamIdx !== -1 && cellElements[teamIdx]) {
-        applyLegendStatuses($, $(cellElements[teamIdx]), row, legendMap);
-      }
-
-      if (row.team && row.pos != null) {
-        results.push(row);
-      }
-    });
-
-  return results;
-}
-
 function parseTablesForHeading($, headingWrapper, { leagueTitle, leagueId } = {}, context = {}) {
   const level = getHeadingLevel(headingWrapper);
   if (!level) return [];
@@ -364,11 +140,21 @@ function parseTablesForHeading($, headingWrapper, { leagueTitle, leagueId } = {}
     }
 
     if (searchNode.is('table') && searchNode.hasClass('wikitable')) {
-      tables.push({ element: searchNode, legend: extractLegendForTable($, searchNode) });
+      tables.push({
+        element: searchNode,
+        legend: extractLegendForTable($, searchNode, {
+          promoteKeywords: [/promot/, /play-?off/],
+        }),
+      });
     } else {
       searchNode.find('table.wikitable').each((_, tbl) => {
         const $tbl = $(tbl);
-        tables.push({ element: $tbl, legend: extractLegendForTable($, $tbl) });
+        tables.push({
+          element: $tbl,
+          legend: extractLegendForTable($, $tbl, {
+            promoteKeywords: [/promot/, /play-?off/],
+          }),
+        });
       });
     }
 
@@ -377,7 +163,7 @@ function parseTablesForHeading($, headingWrapper, { leagueTitle, leagueId } = {}
 
   const overviewEntries = [];
   tables.forEach((table, index) => {
-    const rows = parseLeagueTable($, table.element, {
+    const rows = parseLeagueTableRows($, table.element, {
       suppressPromotionFlags,
       legendMap: table.legend,
     });
