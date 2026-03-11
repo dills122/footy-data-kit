@@ -3,12 +3,9 @@ import * as path from 'node:path';
 import {
   buildOverviewSeasonSlug as buildOverviewSeasonSlugFromConfig,
   buildWikipediaArticleUrl,
-  inferEnglishLeagueTier,
-  isWikipediaWarSuspensionYear,
   resolveWikipediaDatasetPath,
   WIKIPEDIA_DATA_SOURCES,
   WIKIPEDIA_FETCH_DELAY_MS,
-  WIKIPEDIA_OVERVIEW_CONFIG,
 } from './config.js';
 import {
   buildDatasetMetadata,
@@ -19,166 +16,22 @@ import {
   setSeasonRecord,
 } from './generate-output-files.js';
 import { fetchHtmlForSlug, wait } from './utils.js';
-import { extractLegendForTable, parseLeagueTableRows } from './parser-core/league-table-parser.js';
-
-function shouldTreatAsTopFlight(title, context = {}) {
-  const normalized = String(title || '').toLowerCase();
-  if (WIKIPEDIA_OVERVIEW_CONFIG.topFlightKeywords.some((keyword) => normalized.includes(keyword))) {
-    return true;
-  }
-  if (normalized.includes('first division')) {
-    if (context.hasPremierLeagueHeading) return false;
-    return true;
-  }
-  return false;
-}
-
-function findLeagueSectionHeading($) {
-  const idCandidates = WIKIPEDIA_OVERVIEW_CONFIG.sectionHeadingIds;
-
-  for (const id of idCandidates) {
-    const match = $('h2').filter((_, el) => $(el).attr('id') === id);
-    if (match.length) return match.first();
-  }
-
-  let bestHeading = null;
-  let bestScore = -Infinity;
-
-  $('h2').each((_, el) => {
-    const $el = $(el);
-    const text = $el.text().trim();
-    if (!text) return;
-
-    const normalized = text.toLowerCase();
-    let score = 0;
-
-    if (/^league tables?/.test(normalized)) score = 100;
-    else if (/^league season/.test(normalized)) score = 90;
-    else if (/^league competitions/.test(normalized)) score = 80;
-    else if (/^men's football/.test(normalized)) score = 75;
-    else if (/^final standings/.test(normalized)) score = 95;
-    else if (normalized.includes('league') && normalized.includes('table')) score = 70;
-
-    if (!score) return;
-
-    if (normalized.includes('men')) score += 5;
-    if (normalized.includes('women')) score -= 5;
-
-    if (score > bestScore || (score === bestScore && !bestHeading)) {
-      bestHeading = $el;
-      bestScore = score;
-    }
-  });
-
-  return bestHeading;
-}
-
-function headingHasLeagueKeyword(title) {
-  const normalized = String(title || '').toLowerCase();
-  return WIKIPEDIA_OVERVIEW_CONFIG.leagueKeywords.some((keyword) => normalized.includes(keyword));
-}
-
-function isGenericLeagueHeading(title) {
-  if (!title) return false;
-  const normalized = String(title).trim().toLowerCase();
-  return WIKIPEDIA_OVERVIEW_CONFIG.genericLeagueHeadings.includes(normalized);
-}
-
-function getHeadingLevel($el) {
-  if (!$el || !$el.length) return null;
-  const classes = String($el.attr('class') || '');
-  const match = classes.match(/mw-heading(\d)/);
-  if (!match) return null;
-  const level = parseInt(match[1], 10);
-  return Number.isFinite(level) ? level : null;
-}
-
-function skipSection($, headingEl, level) {
-  if (!headingEl || !headingEl.length) return headingEl;
-  let cursor = headingEl.next();
-
-  while (cursor.length) {
-    const cursorLevel = getHeadingLevel(cursor);
-    if (cursorLevel) {
-      if (cursorLevel <= level) {
-        return cursor;
-      }
-      cursor = skipSection($, cursor, cursorLevel);
-      continue;
-    }
-    cursor = cursor.next();
-  }
-
-  return cursor;
-}
-
-function parseTablesForHeading($, headingWrapper, { leagueTitle, leagueId } = {}, context = {}) {
-  const level = getHeadingLevel(headingWrapper);
-  if (!level) return [];
-
-  const headingTag = `h${level}`;
-  const headingEl = headingWrapper.find(headingTag).first();
-  if (!headingEl.length) return [];
-
-  const headingId = headingEl.attr('id') || leagueId || null;
-  const headingTitle = headingEl.text().trim();
-  let tableTitle = headingTitle || leagueTitle || headingId || 'Unknown league';
-  if (leagueTitle && (isGenericLeagueHeading(headingTitle) || !headingTitle)) {
-    tableTitle = leagueTitle;
-  }
-
-  const suppressPromotionFlags = shouldTreatAsTopFlight(tableTitle, context);
-  const tables = [];
-  let searchNode = headingWrapper.next();
-
-  while (searchNode.length) {
-    const searchLevel = getHeadingLevel(searchNode);
-    if (searchLevel) {
-      if (searchLevel <= level) break;
-      searchNode = skipSection($, searchNode, searchLevel);
-      continue;
-    }
-
-    if (searchNode.is('table') && searchNode.hasClass('wikitable')) {
-      tables.push({
-        element: searchNode,
-        legend: extractLegendForTable($, searchNode, {
-          promoteKeywords: [/promot/, /play-?off/],
-        }),
-      });
-    } else {
-      searchNode.find('table.wikitable').each((_, tbl) => {
-        const $tbl = $(tbl);
-        tables.push({
-          element: $tbl,
-          legend: extractLegendForTable($, $tbl, {
-            promoteKeywords: [/promot/, /play-?off/],
-          }),
-        });
-      });
-    }
-
-    searchNode = searchNode.next();
-  }
-
-  const overviewEntries = [];
-  tables.forEach((table, index) => {
-    const rows = parseLeagueTableRows($, table.element, {
-      suppressPromotionFlags,
-      legendMap: table.legend,
-    });
-    if (!rows.length) return;
-    overviewEntries.push({
-      title: tableTitle,
-      id: headingId,
-      tableIndex: tables.length > 1 ? index : 0,
-      isTopFlight: suppressPromotionFlags,
-      rows,
-    });
-  });
-
-  return overviewEntries;
-}
+import {
+  collectOutcomeTeams,
+  deriveMajorTierIndexes,
+  findLeagueSectionHeading,
+  getHeadingLevel,
+  headingHasLeagueKeyword,
+  inferOverviewTierNumber,
+  isGenericLeagueHeading,
+  parseOverviewTablesForHeading,
+} from './parser-core/wiki-overview-parser.js';
+import {
+  isWarSuspensionSeason,
+  extractSeasonKeyFromSlug,
+  extractSeasonYearFromSlug,
+  seasonHasTierData,
+} from './season-rules.js';
 
 export function parseOverviewLeagueTables(html) {
   const $ = cheerio.load(html);
@@ -234,7 +87,7 @@ export function parseOverviewLeagueTables(html) {
         fallbackId = ancestorForFallback.id;
       }
 
-      const entries = parseTablesForHeading(
+      const entries = parseOverviewTablesForHeading(
         $,
         $headingWrapper,
         {
@@ -262,7 +115,7 @@ export function parseOverviewLeagueTables(html) {
     if (level === 2) break;
 
     if (level && level >= 3 && level <= 5) {
-      const entries = parseTablesForHeading($, pointer, undefined, context);
+      const entries = parseOverviewTablesForHeading($, pointer, undefined, context);
       overview.push(...entries);
     }
 
@@ -305,121 +158,10 @@ function resolveOverviewOutputFile(outputFile) {
     : resolveWikipediaDatasetPath(WIKIPEDIA_DATA_SOURCES.overview.key);
 }
 
-function deriveSeasonKeyFromSlug(slug) {
-  if (!slug) return 'unknown-season';
-  const match = String(slug).match(/\d{4}/);
-  return match ? match[0] : String(slug);
-}
-
-function deriveSeasonYearFromSlug(slug) {
-  const key = deriveSeasonKeyFromSlug(slug);
-  const numeric = Number.parseInt(key, 10);
-  return Number.isFinite(numeric) ? numeric : null;
-}
-
-function seasonHasTierData(record) {
-  if (!record || typeof record !== 'object') return false;
-  const tierKeys = Object.keys(record).filter((key) => /^tier\d+/i.test(key));
-  if (!tierKeys.length) return false;
-  return tierKeys.some((key) => {
-    const tier = record[key];
-    if (!tier || typeof tier !== 'object') return false;
-    if (Array.isArray(tier)) {
-      return tier.length > 0;
-    }
-    if (Array.isArray(tier.table)) {
-      return tier.table.length > 0;
-    }
-    return false;
-  });
-}
-
-function isWarSuspensionYear(year) {
-  return isWikipediaWarSuspensionYear(year);
-}
-
-function deriveMajorTierIndexes(tables) {
-  if (!Array.isArray(tables) || !tables.length) {
-    return { topFlightIndex: null, secondTierIndex: null };
-  }
-
-  const hasPremierLeagueHeading = tables.some((table) =>
-    WIKIPEDIA_OVERVIEW_CONFIG.topFlightKeywords.some((keyword) =>
-      String(table?.title || '')
-        .toLowerCase()
-        .includes(keyword)
-    )
-  );
-
-  let topFlightIndex = tables.findIndex((table) => {
-    if (!table) return false;
-    if (typeof table.isTopFlight === 'boolean') return table.isTopFlight;
-    return shouldTreatAsTopFlight(table.title, { hasPremierLeagueHeading });
-  });
-
-  if (topFlightIndex === -1) {
-    topFlightIndex = tables.length ? 0 : -1;
-  }
-
-  const isSecondTierTitle = (title) => {
-    const normalized = String(title || '').toLowerCase();
-    if (!normalized) return false;
-    if (isGenericLeagueHeading(title)) return true;
-
-    if (hasPremierLeagueHeading) {
-      return WIKIPEDIA_OVERVIEW_CONFIG.secondTierPostPremierKeywords.some((keyword) =>
-        normalized.includes(keyword)
-      );
-    }
-
-    return normalized.includes('second division');
-  };
-
-  let secondTierIndex = null;
-  if (topFlightIndex !== -1) {
-    for (let i = topFlightIndex + 1; i < tables.length; i++) {
-      const candidate = tables[i];
-      if (!candidate || !Array.isArray(candidate.rows) || !candidate.rows.length) continue;
-      if (!isSecondTierTitle(candidate.title)) continue;
-      secondTierIndex = i;
-      break;
-    }
-  }
-
-  return {
-    topFlightIndex: topFlightIndex === -1 ? null : topFlightIndex,
-    secondTierIndex,
-  };
-}
-
-function inferOverviewTierNumber(table, seasonNumber) {
-  return inferEnglishLeagueTier(`${table?.title || ''} ${table?.id || ''}`, seasonNumber);
-}
-
-function collectOutcomeTeams(tables, flag, options = {}) {
-  const indexes = Array.isArray(options?.includeIndexes)
-    ? options.includeIndexes.filter((index) => Number.isInteger(index) && index >= 0)
-    : [];
-  const allowedIndexes = indexes.length ? new Set(indexes) : null;
-  const teams = new Set();
-
-  tables.forEach((table, index) => {
-    if (allowedIndexes && !allowedIndexes.has(index)) return;
-    if (!table || !Array.isArray(table.rows)) return;
-    table.rows.forEach((row) => {
-      if (row && row[flag] && row.team) {
-        teams.add(row.team);
-      }
-    });
-  });
-
-  return Array.from(teams);
-}
-
 export function buildSeasonOverviewSeasonRecord({ seasonKey, seasonYear, seasonSlug, tables }) {
   const numericSeason = Number.isFinite(seasonYear)
     ? /** @type {number} */ (seasonYear)
-    : Number.parseInt(seasonKey, 10);
+    : extractSeasonYearFromSlug(seasonKey);
   const safeSeason = Number.isFinite(numericSeason) ? numericSeason : 0;
   const { topFlightIndex, secondTierIndex } = deriveMajorTierIndexes(tables);
   const promotedTeams =
@@ -506,7 +248,7 @@ export async function buildSeasonOverview(startYear, endYear, outputFile, option
       continue;
     }
 
-    if (ignoreWarYears && isWarSuspensionYear(year)) {
+    if (ignoreWarYears && isWarSuspensionSeason(year)) {
       console.log(`⏭️ Skipping ${seasonKey} (WWI/WWII suspension)`);
       continue;
     }
@@ -541,8 +283,8 @@ export async function buildSeasonOverviewForSlug(seasonSlug, outputFile) {
   const resolvedOutputFile = resolveOverviewOutputFile(outputFile);
   console.log(`\n📖 Fetching ${seasonSlug}...`);
   const tables = await fetchSeasonOverviewTables(seasonSlug);
-  const seasonKey = deriveSeasonKeyFromSlug(seasonSlug);
-  const seasonYear = deriveSeasonYearFromSlug(seasonSlug);
+  const seasonKey = extractSeasonKeyFromSlug(seasonSlug) || 'unknown-season';
+  const seasonYear = extractSeasonYearFromSlug(seasonKey);
   const dataset = loadFootballData(resolvedOutputFile);
   const seasonRecord = buildSeasonOverviewSeasonRecord({
     seasonKey,

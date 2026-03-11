@@ -7,6 +7,9 @@ import {
   shouldSkipContinuityForSeason,
   getExpectedMinimumTierCount,
   parseSeasonNumber,
+  extractSeasonKeyFromSlug,
+  extractSeasonYearFromSlug,
+  seasonHasTierData,
 } from '../season-rules.js';
 
 describe('season-rules', () => {
@@ -109,5 +112,14 @@ describe('season-rules', () => {
     expect(shouldSkipContinuityForSeason({ kind: 'promotion-only' }, 1991)).toBe(true);
     expect(shouldSkipContinuityForSeason({ kind: 'promotion-only' }, 1990)).toBe(false);
     expect(shouldSkipContinuityForSeason({ kind: 'mixed' }, 1991)).toBe(false);
+    expect(extractSeasonKeyFromSlug('1992–93_in_English_football')).toBe('1992');
+    expect(extractSeasonYearFromSlug('1992–93_in_English_football')).toBe(1992);
+    expect(
+      seasonHasTierData({
+        seasonInfo: { foo: true },
+        tier1: [],
+        tier2: { table: [{ team: 'A' }] },
+      })
+    ).toBe(true);
   });
 });

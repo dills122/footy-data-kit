@@ -9,7 +9,6 @@ import {
 import {
   buildPromotionSeasonSlug,
   buildWikipediaArticleUrl,
-  isWikipediaWarSuspensionYear,
   WIKIPEDIA_DATA_SOURCES,
   WIKIPEDIA_GENERATORS,
   WIKIPEDIA_FETCH_DELAY_MS,
@@ -18,6 +17,7 @@ import {
 import { canonicalizeTeamName } from './data-quality-config.js';
 import parseDivisionTable from './parse-division-table.js';
 import { fetchHtmlForSlug, wait } from './utils.js';
+import { isWarSuspensionSeason, getTierTable, seasonHasTierData } from './season-rules.js';
 
 export async function fetchSeasonTeams(seasonSlug) {
   const pageUrl = buildWikipediaArticleUrl(seasonSlug);
@@ -89,25 +89,6 @@ export function constructTier1SeasonResults(tier1SeasonTable, tier2SeasonTable, 
 
 const RAW_PROMOTION_CONTINUITY_FINAL_SEASON = WIKIPEDIA_SEASON_RANGES.classicPromotionFinalSeason;
 
-function seasonHasTierData(record) {
-  if (!record || typeof record !== 'object') return false;
-  return ['tier1', 'tier2'].some((tierKey) => {
-    const tier = record[tierKey];
-    if (!tier || typeof tier !== 'object') return false;
-    if (Array.isArray(tier)) return tier.length > 0;
-    if (Array.isArray(tier.table)) return tier.table.length > 0;
-    return false;
-  });
-}
-
-function isWarSuspensionYear(year) {
-  return isWikipediaWarSuspensionYear(year);
-}
-
-function getTierTable(record, tierKey) {
-  return Array.isArray(record?.[tierKey]?.table) ? record[tierKey].table : [];
-}
-
 export function finalizePromotionDataset(dataset, options = {}) {
   if (!dataset?.seasons || typeof dataset.seasons !== 'object') return dataset;
 
@@ -115,7 +96,7 @@ export function finalizePromotionDataset(dataset, options = {}) {
   if (ignoreWarYears) {
     for (const seasonKey of Object.keys(dataset.seasons)) {
       const seasonNumber = Number.parseInt(seasonKey, 10);
-      if (Number.isFinite(seasonNumber) && isWarSuspensionYear(seasonNumber)) {
+      if (Number.isFinite(seasonNumber) && isWarSuspensionSeason(seasonNumber)) {
         delete dataset.seasons[seasonKey];
       }
     }
@@ -133,8 +114,8 @@ export function finalizePromotionDataset(dataset, options = {}) {
     const nextRecord = dataset.seasons[String(seasonNumber + 1)];
     if (!currentRecord?.seasonInfo || !nextRecord) continue;
 
-    const currentTopFlight = getTierTable(currentRecord, 'tier1');
-    const nextTopFlight = getTierTable(nextRecord, 'tier1');
+    const currentTopFlight = getTierTable(currentRecord?.tier1);
+    const nextTopFlight = getTierTable(nextRecord?.tier1);
     if (!currentTopFlight.length || !nextTopFlight.length) continue;
 
     const currentNames = new Set(currentTopFlight.map((row) => canonicalizeTeamName(row.team)));
@@ -174,7 +155,7 @@ export async function buildPromotionRelegation(startYear, endYear, outputFile, o
       continue;
     }
 
-    if (ignoreWarYears && isWarSuspensionYear(year)) {
+    if (ignoreWarYears && isWarSuspensionSeason(year)) {
       console.log(`⏭️ Skipping ${year} (WWI/WWII suspension)`);
       continue;
     }

@@ -21,6 +21,17 @@ export function parseSeasonNumber(value) {
   return Number.isFinite(numeric) ? numeric : null;
 }
 
+export function extractSeasonKeyFromSlug(slug) {
+  if (!slug) return null;
+  const match = String(slug).match(/\d{4}/);
+  return match ? match[0] : String(slug);
+}
+
+export function extractSeasonYearFromSlug(slug) {
+  const key = extractSeasonKeyFromSlug(slug);
+  return parseSeasonNumber(key);
+}
+
 export function isWarSuspensionSeason(seasonKey) {
   const numeric = parseSeasonNumber(seasonKey);
   return numeric == null ? false : isWikipediaWarSuspensionYear(numeric);
@@ -88,6 +99,14 @@ export function compareTierRichness(existingTier, incomingTier) {
 
 export function tierHasData(tierValue) {
   return blockHasData(tierValue);
+}
+
+export function seasonHasTierData(record) {
+  if (!record || typeof record !== 'object') return false;
+  return Object.keys(record).some((key) => {
+    if (!TIER_KEY_PATTERN.test(key)) return false;
+    return tierHasData(record[key]);
+  });
 }
 
 export function blockHasData(block) {
@@ -290,4 +309,7 @@ export default {
   inferLeagueTierFromMetadata,
   shouldSkipContinuityForSeason,
   shouldIgnoreMissingSeasonData,
+  extractSeasonKeyFromSlug,
+  extractSeasonYearFromSlug,
+  seasonHasTierData,
 };
