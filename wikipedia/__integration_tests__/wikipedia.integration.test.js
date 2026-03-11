@@ -2,12 +2,13 @@ import { jest } from '@jest/globals';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { WIKIPEDIA_DATA_SOURCES } from '../config.js';
-import { constructTier1SeasonResults, fetchSeasonTeams } from '../parse-season-pages.js';
+import { WIKIPEDIA_DATA_SOURCES, isWikipediaWarSuspensionYear } from '../config.js';
+import { canonicalizeTeamName } from '../data-quality-config.js';
 import {
   buildSeasonOverviewSeasonRecord,
   fetchSeasonOverviewTables,
 } from '../parse-ext-season-overview-pages.js';
+import { constructTier1SeasonResults, fetchSeasonTeams } from '../parse-season-pages.js';
 import testPages from './config.js';
 
 const TEST_TIMEOUT_MS = 120_000;
@@ -23,6 +24,7 @@ const DATA_SOURCES = Object.fromEntries(
     {
       datasetPath: path.join(repoRoot, 'data-output', config.datasetFileName),
       liveLabel: config.liveLabel,
+      sourceId: config.sourceId,
     },
   ])
 );
@@ -76,8 +78,241 @@ function getSavedSeasonRecord(sourceKey, season) {
   return seasonRecord;
 }
 
+function getSavedSeasonRecordMaybe(sourceKey, season) {
+  const dataset = getSavedDataset(sourceKey);
+  return dataset.seasons?.[String(season)] || null;
+}
+
 function getSeasonInfoFromRecord(seasonRecord) {
   return seasonRecord.seasonInfo ?? null;
+}
+
+function getTierEntriesFromRecord(seasonRecord) {
+  const tierEntries = [];
+  for (const [tierKey, tierRecord] of Object.entries(seasonRecord)) {
+    if (tierKey === 'seasonInfo') continue;
+    if (!tierKey.match(/^tier\d+$/)) continue;
+    if (!tierRecord || typeof tierRecord !== 'object') continue;
+    if (!Array.isArray(tierRecord.table)) continue;
+    tierEntries.push([tierKey, tierRecord]);
+  }
+  return tierEntries;
+}
+
+function getTopTierKey(seasonRecord) {
+  if (!seasonRecord || typeof seasonRecord !== 'object') return null;
+  const primary = getTierEntriesFromRecord(seasonRecord).find(([tierKey]) => tierKey === 'tier1');
+  if (primary) return primary[0];
+  const tierEntries = getTierEntriesFromRecord(seasonRecord);
+  if (!tierEntries.length) return null;
+  return tierEntries
+    .map(([tierKey]) => Number(tierKey.replace('tier', '')))
+    .filter((value) => Number.isFinite(value))
+    .sort((a, b) => a - b)[0]
+    ?.toString()
+    .replace(/^(\d+)$/, 'tier$1');
+}
+
+function getTopTierTableFromRecord(seasonRecord) {
+  const tierKey = getTopTierKey(seasonRecord);
+  if (!tierKey) {
+    return null;
+  }
+  const tierRecord = seasonRecord?.[tierKey];
+  if (!Array.isArray(tierRecord?.table)) {
+    return null;
+  }
+  return tierRecord.table;
+}
+
+function getMetadataValue(value) {
+  if (value == null) return null;
+  return value;
+}
+
+function normalizeSourceUrl(value) {
+  if (!value || typeof value !== 'string') return value;
+  try {
+    const parsed = new URL(value);
+    return `${parsed.origin}${decodeURIComponent(parsed.pathname)}`;
+  } catch (error) {
+    return decodeURIComponent(value);
+  }
+}
+
+function assertSavedMetadataIntegrity(page, sourceKey, seasonRecord) {
+  const config = DATA_SOURCES[sourceKey];
+  const seasonInfo = getSeasonInfoFromRecord(seasonRecord);
+  const expectedSourceId = config?.sourceId;
+  const seasonYear = Number(page.season);
+
+  if (!seasonInfo) {
+    throw new Error(`Missing seasonInfo for season ${page.season} (${page.url})`);
+  }
+
+  if (seasonInfo.season !== seasonYear) {
+    throw new Error(
+      `Season info mismatch for ${page.season}: expected ${seasonYear}, got ${seasonInfo.season}`
+    );
+  }
+
+  if (seasonInfo.seasonSlug !== page.slug) {
+    throw new Error(
+      `Season info seasonSlug mismatch for ${page.season}: expected ${page.slug}, got ${seasonInfo.seasonSlug}`
+    );
+  }
+
+  if (
+    seasonInfo.sourceUrl &&
+    normalizeSourceUrl(seasonInfo.sourceUrl) !== normalizeSourceUrl(page.url)
+  ) {
+    throw new Error(
+      `Season info sourceUrl mismatch for ${page.season}: expected ${page.url}, got ${seasonInfo.sourceUrl}`
+    );
+  }
+
+  if (!Number.isInteger(seasonInfo.tableCount)) {
+    throw new Error(`Season info tableCount must be an integer for ${page.season}`);
+  }
+
+  const tierEntries = getTierEntriesFromRecord(seasonRecord);
+  if (!tierEntries.length) {
+    throw new Error(`No tier data found for ${page.season}`);
+  }
+
+  for (const [tierKey, tierRecord] of tierEntries) {
+    const metadata = tierRecord?.metadata || {};
+
+    if (metadata.source !== expectedSourceId) {
+      throw new Error(
+        `Tier metadata source mismatch for ${page.season} ${tierKey}: expected ${expectedSourceId}, got ${metadata.source}`
+      );
+    }
+
+    if (
+      metadata.sourceUrl &&
+      normalizeSourceUrl(metadata.sourceUrl) !== normalizeSourceUrl(page.url)
+    ) {
+      throw new Error(
+        `Tier metadata sourceUrl mismatch for ${page.season} ${tierKey}: expected ${page.url}, got ${metadata.sourceUrl}`
+      );
+    }
+
+    if (metadata.seasonSlug !== page.slug) {
+      throw new Error(
+        `Tier metadata seasonSlug mismatch for ${page.season} ${tierKey}: expected ${page.slug}, got ${metadata.seasonSlug}`
+      );
+    }
+
+    if (metadata.tierKey !== tierKey) {
+      throw new Error(
+        `Tier metadata tierKey mismatch for ${page.season} ${tierKey}: tier record is ${tierKey}, metadata is ${metadata.tierKey}`
+      );
+    }
+
+    if (sourceKey === 'overview') {
+      if (typeof getMetadataValue(metadata.title) !== 'string' || !metadata.title.trim()) {
+        throw new Error(`Overview tier metadata missing title for ${page.season} ${tierKey}`);
+      }
+      if (typeof getMetadataValue(metadata.leagueId) !== 'string' || !metadata.leagueId.trim()) {
+        throw new Error(`Overview tier metadata missing leagueId for ${page.season} ${tierKey}`);
+      }
+      if (!Number.isInteger(metadata.tableIndex)) {
+        throw new Error(
+          `Overview tier metadata tableIndex must be an integer for ${page.season} ${tierKey}`
+        );
+      }
+      if (!Number.isInteger(metadata.tableCount)) {
+        throw new Error(
+          `Overview tier metadata tableCount must be an integer for ${page.season} ${tierKey}`
+        );
+      }
+    }
+  }
+}
+
+function canonicalizedSet(values) {
+  return new Set(
+    values
+      .map((value) => canonicalizeTeamName(value))
+      .filter((value) => typeof value === 'string' && value.length)
+  );
+}
+
+function collectTransitionTeamsFromSeasonRecord(sourceKey, seasonRecord) {
+  const seasonInfo = getSeasonInfoFromRecord(seasonRecord);
+  const promoted = [];
+  const relegated = [];
+
+  if (Array.isArray(seasonInfo?.promoted)) {
+    promoted.push(...seasonInfo.promoted);
+  }
+  if (Array.isArray(seasonInfo?.relegated)) {
+    relegated.push(...seasonInfo.relegated);
+  }
+
+  if (sourceKey === 'overview') {
+    return { promoted, relegated };
+  }
+
+  if (promoted.length || relegated.length) {
+    return { promoted, relegated };
+  }
+
+  const tier1 = seasonRecord.tier1;
+  return {
+    promoted: Array.isArray(tier1?.promoted) ? tier1.promoted : [],
+    relegated: Array.isArray(tier1?.relegated) ? tier1.relegated : [],
+  };
+}
+
+function assertSavedContinuity(page, sourceKey, seasonRecord) {
+  const season = Number(page.season);
+  const nextSeason = season + 1;
+  const nextRecord = getSavedSeasonRecordMaybe(sourceKey, nextSeason);
+  if (!nextRecord) {
+    if (isWikipediaWarSuspensionYear(nextSeason)) return;
+    throw new Error(
+      `Saved continuity check needs next season ${nextSeason}, but it is missing for source ${sourceKey}`
+    );
+  }
+
+  const transition = collectTransitionTeamsFromSeasonRecord(sourceKey, seasonRecord);
+  const promoted = canonicalizedSet(transition.promoted);
+  const relegated = canonicalizedSet(transition.relegated);
+  const nextTopTierTable = getTopTierTableFromRecord(nextRecord);
+  if (!nextTopTierTable) {
+    throw new Error(
+      `Saved continuity check for ${page.season}: next season ${nextSeason} has no top-tier table`
+    );
+  }
+
+  const nextTopTierTeams = canonicalizedSet(nextTopTierTable.map((teamRow) => teamRow.team));
+  const missingPromoted = [];
+  const unexpectedRelegated = [];
+
+  for (const team of promoted) {
+    if (!nextTopTierTeams.has(team)) {
+      missingPromoted.push(team);
+    }
+  }
+
+  for (const team of relegated) {
+    if (nextTopTierTeams.has(team)) {
+      unexpectedRelegated.push(team);
+    }
+  }
+
+  if (!missingPromoted.length && !unexpectedRelegated.length) {
+    return;
+  }
+
+  const lines = [
+    `Cross-season continuity failed for ${page.season} -> ${nextSeason} (${page.url})`,
+    `Missing promoted teams in ${nextSeason} top tier: ${missingPromoted.join(', ') || 'none'}`,
+    `Relegated teams still in ${nextSeason} top tier: ${unexpectedRelegated.join(', ') || 'none'}`,
+  ];
+  throw new Error(lines.join('\n'));
 }
 
 function verifyTeams({ season, url }, label, actual = [], expected = []) {
@@ -346,21 +581,7 @@ describe('Wikipedia promotion/relegation integration', () => {
           getSavedSeasonRecord(sourceKey, page.season)
         );
         await assertSection(`Saved dataset (${sourceKey}) metadata comparison`, () => {
-          const savedSeasonInfo = getSeasonInfoFromRecord(savedSeasonRecord);
-          if (savedSeasonInfo?.sourceUrl && savedSeasonInfo.sourceUrl !== page.url) {
-            throw new Error(
-              `Source URL mismatch for season ${page.season}: expected ${page.url}, got ${savedSeasonInfo.sourceUrl}`
-            );
-          }
-          if (
-            savedSeasonInfo?.seasonSlug &&
-            savedSeasonInfo?.sourceUrl &&
-            savedSeasonInfo.seasonSlug !== slug
-          ) {
-            throw new Error(
-              `Season slug mismatch for season ${page.season}: expected ${slug}, got ${savedSeasonInfo.seasonSlug}`
-            );
-          }
+          assertSavedMetadataIntegrity({ ...page, slug }, sourceKey, savedSeasonRecord);
         });
 
         await assertSection(`Saved dataset (${sourceKey}) promotion/relegation comparison`, () => {
@@ -373,6 +594,10 @@ describe('Wikipedia promotion/relegation integration', () => {
             expected.relegated ?? []
           );
         });
+
+        await assertSection(`Saved dataset (${sourceKey}) continuity`, () =>
+          assertSavedContinuity({ ...page, slug }, sourceKey, savedSeasonRecord)
+        );
 
         await assertSection(`${describeSource(sourceKey)} – table entry assertions`, () =>
           verifyTableEntries(page, expected.tableEntries ?? [], tierRecords, savedSeasonRecord)
