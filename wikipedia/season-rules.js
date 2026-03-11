@@ -10,6 +10,28 @@ import { canonicalizeTeamName } from './data-quality-config.js';
 
 export const TIER_KEY_PATTERN = /^tier(\d+)$/i;
 
+export function isTierKey(value) {
+  return TIER_KEY_PATTERN.test(value);
+}
+
+export function getTierKeys(record) {
+  if (!record || typeof record !== 'object') return [];
+  return Object.keys(record).filter((key) => isTierKey(key));
+}
+
+export function compareSeasonKeys(seasonA, seasonB) {
+  const numA = parseSeasonNumber(seasonA);
+  const numB = parseSeasonNumber(seasonB);
+  if (numA != null && numB != null) {
+    return numA - numB;
+  }
+  return String(seasonA).localeCompare(String(seasonB));
+}
+
+export function sortSeasonKeys(values) {
+  return [...values].sort((a, b) => compareSeasonKeys(a, b));
+}
+
 const CONTINUITY_CONFIG = {
   topFlightTierKey: 'tier1',
   seasonPromotedPath: 'promoted',
@@ -298,6 +320,10 @@ export default {
   parseSeasonNumber,
   isWarSuspensionSeason,
   getTierTable,
+  isTierKey,
+  getTierKeys,
+  compareSeasonKeys,
+  sortSeasonKeys,
   getTierSource,
   getTierOutcomeCount,
   getTierMetadataCount,

@@ -5,8 +5,8 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { loadFootballData } from './generate-output-files.js';
 import { canonicalizeTeamName } from './data-quality-config.js';
+import { getTierKeys as getTierKeysFromRules, sortSeasonKeys } from './season-rules.js';
 
-const TIER_KEY_PATTERN = /^tier\d+$/i;
 const ROW_COMPARE_FIELDS = [
   'pos',
   'played',
@@ -26,21 +26,8 @@ const ROW_COMPARE_FIELDS = [
   'wasReprieved',
 ];
 
-function sortSeasonKeys(values) {
-  return [...values].sort((a, b) => {
-    const left = Number.parseInt(String(a), 10);
-    const right = Number.parseInt(String(b), 10);
-    if (Number.isFinite(left) && Number.isFinite(right) && left !== right) return left - right;
-    return String(a).localeCompare(String(b));
-  });
-}
-
 function asObject(value) {
   return value && typeof value === 'object' && !Array.isArray(value) ? value : null;
-}
-
-function asTeamList(value) {
-  return Array.isArray(value) ? value.filter((entry) => typeof entry === 'string') : [];
 }
 
 function compareNameLists(before = [], after = []) {
@@ -64,7 +51,9 @@ function compareNameLists(before = [], after = []) {
 }
 
 function getTierKeys(record) {
-  return Object.keys(asObject(record) || {}).filter((key) => TIER_KEY_PATTERN.test(key));
+  const source = asObject(record) || {};
+  const keys = getTierKeysFromRules(source);
+  return keys;
 }
 
 function getTableRows(tier) {

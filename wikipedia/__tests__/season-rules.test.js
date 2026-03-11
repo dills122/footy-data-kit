@@ -10,6 +10,10 @@ import {
   extractSeasonKeyFromSlug,
   extractSeasonYearFromSlug,
   seasonHasTierData,
+  isTierKey,
+  getTierKeys,
+  compareSeasonKeys,
+  sortSeasonKeys,
 } from '../season-rules.js';
 
 describe('season-rules', () => {
@@ -167,5 +171,20 @@ describe('season-rules', () => {
         tier2: { table: [{ team: 'A' }] },
       })
     ).toBe(true);
+  });
+
+  test('shared tier-key helpers centralize key filtering and sorting behavior', () => {
+    expect(isTierKey('tier1')).toBe(true);
+    expect(isTierKey('league')).toBe(false);
+    expect(compareSeasonKeys('1992', '1899')).toBeGreaterThan(0);
+    expect(compareSeasonKeys('abc', '1901')).toBeGreaterThan(0);
+    expect(sortSeasonKeys(['abc', '1991', '1900', 'def', '1899']).slice(0, 5)).toEqual([
+      '1899',
+      '1900',
+      '1991',
+      'abc',
+      'def',
+    ]);
+    expect(getTierKeys({ tier1: [], tier2: [], notTier: 1 })).toEqual(['tier1', 'tier2']);
   });
 });

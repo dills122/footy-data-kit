@@ -8,14 +8,15 @@ import { WIKIPEDIA_DATA_SOURCES } from './config.js';
 import { canonicalizeTeamName } from './data-quality-config.js';
 import { loadFootballData } from './generate-output-files.js';
 import {
+  compareSeasonKeys,
   getExpectedMinimumTierCount,
   inferLeagueTierFromMetadata,
   parseSeasonNumber,
+  isTierKey,
   shouldIgnoreMissingSeasonData,
   shouldSkipContinuityForSeason,
 } from './season-rules.js';
 
-const TIER_KEY_PATTERN = /^tier(\d+)$/i;
 const LEGACY_TIER_METADATA_FIELDS = ['seasonSlug', 'sourceUrl', 'tier', 'title', 'seasonMetadata'];
 const REQUIRED_TIER_METADATA_FIELDS = ['source', 'seasonSlug', 'tierKey'];
 const REQUIRED_OVERVIEW_METADATA_FIELDS = ['title', 'leagueId', 'tableIndex', 'tableCount'];
@@ -103,7 +104,7 @@ export function analyzeDataset(dataset, options = {}) {
   issues.push(...analyzeDatasetContract(dataset, profile));
 
   for (const [seasonKey, seasonValue] of seasonEntries) {
-    const tierEntries = Object.entries(seasonValue).filter(([key]) => TIER_KEY_PATTERN.test(key));
+    const tierEntries = Object.entries(seasonValue).filter(([key]) => isTierKey(key));
     /** @type {Array<TierAnalysis>} */
     const tierAnalyses = tierEntries.map(([tierKey, tierValue]) =>
       analyzeTier(seasonKey, tierKey, tierValue)
@@ -188,7 +189,7 @@ function analyzeDatasetContract(dataset, profile) {
 function analyzeTier(seasonKey, tierKey, tierValue) {
   const tierMeta = extractTierMeta(tierValue, seasonKey);
   const tierIssues = [];
-  const tierNumberMatch = tierKey.match(TIER_KEY_PATTERN);
+  const tierNumberMatch = tierKey.match(/^tier(\d+)$/i);
   const tierNumber = tierNumberMatch ? Number.parseInt(tierNumberMatch[1], 10) : null;
 
   if (!tierMeta.hasContent) {
@@ -458,7 +459,7 @@ function analyzeSeasonContract(seasonKey, seasonValue) {
   }
 
   for (const [tierKey, tierValue] of Object.entries(seasonValue)) {
-    if (!TIER_KEY_PATTERN.test(tierKey)) continue;
+    if (!isTierKey(tierKey)) continue;
     if (!tierValue || typeof tierValue !== 'object' || Array.isArray(tierValue)) {
       issues.push(
         createIssue({
@@ -555,7 +556,7 @@ function analyzeSeasonTierCoverage(seasonKey, seasonValue, profile) {
   const seasonNumber = parseSeasonNumber(seasonKey);
   if (seasonNumber == null) return [];
 
-  const tierCount = Object.keys(seasonValue).filter((key) => TIER_KEY_PATTERN.test(key)).length;
+  const tierCount = Object.keys(seasonValue).filter((key) => isTierKey(key)).length;
   const expectedMinimum = getExpectedMinimumTierCount(seasonNumber);
   if (expectedMinimum == null || tierCount >= expectedMinimum) return [];
 
@@ -580,8 +581,8 @@ function analyzeSeasonLeagueOrdering(seasonKey, seasonValue) {
   /** @type {Issue[]} */
   const issues = [];
   for (const [tierKey, tierValue] of Object.entries(seasonValue)) {
-    if (!TIER_KEY_PATTERN.test(tierKey)) continue;
-    const tierNumberMatch = tierKey.match(TIER_KEY_PATTERN);
+    if (!isTierKey(tierKey)) continue;
+    const tierNumberMatch = tierKey.match(/^tier(\d+)$/i);
     const tierNumber = tierNumberMatch ? Number.parseInt(tierNumberMatch[1], 10) : null;
     if (tierNumber == null) continue;
 
@@ -689,7 +690,7 @@ function detectDatasetProfile(dataset) {
     if (!seasonRecord || typeof seasonRecord !== 'object') continue;
 
     for (const [key, tierValue] of Object.entries(seasonRecord)) {
-      if (!TIER_KEY_PATTERN.test(key)) continue;
+      if (!isTierKey(key)) continue;
       const source = tierValue?.metadata?.source;
       if (typeof source === 'string' && source.length) {
         sources.add(source);
@@ -770,19 +771,6 @@ function findMissingPositions(positions) {
     }
   }
   return missing;
-}
-
-/**
- * @param {string} seasonA
- * @param {string} seasonB
- */
-function compareSeasonKeys(seasonA, seasonB) {
-  const numA = parseSeasonNumber(seasonA);
-  const numB = parseSeasonNumber(seasonB);
-  if (numA != null && numB != null) {
-    return numA - numB;
-  }
-  return seasonA.localeCompare(seasonB);
 }
 
 /**
