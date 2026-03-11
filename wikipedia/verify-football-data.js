@@ -4,6 +4,12 @@ import { Command } from 'commander';
 import * as fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import {
+  inferEnglishLeagueTier,
+  isWikipediaWarSuspensionYear,
+  WIKIPEDIA_DATA_SOURCES,
+  WIKIPEDIA_SEASON_RANGES,
+} from './config.js';
 import { canonicalizeTeamName } from './data-quality-config.js';
 import { loadFootballData } from './generate-output-files.js';
 
@@ -17,7 +23,6 @@ const CONTINUITY_CONFIG = {
   seasonPromotedPath: 'promoted',
   seasonRelegatedPath: 'relegated',
 };
-const PROMOTION_CONTINUITY_FINAL_SEASON = 1990;
 
 /**
  * @param {string[]} targets
@@ -516,7 +521,7 @@ function analyzeSeasonContract(seasonKey, seasonValue) {
       );
     }
 
-    if (metadata.source === 'wikipedia-overview') {
+    if (metadata.source === WIKIPEDIA_DATA_SOURCES.overview.sourceId) {
       const missingOverviewFields = REQUIRED_OVERVIEW_METADATA_FIELDS.filter(
         (field) => metadata[field] == null
       );
@@ -582,7 +587,7 @@ function analyzeSeasonLeagueOrdering(seasonKey, seasonValue) {
       tierValue && typeof tierValue === 'object' && !Array.isArray(tierValue)
         ? tierValue.metadata
         : null;
-    if (!metadata || metadata.source !== 'wikipedia-overview') continue;
+    if (!metadata || metadata.source !== WIKIPEDIA_DATA_SOURCES.overview.sourceId) continue;
 
     const inferredTier = inferLeagueTierFromMetadata(metadata, seasonNumber);
     if (inferredTier == null || inferredTier === tierNumber) continue;
@@ -690,10 +695,10 @@ function detectDatasetProfile(dataset) {
     }
   }
 
-  if (sources.size === 1 && sources.has('wikipedia-promotion')) {
+  if (sources.size === 1 && sources.has(WIKIPEDIA_DATA_SOURCES.promotion.sourceId)) {
     return { kind: 'promotion-only' };
   }
-  if (sources.size === 1 && sources.has('wikipedia-overview')) {
+  if (sources.size === 1 && sources.has(WIKIPEDIA_DATA_SOURCES.overview.sourceId)) {
     return { kind: 'overview-only' };
   }
   return { kind: 'mixed' };
@@ -704,7 +709,7 @@ function detectDatasetProfile(dataset) {
  * @returns {number | null}
  */
 function getExpectedMinimumTierCount(seasonNumber) {
-  if (seasonNumber >= 1991) return 4;
+  if (seasonNumber >= WIKIPEDIA_SEASON_RANGES.premierLeagueStartSeason - 1) return 4;
   if (seasonNumber >= 1888) return 2;
   return null;
 }
@@ -715,43 +720,15 @@ function getExpectedMinimumTierCount(seasonNumber) {
  * @returns {number | null}
  */
 function inferLeagueTierFromMetadata(metadata, seasonNumber) {
-  const text = `${metadata?.title || ''} ${metadata?.leagueId || ''}`.toLowerCase();
-  if (!text.trim()) return null;
-
-  if (
-    text.includes('premier league') ||
-    text.includes('premiership') ||
-    text.includes('football league premier division')
-  ) {
-    return 1;
-  }
-
-  if (seasonNumber < 1992 && text.includes('first division')) return 1;
-  if (seasonNumber >= 1992 && (text.includes('championship') || text.includes('first division'))) {
-    return 2;
-  }
-  if (seasonNumber < 1992 && text.includes('second division')) return 2;
-  if (text.includes('league one')) return 3;
-  if (seasonNumber < 1992 && text.includes('third division')) return 3;
-  if (text.includes('league two')) return 4;
-  if (seasonNumber < 1992 && text.includes('fourth division')) return 4;
-  if (
-    text.includes('national league top division') ||
-    text.includes('conference national') ||
-    text.includes('conference premier')
-  ) {
-    return 5;
-  }
-
-  return null;
+  return inferEnglishLeagueTier(
+    `${metadata?.title || ''} ${metadata?.leagueId || ''}`,
+    seasonNumber
+  );
 }
 
 function isWarSuspensionSeason(seasonKey) {
   const seasonNumber = parseSeasonNumber(seasonKey);
-  if (seasonNumber == null) return false;
-  return (
-    (seasonNumber >= 1915 && seasonNumber <= 1918) || (seasonNumber >= 1940 && seasonNumber <= 1945)
-  );
+  return seasonNumber == null ? false : isWikipediaWarSuspensionYear(seasonNumber);
 }
 
 /**
@@ -767,7 +744,10 @@ function shouldIgnoreMissingSeasonData(profile, seasonKey) {
  * @param {number} seasonNumber
  */
 function shouldSkipContinuityForSeason(profile, seasonNumber) {
-  return profile.kind === 'promotion-only' && seasonNumber >= 1991;
+  return (
+    profile.kind === 'promotion-only' &&
+    seasonNumber >= WIKIPEDIA_SEASON_RANGES.premierLeagueStartSeason - 1
+  );
 }
 
 /**

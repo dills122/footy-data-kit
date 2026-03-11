@@ -1,7 +1,7 @@
 import * as cheerio from 'cheerio';
+import { RSSSF_DEFAULT_ENCODING } from './config.js';
 import { toTitleCase } from '../shared/utils.js';
 
-const DEFAULT_ENCODING = 'windows-1252';
 const STAT_COLUMN_TITLES = [
   'played',
   'homeWins',
@@ -32,7 +32,7 @@ function detectEncodingFromContentType(contentType = '') {
   return match[1].trim().toLowerCase();
 }
 
-export function decodeRsssfBuffer(buffer, encoding = DEFAULT_ENCODING) {
+export function decodeRsssfBuffer(buffer, encoding = RSSSF_DEFAULT_ENCODING) {
   const decoder = new TextDecoder(encoding);
   return decoder.decode(buffer);
 }
@@ -46,7 +46,7 @@ export async function fetchRsssfPage(url, fetchImpl = globalThis.fetch) {
   }
 
   const contentType = response.headers.get('content-type') || '';
-  const encoding = detectEncodingFromContentType(contentType) || DEFAULT_ENCODING;
+  const encoding = detectEncodingFromContentType(contentType) || RSSSF_DEFAULT_ENCODING;
   const buffer = await response.arrayBuffer();
 
   try {

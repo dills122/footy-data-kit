@@ -4,6 +4,7 @@ import os from 'node:os';
 import path from 'node:path';
 import { ReadableStream, TransformStream, WritableStream } from 'node:stream/web';
 import { Blob } from 'node:buffer';
+import { WIKIPEDIA_DATA_SOURCES } from '../config.js';
 import { buildPromotionRelegation } from '../parse-season-pages.js';
 import { buildSeasonOverview } from '../parse-ext-season-overview-pages.js';
 import { combineFootballDataFiles } from '../combine-output-files.js';
@@ -73,8 +74,8 @@ describe('wikipedia pipeline smoke test', () => {
     tmpDirs.push(tmpDir);
 
     const outputDir = path.join(tmpDir, 'data-output');
-    const promoOutput = path.join(outputDir, 'wiki_promotion_relegations_by_season.json');
-    const overviewOutput = path.join(outputDir, 'wiki_overview_tables_by_season.json');
+    const promoOutput = path.join(outputDir, WIKIPEDIA_DATA_SOURCES.promotion.datasetFileName);
+    const overviewOutput = path.join(outputDir, WIKIPEDIA_DATA_SOURCES.overview.datasetFileName);
     const combinedOutput = path.join(outputDir, 'all-seasons.json');
 
     const promotionHtml = `

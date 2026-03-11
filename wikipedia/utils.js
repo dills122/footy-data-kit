@@ -1,5 +1,10 @@
 import * as fs from 'node:fs';
 import * as path from 'node:path';
+import {
+  buildWikipediaArticleUrl,
+  WIKIPEDIA_DEFAULT_USER_AGENT,
+  WIKIPEDIA_FETCH_DELAY_MS,
+} from './config.js';
 
 export function wait(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -18,9 +23,7 @@ export async function getWikipediaClient() {
     wikipediaClient = mod.default || mod;
     // Set a sensible default user agent to avoid 403 from Wikimedia APIs.
     try {
-      const ua =
-        process.env.WIKIPEDIA_USER_AGENT ||
-        'footy-data-kit (+https://github.com/dills122/footy-data-kit)';
+      const ua = process.env.WIKIPEDIA_USER_AGENT || WIKIPEDIA_DEFAULT_USER_AGENT;
       if (typeof wikipediaClient.setUserAgent === 'function') {
         wikipediaClient.setUserAgent(ua);
       }
@@ -141,13 +144,13 @@ export async function fetchHtmlForSlug(slug) {
   }
 
   // 3) direct fetch of the article HTML
-  const url = `https://en.wikipedia.org/wiki/${encodeURIComponent(slug)}`;
+  const url = buildWikipediaArticleUrl(encodeURIComponent(slug));
   const headers = {
-    'User-Agent':
-      process.env.WIKIPEDIA_USER_AGENT ||
-      'footy-data-kit (+https://github.com/dills122/footy-data-kit)',
+    'User-Agent': process.env.WIKIPEDIA_USER_AGENT || WIKIPEDIA_DEFAULT_USER_AGENT,
   };
   const res = await fetch(url, { headers });
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
   return await res.text();
 }
+
+export { WIKIPEDIA_FETCH_DELAY_MS };
