@@ -5,7 +5,7 @@ import {
   isWikipediaWarSuspensionYear,
   WIKIPEDIA_DATA_SOURCES,
   WIKIPEDIA_SEASON_RANGES,
-} from './config.js';
+} from '../config.js';
 import { canonicalizeTeamName } from './data-quality-config.js';
 
 export const TIER_KEY_PATTERN = /^tier(\d+)$/i;

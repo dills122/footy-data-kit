@@ -34,10 +34,10 @@
 
 ## Wikipedia workflow
 
-- For classic seasons, use `node wikipedia/cli.js build`.
-- For broader/more modern coverage, use `node wikipedia/cli.js overview`.
-- Merge outputs with `node wikipedia/combine-output-files.js`.
-- Validate exports with `node wikipedia/verify-football-data.js`.
+- For classic seasons, use `node wikipedia/cli/index.js build`.
+- For broader/more modern coverage, use `node wikipedia/cli/index.js overview`.
+- Merge outputs with `node wikipedia/data/combine-output-files.js`.
+- Validate exports with `node wikipedia/data/verify-football-data.js`.
 
 ## Testing expectations
 

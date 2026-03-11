@@ -1,19 +1,19 @@
-import { buildSeasonInfo, buildTierData } from './generate-output-files.js';
+import { buildSeasonInfo, buildTierData } from '../data/generate-output-files.js';
 import {
   buildPromotionSeasonSlug,
   buildWikipediaArticleUrl,
   WIKIPEDIA_DATA_SOURCES,
   WIKIPEDIA_GENERATORS,
   WIKIPEDIA_SEASON_RANGES,
-} from './config.js';
-import parseDivisionTable from './parse-division-table.js';
-import { createDatasetStore } from './dataset-store.js';
-import { fetchWikipediaSeasonPage } from './parser-core/page-fetcher.js';
+} from '../config.js';
+import parseDivisionTable from '../parsers/parse-division-table.js';
+import { createDatasetStore } from '../data/dataset-store.js';
+import { fetchWikipediaSeasonPage } from '../parser-core/page-fetcher.js';
 import {
   isWarSuspensionSeason,
   reconcileSeasonInfoContinuity,
   seasonHasTierData,
-} from './season-rules.js';
+} from '../data/season-rules.js';
 
 export async function fetchSeasonTeams(seasonSlug) {
   const fetchedPage = await fetchWikipediaSeasonPage(seasonSlug);

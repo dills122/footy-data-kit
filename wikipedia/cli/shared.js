@@ -1,4 +1,4 @@
-import { resolveWikipediaDatasetPath, WIKIPEDIA_DEFAULT_OUTPUT_DIR } from './config.js';
+import { resolveWikipediaDatasetPath, WIKIPEDIA_DEFAULT_OUTPUT_DIR } from '../config.js';
 
 const DEFAULT_INTERRUPT_MESSAGE = '\n🛑 Interrupted, Last entry saved will be the last one';
 

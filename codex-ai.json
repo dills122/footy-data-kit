@@ -24,8 +24,8 @@
     "wikipedia": {
       "description": "Scraping and generation scripts for Wikipedia-based datasets",
       "path": "wikipedia",
-      "main": "cli.js",
-      "cli": "cli.js"
+      "main": "cli/index.js",
+      "cli": "cli/index.js"
     },
     "rsssf": {
       "description": "Legacy RSSSF scraping and parsing utilities kept for archive work",
@@ -42,10 +42,10 @@
     "tool": "pnpm",
     "scripts": {
       "install": "pnpm i",
-      "generate": "node wikipedia/cli.js build --start 1888 --end 1990 --output ./data-output",
-      "generate:overview": "node wikipedia/cli.js overview --start 1991 --end 2024 --output ./data-output",
-      "combine": "node wikipedia/combine-output-files.js --output ./data-output/all-seasons.json ./data-output/wiki_overview_tables_by_season.json ./data-output/wiki_promotion_relegations_by_season.json",
-      "verify": "node wikipedia/verify-football-data.js --fail-on-issues ./data-output",
+      "generate": "node wikipedia/cli/index.js build --start 1888 --end 1990 --output ./data-output",
+      "generate:overview": "node wikipedia/cli/index.js overview --start 1991 --end 2024 --output ./data-output",
+      "combine": "node wikipedia/data/combine-output-files.js --output ./data-output/all-seasons.json ./data-output/wiki_overview_tables_by_season.json ./data-output/wiki_promotion_relegations_by_season.json",
+      "verify": "node wikipedia/data/verify-football-data.js --fail-on-issues ./data-output",
       "lint": "pnpm run lint",
       "format": "pnpm run format",
       "test": "pnpm test"

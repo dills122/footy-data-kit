@@ -5,10 +5,10 @@ import path from 'node:path';
 import { ReadableStream, TransformStream, WritableStream } from 'node:stream/web';
 import { Blob } from 'node:buffer';
 import { WIKIPEDIA_DATA_SOURCES } from '../config.js';
-import { buildPromotionRelegation } from '../parse-season-pages.js';
-import { buildSeasonOverview } from '../parse-ext-season-overview-pages.js';
-import { combineFootballDataFiles } from '../combine-output-files.js';
-import { analyzeFile } from '../verify-football-data.js';
+import { buildPromotionRelegation } from '../builders/parse-season-pages.js';
+import { buildSeasonOverview } from '../builders/parse-ext-season-overview-pages.js';
+import { combineFootballDataFiles } from '../data/combine-output-files.js';
+import { analyzeFile } from '../data/verify-football-data.js';
 
 if (typeof globalThis.ReadableStream === 'undefined') {
   globalThis.ReadableStream = ReadableStream;

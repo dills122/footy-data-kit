@@ -1,20 +1,20 @@
 #!/usr/bin/env node
 import { Command } from 'commander';
-import { isWikipediaWarSuspensionYear, WIKIPEDIA_DATA_SOURCES } from './config.js';
-import { loadFootballData } from './generate-output-files.js';
+import { isWikipediaWarSuspensionYear, WIKIPEDIA_DATA_SOURCES } from '../config.js';
+import { loadFootballData } from '../data/generate-output-files.js';
 import {
   buildSeasonOverview,
   buildSeasonOverviewForSlug,
   buildSeasonOverviewSlug,
-} from './parse-ext-season-overview-pages.js';
-import { buildPromotionRelegation } from './parse-season-pages.js';
+} from '../builders/parse-ext-season-overview-pages.js';
+import { buildPromotionRelegation } from '../builders/parse-season-pages.js';
 import {
   addYearOptions,
   buildCommonRunOptions,
   buildDatasetOutput,
   installInterruptHandler,
   parseSeasonRange,
-} from './cli-shared.js';
+} from './shared.js';
 
 const program = new Command();
 

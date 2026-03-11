@@ -1,7 +1,7 @@
 import * as cheerio from 'cheerio';
-import { isFirstDivision } from '../shared/utils.js';
-import { findDivisionHeader } from './parser-core/wiki-division-header-finder.js';
-import { extractLegendForTable, parseLeagueTableRows } from './parser-core/league-table-parser.js';
+import { isFirstDivision } from '../../shared/utils.js';
+import { findDivisionHeader } from '../parser-core/wiki-division-header-finder.js';
+import { extractLegendForTable, parseLeagueTableRows } from '../parser-core/league-table-parser.js';
 
 /**
  * Parse a league division table from a Football League Wikipedia page.

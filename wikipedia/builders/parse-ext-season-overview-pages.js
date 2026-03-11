@@ -5,10 +5,10 @@ import {
   buildWikipediaArticleUrl,
   resolveWikipediaDatasetPath,
   WIKIPEDIA_DATA_SOURCES,
-} from './config.js';
-import { buildSeasonInfo, buildTierData } from './generate-output-files.js';
-import { createDatasetStore } from './dataset-store.js';
-import { fetchWikipediaSeasonPage } from './parser-core/page-fetcher.js';
+} from '../config.js';
+import { buildSeasonInfo, buildTierData } from '../data/generate-output-files.js';
+import { createDatasetStore } from '../data/dataset-store.js';
+import { fetchWikipediaSeasonPage } from '../parser-core/page-fetcher.js';
 import {
   collectOutcomeTeams,
   deriveMajorTierIndexes,
@@ -18,13 +18,13 @@ import {
   inferOverviewTierNumber,
   isGenericLeagueHeading,
   parseOverviewTablesForHeading,
-} from './parser-core/wiki-overview-parser.js';
+} from '../parser-core/wiki-overview-parser.js';
 import {
   isWarSuspensionSeason,
   extractSeasonKeyFromSlug,
   extractSeasonYearFromSlug,
   seasonHasTierData,
-} from './season-rules.js';
+} from '../data/season-rules.js';
 
 export function parseOverviewLeagueTables(html) {
   const $ = cheerio.load(html);

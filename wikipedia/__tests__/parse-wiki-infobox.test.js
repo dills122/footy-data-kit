@@ -1,6 +1,6 @@
 import { ReadableStream, TransformStream, WritableStream } from 'node:stream/web';
 import { Blob } from 'node:buffer';
-import parseInfobox from '../parse-wiki-infobox.js';
+import parseInfobox from '../parsers/parse-wiki-infobox.js';
 
 if (typeof globalThis.ReadableStream === 'undefined') {
   globalThis.ReadableStream = ReadableStream;

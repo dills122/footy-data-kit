@@ -5,7 +5,7 @@ import {
   combineFootballDataFiles,
   groupMissingSeasons,
   splitSeasonEntriesForOutput,
-} from '../combine-output-files.js';
+} from '../data/combine-output-files.js';
 
 describe('combine-output-files CLI', () => {
   const tmpDirs = [];

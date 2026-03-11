@@ -5,7 +5,7 @@ import {
   buildCommonRunOptions,
   buildDatasetOutput,
   parseSeasonRange,
-} from '../cli-shared.js';
+} from '../cli/shared.js';
 
 describe('cli-shared helpers', () => {
   test('parseSeasonRange parses numeric start/end options', () => {

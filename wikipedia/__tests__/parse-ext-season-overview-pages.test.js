@@ -32,7 +32,7 @@ if (typeof globalThis.DOMException === 'undefined') {
   };
 }
 
-const overviewModule = await import('../parse-ext-season-overview-pages.js');
+const overviewModule = await import('../builders/parse-ext-season-overview-pages.js');
 const { parseOverviewLeagueTables, buildSeasonOverview, buildSeasonOverviewSeasonRecord } =
   overviewModule;
 

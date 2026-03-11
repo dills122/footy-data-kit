@@ -1,5 +1,5 @@
-import { diffFootballData, renderMarkdownSummary } from '../compare-football-data.js';
-import { canonicalizeTeamName } from '../data-quality-config.js';
+import { diffFootballData, renderMarkdownSummary } from '../data/compare-football-data.js';
+import { canonicalizeTeamName } from '../data/data-quality-config.js';
 
 describe('compare-football-data', () => {
   test('diffFootballData reports added, removed, and changed seasons with tier details', () => {

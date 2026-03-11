@@ -3,7 +3,7 @@ import { Command } from 'commander';
 import * as fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { getWikipediaWarSuspensionLabel, WIKIPEDIA_GENERATORS } from './config.js';
+import { getWikipediaWarSuspensionLabel, WIKIPEDIA_GENERATORS } from '../config.js';
 import {
   buildDatasetMetadata,
   createFootballData,
