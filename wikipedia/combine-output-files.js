@@ -3,272 +3,21 @@ import { Command } from 'commander';
 import * as fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import {
-  getWikipediaWarSuspensionLabel,
-  isWikipediaWarSuspensionYear,
-  WIKIPEDIA_DATA_SOURCES,
-  WIKIPEDIA_GENERATORS,
-  WIKIPEDIA_SEASON_RANGES,
-} from './config.js';
-import { canonicalizeTeamName } from './data-quality-config.js';
+import { getWikipediaWarSuspensionLabel, WIKIPEDIA_GENERATORS } from './config.js';
 import {
   buildDatasetMetadata,
   createFootballData,
   loadFootballData,
   saveFootballData,
 } from './generate-output-files.js';
-
-const TIER_KEY_PATTERN = /^tier/i;
-
-const parseSeasonKey = (seasonKey) => {
-  const numeric = Number.parseInt(String(seasonKey), 10);
-  return Number.isFinite(numeric) ? numeric : null;
-};
-
-const PREMIER_LEAGUE_START_SEASON = WIKIPEDIA_SEASON_RANGES.premierLeagueStartSeason;
-
-function isWarSuspensionSeason(seasonKey) {
-  const numeric = parseSeasonKey(seasonKey);
-  return numeric == null ? false : isWikipediaWarSuspensionYear(numeric);
-}
-
-function blockHasData(block) {
-  if (!block) return false;
-  if (Array.isArray(block)) {
-    return block.length > 0;
-  }
-
-  if (typeof block !== 'object') {
-    return false;
-  }
-
-  const table = Array.isArray(block.table) ? block.table : [];
-  const promoted = Array.isArray(block.promoted) ? block.promoted : [];
-  const relegated = Array.isArray(block.relegated) ? block.relegated : [];
-
-  if (table.length || promoted.length || relegated.length) {
-    return true;
-  }
-
-  const metadata = block.metadata;
-  return Boolean(metadata && typeof metadata === 'object' && Object.keys(metadata).length);
-}
-
-function seasonHasData(seasonRecord) {
-  if (!seasonRecord || typeof seasonRecord !== 'object') return false;
-  return Object.values(seasonRecord).some((value) => blockHasData(value));
-}
-
-function tierHasData(tierValue) {
-  return blockHasData(tierValue);
-}
-
-function getTierTable(tierValue) {
-  if (Array.isArray(tierValue)) {
-    return tierValue;
-  }
-
-  if (tierValue && typeof tierValue === 'object' && Array.isArray(tierValue.table)) {
-    return tierValue.table;
-  }
-
-  return [];
-}
-
-function getTierOutcomeCount(tierValue) {
-  if (!tierValue || Array.isArray(tierValue) || typeof tierValue !== 'object') {
-    return 0;
-  }
-
-  const promoted = Array.isArray(tierValue.promoted) ? tierValue.promoted.length : 0;
-  const relegated = Array.isArray(tierValue.relegated) ? tierValue.relegated.length : 0;
-  return promoted + relegated;
-}
-
-function getTierMetadataCount(tierValue) {
-  if (!tierValue || Array.isArray(tierValue) || typeof tierValue !== 'object') {
-    return 0;
-  }
-
-  return Object.entries(tierValue).filter(([key, value]) => {
-    if (key === 'season' || key === 'table' || key === 'promoted' || key === 'relegated') {
-      return false;
-    }
-    if (value == null) return false;
-    if (Array.isArray(value)) return value.length > 0;
-    if (typeof value === 'object') return Object.keys(value).length > 0;
-    return true;
-  }).length;
-}
-
-function compareTierRichness(existingTier, incomingTier) {
-  const existingTable = getTierTable(existingTier);
-  const incomingTable = getTierTable(incomingTier);
-  if (incomingTable.length !== existingTable.length) {
-    return incomingTable.length - existingTable.length;
-  }
-
-  const existingOutcomes = getTierOutcomeCount(existingTier);
-  const incomingOutcomes = getTierOutcomeCount(incomingTier);
-  if (incomingOutcomes !== existingOutcomes) {
-    return incomingOutcomes - existingOutcomes;
-  }
-
-  const existingMetadata = getTierMetadataCount(existingTier);
-  const incomingMetadata = getTierMetadataCount(incomingTier);
-  return incomingMetadata - existingMetadata;
-}
-
-function getTierSource(tierValue) {
-  if (!tierValue || Array.isArray(tierValue) || typeof tierValue !== 'object') {
-    return null;
-  }
-  return typeof tierValue.metadata?.source === 'string' ? tierValue.metadata.source : null;
-}
-
-function shouldPreferOverviewTier(existingTier, incomingTier, seasonKey) {
-  const seasonNumber = parseSeasonKey(seasonKey);
-  if (seasonNumber == null || seasonNumber < PREMIER_LEAGUE_START_SEASON) {
-    return false;
-  }
-
-  const existingSource = getTierSource(existingTier);
-  const incomingSource = getTierSource(incomingTier);
-
-  if (
-    existingSource === WIKIPEDIA_DATA_SOURCES.overview.sourceId &&
-    incomingSource === WIKIPEDIA_DATA_SOURCES.promotion.sourceId
-  ) {
-    return true;
-  }
-  if (
-    existingSource === WIKIPEDIA_DATA_SOURCES.promotion.sourceId &&
-    incomingSource === WIKIPEDIA_DATA_SOURCES.overview.sourceId
-  ) {
-    return true;
-  }
-
-  return false;
-}
-
-function mergeTier(existingTier, incomingTier, includeEmpty, seasonKey) {
-  if (!existingTier) {
-    return incomingTier;
-  }
-
-  if (!incomingTier) {
-    return includeEmpty ? incomingTier : existingTier;
-  }
-
-  const existingHasData = tierHasData(existingTier);
-  const incomingHasData = tierHasData(incomingTier);
-
-  if (!existingHasData && incomingHasData) {
-    return incomingTier;
-  }
-
-  if (!incomingHasData) {
-    return includeEmpty ? incomingTier : existingTier;
-  }
-
-  if (shouldPreferOverviewTier(existingTier, incomingTier, seasonKey)) {
-    return getTierSource(existingTier) === WIKIPEDIA_DATA_SOURCES.overview.sourceId
-      ? existingTier
-      : incomingTier;
-  }
-
-  return compareTierRichness(existingTier, incomingTier) > 0 ? incomingTier : existingTier;
-}
-
-function mergeSeasonRecords(currentRecord, incomingRecord, includeEmpty, seasonKey) {
-  if (!currentRecord || typeof currentRecord !== 'object') {
-    return incomingRecord;
-  }
-  if (!incomingRecord || typeof incomingRecord !== 'object') {
-    return currentRecord;
-  }
-
-  const merged = { ...currentRecord };
-
-  for (const [key, incomingValue] of Object.entries(incomingRecord)) {
-    if (TIER_KEY_PATTERN.test(key)) {
-      merged[key] = mergeTier(merged[key], incomingValue, includeEmpty, seasonKey);
-      continue;
-    }
-
-    if (!(key in merged) || merged[key] == null) {
-      merged[key] = incomingValue;
-    }
-  }
-
-  return merged;
-}
-
-function normaliseGoalDifferences(dataset) {
-  if (!dataset || !dataset.seasons) return;
-  for (const seasonRecord of Object.values(dataset.seasons)) {
-    if (!seasonRecord || typeof seasonRecord !== 'object') continue;
-
-    for (const tierValue of Object.values(seasonRecord)) {
-      const table = Array.isArray(tierValue)
-        ? tierValue
-        : tierValue && typeof tierValue === 'object'
-        ? tierValue.table
-        : null;
-      if (!Array.isArray(table)) continue;
-
-      for (const row of table) {
-        if (!row || typeof row !== 'object') continue;
-
-        const gf = Number.isFinite(row.goalsFor) ? row.goalsFor : null;
-        const ga = Number.isFinite(row.goalsAgainst) ? row.goalsAgainst : null;
-        if (gf == null || ga == null) continue;
-
-        const expected = gf - ga;
-        if (row.goalDifference !== expected) {
-          row.goalDifference = expected;
-        }
-      }
-    }
-  }
-}
-
-function getSeasonTierTable(seasonRecord, tierKey) {
-  const tierValue = seasonRecord?.[tierKey];
-  return Array.isArray(tierValue?.table) ? tierValue.table : [];
-}
-
-function reconcileSeasonInfoContinuity(dataset) {
-  if (!dataset?.seasons) return;
-
-  const seasonNumbers = Object.keys(dataset.seasons)
-    .map((seasonKey) => parseSeasonKey(seasonKey))
-    .filter((seasonNumber) => seasonNumber != null)
-    .sort((a, b) => a - b);
-
-  for (const seasonNumber of seasonNumbers) {
-    const currentRecord = dataset.seasons[String(seasonNumber)];
-    const nextRecord = dataset.seasons[String(seasonNumber + 1)];
-    if (!currentRecord?.seasonInfo || !nextRecord) continue;
-
-    const currentTopFlight = getSeasonTierTable(currentRecord, 'tier1');
-    const nextTopFlight = getSeasonTierTable(nextRecord, 'tier1');
-    if (!currentTopFlight.length || !nextTopFlight.length) continue;
-
-    const currentNames = new Set(currentTopFlight.map((row) => canonicalizeTeamName(row.team)));
-    const nextNames = new Set(nextTopFlight.map((row) => canonicalizeTeamName(row.team)));
-
-    const promoted = nextTopFlight
-      .filter((row) => !currentNames.has(canonicalizeTeamName(row.team)))
-      .map((row) => row.team);
-    const relegated = currentTopFlight
-      .filter((row) => !nextNames.has(canonicalizeTeamName(row.team)))
-      .map((row) => row.team);
-
-    currentRecord.seasonInfo.promoted = promoted;
-    currentRecord.seasonInfo.relegated = relegated;
-  }
-}
+import {
+  normaliseGoalDifference,
+  parseSeasonNumber,
+  reconcileSeasonInfoContinuity,
+  isWarSuspensionSeason,
+  seasonHasData,
+  mergeSeasonRecords,
+} from './season-rules.js';
 
 export function combineFootballDataFiles({
   inputs,
@@ -333,7 +82,7 @@ export function combineFootballDataFiles({
   });
 
   reconcileSeasonInfoContinuity(finalDataset);
-  normaliseGoalDifferences(finalDataset);
+  normaliseGoalDifference(finalDataset);
   saveFootballData(resolvedOutput, finalDataset, {
     pretty,
     metadata: buildDatasetMetadata({
@@ -347,12 +96,12 @@ export function combineFootballDataFiles({
   });
 
   const missingSeasonNumbers = excludedSeasonEntries
-    .map(([seasonKey]) => parseSeasonKey(seasonKey))
+    .map(([seasonKey]) => parseSeasonNumber(seasonKey))
     .filter((value) => value != null);
 
   const nonNumericMissing = excludedSeasonEntries
     .map(([seasonKey]) => seasonKey)
-    .filter((seasonKey) => parseSeasonKey(seasonKey) == null);
+    .filter((seasonKey) => parseSeasonNumber(seasonKey) == null);
 
   return {
     dataset: finalDataset,

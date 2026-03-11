@@ -4,14 +4,16 @@ import { Command } from 'commander';
 import * as fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import {
-  inferEnglishLeagueTier,
-  isWikipediaWarSuspensionYear,
-  WIKIPEDIA_DATA_SOURCES,
-  WIKIPEDIA_SEASON_RANGES,
-} from './config.js';
+import { WIKIPEDIA_DATA_SOURCES } from './config.js';
 import { canonicalizeTeamName } from './data-quality-config.js';
 import { loadFootballData } from './generate-output-files.js';
+import {
+  getExpectedMinimumTierCount,
+  inferLeagueTierFromMetadata,
+  parseSeasonNumber,
+  shouldIgnoreMissingSeasonData,
+  shouldSkipContinuityForSeason,
+} from './season-rules.js';
 
 const TIER_KEY_PATTERN = /^tier(\d+)$/i;
 const LEGACY_TIER_METADATA_FIELDS = ['seasonSlug', 'sourceUrl', 'tier', 'title', 'seasonMetadata'];
@@ -705,52 +707,6 @@ function detectDatasetProfile(dataset) {
 }
 
 /**
- * @param {number} seasonNumber
- * @returns {number | null}
- */
-function getExpectedMinimumTierCount(seasonNumber) {
-  if (seasonNumber >= WIKIPEDIA_SEASON_RANGES.premierLeagueStartSeason - 1) return 4;
-  if (seasonNumber >= 1888) return 2;
-  return null;
-}
-
-/**
- * @param {import('./models/output-file.js').TierMetadata} metadata
- * @param {number} seasonNumber
- * @returns {number | null}
- */
-function inferLeagueTierFromMetadata(metadata, seasonNumber) {
-  return inferEnglishLeagueTier(
-    `${metadata?.title || ''} ${metadata?.leagueId || ''}`,
-    seasonNumber
-  );
-}
-
-function isWarSuspensionSeason(seasonKey) {
-  const seasonNumber = parseSeasonNumber(seasonKey);
-  return seasonNumber == null ? false : isWikipediaWarSuspensionYear(seasonNumber);
-}
-
-/**
- * @param {DatasetProfile} profile
- * @param {string} seasonKey
- */
-function shouldIgnoreMissingSeasonData(profile, seasonKey) {
-  return profile.kind === 'promotion-only' && isWarSuspensionSeason(seasonKey);
-}
-
-/**
- * @param {DatasetProfile} profile
- * @param {number} seasonNumber
- */
-function shouldSkipContinuityForSeason(profile, seasonNumber) {
-  return (
-    profile.kind === 'promotion-only' &&
-    seasonNumber >= WIKIPEDIA_SEASON_RANGES.premierLeagueStartSeason - 1
-  );
-}
-
-/**
  * @param {IssueInput} input
  * @returns {Issue}
  */
@@ -827,14 +783,6 @@ function compareSeasonKeys(seasonA, seasonB) {
     return numA - numB;
   }
   return seasonA.localeCompare(seasonB);
-}
-
-/**
- * @param {string} seasonKey
- */
-function parseSeasonNumber(seasonKey) {
-  const numeric = Number.parseInt(String(seasonKey), 10);
-  return Number.isFinite(numeric) ? numeric : null;
 }
 
 /**
