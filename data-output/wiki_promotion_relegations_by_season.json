@@ -19151,6 +19151,95 @@
         }
       }
     },
+    "1919": {
+      "seasonInfo": {
+        "season": 1919,
+        "table": [],
+        "relegated": [
+          "Notts County",
+          "The Wednesday"
+        ],
+        "promoted": [
+          "Tottenham Hotspur",
+          "Huddersfield Town"
+        ],
+        "seasonSlug": "1919-20_Football_League",
+        "sourceUrl": "https://en.wikipedia.org/wiki/1919-20_Football_League",
+        "tableCount": 0
+      },
+      "tier1": {
+        "season": 1919,
+        "table": [
+          {
+            "pos": 21,
+            "team": "The Wednesday",
+            "won": 9,
+            "points": 31,
+            "wasRelegated": true,
+            "wasPromoted": false
+          },
+          {
+            "pos": 22,
+            "team": "Notts County",
+            "won": 8,
+            "points": 30,
+            "wasRelegated": true,
+            "wasPromoted": false
+          }
+        ],
+        "relegated": [
+          "Notts County",
+          "The Wednesday"
+        ],
+        "promoted": [],
+        "metadata": {
+          "source": "wikipedia-promotion",
+          "sourceUrl": "https://en.wikipedia.org/wiki/1919-20_Football_League",
+          "seasonSlug": "1919-20_Football_League",
+          "tierKey": "tier1"
+        }
+      },
+      "tier2": {
+        "season": 1919,
+        "table": [
+          {
+            "pos": 1,
+            "team": "Tottenham Hotspur",
+            "won": 32,
+            "points": 70,
+            "wasRelegated": false,
+            "wasPromoted": true
+          },
+          {
+            "pos": 2,
+            "team": "Huddersfield Town",
+            "won": 28,
+            "points": 57,
+            "wasRelegated": false,
+            "wasPromoted": true
+          },
+          {
+            "pos": 3,
+            "team": "Birmingham",
+            "won": 25,
+            "points": 56,
+            "wasRelegated": false,
+            "wasPromoted": false
+          }
+        ],
+        "relegated": [],
+        "promoted": [
+          "Tottenham Hotspur",
+          "Huddersfield Town"
+        ],
+        "metadata": {
+          "source": "wikipedia-promotion",
+          "sourceUrl": "https://en.wikipedia.org/wiki/1919-20_Football_League",
+          "seasonSlug": "1919-20_Football_League",
+          "tierKey": "tier2"
+        }
+      }
+    },
     "1920": {
       "seasonInfo": {
         "season": 1920,

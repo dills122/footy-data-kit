@@ -120,7 +120,7 @@ program
       });
     } else {
       const promoData = loadFootballData(promoOutput);
-      const isWarYear = (year) => (year >= 1915 && year <= 1919) || (year >= 1940 && year <= 1946);
+      const isWarYear = (year) => (year >= 1915 && year <= 1918) || (year >= 1940 && year <= 1946);
       const missingSeasons = [];
       for (let year = startYear; year <= endYear; year++) {
         if (ignoreWarYears && isWarYear(year)) continue;

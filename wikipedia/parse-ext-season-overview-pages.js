@@ -559,7 +559,7 @@ function deriveSeasonYearFromSlug(slug) {
   return Number.isFinite(numeric) ? numeric : null;
 }
 
-const WWI_SUSPENSION_YEARS = new Set([1915, 1916, 1917, 1918, 1919]);
+const WWI_SUSPENSION_YEARS = new Set([1915, 1916, 1917, 1918]);
 const WWII_SUSPENSION_YEARS = new Set([1940, 1941, 1942, 1943, 1944, 1945, 1946]);
 
 function seasonHasTierData(record) {

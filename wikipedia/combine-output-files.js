@@ -429,7 +429,7 @@ export function runCli(argv = process.argv) {
       };
 
       for (const seasonNumber of missingSeasonNumbers.sort((a, b) => a - b)) {
-        if (seasonNumber >= 1915 && seasonNumber <= 1919) {
+        if (seasonNumber >= 1915 && seasonNumber <= 1918) {
           groupedMissing.ww1.push(seasonNumber);
         } else if (seasonNumber >= 1940 && seasonNumber <= 1946) {
           groupedMissing.ww2.push(seasonNumber);
