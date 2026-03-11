@@ -4,6 +4,11 @@
   "description": "Generate and clean your footy data for your next project.",
   "type": "module",
   "scripts": {
+    "build:wikipedia:promotion": "node wikipedia/cli.js build --start 1888 --end 1990 --output ./data-output --force-update --ignore-war-years",
+    "build:wikipedia:overview": "node wikipedia/cli.js overview --start 1991 --end 2024 --output ./data-output --force-update --ignore-war-years",
+    "build:wikipedia:combined": "node wikipedia/cli.js combined --start 1888 --end 2024 --output ./data-output --force-update --ignore-war-years",
+    "verify:wikipedia": "node wikipedia/verify-football-data.js --fail-on-issues ./data-output",
+    "minify:wikipedia:promotion": "node scripts/minify-json.js ./data-output/wiki_promotion_relegations_by_season.json",
     "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest",
     "test:integration": "cross-env NODE_OPTIONS=--experimental-vm-modules jest -c jest.integration.config.js",
     "test:integration:promotion": "cross-env NODE_OPTIONS=--experimental-vm-modules WIKI_TEST_SOURCE=promotion jest -c jest.integration.config.js",
