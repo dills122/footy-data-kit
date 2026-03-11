@@ -1,4 +1,4 @@
-import { parseDivisionTable } from '../parse-division-table.js';
+import { parseDivisionTable } from '../parsers/parse-division-table.js';
 
 const firstDivisionHead = `
   <div id="First_Division"></div>

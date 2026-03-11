@@ -3,7 +3,7 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { ReadableStream, TransformStream, WritableStream } from 'node:stream/web';
-import * as parseSeasonPagesModule from '../parse-season-pages.js';
+import * as parseSeasonPagesModule from '../builders/parse-season-pages.js';
 import { saveResults } from '../utils.js';
 
 const { buildPromotionRelegation, constructTier1SeasonResults, fetchSeasonTeams } =

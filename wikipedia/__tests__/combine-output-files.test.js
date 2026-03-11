@@ -1,7 +1,11 @@
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
-import { combineFootballDataFiles } from '../combine-output-files.js';
+import {
+  combineFootballDataFiles,
+  groupMissingSeasons,
+  splitSeasonEntriesForOutput,
+} from '../data/combine-output-files.js';
 
 describe('combine-output-files CLI', () => {
   const tmpDirs = [];
@@ -811,5 +815,32 @@ describe('combine-output-files CLI', () => {
         cwd: process.cwd(),
       });
     }).toThrow(/Input file not found/i);
+  });
+
+  test('splitSeasonEntriesForOutput filters war seasons and empties consistently', () => {
+    const { filteredSeasonEntries, excludedSeasonEntries, removedWarSeasons } =
+      splitSeasonEntriesForOutput({
+        seasonEntries: [
+          ['1915', { tier1: { table: [{ team: 'War Club' }] } }],
+          ['1916', { tier1: { table: [] } }],
+          ['2000', { tier1: { table: [{ team: 'League Club' }] } }],
+          ['2001', { seasonInfo: { note: true } }],
+          ['2002', { tier1: { table: [{ team: 'AFC' }] } }],
+          ['abc', {}],
+        ],
+        includeEmpty: false,
+      });
+
+    expect(removedWarSeasons).toBe(2);
+    expect(filteredSeasonEntries.map(([seasonKey]) => seasonKey)).toEqual(['2000', '2002']);
+    expect(excludedSeasonEntries.map(([seasonKey]) => seasonKey)).toEqual(['2001', 'abc']);
+  });
+
+  test('groupMissingSeasons buckets missing seasons by era', () => {
+    expect(groupMissingSeasons([2002, 1916, 1941, 2001, 1915])).toEqual({
+      ww1: [1915, 1916],
+      ww2: [1941],
+      other: [2001, 2002],
+    });
   });
 });

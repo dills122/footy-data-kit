@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
-import { analyzeDataset, analyzeFile, expandTargets } from '../verify-football-data.js';
+import { analyzeDataset, analyzeFile, expandTargets } from '../data/verify-football-data.js';
 
 describe('verify-football-data', () => {
   const tmpDirs = [];

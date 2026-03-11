@@ -1,37 +1,28 @@
-import {
-  buildDatasetMetadata,
-  buildSeasonInfo,
-  buildTierData,
-  loadFootballData,
-  saveFootballData,
-  setSeasonRecord,
-} from './generate-output-files.js';
+import { buildSeasonInfo, buildTierData } from '../data/generate-output-files.js';
 import {
   buildPromotionSeasonSlug,
   buildWikipediaArticleUrl,
-  isWikipediaWarSuspensionYear,
   WIKIPEDIA_DATA_SOURCES,
   WIKIPEDIA_GENERATORS,
-  WIKIPEDIA_FETCH_DELAY_MS,
   WIKIPEDIA_SEASON_RANGES,
-} from './config.js';
-import { canonicalizeTeamName } from './data-quality-config.js';
-import parseDivisionTable from './parse-division-table.js';
-import { fetchHtmlForSlug, wait } from './utils.js';
+} from '../config.js';
+import parseDivisionTable from '../parsers/parse-division-table.js';
+import { createDatasetStore } from '../data/dataset-store.js';
+import { fetchWikipediaSeasonPage } from '../parser-core/page-fetcher.js';
+import {
+  isWarSuspensionSeason,
+  reconcileSeasonInfoContinuity,
+  seasonHasTierData,
+} from '../data/season-rules.js';
 
 export async function fetchSeasonTeams(seasonSlug) {
-  const pageUrl = buildWikipediaArticleUrl(seasonSlug);
-  let html;
-
-  try {
-    html = await fetchHtmlForSlug(seasonSlug);
-  } catch (err) {
-    console.error(`❌ Failed to fetch page for ${seasonSlug} (${pageUrl}): ${err.message}`);
+  const fetchedPage = await fetchWikipediaSeasonPage(seasonSlug);
+  if (!fetchedPage) {
     return { first: [], second: [] };
   }
 
-  await wait(WIKIPEDIA_FETCH_DELAY_MS);
-
+  const html = fetchedPage.html;
+  const pageUrl = fetchedPage.pageUrl;
   const firstDivTable = parseDivisionTable(html, 'first');
   if (!firstDivTable.length) {
     console.warn(`⚠️  Missing First Division table data on ${seasonSlug} (${pageUrl})`);
@@ -47,7 +38,6 @@ export async function fetchSeasonTeams(seasonSlug) {
 
 export function constructTier1SeasonResults(tier1SeasonTable, tier2SeasonTable, year, slug) {
   const pageUrl = buildWikipediaArticleUrl(slug);
-
   const tier1RelegatedTeams = tier1SeasonTable
     .filter((team) => team.wasRelegated)
     .map((row) => row.team);
@@ -89,25 +79,6 @@ export function constructTier1SeasonResults(tier1SeasonTable, tier2SeasonTable, 
 
 const RAW_PROMOTION_CONTINUITY_FINAL_SEASON = WIKIPEDIA_SEASON_RANGES.classicPromotionFinalSeason;
 
-function seasonHasTierData(record) {
-  if (!record || typeof record !== 'object') return false;
-  return ['tier1', 'tier2'].some((tierKey) => {
-    const tier = record[tierKey];
-    if (!tier || typeof tier !== 'object') return false;
-    if (Array.isArray(tier)) return tier.length > 0;
-    if (Array.isArray(tier.table)) return tier.table.length > 0;
-    return false;
-  });
-}
-
-function isWarSuspensionYear(year) {
-  return isWikipediaWarSuspensionYear(year);
-}
-
-function getTierTable(record, tierKey) {
-  return Array.isArray(record?.[tierKey]?.table) ? record[tierKey].table : [];
-}
-
 export function finalizePromotionDataset(dataset, options = {}) {
   if (!dataset?.seasons || typeof dataset.seasons !== 'object') return dataset;
 
@@ -115,48 +86,24 @@ export function finalizePromotionDataset(dataset, options = {}) {
   if (ignoreWarYears) {
     for (const seasonKey of Object.keys(dataset.seasons)) {
       const seasonNumber = Number.parseInt(seasonKey, 10);
-      if (Number.isFinite(seasonNumber) && isWarSuspensionYear(seasonNumber)) {
+      if (Number.isFinite(seasonNumber) && isWarSuspensionSeason(seasonNumber)) {
         delete dataset.seasons[seasonKey];
       }
     }
   }
 
-  const seasonNumbers = Object.keys(dataset.seasons)
-    .map((seasonKey) => Number.parseInt(seasonKey, 10))
-    .filter((seasonNumber) => Number.isFinite(seasonNumber))
-    .sort((a, b) => a - b);
-
-  for (const seasonNumber of seasonNumbers) {
-    if (seasonNumber > RAW_PROMOTION_CONTINUITY_FINAL_SEASON) continue;
-
-    const currentRecord = dataset.seasons[String(seasonNumber)];
-    const nextRecord = dataset.seasons[String(seasonNumber + 1)];
-    if (!currentRecord?.seasonInfo || !nextRecord) continue;
-
-    const currentTopFlight = getTierTable(currentRecord, 'tier1');
-    const nextTopFlight = getTierTable(nextRecord, 'tier1');
-    if (!currentTopFlight.length || !nextTopFlight.length) continue;
-
-    const currentNames = new Set(currentTopFlight.map((row) => canonicalizeTeamName(row.team)));
-    const nextNames = new Set(nextTopFlight.map((row) => canonicalizeTeamName(row.team)));
-
-    currentRecord.seasonInfo.promoted = nextTopFlight
-      .filter((row) => !currentNames.has(canonicalizeTeamName(row.team)))
-      .map((row) => row.team);
-    currentRecord.seasonInfo.relegated = currentTopFlight
-      .filter((row) => !nextNames.has(canonicalizeTeamName(row.team)))
-      .map((row) => row.team);
-  }
+  reconcileSeasonInfoContinuity(dataset, {
+    maxContinuitySeason: RAW_PROMOTION_CONTINUITY_FINAL_SEASON,
+  });
 
   return dataset;
 }
 
 export async function buildPromotionRelegation(startYear, endYear, outputFile, options = {}) {
-  const dataset = loadFootballData(outputFile);
   const updateOnly = Boolean(options.updateOnly);
   const forceUpdate = Boolean(options.forceUpdate);
   const ignoreWarYears = Boolean(options.ignoreWarYears);
-  const outputMetadata = buildDatasetMetadata({
+  const store = createDatasetStore(outputFile, {
     generator: WIKIPEDIA_GENERATORS.promotion,
     buildOptions: {
       startYear,
@@ -166,6 +113,7 @@ export async function buildPromotionRelegation(startYear, endYear, outputFile, o
       ignoreWarYears,
     },
   });
+  const dataset = store.dataset;
 
   for (let year = startYear; year <= endYear; year++) {
     const existingRecord = dataset.seasons?.[String(year)];
@@ -174,7 +122,7 @@ export async function buildPromotionRelegation(startYear, endYear, outputFile, o
       continue;
     }
 
-    if (ignoreWarYears && isWarSuspensionYear(year)) {
+    if (ignoreWarYears && isWarSuspensionSeason(year)) {
       console.log(`⏭️ Skipping ${year} (WWI/WWII suspension)`);
       continue;
     }
@@ -214,12 +162,11 @@ export async function buildPromotionRelegation(startYear, endYear, outputFile, o
       seasonRecord.tier2 = tier2Results;
     }
 
-    setSeasonRecord(dataset, year, seasonRecord);
-    saveFootballData(outputFile, dataset, { metadata: outputMetadata });
+    store.writeSeason(year, seasonRecord);
   }
 
   finalizePromotionDataset(dataset, { ignoreWarYears });
-  saveFootballData(outputFile, dataset, { metadata: outputMetadata });
+  store.save();
 
   console.log(`\n✅ Finished building data for ${Object.keys(dataset.seasons).length} seasons.`);
   return dataset;

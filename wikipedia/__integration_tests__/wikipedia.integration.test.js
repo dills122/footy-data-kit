@@ -3,12 +3,12 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { WIKIPEDIA_DATA_SOURCES, isWikipediaWarSuspensionYear } from '../config.js';
-import { canonicalizeTeamName } from '../data-quality-config.js';
+import { canonicalizeTeamName } from '../data/data-quality-config.js';
 import {
   buildSeasonOverviewSeasonRecord,
   fetchSeasonOverviewTables,
-} from '../parse-ext-season-overview-pages.js';
-import { constructTier1SeasonResults, fetchSeasonTeams } from '../parse-season-pages.js';
+} from '../builders/parse-ext-season-overview-pages.js';
+import { constructTier1SeasonResults, fetchSeasonTeams } from '../builders/parse-season-pages.js';
 import testPages from './config.js';
 
 const TEST_TIMEOUT_MS = 120_000;

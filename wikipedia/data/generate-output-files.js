@@ -3,8 +3,8 @@
 import { execSync } from 'node:child_process';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import { WIKIPEDIA_DATA_SOURCES } from './config.js';
-import { isExpansionTeam, wasPromoted, wasRelegated } from './utils.js';
+import { WIKIPEDIA_DATA_SOURCES } from '../config.js';
+import { isExpansionTeam, wasPromoted, wasRelegated } from '../utils.js';
 
 /** @typedef {import('./models/output-file').LeagueTableEntry} LeagueTableEntry */
 /** @typedef {import('./models/output-file').TierData} TierData */

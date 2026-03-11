@@ -13,8 +13,8 @@ This repo scrapes, normalises, and validates historic English league tables from
 
 - `wikipedia/` is the actively supported ingestion path.
 - `rsssf/`, `scripts/csv-data/`, and older reference exports should be treated as legacy tooling unless you are intentionally doing archive work.
-- The promotion/relegation scraper (`node wikipedia/cli.js build`) is mainly a Tier 1/Tier 2 workflow.
-- The overview scraper (`node wikipedia/cli.js overview`) is the broader Wikipedia table parser and is the preferred path for more recent seasons.
+- The promotion/relegation scraper (`node wikipedia/cli/index.js build`) is mainly a Tier 1/Tier 2 workflow.
+- The overview scraper (`node wikipedia/cli/index.js overview`) is the broader Wikipedia table parser and is the preferred path for more recent seasons.
 
 ## Requirements
 
@@ -33,19 +33,19 @@ pnpm i
 1. **Generate Wikipedia data**
    ```bash
    # Promotion/relegation parser handles pre-Premier League seasons best
-   node wikipedia/cli.js build --start 1888 --end 1990 --output ./data-output --ignore-war-years
+   node wikipedia/cli/index.js build --start 1888 --end 1990 --output ./data-output --ignore-war-years
    # Overview parser is more reliable for 1991 onward
-   node wikipedia/cli.js overview --start 1991 --end 2024 --output ./data-output --ignore-war-years
+   node wikipedia/cli/index.js overview --start 1991 --end 2024 --output ./data-output --ignore-war-years
    ```
 2. **Merge and normalise**
    ```bash
-   node wikipedia/combine-output-files.js --output ./data-output/all-seasons.json \
+   node wikipedia/data/combine-output-files.js --output ./data-output/all-seasons.json \
      ./data-output/wiki_overview_tables_by_season.json \
      ./data-output/wiki_promotion_relegations_by_season.json
    ```
 3. **Validate and test**
    ```bash
-   node wikipedia/verify-football-data.js --fail-on-issues ./data-output
+   node wikipedia/data/verify-football-data.js --fail-on-issues ./data-output
    pnpm test:integration
    ```
 4. **Minify for distribution (optional)**
@@ -63,14 +63,14 @@ The exact sequence we use for fresh data pulls is below. It runs both Wikipedia 
 # Setup Repo, Install Deps
 pnpm i
 # Generate Data
-node wikipedia/cli.js build --start 1888 --end 1990 --output ./data-output --force-update --ignore-war-years
-node wikipedia/cli.js overview --start 1991 --end 2024 --output ./data-output --force-update --ignore-war-years
+node wikipedia/cli/index.js build --start 1888 --end 1990 --output ./data-output --force-update --ignore-war-years
+node wikipedia/cli/index.js overview --start 1991 --end 2024 --output ./data-output --force-update --ignore-war-years
 # Combine data into all-seasons file
-node wikipedia/combine-output-files.js --output ./data-output/all-seasons.json \
+node wikipedia/data/combine-output-files.js --output ./data-output/all-seasons.json \
   ./data-output/wiki_overview_tables_by_season.json \
   ./data-output/wiki_promotion_relegations_by_season.json
 # Verify the generated data
-node wikipedia/verify-football-data.js --fail-on-issues ./data-output
+node wikipedia/data/verify-football-data.js --fail-on-issues ./data-output
 pnpm test:integration
 # If all is good, finally minify data ready for external use
 node scripts/minify-json.js ./data-output/all-seasons.json
@@ -83,15 +83,15 @@ node scripts/minify-json.js ./data-output/wiki_promotion_relegations_by_season.j
 When `data-output/wiki_promotion_relegations_by_season.json` needs to be refreshed, rebuild it from code instead of patching individual seasons by hand:
 
 ```bash
-pnpm build:wikipedia:promotion
-pnpm minify:wikipedia:promotion
+pnpm wiki:build:promotion
+pnpm wiki:minify:promotion
 pnpm test:integration:promotion
 ```
 
 For a single-season repair while preserving the checked-in dataset shape, use the same command with a narrow range and keep `--ignore-war-years` enabled. Example for the 1919-20 edge season:
 
 ```bash
-node wikipedia/cli.js build --start 1919 --end 1919 --output ./data-output --force-update --ignore-war-years
+node wikipedia/cli/index.js build --start 1919 --end 1919 --output ./data-output --force-update --ignore-war-years
 node scripts/minify-json.js ./data-output/wiki_promotion_relegations_by_season.json
 pnpm test:integration:promotion
 ```
@@ -107,7 +107,7 @@ pnpm test:integration:promotion
 
 ## Wikipedia CLI (`wiki-league`)
 
-Run `node wikipedia/cli.js <command> [options]` to build FootballData-format JSON directly from Wikipedia tables.
+Run `node wikipedia/cli/index.js <command> [options]` to build FootballData-format JSON directly from Wikipedia tables.
 
 | Command    | Purpose                                                                                                               | Default output                                           |
 | ---------- | --------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------- |
@@ -161,11 +161,11 @@ node rsssf/cli.js scrape --from-file ./rsssf-cache/1960-61.html --from-file ./rs
 
 ## JSON Utilities
 
-- `wikipedia/combine-output-files.js` – merge multiple FootballData JSON files, drop war-year placeholders, prefer the richest tier record for each season, and show a grouped “missing seasons” summary. Use `--include-empty` to keep placeholder entries and `--compact` for minified JSON.
-- `wikipedia/compare-football-data.js` – compare two FootballData JSON files and report season, tier, table, outcome-list, and metadata changes between releases. Pass `--json` for machine-readable output.
+- `wikipedia/data/combine-output-files.js` – merge multiple FootballData JSON files, drop war-year placeholders, prefer the richest tier record for each season, and show a grouped “missing seasons” summary. Use `--include-empty` to keep placeholder entries and `--compact` for minified JSON.
+- `wikipedia/data/compare-football-data.js` – compare two FootballData JSON files and report season, tier, table, outcome-list, and metadata changes between releases. Pass `--json` for machine-readable output.
   Pass `--markdown` for a release-note-friendly summary.
 - `scripts/minify-json.js` – shrink JSON files in place or alongside (`foo.min.json`) so they are ready for publishing.
-- `wikipedia/verify-football-data.js` – lint FootballData exports for empty tiers, duplicate teams, stat mismatches, or promotion/relegation inconsistencies. Pass `--fail-on-issues` to exit non-zero when anomalies exist.
+- `wikipedia/data/verify-football-data.js` – lint FootballData exports for empty tiers, duplicate teams, stat mismatches, or promotion/relegation inconsistencies. Pass `--fail-on-issues` to exit non-zero when anomalies exist.
 
 ## Exported Data Shape
 
@@ -200,18 +200,18 @@ node rsssf/cli.js scrape --from-file ./rsssf-cache/1960-61.html --from-file ./rs
 
 ```bash
 # Combine overview + promotion data and inspect which seasons still lack tables
-node wikipedia/combine-output-files.js --output ./data-output/all-seasons.json \
+node wikipedia/data/combine-output-files.js --output ./data-output/all-seasons.json \
   ./data-output/wiki_overview_tables_by_season.json \
   ./data-output/wiki_promotion_relegations_by_season.json
 
 # Run the data lint pass on every JSON file under ./data-output
-node wikipedia/verify-football-data.js --fail-on-issues ./data-output
+node wikipedia/data/verify-football-data.js --fail-on-issues ./data-output
 
 # Compare a previous release file against a freshly generated one
-node wikipedia/compare-football-data.js ./releases/all-seasons-prev.json ./data-output/all-seasons.json
+node wikipedia/data/compare-football-data.js ./releases/all-seasons-prev.json ./data-output/all-seasons.json
 
 # Generate a markdown release summary
-node wikipedia/compare-football-data.js --markdown ./releases/all-seasons-prev.json ./data-output/all-seasons.json
+node wikipedia/data/compare-football-data.js --markdown ./releases/all-seasons-prev.json ./data-output/all-seasons.json
 
 # Minify the merged dataset next to its original (writes all-seasons.min.json)
 node scripts/minify-json.js ./data-output/all-seasons.json
@@ -245,4 +245,4 @@ Every script sets `NODE_OPTIONS=--experimental-vm-modules` automatically so Jest
 
 - Keep output directories around; the CLIs skip existing seasons unless `--force-update` is provided, which significantly cuts rerun time.
 - `club_names.json` contains canonical spellings that the scrapers rely on when reconciling seasonal data – update it before running the cleaners if you expect new clubs to appear.
-- Extend `wikipedia/parse-season-pages.js` or `wikipedia/parse-ext-season-overview-pages.js` if you need extra metadata (attendance, form, etc.); the FootballData schema is intentionally flexible.
+- Extend `wikipedia/builders/parse-season-pages.js` or `wikipedia/builders/parse-ext-season-overview-pages.js` if you need extra metadata (attendance, form, etc.); the FootballData schema is intentionally flexible.

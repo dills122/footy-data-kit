@@ -53,9 +53,9 @@ The promotion and overview paths should stay separate, but they already share re
 
 That shared behavior should live in a small internal parser core instead of being repeated across:
 
-- [parse-season-pages.js](/Users/dsteele/repos/footy-data-kit/wikipedia/parse-season-pages.js)
-- [parse-ext-season-overview-pages.js](/Users/dsteele/repos/footy-data-kit/wikipedia/parse-ext-season-overview-pages.js)
-- [parse-division-table.js](/Users/dsteele/repos/footy-data-kit/wikipedia/parse-division-table.js)
+- [parse-season-pages.js](/Users/dsteele/repos/footy-data-kit/wikipedia/builders/parse-season-pages.js)
+- [parse-ext-season-overview-pages.js](/Users/dsteele/repos/footy-data-kit/wikipedia/builders/parse-ext-season-overview-pages.js)
+- [parse-division-table.js](/Users/dsteele/repos/footy-data-kit/wikipedia/parsers/parse-division-table.js)
 
 The main rule is to extract only genuinely shared logic. One-off heuristics should remain near the parser that owns them.
 
@@ -125,8 +125,8 @@ Introduce a small persistence module used by:
 
 Move remaining duplicated season-rule logic out of:
 
-- [combine-output-files.js](/Users/dsteele/repos/footy-data-kit/wikipedia/combine-output-files.js)
-- [verify-football-data.js](/Users/dsteele/repos/footy-data-kit/wikipedia/verify-football-data.js)
+- [combine-output-files.js](/Users/dsteele/repos/footy-data-kit/wikipedia/data/combine-output-files.js)
+- [verify-football-data.js](/Users/dsteele/repos/footy-data-kit/wikipedia/data/verify-football-data.js)
 
 and onto the shared season-rules layer.
 
