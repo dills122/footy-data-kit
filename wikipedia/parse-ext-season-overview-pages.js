@@ -5,7 +5,6 @@ import {
   buildWikipediaArticleUrl,
   resolveWikipediaDatasetPath,
   WIKIPEDIA_DATA_SOURCES,
-  WIKIPEDIA_FETCH_DELAY_MS,
 } from './config.js';
 import {
   buildDatasetMetadata,
@@ -15,7 +14,7 @@ import {
   saveFootballData,
   setSeasonRecord,
 } from './generate-output-files.js';
-import { fetchHtmlForSlug, wait } from './utils.js';
+import { fetchWikipediaSeasonPage } from './parser-core/page-fetcher.js';
 import {
   collectOutcomeTeams,
   deriveMajorTierIndexes,
@@ -126,21 +125,14 @@ export function parseOverviewLeagueTables(html) {
 }
 
 export async function fetchSeasonOverviewTables(seasonSlug) {
-  const pageUrl = buildWikipediaArticleUrl(seasonSlug);
-  let html;
-
-  try {
-    html = await fetchHtmlForSlug(seasonSlug);
-  } catch (err) {
-    console.error(`❌ Failed to fetch page for ${seasonSlug} (${pageUrl}): ${err.message}`);
+  const fetchedPage = await fetchWikipediaSeasonPage(seasonSlug);
+  if (!fetchedPage) {
     return [];
   }
 
-  await wait(WIKIPEDIA_FETCH_DELAY_MS);
-
-  const leagueTables = parseOverviewLeagueTables(html);
+  const leagueTables = parseOverviewLeagueTables(fetchedPage.html);
   if (!leagueTables.length) {
-    console.warn(`⚠️ No league tables found on ${seasonSlug} (${pageUrl})`);
+    console.warn(`⚠️ No league tables found on ${seasonSlug} (${fetchedPage.pageUrl})`);
   } else {
     console.log(`   📊 Found ${leagueTables.length} league tables on ${seasonSlug}`);
   }
@@ -308,7 +300,6 @@ export async function buildSeasonOverviewForSlug(seasonSlug, outputFile) {
 }
 
 export default {
-  wait,
   fetchSeasonOverviewTables,
   buildSeasonOverviewSlug,
   buildSeasonOverview,

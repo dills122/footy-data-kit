@@ -11,11 +11,10 @@ import {
   buildWikipediaArticleUrl,
   WIKIPEDIA_DATA_SOURCES,
   WIKIPEDIA_GENERATORS,
-  WIKIPEDIA_FETCH_DELAY_MS,
   WIKIPEDIA_SEASON_RANGES,
 } from './config.js';
 import parseDivisionTable from './parse-division-table.js';
-import { fetchHtmlForSlug, wait } from './utils.js';
+import { fetchWikipediaSeasonPage } from './parser-core/page-fetcher.js';
 import {
   isWarSuspensionSeason,
   reconcileSeasonInfoContinuity,
@@ -23,18 +22,13 @@ import {
 } from './season-rules.js';
 
 export async function fetchSeasonTeams(seasonSlug) {
-  const pageUrl = buildWikipediaArticleUrl(seasonSlug);
-  let html;
-
-  try {
-    html = await fetchHtmlForSlug(seasonSlug);
-  } catch (err) {
-    console.error(`❌ Failed to fetch page for ${seasonSlug} (${pageUrl}): ${err.message}`);
+  const fetchedPage = await fetchWikipediaSeasonPage(seasonSlug);
+  if (!fetchedPage) {
     return { first: [], second: [] };
   }
 
-  await wait(WIKIPEDIA_FETCH_DELAY_MS);
-
+  const html = fetchedPage.html;
+  const pageUrl = fetchedPage.pageUrl;
   const firstDivTable = parseDivisionTable(html, 'first');
   if (!firstDivTable.length) {
     console.warn(`⚠️  Missing First Division table data on ${seasonSlug} (${pageUrl})`);
@@ -50,7 +44,6 @@ export async function fetchSeasonTeams(seasonSlug) {
 
 export function constructTier1SeasonResults(tier1SeasonTable, tier2SeasonTable, year, slug) {
   const pageUrl = buildWikipediaArticleUrl(slug);
-
   const tier1RelegatedTeams = tier1SeasonTable
     .filter((team) => team.wasRelegated)
     .map((row) => row.team);
