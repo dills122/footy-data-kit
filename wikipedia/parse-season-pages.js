@@ -1,11 +1,4 @@
-import {
-  buildDatasetMetadata,
-  buildSeasonInfo,
-  buildTierData,
-  loadFootballData,
-  saveFootballData,
-  setSeasonRecord,
-} from './generate-output-files.js';
+import { buildSeasonInfo, buildTierData } from './generate-output-files.js';
 import {
   buildPromotionSeasonSlug,
   buildWikipediaArticleUrl,
@@ -14,6 +7,7 @@ import {
   WIKIPEDIA_SEASON_RANGES,
 } from './config.js';
 import parseDivisionTable from './parse-division-table.js';
+import { createDatasetStore } from './dataset-store.js';
 import { fetchWikipediaSeasonPage } from './parser-core/page-fetcher.js';
 import {
   isWarSuspensionSeason,
@@ -106,11 +100,10 @@ export function finalizePromotionDataset(dataset, options = {}) {
 }
 
 export async function buildPromotionRelegation(startYear, endYear, outputFile, options = {}) {
-  const dataset = loadFootballData(outputFile);
   const updateOnly = Boolean(options.updateOnly);
   const forceUpdate = Boolean(options.forceUpdate);
   const ignoreWarYears = Boolean(options.ignoreWarYears);
-  const outputMetadata = buildDatasetMetadata({
+  const store = createDatasetStore(outputFile, {
     generator: WIKIPEDIA_GENERATORS.promotion,
     buildOptions: {
       startYear,
@@ -120,6 +113,7 @@ export async function buildPromotionRelegation(startYear, endYear, outputFile, o
       ignoreWarYears,
     },
   });
+  const dataset = store.dataset;
 
   for (let year = startYear; year <= endYear; year++) {
     const existingRecord = dataset.seasons?.[String(year)];
@@ -168,12 +162,11 @@ export async function buildPromotionRelegation(startYear, endYear, outputFile, o
       seasonRecord.tier2 = tier2Results;
     }
 
-    setSeasonRecord(dataset, year, seasonRecord);
-    saveFootballData(outputFile, dataset, { metadata: outputMetadata });
+    store.writeSeason(year, seasonRecord);
   }
 
   finalizePromotionDataset(dataset, { ignoreWarYears });
-  saveFootballData(outputFile, dataset, { metadata: outputMetadata });
+  store.save();
 
   console.log(`\n✅ Finished building data for ${Object.keys(dataset.seasons).length} seasons.`);
   return dataset;

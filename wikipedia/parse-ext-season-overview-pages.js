@@ -6,14 +6,8 @@ import {
   resolveWikipediaDatasetPath,
   WIKIPEDIA_DATA_SOURCES,
 } from './config.js';
-import {
-  buildDatasetMetadata,
-  buildSeasonInfo,
-  buildTierData,
-  loadFootballData,
-  saveFootballData,
-  setSeasonRecord,
-} from './generate-output-files.js';
+import { buildSeasonInfo, buildTierData } from './generate-output-files.js';
+import { createDatasetStore } from './dataset-store.js';
 import { fetchWikipediaSeasonPage } from './parser-core/page-fetcher.js';
 import {
   collectOutcomeTeams,
@@ -213,7 +207,6 @@ export function buildSeasonOverviewSeasonRecord({ seasonKey, seasonYear, seasonS
 
 export async function buildSeasonOverview(startYear, endYear, outputFile, options = {}) {
   const resolvedOutputFile = resolveOverviewOutputFile(outputFile);
-  const dataset = loadFootballData(resolvedOutputFile);
   const updateOnly = Boolean(options.updateOnly);
   const forceUpdate = Boolean(options.forceUpdate);
   const ignoreWarYears = Boolean(options.ignoreWarYears);
@@ -221,7 +214,7 @@ export async function buildSeasonOverview(startYear, endYear, outputFile, option
     typeof options.fetchSeasonOverviewTables === 'function'
       ? options.fetchSeasonOverviewTables
       : fetchSeasonOverviewTables;
-  const outputMetadata = buildDatasetMetadata({
+  const store = createDatasetStore(resolvedOutputFile, {
     generator: WIKIPEDIA_DATA_SOURCES.overview.generator,
     buildOptions: {
       startYear,
@@ -231,6 +224,7 @@ export async function buildSeasonOverview(startYear, endYear, outputFile, option
       ignoreWarYears,
     },
   });
+  const dataset = store.dataset;
 
   for (let year = startYear; year <= endYear; year++) {
     const seasonKey = String(year);
@@ -261,8 +255,7 @@ export async function buildSeasonOverview(startYear, endYear, outputFile, option
       tables,
     });
 
-    setSeasonRecord(dataset, seasonKey, seasonRecord);
-    saveFootballData(resolvedOutputFile, dataset, { metadata: outputMetadata });
+    store.writeSeason(seasonKey, seasonRecord);
   }
 
   console.log(
@@ -273,11 +266,18 @@ export async function buildSeasonOverview(startYear, endYear, outputFile, option
 
 export async function buildSeasonOverviewForSlug(seasonSlug, outputFile) {
   const resolvedOutputFile = resolveOverviewOutputFile(outputFile);
+  const store = createDatasetStore(resolvedOutputFile, {
+    generator: WIKIPEDIA_DATA_SOURCES.overview.generator,
+    buildOptions: {
+      seasonSlug,
+      mode: 'single-season',
+    },
+  });
+  const dataset = store.dataset;
   console.log(`\n📖 Fetching ${seasonSlug}...`);
   const tables = await fetchSeasonOverviewTables(seasonSlug);
   const seasonKey = extractSeasonKeyFromSlug(seasonSlug) || 'unknown-season';
   const seasonYear = extractSeasonYearFromSlug(seasonKey);
-  const dataset = loadFootballData(resolvedOutputFile);
   const seasonRecord = buildSeasonOverviewSeasonRecord({
     seasonKey,
     seasonYear,
@@ -285,16 +285,7 @@ export async function buildSeasonOverviewForSlug(seasonSlug, outputFile) {
     tables,
   });
 
-  setSeasonRecord(dataset, seasonKey, seasonRecord);
-  saveFootballData(resolvedOutputFile, dataset, {
-    metadata: buildDatasetMetadata({
-      generator: WIKIPEDIA_DATA_SOURCES.overview.generator,
-      buildOptions: {
-        seasonSlug,
-        mode: 'single-season',
-      },
-    }),
-  });
+  store.writeSeason(seasonKey, seasonRecord);
   console.log(`\n📂 Overview tables written to ${resolvedOutputFile}`);
   return { seasonKey, record: dataset.seasons[seasonKey] };
 }
