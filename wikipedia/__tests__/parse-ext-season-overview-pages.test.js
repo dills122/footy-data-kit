@@ -325,6 +325,51 @@ describe('parseOverviewLeagueTables', () => {
     expect(seasonRecord.seasonInfo.promoted).toEqual([]);
     expect(seasonRecord.seasonInfo.relegated).toEqual([]);
   });
+
+  test('stores regional third divisions with shared leagueLevel metadata after 1921', () => {
+    const seasonRecord = buildSeasonOverviewSeasonRecord({
+      seasonKey: '1921',
+      seasonYear: 1921,
+      seasonSlug: '1921–22_in_English_football',
+      tables: [
+        {
+          title: 'First Division',
+          id: 'First_Division',
+          tableIndex: 0,
+          rows: [{ pos: 1, team: 'Liverpool', played: 42, points: 61 }],
+        },
+        {
+          title: 'Second Division',
+          id: 'Second_Division',
+          tableIndex: 1,
+          rows: [{ pos: 1, team: 'Notts County', played: 42, points: 58, wasPromoted: true }],
+        },
+        {
+          title: 'Third Division North',
+          id: 'Third_Division_North',
+          tableIndex: 2,
+          rows: [{ pos: 1, team: 'Stockport County', played: 38, points: 53 }],
+        },
+        {
+          title: 'Third Division South',
+          id: 'Third_Division_South',
+          tableIndex: 3,
+          rows: [{ pos: 1, team: 'Plymouth Argyle', played: 38, points: 54 }],
+        },
+      ],
+    });
+
+    expect(seasonRecord.tier3.metadata).toMatchObject({
+      title: 'Third Division North',
+      leagueLevel: 3,
+      tierKey: 'tier3',
+    });
+    expect(seasonRecord.tier4.metadata).toMatchObject({
+      title: 'Third Division South',
+      leagueLevel: 3,
+      tierKey: 'tier4',
+    });
+  });
 });
 
 describe('buildSeasonOverview', () => {

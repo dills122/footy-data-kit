@@ -228,7 +228,8 @@ export function buildSeasonOverviewSeasonRecord({ seasonKey, seasonYear, seasonS
   let nextSequentialTier = 1;
 
   normalizedTables.forEach((table, index) => {
-    let tierNumber = inferOverviewTierNumber(table, safeSeason);
+    const inferredTierNumber = inferOverviewTierNumber(table, safeSeason);
+    let tierNumber = inferredTierNumber;
 
     if (tierNumber == null || usedTierNumbers.has(tierNumber)) {
       while (usedTierNumbers.has(nextSequentialTier)) {
@@ -252,6 +253,7 @@ export function buildSeasonOverviewSeasonRecord({ seasonKey, seasonYear, seasonS
         seasonSlug,
         leagueId: table.id || null,
         title: table.title,
+        leagueLevel: inferredTierNumber ?? tierNumber,
         tableIndex: table.tableIndex ?? index,
         tableCount: tables.length,
         tierKey,

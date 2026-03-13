@@ -24,6 +24,7 @@ export interface TierMetadata {
   seasonSlug?: string | null;
   leagueId?: string | null;
   title?: string | null;
+  leagueLevel?: number | null;
   tableIndex?: number | null;
   tableCount?: number | null;
   tierKey?: string | null;

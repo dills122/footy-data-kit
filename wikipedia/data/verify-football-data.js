@@ -593,6 +593,15 @@ function analyzeSeasonLeagueOrdering(seasonKey, seasonValue) {
     if (!metadata || metadata.source !== WIKIPEDIA_DATA_SOURCES.overview.sourceId) continue;
 
     const inferredTier = inferLeagueTierFromMetadata(metadata, seasonNumber);
+    const metadataLeagueLevel = Number.parseInt(String(metadata.leagueLevel), 10);
+    if (
+      inferredTier != null &&
+      Number.isFinite(metadataLeagueLevel) &&
+      metadataLeagueLevel === inferredTier &&
+      metadataLeagueLevel <= tierNumber
+    ) {
+      continue;
+    }
     if (inferredTier == null || inferredTier === tierNumber) continue;
 
     issues.push(

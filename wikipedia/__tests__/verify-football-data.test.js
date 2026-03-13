@@ -552,6 +552,99 @@ describe('verify-football-data', () => {
     expect(issueTypes).not.toContain('league-order-mismatch');
   });
 
+  test('analyzeDataset allows parallel regional leagues to share a leagueLevel', () => {
+    const issues = analyzeDataset({
+      metadata: {
+        schemaVersion: 1,
+        generator: 'wikipedia-overview',
+        generatedAt: '2026-03-13T05:00:00.000Z',
+      },
+      seasons: {
+        1921: {
+          seasonInfo: {
+            season: 1921,
+            table: [],
+            promoted: [],
+            relegated: [],
+            seasonSlug: '1921-22_in_English_football',
+            sourceUrl: 'https://example.com/1921',
+            tableCount: 4,
+          },
+          tier1: {
+            season: 1921,
+            table: [],
+            promoted: [],
+            relegated: [],
+            metadata: {
+              source: 'wikipedia-overview',
+              seasonSlug: '1921-22',
+              sourceUrl: 'https://example.com/1921',
+              tierKey: 'tier1',
+              title: 'First Division',
+              leagueId: 'First_Division',
+              leagueLevel: 1,
+              tableIndex: 0,
+              tableCount: 4,
+            },
+          },
+          tier2: {
+            season: 1921,
+            table: [],
+            promoted: [],
+            relegated: [],
+            metadata: {
+              source: 'wikipedia-overview',
+              seasonSlug: '1921-22',
+              sourceUrl: 'https://example.com/1921',
+              tierKey: 'tier2',
+              title: 'Second Division',
+              leagueId: 'Second_Division',
+              leagueLevel: 2,
+              tableIndex: 1,
+              tableCount: 4,
+            },
+          },
+          tier3: {
+            season: 1921,
+            table: [],
+            promoted: [],
+            relegated: [],
+            metadata: {
+              source: 'wikipedia-overview',
+              seasonSlug: '1921-22',
+              sourceUrl: 'https://example.com/1921',
+              tierKey: 'tier3',
+              title: 'Third Division North',
+              leagueId: 'Third_Division_North',
+              leagueLevel: 3,
+              tableIndex: 2,
+              tableCount: 4,
+            },
+          },
+          tier4: {
+            season: 1921,
+            table: [],
+            promoted: [],
+            relegated: [],
+            metadata: {
+              source: 'wikipedia-overview',
+              seasonSlug: '1921-22',
+              sourceUrl: 'https://example.com/1921',
+              tierKey: 'tier4',
+              title: 'Third Division South',
+              leagueId: 'Third_Division_South',
+              leagueLevel: 3,
+              tableIndex: 3,
+              tableCount: 4,
+            },
+          },
+        },
+      },
+    });
+
+    expect(issues.map((issue) => issue.type)).not.toContain('league-order-mismatch');
+  });
+
   test('analyzeDataset reports overview tiers that are shifted upward when a middle league is missing', () => {
     const issues = analyzeDataset({
       metadata: {
