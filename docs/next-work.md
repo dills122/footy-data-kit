@@ -24,7 +24,7 @@ Temporary working note for the next phase after the clean dataset release.
 
 4. Historical overview expansion
    - Continue the pre-modern Wikipedia overview work in [historical-overview-parsing.md](/Users/dsteele/repos/footy-data-kit/docs/historical-overview-parsing.md).
-   - Prioritise `1900–1905`, `1919–1921`, and then the `1921+` Third Division North/South split.
+   - The first historical slices through the early `1920s` are now covered; the remaining roadmap is `late 1920s`, `1930s`, WWII handling, then representative `1946–1991` validation.
    - Keep wartime seasons non-canonical by default; if added later, prefer metadata-only placeholder records behind an explicit option.
 
 ## Notes

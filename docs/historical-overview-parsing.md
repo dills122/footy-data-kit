@@ -133,31 +133,167 @@ Suggested `seasonInfo` metadata fields:
 
 This should only be added behind an explicit option. It should not silently change the default dataset.
 
-## Recommended Next Slices
+## Progress Snapshot
 
-### Slice 1: 1900–1905
+The overview flow is now in decent shape through the early `1920s`.
 
-Focus:
+Covered with implemented parser behavior and focused tests:
 
-- election and re-election wording
-- whether lower competitions appear as sibling sections after Football League tables
-- whether any generic `League table` / `Tables` headings still need parent-title fallback tweaks
+- `1888–89` single-table start of the Football League
+- `1890–91` through `1891–92` Football Alliance second-tier era
+- `1892+` First Division / Second Division structure
+- `1900–1905` pages where `Football League` appears after `League changes`
+- `1919–20` restart-era pages where `Southern League` and other sibling sections must be excluded
+- `1921+` Third Division North / Third Division South seasons, with shared `leagueLevel` metadata even when stored as `tier3` and `tier4`
 
-### Slice 2: 1919–1921
+Not yet implemented end-to-end:
 
-Focus:
+- metadata-only optional handling for wartime substitute seasons
+- saved overview dataset regeneration for the newly supported historical years
+- integration fixtures for early overview seasons after dataset regeneration
+- later-era historical sampling beyond the early `1920s`
 
-- post-war restart pages
-- confirmation that `The Football League` anchoring holds across restart-era pages
-- verify no wartime or sibling leagues leak into `tierN`
+## Remaining Work To Reach Broad Historical Coverage
 
-### Slice 3: 1921–mid 1920s
+### Phase 1: Finish the `1920s`
 
-Focus:
+Goal:
 
-- Third Division North / South split
-- ordering and tier assignment for parallel third-tier competitions
-- page structures where multiple Football League sub-competitions sit under one top-level section
+- confirm the overview flow is stable from `1921–22` through the end of the decade
+
+Main checks:
+
+- `Third Division North` / `Third Division South` stay represented as parallel level-3 leagues
+- promotion and election wording for North/South winners are captured correctly
+- no non-Football-League sections are pulled into `tierN`
+- table heading variations such as `Tables`, `Final standings`, or generic child headings still inherit the correct parent competition
+
+Deliverables:
+
+- add representative tests for `1921–22`, `1924–25`, `1927–28`, and `1929–30`
+- confirm whether any decade-specific heading tweaks are needed
+- update this note with any new patterns found
+
+### Phase 2: `1930s`
+
+Goal:
+
+- verify the parser continues to work before WWII without hidden structural drift
+
+Main checks:
+
+- whether `League tables` returns as the dominant root or `Football League` remains common
+- whether North/South split pages keep consistent league labels and ids
+- whether promotion/relegation wording shifts toward plainer `Promoted` / `Relegated` notes
+- whether the verifier and continuity rules remain correct for pre-war seasons with four stored overview tiers
+
+Deliverables:
+
+- representative tests across early, mid, and late `1930s`
+- one smoke fixture that includes a North/South split season from this era
+
+### Phase 3: WWII Handling (`1939–40` through `1945–46`)
+
+Goal:
+
+- decide on final treatment of WWII interruption seasons before broad overview regeneration
+
+Main checks:
+
+- whether `1939–40` is structured as an abandoned season and needs special handling distinct from fully skipped wartime years
+- whether `1940–41` through `1944–45` mirror the WWI substitute-competition pattern closely enough to share one metadata-only model
+- whether `1945–46` resumes canonical Football League structure or needs a one-season exception
+
+Recommended implementation shape:
+
+- keep canonical output unchanged by default
+- optionally write metadata-only wartime season records for suspended or substitute-competition years
+- make the option explicit so canonical exports remain stable
+
+Deliverables:
+
+- inspection note update for WWII pages
+- option design and tests if wartime metadata-only support is implemented
+
+### Phase 4: Post-war to pre-Premier-League normalization (`1946–1991`)
+
+Goal:
+
+- make the overview flow viable across the full post-war Football League era, even if the promotion flow remains canonical for much of it
+
+Main checks:
+
+- regional third-tier pages continue to map cleanly
+- division naming remains consistent through restructures
+- top-flight movement still comes only from the actual feeder tier for that season
+- page templates from the `1950s`, `1960s`, `1970s`, and `1980s` do not introduce heading regressions
+
+Suggested sampling:
+
+- `1946–47`
+- `1950–51`
+- `1960–61`
+- `1973–74`
+- `1986–87`
+- `1990–91`
+
+Deliverables:
+
+- targeted tests for one representative season per structural sub-era
+- overview smoke coverage for at least one North/South era and one late pre-Premier-League era
+
+### Phase 5: Saved Dataset and Integration Coverage
+
+Goal:
+
+- move from parser support to checked-in dataset confidence
+
+Main checks:
+
+- regenerate `data-output/wiki_overview_tables_by_season.json` for the newly supported early years
+- verify combined output still preserves canonical behavior
+- add curated overview integration fixtures once the saved dataset includes those seasons
+
+Deliverables:
+
+- regenerate saved overview dataset in controlled slices
+- add early overview entries to [wikipedia/**integration_tests**/config.js](/Users/dsteele/repos/footy-data-kit/wikipedia/__integration_tests__/config.js)
+- keep integration pages representative rather than exhaustive
+
+### Phase 6: Decide Whether Overview Becomes the Default Historical Backbone
+
+Goal:
+
+- decide whether the overview flow should remain a supplemental path or become the main parser for all historical seasons
+
+Decision criteria:
+
+- coverage quality for `1888–1991`
+- stability of `seasonInfo.promoted` / `seasonInfo.relegated`
+- amount of era-specific patching still required
+- whether the overview pages consistently expose enough canonical league-table detail
+
+Possible outcomes:
+
+- keep current split: `build` for older canonical seasons, `overview` for modern seasons and selected fallback
+- switch to overview-first for broad historical ranges, with promotion flow kept for verification or legacy recovery
+- maintain both and combine them using richer metadata-based precedence rules
+
+## Open Questions
+
+- Should `1939–40` be modeled as a wartime suspension year, an abandoned canonical season, or a metadata-only special case?
+- Do any `1920s` or `1930s` pages promote North/South winners using wording that bypasses current promotion flag logic?
+- Should `leagueLevel` also be added to `seasonInfo` summary metadata when a season contains parallel regional tiers?
+- If wartime metadata-only seasons are added, should the combiner strip them by default from canonical outputs or preserve them when present?
+
+## Recommended Execution Order From Here
+
+1. Finish representative `1920s` sampling and add any missing tests.
+2. Inspect `1930s` pages for structural drift.
+3. Inspect WWII pages and decide on the metadata-only wartime design.
+4. Sample `1946–1991` by decade and add targeted tests only where behavior differs.
+5. Regenerate the saved overview dataset for supported early years.
+6. Add integration fixtures once saved data exists for those seasons.
 
 ## Guardrails
 
