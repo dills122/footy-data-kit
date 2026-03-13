@@ -81,6 +81,24 @@ describe('parseOverviewLeagueTables', () => {
     expect(result[0].rows[0]).toMatchObject({ team: 'Fallback FC', points: 55 });
   });
 
+  test('limits parsing to the Football League section when sibling Southern League tables exist', () => {
+    const html = `
+      <div class="mw-heading mw-heading2"><h2 id="Football_League">The Football League</h2></div>
+      <div class="mw-heading mw-heading3"><h3 id="First_Division">First Division</h3></div>
+      ${buildTableHtml('First Division FC', 42)}
+      <div class="mw-heading mw-heading3"><h3 id="Second_Division">Second Division</h3></div>
+      ${buildTableHtml('Second Division FC', 35)}
+      <div class="mw-heading mw-heading2"><h2 id="Southern_League">Southern League</h2></div>
+      <div class="mw-heading mw-heading3"><h3 id="Southern_League_First_Division">Southern League First Division</h3></div>
+      ${buildTableHtml('Portsmouth', 58)}
+    `;
+
+    const result = parseOverviewLeagueTables(html);
+    expect(result).toHaveLength(2);
+    expect(result.map((entry) => entry.title)).toEqual(['First Division', 'Second Division']);
+    expect(result.some((entry) => entry.rows.some((row) => row.team === 'Portsmouth'))).toBe(false);
+  });
+
   test('uses table legends to infer promotion and relegation flags', () => {
     const html = `
       <div class="mw-heading mw-heading2"><h2 id="League_tables">League tables</h2></div>

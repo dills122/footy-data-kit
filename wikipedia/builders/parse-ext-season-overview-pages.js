@@ -100,6 +100,8 @@ export function parseOverviewLeagueTables(html) {
 
   const overview = [];
   const headingWrapper = leagueHeading.closest('.mw-heading');
+  const rootLeagueTitle = leagueHeading.text().trim() || undefined;
+  const rootLeagueId = leagueHeading.attr('id') || undefined;
   let pointer = headingWrapper.length ? headingWrapper.next() : leagueHeading.next();
 
   while (pointer.length) {
@@ -107,7 +109,15 @@ export function parseOverviewLeagueTables(html) {
     if (level === 2) break;
 
     if (level && level >= 3 && level <= 5) {
-      const entries = parseOverviewTablesForHeading($, pointer, undefined, context);
+      const entries = parseOverviewTablesForHeading(
+        $,
+        pointer,
+        {
+          leagueTitle: rootLeagueTitle,
+          leagueId: rootLeagueId,
+        },
+        context
+      );
       overview.push(...entries);
     }
 

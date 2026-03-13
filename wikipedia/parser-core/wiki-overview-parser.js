@@ -35,6 +35,7 @@ export function findLeagueSectionHeading($, options = {}) {
     if (/^league tables?/.test(normalized)) score = 100;
     else if (/^league season/.test(normalized)) score = 90;
     else if (/^league competitions/.test(normalized)) score = 80;
+    else if (/^(the )?football league$/.test(normalized)) score = 85;
     else if (/^men's football/.test(normalized)) score = 75;
     else if (/^final standings/.test(normalized)) score = 95;
     else if (normalized.includes('league') && normalized.includes('table')) score = 70;
