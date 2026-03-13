@@ -178,6 +178,113 @@ describe('parseOverviewLeagueTables', () => {
       tierKey: 'tier3',
     });
   });
+
+  test('treats Football Alliance as the second tier before 1892 and captures election-based promotion', () => {
+    const seasonRecord = buildSeasonOverviewSeasonRecord({
+      seasonKey: '1890',
+      seasonYear: 1890,
+      seasonSlug: '1890–91_in_English_football',
+      tables: [
+        {
+          title: 'The Football League',
+          id: 'The_Football_League',
+          tableIndex: 0,
+          rows: [
+            { pos: 1, team: 'Everton', played: 22, points: 29 },
+            {
+              pos: 12,
+              team: 'Burnley',
+              played: 22,
+              points: 14,
+              notes: 'Not re-elected to the Football League',
+            },
+          ],
+        },
+        {
+          title: 'The Football Alliance',
+          id: 'The_Football_Alliance',
+          tableIndex: 1,
+          rows: [
+            {
+              pos: 1,
+              team: 'Stoke',
+              played: 22,
+              points: 33,
+              notes: 'Elected to the Football League',
+            },
+          ],
+        },
+      ],
+    });
+
+    expect(seasonRecord.seasonInfo.promoted).toEqual(['Stoke']);
+    expect(seasonRecord.seasonInfo.relegated).toEqual(['Burnley']);
+    expect(seasonRecord.tier1.relegated).toEqual(['Burnley']);
+    expect(seasonRecord.tier2.promoted).toEqual(['Stoke']);
+    expect(seasonRecord.tier2.metadata).toMatchObject({
+      title: 'The Football Alliance',
+      leagueId: 'The_Football_Alliance',
+      tierKey: 'tier2',
+    });
+  });
+
+  test('does not treat election to the Second Division as top-flight promotion', () => {
+    const seasonRecord = buildSeasonOverviewSeasonRecord({
+      seasonKey: '1891',
+      seasonYear: 1891,
+      seasonSlug: '1891–92_in_English_football',
+      tables: [
+        {
+          title: 'The Football League',
+          id: 'The_Football_League',
+          tableIndex: 0,
+          rows: [{ pos: 1, team: 'Sunderland', played: 26, points: 42 }],
+        },
+        {
+          title: 'The Football Alliance',
+          id: 'The_Football_Alliance',
+          tableIndex: 1,
+          rows: [
+            {
+              pos: 1,
+              team: 'Sheffield United',
+              played: 22,
+              points: 35,
+              notes: 'Elected to the Football League Second Division',
+            },
+          ],
+        },
+      ],
+    });
+
+    expect(seasonRecord.seasonInfo.promoted).toEqual([]);
+    expect(seasonRecord.tier2.promoted).toEqual([]);
+  });
+
+  test('keeps the single 1888 Football League table as tier1', () => {
+    const seasonRecord = buildSeasonOverviewSeasonRecord({
+      seasonKey: '1888',
+      seasonYear: 1888,
+      seasonSlug: '1888–89_in_English_football',
+      tables: [
+        {
+          title: 'The Football League',
+          id: 'The_Football_League',
+          tableIndex: 0,
+          rows: [{ pos: 1, team: 'Preston North End', played: 22, points: 40 }],
+        },
+      ],
+    });
+
+    expect(seasonRecord.tier1.metadata).toMatchObject({
+      title: 'The Football League',
+      leagueId: 'The_Football_League',
+      tierKey: 'tier1',
+    });
+    expect(seasonRecord.tier2).toBeUndefined();
+    expect(seasonRecord.seasonInfo.promoted).toEqual([]);
+    expect(seasonRecord.seasonInfo.relegated).toEqual([]);
+  });
 });
 
 describe('buildSeasonOverview', () => {

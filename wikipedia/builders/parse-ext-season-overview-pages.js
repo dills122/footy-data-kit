@@ -10,7 +10,6 @@ import { buildSeasonInfo, buildTierData } from '../data/generate-output-files.js
 import { createDatasetStore } from '../data/dataset-store.js';
 import { fetchWikipediaSeasonPage } from '../parser-core/page-fetcher.js';
 import {
-  collectOutcomeTeams,
   deriveMajorTierIndexes,
   findLeagueSectionHeading,
   getHeadingLevel,
@@ -138,6 +137,53 @@ export function buildSeasonOverviewSlug(year) {
   return buildOverviewSeasonSlugFromConfig(year);
 }
 
+function normalizeOutcomeNote(note) {
+  return String(note || '')
+    .toLowerCase()
+    .replace(/[\u2010-\u2015]/g, '-')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function rowEarnedTopFlightPromotion(row, seasonNumber) {
+  if (!row) return false;
+  if (row.wasPromoted) return true;
+
+  const note = normalizeOutcomeNote(row.notes);
+  if (!note) return false;
+
+  if (note.includes('elected to the football league first division')) return true;
+  if (note.includes('elected to the first division')) return true;
+
+  if (seasonNumber <= 1891 && note.includes('elected to the football league')) {
+    return !note.includes('second division');
+  }
+
+  return false;
+}
+
+function rowDroppedFromTopFlight(row) {
+  if (!row) return false;
+  if (row.wasRelegated) return true;
+
+  const note = normalizeOutcomeNote(row.notes);
+  if (!note) return false;
+
+  return note.includes('failed re-election') || note.includes('not re-elected');
+}
+
+function collectTopFlightPromotions(table, seasonNumber) {
+  if (!table || !Array.isArray(table.rows)) return [];
+  return table.rows
+    .filter((row) => rowEarnedTopFlightPromotion(row, seasonNumber))
+    .map((row) => row.team);
+}
+
+function collectTopFlightRelegations(table) {
+  if (!table || !Array.isArray(table.rows)) return [];
+  return table.rows.filter((row) => rowDroppedFromTopFlight(row)).map((row) => row.team);
+}
+
 function resolveOverviewOutputFile(outputFile) {
   return outputFile
     ? path.resolve(outputFile)
@@ -149,15 +195,14 @@ export function buildSeasonOverviewSeasonRecord({ seasonKey, seasonYear, seasonS
     ? /** @type {number} */ (seasonYear)
     : extractSeasonYearFromSlug(seasonKey);
   const safeSeason = Number.isFinite(numericSeason) ? numericSeason : 0;
-  const { topFlightIndex, secondTierIndex } = deriveMajorTierIndexes(tables);
+  const normalizedTables = tables.map((table) => ({ ...table, season: safeSeason }));
+  const { topFlightIndex, secondTierIndex } = deriveMajorTierIndexes(normalizedTables);
   const promotedTeams =
     secondTierIndex != null
-      ? collectOutcomeTeams(tables, 'wasPromoted', { includeIndexes: [secondTierIndex] })
+      ? collectTopFlightPromotions(normalizedTables[secondTierIndex], safeSeason)
       : [];
   const relegatedTeams =
-    topFlightIndex != null
-      ? collectOutcomeTeams(tables, 'wasRelegated', { includeIndexes: [topFlightIndex] })
-      : [];
+    topFlightIndex != null ? collectTopFlightRelegations(normalizedTables[topFlightIndex]) : [];
 
   const seasonInfo = buildSeasonInfo(safeSeason, {
     promoted: promotedTeams,
@@ -172,7 +217,7 @@ export function buildSeasonOverviewSeasonRecord({ seasonKey, seasonYear, seasonS
   const usedTierNumbers = new Set();
   let nextSequentialTier = 1;
 
-  tables.forEach((table, index) => {
+  normalizedTables.forEach((table, index) => {
     let tierNumber = inferOverviewTierNumber(table, safeSeason);
 
     if (tierNumber == null || usedTierNumbers.has(tierNumber)) {
@@ -189,6 +234,8 @@ export function buildSeasonOverviewSeasonRecord({ seasonKey, seasonYear, seasonS
 
     const tierKey = `tier${tierNumber}`;
     record[tierKey] = buildTierData(safeSeason, table.rows, {
+      promoted: tierNumber === 2 ? collectTopFlightPromotions(table, safeSeason) : undefined,
+      relegated: tierNumber === 1 ? collectTopFlightRelegations(table) : undefined,
       metadata: {
         source: WIKIPEDIA_DATA_SOURCES.overview.sourceId,
         sourceUrl: buildWikipediaArticleUrl(seasonSlug),

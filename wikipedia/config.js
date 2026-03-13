@@ -31,6 +31,7 @@ export const WIKIPEDIA_DATA_SOURCES = Object.freeze({
 
 export const WIKIPEDIA_SEASON_RANGES = Object.freeze({
   classicPromotionFinalSeason: 1990,
+  footballAllianceFinalSeason: 1891,
   premierLeagueStartSeason: 1992,
 });
 
@@ -99,6 +100,7 @@ export const WIKIPEDIA_OVERVIEW_CONFIG = Object.freeze({
     'football league premier division',
   ]),
   secondTierPostPremierKeywords: Object.freeze(['championship', 'division one', 'first division']),
+  secondTierPreFirstDivisionKeywords: Object.freeze(['football alliance']),
   fifthTierKeywords: Object.freeze([
     'national league top division',
     'conference national',
@@ -161,6 +163,14 @@ export function inferEnglishLeagueTier(label, seasonNumber) {
     text.includes('first division')
   ) {
     return 1;
+  }
+  if (
+    seasonNumber <= WIKIPEDIA_SEASON_RANGES.footballAllianceFinalSeason &&
+    WIKIPEDIA_OVERVIEW_CONFIG.secondTierPreFirstDivisionKeywords.some((keyword) =>
+      text.includes(keyword)
+    )
+  ) {
+    return 2;
   }
   if (
     seasonNumber >= WIKIPEDIA_SEASON_RANGES.premierLeagueStartSeason &&

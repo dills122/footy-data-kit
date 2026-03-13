@@ -174,6 +174,7 @@ export function deriveMajorTierIndexes(tables) {
     return { topFlightIndex: null, secondTierIndex: null };
   }
 
+  const seasonNumber = Number.parseInt(String(tables[0]?.season ?? ''), 10);
   const hasPremierLeagueHeading = tables.some((table) =>
     WIKIPEDIA_OVERVIEW_CONFIG.topFlightKeywords.some((keyword) =>
       String(table?.title || '')
@@ -184,6 +185,11 @@ export function deriveMajorTierIndexes(tables) {
 
   let topFlightIndex = tables.findIndex((table) => {
     if (!table) return false;
+    const inferredTier =
+      Number.isFinite(seasonNumber) && seasonNumber > 0
+        ? inferOverviewTierNumber(table, seasonNumber)
+        : null;
+    if (inferredTier === 1) return true;
     if (typeof table.isTopFlight === 'boolean') return table.isTopFlight;
     return shouldTreatAsTopFlight(table.title, { hasPremierLeagueHeading });
   });
@@ -192,10 +198,17 @@ export function deriveMajorTierIndexes(tables) {
     topFlightIndex = tables.length ? 0 : -1;
   }
 
-  const isSecondTierTitle = (title) => {
+  const isSecondTierTitle = (table) => {
+    const title = table?.title;
     const normalized = String(title || '').toLowerCase();
     if (!normalized) return false;
     if (isGenericLeagueHeading(title)) return true;
+
+    const inferredTier =
+      Number.isFinite(seasonNumber) && seasonNumber > 0
+        ? inferOverviewTierNumber(table, seasonNumber)
+        : null;
+    if (inferredTier === 2) return true;
 
     if (hasPremierLeagueHeading) {
       return WIKIPEDIA_OVERVIEW_CONFIG.secondTierPostPremierKeywords.some((keyword) =>
@@ -211,7 +224,7 @@ export function deriveMajorTierIndexes(tables) {
     for (let i = topFlightIndex + 1; i < tables.length; i++) {
       const candidate = tables[i];
       if (!candidate || !Array.isArray(candidate.rows) || !candidate.rows.length) continue;
-      if (!isSecondTierTitle(candidate.title)) continue;
+      if (!isSecondTierTitle(candidate)) continue;
       secondTierIndex = i;
       break;
     }
