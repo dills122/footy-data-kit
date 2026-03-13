@@ -99,6 +99,28 @@ describe('parseOverviewLeagueTables', () => {
     expect(result.some((entry) => entry.rows.some((row) => row.team === 'Portsmouth'))).toBe(false);
   });
 
+  test('parses Football League sections after league changes when no League tables heading exists', () => {
+    const html = `
+      <div class="mw-heading mw-heading2"><h2 id="League_changes">League changes</h2></div>
+      <p>Doncaster Rovers and Bristol City joined the Football League.</p>
+      <div class="mw-heading mw-heading2"><h2 id="Football_League">Football League</h2></div>
+      <div class="mw-heading mw-heading3"><h3 id="First_Division">First Division</h3></div>
+      ${buildTableHtml('Sunderland', 44)}
+      <div class="mw-heading mw-heading3"><h3 id="Second_Division">Second Division</h3></div>
+      ${buildTableHtml('West Bromwich Albion', 45)}
+      <div class="mw-heading mw-heading2"><h2 id="Southern_League">Southern League</h2></div>
+      <div class="mw-heading mw-heading3"><h3 id="Southern_League_Table">League table</h3></div>
+      ${buildTableHtml('Portsmouth', 40)}
+    `;
+
+    const result = parseOverviewLeagueTables(html);
+    expect(result).toHaveLength(2);
+    expect(result[0]).toMatchObject({ title: 'First Division' });
+    expect(result[0].rows[0]).toMatchObject({ team: 'Sunderland', points: 44 });
+    expect(result[1].rows[0]).toMatchObject({ team: 'West Bromwich Albion', points: 45 });
+    expect(result.some((entry) => entry.rows.some((row) => row.team === 'Portsmouth'))).toBe(false);
+  });
+
   test('uses table legends to infer promotion and relegation flags', () => {
     const html = `
       <div class="mw-heading mw-heading2"><h2 id="League_tables">League tables</h2></div>
