@@ -57,6 +57,18 @@ describe('wiki-overview-parser', () => {
     expect(result.secondTierIndex).toBe(1);
   });
 
+  test('deriveMajorTierIndexes treats Football Alliance as tier 2 before 1892', () => {
+    const tables = [
+      { title: 'The Football League', rows: [{ team: 'Everton' }], season: 1890 },
+      { title: 'The Football Alliance', rows: [{ team: 'Stoke' }], season: 1890 },
+      { title: 'Southern League', rows: [{ team: 'Example Town' }], season: 1890 },
+    ];
+
+    const result = deriveMajorTierIndexes(tables);
+    expect(result.topFlightIndex).toBe(0);
+    expect(result.secondTierIndex).toBe(1);
+  });
+
   test('collectOutcomeTeams filters by selected indexes and flags', () => {
     const tables = [
       { title: 'Division one', rows: [{ team: 'A', wasRelegated: true }, { team: 'B' }] },
