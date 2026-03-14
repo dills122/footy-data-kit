@@ -17,7 +17,6 @@ jobs:
       startsWith(github.event.pull_request.head.ref, 'pre-release/') &&
       github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout merged main commit
         uses: actions/checkout@v4
