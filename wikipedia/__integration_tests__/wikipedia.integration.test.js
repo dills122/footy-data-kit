@@ -12,7 +12,7 @@ import { constructTier1SeasonResults, fetchSeasonTeams } from '../builders/parse
 import { fetchWikipediaSeasonPage } from '../parser-core/page-fetcher.js';
 import testPages from './config.js';
 import { findNextComparableSeasonRecord, isPlaceholderSeasonRecord } from './dataset-continuity.js';
-import { getPageSources, parseRequestedSources } from './source-selection.js';
+import { getRequestedPageSources, parseRequestedSources } from './source-selection.js';
 
 const TEST_TIMEOUT_MS = 120_000;
 jest.setTimeout(TEST_TIMEOUT_MS);
@@ -588,10 +588,7 @@ function verifyTierMetadataEntries(page, expectations = [], results, savedSeason
 describe('Wikipedia promotion/relegation integration', () => {
   let hasMatchingPages = false;
   for (const page of testPages) {
-    for (const sourceKey of getPageSources(page)) {
-      if (requestedSources && !requestedSources.has(sourceKey)) {
-        continue;
-      }
+    for (const sourceKey of getRequestedPageSources(page, requestedSources)) {
       hasMatchingPages = true;
       const handler = sourceHandlers[sourceKey];
       if (!handler) {

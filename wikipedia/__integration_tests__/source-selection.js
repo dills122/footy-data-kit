@@ -37,7 +37,14 @@ export function getPageSources(page) {
   return [page?.source || 'promotion'];
 }
 
+export function getRequestedPageSources(page, requestedSources) {
+  const pageSources = getPageSources(page);
+  if (!requestedSources) return pageSources;
+  return pageSources.filter((source) => requestedSources.has(source));
+}
+
 export default {
   parseRequestedSources,
   getPageSources,
+  getRequestedPageSources,
 };

@@ -1,4 +1,5 @@
 import {
+  getRequestedPageSources,
   getPageSources,
   parseRequestedSources,
 } from '../__integration_tests__/source-selection.js';
@@ -26,5 +27,31 @@ describe('integration source selection helpers', () => {
     expect(getPageSources({ source: 'both' })).toEqual(['promotion', 'overview']);
     expect(getPageSources({ source: 'overview' })).toEqual(['overview']);
     expect(getPageSources({})).toEqual(['promotion']);
+  });
+
+  test('getRequestedPageSources applies promotion and overview filters to dual-source fixtures', () => {
+    const bothFixture = { source: 'both' };
+
+    expect(getRequestedPageSources(bothFixture, parseRequestedSources('promotion'))).toEqual([
+      'promotion',
+    ]);
+    expect(getRequestedPageSources(bothFixture, parseRequestedSources('overview'))).toEqual([
+      'overview',
+    ]);
+    expect(getRequestedPageSources(bothFixture, parseRequestedSources('both'))).toEqual([
+      'promotion',
+      'overview',
+    ]);
+    expect(getRequestedPageSources(bothFixture, parseRequestedSources('all'))).toEqual([
+      'promotion',
+      'overview',
+    ]);
+  });
+
+  test('getRequestedPageSources drops fixtures that do not match the requested filter', () => {
+    expect(
+      getRequestedPageSources({ source: 'overview' }, parseRequestedSources('promotion'))
+    ).toEqual([]);
+    expect(getRequestedPageSources({}, parseRequestedSources('overview'))).toEqual([]);
   });
 });
