@@ -22,10 +22,10 @@ Temporary working note for the next phase after the clean dataset release.
    - Expand the curated edge-case seasons instead of replacing the existing model.
    - Prioritise brittle formats: restructures, rename-heavy seasons, and odd table layouts.
 
-4. Historical overview expansion
-   - Continue the pre-modern Wikipedia overview work in [historical-overview-parsing.md](/Users/dsteele/repos/footy-data-kit/docs/historical-overview-parsing.md).
-   - The first historical slices through the early `1920s` are now covered; the remaining roadmap is `late 1920s`, `1930s`, WWII handling, then representative `1946–1991` validation.
-   - Keep wartime seasons non-canonical by default; if added later, prefer metadata-only placeholder records behind an explicit option.
+4. Historical overview follow-up
+   - Keep [historical-overview-parsing.md](/Users/dsteele/repos/footy-data-kit/docs/historical-overview-parsing.md) as background/reference now that the full overview dataset has been regenerated.
+   - Focus follow-up work on fixture growth, release diffs, and any newly discovered season-specific anomalies rather than broad historical enablement.
+   - Treat the promotion flow as legacy support unless a comparison or targeted regression requires it.
 
 ## Notes
 

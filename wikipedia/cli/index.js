@@ -20,7 +20,7 @@ const program = new Command();
 
 program
   .name('wiki-league')
-  .description('CLI tool to generate Football League promotion/relegation data from Wikipedia')
+  .description('CLI tool to generate historical English league data from Wikipedia')
   .version('1.0.0');
 
 async function buildPromotionData(opts) {
@@ -95,20 +95,20 @@ async function buildCombinedData(opts) {
 
 const buildCommand = program
   .command('build')
-  .description('Build dataset between given start and end years');
+  .description('Build legacy promotion/relegation dataset between given start and end years');
 addYearOptions(buildCommand, { start: '1888', end: '2000' });
 buildCommand.action(buildPromotionData);
 
 const overviewCommand = program
   .command('overview')
-  .description('Build season overview league tables between given start and end years');
+  .description('Build the primary maintained overview dataset between given start and end years');
 addYearOptions(overviewCommand, { start: '2008', end: '2008' });
 overviewCommand.action(buildOverviewData);
 
 const combinedCommand = program
   .command('combined')
   .description(
-    'Try to fetch structured data via promotion/relegation output, fallback to overview tables for missing seasons'
+    'Legacy bridge flow: build promotion/relegation data first, then fallback to overview tables for missing seasons'
   );
 addYearOptions(combinedCommand, { start: '1888', end: '2000' });
 combinedCommand.action(buildCombinedData);
