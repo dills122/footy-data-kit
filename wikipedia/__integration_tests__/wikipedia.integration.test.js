@@ -55,6 +55,10 @@ function slugFromUrl(url) {
   return decodeURIComponent(slug);
 }
 
+function getPageUrlForSource(page, sourceKey) {
+  return page.urls?.[sourceKey] || null;
+}
+
 function getSavedDataset(sourceKey) {
   const dataset = savedDatasets[sourceKey];
   if (dataset) return dataset;
@@ -390,7 +394,7 @@ async function assertSection(label, fn) {
   }
 }
 
-const ALLOWED_SOURCES = Object.freeze(['promotion', 'overview']);
+const ALLOWED_SOURCES = Object.freeze(['promotion', 'overview', 'both', 'all']);
 const requestedSourcesEnv = process.env.WIKI_TEST_SOURCE
   ? process.env.WIKI_TEST_SOURCE.split(',')
       .map((value) => value.trim())
@@ -407,8 +411,20 @@ if (requestedSourcesEnv && requestedSourcesEnv.length) {
         )}`
       );
     }
+    if (value === 'all' || value === 'both') {
+      requestedSources.add('promotion');
+      requestedSources.add('overview');
+      continue;
+    }
     requestedSources.add(value);
   }
+}
+
+function getPageSources(page) {
+  if (page.source === 'both') {
+    return ['promotion', 'overview'];
+  }
+  return [page.source || 'promotion'];
 }
 
 const sourceHandlers = {
@@ -545,66 +561,91 @@ function verifyTableEntries(page, expectations = [], results, savedSeasonRecord)
 describe('Wikipedia promotion/relegation integration', () => {
   let hasMatchingPages = false;
   for (const page of testPages) {
-    const slug = slugFromUrl(page.url);
-    const seasonYear = Number(page.season);
-    const testTitle = `${seasonYear} – ${slug}`;
-    const sourceKey = page.source || 'promotion';
-    if (requestedSources && !requestedSources.has(sourceKey)) {
-      continue;
-    }
-    hasMatchingPages = true;
-    const handler = sourceHandlers[sourceKey];
-    if (!handler) {
-      throw new Error(`Unsupported data source "${sourceKey}" for season ${page.season}`);
-    }
+    for (const sourceKey of getPageSources(page)) {
+      if (requestedSources && !requestedSources.has(sourceKey)) {
+        continue;
+      }
+      hasMatchingPages = true;
+      const handler = sourceHandlers[sourceKey];
+      if (!handler) {
+        throw new Error(`Unsupported data source "${sourceKey}" for season ${page.season}`);
+      }
 
-    test(
-      testTitle,
-      async () => {
-        const { summary, tierRecords } = await handler({
-          page,
-          slug,
-          seasonYear,
-          sourceKey,
-        });
-        const expected = page.tests || {};
+      const pageUrl = getPageUrlForSource(page, sourceKey);
+      if (!pageUrl) {
+        throw new Error(`Missing ${sourceKey} url for season ${page.season}`);
+      }
+      const slug = slugFromUrl(pageUrl);
+      const seasonYear = Number(page.season);
+      const testTitle = `${seasonYear} [${sourceKey}] – ${slug}`;
 
-        await assertSection(
-          `${describeSource(sourceKey)} – promotion/relegation comparison`,
-          () => {
-            verifyTeams(page, 'promoted', summary.promoted ?? [], expected.promoted ?? []);
-            verifyTeams(page, 'relegated', summary.relegated ?? [], expected.relegated ?? []);
-          }
-        );
+      test(
+        testTitle,
+        async () => {
+          const sourcedPage = { ...page, url: pageUrl };
+          const { summary, tierRecords } = await handler({
+            page: sourcedPage,
+            slug,
+            seasonYear,
+            sourceKey,
+          });
+          const expected = page.tests || {};
 
-        const savedSeasonRecord = await assertSection(`Saved dataset (${sourceKey}) lookup`, () =>
-          getSavedSeasonRecord(sourceKey, page.season)
-        );
-        await assertSection(`Saved dataset (${sourceKey}) metadata comparison`, () => {
-          assertSavedMetadataIntegrity({ ...page, slug }, sourceKey, savedSeasonRecord);
-        });
-
-        await assertSection(`Saved dataset (${sourceKey}) promotion/relegation comparison`, () => {
-          const savedTeams = collectSavedTeams(savedSeasonRecord);
-          verifyTeamsContain(page, 'saved promoted', savedTeams.promoted, expected.promoted ?? []);
-          verifyTeamsContain(
-            page,
-            'saved relegated',
-            savedTeams.relegated,
-            expected.relegated ?? []
+          await assertSection(
+            `${describeSource(sourceKey)} – promotion/relegation comparison`,
+            () => {
+              verifyTeams(sourcedPage, 'promoted', summary.promoted ?? [], expected.promoted ?? []);
+              verifyTeams(
+                sourcedPage,
+                'relegated',
+                summary.relegated ?? [],
+                expected.relegated ?? []
+              );
+            }
           );
-        });
 
-        await assertSection(`Saved dataset (${sourceKey}) continuity`, () =>
-          assertSavedContinuity({ ...page, slug }, sourceKey, savedSeasonRecord)
-        );
+          const savedSeasonRecord = await assertSection(`Saved dataset (${sourceKey}) lookup`, () =>
+            getSavedSeasonRecord(sourceKey, page.season)
+          );
+          await assertSection(`Saved dataset (${sourceKey}) metadata comparison`, () => {
+            assertSavedMetadataIntegrity({ ...sourcedPage, slug }, sourceKey, savedSeasonRecord);
+          });
 
-        await assertSection(`${describeSource(sourceKey)} – table entry assertions`, () =>
-          verifyTableEntries(page, expected.tableEntries ?? [], tierRecords, savedSeasonRecord)
-        );
-      },
-      TEST_TIMEOUT_MS
-    );
+          await assertSection(
+            `Saved dataset (${sourceKey}) promotion/relegation comparison`,
+            () => {
+              const savedTeams = collectSavedTeams(savedSeasonRecord);
+              verifyTeamsContain(
+                sourcedPage,
+                'saved promoted',
+                savedTeams.promoted,
+                expected.promoted ?? []
+              );
+              verifyTeamsContain(
+                sourcedPage,
+                'saved relegated',
+                savedTeams.relegated,
+                expected.relegated ?? []
+              );
+            }
+          );
+
+          await assertSection(`Saved dataset (${sourceKey}) continuity`, () =>
+            assertSavedContinuity({ ...sourcedPage, slug }, sourceKey, savedSeasonRecord)
+          );
+
+          await assertSection(`${describeSource(sourceKey)} – table entry assertions`, () =>
+            verifyTableEntries(
+              sourcedPage,
+              expected.tableEntries ?? [],
+              tierRecords,
+              savedSeasonRecord
+            )
+          );
+        },
+        TEST_TIMEOUT_MS
+      );
+    }
   }
   if (!hasMatchingPages) {
     const allowedDescription = requestedSourcesEnv?.join(', ') || '';

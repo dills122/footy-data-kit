@@ -10,7 +10,9 @@
 // correctly. See `config.model.ts` for the shape of each entry.
 export const testPages = /** @type {TestPages} */ ([
   {
-    url: 'https://en.wikipedia.org/wiki/1888%E2%80%9389_in_English_football',
+    urls: {
+      overview: 'https://en.wikipedia.org/wiki/1888%E2%80%9389_in_English_football',
+    },
     season: '1888',
     source: 'overview',
     tests: {
@@ -30,7 +32,9 @@ export const testPages = /** @type {TestPages} */ ([
     },
   },
   {
-    url: 'https://en.wikipedia.org/wiki/1889%E2%80%9390_in_English_football',
+    urls: {
+      overview: 'https://en.wikipedia.org/wiki/1889%E2%80%9390_in_English_football',
+    },
     season: '1889',
     source: 'overview',
     tests: {
@@ -59,27 +63,36 @@ export const testPages = /** @type {TestPages} */ ([
     },
   },
   {
-    url: 'https://en.wikipedia.org/wiki/1898-99_Football_League',
+    urls: {
+      promotion: 'https://en.wikipedia.org/wiki/1898-99_Football_League',
+      overview: 'https://en.wikipedia.org/wiki/1898%E2%80%9399_in_English_football',
+    },
     season: '1898',
-    source: 'promotion',
+    source: 'both',
     tests: {
       promoted: ['Manchester City', 'Glossop North End'],
       relegated: ['Bolton Wanderers', 'The Wednesday'],
     },
   },
   {
-    url: 'https://en.wikipedia.org/wiki/1905-06_Football_League',
+    urls: {
+      promotion: 'https://en.wikipedia.org/wiki/1905-06_Football_League',
+      overview: 'https://en.wikipedia.org/wiki/1905%E2%80%9306_in_English_football',
+    },
     season: '1905',
-    source: 'promotion',
+    source: 'both',
     tests: {
       promoted: ['Bristol City', 'Manchester United'],
       relegated: ['Nottingham Forest', 'Wolverhampton Wanderers'],
     },
   },
   {
-    url: 'https://en.wikipedia.org/wiki/1919-20_Football_League',
+    urls: {
+      promotion: 'https://en.wikipedia.org/wiki/1919-20_Football_League',
+      overview: 'https://en.wikipedia.org/wiki/1919%E2%80%9320_in_English_football',
+    },
     season: '1919',
-    source: 'promotion',
+    source: 'both',
     tests: {
       promoted: ['Tottenham Hotspur', 'Huddersfield Town'],
       relegated: ['Notts County', 'The Wednesday'],
@@ -105,16 +118,21 @@ export const testPages = /** @type {TestPages} */ ([
     },
   },
   {
-    url: 'https://en.wikipedia.org/wiki/1925-26_Football_League',
+    urls: {
+      promotion: 'https://en.wikipedia.org/wiki/1925-26_Football_League',
+      overview: 'https://en.wikipedia.org/wiki/1925%E2%80%9326_in_English_football',
+    },
     season: '1925',
-    source: 'promotion',
+    source: 'both',
     tests: {
       promoted: ['The Wednesday', 'Derby County'],
       relegated: ['Manchester City', 'Notts County'],
     },
   },
   {
-    url: 'https://en.wikipedia.org/wiki/1946%E2%80%9347_in_English_football',
+    urls: {
+      overview: 'https://en.wikipedia.org/wiki/1946%E2%80%9347_in_English_football',
+    },
     season: '1946',
     source: 'overview',
     tests: {
@@ -142,7 +160,9 @@ export const testPages = /** @type {TestPages} */ ([
     },
   },
   {
-    url: 'https://en.wikipedia.org/wiki/1947%E2%80%9348_in_English_football',
+    urls: {
+      overview: 'https://en.wikipedia.org/wiki/1947%E2%80%9348_in_English_football',
+    },
     season: '1947',
     source: 'overview',
     tests: {
@@ -170,9 +190,12 @@ export const testPages = /** @type {TestPages} */ ([
     },
   },
   {
-    url: 'https://en.wikipedia.org/wiki/1950-51_Football_League',
+    urls: {
+      promotion: 'https://en.wikipedia.org/wiki/1950-51_Football_League',
+      overview: 'https://en.wikipedia.org/wiki/1950%E2%80%9351_in_English_football',
+    },
     season: '1950',
-    source: 'promotion',
+    source: 'both',
     tests: {
       promoted: ['Preston North End', 'Manchester City'],
       relegated: ['Sheffield Wednesday', 'Everton'],
@@ -198,7 +221,9 @@ export const testPages = /** @type {TestPages} */ ([
     },
   },
   {
-    url: 'https://en.wikipedia.org/wiki/1955%E2%80%9356_in_English_football',
+    urls: {
+      overview: 'https://en.wikipedia.org/wiki/1955%E2%80%9356_in_English_football',
+    },
     season: '1955',
     source: 'overview',
     tests: {
@@ -226,7 +251,9 @@ export const testPages = /** @type {TestPages} */ ([
     },
   },
   {
-    url: 'https://en.wikipedia.org/wiki/1958%E2%80%9359_in_English_football',
+    urls: {
+      overview: 'https://en.wikipedia.org/wiki/1958%E2%80%9359_in_English_football',
+    },
     season: '1958',
     source: 'overview',
     tests: {
@@ -254,9 +281,12 @@ export const testPages = /** @type {TestPages} */ ([
     },
   },
   {
-    url: 'https://en.wikipedia.org/wiki/1967-68_Football_League',
+    urls: {
+      promotion: 'https://en.wikipedia.org/wiki/1967-68_Football_League',
+      overview: 'https://en.wikipedia.org/wiki/1967%E2%80%9368_in_English_football',
+    },
     season: '1967',
-    source: 'promotion',
+    source: 'both',
     tests: {
       promoted: ['Ipswich Town', 'Queens Park Rangers'],
       relegated: ['Sheffield United', 'Fulham'],
@@ -282,16 +312,21 @@ export const testPages = /** @type {TestPages} */ ([
     },
   },
   {
-    url: 'https://en.wikipedia.org/wiki/1979-80_Football_League',
+    urls: {
+      promotion: 'https://en.wikipedia.org/wiki/1979-80_Football_League',
+      overview: 'https://en.wikipedia.org/wiki/1979%E2%80%9380_in_English_football',
+    },
     season: '1979',
-    source: 'promotion',
+    source: 'both',
     tests: {
       promoted: ['Leicester City', 'Sunderland', 'Birmingham City'],
       relegated: ['Bristol City', 'Derby County', 'Bolton Wanderers'],
     },
   },
   {
-    url: 'https://en.wikipedia.org/wiki/1970%E2%80%9371_in_English_football',
+    urls: {
+      overview: 'https://en.wikipedia.org/wiki/1970%E2%80%9371_in_English_football',
+    },
     season: '1970',
     source: 'overview',
     tests: {
@@ -319,16 +354,21 @@ export const testPages = /** @type {TestPages} */ ([
     },
   },
   {
-    url: 'https://en.wikipedia.org/wiki/1986-87_Football_League',
+    urls: {
+      promotion: 'https://en.wikipedia.org/wiki/1986-87_Football_League',
+      overview: 'https://en.wikipedia.org/wiki/1986%E2%80%9387_in_English_football',
+    },
     season: '1986',
-    source: 'promotion',
+    source: 'both',
     tests: {
       promoted: ['Derby County', 'Portsmouth'],
       relegated: ['Leicester City', 'Manchester City', 'Aston Villa'],
     },
   },
   {
-    url: 'https://en.wikipedia.org/wiki/1989%E2%80%9390_in_English_football',
+    urls: {
+      overview: 'https://en.wikipedia.org/wiki/1989%E2%80%9390_in_English_football',
+    },
     season: '1989',
     source: 'overview',
     tests: {
@@ -372,7 +412,9 @@ export const testPages = /** @type {TestPages} */ ([
     },
   },
   {
-    url: 'https://en.wikipedia.org/wiki/1992%E2%80%9393_in_English_football',
+    urls: {
+      overview: 'https://en.wikipedia.org/wiki/1992%E2%80%9393_in_English_football',
+    },
     season: '1992',
     source: 'overview',
     tests: {
@@ -401,7 +443,9 @@ export const testPages = /** @type {TestPages} */ ([
     },
   },
   {
-    url: 'https://en.wikipedia.org/wiki/1993%E2%80%9394_in_English_football',
+    urls: {
+      overview: 'https://en.wikipedia.org/wiki/1993%E2%80%9394_in_English_football',
+    },
     season: '1993',
     source: 'overview',
     tests: {
@@ -441,7 +485,9 @@ export const testPages = /** @type {TestPages} */ ([
     },
   },
   {
-    url: 'https://en.wikipedia.org/wiki/2003%E2%80%9304_in_English_football',
+    urls: {
+      overview: 'https://en.wikipedia.org/wiki/2003%E2%80%9304_in_English_football',
+    },
     season: '2003',
     source: 'overview',
     tests: {
@@ -482,7 +528,9 @@ export const testPages = /** @type {TestPages} */ ([
     },
   },
   {
-    url: 'https://en.wikipedia.org/wiki/2005%E2%80%9306_in_English_football',
+    urls: {
+      overview: 'https://en.wikipedia.org/wiki/2005%E2%80%9306_in_English_football',
+    },
     season: '2005',
     source: 'overview',
     tests: {
@@ -522,7 +570,9 @@ export const testPages = /** @type {TestPages} */ ([
     },
   },
   {
-    url: 'https://en.wikipedia.org/wiki/2010%E2%80%9311_in_English_football',
+    urls: {
+      overview: 'https://en.wikipedia.org/wiki/2010%E2%80%9311_in_English_football',
+    },
     season: '2010',
     source: 'overview',
     tests: {
@@ -552,7 +602,9 @@ export const testPages = /** @type {TestPages} */ ([
     },
   },
   {
-    url: 'https://en.wikipedia.org/wiki/2013%E2%80%9314_in_English_football',
+    urls: {
+      overview: 'https://en.wikipedia.org/wiki/2013%E2%80%9314_in_English_football',
+    },
     season: '2013',
     source: 'overview',
     tests: {
@@ -583,7 +635,9 @@ export const testPages = /** @type {TestPages} */ ([
     ],
   },
   {
-    url: 'https://en.wikipedia.org/wiki/2016%E2%80%9317_in_English_football',
+    urls: {
+      overview: 'https://en.wikipedia.org/wiki/2016%E2%80%9317_in_English_football',
+    },
     season: '2016',
     source: 'overview',
     tests: {
@@ -612,7 +666,9 @@ export const testPages = /** @type {TestPages} */ ([
     },
   },
   {
-    url: 'https://en.wikipedia.org/wiki/2018%E2%80%9319_in_English_football',
+    urls: {
+      overview: 'https://en.wikipedia.org/wiki/2018%E2%80%9319_in_English_football',
+    },
     season: '2018',
     source: 'overview',
     tests: {
