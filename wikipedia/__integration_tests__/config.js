@@ -515,6 +515,24 @@ export const testPages = /** @type {TestPages} */ ([
           },
         },
       ],
+      tierMetadataEntries: [
+        {
+          tier: 'tier3',
+          data: {
+            title: 'Third Division North',
+            leagueId: 'Third_Division_North',
+            leagueLevel: 3,
+          },
+        },
+        {
+          tier: 'tier4',
+          data: {
+            title: 'Third Division South',
+            leagueId: 'Third_Division_South',
+            leagueLevel: 3,
+          },
+        },
+      ],
     },
   },
   {

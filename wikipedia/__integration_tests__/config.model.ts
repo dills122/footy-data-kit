@@ -1,4 +1,4 @@
-import type { LeagueTableEntry } from '../models/output-file';
+import type { LeagueTableEntry, SeasonInfo, TierMetadata } from '../models/output-file';
 
 export type DataSource = 'promotion' | 'overview';
 export type PageSource = DataSource | 'both';
@@ -14,13 +14,20 @@ export interface Page {
 export interface TestCasesForPage {
   promoted?: string[];
   relegated?: string[];
+  seasonInfo?: Partial<SeasonInfo>;
   tableEntries?: TableEntryTest[];
+  tierMetadataEntries?: TierMetadataEntryTest[];
   //We can add more areas & ways to test the page later
 }
 
-export type TierKey = 'tier1' | 'tier2';
+export type TierKey = 'tier1' | 'tier2' | 'tier3' | 'tier4' | 'tier5';
 
 export interface TableEntryTest {
   tier: TierKey;
   data: Partial<LeagueTableEntry> & { team: string };
+}
+
+export interface TierMetadataEntryTest {
+  tier: TierKey;
+  data: Partial<TierMetadata>;
 }

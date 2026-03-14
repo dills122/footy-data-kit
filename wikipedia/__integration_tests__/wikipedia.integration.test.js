@@ -559,6 +559,40 @@ function verifyTableEntries(page, expectations = [], results, savedSeasonRecord)
   }
 }
 
+function verifyTierMetadataEntries(page, expectations = [], results, savedSeasonRecord) {
+  if (!Array.isArray(expectations) || expectations.length === 0) return;
+
+  for (const expectation of expectations) {
+    const { tier, data } = expectation;
+    const liveMetadata = results?.[tier]?.metadata;
+    const savedMetadata = savedSeasonRecord?.[tier]?.metadata;
+
+    if (!liveMetadata) {
+      throw new Error(
+        `Live results missing ${tier} metadata for season ${page.season} (${page.url})`
+      );
+    }
+    if (!savedMetadata) {
+      throw new Error(
+        `Saved dataset missing ${tier} metadata for season ${page.season} (${page.url})`
+      );
+    }
+
+    for (const [key, expectedValue] of Object.entries(data || {})) {
+      if (liveMetadata[key] !== expectedValue) {
+        throw new Error(
+          `Live metadata mismatch for ${page.season} ${tier}.${key}: expected ${expectedValue}, got ${liveMetadata[key]}`
+        );
+      }
+      if (savedMetadata[key] !== expectedValue) {
+        throw new Error(
+          `Saved metadata mismatch for ${page.season} ${tier}.${key}: expected ${expectedValue}, got ${savedMetadata[key]}`
+        );
+      }
+    }
+  }
+}
+
 describe('Wikipedia promotion/relegation integration', () => {
   let hasMatchingPages = false;
   for (const page of testPages) {
@@ -665,6 +699,14 @@ describe('Wikipedia promotion/relegation integration', () => {
               verifyTableEntries(
                 sourcedPage,
                 expected.tableEntries ?? [],
+                tierRecords,
+                savedSeasonRecord
+              )
+            );
+            await assertSection(`${describeSource(sourceKey)} – tier metadata assertions`, () =>
+              verifyTierMetadataEntries(
+                sourcedPage,
+                expected.tierMetadataEntries ?? [],
                 tierRecords,
                 savedSeasonRecord
               )
