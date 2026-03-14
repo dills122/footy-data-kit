@@ -85,6 +85,7 @@ jobs:
         with:
           tag_name: ${{ steps.release_meta.outputs.tag }}
           name: Release ${{ steps.release_meta.outputs.tag }}
+          body_path: ./data-output/release-diff.md
           files: footy-data-kit-${{ steps.release_meta.outputs.tag }}-data.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
