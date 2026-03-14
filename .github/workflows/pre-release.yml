@@ -23,6 +23,7 @@ jobs:
         with:
           fetch-depth: 0
           ref: ${{ github.event.pull_request.merge_commit_sha }}
+          persist-credentials: false
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -66,10 +67,25 @@ jobs:
             exit 1
           fi
 
+      - name: Validate release automation token
+        env:
+          RELEASE_BOT_PAT: ${{ secrets.RELEASE_BOT_PAT }}
+        run: |
+          if [[ -z "$RELEASE_BOT_PAT" ]]; then
+            echo "Missing RELEASE_BOT_PAT secret. Configure a PAT or GitHub App token with contents:write and any required ruleset bypass." >&2
+            exit 1
+          fi
+
       - name: Configure git identity
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Configure authenticated remote
+        env:
+          RELEASE_BOT_PAT: ${{ secrets.RELEASE_BOT_PAT }}
+        run: |
+          git remote set-url origin "https://x-access-token:${RELEASE_BOT_PAT}@github.com/${GITHUB_REPOSITORY}.git"
 
       - name: Create release branch and tag
         env:
