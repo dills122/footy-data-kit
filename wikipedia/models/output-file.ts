@@ -24,6 +24,7 @@ export interface TierMetadata {
   seasonSlug?: string | null;
   leagueId?: string | null;
   title?: string | null;
+  leagueLevel?: number | null;
   tableIndex?: number | null;
   tableCount?: number | null;
   tierKey?: string | null;
@@ -45,6 +46,15 @@ export interface SeasonInfo {
   seasonSlug?: string | null;
   sourceUrl?: string | null;
   tableCount?: number | null;
+  competitionStatus?: string | null;
+  warSuspensionLabel?: string | null;
+  officialLeagueTables?: boolean | null;
+  officialCompetitionsSuspended?: boolean | null;
+  officialCompetitionsAbandoned?: boolean | null;
+  regionalBridgeSeason?: boolean | null;
+  promotionRelegationApplies?: boolean | null;
+  specialCompetitions?: string[];
+  notes?: string | null;
 }
 
 export interface SeasonData {

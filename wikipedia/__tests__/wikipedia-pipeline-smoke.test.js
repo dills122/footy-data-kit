@@ -321,4 +321,109 @@ describe('wikipedia pipeline smoke test', () => {
     const report = analyzeFile(combinedOutput);
     expect(report.issues).toEqual([]);
   });
+
+  test('builds early overview data with Football Alliance election movement', async () => {
+    const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'footy-overview-history-smoke-'));
+    tmpDirs.push(tmpDir);
+
+    const outputDir = path.join(tmpDir, 'data-output');
+    const overviewOutput = path.join(outputDir, WIKIPEDIA_DATA_SOURCES.overview.datasetFileName);
+
+    await buildSeasonOverview(1890, 1890, overviewOutput, {
+      fetchSeasonOverviewTables: async () => [
+        {
+          title: 'The Football League',
+          id: 'The_Football_League',
+          tableIndex: 0,
+          rows: [
+            {
+              pos: 1,
+              team: 'Everton',
+              played: 22,
+              won: 13,
+              drawn: 3,
+              lost: 6,
+              goalsFor: 50,
+              goalsAgainst: 30,
+              goalDifference: 20,
+              goalAverage: null,
+              points: 29,
+              notes: null,
+              wasRelegated: false,
+              wasPromoted: false,
+              isExpansionTeam: false,
+              wasReElected: false,
+              wasReprieved: false,
+            },
+            {
+              pos: 12,
+              team: 'Burnley',
+              played: 22,
+              won: 4,
+              drawn: 6,
+              lost: 12,
+              goalsFor: 20,
+              goalsAgainst: 40,
+              goalDifference: -20,
+              goalAverage: null,
+              points: 14,
+              notes: 'Not re-elected to the Football League',
+              wasRelegated: false,
+              wasPromoted: false,
+              isExpansionTeam: false,
+              wasReElected: false,
+              wasReprieved: false,
+            },
+          ],
+        },
+        {
+          title: 'The Football Alliance',
+          id: 'The_Football_Alliance',
+          tableIndex: 1,
+          rows: [
+            {
+              pos: 1,
+              team: 'Stoke',
+              played: 22,
+              won: 15,
+              drawn: 3,
+              lost: 4,
+              goalsFor: 45,
+              goalsAgainst: 20,
+              goalDifference: 25,
+              goalAverage: null,
+              points: 33,
+              notes: 'Elected to the Football League',
+              wasRelegated: false,
+              wasPromoted: false,
+              isExpansionTeam: false,
+              wasReElected: false,
+              wasReprieved: false,
+            },
+          ],
+        },
+      ],
+    });
+
+    const built = JSON.parse(fs.readFileSync(overviewOutput, 'utf8'));
+    expect(built.seasons['1890'].seasonInfo.promoted).toEqual(['Stoke']);
+    expect(built.seasons['1890'].seasonInfo.relegated).toEqual(['Burnley']);
+    expect(built.seasons['1890'].tier1.relegated).toEqual(['Burnley']);
+    expect(built.seasons['1890'].tier2.promoted).toEqual(['Stoke']);
+    expect(built.seasons['1890'].tier2.metadata).toMatchObject({
+      title: 'The Football Alliance',
+      leagueId: 'The_Football_Alliance',
+      tierKey: 'tier2',
+    });
+
+    const report = analyzeFile(overviewOutput);
+    expect(report.issues).toEqual([
+      {
+        type: 'position-gap',
+        season: '1890',
+        tier: 'tier1',
+        message: 'Missing position values detected: 2, 3, 4, 5, 6, 7, 8, 9, 10, 11',
+      },
+    ]);
+  });
 });

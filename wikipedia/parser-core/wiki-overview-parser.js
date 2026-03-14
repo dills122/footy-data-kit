@@ -35,6 +35,7 @@ export function findLeagueSectionHeading($, options = {}) {
     if (/^league tables?/.test(normalized)) score = 100;
     else if (/^league season/.test(normalized)) score = 90;
     else if (/^league competitions/.test(normalized)) score = 80;
+    else if (/^(the )?football league$/.test(normalized)) score = 85;
     else if (/^men's football/.test(normalized)) score = 75;
     else if (/^final standings/.test(normalized)) score = 95;
     else if (normalized.includes('league') && normalized.includes('table')) score = 70;
@@ -64,8 +65,31 @@ export function isGenericLeagueHeading(title) {
   return WIKIPEDIA_OVERVIEW_CONFIG.genericLeagueHeadings.includes(normalized);
 }
 
+export function isExcludedOverviewCompetitionLabel(...labels) {
+  const combined = labels
+    .map((label) =>
+      String(label || '')
+        .trim()
+        .toLowerCase()
+    )
+    .filter(Boolean)
+    .join(' ');
+
+  if (!combined) return false;
+
+  return WIKIPEDIA_OVERVIEW_CONFIG.excludedCompetitionKeywords.some((keyword) =>
+    combined.includes(keyword)
+  );
+}
+
 export function getHeadingLevel($el) {
   if (!$el || !$el.length) return null;
+  const tagName = String($el.get(0)?.tagName || '').toLowerCase();
+  const tagMatch = tagName.match(/^h([2-5])$/);
+  if (tagMatch) {
+    const level = Number.parseInt(tagMatch[1], 10);
+    return Number.isFinite(level) ? level : null;
+  }
   const classes = String($el.attr('class') || '');
   const match = classes.match(/mw-heading(\d)/);
   if (!match) return null;
@@ -102,7 +126,9 @@ export function parseOverviewTablesForHeading(
   if (!level) return [];
 
   const headingTag = `h${level}`;
-  const headingEl = headingWrapper.find(headingTag).first();
+  const headingEl = headingWrapper.is(headingTag)
+    ? headingWrapper
+    : headingWrapper.find(headingTag).first();
   if (!headingEl.length) return [];
 
   const headingId = headingEl.attr('id') || leagueId || null;
@@ -110,6 +136,12 @@ export function parseOverviewTablesForHeading(
   let tableTitle = headingTitle || leagueTitle || headingId || 'Unknown league';
   if (leagueTitle && (isGenericLeagueHeading(headingTitle) || !headingTitle)) {
     tableTitle = leagueTitle;
+  }
+
+  if (
+    isExcludedOverviewCompetitionLabel(headingTitle, tableTitle, leagueTitle, headingId, leagueId)
+  ) {
+    return [];
   }
 
   const suppressPromotionFlags = shouldTreatAsTopFlight(tableTitle, context);
@@ -174,6 +206,7 @@ export function deriveMajorTierIndexes(tables) {
     return { topFlightIndex: null, secondTierIndex: null };
   }
 
+  const seasonNumber = Number.parseInt(String(tables[0]?.season ?? ''), 10);
   const hasPremierLeagueHeading = tables.some((table) =>
     WIKIPEDIA_OVERVIEW_CONFIG.topFlightKeywords.some((keyword) =>
       String(table?.title || '')
@@ -184,6 +217,11 @@ export function deriveMajorTierIndexes(tables) {
 
   let topFlightIndex = tables.findIndex((table) => {
     if (!table) return false;
+    const inferredTier =
+      Number.isFinite(seasonNumber) && seasonNumber > 0
+        ? inferOverviewTierNumber(table, seasonNumber)
+        : null;
+    if (inferredTier === 1) return true;
     if (typeof table.isTopFlight === 'boolean') return table.isTopFlight;
     return shouldTreatAsTopFlight(table.title, { hasPremierLeagueHeading });
   });
@@ -192,10 +230,17 @@ export function deriveMajorTierIndexes(tables) {
     topFlightIndex = tables.length ? 0 : -1;
   }
 
-  const isSecondTierTitle = (title) => {
+  const isSecondTierTitle = (table) => {
+    const title = table?.title;
     const normalized = String(title || '').toLowerCase();
     if (!normalized) return false;
     if (isGenericLeagueHeading(title)) return true;
+
+    const inferredTier =
+      Number.isFinite(seasonNumber) && seasonNumber > 0
+        ? inferOverviewTierNumber(table, seasonNumber)
+        : null;
+    if (inferredTier === 2) return true;
 
     if (hasPremierLeagueHeading) {
       return WIKIPEDIA_OVERVIEW_CONFIG.secondTierPostPremierKeywords.some((keyword) =>
@@ -211,7 +256,7 @@ export function deriveMajorTierIndexes(tables) {
     for (let i = topFlightIndex + 1; i < tables.length; i++) {
       const candidate = tables[i];
       if (!candidate || !Array.isArray(candidate.rows) || !candidate.rows.length) continue;
-      if (!isSecondTierTitle(candidate.title)) continue;
+      if (!isSecondTierTitle(candidate)) continue;
       secondTierIndex = i;
       break;
     }

@@ -33,8 +33,12 @@ if (typeof globalThis.DOMException === 'undefined') {
 }
 
 const overviewModule = await import('../builders/parse-ext-season-overview-pages.js');
-const { parseOverviewLeagueTables, buildSeasonOverview, buildSeasonOverviewSeasonRecord } =
-  overviewModule;
+const {
+  parseOverviewLeagueTables,
+  buildSeasonOverview,
+  buildSeasonOverviewSeasonRecord,
+  buildHistoricalSeasonPlaceholderRecord,
+} = overviewModule;
 
 function buildTableHtml(teamName, points = 30) {
   return `
@@ -79,6 +83,98 @@ describe('parseOverviewLeagueTables', () => {
     expect(result).toHaveLength(1);
     expect(result[0].title).toBe('The Football League');
     expect(result[0].rows[0]).toMatchObject({ team: 'Fallback FC', points: 55 });
+  });
+
+  test('limits parsing to the Football League section when sibling Southern League tables exist', () => {
+    const html = `
+      <div class="mw-heading mw-heading2"><h2 id="Football_League">The Football League</h2></div>
+      <div class="mw-heading mw-heading3"><h3 id="First_Division">First Division</h3></div>
+      ${buildTableHtml('First Division FC', 42)}
+      <div class="mw-heading mw-heading3"><h3 id="Second_Division">Second Division</h3></div>
+      ${buildTableHtml('Second Division FC', 35)}
+      <div class="mw-heading mw-heading2"><h2 id="Southern_League">Southern League</h2></div>
+      <div class="mw-heading mw-heading3"><h3 id="Southern_League_First_Division">Southern League First Division</h3></div>
+      ${buildTableHtml('Portsmouth', 58)}
+    `;
+
+    const result = parseOverviewLeagueTables(html);
+    expect(result).toHaveLength(2);
+    expect(result.map((entry) => entry.title)).toEqual(['First Division', 'Second Division']);
+    expect(result.some((entry) => entry.rows.some((row) => row.team === 'Portsmouth'))).toBe(false);
+  });
+
+  test('ignores Southern League subsections beneath a generic League table root', () => {
+    const html = `
+      <div class="mw-heading mw-heading2"><h2 id="League_table">League table</h2></div>
+      <div class="mw-heading mw-heading3"><h3 id="First_Division">First Division</h3></div>
+      ${buildTableHtml('Aston Villa', 40)}
+      <div class="mw-heading mw-heading3"><h3 id="Second_Division">Second Division</h3></div>
+      ${buildTableHtml('Liverpool', 39)}
+      <div class="mw-heading mw-heading3"><h3 id="Southern_Football_League">Southern Football League</h3></div>
+      <div class="mw-heading mw-heading4"><h4 id="Division_One">Division One</h4></div>
+      ${buildTableHtml('Millwall Athletic', 34)}
+      <div class="mw-heading mw-heading4"><h4 id="Division_Two">Division Two</h4></div>
+      ${buildTableHtml('Luton Town', 28)}
+    `;
+
+    const result = parseOverviewLeagueTables(html);
+    expect(result).toHaveLength(2);
+    expect(result.map((entry) => entry.title)).toEqual(['First Division', 'Second Division']);
+    expect(result.some((entry) => entry.rows.some((row) => row.team === 'Millwall Athletic'))).toBe(
+      false
+    );
+  });
+
+  test('parses Football League sections after league changes when no League tables heading exists', () => {
+    const html = `
+      <div class="mw-heading mw-heading2"><h2 id="League_changes">League changes</h2></div>
+      <p>Doncaster Rovers and Bristol City joined the Football League.</p>
+      <div class="mw-heading mw-heading2"><h2 id="Football_League">Football League</h2></div>
+      <div class="mw-heading mw-heading3"><h3 id="First_Division">First Division</h3></div>
+      ${buildTableHtml('Sunderland', 44)}
+      <div class="mw-heading mw-heading3"><h3 id="Second_Division">Second Division</h3></div>
+      ${buildTableHtml('West Bromwich Albion', 45)}
+      <div class="mw-heading mw-heading2"><h2 id="Southern_League">Southern League</h2></div>
+      <div class="mw-heading mw-heading3"><h3 id="Southern_League_Table">League table</h3></div>
+      ${buildTableHtml('Portsmouth', 40)}
+    `;
+
+    const result = parseOverviewLeagueTables(html);
+    expect(result).toHaveLength(2);
+    expect(result[0]).toMatchObject({ title: 'First Division' });
+    expect(result[0].rows[0]).toMatchObject({ team: 'Sunderland', points: 44 });
+    expect(result[1].rows[0]).toMatchObject({ team: 'West Bromwich Albion', points: 45 });
+    expect(result.some((entry) => entry.rows.some((row) => row.team === 'Portsmouth'))).toBe(false);
+  });
+
+  test('parses direct tables attached to a Football League root heading', () => {
+    const html = `
+      <div class="mw-heading mw-heading2"><h2 id="Football_League">Football League</h2></div>
+      ${buildTableHtml('Preston North End', 33)}
+      <div class="mw-heading mw-heading2"><h2 id="Football_Alliance">Football Alliance</h2></div>
+      ${buildTableHtml('The Wednesday', 29)}
+    `;
+
+    const result = parseOverviewLeagueTables(html);
+    expect(result).toHaveLength(1);
+    expect(result[0]).toMatchObject({ title: 'Football League' });
+    expect(result[0].rows[0]).toMatchObject({ team: 'Preston North End', points: 33 });
+  });
+
+  test('parses older pages that use plain h2 and h3 tags instead of mw-heading wrappers', () => {
+    const html = `
+      <h2 id="Football_League">Football League</h2>
+      <h3 id="The_Football_League">The Football League</h3>
+      ${buildTableHtml('Preston North End', 40)}
+      <h3 id="Football_Alliance">Football Alliance</h3>
+      ${buildTableHtml('Wednesday', 32)}
+    `;
+
+    const result = parseOverviewLeagueTables(html);
+    expect(result).toHaveLength(2);
+    expect(result[0].rows[0]).toMatchObject({ team: 'Preston North End', points: 40 });
+    expect(result[1].title).toBe('Football Alliance');
+    expect(result[1].rows[0]).toMatchObject({ team: 'Wednesday', points: 32 });
   });
 
   test('uses table legends to infer promotion and relegation flags', () => {
@@ -177,6 +273,287 @@ describe('parseOverviewLeagueTables', () => {
       leagueId: 'League_One',
       tierKey: 'tier3',
     });
+  });
+
+  test('treats Football Alliance as the second tier before 1892 and captures election-based promotion', () => {
+    const seasonRecord = buildSeasonOverviewSeasonRecord({
+      seasonKey: '1890',
+      seasonYear: 1890,
+      seasonSlug: '1890–91_in_English_football',
+      tables: [
+        {
+          title: 'The Football League',
+          id: 'The_Football_League',
+          tableIndex: 0,
+          rows: [
+            { pos: 1, team: 'Everton', played: 22, points: 29 },
+            {
+              pos: 12,
+              team: 'Burnley',
+              played: 22,
+              points: 14,
+              notes: 'Not re-elected to the Football League',
+            },
+          ],
+        },
+        {
+          title: 'The Football Alliance',
+          id: 'The_Football_Alliance',
+          tableIndex: 1,
+          rows: [
+            {
+              pos: 1,
+              team: 'Stoke',
+              played: 22,
+              points: 33,
+              notes: 'Elected to the Football League',
+            },
+          ],
+        },
+      ],
+    });
+
+    expect(seasonRecord.seasonInfo.promoted).toEqual(['Stoke']);
+    expect(seasonRecord.seasonInfo.relegated).toEqual(['Burnley']);
+    expect(seasonRecord.tier1.relegated).toEqual(['Burnley']);
+    expect(seasonRecord.tier2.promoted).toEqual(['Stoke']);
+    expect(seasonRecord.tier2.metadata).toMatchObject({
+      title: 'The Football Alliance',
+      leagueId: 'The_Football_Alliance',
+      tierKey: 'tier2',
+    });
+  });
+
+  test('does not treat election to the Second Division as top-flight promotion', () => {
+    const seasonRecord = buildSeasonOverviewSeasonRecord({
+      seasonKey: '1891',
+      seasonYear: 1891,
+      seasonSlug: '1891–92_in_English_football',
+      tables: [
+        {
+          title: 'The Football League',
+          id: 'The_Football_League',
+          tableIndex: 0,
+          rows: [{ pos: 1, team: 'Sunderland', played: 26, points: 42 }],
+        },
+        {
+          title: 'The Football Alliance',
+          id: 'The_Football_Alliance',
+          tableIndex: 1,
+          rows: [
+            {
+              pos: 1,
+              team: 'Sheffield United',
+              played: 22,
+              points: 35,
+              notes: 'Elected to the Football League Second Division',
+            },
+          ],
+        },
+      ],
+    });
+
+    expect(seasonRecord.seasonInfo.promoted).toEqual([]);
+    expect(seasonRecord.tier2.promoted).toEqual([]);
+  });
+
+  test('keeps the single 1888 Football League table as tier1', () => {
+    const seasonRecord = buildSeasonOverviewSeasonRecord({
+      seasonKey: '1888',
+      seasonYear: 1888,
+      seasonSlug: '1888–89_in_English_football',
+      tables: [
+        {
+          title: 'The Football League',
+          id: 'The_Football_League',
+          tableIndex: 0,
+          rows: [{ pos: 1, team: 'Preston North End', played: 22, points: 40 }],
+        },
+      ],
+    });
+
+    expect(seasonRecord.tier1.metadata).toMatchObject({
+      title: 'The Football League',
+      leagueId: 'The_Football_League',
+      tierKey: 'tier1',
+    });
+    expect(seasonRecord.tier2).toBeUndefined();
+    expect(seasonRecord.seasonInfo.promoted).toEqual([]);
+    expect(seasonRecord.seasonInfo.relegated).toEqual([]);
+  });
+
+  test('stores regional third divisions with shared leagueLevel metadata after 1921', () => {
+    const seasonRecord = buildSeasonOverviewSeasonRecord({
+      seasonKey: '1921',
+      seasonYear: 1921,
+      seasonSlug: '1921–22_in_English_football',
+      tables: [
+        {
+          title: 'First Division',
+          id: 'First_Division',
+          tableIndex: 0,
+          rows: [{ pos: 1, team: 'Liverpool', played: 42, points: 61 }],
+        },
+        {
+          title: 'Second Division',
+          id: 'Second_Division',
+          tableIndex: 1,
+          rows: [{ pos: 1, team: 'Notts County', played: 42, points: 58, wasPromoted: true }],
+        },
+        {
+          title: 'Third Division North',
+          id: 'Third_Division_North',
+          tableIndex: 2,
+          rows: [{ pos: 1, team: 'Stockport County', played: 38, points: 53 }],
+        },
+        {
+          title: 'Third Division South',
+          id: 'Third_Division_South',
+          tableIndex: 3,
+          rows: [{ pos: 1, team: 'Plymouth Argyle', played: 38, points: 54 }],
+        },
+      ],
+    });
+
+    expect(seasonRecord.tier3.metadata).toMatchObject({
+      title: 'Third Division North',
+      leagueLevel: 3,
+      tierKey: 'tier3',
+    });
+    expect(seasonRecord.tier4.metadata).toMatchObject({
+      title: 'Third Division South',
+      leagueLevel: 3,
+      tierKey: 'tier4',
+    });
+  });
+
+  test('keeps pre-war four-division seasons aligned with second-tier top-flight movement', () => {
+    const seasonRecord = buildSeasonOverviewSeasonRecord({
+      seasonKey: '1936',
+      seasonYear: 1936,
+      seasonSlug: '1936–37_in_English_football',
+      tables: [
+        {
+          title: 'First Division',
+          id: 'First_Division',
+          tableIndex: 0,
+          rows: [
+            { pos: 1, team: 'Manchester City', played: 42, points: 57 },
+            { pos: 21, team: 'Manchester United', played: 42, points: 29, wasRelegated: true },
+          ],
+        },
+        {
+          title: 'Second Division',
+          id: 'Second_Division',
+          tableIndex: 1,
+          rows: [
+            { pos: 1, team: 'Leicester City', played: 42, points: 55, wasPromoted: true },
+            { pos: 2, team: 'Blackburn Rovers', played: 42, points: 52, wasPromoted: true },
+          ],
+        },
+        {
+          title: 'Third Division North',
+          id: 'Third_Division_North',
+          tableIndex: 2,
+          rows: [{ pos: 1, team: 'Stockport County', played: 42, points: 58, wasPromoted: true }],
+        },
+        {
+          title: 'Third Division South',
+          id: 'Third_Division_South',
+          tableIndex: 3,
+          rows: [{ pos: 1, team: 'Ipswich Town', played: 42, points: 56, wasPromoted: true }],
+        },
+      ],
+    });
+
+    expect(seasonRecord.seasonInfo.promoted).toEqual(['Leicester City', 'Blackburn Rovers']);
+    expect(seasonRecord.seasonInfo.relegated).toEqual(['Manchester United']);
+    expect(seasonRecord.tier2.promoted).toEqual(['Leicester City', 'Blackburn Rovers']);
+    expect(seasonRecord.tier3.metadata).toMatchObject({
+      title: 'Third Division North',
+      leagueLevel: 3,
+      tierKey: 'tier3',
+    });
+    expect(seasonRecord.tier4.metadata).toMatchObject({
+      title: 'Third Division South',
+      leagueLevel: 3,
+      tierKey: 'tier4',
+    });
+  });
+
+  test('applies config-driven overview outcome overrides for the 1989 Swindon disqualification case', () => {
+    const seasonRecord = buildSeasonOverviewSeasonRecord({
+      seasonKey: '1989',
+      seasonYear: 1989,
+      seasonSlug: '1989–90_in_English_football',
+      tables: [
+        {
+          title: 'First Division',
+          id: 'First_Division',
+          tableIndex: 0,
+          rows: [
+            { pos: 18, team: 'Sheffield Wednesday', played: 38, points: 43, wasRelegated: true },
+            { pos: 19, team: 'Charlton Athletic', played: 38, points: 30, wasRelegated: true },
+            { pos: 20, team: 'Millwall', played: 38, points: 26, wasRelegated: true },
+          ],
+        },
+        {
+          title: 'Second Division',
+          id: 'Second_Division',
+          tableIndex: 1,
+          rows: [
+            { pos: 1, team: 'Leeds United', played: 46, points: 85, wasPromoted: true },
+            { pos: 2, team: 'Sheffield United', played: 46, points: 85, wasPromoted: true },
+            {
+              pos: 4,
+              team: 'Swindon Town',
+              played: 46,
+              points: 74,
+              notes: 'Qualification for the Second Division play-offs',
+              wasPromoted: true,
+            },
+            {
+              pos: 6,
+              team: 'Sunderland',
+              played: 46,
+              points: 74,
+              notes: 'Qualification for the Second Division play-offs',
+              wasPromoted: false,
+            },
+          ],
+        },
+      ],
+    });
+
+    expect(seasonRecord.seasonInfo.promoted).toEqual([
+      'Leeds United',
+      'Sheffield United',
+      'Sunderland',
+    ]);
+    expect(seasonRecord.tier2.promoted).toEqual(['Leeds United', 'Sheffield United', 'Sunderland']);
+    const swindon = seasonRecord.tier2.table.find((row) => row.team === 'Swindon Town');
+    const sunderland = seasonRecord.tier2.table.find((row) => row.team === 'Sunderland');
+    expect(swindon.wasPromoted).toBe(false);
+    expect(sunderland.wasPromoted).toBe(true);
+  });
+
+  test('builds metadata-only placeholder records for abandoned and bridge seasons', () => {
+    const abandoned = buildHistoricalSeasonPlaceholderRecord('1939', '1939–40_in_English_football');
+    const bridge = buildHistoricalSeasonPlaceholderRecord('1945', '1945–46_in_English_football');
+
+    expect(abandoned.seasonInfo).toMatchObject({
+      competitionStatus: 'abandoned-season',
+      officialLeagueTables: false,
+      officialCompetitionsAbandoned: true,
+      seasonSlug: '1939–40_in_English_football',
+    });
+    expect(bridge.seasonInfo).toMatchObject({
+      competitionStatus: 'regional-bridge-season',
+      regionalBridgeSeason: true,
+      promotionRelegationApplies: false,
+      specialCompetitions: ['Football League North', 'Football League South'],
+    });
+    expect(bridge.tier1).toBeUndefined();
   });
 });
 
@@ -296,5 +673,56 @@ describe('buildSeasonOverview', () => {
     const finalData = JSON.parse(fs.readFileSync(outputFile, 'utf8'));
     expect(Object.keys(finalData.seasons)).toEqual(['1914']);
     expect(finalData.seasons['1914'].seasonInfo.relegated).toEqual(['Wartime Wanderers']);
+  });
+
+  test('can emit historical placeholders for wartime and bridge seasons', async () => {
+    const outputFile = createTempFile({ seasons: {} });
+    const fetchTables = jest.fn(async (slug) => {
+      if (slug !== '1946–47_in_English_football') {
+        throw new Error(`Unexpected slug requested: ${slug}`);
+      }
+      return [
+        {
+          title: 'First Division',
+          id: 'First_Division',
+          tableIndex: 0,
+          rows: [{ pos: 1, team: 'Liverpool', played: 42, points: 57 }],
+        },
+      ];
+    });
+
+    await buildSeasonOverview(1939, 1946, outputFile, {
+      includeWarPlaceholders: true,
+      ignoreWarYears: false,
+      fetchSeasonOverviewTables: fetchTables,
+    });
+
+    const finalData = JSON.parse(fs.readFileSync(outputFile, 'utf8'));
+    expect(finalData.seasons['1939'].seasonInfo).toMatchObject({
+      competitionStatus: 'abandoned-season',
+      officialCompetitionsAbandoned: true,
+    });
+    expect(finalData.seasons['1940'].seasonInfo).toMatchObject({
+      competitionStatus: 'wartime-special',
+      officialCompetitionsSuspended: true,
+    });
+    expect(finalData.seasons['1945'].seasonInfo).toMatchObject({
+      competitionStatus: 'regional-bridge-season',
+      promotionRelegationApplies: false,
+    });
+    expect(finalData.seasons['1946'].tier1.table[0].team).toBe('Liverpool');
+    expect(fetchTables).toHaveBeenCalledTimes(1);
+  });
+
+  test('does not write empty non-placeholder seasons when no overview tables are returned', async () => {
+    const outputFile = createTempFile({ seasons: {} });
+    const fetchTables = jest.fn(async () => []);
+
+    await buildSeasonOverview(1946, 1946, outputFile, {
+      fetchSeasonOverviewTables: fetchTables,
+    });
+
+    const finalData = JSON.parse(fs.readFileSync(outputFile, 'utf8'));
+    expect(finalData.seasons['1946']).toBeUndefined();
   });
 });

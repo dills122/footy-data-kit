@@ -11,6 +11,7 @@ import {
   compareSeasonKeys,
   getExpectedMinimumTierCount,
   inferLeagueTierFromMetadata,
+  isHistoricalPlaceholderSeason,
   parseSeasonNumber,
   isTierKey,
   shouldIgnoreMissingSeasonData,
@@ -104,6 +105,11 @@ export function analyzeDataset(dataset, options = {}) {
   issues.push(...analyzeDatasetContract(dataset, profile));
 
   for (const [seasonKey, seasonValue] of seasonEntries) {
+    if (isHistoricalPlaceholderSeason(seasonValue, seasonKey)) {
+      issues.push(...analyzeSeasonContract(seasonKey, seasonValue));
+      continue;
+    }
+
     const tierEntries = Object.entries(seasonValue).filter(([key]) => isTierKey(key));
     /** @type {Array<TierAnalysis>} */
     const tierAnalyses = tierEntries.map(([tierKey, tierValue]) =>
@@ -437,6 +443,7 @@ function analyzeSeasonContract(seasonKey, seasonValue) {
   /** @type {Issue[]} */
   const issues = [];
   const seasonInfo = seasonValue.seasonInfo;
+  const isPlaceholderSeason = isHistoricalPlaceholderSeason(seasonValue, seasonKey);
 
   if (!seasonInfo || typeof seasonInfo !== 'object' || Array.isArray(seasonInfo)) {
     issues.push(
@@ -456,6 +463,35 @@ function analyzeSeasonContract(seasonKey, seasonValue) {
         })
       );
     }
+
+    if (isPlaceholderSeason) {
+      const missingPlaceholderFields = ['competitionStatus', 'officialLeagueTables'].filter(
+        (field) => seasonInfo[field] == null
+      );
+      if (missingPlaceholderFields.length) {
+        issues.push(
+          createIssue({
+            type: 'incomplete-placeholder-season-info',
+            season: seasonKey,
+            message: `Placeholder seasonInfo missing fields: ${missingPlaceholderFields.join(', ')}`,
+          })
+        );
+      }
+    }
+  }
+
+  if (isPlaceholderSeason) {
+    const tierKeys = Object.keys(seasonValue).filter((key) => isTierKey(key));
+    if (tierKeys.length) {
+      issues.push(
+        createIssue({
+          type: 'unexpected-placeholder-tier-data',
+          season: seasonKey,
+          message: `Placeholder season should not contain tier data: ${tierKeys.join(', ')}`,
+        })
+      );
+    }
+    return issues;
   }
 
   for (const [tierKey, tierValue] of Object.entries(seasonValue)) {
@@ -552,6 +588,7 @@ function analyzeSeasonContract(seasonKey, seasonValue) {
  */
 function analyzeSeasonTierCoverage(seasonKey, seasonValue, profile) {
   if (profile.kind === 'promotion-only') return [];
+  if (isHistoricalPlaceholderSeason(seasonValue, seasonKey)) return [];
 
   const seasonNumber = parseSeasonNumber(seasonKey);
   if (seasonNumber == null) return [];
@@ -575,6 +612,7 @@ function analyzeSeasonTierCoverage(seasonKey, seasonValue, profile) {
  * @returns {Issue[]}
  */
 function analyzeSeasonLeagueOrdering(seasonKey, seasonValue) {
+  if (isHistoricalPlaceholderSeason(seasonValue, seasonKey)) return [];
   const seasonNumber = parseSeasonNumber(seasonKey);
   if (seasonNumber == null) return [];
 
@@ -593,6 +631,15 @@ function analyzeSeasonLeagueOrdering(seasonKey, seasonValue) {
     if (!metadata || metadata.source !== WIKIPEDIA_DATA_SOURCES.overview.sourceId) continue;
 
     const inferredTier = inferLeagueTierFromMetadata(metadata, seasonNumber);
+    const metadataLeagueLevel = Number.parseInt(String(metadata.leagueLevel), 10);
+    if (
+      inferredTier != null &&
+      Number.isFinite(metadataLeagueLevel) &&
+      metadataLeagueLevel === inferredTier &&
+      metadataLeagueLevel <= tierNumber
+    ) {
+      continue;
+    }
     if (inferredTier == null || inferredTier === tierNumber) continue;
 
     issues.push(
@@ -630,6 +677,8 @@ function analyzeSeasonContinuity(dataset, profile) {
     const currentRecord = dataset.seasons[String(seasonNumber)];
     const nextRecord = dataset.seasons[String(nextSeason)];
     if (!currentRecord || !nextRecord) continue;
+    if (isHistoricalPlaceholderSeason(currentRecord, String(seasonNumber))) continue;
+    if (isHistoricalPlaceholderSeason(nextRecord, String(nextSeason))) continue;
 
     const currentSeasonInfo = currentRecord.seasonInfo;
     const nextTopFlight = nextRecord[CONTINUITY_CONFIG.topFlightTierKey];

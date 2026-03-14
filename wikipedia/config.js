@@ -31,6 +31,7 @@ export const WIKIPEDIA_DATA_SOURCES = Object.freeze({
 
 export const WIKIPEDIA_SEASON_RANGES = Object.freeze({
   classicPromotionFinalSeason: 1990,
+  footballAllianceFinalSeason: 1891,
   premierLeagueStartSeason: 1992,
 });
 
@@ -38,6 +39,103 @@ export const WIKIPEDIA_WAR_SUSPENSION_RANGES = Object.freeze([
   Object.freeze({ label: 'ww1', start: 1915, end: 1918 }),
   Object.freeze({ label: 'ww2', start: 1940, end: 1945 }),
 ]);
+
+export const WIKIPEDIA_MINIMUM_TIER_OVERRIDES = Object.freeze({
+  1888: 1,
+  1889: 1,
+});
+
+export const WIKIPEDIA_HISTORICAL_PLACEHOLDER_SEASONS = Object.freeze({
+  1915: Object.freeze({
+    competitionStatus: 'wartime-special',
+    warSuspensionLabel: 'ww1',
+    notes:
+      'Official Football League competition was suspended and replaced by wartime regional competitions.',
+  }),
+  1916: Object.freeze({
+    competitionStatus: 'wartime-special',
+    warSuspensionLabel: 'ww1',
+    notes:
+      'Official Football League competition was suspended and replaced by wartime regional competitions.',
+  }),
+  1917: Object.freeze({
+    competitionStatus: 'wartime-special',
+    warSuspensionLabel: 'ww1',
+    notes:
+      'Official Football League competition was suspended and replaced by wartime regional competitions.',
+  }),
+  1918: Object.freeze({
+    competitionStatus: 'wartime-special',
+    warSuspensionLabel: 'ww1',
+    notes:
+      'Official Football League competition was suspended and replaced by wartime regional competitions.',
+  }),
+  1939: Object.freeze({
+    competitionStatus: 'abandoned-season',
+    notes:
+      'Official Football League season abandoned after the outbreak of war; wartime regional competitions followed.',
+  }),
+  1940: Object.freeze({
+    competitionStatus: 'wartime-special',
+    warSuspensionLabel: 'ww2',
+    notes:
+      'Official Football League competition was suspended and replaced by wartime regional competitions.',
+  }),
+  1941: Object.freeze({
+    competitionStatus: 'wartime-special',
+    warSuspensionLabel: 'ww2',
+    notes:
+      'Official Football League competition was suspended and replaced by wartime regional competitions.',
+  }),
+  1942: Object.freeze({
+    competitionStatus: 'wartime-special',
+    warSuspensionLabel: 'ww2',
+    notes:
+      'Official Football League competition was suspended and replaced by wartime regional competitions.',
+  }),
+  1943: Object.freeze({
+    competitionStatus: 'wartime-special',
+    warSuspensionLabel: 'ww2',
+    notes:
+      'Official Football League competition was suspended and replaced by wartime regional competitions.',
+  }),
+  1944: Object.freeze({
+    competitionStatus: 'wartime-special',
+    warSuspensionLabel: 'ww2',
+    notes:
+      'Official Football League competition was suspended and replaced by wartime regional competitions.',
+  }),
+  1945: Object.freeze({
+    competitionStatus: 'regional-bridge-season',
+    warSuspensionLabel: 'ww2',
+    promotionRelegationApplies: false,
+    regionalBridgeSeason: true,
+    specialCompetitions: Object.freeze(['Football League North', 'Football League South']),
+    notes:
+      'Regional Football League North and South competitions were played without normal promotion or relegation.',
+  }),
+});
+
+export const WIKIPEDIA_OVERVIEW_SEASON_OUTCOME_OVERRIDES = Object.freeze({
+  1989: Object.freeze({
+    seasonInfo: Object.freeze({
+      promoted: Object.freeze(['Leeds United', 'Sheffield United', 'Sunderland']),
+    }),
+    tiers: Object.freeze({
+      tier2: Object.freeze({
+        promoted: Object.freeze(['Leeds United', 'Sheffield United', 'Sunderland']),
+        rowFlagOverrides: Object.freeze({
+          'Swindon Town': Object.freeze({
+            wasPromoted: false,
+          }),
+          Sunderland: Object.freeze({
+            wasPromoted: true,
+          }),
+        }),
+      }),
+    }),
+  }),
+});
 
 export const WIKIPEDIA_DIVISION_HEADER_SLUGS = Object.freeze({
   first: Object.freeze([
@@ -99,10 +197,21 @@ export const WIKIPEDIA_OVERVIEW_CONFIG = Object.freeze({
     'football league premier division',
   ]),
   secondTierPostPremierKeywords: Object.freeze(['championship', 'division one', 'first division']),
+  secondTierPreFirstDivisionKeywords: Object.freeze(['football alliance']),
   fifthTierKeywords: Object.freeze([
     'national league top division',
     'conference national',
     'conference premier',
+  ]),
+  excludedCompetitionKeywords: Object.freeze([
+    'southern league',
+    'southern football league',
+    'northern league',
+    'northern football league',
+    'western league',
+    'western football league',
+    'midland league',
+    'midland football league',
   ]),
 });
 
@@ -161,6 +270,14 @@ export function inferEnglishLeagueTier(label, seasonNumber) {
     text.includes('first division')
   ) {
     return 1;
+  }
+  if (
+    seasonNumber <= WIKIPEDIA_SEASON_RANGES.footballAllianceFinalSeason &&
+    WIKIPEDIA_OVERVIEW_CONFIG.secondTierPreFirstDivisionKeywords.some((keyword) =>
+      text.includes(keyword)
+    )
+  ) {
+    return 2;
   }
   if (
     seasonNumber >= WIKIPEDIA_SEASON_RANGES.premierLeagueStartSeason &&

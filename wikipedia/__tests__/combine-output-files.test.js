@@ -836,6 +836,34 @@ describe('combine-output-files CLI', () => {
     expect(excludedSeasonEntries.map(([seasonKey]) => seasonKey)).toEqual(['2001', 'abc']);
   });
 
+  test('splitSeasonEntriesForOutput preserves wartime placeholder seasons', () => {
+    const { filteredSeasonEntries, excludedSeasonEntries, removedWarSeasons } =
+      splitSeasonEntriesForOutput({
+        seasonEntries: [
+          [
+            '1939',
+            {
+              seasonInfo: {
+                season: 1939,
+                table: [],
+                promoted: [],
+                relegated: [],
+                competitionStatus: 'abandoned-season',
+                officialLeagueTables: false,
+              },
+            },
+          ],
+          ['1941', { seasonInfo: { season: 1941, table: [], promoted: [], relegated: [] } }],
+          ['2000', { tier1: { table: [{ team: 'League Club' }] } }],
+        ],
+        includeEmpty: false,
+      });
+
+    expect(removedWarSeasons).toBe(1);
+    expect(filteredSeasonEntries.map(([seasonKey]) => seasonKey)).toEqual(['1939', '2000']);
+    expect(excludedSeasonEntries).toEqual([]);
+  });
+
   test('groupMissingSeasons buckets missing seasons by era', () => {
     expect(groupMissingSeasons([2002, 1916, 1941, 2001, 1915])).toEqual({
       ww1: [1915, 1916],

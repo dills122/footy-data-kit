@@ -6,25 +6,29 @@ import {
   resolveWikipediaDatasetPath,
   WIKIPEDIA_DATA_SOURCES,
 } from '../config.js';
-import { buildSeasonInfo, buildTierData } from '../data/generate-output-files.js';
 import { createDatasetStore } from '../data/dataset-store.js';
+import { buildSeasonInfo, buildTierData } from '../data/generate-output-files.js';
+import {
+  applyOverviewSeasonOutcomeOverrides,
+  buildHistoricalPlaceholderSeasonInfo,
+  extractSeasonKeyFromSlug,
+  extractSeasonYearFromSlug,
+  getHistoricalSeasonStatus,
+  isWarSuspensionSeason,
+  seasonHasTierData,
+} from '../data/season-rules.js';
 import { fetchWikipediaSeasonPage } from '../parser-core/page-fetcher.js';
 import {
-  collectOutcomeTeams,
   deriveMajorTierIndexes,
   findLeagueSectionHeading,
   getHeadingLevel,
   headingHasLeagueKeyword,
   inferOverviewTierNumber,
+  isExcludedOverviewCompetitionLabel,
   isGenericLeagueHeading,
   parseOverviewTablesForHeading,
+  skipSection,
 } from '../parser-core/wiki-overview-parser.js';
-import {
-  isWarSuspensionSeason,
-  extractSeasonKeyFromSlug,
-  extractSeasonYearFromSlug,
-  seasonHasTierData,
-} from '../data/season-rules.js';
 
 export function parseOverviewLeagueTables(html) {
   const $ = cheerio.load(html);
@@ -37,8 +41,11 @@ export function parseOverviewLeagueTables(html) {
   if (!leagueHeading || !leagueHeading.length) {
     const overview = [];
     const headingStack = [];
-    $('.mw-heading').each((_, el) => {
+    $('.mw-heading, h2, h3, h4, h5').each((_, el) => {
       const $headingWrapper = $(el);
+      if ($headingWrapper.is('h2, h3, h4, h5') && $headingWrapper.closest('.mw-heading').length) {
+        return;
+      }
       const level = getHeadingLevel($headingWrapper);
       if (!level || level < 2 || level > 5) return;
 
@@ -47,7 +54,9 @@ export function parseOverviewLeagueTables(html) {
       }
 
       const headingTag = `h${level}`;
-      const $headingEl = $headingWrapper.find(headingTag).first();
+      const $headingEl = $headingWrapper.is(headingTag)
+        ? $headingWrapper
+        : $headingWrapper.find(headingTag).first();
       if (!$headingEl.length) {
         headingStack.push({ level, title: null, id: null, hasLeagueContext: false });
         return;
@@ -58,6 +67,11 @@ export function parseOverviewLeagueTables(html) {
       const hasKeyword = headingHasLeagueKeyword(rawTitle);
       const inheritsContext = headingStack.some((parent) => parent.hasLeagueContext);
       const hasLeagueContext = hasKeyword || inheritsContext;
+      const inheritsExcludedCompetition = headingStack.some(
+        (parent) => parent.isExcludedCompetition
+      );
+      const isExcludedCompetition =
+        inheritsExcludedCompetition || isExcludedOverviewCompetitionLabel(rawTitle, headingId);
 
       const ancestorForFallback = [...headingStack]
         .slice()
@@ -69,9 +83,12 @@ export function parseOverviewLeagueTables(html) {
         title: rawTitle,
         id: headingId,
         hasLeagueContext,
+        isExcludedCompetition,
       });
 
-      if (!hasLeagueContext) return;
+      if (!hasLeagueContext || isExcludedCompetition) {
+        return;
+      }
 
       let fallbackTitle = null;
       let fallbackId = null;
@@ -101,6 +118,18 @@ export function parseOverviewLeagueTables(html) {
 
   const overview = [];
   const headingWrapper = leagueHeading.closest('.mw-heading');
+  const rootLeagueTitle = leagueHeading.text().trim() || undefined;
+  const rootLeagueId = leagueHeading.attr('id') || undefined;
+  const rootEntries = parseOverviewTablesForHeading(
+    $,
+    headingWrapper.length ? headingWrapper : leagueHeading,
+    {
+      leagueTitle: rootLeagueTitle,
+      leagueId: rootLeagueId,
+    },
+    context
+  );
+  overview.push(...rootEntries);
   let pointer = headingWrapper.length ? headingWrapper.next() : leagueHeading.next();
 
   while (pointer.length) {
@@ -108,7 +137,24 @@ export function parseOverviewLeagueTables(html) {
     if (level === 2) break;
 
     if (level && level >= 3 && level <= 5) {
-      const entries = parseOverviewTablesForHeading($, pointer, undefined, context);
+      const headingTag = `h${level}`;
+      const $headingEl = pointer.is(headingTag) ? pointer : pointer.find(headingTag).first();
+      const rawTitle = $headingEl.text().trim();
+      const headingId = $headingEl.attr('id') || null;
+      if (isExcludedOverviewCompetitionLabel(rawTitle, headingId)) {
+        pointer = skipSection($, pointer, level);
+        continue;
+      }
+
+      const entries = parseOverviewTablesForHeading(
+        $,
+        pointer,
+        {
+          leagueTitle: rootLeagueTitle,
+          leagueId: rootLeagueId,
+        },
+        context
+      );
       overview.push(...entries);
     }
 
@@ -138,6 +184,53 @@ export function buildSeasonOverviewSlug(year) {
   return buildOverviewSeasonSlugFromConfig(year);
 }
 
+function normalizeOutcomeNote(note) {
+  return String(note || '')
+    .toLowerCase()
+    .replace(/[\u2010-\u2015]/g, '-')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function rowEarnedTopFlightPromotion(row, seasonNumber) {
+  if (!row) return false;
+  if (row.wasPromoted) return true;
+
+  const note = normalizeOutcomeNote(row.notes);
+  if (!note) return false;
+
+  if (note.includes('elected to the football league first division')) return true;
+  if (note.includes('elected to the first division')) return true;
+
+  if (seasonNumber <= 1891 && note.includes('elected to the football league')) {
+    return !note.includes('second division');
+  }
+
+  return false;
+}
+
+function rowDroppedFromTopFlight(row) {
+  if (!row) return false;
+  if (row.wasRelegated) return true;
+
+  const note = normalizeOutcomeNote(row.notes);
+  if (!note) return false;
+
+  return note.includes('failed re-election') || note.includes('not re-elected');
+}
+
+function collectTopFlightPromotions(table, seasonNumber) {
+  if (!table || !Array.isArray(table.rows)) return [];
+  return table.rows
+    .filter((row) => rowEarnedTopFlightPromotion(row, seasonNumber))
+    .map((row) => row.team);
+}
+
+function collectTopFlightRelegations(table) {
+  if (!table || !Array.isArray(table.rows)) return [];
+  return table.rows.filter((row) => rowDroppedFromTopFlight(row)).map((row) => row.team);
+}
+
 function resolveOverviewOutputFile(outputFile) {
   return outputFile
     ? path.resolve(outputFile)
@@ -149,15 +242,14 @@ export function buildSeasonOverviewSeasonRecord({ seasonKey, seasonYear, seasonS
     ? /** @type {number} */ (seasonYear)
     : extractSeasonYearFromSlug(seasonKey);
   const safeSeason = Number.isFinite(numericSeason) ? numericSeason : 0;
-  const { topFlightIndex, secondTierIndex } = deriveMajorTierIndexes(tables);
+  const normalizedTables = tables.map((table) => ({ ...table, season: safeSeason }));
+  const { topFlightIndex, secondTierIndex } = deriveMajorTierIndexes(normalizedTables);
   const promotedTeams =
     secondTierIndex != null
-      ? collectOutcomeTeams(tables, 'wasPromoted', { includeIndexes: [secondTierIndex] })
+      ? collectTopFlightPromotions(normalizedTables[secondTierIndex], safeSeason)
       : [];
   const relegatedTeams =
-    topFlightIndex != null
-      ? collectOutcomeTeams(tables, 'wasRelegated', { includeIndexes: [topFlightIndex] })
-      : [];
+    topFlightIndex != null ? collectTopFlightRelegations(normalizedTables[topFlightIndex]) : [];
 
   const seasonInfo = buildSeasonInfo(safeSeason, {
     promoted: promotedTeams,
@@ -172,8 +264,9 @@ export function buildSeasonOverviewSeasonRecord({ seasonKey, seasonYear, seasonS
   const usedTierNumbers = new Set();
   let nextSequentialTier = 1;
 
-  tables.forEach((table, index) => {
-    let tierNumber = inferOverviewTierNumber(table, safeSeason);
+  normalizedTables.forEach((table, index) => {
+    const inferredTierNumber = inferOverviewTierNumber(table, safeSeason);
+    let tierNumber = inferredTierNumber;
 
     if (tierNumber == null || usedTierNumbers.has(tierNumber)) {
       while (usedTierNumbers.has(nextSequentialTier)) {
@@ -189,12 +282,15 @@ export function buildSeasonOverviewSeasonRecord({ seasonKey, seasonYear, seasonS
 
     const tierKey = `tier${tierNumber}`;
     record[tierKey] = buildTierData(safeSeason, table.rows, {
+      promoted: tierNumber === 2 ? collectTopFlightPromotions(table, safeSeason) : undefined,
+      relegated: tierNumber === 1 ? collectTopFlightRelegations(table) : undefined,
       metadata: {
         source: WIKIPEDIA_DATA_SOURCES.overview.sourceId,
         sourceUrl: buildWikipediaArticleUrl(seasonSlug),
         seasonSlug,
         leagueId: table.id || null,
         title: table.title,
+        leagueLevel: inferredTierNumber ?? tierNumber,
         tableIndex: table.tableIndex ?? index,
         tableCount: tables.length,
         tierKey,
@@ -202,7 +298,25 @@ export function buildSeasonOverviewSeasonRecord({ seasonKey, seasonYear, seasonS
     });
   });
 
-  return record;
+  return applyOverviewSeasonOutcomeOverrides(record, seasonKey);
+}
+
+export function buildHistoricalSeasonPlaceholderRecord(seasonKey, seasonSlug) {
+  const placeholder = buildHistoricalPlaceholderSeasonInfo(seasonKey);
+
+  const { promoted, relegated, season, ...metadata } = placeholder;
+  const seasonInfo = buildSeasonInfo(seasonKey, {
+    promoted,
+    relegated,
+    metadata: {
+      ...metadata,
+      seasonSlug,
+      sourceUrl: buildWikipediaArticleUrl(seasonSlug),
+      tableCount: 0,
+    },
+  });
+
+  return { seasonInfo };
 }
 
 export async function buildSeasonOverview(startYear, endYear, outputFile, options = {}) {
@@ -210,6 +324,7 @@ export async function buildSeasonOverview(startYear, endYear, outputFile, option
   const updateOnly = Boolean(options.updateOnly);
   const forceUpdate = Boolean(options.forceUpdate);
   const ignoreWarYears = Boolean(options.ignoreWarYears);
+  const includeWarPlaceholders = Boolean(options.includeWarPlaceholders);
   const fetchTables =
     typeof options.fetchSeasonOverviewTables === 'function'
       ? options.fetchSeasonOverviewTables
@@ -222,6 +337,7 @@ export async function buildSeasonOverview(startYear, endYear, outputFile, option
       updateOnly,
       forceUpdate,
       ignoreWarYears,
+      includeWarPlaceholders,
     },
   });
   const dataset = store.dataset;
@@ -239,6 +355,16 @@ export async function buildSeasonOverview(startYear, endYear, outputFile, option
       continue;
     }
 
+    const historicalStatus = getHistoricalSeasonStatus(year);
+    if (includeWarPlaceholders && historicalStatus) {
+      console.log(`\n📝 Recording ${seasonKey} as ${historicalStatus} placeholder...`);
+      store.writeSeason(
+        seasonKey,
+        buildHistoricalSeasonPlaceholderRecord(seasonKey, buildSeasonOverviewSlug(year))
+      );
+      continue;
+    }
+
     const slug = buildSeasonOverviewSlug(year);
     console.log(`\n📖 Fetching ${slug}...`);
 
@@ -246,6 +372,10 @@ export async function buildSeasonOverview(startYear, endYear, outputFile, option
     const hasTableData = tables.some((table) => table.rows && table.rows.length);
     if (forceUpdate && existingRecord && !hasTableData) {
       console.log(`⏭️ Skipping overwrite for ${seasonKey} (no tables returned)`);
+      continue;
+    }
+    if (!hasTableData) {
+      console.log(`⏭️ Skipping ${seasonKey} (no overview tables returned)`);
       continue;
     }
     const seasonRecord = buildSeasonOverviewSeasonRecord({
@@ -276,7 +406,12 @@ export async function buildSeasonOverviewForSlug(seasonSlug, outputFile) {
   const dataset = store.dataset;
   console.log(`\n📖 Fetching ${seasonSlug}...`);
   const tables = await fetchSeasonOverviewTables(seasonSlug);
+  const hasTableData = tables.some((table) => table.rows && table.rows.length);
   const seasonKey = extractSeasonKeyFromSlug(seasonSlug) || 'unknown-season';
+  if (!hasTableData) {
+    console.log(`⏭️ Skipping ${seasonKey} (no overview tables returned)`);
+    return { seasonKey, record: dataset.seasons[seasonKey] || null };
+  }
   const seasonYear = extractSeasonYearFromSlug(seasonKey);
   const seasonRecord = buildSeasonOverviewSeasonRecord({
     seasonKey,

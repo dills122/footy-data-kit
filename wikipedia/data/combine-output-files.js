@@ -11,9 +11,11 @@ import {
   saveFootballData,
 } from './generate-output-files.js';
 import {
+  getSeasonCompetitionStatus,
   normaliseGoalDifference,
   parseSeasonNumber,
   reconcileSeasonInfoContinuity,
+  isHistoricalPlaceholderSeason,
   isWarSuspensionSeason,
   seasonHasData,
   mergeSeasonRecords,
@@ -203,7 +205,8 @@ export function runCli(argv = process.argv) {
 
 export function splitSeasonEntriesForOutput({ seasonEntries, includeEmpty }) {
   const nonWarSeasonEntries = seasonEntries.filter(
-    ([seasonKey]) => !isWarSuspensionSeason(seasonKey)
+    ([seasonKey, seasonValue]) =>
+      !isWarSuspensionSeason(seasonKey) || isHistoricalPlaceholderSeason(seasonValue, seasonKey)
   );
   const filteredSeasonEntries = includeEmpty
     ? nonWarSeasonEntries
@@ -239,6 +242,11 @@ export function groupMissingSeasons(missingSeasonNumbers) {
   }
 
   return groupedMissing;
+}
+
+export function describeSeasonExclusion(seasonKey, seasonValue) {
+  const status = getSeasonCompetitionStatus(seasonValue, seasonKey);
+  return status ? `${seasonKey} (${status})` : seasonKey;
 }
 
 const isDirectExecution = process.argv[1]

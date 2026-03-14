@@ -17,9 +17,15 @@ Temporary working note for the next phase after the clean dataset release.
    - Add tests around canonicalisation so future cleanup work is less manual.
 
 3. Regression fixture growth
+
    - Keep the current Jest + saved-dataset integration approach.
    - Expand the curated edge-case seasons instead of replacing the existing model.
    - Prioritise brittle formats: restructures, rename-heavy seasons, and odd table layouts.
+
+4. Historical overview follow-up
+   - Keep [historical-overview-parsing.md](/Users/dsteele/repos/footy-data-kit/docs/historical-overview-parsing.md) as background/reference now that the full overview dataset has been regenerated.
+   - Focus follow-up work on fixture growth, release diffs, and any newly discovered season-specific anomalies rather than broad historical enablement.
+   - Treat the promotion flow as legacy support unless a comparison or targeted regression requires it.
 
 ## Notes
 

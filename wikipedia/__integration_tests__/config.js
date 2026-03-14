@@ -10,6 +10,55 @@
 // correctly. See `config.model.ts` for the shape of each entry.
 export const testPages = /** @type {TestPages} */ ([
   {
+    url: 'https://en.wikipedia.org/wiki/1888%E2%80%9389_in_English_football',
+    season: '1888',
+    source: 'overview',
+    tests: {
+      promoted: [],
+      relegated: [],
+      tableEntries: [
+        {
+          tier: 'tier1',
+          data: {
+            team: 'Preston North End',
+            wasPromoted: false,
+            wasRelegated: false,
+            points: 40,
+          },
+        },
+      ],
+    },
+  },
+  {
+    url: 'https://en.wikipedia.org/wiki/1889%E2%80%9390_in_English_football',
+    season: '1889',
+    source: 'overview',
+    tests: {
+      promoted: [],
+      relegated: ['Stoke'],
+      tableEntries: [
+        {
+          tier: 'tier1',
+          data: {
+            team: 'Preston North End',
+            wasPromoted: false,
+            wasRelegated: false,
+            points: 33,
+          },
+        },
+        {
+          tier: 'tier1',
+          data: {
+            team: 'Stoke',
+            wasPromoted: false,
+            wasRelegated: true,
+            points: 10,
+          },
+        },
+      ],
+    },
+  },
+  {
     url: 'https://en.wikipedia.org/wiki/1898-99_Football_League',
     season: '1898',
     source: 'promotion',
@@ -65,6 +114,62 @@ export const testPages = /** @type {TestPages} */ ([
     },
   },
   {
+    url: 'https://en.wikipedia.org/wiki/1946%E2%80%9347_in_English_football',
+    season: '1946',
+    source: 'overview',
+    tests: {
+      promoted: ['Manchester City', 'Burnley'],
+      relegated: ['Brentford', 'Leeds United'],
+      tableEntries: [
+        {
+          tier: 'tier1',
+          data: {
+            team: 'Liverpool',
+            wasPromoted: false,
+            wasRelegated: false,
+            points: 57,
+          },
+        },
+        {
+          tier: 'tier2',
+          data: {
+            team: 'Manchester City',
+            wasPromoted: true,
+            points: 62,
+          },
+        },
+      ],
+    },
+  },
+  {
+    url: 'https://en.wikipedia.org/wiki/1947%E2%80%9348_in_English_football',
+    season: '1947',
+    source: 'overview',
+    tests: {
+      promoted: ['Birmingham City', 'Newcastle United'],
+      relegated: ['Blackburn Rovers', 'Grimsby Town'],
+      tableEntries: [
+        {
+          tier: 'tier1',
+          data: {
+            team: 'Arsenal',
+            wasPromoted: false,
+            wasRelegated: false,
+            points: 59,
+          },
+        },
+        {
+          tier: 'tier2',
+          data: {
+            team: 'Birmingham City',
+            wasPromoted: true,
+            points: 59,
+          },
+        },
+      ],
+    },
+  },
+  {
     url: 'https://en.wikipedia.org/wiki/1950-51_Football_League',
     season: '1950',
     source: 'promotion',
@@ -87,6 +192,62 @@ export const testPages = /** @type {TestPages} */ ([
             team: 'Everton',
             wasRelegated: true,
             points: 32,
+          },
+        },
+      ],
+    },
+  },
+  {
+    url: 'https://en.wikipedia.org/wiki/1955%E2%80%9356_in_English_football',
+    season: '1955',
+    source: 'overview',
+    tests: {
+      promoted: ['Sheffield Wednesday', 'Leeds United'],
+      relegated: ['Huddersfield Town', 'Sheffield United'],
+      tableEntries: [
+        {
+          tier: 'tier1',
+          data: {
+            team: 'Manchester United',
+            wasPromoted: false,
+            wasRelegated: false,
+            points: 60,
+          },
+        },
+        {
+          tier: 'tier2',
+          data: {
+            team: 'Sheffield Wednesday',
+            wasPromoted: true,
+            points: 55,
+          },
+        },
+      ],
+    },
+  },
+  {
+    url: 'https://en.wikipedia.org/wiki/1958%E2%80%9359_in_English_football',
+    season: '1958',
+    source: 'overview',
+    tests: {
+      promoted: ['Sheffield Wednesday', 'Fulham'],
+      relegated: ['Aston Villa', 'Portsmouth'],
+      tableEntries: [
+        {
+          tier: 'tier1',
+          data: {
+            team: 'Wolverhampton Wanderers',
+            wasPromoted: false,
+            wasRelegated: false,
+            points: 61,
+          },
+        },
+        {
+          tier: 'tier2',
+          data: {
+            team: 'Sheffield Wednesday',
+            wasPromoted: true,
+            points: 62,
           },
         },
       ],
@@ -130,12 +291,84 @@ export const testPages = /** @type {TestPages} */ ([
     },
   },
   {
+    url: 'https://en.wikipedia.org/wiki/1970%E2%80%9371_in_English_football',
+    season: '1970',
+    source: 'overview',
+    tests: {
+      promoted: ['Leicester City', 'Sheffield United'],
+      relegated: ['Burnley', 'Blackpool'],
+      tableEntries: [
+        {
+          tier: 'tier1',
+          data: {
+            team: 'Arsenal',
+            wasPromoted: false,
+            wasRelegated: false,
+            points: 65,
+          },
+        },
+        {
+          tier: 'tier2',
+          data: {
+            team: 'Leicester City',
+            wasPromoted: true,
+            points: 59,
+          },
+        },
+      ],
+    },
+  },
+  {
     url: 'https://en.wikipedia.org/wiki/1986-87_Football_League',
     season: '1986',
     source: 'promotion',
     tests: {
       promoted: ['Derby County', 'Portsmouth'],
       relegated: ['Leicester City', 'Manchester City', 'Aston Villa'],
+    },
+  },
+  {
+    url: 'https://en.wikipedia.org/wiki/1989%E2%80%9390_in_English_football',
+    season: '1989',
+    source: 'overview',
+    tests: {
+      promoted: ['Leeds United', 'Sheffield United', 'Sunderland'],
+      relegated: ['Sheffield Wednesday', 'Charlton Athletic', 'Millwall'],
+      tableEntries: [
+        {
+          tier: 'tier1',
+          data: {
+            team: 'Liverpool',
+            wasPromoted: false,
+            wasRelegated: false,
+            points: 79,
+          },
+        },
+        {
+          tier: 'tier2',
+          data: {
+            team: 'Leeds United',
+            wasPromoted: true,
+            points: 85,
+          },
+        },
+        {
+          tier: 'tier2',
+          data: {
+            team: 'Swindon Town',
+            wasPromoted: false,
+            points: 74,
+          },
+        },
+        {
+          tier: 'tier2',
+          data: {
+            team: 'Sunderland',
+            wasPromoted: true,
+            points: 74,
+          },
+        },
+      ],
     },
   },
   {
