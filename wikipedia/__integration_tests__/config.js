@@ -64,6 +64,86 @@ export const testPages = /** @type {TestPages} */ ([
   },
   {
     urls: {
+      overview: 'https://en.wikipedia.org/wiki/1890%E2%80%9391_in_English_football',
+    },
+    season: '1890',
+    source: 'overview',
+    tests: {
+      promoted: ['Stoke', 'Darwen'],
+      relegated: [],
+      tableEntries: [
+        {
+          tier: 'tier1',
+          data: {
+            team: 'Everton',
+            wasPromoted: false,
+            wasRelegated: false,
+            points: 29,
+          },
+        },
+        {
+          tier: 'tier2',
+          data: {
+            team: 'Stoke',
+            wasPromoted: false,
+            wasRelegated: false,
+            points: 33,
+          },
+        },
+        {
+          tier: 'tier2',
+          data: {
+            team: 'Darwen',
+            wasPromoted: false,
+            wasRelegated: false,
+            points: 23,
+          },
+        },
+      ],
+    },
+  },
+  {
+    urls: {
+      overview: 'https://en.wikipedia.org/wiki/1891%E2%80%9392_in_English_football',
+    },
+    season: '1891',
+    source: 'overview',
+    tests: {
+      promoted: ['Nottingham Forest', 'Newton Heath', 'The Wednesday'],
+      relegated: ['Darwen'],
+      tableEntries: [
+        {
+          tier: 'tier1',
+          data: {
+            team: 'Sunderland',
+            wasPromoted: false,
+            wasRelegated: false,
+            points: 42,
+          },
+        },
+        {
+          tier: 'tier1',
+          data: {
+            team: 'Darwen',
+            wasPromoted: false,
+            wasRelegated: true,
+            points: 11,
+          },
+        },
+        {
+          tier: 'tier2',
+          data: {
+            team: 'Nottingham Forest',
+            wasPromoted: true,
+            wasRelegated: false,
+            points: 33,
+          },
+        },
+      ],
+    },
+  },
+  {
+    urls: {
       promotion: 'https://en.wikipedia.org/wiki/1898-99_Football_League',
       overview: 'https://en.wikipedia.org/wiki/1898%E2%80%9399_in_English_football',
     },
@@ -252,6 +332,52 @@ export const testPages = /** @type {TestPages} */ ([
   },
   {
     urls: {
+      overview: 'https://en.wikipedia.org/wiki/1957%E2%80%9358_in_English_football',
+    },
+    season: '1957',
+    source: 'overview',
+    tests: {
+      promoted: ['West Ham United', 'Blackburn Rovers'],
+      relegated: ['Sunderland', 'Sheffield Wednesday'],
+      tableEntries: [
+        {
+          tier: 'tier1',
+          data: {
+            team: 'Wolverhampton Wanderers',
+            wasPromoted: false,
+            wasRelegated: false,
+            points: 64,
+          },
+        },
+        {
+          tier: 'tier2',
+          data: {
+            team: 'West Ham United',
+            wasPromoted: true,
+            points: 57,
+          },
+        },
+        {
+          tier: 'tier3',
+          data: {
+            team: 'Scunthorpe & Lindsey United',
+            wasPromoted: true,
+            points: 66,
+          },
+        },
+        {
+          tier: 'tier4',
+          data: {
+            team: 'Brighton & Hove Albion',
+            wasPromoted: true,
+            points: 60,
+          },
+        },
+      ],
+    },
+  },
+  {
+    urls: {
       overview: 'https://en.wikipedia.org/wiki/1958%E2%80%9359_in_English_football',
     },
     season: '1958',
@@ -363,6 +489,44 @@ export const testPages = /** @type {TestPages} */ ([
     tests: {
       promoted: ['Derby County', 'Portsmouth'],
       relegated: ['Leicester City', 'Manchester City', 'Aston Villa'],
+    },
+  },
+  {
+    urls: {
+      overview: 'https://en.wikipedia.org/wiki/1987%E2%80%9388_in_English_football',
+    },
+    season: '1987',
+    source: 'overview',
+    tests: {
+      promoted: ['Millwall', 'Aston Villa', 'Middlesbrough'],
+      relegated: ['Portsmouth', 'Watford', 'Oxford United'],
+      tableEntries: [
+        {
+          tier: 'tier1',
+          data: {
+            team: 'Liverpool',
+            wasPromoted: false,
+            wasRelegated: false,
+            points: 90,
+          },
+        },
+        {
+          tier: 'tier2',
+          data: {
+            team: 'Millwall',
+            wasPromoted: true,
+            points: 82,
+          },
+        },
+        {
+          tier: 'tier4',
+          data: {
+            team: 'Wolverhampton Wanderers',
+            wasPromoted: true,
+            points: 90,
+          },
+        },
+      ],
     },
   },
   {
