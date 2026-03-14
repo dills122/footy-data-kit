@@ -4,6 +4,7 @@ import {
   inferEnglishLeagueTier,
   WIKIPEDIA_HISTORICAL_PLACEHOLDER_SEASONS,
   WIKIPEDIA_MINIMUM_TIER_OVERRIDES,
+  WIKIPEDIA_OVERVIEW_SEASON_OUTCOME_OVERRIDES,
   isWikipediaWarSuspensionYear,
   getWikipediaWarSuspensionLabel,
   WIKIPEDIA_DATA_SOURCES,
@@ -397,6 +398,52 @@ export function getExpectedMinimumTierCount(seasonNumber) {
   return null;
 }
 
+export function applyOverviewSeasonOutcomeOverrides(seasonRecord, seasonKey) {
+  const seasonNumber = parseSeasonNumber(seasonKey);
+  if (seasonNumber == null || !seasonRecord || typeof seasonRecord !== 'object') {
+    return seasonRecord;
+  }
+
+  const override = WIKIPEDIA_OVERVIEW_SEASON_OUTCOME_OVERRIDES[seasonNumber];
+  if (!override) return seasonRecord;
+
+  if (seasonRecord.seasonInfo && override.seasonInfo) {
+    if (Array.isArray(override.seasonInfo.promoted)) {
+      seasonRecord.seasonInfo.promoted = [...override.seasonInfo.promoted];
+    }
+    if (Array.isArray(override.seasonInfo.relegated)) {
+      seasonRecord.seasonInfo.relegated = [...override.seasonInfo.relegated];
+    }
+  }
+
+  if (override.tiers && typeof override.tiers === 'object') {
+    for (const [tierKey, tierOverride] of Object.entries(override.tiers)) {
+      const tierRecord = seasonRecord[tierKey];
+      if (!tierRecord || typeof tierRecord !== 'object') continue;
+
+      if (Array.isArray(tierOverride.promoted)) {
+        tierRecord.promoted = [...tierOverride.promoted];
+      }
+      if (Array.isArray(tierOverride.relegated)) {
+        tierRecord.relegated = [...tierOverride.relegated];
+      }
+
+      if (tierOverride.rowFlagOverrides && typeof tierOverride.rowFlagOverrides === 'object') {
+        const rowOverrides = tierOverride.rowFlagOverrides;
+        const table = getTierTable(tierRecord);
+        table.forEach((row) => {
+          if (!row || typeof row !== 'object' || !row.team) return;
+          const rowOverride = rowOverrides[row.team];
+          if (!rowOverride || typeof rowOverride !== 'object') return;
+          Object.assign(row, rowOverride);
+        });
+      }
+    }
+  }
+
+  return seasonRecord;
+}
+
 export function inferLeagueTierFromMetadata(metadata, seasonNumber) {
   return inferEnglishLeagueTier(
     `${metadata?.title || ''} ${metadata?.leagueId || ''}`,
@@ -444,6 +491,7 @@ export default {
   reconcileSeasonInfoContinuity,
   getExpectedMinimumTierCount,
   inferLeagueTierFromMetadata,
+  applyOverviewSeasonOutcomeOverrides,
   shouldSkipContinuityForSeason,
   shouldIgnoreMissingSeasonData,
   extractSeasonKeyFromSlug,

@@ -22,6 +22,7 @@ import {
 } from '../parser-core/wiki-overview-parser.js';
 import {
   buildHistoricalPlaceholderSeasonInfo,
+  applyOverviewSeasonOutcomeOverrides,
   isWarSuspensionSeason,
   getHistoricalSeasonStatus,
   extractSeasonKeyFromSlug,
@@ -297,7 +298,7 @@ export function buildSeasonOverviewSeasonRecord({ seasonKey, seasonYear, seasonS
     });
   });
 
-  return record;
+  return applyOverviewSeasonOutcomeOverrides(record, seasonKey);
 }
 
 export function buildHistoricalSeasonPlaceholderRecord(seasonKey, seasonSlug) {

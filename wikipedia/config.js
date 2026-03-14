@@ -116,6 +116,27 @@ export const WIKIPEDIA_HISTORICAL_PLACEHOLDER_SEASONS = Object.freeze({
   }),
 });
 
+export const WIKIPEDIA_OVERVIEW_SEASON_OUTCOME_OVERRIDES = Object.freeze({
+  1989: Object.freeze({
+    seasonInfo: Object.freeze({
+      promoted: Object.freeze(['Leeds United', 'Sheffield United', 'Sunderland']),
+    }),
+    tiers: Object.freeze({
+      tier2: Object.freeze({
+        promoted: Object.freeze(['Leeds United', 'Sheffield United', 'Sunderland']),
+        rowFlagOverrides: Object.freeze({
+          'Swindon Town': Object.freeze({
+            wasPromoted: false,
+          }),
+          Sunderland: Object.freeze({
+            wasPromoted: true,
+          }),
+        }),
+      }),
+    }),
+  }),
+});
+
 export const WIKIPEDIA_DIVISION_HEADER_SLUGS = Object.freeze({
   first: Object.freeze([
     '#First_Division',

@@ -481,6 +481,62 @@ describe('parseOverviewLeagueTables', () => {
     });
   });
 
+  test('applies config-driven overview outcome overrides for the 1989 Swindon disqualification case', () => {
+    const seasonRecord = buildSeasonOverviewSeasonRecord({
+      seasonKey: '1989',
+      seasonYear: 1989,
+      seasonSlug: '1989–90_in_English_football',
+      tables: [
+        {
+          title: 'First Division',
+          id: 'First_Division',
+          tableIndex: 0,
+          rows: [
+            { pos: 18, team: 'Sheffield Wednesday', played: 38, points: 43, wasRelegated: true },
+            { pos: 19, team: 'Charlton Athletic', played: 38, points: 30, wasRelegated: true },
+            { pos: 20, team: 'Millwall', played: 38, points: 26, wasRelegated: true },
+          ],
+        },
+        {
+          title: 'Second Division',
+          id: 'Second_Division',
+          tableIndex: 1,
+          rows: [
+            { pos: 1, team: 'Leeds United', played: 46, points: 85, wasPromoted: true },
+            { pos: 2, team: 'Sheffield United', played: 46, points: 85, wasPromoted: true },
+            {
+              pos: 4,
+              team: 'Swindon Town',
+              played: 46,
+              points: 74,
+              notes: 'Qualification for the Second Division play-offs',
+              wasPromoted: true,
+            },
+            {
+              pos: 6,
+              team: 'Sunderland',
+              played: 46,
+              points: 74,
+              notes: 'Qualification for the Second Division play-offs',
+              wasPromoted: false,
+            },
+          ],
+        },
+      ],
+    });
+
+    expect(seasonRecord.seasonInfo.promoted).toEqual([
+      'Leeds United',
+      'Sheffield United',
+      'Sunderland',
+    ]);
+    expect(seasonRecord.tier2.promoted).toEqual(['Leeds United', 'Sheffield United', 'Sunderland']);
+    const swindon = seasonRecord.tier2.table.find((row) => row.team === 'Swindon Town');
+    const sunderland = seasonRecord.tier2.table.find((row) => row.team === 'Sunderland');
+    expect(swindon.wasPromoted).toBe(false);
+    expect(sunderland.wasPromoted).toBe(true);
+  });
+
   test('builds metadata-only placeholder records for abandoned and bridge seasons', () => {
     const abandoned = buildHistoricalSeasonPlaceholderRecord('1939', '1939–40_in_English_football');
     const bridge = buildHistoricalSeasonPlaceholderRecord('1945', '1945–46_in_English_football');
