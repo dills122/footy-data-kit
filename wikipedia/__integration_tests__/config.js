@@ -10,6 +10,55 @@
 // correctly. See `config.model.ts` for the shape of each entry.
 export const testPages = /** @type {TestPages} */ ([
   {
+    url: 'https://en.wikipedia.org/wiki/1888%E2%80%9389_in_English_football',
+    season: '1888',
+    source: 'overview',
+    tests: {
+      promoted: [],
+      relegated: [],
+      tableEntries: [
+        {
+          tier: 'tier1',
+          data: {
+            team: 'Preston North End',
+            wasPromoted: false,
+            wasRelegated: false,
+            points: 40,
+          },
+        },
+      ],
+    },
+  },
+  {
+    url: 'https://en.wikipedia.org/wiki/1889%E2%80%9390_in_English_football',
+    season: '1889',
+    source: 'overview',
+    tests: {
+      promoted: [],
+      relegated: ['Stoke'],
+      tableEntries: [
+        {
+          tier: 'tier1',
+          data: {
+            team: 'Preston North End',
+            wasPromoted: false,
+            wasRelegated: false,
+            points: 33,
+          },
+        },
+        {
+          tier: 'tier1',
+          data: {
+            team: 'Stoke',
+            wasPromoted: false,
+            wasRelegated: true,
+            points: 10,
+          },
+        },
+      ],
+    },
+  },
+  {
     url: 'https://en.wikipedia.org/wiki/1898-99_Football_League',
     season: '1898',
     source: 'promotion',
@@ -62,6 +111,34 @@ export const testPages = /** @type {TestPages} */ ([
     tests: {
       promoted: ['The Wednesday', 'Derby County'],
       relegated: ['Manchester City', 'Notts County'],
+    },
+  },
+  {
+    url: 'https://en.wikipedia.org/wiki/1946%E2%80%9347_in_English_football',
+    season: '1946',
+    source: 'overview',
+    tests: {
+      promoted: ['Manchester City', 'Burnley'],
+      relegated: ['Brentford', 'Leeds United'],
+      tableEntries: [
+        {
+          tier: 'tier1',
+          data: {
+            team: 'Liverpool',
+            wasPromoted: false,
+            wasRelegated: false,
+            points: 57,
+          },
+        },
+        {
+          tier: 'tier2',
+          data: {
+            team: 'Manchester City',
+            wasPromoted: true,
+            points: 62,
+          },
+        },
+      ],
     },
   },
   {

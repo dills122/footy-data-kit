@@ -58,6 +58,27 @@ describe('wiki-overview-parser', () => {
     expect(entries[0].rows[0]).toMatchObject({ team: 'League FC' });
   });
 
+  test('builds parsed table entries from plain heading tags', () => {
+    const html = `
+      <h3 id="Football_League">The Football League</h3>
+      <table class="wikitable">
+        <tr><th>Pos</th><th>Team</th><th>Pts</th></tr>
+        <tr><td>1</td><th scope="row">Preston North End</th><td>40</td></tr>
+      </table>
+    `;
+    const $ = cheerio.load(html);
+    const heading = $('h3').first();
+    const entries = parseOverviewTablesForHeading($, heading, undefined, {});
+
+    expect(entries).toHaveLength(1);
+    expect(entries[0]).toMatchObject({
+      title: 'The Football League',
+      id: 'Football_League',
+      tableIndex: 0,
+    });
+    expect(entries[0].rows[0]).toMatchObject({ team: 'Preston North End', points: 40 });
+  });
+
   test('deriveMajorTierIndexes detects top flight and second tier tables', () => {
     const tables = [
       { title: 'Premier League', rows: [{}, {}], isTopFlight: true },

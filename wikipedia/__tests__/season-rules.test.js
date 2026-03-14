@@ -175,6 +175,9 @@ describe('season-rules', () => {
 
   test('continuity and coverage helpers are stable', () => {
     expect(getExpectedMinimumTierCount(1991)).toBe(4);
+    expect(getExpectedMinimumTierCount(1888)).toBe(1);
+    expect(getExpectedMinimumTierCount(1889)).toBe(1);
+    expect(getExpectedMinimumTierCount(1890)).toBe(2);
     expect(getExpectedMinimumTierCount(1950)).toBe(2);
     expect(shouldIgnoreMissingSeasonData({ kind: 'promotion-only' }, '1915')).toBe(true);
     expect(shouldIgnoreMissingSeasonData({ kind: 'promotion-only' }, '2005')).toBe(false);

@@ -125,6 +125,36 @@ describe('parseOverviewLeagueTables', () => {
     expect(result.some((entry) => entry.rows.some((row) => row.team === 'Portsmouth'))).toBe(false);
   });
 
+  test('parses direct tables attached to a Football League root heading', () => {
+    const html = `
+      <div class="mw-heading mw-heading2"><h2 id="Football_League">Football League</h2></div>
+      ${buildTableHtml('Preston North End', 33)}
+      <div class="mw-heading mw-heading2"><h2 id="Football_Alliance">Football Alliance</h2></div>
+      ${buildTableHtml('The Wednesday', 29)}
+    `;
+
+    const result = parseOverviewLeagueTables(html);
+    expect(result).toHaveLength(1);
+    expect(result[0]).toMatchObject({ title: 'Football League' });
+    expect(result[0].rows[0]).toMatchObject({ team: 'Preston North End', points: 33 });
+  });
+
+  test('parses older pages that use plain h2 and h3 tags instead of mw-heading wrappers', () => {
+    const html = `
+      <h2 id="Football_League">Football League</h2>
+      <h3 id="The_Football_League">The Football League</h3>
+      ${buildTableHtml('Preston North End', 40)}
+      <h3 id="Football_Alliance">Football Alliance</h3>
+      ${buildTableHtml('Wednesday', 32)}
+    `;
+
+    const result = parseOverviewLeagueTables(html);
+    expect(result).toHaveLength(2);
+    expect(result[0].rows[0]).toMatchObject({ team: 'Preston North End', points: 40 });
+    expect(result[1].title).toBe('Football Alliance');
+    expect(result[1].rows[0]).toMatchObject({ team: 'Wednesday', points: 32 });
+  });
+
   test('uses table legends to infer promotion and relegation flags', () => {
     const html = `
       <div class="mw-heading mw-heading2"><h2 id="League_tables">League tables</h2></div>

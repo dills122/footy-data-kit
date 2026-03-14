@@ -2,6 +2,8 @@
 
 import {
   inferEnglishLeagueTier,
+  WIKIPEDIA_HISTORICAL_PLACEHOLDER_SEASONS,
+  WIKIPEDIA_MINIMUM_TIER_OVERRIDES,
   isWikipediaWarSuspensionYear,
   getWikipediaWarSuspensionLabel,
   WIKIPEDIA_DATA_SOURCES,
@@ -68,19 +70,7 @@ export function isWarSuspensionSeason(seasonKey) {
 export function getHistoricalSeasonStatus(seasonKey) {
   const seasonNumber = parseSeasonNumber(seasonKey);
   if (seasonNumber == null) return null;
-  if (seasonNumber >= 1915 && seasonNumber <= 1918) {
-    return 'wartime-special';
-  }
-  if (seasonNumber === 1939) {
-    return 'abandoned-season';
-  }
-  if (seasonNumber >= 1940 && seasonNumber <= 1944) {
-    return 'wartime-special';
-  }
-  if (seasonNumber === 1945) {
-    return 'regional-bridge-season';
-  }
-  return null;
+  return WIKIPEDIA_HISTORICAL_PLACEHOLDER_SEASONS[seasonNumber]?.competitionStatus || null;
 }
 
 export function isHistoricalPlaceholderStatus(status) {
@@ -101,9 +91,13 @@ export function isHistoricalPlaceholderSeason(seasonRecord, seasonKey) {
 
 export function buildHistoricalPlaceholderSeasonInfo(seasonKey, options = {}) {
   const seasonNumber = parseSeasonNumber(seasonKey);
-  const competitionStatus = options.competitionStatus || getHistoricalSeasonStatus(seasonKey);
+  const configuredSeason =
+    seasonNumber != null ? WIKIPEDIA_HISTORICAL_PLACEHOLDER_SEASONS[seasonNumber] : null;
+  const competitionStatus =
+    options.competitionStatus || configuredSeason?.competitionStatus || getHistoricalSeasonStatus(seasonKey);
   const warSuspensionLabel =
     options.warSuspensionLabel ||
+    configuredSeason?.warSuspensionLabel ||
     (seasonNumber != null ? getWikipediaWarSuspensionLabel(seasonNumber) : null);
   const specialCompetitions = Array.isArray(options.specialCompetitions)
     ? Array.from(
@@ -113,6 +107,8 @@ export function buildHistoricalPlaceholderSeasonInfo(seasonKey, options = {}) {
             .filter((value) => value)
         )
       )
+    : Array.isArray(configuredSeason?.specialCompetitions)
+    ? [...configuredSeason.specialCompetitions]
     : [];
 
   return {
@@ -126,23 +122,36 @@ export function buildHistoricalPlaceholderSeasonInfo(seasonKey, options = {}) {
     officialCompetitionsSuspended:
       typeof options.officialCompetitionsSuspended === 'boolean'
         ? options.officialCompetitionsSuspended
+        : typeof configuredSeason?.officialCompetitionsSuspended === 'boolean'
+        ? configuredSeason.officialCompetitionsSuspended
         : competitionStatus === 'wartime-special',
     officialCompetitionsAbandoned:
       typeof options.officialCompetitionsAbandoned === 'boolean'
         ? options.officialCompetitionsAbandoned
+        : typeof configuredSeason?.officialCompetitionsAbandoned === 'boolean'
+        ? configuredSeason.officialCompetitionsAbandoned
         : competitionStatus === 'abandoned-season',
     regionalBridgeSeason:
       typeof options.regionalBridgeSeason === 'boolean'
         ? options.regionalBridgeSeason
+        : typeof configuredSeason?.regionalBridgeSeason === 'boolean'
+        ? configuredSeason.regionalBridgeSeason
         : competitionStatus === 'regional-bridge-season',
     promotionRelegationApplies:
       typeof options.promotionRelegationApplies === 'boolean'
         ? options.promotionRelegationApplies
+        : typeof configuredSeason?.promotionRelegationApplies === 'boolean'
+        ? configuredSeason.promotionRelegationApplies
         : competitionStatus === 'regional-bridge-season'
         ? false
         : null,
     specialCompetitions,
-    notes: options.notes == null ? null : String(options.notes),
+    notes:
+      options.notes != null
+        ? String(options.notes)
+        : configuredSeason?.notes != null
+        ? String(configuredSeason.notes)
+        : null,
   };
 }
 
@@ -381,6 +390,9 @@ export function reconcileSeasonInfoContinuity(dataset, options = {}) {
 
 export function getExpectedMinimumTierCount(seasonNumber) {
   if (seasonNumber >= WIKIPEDIA_SEASON_RANGES.premierLeagueStartSeason - 1) return 4;
+  if (WIKIPEDIA_MINIMUM_TIER_OVERRIDES[seasonNumber] != null) {
+    return WIKIPEDIA_MINIMUM_TIER_OVERRIDES[seasonNumber];
+  }
   if (seasonNumber >= 1888) return 2;
   return null;
 }

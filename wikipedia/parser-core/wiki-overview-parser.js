@@ -67,6 +67,12 @@ export function isGenericLeagueHeading(title) {
 
 export function getHeadingLevel($el) {
   if (!$el || !$el.length) return null;
+  const tagName = String($el.get(0)?.tagName || '').toLowerCase();
+  const tagMatch = tagName.match(/^h([2-5])$/);
+  if (tagMatch) {
+    const level = Number.parseInt(tagMatch[1], 10);
+    return Number.isFinite(level) ? level : null;
+  }
   const classes = String($el.attr('class') || '');
   const match = classes.match(/mw-heading(\d)/);
   if (!match) return null;
@@ -103,7 +109,9 @@ export function parseOverviewTablesForHeading(
   if (!level) return [];
 
   const headingTag = `h${level}`;
-  const headingEl = headingWrapper.find(headingTag).first();
+  const headingEl = headingWrapper.is(headingTag)
+    ? headingWrapper
+    : headingWrapper.find(headingTag).first();
   if (!headingEl.length) return [];
 
   const headingId = headingEl.attr('id') || leagueId || null;

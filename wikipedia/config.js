@@ -40,6 +40,82 @@ export const WIKIPEDIA_WAR_SUSPENSION_RANGES = Object.freeze([
   Object.freeze({ label: 'ww2', start: 1940, end: 1945 }),
 ]);
 
+export const WIKIPEDIA_MINIMUM_TIER_OVERRIDES = Object.freeze({
+  1888: 1,
+  1889: 1,
+});
+
+export const WIKIPEDIA_HISTORICAL_PLACEHOLDER_SEASONS = Object.freeze({
+  1915: Object.freeze({
+    competitionStatus: 'wartime-special',
+    warSuspensionLabel: 'ww1',
+    notes:
+      'Official Football League competition was suspended and replaced by wartime regional competitions.',
+  }),
+  1916: Object.freeze({
+    competitionStatus: 'wartime-special',
+    warSuspensionLabel: 'ww1',
+    notes:
+      'Official Football League competition was suspended and replaced by wartime regional competitions.',
+  }),
+  1917: Object.freeze({
+    competitionStatus: 'wartime-special',
+    warSuspensionLabel: 'ww1',
+    notes:
+      'Official Football League competition was suspended and replaced by wartime regional competitions.',
+  }),
+  1918: Object.freeze({
+    competitionStatus: 'wartime-special',
+    warSuspensionLabel: 'ww1',
+    notes:
+      'Official Football League competition was suspended and replaced by wartime regional competitions.',
+  }),
+  1939: Object.freeze({
+    competitionStatus: 'abandoned-season',
+    notes:
+      'Official Football League season abandoned after the outbreak of war; wartime regional competitions followed.',
+  }),
+  1940: Object.freeze({
+    competitionStatus: 'wartime-special',
+    warSuspensionLabel: 'ww2',
+    notes:
+      'Official Football League competition was suspended and replaced by wartime regional competitions.',
+  }),
+  1941: Object.freeze({
+    competitionStatus: 'wartime-special',
+    warSuspensionLabel: 'ww2',
+    notes:
+      'Official Football League competition was suspended and replaced by wartime regional competitions.',
+  }),
+  1942: Object.freeze({
+    competitionStatus: 'wartime-special',
+    warSuspensionLabel: 'ww2',
+    notes:
+      'Official Football League competition was suspended and replaced by wartime regional competitions.',
+  }),
+  1943: Object.freeze({
+    competitionStatus: 'wartime-special',
+    warSuspensionLabel: 'ww2',
+    notes:
+      'Official Football League competition was suspended and replaced by wartime regional competitions.',
+  }),
+  1944: Object.freeze({
+    competitionStatus: 'wartime-special',
+    warSuspensionLabel: 'ww2',
+    notes:
+      'Official Football League competition was suspended and replaced by wartime regional competitions.',
+  }),
+  1945: Object.freeze({
+    competitionStatus: 'regional-bridge-season',
+    warSuspensionLabel: 'ww2',
+    promotionRelegationApplies: false,
+    regionalBridgeSeason: true,
+    specialCompetitions: Object.freeze(['Football League North', 'Football League South']),
+    notes:
+      'Regional Football League North and South competitions were played without normal promotion or relegation.',
+  }),
+});
+
 export const WIKIPEDIA_DIVISION_HEADER_SLUGS = Object.freeze({
   first: Object.freeze([
     '#First_Division',

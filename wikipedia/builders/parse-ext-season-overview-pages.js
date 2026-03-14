@@ -38,8 +38,11 @@ export function parseOverviewLeagueTables(html) {
   if (!leagueHeading || !leagueHeading.length) {
     const overview = [];
     const headingStack = [];
-    $('.mw-heading').each((_, el) => {
+    $('.mw-heading, h2, h3, h4, h5').each((_, el) => {
       const $headingWrapper = $(el);
+      if ($headingWrapper.is('h2, h3, h4, h5') && $headingWrapper.closest('.mw-heading').length) {
+        return;
+      }
       const level = getHeadingLevel($headingWrapper);
       if (!level || level < 2 || level > 5) return;
 
@@ -48,7 +51,9 @@ export function parseOverviewLeagueTables(html) {
       }
 
       const headingTag = `h${level}`;
-      const $headingEl = $headingWrapper.find(headingTag).first();
+      const $headingEl = $headingWrapper.is(headingTag)
+        ? $headingWrapper
+        : $headingWrapper.find(headingTag).first();
       if (!$headingEl.length) {
         headingStack.push({ level, title: null, id: null, hasLeagueContext: false });
         return;
@@ -104,6 +109,16 @@ export function parseOverviewLeagueTables(html) {
   const headingWrapper = leagueHeading.closest('.mw-heading');
   const rootLeagueTitle = leagueHeading.text().trim() || undefined;
   const rootLeagueId = leagueHeading.attr('id') || undefined;
+  const rootEntries = parseOverviewTablesForHeading(
+    $,
+    headingWrapper.length ? headingWrapper : leagueHeading,
+    {
+      leagueTitle: rootLeagueTitle,
+      leagueId: rootLeagueId,
+    },
+    context
+  );
+  overview.push(...rootEntries);
   let pointer = headingWrapper.length ? headingWrapper.next() : leagueHeading.next();
 
   while (pointer.length) {
@@ -267,18 +282,7 @@ export function buildSeasonOverviewSeasonRecord({ seasonKey, seasonYear, seasonS
 }
 
 export function buildHistoricalSeasonPlaceholderRecord(seasonKey, seasonSlug) {
-  const placeholder = buildHistoricalPlaceholderSeasonInfo(seasonKey, {
-    specialCompetitions:
-      getHistoricalSeasonStatus(seasonKey) === 'regional-bridge-season'
-        ? ['Football League North', 'Football League South']
-        : [],
-    notes:
-      getHistoricalSeasonStatus(seasonKey) === 'abandoned-season'
-        ? 'Official Football League season abandoned after the outbreak of war; wartime regional competitions followed.'
-        : getHistoricalSeasonStatus(seasonKey) === 'regional-bridge-season'
-        ? 'Regional Football League North and South competitions were played without normal promotion or relegation.'
-        : 'Official Football League competition was suspended and replaced by wartime regional competitions.',
-  });
+  const placeholder = buildHistoricalPlaceholderSeasonInfo(seasonKey);
 
   const { promoted, relegated, season, ...metadata } = placeholder;
   const seasonInfo = buildSeasonInfo(seasonKey, {
