@@ -316,6 +316,46 @@ export const testPages = /** @type {TestPages} */ ([
   },
   {
     urls: {
+      overview: 'https://en.wikipedia.org/wiki/1938%E2%80%9339_in_English_football',
+    },
+    season: '1938',
+    source: 'overview',
+    tests: {
+      promoted: ['Blackburn Rovers', 'Sheffield United'],
+      relegated: ['Birmingham', 'Leicester City'],
+      tableEntries: [
+        {
+          tier: 'tier1',
+          data: {
+            team: 'Everton',
+            wasPromoted: false,
+            wasRelegated: false,
+            points: 59,
+          },
+        },
+        {
+          tier: 'tier1',
+          data: {
+            team: 'Leicester City',
+            wasPromoted: false,
+            wasRelegated: true,
+            points: 29,
+          },
+        },
+        {
+          tier: 'tier2',
+          data: {
+            team: 'Blackburn Rovers',
+            wasPromoted: true,
+            wasRelegated: false,
+            points: 55,
+          },
+        },
+      ],
+    },
+  },
+  {
+    urls: {
       overview: 'https://en.wikipedia.org/wiki/1939%E2%80%9340_in_English_football',
     },
     season: '1939',

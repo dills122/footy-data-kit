@@ -2,7 +2,7 @@ import { jest } from '@jest/globals';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { WIKIPEDIA_DATA_SOURCES, isWikipediaWarSuspensionYear } from '../config.js';
+import { WIKIPEDIA_DATA_SOURCES } from '../config.js';
 import { canonicalizeTeamName } from '../data/data-quality-config.js';
 import {
   buildSeasonOverviewSeasonRecord,
@@ -11,6 +11,7 @@ import {
 import { constructTier1SeasonResults, fetchSeasonTeams } from '../builders/parse-season-pages.js';
 import { fetchWikipediaSeasonPage } from '../parser-core/page-fetcher.js';
 import testPages from './config.js';
+import { findNextComparableSeasonRecord, isPlaceholderSeasonRecord } from './dataset-continuity.js';
 import { getPageSources, parseRequestedSources } from './source-selection.js';
 
 const TEST_TIMEOUT_MS = 120_000;
@@ -84,11 +85,6 @@ function getSavedSeasonRecord(sourceKey, season) {
   return seasonRecord;
 }
 
-function getSavedSeasonRecordMaybe(sourceKey, season) {
-  const dataset = getSavedDataset(sourceKey);
-  return dataset.seasons?.[String(season)] || null;
-}
-
 function getSeasonInfoFromRecord(seasonRecord) {
   return seasonRecord.seasonInfo ?? null;
 }
@@ -144,13 +140,6 @@ function normalizeSourceUrl(value) {
   } catch (error) {
     return decodeURIComponent(value);
   }
-}
-
-function isPlaceholderSeasonRecord(seasonRecord) {
-  const seasonInfo = getSeasonInfoFromRecord(seasonRecord);
-  return (
-    Boolean(seasonInfo?.competitionStatus) && getTierEntriesFromRecord(seasonRecord).length === 0
-  );
 }
 
 function assertSavedMetadataIntegrity(page, sourceKey, seasonRecord) {
@@ -291,10 +280,13 @@ function collectTransitionTeamsFromSeasonRecord(sourceKey, seasonRecord) {
 
 function assertSavedContinuity(page, sourceKey, seasonRecord) {
   const season = Number(page.season);
-  const nextSeason = season + 1;
-  const nextRecord = getSavedSeasonRecordMaybe(sourceKey, nextSeason);
+  const nextDataset = getSavedDataset(sourceKey);
+  const { season: nextSeason, record: nextRecord } = findNextComparableSeasonRecord(
+    nextDataset,
+    season
+  );
+
   if (!nextRecord) {
-    if (isWikipediaWarSuspensionYear(nextSeason)) return;
     throw new Error(
       `Saved continuity check needs next season ${nextSeason}, but it is missing for source ${sourceKey}`
     );
