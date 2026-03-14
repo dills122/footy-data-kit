@@ -9,6 +9,7 @@ import {
   fetchSeasonOverviewTables,
 } from '../builders/parse-ext-season-overview-pages.js';
 import { constructTier1SeasonResults, fetchSeasonTeams } from '../builders/parse-season-pages.js';
+import { fetchWikipediaSeasonPage } from '../parser-core/page-fetcher.js';
 import testPages from './config.js';
 
 const TEST_TIMEOUT_MS = 120_000;
@@ -144,6 +145,13 @@ function normalizeSourceUrl(value) {
   }
 }
 
+function isPlaceholderSeasonRecord(seasonRecord) {
+  const seasonInfo = getSeasonInfoFromRecord(seasonRecord);
+  return (
+    Boolean(seasonInfo?.competitionStatus) && getTierEntriesFromRecord(seasonRecord).length === 0
+  );
+}
+
 function assertSavedMetadataIntegrity(page, sourceKey, seasonRecord) {
   const config = DATA_SOURCES[sourceKey];
   const seasonInfo = getSeasonInfoFromRecord(seasonRecord);
@@ -180,6 +188,16 @@ function assertSavedMetadataIntegrity(page, sourceKey, seasonRecord) {
   }
 
   const tierEntries = getTierEntriesFromRecord(seasonRecord);
+  if (!tierEntries.length && isPlaceholderSeasonRecord(seasonRecord)) {
+    if (sourceKey !== 'overview') {
+      throw new Error(`Only overview fixtures may use placeholder seasons (${page.season})`);
+    }
+    if (typeof seasonInfo.officialLeagueTables !== 'boolean') {
+      throw new Error(`Placeholder season ${page.season} missing officialLeagueTables flag`);
+    }
+    return;
+  }
+
   if (!tierEntries.length) {
     throw new Error(`No tier data found for ${page.season}`);
   }
@@ -394,6 +412,18 @@ async function assertSection(label, fn) {
   }
 }
 
+function verifySeasonInfoFields(page, actualSeasonInfo, expectedSeasonInfo = {}) {
+  for (const [key, expectedValue] of Object.entries(expectedSeasonInfo)) {
+    if (JSON.stringify(actualSeasonInfo?.[key]) !== JSON.stringify(expectedValue)) {
+      throw new Error(
+        `Season info mismatch for ${page.season} ${key}: expected ${JSON.stringify(
+          expectedValue
+        )}, got ${JSON.stringify(actualSeasonInfo?.[key])}`
+      );
+    }
+  }
+}
+
 const ALLOWED_SOURCES = Object.freeze(['promotion', 'overview', 'both', 'all']);
 const requestedSourcesEnv = process.env.WIKI_TEST_SOURCE
   ? process.env.WIKI_TEST_SOURCE.split(',')
@@ -583,13 +613,31 @@ describe('Wikipedia promotion/relegation integration', () => {
         testTitle,
         async () => {
           const sourcedPage = { ...page, url: pageUrl };
-          const { summary, tierRecords } = await handler({
-            page: sourcedPage,
-            slug,
-            seasonYear,
-            sourceKey,
-          });
           const expected = page.tests || {};
+          const expectsPlaceholder = Boolean(expected.seasonInfo?.competitionStatus);
+          let summary;
+          let tierRecords;
+
+          if (expectsPlaceholder) {
+            await assertSection(`${describeSource(sourceKey)} – fetch page`, async () => {
+              const fetchedPage = await fetchWikipediaSeasonPage(slug);
+              if (!fetchedPage?.html) {
+                throw new Error(`Failed to fetch ${slug}`);
+              }
+            });
+            summary = {
+              promoted: [],
+              relegated: [],
+            };
+            tierRecords = null;
+          } else {
+            ({ summary, tierRecords } = await handler({
+              page: sourcedPage,
+              slug,
+              seasonYear,
+              sourceKey,
+            }));
+          }
 
           await assertSection(
             `${describeSource(sourceKey)} – promotion/relegation comparison`,
@@ -609,6 +657,11 @@ describe('Wikipedia promotion/relegation integration', () => {
           );
           await assertSection(`Saved dataset (${sourceKey}) metadata comparison`, () => {
             assertSavedMetadataIntegrity({ ...sourcedPage, slug }, sourceKey, savedSeasonRecord);
+            verifySeasonInfoFields(
+              sourcedPage,
+              getSeasonInfoFromRecord(savedSeasonRecord),
+              expected.seasonInfo ?? {}
+            );
           });
 
           await assertSection(
@@ -630,18 +683,22 @@ describe('Wikipedia promotion/relegation integration', () => {
             }
           );
 
-          await assertSection(`Saved dataset (${sourceKey}) continuity`, () =>
-            assertSavedContinuity({ ...sourcedPage, slug }, sourceKey, savedSeasonRecord)
-          );
+          if (!expectsPlaceholder) {
+            await assertSection(`Saved dataset (${sourceKey}) continuity`, () =>
+              assertSavedContinuity({ ...sourcedPage, slug }, sourceKey, savedSeasonRecord)
+            );
+          }
 
-          await assertSection(`${describeSource(sourceKey)} – table entry assertions`, () =>
-            verifyTableEntries(
-              sourcedPage,
-              expected.tableEntries ?? [],
-              tierRecords,
-              savedSeasonRecord
-            )
-          );
+          if (!expectsPlaceholder) {
+            await assertSection(`${describeSource(sourceKey)} – table entry assertions`, () =>
+              verifyTableEntries(
+                sourcedPage,
+                expected.tableEntries ?? [],
+                tierRecords,
+                savedSeasonRecord
+              )
+            );
+          }
         },
         TEST_TIMEOUT_MS
       );

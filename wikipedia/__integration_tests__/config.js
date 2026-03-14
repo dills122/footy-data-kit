@@ -257,6 +257,24 @@ export const testPages = /** @type {TestPages} */ ([
   },
   {
     urls: {
+      overview: 'https://en.wikipedia.org/wiki/1915%E2%80%9316_in_English_football',
+    },
+    season: '1915',
+    source: 'overview',
+    tests: {
+      promoted: [],
+      relegated: [],
+      seasonInfo: {
+        competitionStatus: 'wartime-special',
+        warSuspensionLabel: 'ww1',
+        officialLeagueTables: false,
+        officialCompetitionsSuspended: true,
+        tableCount: 0,
+      },
+    },
+  },
+  {
+    urls: {
       promotion: 'https://en.wikipedia.org/wiki/1925-26_Football_League',
       overview: 'https://en.wikipedia.org/wiki/1925%E2%80%9326_in_English_football',
     },
@@ -298,6 +316,23 @@ export const testPages = /** @type {TestPages} */ ([
   },
   {
     urls: {
+      overview: 'https://en.wikipedia.org/wiki/1939%E2%80%9340_in_English_football',
+    },
+    season: '1939',
+    source: 'overview',
+    tests: {
+      promoted: [],
+      relegated: [],
+      seasonInfo: {
+        competitionStatus: 'abandoned-season',
+        officialLeagueTables: false,
+        officialCompetitionsAbandoned: true,
+        tableCount: 0,
+      },
+    },
+  },
+  {
+    urls: {
       overview: 'https://en.wikipedia.org/wiki/1946%E2%80%9347_in_English_football',
     },
     season: '1946',
@@ -324,6 +359,25 @@ export const testPages = /** @type {TestPages} */ ([
           },
         },
       ],
+    },
+  },
+  {
+    urls: {
+      overview: 'https://en.wikipedia.org/wiki/1945%E2%80%9346_in_English_football',
+    },
+    season: '1945',
+    source: 'overview',
+    tests: {
+      promoted: [],
+      relegated: [],
+      seasonInfo: {
+        competitionStatus: 'regional-bridge-season',
+        warSuspensionLabel: 'ww2',
+        officialLeagueTables: false,
+        regionalBridgeSeason: true,
+        promotionRelegationApplies: false,
+        tableCount: 0,
+      },
     },
   },
   {
