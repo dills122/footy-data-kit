@@ -182,6 +182,16 @@ export const WIKIPEDIA_OVERVIEW_CONFIG = Object.freeze({
     'conference national',
     'conference premier',
   ]),
+  excludedCompetitionKeywords: Object.freeze([
+    'southern league',
+    'southern football league',
+    'northern league',
+    'northern football league',
+    'western league',
+    'western football league',
+    'midland league',
+    'midland football league',
+  ]),
 });
 
 export function buildWikipediaArticleUrl(slug) {

@@ -103,6 +103,28 @@ describe('parseOverviewLeagueTables', () => {
     expect(result.some((entry) => entry.rows.some((row) => row.team === 'Portsmouth'))).toBe(false);
   });
 
+  test('ignores Southern League subsections beneath a generic League table root', () => {
+    const html = `
+      <div class="mw-heading mw-heading2"><h2 id="League_table">League table</h2></div>
+      <div class="mw-heading mw-heading3"><h3 id="First_Division">First Division</h3></div>
+      ${buildTableHtml('Aston Villa', 40)}
+      <div class="mw-heading mw-heading3"><h3 id="Second_Division">Second Division</h3></div>
+      ${buildTableHtml('Liverpool', 39)}
+      <div class="mw-heading mw-heading3"><h3 id="Southern_Football_League">Southern Football League</h3></div>
+      <div class="mw-heading mw-heading4"><h4 id="Division_One">Division One</h4></div>
+      ${buildTableHtml('Millwall Athletic', 34)}
+      <div class="mw-heading mw-heading4"><h4 id="Division_Two">Division Two</h4></div>
+      ${buildTableHtml('Luton Town', 28)}
+    `;
+
+    const result = parseOverviewLeagueTables(html);
+    expect(result).toHaveLength(2);
+    expect(result.map((entry) => entry.title)).toEqual(['First Division', 'Second Division']);
+    expect(result.some((entry) => entry.rows.some((row) => row.team === 'Millwall Athletic'))).toBe(
+      false
+    );
+  });
+
   test('parses Football League sections after league changes when no League tables heading exists', () => {
     const html = `
       <div class="mw-heading mw-heading2"><h2 id="League_changes">League changes</h2></div>

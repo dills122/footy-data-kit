@@ -15,8 +15,10 @@ import {
   getHeadingLevel,
   headingHasLeagueKeyword,
   inferOverviewTierNumber,
+  isExcludedOverviewCompetitionLabel,
   isGenericLeagueHeading,
   parseOverviewTablesForHeading,
+  skipSection,
 } from '../parser-core/wiki-overview-parser.js';
 import {
   buildHistoricalPlaceholderSeasonInfo,
@@ -64,6 +66,11 @@ export function parseOverviewLeagueTables(html) {
       const hasKeyword = headingHasLeagueKeyword(rawTitle);
       const inheritsContext = headingStack.some((parent) => parent.hasLeagueContext);
       const hasLeagueContext = hasKeyword || inheritsContext;
+      const inheritsExcludedCompetition = headingStack.some(
+        (parent) => parent.isExcludedCompetition
+      );
+      const isExcludedCompetition =
+        inheritsExcludedCompetition || isExcludedOverviewCompetitionLabel(rawTitle, headingId);
 
       const ancestorForFallback = [...headingStack]
         .slice()
@@ -75,9 +82,12 @@ export function parseOverviewLeagueTables(html) {
         title: rawTitle,
         id: headingId,
         hasLeagueContext,
+        isExcludedCompetition,
       });
 
-      if (!hasLeagueContext) return;
+      if (!hasLeagueContext || isExcludedCompetition) {
+        return;
+      }
 
       let fallbackTitle = null;
       let fallbackId = null;
@@ -126,6 +136,15 @@ export function parseOverviewLeagueTables(html) {
     if (level === 2) break;
 
     if (level && level >= 3 && level <= 5) {
+      const headingTag = `h${level}`;
+      const $headingEl = pointer.is(headingTag) ? pointer : pointer.find(headingTag).first();
+      const rawTitle = $headingEl.text().trim();
+      const headingId = $headingEl.attr('id') || null;
+      if (isExcludedOverviewCompetitionLabel(rawTitle, headingId)) {
+        pointer = skipSection($, pointer, level);
+        continue;
+      }
+
       const entries = parseOverviewTablesForHeading(
         $,
         pointer,

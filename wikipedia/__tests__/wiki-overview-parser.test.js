@@ -4,6 +4,7 @@ import {
   deriveMajorTierIndexes,
   findLeagueSectionHeading,
   headingHasLeagueKeyword,
+  isExcludedOverviewCompetitionLabel,
   parseOverviewTablesForHeading,
 } from '../parser-core/wiki-overview-parser.js';
 
@@ -116,5 +117,12 @@ describe('wiki-overview-parser', () => {
   test('recognizes league heading keywords', () => {
     expect(headingHasLeagueKeyword('League table')).toBe(true);
     expect(headingHasLeagueKeyword('Something else')).toBe(false);
+  });
+
+  test('recognizes excluded non-football-league competition labels', () => {
+    expect(isExcludedOverviewCompetitionLabel('Southern Football League', 'Division One')).toBe(
+      true
+    );
+    expect(isExcludedOverviewCompetitionLabel('Football League', 'First Division')).toBe(false);
   });
 });

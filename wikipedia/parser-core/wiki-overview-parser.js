@@ -65,6 +65,23 @@ export function isGenericLeagueHeading(title) {
   return WIKIPEDIA_OVERVIEW_CONFIG.genericLeagueHeadings.includes(normalized);
 }
 
+export function isExcludedOverviewCompetitionLabel(...labels) {
+  const combined = labels
+    .map((label) =>
+      String(label || '')
+        .trim()
+        .toLowerCase()
+    )
+    .filter(Boolean)
+    .join(' ');
+
+  if (!combined) return false;
+
+  return WIKIPEDIA_OVERVIEW_CONFIG.excludedCompetitionKeywords.some((keyword) =>
+    combined.includes(keyword)
+  );
+}
+
 export function getHeadingLevel($el) {
   if (!$el || !$el.length) return null;
   const tagName = String($el.get(0)?.tagName || '').toLowerCase();
@@ -119,6 +136,12 @@ export function parseOverviewTablesForHeading(
   let tableTitle = headingTitle || leagueTitle || headingId || 'Unknown league';
   if (leagueTitle && (isGenericLeagueHeading(headingTitle) || !headingTitle)) {
     tableTitle = leagueTitle;
+  }
+
+  if (
+    isExcludedOverviewCompetitionLabel(headingTitle, tableTitle, leagueTitle, headingId, leagueId)
+  ) {
+    return [];
   }
 
   const suppressPromotionFlags = shouldTreatAsTopFlight(tableTitle, context);
