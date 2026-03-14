@@ -605,4 +605,16 @@ describe('buildSeasonOverview', () => {
     expect(finalData.seasons['1946'].tier1.table[0].team).toBe('Liverpool');
     expect(fetchTables).toHaveBeenCalledTimes(1);
   });
+
+  test('does not write empty non-placeholder seasons when no overview tables are returned', async () => {
+    const outputFile = createTempFile({ seasons: {} });
+    const fetchTables = jest.fn(async () => []);
+
+    await buildSeasonOverview(1946, 1946, outputFile, {
+      fetchSeasonOverviewTables: fetchTables,
+    });
+
+    const finalData = JSON.parse(fs.readFileSync(outputFile, 'utf8'));
+    expect(finalData.seasons['1946']).toBeUndefined();
+  });
 });

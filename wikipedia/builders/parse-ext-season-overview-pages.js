@@ -350,6 +350,10 @@ export async function buildSeasonOverview(startYear, endYear, outputFile, option
       console.log(`⏭️ Skipping overwrite for ${seasonKey} (no tables returned)`);
       continue;
     }
+    if (!hasTableData) {
+      console.log(`⏭️ Skipping ${seasonKey} (no overview tables returned)`);
+      continue;
+    }
     const seasonRecord = buildSeasonOverviewSeasonRecord({
       seasonKey,
       seasonYear: year,
