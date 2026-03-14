@@ -11,6 +11,7 @@ import {
 import { constructTier1SeasonResults, fetchSeasonTeams } from '../builders/parse-season-pages.js';
 import { fetchWikipediaSeasonPage } from '../parser-core/page-fetcher.js';
 import testPages from './config.js';
+import { getPageSources, parseRequestedSources } from './source-selection.js';
 
 const TEST_TIMEOUT_MS = 120_000;
 jest.setTimeout(TEST_TIMEOUT_MS);
@@ -424,38 +425,8 @@ function verifySeasonInfoFields(page, actualSeasonInfo, expectedSeasonInfo = {})
   }
 }
 
-const ALLOWED_SOURCES = Object.freeze(['promotion', 'overview', 'both', 'all']);
-const requestedSourcesEnv = process.env.WIKI_TEST_SOURCE
-  ? process.env.WIKI_TEST_SOURCE.split(',')
-      .map((value) => value.trim())
-      .filter(Boolean)
-  : null;
-let requestedSources = null;
-if (requestedSourcesEnv && requestedSourcesEnv.length) {
-  requestedSources = new Set();
-  for (const value of requestedSourcesEnv) {
-    if (!ALLOWED_SOURCES.includes(value)) {
-      throw new Error(
-        `Unsupported WIKI_TEST_SOURCE value "${value}". Allowed sources: ${ALLOWED_SOURCES.join(
-          ', '
-        )}`
-      );
-    }
-    if (value === 'all' || value === 'both') {
-      requestedSources.add('promotion');
-      requestedSources.add('overview');
-      continue;
-    }
-    requestedSources.add(value);
-  }
-}
-
-function getPageSources(page) {
-  if (page.source === 'both') {
-    return ['promotion', 'overview'];
-  }
-  return [page.source || 'promotion'];
-}
+const requestedSourcesEnv = process.env.WIKI_TEST_SOURCE || null;
+const requestedSources = parseRequestedSources(requestedSourcesEnv);
 
 const sourceHandlers = {
   promotion: async ({ page, slug, seasonYear, sourceKey }) => {
