@@ -374,6 +374,16 @@ function normaliseSeasonInfo(seasonInfoValue, seasonKey) {
     ? fallbackSeason
     : 0;
 
+  const specialCompetitions = Array.isArray(seasonInfoValue.specialCompetitions)
+    ? Array.from(
+        new Set(
+          seasonInfoValue.specialCompetitions
+            .map((value) => toStringValue(value))
+            .filter((value) => value != null)
+        )
+      )
+    : [];
+
   return /** @type {SeasonInfo} */ ({
     season,
     table: [],
@@ -384,6 +394,30 @@ function normaliseSeasonInfo(seasonInfoValue, seasonKey) {
     tableCount: Number.isFinite(Number(seasonInfoValue.tableCount))
       ? Number(seasonInfoValue.tableCount)
       : null,
+    competitionStatus: toStringValue(seasonInfoValue.competitionStatus),
+    warSuspensionLabel: toStringValue(seasonInfoValue.warSuspensionLabel),
+    officialLeagueTables:
+      typeof seasonInfoValue.officialLeagueTables === 'boolean'
+        ? seasonInfoValue.officialLeagueTables
+        : null,
+    officialCompetitionsSuspended:
+      typeof seasonInfoValue.officialCompetitionsSuspended === 'boolean'
+        ? seasonInfoValue.officialCompetitionsSuspended
+        : null,
+    officialCompetitionsAbandoned:
+      typeof seasonInfoValue.officialCompetitionsAbandoned === 'boolean'
+        ? seasonInfoValue.officialCompetitionsAbandoned
+        : null,
+    regionalBridgeSeason:
+      typeof seasonInfoValue.regionalBridgeSeason === 'boolean'
+        ? seasonInfoValue.regionalBridgeSeason
+        : null,
+    promotionRelegationApplies:
+      typeof seasonInfoValue.promotionRelegationApplies === 'boolean'
+        ? seasonInfoValue.promotionRelegationApplies
+        : null,
+    specialCompetitions,
+    notes: toStringValue(seasonInfoValue.notes),
   });
 }
 

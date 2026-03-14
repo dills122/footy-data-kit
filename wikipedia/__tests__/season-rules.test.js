@@ -1,7 +1,10 @@
 import { normaliseGoalDifference } from '../data/season-rules.js';
 import {
+  buildHistoricalPlaceholderSeasonInfo,
   mergeSeasonRecords,
   reconcileSeasonInfoContinuity,
+  getHistoricalSeasonStatus,
+  isHistoricalPlaceholderSeason,
   isWarSuspensionSeason,
   shouldIgnoreMissingSeasonData,
   shouldSkipContinuityForSeason,
@@ -23,6 +26,22 @@ describe('season-rules', () => {
     expect(isWarSuspensionSeason('1915')).toBe(true);
     expect(isWarSuspensionSeason('1945')).toBe(true);
     expect(isWarSuspensionSeason('1991')).toBe(false);
+  });
+
+  test('classifies historical placeholder season statuses', () => {
+    expect(getHistoricalSeasonStatus('1915')).toBe('wartime-special');
+    expect(getHistoricalSeasonStatus('1939')).toBe('abandoned-season');
+    expect(getHistoricalSeasonStatus('1942')).toBe('wartime-special');
+    expect(getHistoricalSeasonStatus('1945')).toBe('regional-bridge-season');
+    expect(getHistoricalSeasonStatus('1946')).toBeNull();
+  });
+
+  test('treats placeholder seasons as intentional season data', () => {
+    const placeholder = {
+      seasonInfo: buildHistoricalPlaceholderSeasonInfo('1945'),
+    };
+
+    expect(isHistoricalPlaceholderSeason(placeholder, '1945')).toBe(true);
   });
 
   test('mergeSeasonRecords keeps richer data and preserves non-tier fields', () => {

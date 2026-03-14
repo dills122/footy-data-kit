@@ -349,6 +349,35 @@ describe('verify-football-data', () => {
     expect(issueTypes).not.toContain('relegation-continuity-mismatch');
   });
 
+  test('analyzeDataset accepts metadata-only placeholder seasons', () => {
+    const issues = analyzeDataset({
+      metadata: {
+        schemaVersion: 1,
+        generator: 'wikipedia-overview',
+        generatedAt: '2026-03-13T05:00:00.000Z',
+      },
+      seasons: {
+        1939: {
+          seasonInfo: {
+            season: 1939,
+            table: [],
+            promoted: [],
+            relegated: [],
+            seasonSlug: '1939-40_in_English_football',
+            sourceUrl: 'https://example.com/1939',
+            tableCount: 0,
+            competitionStatus: 'abandoned-season',
+            officialLeagueTables: false,
+            officialCompetitionsAbandoned: true,
+            notes: 'Official programme abandoned after the outbreak of war.',
+          },
+        },
+      },
+    });
+
+    expect(issues.map((issue) => issue.type)).toEqual([]);
+  });
+
   test('analyzeDataset requires top-level metadata and era-appropriate tier coverage for canonical datasets', () => {
     const issues = analyzeDataset({
       seasons: {

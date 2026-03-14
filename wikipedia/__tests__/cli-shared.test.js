@@ -26,11 +26,13 @@ describe('cli-shared helpers', () => {
         updateOnly: true,
         forceUpdate: false,
         ignoreWarYears: 'true',
+        includeWarPlaceholders: 1,
       })
     ).toEqual({
       updateOnly: true,
       forceUpdate: false,
       ignoreWarYears: true,
+      includeWarPlaceholders: true,
     });
   });
 

@@ -3,12 +3,18 @@
 import {
   inferEnglishLeagueTier,
   isWikipediaWarSuspensionYear,
+  getWikipediaWarSuspensionLabel,
   WIKIPEDIA_DATA_SOURCES,
   WIKIPEDIA_SEASON_RANGES,
 } from '../config.js';
 import { canonicalizeTeamName } from './data-quality-config.js';
 
 export const TIER_KEY_PATTERN = /^tier(\d+)$/i;
+export const HISTORICAL_PLACEHOLDER_STATUSES = Object.freeze([
+  'wartime-special',
+  'abandoned-season',
+  'regional-bridge-season',
+]);
 
 export function isTierKey(value) {
   return TIER_KEY_PATTERN.test(value);
@@ -57,6 +63,87 @@ export function extractSeasonYearFromSlug(slug) {
 export function isWarSuspensionSeason(seasonKey) {
   const numeric = parseSeasonNumber(seasonKey);
   return numeric == null ? false : isWikipediaWarSuspensionYear(numeric);
+}
+
+export function getHistoricalSeasonStatus(seasonKey) {
+  const seasonNumber = parseSeasonNumber(seasonKey);
+  if (seasonNumber == null) return null;
+  if (seasonNumber >= 1915 && seasonNumber <= 1918) {
+    return 'wartime-special';
+  }
+  if (seasonNumber === 1939) {
+    return 'abandoned-season';
+  }
+  if (seasonNumber >= 1940 && seasonNumber <= 1944) {
+    return 'wartime-special';
+  }
+  if (seasonNumber === 1945) {
+    return 'regional-bridge-season';
+  }
+  return null;
+}
+
+export function isHistoricalPlaceholderStatus(status) {
+  return HISTORICAL_PLACEHOLDER_STATUSES.includes(String(status || ''));
+}
+
+export function getSeasonCompetitionStatus(seasonRecord, seasonKey) {
+  const explicitStatus = seasonRecord?.seasonInfo?.competitionStatus;
+  if (isHistoricalPlaceholderStatus(explicitStatus)) {
+    return explicitStatus;
+  }
+  return null;
+}
+
+export function isHistoricalPlaceholderSeason(seasonRecord, seasonKey) {
+  return isHistoricalPlaceholderStatus(getSeasonCompetitionStatus(seasonRecord, seasonKey));
+}
+
+export function buildHistoricalPlaceholderSeasonInfo(seasonKey, options = {}) {
+  const seasonNumber = parseSeasonNumber(seasonKey);
+  const competitionStatus = options.competitionStatus || getHistoricalSeasonStatus(seasonKey);
+  const warSuspensionLabel =
+    options.warSuspensionLabel ||
+    (seasonNumber != null ? getWikipediaWarSuspensionLabel(seasonNumber) : null);
+  const specialCompetitions = Array.isArray(options.specialCompetitions)
+    ? Array.from(
+        new Set(
+          options.specialCompetitions
+            .map((value) => (value == null ? null : String(value).trim()))
+            .filter((value) => value)
+        )
+      )
+    : [];
+
+  return {
+    season: seasonNumber ?? 0,
+    promoted: [],
+    relegated: [],
+    competitionStatus: competitionStatus || null,
+    warSuspensionLabel: warSuspensionLabel || null,
+    officialLeagueTables:
+      typeof options.officialLeagueTables === 'boolean' ? options.officialLeagueTables : false,
+    officialCompetitionsSuspended:
+      typeof options.officialCompetitionsSuspended === 'boolean'
+        ? options.officialCompetitionsSuspended
+        : competitionStatus === 'wartime-special',
+    officialCompetitionsAbandoned:
+      typeof options.officialCompetitionsAbandoned === 'boolean'
+        ? options.officialCompetitionsAbandoned
+        : competitionStatus === 'abandoned-season',
+    regionalBridgeSeason:
+      typeof options.regionalBridgeSeason === 'boolean'
+        ? options.regionalBridgeSeason
+        : competitionStatus === 'regional-bridge-season',
+    promotionRelegationApplies:
+      typeof options.promotionRelegationApplies === 'boolean'
+        ? options.promotionRelegationApplies
+        : competitionStatus === 'regional-bridge-season'
+        ? false
+        : null,
+    specialCompetitions,
+    notes: options.notes == null ? null : String(options.notes),
+  };
 }
 
 export function getTierTable(tierValue) {
@@ -155,6 +242,7 @@ export function blockHasData(block) {
 
 export function seasonHasData(seasonRecord) {
   if (!seasonRecord || typeof seasonRecord !== 'object') return false;
+  if (isHistoricalPlaceholderSeason(seasonRecord)) return true;
   return Object.values(seasonRecord).some((value) => blockHasData(value));
 }
 
@@ -312,13 +400,19 @@ export function shouldSkipContinuityForSeason(profile, seasonNumber) {
 }
 
 export function shouldIgnoreMissingSeasonData(profile, seasonKey) {
-  return profile.kind === 'promotion-only' && isWarSuspensionSeason(seasonKey);
+  if (profile.kind === 'promotion-only' && isWarSuspensionSeason(seasonKey)) return true;
+  return false;
 }
 
 export default {
   TIER_KEY_PATTERN,
   parseSeasonNumber,
   isWarSuspensionSeason,
+  getHistoricalSeasonStatus,
+  isHistoricalPlaceholderStatus,
+  getSeasonCompetitionStatus,
+  isHistoricalPlaceholderSeason,
+  buildHistoricalPlaceholderSeasonInfo,
   getTierTable,
   isTierKey,
   getTierKeys,

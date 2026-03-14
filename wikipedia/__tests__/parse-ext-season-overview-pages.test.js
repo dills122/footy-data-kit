@@ -33,8 +33,12 @@ if (typeof globalThis.DOMException === 'undefined') {
 }
 
 const overviewModule = await import('../builders/parse-ext-season-overview-pages.js');
-const { parseOverviewLeagueTables, buildSeasonOverview, buildSeasonOverviewSeasonRecord } =
-  overviewModule;
+const {
+  parseOverviewLeagueTables,
+  buildSeasonOverview,
+  buildSeasonOverviewSeasonRecord,
+  buildHistoricalSeasonPlaceholderRecord,
+} = overviewModule;
 
 function buildTableHtml(teamName, points = 30) {
   return `
@@ -424,6 +428,25 @@ describe('parseOverviewLeagueTables', () => {
       tierKey: 'tier4',
     });
   });
+
+  test('builds metadata-only placeholder records for abandoned and bridge seasons', () => {
+    const abandoned = buildHistoricalSeasonPlaceholderRecord('1939', '1939–40_in_English_football');
+    const bridge = buildHistoricalSeasonPlaceholderRecord('1945', '1945–46_in_English_football');
+
+    expect(abandoned.seasonInfo).toMatchObject({
+      competitionStatus: 'abandoned-season',
+      officialLeagueTables: false,
+      officialCompetitionsAbandoned: true,
+      seasonSlug: '1939–40_in_English_football',
+    });
+    expect(bridge.seasonInfo).toMatchObject({
+      competitionStatus: 'regional-bridge-season',
+      regionalBridgeSeason: true,
+      promotionRelegationApplies: false,
+      specialCompetitions: ['Football League North', 'Football League South'],
+    });
+    expect(bridge.tier1).toBeUndefined();
+  });
 });
 
 describe('buildSeasonOverview', () => {
@@ -542,5 +565,44 @@ describe('buildSeasonOverview', () => {
     const finalData = JSON.parse(fs.readFileSync(outputFile, 'utf8'));
     expect(Object.keys(finalData.seasons)).toEqual(['1914']);
     expect(finalData.seasons['1914'].seasonInfo.relegated).toEqual(['Wartime Wanderers']);
+  });
+
+  test('can emit historical placeholders for wartime and bridge seasons', async () => {
+    const outputFile = createTempFile({ seasons: {} });
+    const fetchTables = jest.fn(async (slug) => {
+      if (slug !== '1946–47_in_English_football') {
+        throw new Error(`Unexpected slug requested: ${slug}`);
+      }
+      return [
+        {
+          title: 'First Division',
+          id: 'First_Division',
+          tableIndex: 0,
+          rows: [{ pos: 1, team: 'Liverpool', played: 42, points: 57 }],
+        },
+      ];
+    });
+
+    await buildSeasonOverview(1939, 1946, outputFile, {
+      includeWarPlaceholders: true,
+      ignoreWarYears: false,
+      fetchSeasonOverviewTables: fetchTables,
+    });
+
+    const finalData = JSON.parse(fs.readFileSync(outputFile, 'utf8'));
+    expect(finalData.seasons['1939'].seasonInfo).toMatchObject({
+      competitionStatus: 'abandoned-season',
+      officialCompetitionsAbandoned: true,
+    });
+    expect(finalData.seasons['1940'].seasonInfo).toMatchObject({
+      competitionStatus: 'wartime-special',
+      officialCompetitionsSuspended: true,
+    });
+    expect(finalData.seasons['1945'].seasonInfo).toMatchObject({
+      competitionStatus: 'regional-bridge-season',
+      promotionRelegationApplies: false,
+    });
+    expect(finalData.seasons['1946'].tier1.table[0].team).toBe('Liverpool');
+    expect(fetchTables).toHaveBeenCalledTimes(1);
   });
 });

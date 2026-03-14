@@ -133,6 +133,67 @@ Suggested `seasonInfo` metadata fields:
 
 This should only be added behind an explicit option. It should not silently change the default dataset.
 
+## WWII Wartime Findings
+
+Inspected pages:
+
+- [1939–40 in English football](https://en.wikipedia.org/wiki/1939%E2%80%9340_in_English_football)
+- [1940–41 in English football](https://en.wikipedia.org/wiki/1940%E2%80%9341_in_English_football)
+- [1945–46 in English football](https://en.wikipedia.org/wiki/1945%E2%80%9346_in_English_football)
+- [1946–47 in English football](https://en.wikipedia.org/wiki/1946%E2%80%9347_in_English_football)
+
+Observed behavior:
+
+- `1939–40` is an abandoned canonical season, not just a fully skipped wartime placeholder
+- the page explicitly says the Football League, Second Division, and FA Cup were abandoned shortly after the outbreak of war
+- the same page then lists regional wartime leagues and a War Cup under `Honours` and `League tables`
+- `1940–41` is already fully in special wartime mode: Football League and FA Cup are marked `not held`, and the page only documents regional wartime leagues and cups
+- `1945–46` is still not a normal Football League season: it uses `Football League North` and `Football League South`, explicitly without promotion or relegation from the previous peacetime season
+- `1946–47` is the real return to a full four-division Football League programme and already matches the current overview assumptions well
+
+Important distinction from WWI:
+
+- `1939–40` is a cut-short canonical season with an abandoned official programme plus wartime substitutes
+- `1940–41` through `1944–45` are wartime substitute-competition seasons
+- `1945–46` is a peacetime bridge season with regional Football League competition, still non-canonical for normal promotion/relegation semantics
+- `1946–47` resumes standard canonical structure
+
+Recommended handling model:
+
+### Default canonical mode
+
+- continue skipping fully wartime substitute seasons
+- do not parse regional wartime leagues into canonical `tier1` / `tier2` / `tier3` / `tier4`
+- treat `1946–47` onward as normal overview seasons
+
+### Metadata-only historical mode
+
+Use one optional historical-only model with subtypes:
+
+- `competitionStatus: "abandoned-season"` for `1939–40`
+- `competitionStatus: "wartime-special"` for `1940–41` through `1944–45`
+- `competitionStatus: "regional-bridge-season"` for `1945–46`
+
+Suggested metadata for `1939–40`:
+
+- `warSuspensionLabel: "ww2"`
+- `officialLeagueTables: false`
+- `officialCompetitionsAbandoned: true`
+- `abandonmentPhase: "early-season"`
+- `specialCompetitions: [...]`
+
+Suggested metadata for `1945–46`:
+
+- `warSuspensionLabel: "ww2"`
+- `officialLeagueTables: false`
+- `regionalBridgeSeason: true`
+- `promotionRelegationApplies: false`
+- `specialCompetitions: ["Football League North", "Football League South"]`
+
+Open implementation question:
+
+- whether `1939–40` should remain entirely excluded from canonical output, or be represented as a metadata-only placeholder because it was an officially started but abandoned season
+
 ## Progress Snapshot
 
 The overview flow is now in decent shape through the early `1920s`.
@@ -200,19 +261,20 @@ Goal:
 
 Main checks:
 
-- whether `1939–40` is structured as an abandoned season and needs special handling distinct from fully skipped wartime years
-- whether `1940–41` through `1944–45` mirror the WWI substitute-competition pattern closely enough to share one metadata-only model
-- whether `1945–46` resumes canonical Football League structure or needs a one-season exception
+- whether `1939–40` should be modeled as an abandoned canonical season placeholder
+- whether `1940–41` through `1944–45` can reuse the wartime metadata-only pattern cleanly
+- whether `1945–46` needs a dedicated `regional-bridge-season` metadata shape
+- confirm that `1946–47` is the clean restart boundary for canonical overview output
 
 Recommended implementation shape:
 
 - keep canonical output unchanged by default
-- optionally write metadata-only wartime season records for suspended or substitute-competition years
+- optionally write metadata-only season records for abandoned, wartime-special, or bridge-season years
 - make the option explicit so canonical exports remain stable
 
 Deliverables:
 
-- inspection note update for WWII pages
+- season-status rules for `1939–40` through `1945–46`
 - option design and tests if wartime metadata-only support is implemented
 
 ### Phase 4: Post-war to pre-Premier-League normalization (`1946–1991`)

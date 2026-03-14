@@ -10,7 +10,12 @@ export function addYearOptions(command, defaults) {
     .option('-o, --output <path>', 'Output directory', WIKIPEDIA_DEFAULT_OUTPUT_DIR)
     .option('-u, --update-only', 'Skip seasons that already contain tier data', false)
     .option('-f, --force-update', 'Rebuild seasons even if data exists', false)
-    .option('--ignore-war-years', 'Skip WWI/WWII suspension seasons', false);
+    .option('--ignore-war-years', 'Skip WWI/WWII suspension seasons', false)
+    .option(
+      '--include-war-placeholders',
+      'Emit metadata-only placeholder seasons for wartime and bridge-year pages',
+      false
+    );
 }
 
 export function parseSeasonRange(opts, defaults = {}) {
@@ -29,6 +34,7 @@ export function buildCommonRunOptions(opts) {
     updateOnly: Boolean(opts.updateOnly),
     forceUpdate: Boolean(opts.forceUpdate),
     ignoreWarYears: Boolean(opts.ignoreWarYears),
+    includeWarPlaceholders: Boolean(opts.includeWarPlaceholders),
   };
 }
 

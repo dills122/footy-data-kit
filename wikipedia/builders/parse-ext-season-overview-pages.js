@@ -19,7 +19,9 @@ import {
   parseOverviewTablesForHeading,
 } from '../parser-core/wiki-overview-parser.js';
 import {
+  buildHistoricalPlaceholderSeasonInfo,
   isWarSuspensionSeason,
+  getHistoricalSeasonStatus,
   extractSeasonKeyFromSlug,
   extractSeasonYearFromSlug,
   seasonHasTierData,
@@ -264,11 +266,41 @@ export function buildSeasonOverviewSeasonRecord({ seasonKey, seasonYear, seasonS
   return record;
 }
 
+export function buildHistoricalSeasonPlaceholderRecord(seasonKey, seasonSlug) {
+  const placeholder = buildHistoricalPlaceholderSeasonInfo(seasonKey, {
+    specialCompetitions:
+      getHistoricalSeasonStatus(seasonKey) === 'regional-bridge-season'
+        ? ['Football League North', 'Football League South']
+        : [],
+    notes:
+      getHistoricalSeasonStatus(seasonKey) === 'abandoned-season'
+        ? 'Official Football League season abandoned after the outbreak of war; wartime regional competitions followed.'
+        : getHistoricalSeasonStatus(seasonKey) === 'regional-bridge-season'
+        ? 'Regional Football League North and South competitions were played without normal promotion or relegation.'
+        : 'Official Football League competition was suspended and replaced by wartime regional competitions.',
+  });
+
+  const { promoted, relegated, season, ...metadata } = placeholder;
+  const seasonInfo = buildSeasonInfo(seasonKey, {
+    promoted,
+    relegated,
+    metadata: {
+      ...metadata,
+      seasonSlug,
+      sourceUrl: buildWikipediaArticleUrl(seasonSlug),
+      tableCount: 0,
+    },
+  });
+
+  return { seasonInfo };
+}
+
 export async function buildSeasonOverview(startYear, endYear, outputFile, options = {}) {
   const resolvedOutputFile = resolveOverviewOutputFile(outputFile);
   const updateOnly = Boolean(options.updateOnly);
   const forceUpdate = Boolean(options.forceUpdate);
   const ignoreWarYears = Boolean(options.ignoreWarYears);
+  const includeWarPlaceholders = Boolean(options.includeWarPlaceholders);
   const fetchTables =
     typeof options.fetchSeasonOverviewTables === 'function'
       ? options.fetchSeasonOverviewTables
@@ -281,6 +313,7 @@ export async function buildSeasonOverview(startYear, endYear, outputFile, option
       updateOnly,
       forceUpdate,
       ignoreWarYears,
+      includeWarPlaceholders,
     },
   });
   const dataset = store.dataset;
@@ -295,6 +328,16 @@ export async function buildSeasonOverview(startYear, endYear, outputFile, option
 
     if (ignoreWarYears && isWarSuspensionSeason(year)) {
       console.log(`⏭️ Skipping ${seasonKey} (WWI/WWII suspension)`);
+      continue;
+    }
+
+    const historicalStatus = getHistoricalSeasonStatus(year);
+    if (includeWarPlaceholders && historicalStatus) {
+      console.log(`\n📝 Recording ${seasonKey} as ${historicalStatus} placeholder...`);
+      store.writeSeason(
+        seasonKey,
+        buildHistoricalSeasonPlaceholderRecord(seasonKey, buildSeasonOverviewSlug(year))
+      );
       continue;
     }
 
