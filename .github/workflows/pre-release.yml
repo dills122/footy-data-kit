@@ -1,0 +1,85 @@
+name: Pre-release
+
+on:
+  pull_request_target:
+    types:
+      - closed
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  cut-release:
+    if: >
+      github.event.pull_request.merged == true &&
+      startsWith(github.event.pull_request.head.ref, 'pre-release/') &&
+      github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout merged main commit
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.pull_request.merge_commit_sha }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+
+      - name: Derive release metadata
+        id: release_meta
+        env:
+          HEAD_REF: ${{ github.event.pull_request.head.ref }}
+        run: |
+          if [[ ! "$HEAD_REF" =~ ^pre-release/([0-9]+\.[0-9]+\.[0-9]+)$ ]]; then
+            echo "Expected pre-release/x.y.z branch, got: $HEAD_REF" >&2
+            exit 1
+          fi
+
+          VERSION="${BASH_REMATCH[1]}"
+          PACKAGE_VERSION="$(node -p "JSON.parse(require('fs').readFileSync('package.json','utf8')).version")"
+
+          if [[ "$PACKAGE_VERSION" != "$VERSION" ]]; then
+            echo "package.json version ($PACKAGE_VERSION) does not match branch version ($VERSION)" >&2
+            exit 1
+          fi
+
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "release_branch=release/$VERSION" >> "$GITHUB_OUTPUT"
+          echo "tag=v$VERSION" >> "$GITHUB_OUTPUT"
+
+      - name: Ensure release refs do not already exist
+        env:
+          RELEASE_BRANCH: ${{ steps.release_meta.outputs.release_branch }}
+          TAG_NAME: ${{ steps.release_meta.outputs.tag }}
+        run: |
+          if git ls-remote --exit-code --heads origin "$RELEASE_BRANCH" >/dev/null 2>&1; then
+            echo "Release branch already exists: $RELEASE_BRANCH" >&2
+            exit 1
+          fi
+
+          if git ls-remote --exit-code --tags origin "$TAG_NAME" >/dev/null 2>&1; then
+            echo "Release tag already exists: $TAG_NAME" >&2
+            exit 1
+          fi
+
+      - name: Configure git identity
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Create release branch and tag
+        env:
+          RELEASE_BRANCH: ${{ steps.release_meta.outputs.release_branch }}
+          TAG_NAME: ${{ steps.release_meta.outputs.tag }}
+          MERGE_SHA: ${{ github.event.pull_request.merge_commit_sha }}
+        run: |
+          git branch "$RELEASE_BRANCH" "$MERGE_SHA"
+          git push origin "refs/heads/$RELEASE_BRANCH"
+
+          git tag -a "$TAG_NAME" "$MERGE_SHA" -m "Release $TAG_NAME"
+          git push origin "refs/tags/$TAG_NAME"
