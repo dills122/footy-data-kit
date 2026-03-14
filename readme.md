@@ -13,8 +13,8 @@ This repo scrapes, normalises, and validates historic English league tables from
 
 - `wikipedia/` is the actively supported ingestion path.
 - `rsssf/`, `scripts/csv-data/`, and older reference exports should be treated as legacy tooling unless you are intentionally doing archive work.
-- The promotion/relegation scraper (`node wikipedia/cli/index.js build`) is mainly a Tier 1/Tier 2 workflow.
-- The overview scraper (`node wikipedia/cli/index.js overview`) is the broader Wikipedia table parser and is the preferred path for more recent seasons.
+- The overview scraper (`node wikipedia/cli/index.js overview`) is now the primary maintained Wikipedia dataset flow across the full historical range.
+- The promotion/relegation scraper (`node wikipedia/cli/index.js build`) remains available as a legacy/historical fallback for classic Football League season pages.
 
 ## Requirements
 
@@ -32,16 +32,13 @@ pnpm i
 
 1. **Generate Wikipedia data**
    ```bash
-   # Promotion/relegation parser handles pre-Premier League seasons best
-   node wikipedia/cli/index.js build --start 1888 --end 1990 --output ./data-output --ignore-war-years
-   # Overview parser is more reliable for 1991 onward
-   node wikipedia/cli/index.js overview --start 1991 --end 2024 --output ./data-output --ignore-war-years
+   # Primary maintained flow: overview parser across the full supported range
+   node wikipedia/cli/index.js overview --start 1888 --end 2024 --output ./data-output --ignore-war-years --include-war-placeholders
    ```
 2. **Merge and normalise**
    ```bash
    node wikipedia/data/combine-output-files.js --output ./data-output/all-seasons.json \
-     ./data-output/wiki_overview_tables_by_season.json \
-     ./data-output/wiki_promotion_relegations_by_season.json
+     ./data-output/wiki_overview_tables_by_season.json
    ```
 3. **Validate and test**
    ```bash
@@ -57,30 +54,26 @@ All commands are resumable. If you stop a scraper with `Ctrl+C`, progress writte
 
 ### Detailed workflow
 
-The exact sequence we use for fresh data pulls is below. It runs both Wikipedia commands (promotion data for 1888–1990, overview tables for 1991 onwards) because the promotion scraper starts to miss Premier League-era tables while the overview parser continues to work reliably.
+The default maintained dataset workflow now uses the overview parser end to end. The promotion scraper is still useful for legacy comparison work and fixture repair, but it is no longer the main checked-in data path.
 
 ```bash
 # Setup Repo, Install Deps
 pnpm i
 # Generate Data
-node wikipedia/cli/index.js build --start 1888 --end 1990 --output ./data-output --force-update --ignore-war-years
-node wikipedia/cli/index.js overview --start 1991 --end 2024 --output ./data-output --force-update --ignore-war-years
+node wikipedia/cli/index.js overview --start 1888 --end 2024 --output ./data-output --force-update --include-war-placeholders
 # Combine data into all-seasons file
-node wikipedia/data/combine-output-files.js --output ./data-output/all-seasons.json \
-  ./data-output/wiki_overview_tables_by_season.json \
-  ./data-output/wiki_promotion_relegations_by_season.json
+node wikipedia/data/combine-output-files.js --output ./data-output/all-seasons.json ./data-output/wiki_overview_tables_by_season.json
 # Verify the generated data
 node wikipedia/data/verify-football-data.js --fail-on-issues ./data-output
 pnpm test:integration
 # If all is good, finally minify data ready for external use
 node scripts/minify-json.js ./data-output/all-seasons.json
 node scripts/minify-json.js ./data-output/wiki_overview_tables_by_season.json
-node scripts/minify-json.js ./data-output/wiki_promotion_relegations_by_season.json
 ```
 
-### Promotion fixture rebuild flow
+### Legacy promotion fixture rebuild flow
 
-When `data-output/wiki_promotion_relegations_by_season.json` needs to be refreshed, rebuild it from code instead of patching individual seasons by hand:
+When `data-output/wiki_promotion_relegations_by_season.json` needs to be refreshed for historical comparison or legacy fixture coverage, rebuild it from code instead of patching individual seasons by hand:
 
 ```bash
 pnpm wiki:build:promotion
@@ -109,26 +102,27 @@ pnpm test:integration:promotion
 
 Run `node wikipedia/cli/index.js <command> [options]` to build FootballData-format JSON directly from Wikipedia tables.
 
-| Command    | Purpose                                                                                                               | Default output                                           |
-| ---------- | --------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------- |
-| `build`    | Deep scrape promotion/relegation tables from classic Football League season pages, mainly for Tier 1 and Tier 2.      | `data-output/wiki_promotion_relegations_by_season.json`  |
-| `overview` | Parse overview pages (e.g. “2015–16 in English football”) and capture every league table it lists.                    | `data-output/wiki_overview_tables_by_season.json`        |
-| `combined` | Run the promotion scraper first, then fill in any missing seasons using the overview parser (best one to start with). | Both files above, reusing the same `--output` directory. |
+| Command    | Purpose                                                                                                             | Default output                                           |
+| ---------- | ------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------- |
+| `build`    | Legacy/historical promotion-relegation scraper for classic Football League season pages, mainly Tier 1 and Tier 2.  | `data-output/wiki_promotion_relegations_by_season.json`  |
+| `overview` | Primary maintained parser. Reads overview pages (e.g. “2015–16 in English football”) and captures all listed tiers. | `data-output/wiki_overview_tables_by_season.json`        |
+| `combined` | Legacy bridge command: run `build` first, then backfill missing seasons with `overview`.                            | Both files above, reusing the same `--output` directory. |
 
 Common flags across commands:
 
-| Flag                 | Default         | Description                                     |
-| -------------------- | --------------- | ----------------------------------------------- |
-| `-s, --start <year>` | varies          | First season (inclusive).                       |
-| `-e, --end <year>`   | varies          | Final season (inclusive).                       |
-| `-o, --output <dir>` | `./data-output` | Directory that will contain the JSON file(s).   |
-| `-u, --update-only`  | `false`         | Skip seasons that already contain data on disk. |
-| `-f, --force-update` | `false`         | Ignore cached entries and rebuild everything.   |
-| `--ignore-war-years` | `false`         | Skip WWI/WWII suspension years entirely.        |
+| Flag                         | Default         | Description                                                        |
+| ---------------------------- | --------------- | ------------------------------------------------------------------ |
+| `-s, --start <year>`         | varies          | First season (inclusive).                                          |
+| `-e, --end <year>`           | varies          | Final season (inclusive).                                          |
+| `-o, --output <dir>`         | `./data-output` | Directory that will contain the JSON file(s).                      |
+| `-u, --update-only`          | `false`         | Skip seasons that already contain data on disk.                    |
+| `-f, --force-update`         | `false`         | Ignore cached entries and rebuild everything.                      |
+| `--ignore-war-years`         | `false`         | Skip WWI/WWII suspension years entirely.                           |
+| `--include-war-placeholders` | `false`         | Emit metadata-only wartime placeholder seasons in overview output. |
 
-Each run saves season-by-season progress immediately, so reruns are fast. The `combined` command automatically calls `overview` when a season is missing Tier 1 data, mirroring the manual fallback we used while cleaning the dataset.
+Each run saves season-by-season progress immediately, so reruns are fast. The `combined` command exists for legacy mixed-source rebuilds, but the checked-in maintained path is now `overview`.
 
-> Tip: in practice we run `build` for 1888–1990 and `overview` for 1991 onwards because the promotion scraper becomes unreliable for modern Premier League formats while the overview parser continues to capture every table. For the checked-in promotion dataset, keep `--ignore-war-years` enabled so suspended seasons stay out of the saved export while valid post-war seasons such as `1919-20` still rebuild normally.
+> Tip: for the checked-in overview dataset we now run `overview` across the full supported range. Keep `build` around for legacy comparisons, targeted fixture repair, and classic-season parser regressions.
 
 ## RSSSF CLI (`rsssf-scraper`)
 
@@ -199,10 +193,9 @@ node rsssf/cli.js scrape --from-file ./rsssf-cache/1960-61.html --from-file ./rs
 ### Utility examples
 
 ```bash
-# Combine overview + promotion data and inspect which seasons still lack tables
+# Build the maintained merged dataset from the overview export
 node wikipedia/data/combine-output-files.js --output ./data-output/all-seasons.json \
-  ./data-output/wiki_overview_tables_by_season.json \
-  ./data-output/wiki_promotion_relegations_by_season.json
+  ./data-output/wiki_overview_tables_by_season.json
 
 # Run the data lint pass on every JSON file under ./data-output
 node wikipedia/data/verify-football-data.js --fail-on-issues ./data-output
@@ -229,8 +222,8 @@ Target just the integration suite (which exercises the supported Wikipedia scrap
 
 ```bash
 pnpm test:integration
-pnpm test:integration:promotion   # promotion/relegation fixtures only
-pnpm test:integration:overview    # overview fixtures only
+pnpm test:integration:overview    # primary maintained Wikipedia fixtures
+pnpm test:integration:promotion   # legacy promotion/relegation fixtures
 ```
 
 Coverage is available via:
