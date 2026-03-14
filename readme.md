@@ -33,7 +33,7 @@ pnpm i
 1. **Generate Wikipedia data**
    ```bash
    # Primary maintained flow: overview parser across the full supported range
-   node wikipedia/cli/index.js overview --start 1888 --end 2024 --output ./data-output --ignore-war-years --include-war-placeholders
+   node wikipedia/cli/index.js overview --start 1888 --end 2024 --output ./data-output --include-war-placeholders
    ```
 2. **Merge and normalise**
    ```bash

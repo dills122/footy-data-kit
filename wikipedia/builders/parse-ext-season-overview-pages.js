@@ -6,8 +6,17 @@ import {
   resolveWikipediaDatasetPath,
   WIKIPEDIA_DATA_SOURCES,
 } from '../config.js';
-import { buildSeasonInfo, buildTierData } from '../data/generate-output-files.js';
 import { createDatasetStore } from '../data/dataset-store.js';
+import { buildSeasonInfo, buildTierData } from '../data/generate-output-files.js';
+import {
+  applyOverviewSeasonOutcomeOverrides,
+  buildHistoricalPlaceholderSeasonInfo,
+  extractSeasonKeyFromSlug,
+  extractSeasonYearFromSlug,
+  getHistoricalSeasonStatus,
+  isWarSuspensionSeason,
+  seasonHasTierData,
+} from '../data/season-rules.js';
 import { fetchWikipediaSeasonPage } from '../parser-core/page-fetcher.js';
 import {
   deriveMajorTierIndexes,
@@ -20,15 +29,6 @@ import {
   parseOverviewTablesForHeading,
   skipSection,
 } from '../parser-core/wiki-overview-parser.js';
-import {
-  buildHistoricalPlaceholderSeasonInfo,
-  applyOverviewSeasonOutcomeOverrides,
-  isWarSuspensionSeason,
-  getHistoricalSeasonStatus,
-  extractSeasonKeyFromSlug,
-  extractSeasonYearFromSlug,
-  seasonHasTierData,
-} from '../data/season-rules.js';
 
 export function parseOverviewLeagueTables(html) {
   const $ = cheerio.load(html);
@@ -406,7 +406,12 @@ export async function buildSeasonOverviewForSlug(seasonSlug, outputFile) {
   const dataset = store.dataset;
   console.log(`\n📖 Fetching ${seasonSlug}...`);
   const tables = await fetchSeasonOverviewTables(seasonSlug);
+  const hasTableData = tables.some((table) => table.rows && table.rows.length);
   const seasonKey = extractSeasonKeyFromSlug(seasonSlug) || 'unknown-season';
+  if (!hasTableData) {
+    console.log(`⏭️ Skipping ${seasonKey} (no overview tables returned)`);
+    return { seasonKey, record: dataset.seasons[seasonKey] || null };
+  }
   const seasonYear = extractSeasonYearFromSlug(seasonKey);
   const seasonRecord = buildSeasonOverviewSeasonRecord({
     seasonKey,

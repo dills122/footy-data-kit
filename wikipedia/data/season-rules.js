@@ -1,13 +1,13 @@
 // @ts-check
 
 import {
+  getWikipediaWarSuspensionLabel,
   inferEnglishLeagueTier,
+  isWikipediaWarSuspensionYear,
+  WIKIPEDIA_DATA_SOURCES,
   WIKIPEDIA_HISTORICAL_PLACEHOLDER_SEASONS,
   WIKIPEDIA_MINIMUM_TIER_OVERRIDES,
   WIKIPEDIA_OVERVIEW_SEASON_OUTCOME_OVERRIDES,
-  isWikipediaWarSuspensionYear,
-  getWikipediaWarSuspensionLabel,
-  WIKIPEDIA_DATA_SOURCES,
   WIKIPEDIA_SEASON_RANGES,
 } from '../config.js';
 import { canonicalizeTeamName } from './data-quality-config.js';
@@ -18,6 +18,21 @@ export const HISTORICAL_PLACEHOLDER_STATUSES = Object.freeze([
   'abandoned-season',
   'regional-bridge-season',
 ]);
+
+const EMPTY_LIST = Object.freeze([]);
+const TIER_RESERVED_KEYS = new Set(['season', 'table', 'promoted', 'relegated']);
+const HISTORICAL_STATUS_DEFAULTS = Object.freeze({
+  'wartime-special': Object.freeze({
+    officialCompetitionsSuspended: true,
+  }),
+  'abandoned-season': Object.freeze({
+    officialCompetitionsAbandoned: true,
+  }),
+  'regional-bridge-season': Object.freeze({
+    regionalBridgeSeason: true,
+    promotionRelegationApplies: false,
+  }),
+});
 
 export function isTierKey(value) {
   return TIER_KEY_PATTERN.test(value);
@@ -47,6 +62,46 @@ const CONTINUITY_CONFIG = {
   seasonRelegatedPath: 'relegated',
 };
 
+function isObjectRecord(value) {
+  return Boolean(value) && typeof value === 'object' && !Array.isArray(value);
+}
+
+function getConfiguredHistoricalSeason(seasonKey) {
+  const seasonNumber = parseSeasonNumber(seasonKey);
+  if (seasonNumber == null) return null;
+  return WIKIPEDIA_HISTORICAL_PLACEHOLDER_SEASONS[seasonNumber] || null;
+}
+
+function normalizeStringList(values) {
+  if (!Array.isArray(values)) return [];
+
+  return Array.from(
+    new Set(
+      values
+        .map((value) => (value == null ? null : String(value).trim()))
+        .filter(Boolean)
+    )
+  );
+}
+
+function resolveBooleanSetting(optionValue, configuredValue, fallbackValue = null) {
+  if (typeof optionValue === 'boolean') return optionValue;
+  if (typeof configuredValue === 'boolean') return configuredValue;
+  return fallbackValue;
+}
+
+function resolveHistoricalStatusDefaults(status) {
+  return HISTORICAL_STATUS_DEFAULTS[status] || null;
+}
+
+function hasMetadataEntries(value) {
+  return isObjectRecord(value) && Object.keys(value).length > 0;
+}
+
+function getCanonicalTeamSet(table) {
+  return new Set(table.map((row) => canonicalizeTeamName(row.team)));
+}
+
 export function parseSeasonNumber(value) {
   const numeric = Number.parseInt(String(value), 10);
   return Number.isFinite(numeric) ? numeric : null;
@@ -69,16 +124,14 @@ export function isWarSuspensionSeason(seasonKey) {
 }
 
 export function getHistoricalSeasonStatus(seasonKey) {
-  const seasonNumber = parseSeasonNumber(seasonKey);
-  if (seasonNumber == null) return null;
-  return WIKIPEDIA_HISTORICAL_PLACEHOLDER_SEASONS[seasonNumber]?.competitionStatus || null;
+  return getConfiguredHistoricalSeason(seasonKey)?.competitionStatus || null;
 }
 
 export function isHistoricalPlaceholderStatus(status) {
   return HISTORICAL_PLACEHOLDER_STATUSES.includes(String(status || ''));
 }
 
-export function getSeasonCompetitionStatus(seasonRecord, seasonKey) {
+export function getSeasonCompetitionStatus(seasonRecord, _seasonKey) {
   const explicitStatus = seasonRecord?.seasonInfo?.competitionStatus;
   if (isHistoricalPlaceholderStatus(explicitStatus)) {
     return explicitStatus;
@@ -92,25 +145,16 @@ export function isHistoricalPlaceholderSeason(seasonRecord, seasonKey) {
 
 export function buildHistoricalPlaceholderSeasonInfo(seasonKey, options = {}) {
   const seasonNumber = parseSeasonNumber(seasonKey);
-  const configuredSeason =
-    seasonNumber != null ? WIKIPEDIA_HISTORICAL_PLACEHOLDER_SEASONS[seasonNumber] : null;
-  const competitionStatus =
-    options.competitionStatus || configuredSeason?.competitionStatus || getHistoricalSeasonStatus(seasonKey);
+  const configuredSeason = getConfiguredHistoricalSeason(seasonKey);
+  const competitionStatus = options.competitionStatus || getHistoricalSeasonStatus(seasonKey);
+  const statusDefaults = resolveHistoricalStatusDefaults(competitionStatus);
   const warSuspensionLabel =
     options.warSuspensionLabel ||
     configuredSeason?.warSuspensionLabel ||
     (seasonNumber != null ? getWikipediaWarSuspensionLabel(seasonNumber) : null);
   const specialCompetitions = Array.isArray(options.specialCompetitions)
-    ? Array.from(
-        new Set(
-          options.specialCompetitions
-            .map((value) => (value == null ? null : String(value).trim()))
-            .filter((value) => value)
-        )
-      )
-    : Array.isArray(configuredSeason?.specialCompetitions)
-    ? [...configuredSeason.specialCompetitions]
-    : [];
+    ? normalizeStringList(options.specialCompetitions)
+    : normalizeStringList(configuredSeason?.specialCompetitions || EMPTY_LIST);
 
   return {
     season: seasonNumber ?? 0,
@@ -118,34 +162,31 @@ export function buildHistoricalPlaceholderSeasonInfo(seasonKey, options = {}) {
     relegated: [],
     competitionStatus: competitionStatus || null,
     warSuspensionLabel: warSuspensionLabel || null,
-    officialLeagueTables:
-      typeof options.officialLeagueTables === 'boolean' ? options.officialLeagueTables : false,
-    officialCompetitionsSuspended:
-      typeof options.officialCompetitionsSuspended === 'boolean'
-        ? options.officialCompetitionsSuspended
-        : typeof configuredSeason?.officialCompetitionsSuspended === 'boolean'
-        ? configuredSeason.officialCompetitionsSuspended
-        : competitionStatus === 'wartime-special',
-    officialCompetitionsAbandoned:
-      typeof options.officialCompetitionsAbandoned === 'boolean'
-        ? options.officialCompetitionsAbandoned
-        : typeof configuredSeason?.officialCompetitionsAbandoned === 'boolean'
-        ? configuredSeason.officialCompetitionsAbandoned
-        : competitionStatus === 'abandoned-season',
-    regionalBridgeSeason:
-      typeof options.regionalBridgeSeason === 'boolean'
-        ? options.regionalBridgeSeason
-        : typeof configuredSeason?.regionalBridgeSeason === 'boolean'
-        ? configuredSeason.regionalBridgeSeason
-        : competitionStatus === 'regional-bridge-season',
-    promotionRelegationApplies:
-      typeof options.promotionRelegationApplies === 'boolean'
-        ? options.promotionRelegationApplies
-        : typeof configuredSeason?.promotionRelegationApplies === 'boolean'
-        ? configuredSeason.promotionRelegationApplies
-        : competitionStatus === 'regional-bridge-season'
-        ? false
-        : null,
+    officialLeagueTables: resolveBooleanSetting(
+      options.officialLeagueTables,
+      configuredSeason?.officialLeagueTables,
+      false
+    ),
+    officialCompetitionsSuspended: resolveBooleanSetting(
+      options.officialCompetitionsSuspended,
+      configuredSeason?.officialCompetitionsSuspended,
+      statusDefaults?.officialCompetitionsSuspended ?? null
+    ),
+    officialCompetitionsAbandoned: resolveBooleanSetting(
+      options.officialCompetitionsAbandoned,
+      configuredSeason?.officialCompetitionsAbandoned,
+      statusDefaults?.officialCompetitionsAbandoned ?? null
+    ),
+    regionalBridgeSeason: resolveBooleanSetting(
+      options.regionalBridgeSeason,
+      configuredSeason?.regionalBridgeSeason,
+      statusDefaults?.regionalBridgeSeason ?? null
+    ),
+    promotionRelegationApplies: resolveBooleanSetting(
+      options.promotionRelegationApplies,
+      configuredSeason?.promotionRelegationApplies,
+      statusDefaults?.promotionRelegationApplies ?? null
+    ),
     specialCompetitions,
     notes:
       options.notes != null
@@ -167,14 +208,14 @@ export function getTierTable(tierValue) {
 }
 
 export function getTierSource(tierValue) {
-  if (!tierValue || Array.isArray(tierValue) || typeof tierValue !== 'object') {
+  if (!isObjectRecord(tierValue)) {
     return null;
   }
   return typeof tierValue.metadata?.source === 'string' ? tierValue.metadata.source : null;
 }
 
 export function getTierOutcomeCount(tierValue) {
-  if (!tierValue || Array.isArray(tierValue) || typeof tierValue !== 'object') {
+  if (!isObjectRecord(tierValue)) {
     return 0;
   }
   const promoted = Array.isArray(tierValue.promoted) ? tierValue.promoted.length : 0;
@@ -183,17 +224,15 @@ export function getTierOutcomeCount(tierValue) {
 }
 
 export function getTierMetadataCount(tierValue) {
-  if (!tierValue || Array.isArray(tierValue) || typeof tierValue !== 'object') {
+  if (!isObjectRecord(tierValue)) {
     return 0;
   }
 
   return Object.entries(tierValue).filter(([key, value]) => {
-    if (key === 'season' || key === 'table' || key === 'promoted' || key === 'relegated') {
-      return false;
-    }
+    if (TIER_RESERVED_KEYS.has(key)) return false;
     if (value == null) return false;
     if (Array.isArray(value)) return value.length > 0;
-    if (typeof value === 'object') return Object.keys(value).length > 0;
+    if (typeof value === 'object') return hasMetadataEntries(value);
     return true;
   }).length;
 }
@@ -230,13 +269,8 @@ export function seasonHasTierData(record) {
 
 export function blockHasData(block) {
   if (!block) return false;
-  if (Array.isArray(block)) {
-    return block.length > 0;
-  }
-
-  if (typeof block !== 'object') {
-    return false;
-  }
+  if (Array.isArray(block)) return block.length > 0;
+  if (!isObjectRecord(block)) return false;
 
   const table = Array.isArray(block.table) ? block.table : [];
   const promoted = Array.isArray(block.promoted) ? block.promoted : [];
@@ -247,7 +281,7 @@ export function blockHasData(block) {
   }
 
   const metadata = block.metadata;
-  return Boolean(metadata && typeof metadata === 'object' && Object.keys(metadata).length);
+  return hasMetadataEntries(metadata);
 }
 
 export function seasonHasData(seasonRecord) {
@@ -302,12 +336,8 @@ export function mergeTierValues(existingTier, incomingTier, includeEmpty, season
 }
 
 export function mergeSeasonRecords(currentRecord, incomingRecord, includeEmpty = false, seasonKey) {
-  if (!currentRecord || typeof currentRecord !== 'object') {
-    return incomingRecord;
-  }
-  if (!incomingRecord || typeof incomingRecord !== 'object') {
-    return currentRecord;
-  }
+  if (!isObjectRecord(currentRecord)) return incomingRecord;
+  if (!isObjectRecord(incomingRecord)) return currentRecord;
 
   const merged = { ...currentRecord };
   const tierPattern = TIER_KEY_PATTERN;
@@ -377,8 +407,8 @@ export function reconcileSeasonInfoContinuity(dataset, options = {}) {
     const nextTopFlight = getTierTable(nextRecord?.[topFlightTierKey]);
     if (!currentTopFlight.length || !nextTopFlight.length) continue;
 
-    const currentNames = new Set(currentTopFlight.map((row) => canonicalizeTeamName(row.team)));
-    const nextNames = new Set(nextTopFlight.map((row) => canonicalizeTeamName(row.team)));
+    const currentNames = getCanonicalTeamSet(currentTopFlight);
+    const nextNames = getCanonicalTeamSet(nextTopFlight);
 
     currentRecord.seasonInfo[seasonPromotedPath] = nextTopFlight
       .filter((row) => !currentNames.has(canonicalizeTeamName(row.team)))
@@ -400,9 +430,7 @@ export function getExpectedMinimumTierCount(seasonNumber) {
 
 export function applyOverviewSeasonOutcomeOverrides(seasonRecord, seasonKey) {
   const seasonNumber = parseSeasonNumber(seasonKey);
-  if (seasonNumber == null || !seasonRecord || typeof seasonRecord !== 'object') {
-    return seasonRecord;
-  }
+  if (seasonNumber == null || !isObjectRecord(seasonRecord)) return seasonRecord;
 
   const override = WIKIPEDIA_OVERVIEW_SEASON_OUTCOME_OVERRIDES[seasonNumber];
   if (!override) return seasonRecord;
@@ -428,13 +456,13 @@ export function applyOverviewSeasonOutcomeOverrides(seasonRecord, seasonKey) {
         tierRecord.relegated = [...tierOverride.relegated];
       }
 
-      if (tierOverride.rowFlagOverrides && typeof tierOverride.rowFlagOverrides === 'object') {
+      if (isObjectRecord(tierOverride.rowFlagOverrides)) {
         const rowOverrides = tierOverride.rowFlagOverrides;
         const table = getTierTable(tierRecord);
         table.forEach((row) => {
-          if (!row || typeof row !== 'object' || !row.team) return;
+          if (!isObjectRecord(row) || !row.team) return;
           const rowOverride = rowOverrides[row.team];
-          if (!rowOverride || typeof rowOverride !== 'object') return;
+          if (!isObjectRecord(rowOverride)) return;
           Object.assign(row, rowOverride);
         });
       }
