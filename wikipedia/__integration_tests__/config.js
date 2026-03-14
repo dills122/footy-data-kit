@@ -1111,6 +1111,25 @@ export const testPages = /** @type {TestPages} */ ([
             points: 99,
           },
         },
+        {
+          tier: 'tier5',
+          data: {
+            team: 'North Ferriby United',
+            wasPromoted: false,
+            wasRelegated: true,
+            points: 39,
+          },
+        },
+      ],
+      tierMetadataEntries: [
+        {
+          tier: 'tier5',
+          data: {
+            title: 'National League Top Division',
+            leagueId: 'National_League_Top_Division',
+            leagueLevel: 5,
+          },
+        },
       ],
     },
   },
@@ -1150,6 +1169,34 @@ export const testPages = /** @type {TestPages} */ ([
             wasPromoted: true,
             wasRelegated: false,
             points: 94,
+          },
+        },
+        {
+          tier: 'tier5',
+          data: {
+            team: 'Leyton Orient',
+            wasPromoted: true,
+            wasRelegated: false,
+            points: 89,
+          },
+        },
+        {
+          tier: 'tier5',
+          data: {
+            team: 'Maidstone United',
+            wasPromoted: false,
+            wasRelegated: true,
+            points: 34,
+          },
+        },
+      ],
+      tierMetadataEntries: [
+        {
+          tier: 'tier5',
+          data: {
+            title: 'National League Top Division',
+            leagueId: 'National_League_Top_Division',
+            leagueLevel: 5,
           },
         },
       ],
