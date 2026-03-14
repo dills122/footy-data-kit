@@ -152,6 +152,35 @@ export const testPages = /** @type {TestPages} */ ([
     tests: {
       promoted: ['Manchester City', 'Glossop North End'],
       relegated: ['Bolton Wanderers', 'The Wednesday'],
+      tableEntries: [
+        {
+          tier: 'tier1',
+          data: {
+            team: 'Aston Villa',
+            wasPromoted: false,
+            wasRelegated: false,
+            points: 45,
+          },
+        },
+        {
+          tier: 'tier1',
+          data: {
+            team: 'The Wednesday',
+            wasPromoted: false,
+            wasRelegated: true,
+            points: 24,
+          },
+        },
+        {
+          tier: 'tier2',
+          data: {
+            team: 'Manchester City',
+            wasPromoted: true,
+            wasRelegated: false,
+            points: 52,
+          },
+        },
+      ],
     },
   },
   {
@@ -164,6 +193,35 @@ export const testPages = /** @type {TestPages} */ ([
     tests: {
       promoted: ['Bristol City', 'Manchester United'],
       relegated: ['Nottingham Forest', 'Wolverhampton Wanderers'],
+      tableEntries: [
+        {
+          tier: 'tier1',
+          data: {
+            team: 'Liverpool',
+            wasPromoted: false,
+            wasRelegated: false,
+            points: 51,
+          },
+        },
+        {
+          tier: 'tier1',
+          data: {
+            team: 'Wolverhampton Wanderers',
+            wasPromoted: false,
+            wasRelegated: true,
+            points: 23,
+          },
+        },
+        {
+          tier: 'tier2',
+          data: {
+            team: 'Bristol City',
+            wasPromoted: true,
+            wasRelegated: false,
+            points: 66,
+          },
+        },
+      ],
     },
   },
   {
@@ -207,6 +265,35 @@ export const testPages = /** @type {TestPages} */ ([
     tests: {
       promoted: ['The Wednesday', 'Derby County'],
       relegated: ['Manchester City', 'Notts County'],
+      tableEntries: [
+        {
+          tier: 'tier1',
+          data: {
+            team: 'Huddersfield Town',
+            wasPromoted: false,
+            wasRelegated: false,
+            points: 57,
+          },
+        },
+        {
+          tier: 'tier1',
+          data: {
+            team: 'Notts County',
+            wasPromoted: false,
+            wasRelegated: true,
+            points: 33,
+          },
+        },
+        {
+          tier: 'tier2',
+          data: {
+            team: 'The Wednesday',
+            wasPromoted: true,
+            wasRelegated: false,
+            points: 60,
+          },
+        },
+      ],
     },
   },
   {
@@ -447,6 +534,35 @@ export const testPages = /** @type {TestPages} */ ([
     tests: {
       promoted: ['Leicester City', 'Sunderland', 'Birmingham City'],
       relegated: ['Bristol City', 'Derby County', 'Bolton Wanderers'],
+      tableEntries: [
+        {
+          tier: 'tier1',
+          data: {
+            team: 'Liverpool',
+            wasPromoted: false,
+            wasRelegated: false,
+            points: 60,
+          },
+        },
+        {
+          tier: 'tier1',
+          data: {
+            team: 'Bolton Wanderers',
+            wasPromoted: false,
+            wasRelegated: true,
+            points: 25,
+          },
+        },
+        {
+          tier: 'tier2',
+          data: {
+            team: 'Leicester City',
+            wasPromoted: true,
+            wasRelegated: false,
+            points: 55,
+          },
+        },
+      ],
     },
   },
   {
@@ -489,6 +605,35 @@ export const testPages = /** @type {TestPages} */ ([
     tests: {
       promoted: ['Derby County', 'Portsmouth'],
       relegated: ['Leicester City', 'Manchester City', 'Aston Villa'],
+      tableEntries: [
+        {
+          tier: 'tier1',
+          data: {
+            team: 'Everton',
+            wasPromoted: false,
+            wasRelegated: false,
+            points: 86,
+          },
+        },
+        {
+          tier: 'tier1',
+          data: {
+            team: 'Aston Villa',
+            wasPromoted: false,
+            wasRelegated: true,
+            points: 36,
+          },
+        },
+        {
+          tier: 'tier2',
+          data: {
+            team: 'Derby County',
+            wasPromoted: true,
+            wasRelegated: false,
+            points: 84,
+          },
+        },
+      ],
     },
   },
   {
@@ -774,29 +919,57 @@ export const testPages = /** @type {TestPages} */ ([
     tests: {
       promoted: ['Burnley', 'Leicester City', 'Queens Park Rangers'],
       relegated: ['Cardiff City', 'Fulham', 'Norwich City'],
+      tableEntries: [
+        {
+          tier: 'tier1',
+          data: {
+            team: 'Manchester City',
+            wasPromoted: false,
+            wasRelegated: false,
+            points: 86,
+            goalDifference: 65,
+          },
+        },
+        {
+          tier: 'tier1',
+          data: {
+            team: 'Cardiff City',
+            wasPromoted: false,
+            wasRelegated: true,
+            points: 30,
+          },
+        },
+        {
+          tier: 'tier2',
+          data: {
+            team: 'Leicester City',
+            wasPromoted: true,
+            wasRelegated: false,
+            points: 102,
+          },
+        },
+        {
+          tier: 'tier2',
+          data: {
+            team: 'Derby County',
+            wasPromoted: false,
+            points: 85,
+            won: 25,
+            drawn: 10,
+          },
+        },
+        {
+          tier: 'tier2',
+          data: {
+            team: 'Reading',
+            wasPromoted: false,
+            points: 71,
+            won: 19,
+            drawn: 14,
+          },
+        },
+      ],
     },
-    tableEntries: [
-      {
-        tier: 'tier2',
-        data: {
-          team: 'Derby County',
-          wasPromoted: false,
-          points: 85,
-          won: 25,
-          drawn: 10,
-        },
-      },
-      {
-        tier: 'tier2',
-        data: {
-          team: 'Reading',
-          wasPromoted: false,
-          points: 71,
-          won: 19,
-          drawn: 14,
-        },
-      },
-    ],
   },
   {
     urls: {
@@ -838,6 +1011,36 @@ export const testPages = /** @type {TestPages} */ ([
     tests: {
       promoted: ['Norwich City', 'Sheffield United', 'Aston Villa'],
       relegated: ['Cardiff City', 'Fulham', 'Huddersfield Town'],
+      tableEntries: [
+        {
+          tier: 'tier1',
+          data: {
+            team: 'Manchester City',
+            wasPromoted: false,
+            wasRelegated: false,
+            points: 98,
+            goalDifference: 72,
+          },
+        },
+        {
+          tier: 'tier1',
+          data: {
+            team: 'Huddersfield Town',
+            wasPromoted: false,
+            wasRelegated: true,
+            points: 16,
+          },
+        },
+        {
+          tier: 'tier2',
+          data: {
+            team: 'Norwich City',
+            wasPromoted: true,
+            wasRelegated: false,
+            points: 94,
+          },
+        },
+      ],
     },
   },
 ]);
