@@ -370,6 +370,60 @@ describe('parseOverviewLeagueTables', () => {
       tierKey: 'tier4',
     });
   });
+
+  test('keeps pre-war four-division seasons aligned with second-tier top-flight movement', () => {
+    const seasonRecord = buildSeasonOverviewSeasonRecord({
+      seasonKey: '1936',
+      seasonYear: 1936,
+      seasonSlug: '1936–37_in_English_football',
+      tables: [
+        {
+          title: 'First Division',
+          id: 'First_Division',
+          tableIndex: 0,
+          rows: [
+            { pos: 1, team: 'Manchester City', played: 42, points: 57 },
+            { pos: 21, team: 'Manchester United', played: 42, points: 29, wasRelegated: true },
+          ],
+        },
+        {
+          title: 'Second Division',
+          id: 'Second_Division',
+          tableIndex: 1,
+          rows: [
+            { pos: 1, team: 'Leicester City', played: 42, points: 55, wasPromoted: true },
+            { pos: 2, team: 'Blackburn Rovers', played: 42, points: 52, wasPromoted: true },
+          ],
+        },
+        {
+          title: 'Third Division North',
+          id: 'Third_Division_North',
+          tableIndex: 2,
+          rows: [{ pos: 1, team: 'Stockport County', played: 42, points: 58, wasPromoted: true }],
+        },
+        {
+          title: 'Third Division South',
+          id: 'Third_Division_South',
+          tableIndex: 3,
+          rows: [{ pos: 1, team: 'Ipswich Town', played: 42, points: 56, wasPromoted: true }],
+        },
+      ],
+    });
+
+    expect(seasonRecord.seasonInfo.promoted).toEqual(['Leicester City', 'Blackburn Rovers']);
+    expect(seasonRecord.seasonInfo.relegated).toEqual(['Manchester United']);
+    expect(seasonRecord.tier2.promoted).toEqual(['Leicester City', 'Blackburn Rovers']);
+    expect(seasonRecord.tier3.metadata).toMatchObject({
+      title: 'Third Division North',
+      leagueLevel: 3,
+      tierKey: 'tier3',
+    });
+    expect(seasonRecord.tier4.metadata).toMatchObject({
+      title: 'Third Division South',
+      leagueLevel: 3,
+      tierKey: 'tier4',
+    });
+  });
 });
 
 describe('buildSeasonOverview', () => {
