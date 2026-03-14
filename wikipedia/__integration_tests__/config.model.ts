@@ -1,25 +1,33 @@
-import type { LeagueTableEntry } from '../models/output-file';
+import type { LeagueTableEntry, SeasonInfo, TierMetadata } from '../models/output-file';
 
 export type DataSource = 'promotion' | 'overview';
+export type PageSource = DataSource | 'both';
 export type TestPages = Page[];
 
 export interface Page {
-  url: string; //url to the wikipedia page we are testing
+  urls: Partial<Record<DataSource, string>>; // Wikipedia page urls keyed by parser flow
   season: string; //string year season key to use to find the season in the file
   tests: TestCasesForPage;
-  source?: DataSource; // Which Wikipedia parsing flow to validate (default: promotion)
+  source?: PageSource; // Which Wikipedia parsing flow to validate (default: promotion)
 }
 
 export interface TestCasesForPage {
   promoted?: string[];
   relegated?: string[];
+  seasonInfo?: Partial<SeasonInfo>;
   tableEntries?: TableEntryTest[];
+  tierMetadataEntries?: TierMetadataEntryTest[];
   //We can add more areas & ways to test the page later
 }
 
-export type TierKey = 'tier1' | 'tier2';
+export type TierKey = 'tier1' | 'tier2' | 'tier3' | 'tier4' | 'tier5';
 
 export interface TableEntryTest {
   tier: TierKey;
   data: Partial<LeagueTableEntry> & { team: string };
+}
+
+export interface TierMetadataEntryTest {
+  tier: TierKey;
+  data: Partial<TierMetadata>;
 }

@@ -2,14 +2,17 @@ import { jest } from '@jest/globals';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { WIKIPEDIA_DATA_SOURCES, isWikipediaWarSuspensionYear } from '../config.js';
+import { WIKIPEDIA_DATA_SOURCES } from '../config.js';
 import { canonicalizeTeamName } from '../data/data-quality-config.js';
 import {
   buildSeasonOverviewSeasonRecord,
   fetchSeasonOverviewTables,
 } from '../builders/parse-ext-season-overview-pages.js';
 import { constructTier1SeasonResults, fetchSeasonTeams } from '../builders/parse-season-pages.js';
+import { fetchWikipediaSeasonPage } from '../parser-core/page-fetcher.js';
 import testPages from './config.js';
+import { findNextComparableSeasonRecord, isPlaceholderSeasonRecord } from './dataset-continuity.js';
+import { getRequestedPageSources, parseRequestedSources } from './source-selection.js';
 
 const TEST_TIMEOUT_MS = 120_000;
 jest.setTimeout(TEST_TIMEOUT_MS);
@@ -55,6 +58,10 @@ function slugFromUrl(url) {
   return decodeURIComponent(slug);
 }
 
+function getPageUrlForSource(page, sourceKey) {
+  return page.urls?.[sourceKey] || null;
+}
+
 function getSavedDataset(sourceKey) {
   const dataset = savedDatasets[sourceKey];
   if (dataset) return dataset;
@@ -76,11 +83,6 @@ function getSavedSeasonRecord(sourceKey, season) {
   }
 
   return seasonRecord;
-}
-
-function getSavedSeasonRecordMaybe(sourceKey, season) {
-  const dataset = getSavedDataset(sourceKey);
-  return dataset.seasons?.[String(season)] || null;
 }
 
 function getSeasonInfoFromRecord(seasonRecord) {
@@ -176,6 +178,16 @@ function assertSavedMetadataIntegrity(page, sourceKey, seasonRecord) {
   }
 
   const tierEntries = getTierEntriesFromRecord(seasonRecord);
+  if (!tierEntries.length && isPlaceholderSeasonRecord(seasonRecord)) {
+    if (sourceKey !== 'overview') {
+      throw new Error(`Only overview fixtures may use placeholder seasons (${page.season})`);
+    }
+    if (typeof seasonInfo.officialLeagueTables !== 'boolean') {
+      throw new Error(`Placeholder season ${page.season} missing officialLeagueTables flag`);
+    }
+    return;
+  }
+
   if (!tierEntries.length) {
     throw new Error(`No tier data found for ${page.season}`);
   }
@@ -268,10 +280,13 @@ function collectTransitionTeamsFromSeasonRecord(sourceKey, seasonRecord) {
 
 function assertSavedContinuity(page, sourceKey, seasonRecord) {
   const season = Number(page.season);
-  const nextSeason = season + 1;
-  const nextRecord = getSavedSeasonRecordMaybe(sourceKey, nextSeason);
+  const nextDataset = getSavedDataset(sourceKey);
+  const { season: nextSeason, record: nextRecord } = findNextComparableSeasonRecord(
+    nextDataset,
+    season
+  );
+
   if (!nextRecord) {
-    if (isWikipediaWarSuspensionYear(nextSeason)) return;
     throw new Error(
       `Saved continuity check needs next season ${nextSeason}, but it is missing for source ${sourceKey}`
     );
@@ -390,26 +405,20 @@ async function assertSection(label, fn) {
   }
 }
 
-const ALLOWED_SOURCES = Object.freeze(['promotion', 'overview']);
-const requestedSourcesEnv = process.env.WIKI_TEST_SOURCE
-  ? process.env.WIKI_TEST_SOURCE.split(',')
-      .map((value) => value.trim())
-      .filter(Boolean)
-  : null;
-let requestedSources = null;
-if (requestedSourcesEnv && requestedSourcesEnv.length) {
-  requestedSources = new Set();
-  for (const value of requestedSourcesEnv) {
-    if (!ALLOWED_SOURCES.includes(value)) {
+function verifySeasonInfoFields(page, actualSeasonInfo, expectedSeasonInfo = {}) {
+  for (const [key, expectedValue] of Object.entries(expectedSeasonInfo)) {
+    if (JSON.stringify(actualSeasonInfo?.[key]) !== JSON.stringify(expectedValue)) {
       throw new Error(
-        `Unsupported WIKI_TEST_SOURCE value "${value}". Allowed sources: ${ALLOWED_SOURCES.join(
-          ', '
-        )}`
+        `Season info mismatch for ${page.season} ${key}: expected ${JSON.stringify(
+          expectedValue
+        )}, got ${JSON.stringify(actualSeasonInfo?.[key])}`
       );
     }
-    requestedSources.add(value);
   }
 }
+
+const requestedSourcesEnv = process.env.WIKI_TEST_SOURCE || null;
+const requestedSources = parseRequestedSources(requestedSourcesEnv);
 
 const sourceHandlers = {
   promotion: async ({ page, slug, seasonYear, sourceKey }) => {
@@ -542,69 +551,160 @@ function verifyTableEntries(page, expectations = [], results, savedSeasonRecord)
   }
 }
 
+function verifyTierMetadataEntries(page, expectations = [], results, savedSeasonRecord) {
+  if (!Array.isArray(expectations) || expectations.length === 0) return;
+
+  for (const expectation of expectations) {
+    const { tier, data } = expectation;
+    const liveMetadata = results?.[tier]?.metadata;
+    const savedMetadata = savedSeasonRecord?.[tier]?.metadata;
+
+    if (!liveMetadata) {
+      throw new Error(
+        `Live results missing ${tier} metadata for season ${page.season} (${page.url})`
+      );
+    }
+    if (!savedMetadata) {
+      throw new Error(
+        `Saved dataset missing ${tier} metadata for season ${page.season} (${page.url})`
+      );
+    }
+
+    for (const [key, expectedValue] of Object.entries(data || {})) {
+      if (liveMetadata[key] !== expectedValue) {
+        throw new Error(
+          `Live metadata mismatch for ${page.season} ${tier}.${key}: expected ${expectedValue}, got ${liveMetadata[key]}`
+        );
+      }
+      if (savedMetadata[key] !== expectedValue) {
+        throw new Error(
+          `Saved metadata mismatch for ${page.season} ${tier}.${key}: expected ${expectedValue}, got ${savedMetadata[key]}`
+        );
+      }
+    }
+  }
+}
+
 describe('Wikipedia promotion/relegation integration', () => {
   let hasMatchingPages = false;
   for (const page of testPages) {
-    const slug = slugFromUrl(page.url);
-    const seasonYear = Number(page.season);
-    const testTitle = `${seasonYear} – ${slug}`;
-    const sourceKey = page.source || 'promotion';
-    if (requestedSources && !requestedSources.has(sourceKey)) {
-      continue;
-    }
-    hasMatchingPages = true;
-    const handler = sourceHandlers[sourceKey];
-    if (!handler) {
-      throw new Error(`Unsupported data source "${sourceKey}" for season ${page.season}`);
-    }
+    for (const sourceKey of getRequestedPageSources(page, requestedSources)) {
+      hasMatchingPages = true;
+      const handler = sourceHandlers[sourceKey];
+      if (!handler) {
+        throw new Error(`Unsupported data source "${sourceKey}" for season ${page.season}`);
+      }
 
-    test(
-      testTitle,
-      async () => {
-        const { summary, tierRecords } = await handler({
-          page,
-          slug,
-          seasonYear,
-          sourceKey,
-        });
-        const expected = page.tests || {};
+      const pageUrl = getPageUrlForSource(page, sourceKey);
+      if (!pageUrl) {
+        throw new Error(`Missing ${sourceKey} url for season ${page.season}`);
+      }
+      const slug = slugFromUrl(pageUrl);
+      const seasonYear = Number(page.season);
+      const testTitle = `${seasonYear} [${sourceKey}] – ${slug}`;
 
-        await assertSection(
-          `${describeSource(sourceKey)} – promotion/relegation comparison`,
-          () => {
-            verifyTeams(page, 'promoted', summary.promoted ?? [], expected.promoted ?? []);
-            verifyTeams(page, 'relegated', summary.relegated ?? [], expected.relegated ?? []);
+      test(
+        testTitle,
+        async () => {
+          const sourcedPage = { ...page, url: pageUrl };
+          const expected = page.tests || {};
+          const expectsPlaceholder = Boolean(expected.seasonInfo?.competitionStatus);
+          let summary;
+          let tierRecords;
+
+          if (expectsPlaceholder) {
+            await assertSection(`${describeSource(sourceKey)} – fetch page`, async () => {
+              const fetchedPage = await fetchWikipediaSeasonPage(slug);
+              if (!fetchedPage?.html) {
+                throw new Error(`Failed to fetch ${slug}`);
+              }
+            });
+            summary = {
+              promoted: [],
+              relegated: [],
+            };
+            tierRecords = null;
+          } else {
+            ({ summary, tierRecords } = await handler({
+              page: sourcedPage,
+              slug,
+              seasonYear,
+              sourceKey,
+            }));
           }
-        );
 
-        const savedSeasonRecord = await assertSection(`Saved dataset (${sourceKey}) lookup`, () =>
-          getSavedSeasonRecord(sourceKey, page.season)
-        );
-        await assertSection(`Saved dataset (${sourceKey}) metadata comparison`, () => {
-          assertSavedMetadataIntegrity({ ...page, slug }, sourceKey, savedSeasonRecord);
-        });
-
-        await assertSection(`Saved dataset (${sourceKey}) promotion/relegation comparison`, () => {
-          const savedTeams = collectSavedTeams(savedSeasonRecord);
-          verifyTeamsContain(page, 'saved promoted', savedTeams.promoted, expected.promoted ?? []);
-          verifyTeamsContain(
-            page,
-            'saved relegated',
-            savedTeams.relegated,
-            expected.relegated ?? []
+          await assertSection(
+            `${describeSource(sourceKey)} – promotion/relegation comparison`,
+            () => {
+              verifyTeams(sourcedPage, 'promoted', summary.promoted ?? [], expected.promoted ?? []);
+              verifyTeams(
+                sourcedPage,
+                'relegated',
+                summary.relegated ?? [],
+                expected.relegated ?? []
+              );
+            }
           );
-        });
 
-        await assertSection(`Saved dataset (${sourceKey}) continuity`, () =>
-          assertSavedContinuity({ ...page, slug }, sourceKey, savedSeasonRecord)
-        );
+          const savedSeasonRecord = await assertSection(`Saved dataset (${sourceKey}) lookup`, () =>
+            getSavedSeasonRecord(sourceKey, page.season)
+          );
+          await assertSection(`Saved dataset (${sourceKey}) metadata comparison`, () => {
+            assertSavedMetadataIntegrity({ ...sourcedPage, slug }, sourceKey, savedSeasonRecord);
+            verifySeasonInfoFields(
+              sourcedPage,
+              getSeasonInfoFromRecord(savedSeasonRecord),
+              expected.seasonInfo ?? {}
+            );
+          });
 
-        await assertSection(`${describeSource(sourceKey)} – table entry assertions`, () =>
-          verifyTableEntries(page, expected.tableEntries ?? [], tierRecords, savedSeasonRecord)
-        );
-      },
-      TEST_TIMEOUT_MS
-    );
+          await assertSection(
+            `Saved dataset (${sourceKey}) promotion/relegation comparison`,
+            () => {
+              const savedTeams = collectSavedTeams(savedSeasonRecord);
+              verifyTeamsContain(
+                sourcedPage,
+                'saved promoted',
+                savedTeams.promoted,
+                expected.promoted ?? []
+              );
+              verifyTeamsContain(
+                sourcedPage,
+                'saved relegated',
+                savedTeams.relegated,
+                expected.relegated ?? []
+              );
+            }
+          );
+
+          if (!expectsPlaceholder) {
+            await assertSection(`Saved dataset (${sourceKey}) continuity`, () =>
+              assertSavedContinuity({ ...sourcedPage, slug }, sourceKey, savedSeasonRecord)
+            );
+          }
+
+          if (!expectsPlaceholder) {
+            await assertSection(`${describeSource(sourceKey)} – table entry assertions`, () =>
+              verifyTableEntries(
+                sourcedPage,
+                expected.tableEntries ?? [],
+                tierRecords,
+                savedSeasonRecord
+              )
+            );
+            await assertSection(`${describeSource(sourceKey)} – tier metadata assertions`, () =>
+              verifyTierMetadataEntries(
+                sourcedPage,
+                expected.tierMetadataEntries ?? [],
+                tierRecords,
+                savedSeasonRecord
+              )
+            );
+          }
+        },
+        TEST_TIMEOUT_MS
+      );
+    }
   }
   if (!hasMatchingPages) {
     const allowedDescription = requestedSourcesEnv?.join(', ') || '';
