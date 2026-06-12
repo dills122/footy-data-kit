@@ -13,6 +13,8 @@ import { isExpansionTeam, wasPromoted, wasRelegated } from '../utils.js';
 /** @typedef {import('./models/output-file').FootballData} FootballData */
 /** @typedef {import('./models/output-file').SeasonInfo} SeasonInfo */
 /** @typedef {import('./models/output-file').DatasetMetadata} DatasetMetadata */
+/** @typedef {import('./models/output-file').ClubMetadata} ClubMetadata */
+/** @typedef {import('./models/output-file').ClubsMap} ClubsMap */
 
 const NUMBER_FIELDS = [
   'pos',
@@ -67,6 +69,26 @@ function normalizeStringArray(value) {
   );
 }
 
+function normalizeSeasonNumberArray(value) {
+  if (!Array.isArray(value)) return [];
+  return Array.from(
+    new Set(
+      value
+        .map((entry) => toSeasonNumberOrNull(entry))
+        .filter((entry) => Number.isInteger(entry))
+    )
+  ).sort((a, b) => a - b);
+}
+
+/**
+ * @param {unknown} value
+ */
+function toSeasonNumberOrNull(value) {
+  if (value == null || value === '') return null;
+  const parsed = Number.parseInt(String(value), 10);
+  return Number.isFinite(parsed) ? parsed : null;
+}
+
 function normalizeBuildOptions(value) {
   if (!value || typeof value !== 'object' || Array.isArray(value)) return undefined;
   const entries = Object.entries(value)
@@ -102,6 +124,279 @@ function normaliseDatasetMetadata(value) {
       return true;
     })
   );
+}
+
+/**
+ * @param {unknown} value
+ */
+function normaliseClubNameHistory(value) {
+  if (!Array.isArray(value)) return [];
+  const seen = new Set();
+  const history = [];
+
+  for (const item of value) {
+    if (!item || typeof item !== 'object') continue;
+    const name = toStringValue(item.name);
+    if (!name) continue;
+
+    const normalizedItem = {
+      name,
+      startSeason: toSeasonNumberOrNull(item.startSeason),
+      endSeason: toSeasonNumberOrNull(item.endSeason),
+      notes: toStringValue(item.notes),
+    };
+    const dedupeKey = JSON.stringify(normalizedItem);
+    if (seen.has(dedupeKey)) continue;
+    seen.add(dedupeKey);
+
+    history.push(
+      Object.fromEntries(Object.entries(normalizedItem).filter(([, entry]) => entry != null))
+    );
+  }
+
+  return history;
+}
+
+/**
+ * @param {unknown} value
+ */
+function normaliseClubFinancialEvents(value) {
+  if (!Array.isArray(value)) return [];
+  const events = [];
+  const seen = new Set();
+
+  for (const item of value) {
+    if (!item || typeof item !== 'object') continue;
+    const type = toStringValue(item.type);
+    if (!type) continue;
+
+    const seasonsMissed = Array.isArray(item.seasonsMissed)
+      ? Array.from(
+          new Set(
+            item.seasonsMissed
+              .map((entry) => toSeasonNumberOrNull(entry))
+              .filter((entry) => Number.isInteger(entry))
+          )
+        ).sort((a, b) => a - b)
+      : [];
+    const normalizedItem = {
+      type,
+      startSeason: toSeasonNumberOrNull(item.startSeason),
+      endSeason: toSeasonNumberOrNull(item.endSeason),
+      seasonsMissed,
+      notes: toStringValue(item.notes),
+    };
+    const dedupeKey = JSON.stringify(normalizedItem);
+    if (seen.has(dedupeKey)) continue;
+    seen.add(dedupeKey);
+
+    events.push(
+      Object.fromEntries(
+        Object.entries(normalizedItem).filter(([key, entry]) => {
+          if (entry == null) return false;
+          if (Array.isArray(entry)) return key === 'seasonsMissed' ? entry.length > 0 : true;
+          return true;
+        })
+      )
+    );
+  }
+
+  return events;
+}
+
+/**
+ * @param {unknown} value
+ */
+function normaliseObservedNamePeriods(value) {
+  if (!Array.isArray(value)) return [];
+  const periods = [];
+
+  for (const item of value) {
+    if (!item || typeof item !== 'object') continue;
+    const name = toStringValue(item.name);
+    const startSeason = toSeasonNumberOrNull(item.startSeason);
+    const endSeason = toSeasonNumberOrNull(item.endSeason);
+    if (!name || startSeason == null || endSeason == null) continue;
+    periods.push({ name, startSeason, endSeason });
+  }
+
+  return periods.sort((a, b) => a.startSeason - b.startSeason || a.name.localeCompare(b.name));
+}
+
+/**
+ * @param {unknown} value
+ */
+function normaliseTierSeasons(value) {
+  if (!Array.isArray(value)) return [];
+  const tiers = [];
+
+  for (const item of value) {
+    if (!item || typeof item !== 'object') continue;
+    const tierKey = toStringValue(item.tierKey);
+    const seasons = normalizeSeasonNumberArray(item.seasons);
+    if (!tierKey || !seasons.length) continue;
+    tiers.push({ tierKey, seasons });
+  }
+
+  return tiers.sort((a, b) => a.tierKey.localeCompare(b.tierKey));
+}
+
+/**
+ * @param {unknown} value
+ */
+function normaliseCoverageGaps(value) {
+  if (!Array.isArray(value)) return [];
+  const gaps = [];
+
+  for (const item of value) {
+    if (!item || typeof item !== 'object') continue;
+    const startSeason = toSeasonNumberOrNull(item.startSeason);
+    const endSeason = toSeasonNumberOrNull(item.endSeason);
+    const length = toSeasonNumberOrNull(item.length);
+    if (startSeason == null || endSeason == null || length == null) continue;
+    gaps.push({ startSeason, endSeason, length });
+  }
+
+  return gaps.sort((a, b) => a.startSeason - b.startSeason);
+}
+
+/**
+ * @param {unknown} value
+ */
+function normaliseClubDerivedMetadata(value) {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return undefined;
+
+  const seasonsSeen = normalizeSeasonNumberArray(value.seasonsSeen);
+  const totalSeasonsSeen = Number.isFinite(Number(value.totalSeasonsSeen))
+    ? Number(value.totalSeasonsSeen)
+    : seasonsSeen.length || null;
+  const derived = {
+    source: toStringValue(value.source),
+    aliases: normalizeStringArray(value.aliases),
+    observedNamePeriods: normaliseObservedNamePeriods(value.observedNamePeriods),
+    firstSeenSeason: toSeasonNumberOrNull(value.firstSeenSeason),
+    lastSeenSeason: toSeasonNumberOrNull(value.lastSeenSeason),
+    seasonsSeen,
+    totalSeasonsSeen,
+    tiersSeen: normalizeStringArray(value.tiersSeen).sort(),
+    tierSeasons: normaliseTierSeasons(value.tierSeasons),
+    coverageGaps: normaliseCoverageGaps(value.coverageGaps),
+  };
+
+  const cleaned = Object.fromEntries(
+    Object.entries(derived).filter(([, entry]) => {
+      if (entry == null) return false;
+      if (Array.isArray(entry)) return entry.length > 0;
+      return true;
+    })
+  );
+
+  return Object.keys(cleaned).length ? cleaned : undefined;
+}
+
+/**
+ * @param {unknown} value
+ * @param {string} fallbackKey
+ * @returns {ClubMetadata | null}
+ */
+function normaliseClubRecord(value, fallbackKey) {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return null;
+
+  const canonicalName = toStringValue(value.canonicalName) || toStringValue(fallbackKey);
+  if (!canonicalName) return null;
+
+  const normalized = {
+    canonicalName,
+    derived: normaliseClubDerivedMetadata(value.derived),
+    founded: toStringValue(value.founded),
+    dissolved: toStringValue(value.dissolved),
+    nameHistory: normaliseClubNameHistory(value.nameHistory),
+    financialEvents: normaliseClubFinancialEvents(value.financialEvents),
+    notes: toStringValue(value.notes),
+    sourceUrl: toStringValue(value.sourceUrl),
+  };
+
+  const cleaned = Object.fromEntries(
+    Object.entries(normalized).filter(([key, entry]) => {
+      if (entry == null) return false;
+      if (Array.isArray(entry)) {
+        if (key === 'nameHistory' || key === 'financialEvents') return entry.length > 0;
+      }
+      if (typeof entry === 'object') return Object.keys(entry).length > 0;
+      return true;
+    })
+  );
+
+  return /** @type {ClubMetadata} */ (cleaned);
+}
+
+/**
+ * @param {unknown} value
+ * @returns {ClubsMap | undefined}
+ */
+export function normaliseClubsMap(value) {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return undefined;
+
+  /** @type {ClubsMap} */
+  const clubs = {};
+
+  for (const [key, clubValue] of Object.entries(value)) {
+    const normalized = normaliseClubRecord(clubValue, key);
+    if (!normalized) continue;
+    clubs[key] = normalized;
+  }
+
+  return Object.keys(clubs).length ? clubs : undefined;
+}
+
+/**
+ * @param {ClubsMap | undefined} target
+ * @param {ClubsMap | undefined} source
+ * @returns {ClubsMap | undefined}
+ */
+export function mergeClubsMap(target, source) {
+  if (!source || !Object.keys(source).length) return target;
+  if (!target || !Object.keys(target).length) return { ...source };
+
+  /** @type {ClubsMap} */
+  const merged = { ...target };
+  const sourceEntries = Object.entries(source);
+
+  for (const [clubKey, incomingClub] of sourceEntries) {
+    const existingClub = merged[clubKey];
+    if (!existingClub) {
+      merged[clubKey] = incomingClub;
+      continue;
+    }
+
+    const existingNameHistory = Array.isArray(existingClub.nameHistory) ? existingClub.nameHistory : [];
+    const incomingNameHistory = Array.isArray(incomingClub.nameHistory) ? incomingClub.nameHistory : [];
+    const existingFinancialEvents = Array.isArray(existingClub.financialEvents)
+      ? existingClub.financialEvents
+      : [];
+    const incomingFinancialEvents = Array.isArray(incomingClub.financialEvents)
+      ? incomingClub.financialEvents
+      : [];
+
+    const nameHistory = normaliseClubNameHistory([...existingNameHistory, ...incomingNameHistory]);
+    const financialEvents = normaliseClubFinancialEvents([
+      ...existingFinancialEvents,
+      ...incomingFinancialEvents,
+    ]);
+
+    merged[clubKey] = /** @type {ClubMetadata} */ ({
+      canonicalName: incomingClub.canonicalName || existingClub.canonicalName || clubKey,
+      derived: incomingClub.derived ?? existingClub.derived,
+      founded: incomingClub.founded ?? existingClub.founded ?? null,
+      dissolved: incomingClub.dissolved ?? existingClub.dissolved ?? null,
+      notes: incomingClub.notes ?? existingClub.notes ?? null,
+      sourceUrl: incomingClub.sourceUrl ?? existingClub.sourceUrl ?? null,
+      ...(nameHistory.length ? { nameHistory } : {}),
+      ...(financialEvents.length ? { financialEvents } : {}),
+    });
+  }
+
+  return merged;
 }
 
 function getCurrentGitSha(cwd = process.cwd()) {
@@ -509,9 +804,15 @@ export function createFootballData(initial) {
     initial && typeof initial === 'object' && 'metadata' in initial
       ? normaliseDatasetMetadata(initial.metadata)
       : undefined;
+  const clubs =
+    initial && typeof initial === 'object' && 'clubs' in initial
+      ? normaliseClubsMap(initial.clubs)
+      : undefined;
   const seasonsSource =
     initial && typeof initial === 'object' && 'seasons' in initial
       ? /** @type {Record<string, unknown>} */ (initial?.seasons)
+      : initial && typeof initial === 'object' && ('clubs' in initial || 'metadata' in initial)
+      ? {}
       : /** @type {Record<string, unknown>} */ (initial || {});
 
   /** @type {SeasonsMap} */
@@ -526,6 +827,7 @@ export function createFootballData(initial) {
 
   return /** @type {FootballData} */ ({
     ...(metadata ? { metadata } : {}),
+    ...(clubs ? { clubs } : {}),
     seasons,
   });
 }
@@ -667,6 +969,9 @@ export function mergeFootballData(target, source) {
   if (source.metadata) {
     target.metadata = source.metadata;
   }
+  if (source.clubs) {
+    target.clubs = mergeClubsMap(target.clubs, source.clubs);
+  }
 
   for (const [seasonKey, seasonValue] of Object.entries(source.seasons)) {
     setSeasonRecord(target, seasonKey, seasonValue);
@@ -735,6 +1040,8 @@ export function updateFootballDataFile(filePath, seasonKey, tierKey, tierValue, 
 export default {
   buildDatasetMetadata,
   createFootballData,
+  normaliseClubsMap,
+  mergeClubsMap,
   normaliseLeagueTableEntry,
   buildTierData,
   upsertSeasonTier,

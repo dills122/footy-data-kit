@@ -1,9 +1,11 @@
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
+import { jest } from '@jest/globals';
 import {
   combineFootballDataFiles,
   groupMissingSeasons,
+  runCli,
   splitSeasonEntriesForOutput,
 } from '../data/combine-output-files.js';
 
@@ -801,6 +803,137 @@ describe('combine-output-files CLI', () => {
       'Manchester City',
     ]);
     expect(result.dataset.seasons['1898'].seasonInfo.relegated).toEqual(['Bolton Wanderers']);
+  });
+
+  test('combineFootballDataFiles merges top-level clubs from dataset files and sidecar club metadata files', () => {
+    const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'combine-output-test-'));
+    tmpDirs.push(tmpDir);
+
+    const seasonInput = path.join(tmpDir, 'season-input.json');
+    const clubInput = path.join(tmpDir, 'club-input.json');
+    const outputFile = path.join(tmpDir, 'merged.json');
+
+    fs.writeFileSync(
+      seasonInput,
+      JSON.stringify(
+        {
+          clubs: {
+            Arsenal: {
+              canonicalName: 'Arsenal',
+              founded: '1886',
+              nameHistory: [{ name: 'Woolwich Arsenal', startSeason: 1886, endSeason: 1912 }],
+            },
+          },
+          seasons: {
+            1900: {
+              tier1: {
+                season: 1900,
+                table: [],
+                promoted: [],
+                relegated: [],
+              },
+            },
+          },
+        },
+        null,
+        2
+      )
+    );
+
+    fs.writeFileSync(
+      clubInput,
+      JSON.stringify(
+        {
+          Arsenal: {
+            canonicalName: 'Arsenal',
+            financialEvents: [{ type: 'administration', startSeason: 1910, endSeason: 1911 }],
+          },
+          'Birmingham City': {
+            canonicalName: 'Birmingham City',
+            founded: '1875',
+            nameHistory: [{ name: 'Small Heath', startSeason: 1875, endSeason: 1905 }],
+          },
+        },
+        null,
+        2
+      )
+    );
+
+    const result = combineFootballDataFiles({
+      inputs: [seasonInput],
+      clubMetadataInputs: [clubInput],
+      output: outputFile,
+      cwd: process.cwd(),
+    });
+
+    expect(result.dataset.clubs).toBeDefined();
+    expect(result.dataset.clubs.Arsenal).toEqual({
+      canonicalName: 'Arsenal',
+      founded: '1886',
+      nameHistory: [{ name: 'Woolwich Arsenal', startSeason: 1886, endSeason: 1912 }],
+      financialEvents: [{ type: 'administration', startSeason: 1910, endSeason: 1911 }],
+    });
+    expect(result.dataset.clubs['Birmingham City']).toEqual({
+      canonicalName: 'Birmingham City',
+      founded: '1875',
+      nameHistory: [{ name: 'Small Heath', startSeason: 1875, endSeason: 1905 }],
+    });
+  });
+
+  test('runCli accepts club metadata before the input file', () => {
+    const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'combine-output-test-'));
+    tmpDirs.push(tmpDir);
+
+    const seasonInput = path.join(tmpDir, 'season-input.json');
+    const clubInput = path.join(tmpDir, 'club-input.json');
+    const outputFile = path.join(tmpDir, 'merged.json');
+    const consoleSpy = jest.spyOn(console, 'log').mockImplementation(() => {});
+
+    fs.writeFileSync(
+      seasonInput,
+      JSON.stringify({
+        seasons: {
+          2024: {
+            tier1: {
+              season: 2024,
+              table: [{ team: 'Arsenal' }],
+              promoted: [],
+              relegated: [],
+            },
+          },
+        },
+      })
+    );
+    fs.writeFileSync(
+      clubInput,
+      JSON.stringify({
+        clubs: {
+          arsenal: {
+            canonicalName: 'Arsenal',
+            derived: {
+              aliases: ['Arsenal'],
+              seasonsSeen: [2024],
+            },
+          },
+        },
+      })
+    );
+
+    try {
+      const result = runCli([
+        'node',
+        'combine-output-files.js',
+        '--output',
+        outputFile,
+        '--club-metadata',
+        clubInput,
+        seasonInput,
+      ]);
+
+      expect(result.dataset.clubs.arsenal.derived.seasonsSeen).toEqual([2024]);
+    } finally {
+      consoleSpy.mockRestore();
+    }
   });
 
   test('combineFootballDataFiles throws when an input file is missing', () => {

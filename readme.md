@@ -97,6 +97,7 @@ pnpm test:integration:promotion
 - `wikipedia/` – the main scraper, parsers, and FootballData models.
 - `rsssf/` – legacy RSSSF parsing experiments.
 - `shared/`, `club_names.json` – shared helpers and canonicalised club naming.
+- `data/club-metadata.json` – generated sidecar club metadata derived from the FootballData season outputs.
 
 ## Wikipedia CLI (`wiki-league`)
 
@@ -155,7 +156,8 @@ node rsssf/cli.js scrape --from-file ./rsssf-cache/1960-61.html --from-file ./rs
 
 ## JSON Utilities
 
-- `wikipedia/data/combine-output-files.js` – merge multiple FootballData JSON files, drop war-year placeholders, prefer the richest tier record for each season, and show a grouped “missing seasons” summary. Use `--include-empty` to keep placeholder entries and `--compact` for minified JSON.
+- `wikipedia/data/combine-output-files.js` – merge multiple FootballData JSON files, drop war-year placeholders, prefer the richest tier record for each season, and show a grouped “missing seasons” summary. Use `--include-empty` to keep placeholder entries, `--compact` for minified JSON, and repeat `--club-metadata <file>` to merge sidecar club metadata.
+- `wikipedia/data/generate-club-metadata-seed.js` – derive the layer-1 club metadata sidecar from an existing FootballData JSON file.
 - `wikipedia/data/compare-football-data.js` – compare two FootballData JSON files and report season, tier, table, outcome-list, and metadata changes between releases. Pass `--json` for machine-readable output.
   Pass `--markdown` for a release-note-friendly summary.
 - `scripts/minify-json.js` – shrink JSON files in place or alongside (`foo.min.json`) so they are ready for publishing.
@@ -171,6 +173,18 @@ node rsssf/cli.js scrape --from-file ./rsssf-cache/1960-61.html --from-file ./rs
   - `gitSha`
   - `sourceFiles`
   - `buildOptions`
+- Every FootballData export may also include an optional top-level `clubs` map keyed by canonical club key. Layer-1 metadata is generated from the existing season tables and stored under `derived`:
+  - `canonicalName`
+  - `derived.aliases`
+  - `derived.observedNamePeriods`
+  - `derived.firstSeenSeason`
+  - `derived.lastSeenSeason`
+  - `derived.seasonsSeen`
+  - `derived.tiersSeen`
+  - `derived.tierSeasons`
+  - `derived.coverageGaps`
+- `derived.coverageGaps` means gaps in this dataset's observed league-table coverage, not confirmed inactivity or a financial interruption.
+- Future layer-2 enrichment can add sourced facts such as `founded`, `dissolved`, `nameHistory`, `financialEvents`, `notes`, and `sourceUrl`.
 - Each season contains a `seasonInfo` summary object plus one or more `tierN` objects.
 - `seasonInfo` is not a league table. It is a season-level summary that currently stores:
   - `season`
@@ -195,6 +209,13 @@ node rsssf/cli.js scrape --from-file ./rsssf-cache/1960-61.html --from-file ./rs
 ```bash
 # Build the maintained merged dataset from the overview export
 node wikipedia/data/combine-output-files.js --output ./data-output/all-seasons.json \
+  ./data-output/wiki_overview_tables_by_season.json
+
+# Build all-seasons and merge sidecar club metadata
+node wikipedia/data/generate-club-metadata-seed.js ./data-output/all-seasons.json \
+  --output ./data/club-metadata.json
+node wikipedia/data/combine-output-files.js --output ./data-output/all-seasons.json \
+  --club-metadata ./data/club-metadata.json \
   ./data-output/wiki_overview_tables_by_season.json
 
 # Run the data lint pass on every JSON file under ./data-output

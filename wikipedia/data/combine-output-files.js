@@ -8,6 +8,8 @@ import {
   buildDatasetMetadata,
   createFootballData,
   loadFootballData,
+  mergeClubsMap,
+  normaliseClubsMap,
   saveFootballData,
 } from './generate-output-files.js';
 import {
@@ -24,6 +26,7 @@ import {
 export function combineFootballDataFiles({
   inputs,
   output,
+  clubMetadataInputs = [],
   includeEmpty = false,
   compact = false,
   cwd = process.cwd(),
@@ -46,6 +49,7 @@ export function combineFootballDataFiles({
 
     try {
       const incoming = loadFootballData(resolvedInput);
+      combinedDataset.clubs = mergeClubsMap(combinedDataset.clubs, incoming.clubs);
       totalInputSeasons += Object.keys(incoming.seasons).length;
       for (const [seasonKey, seasonValue] of Object.entries(incoming.seasons)) {
         const existingRecord = combinedDataset.seasons[seasonKey];
@@ -66,6 +70,18 @@ export function combineFootballDataFiles({
     }
   }
 
+  for (const clubMetadataInput of clubMetadataInputs) {
+    const resolvedClubMetadataInput = path.resolve(cwd, clubMetadataInput);
+    if (!fs.existsSync(resolvedClubMetadataInput)) {
+      throw new Error(`Club metadata file not found: ${clubMetadataInput}`);
+    }
+
+    const raw = fs.readFileSync(resolvedClubMetadataInput, 'utf8');
+    const parsed = JSON.parse(raw);
+    const clubs = normaliseClubsMap(parsed?.clubs || parsed);
+    combinedDataset.clubs = mergeClubsMap(combinedDataset.clubs, clubs);
+  }
+
   const mergedSeasonEntries = Object.entries(combinedDataset.seasons);
   const { filteredSeasonEntries, excludedSeasonEntries, removedWarSeasons } =
     splitSeasonEntriesForOutput({
@@ -74,6 +90,7 @@ export function combineFootballDataFiles({
     });
   const excludedCount = excludedSeasonEntries.length;
   const finalDataset = createFootballData({
+    clubs: combinedDataset.clubs,
     seasons: Object.fromEntries(filteredSeasonEntries),
   });
 
@@ -122,13 +139,19 @@ export function runCli(argv = process.argv) {
     .description('Combine multiple FootballData JSON files into a single dataset.')
     .argument('<inputs...>', 'Paths to FootballData JSON files to merge')
     .requiredOption('-o, --output <file>', 'Path to write the merged FootballData JSON file')
+    .option(
+      '--club-metadata <file>',
+      'Optional club metadata file to merge (repeatable; accepts { clubs: {...} } or a direct clubs map)',
+      collectOption,
+      []
+    )
     .option('--include-empty', 'Keep seasons that have no table/promoted/relegated entries', false)
     .option('--compact', 'Write the output without indentation', false);
 
   program.parse(argv);
 
   const inputFiles = program.args;
-  const { output, includeEmpty, compact } = program.opts();
+  const { output, includeEmpty, compact, clubMetadata } = program.opts();
 
   if (!inputFiles.length) {
     program.error('At least one input file must be provided.');
@@ -138,6 +161,7 @@ export function runCli(argv = process.argv) {
     const result = combineFootballDataFiles({
       inputs: inputFiles,
       output,
+      clubMetadataInputs: Array.isArray(clubMetadata) ? clubMetadata : [],
       includeEmpty,
       compact,
       cwd: process.cwd(),
@@ -242,6 +266,10 @@ export function groupMissingSeasons(missingSeasonNumbers) {
   }
 
   return groupedMissing;
+}
+
+function collectOption(value, previous) {
+  return [...previous, value];
 }
 
 export function describeSeasonExclusion(seasonKey, seasonValue) {

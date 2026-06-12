@@ -10,6 +10,7 @@ export const WIKIPEDIA_GENERATORS = Object.freeze({
   promotion: 'wikipedia-promotion',
   overview: 'wikipedia-overview',
   combined: 'wikipedia-combined',
+  clubMetadataSeed: 'club-metadata-seed',
 });
 
 export const WIKIPEDIA_DATA_SOURCES = Object.freeze({
