@@ -103,6 +103,24 @@ describe('parseOverviewLeagueTables', () => {
     expect(result.some((entry) => entry.rows.some((row) => row.team === 'Portsmouth'))).toBe(false);
   });
 
+  test('prefers Football League tables over a preceding League season narrative section', () => {
+    const html = `
+      <div class="mw-heading mw-heading2"><h2 id="League_season">League season</h2></div>
+      <p>Everton won the First Division title during the league season.</p>
+      <div class="mw-heading mw-heading2"><h2 id="Football_League">Football League</h2></div>
+      <div class="mw-heading mw-heading3"><h3 id="First_Division">First Division</h3></div>
+      ${buildTableHtml('Everton', 90)}
+      <div class="mw-heading mw-heading3"><h3 id="Second_Division">Second Division</h3></div>
+      ${buildTableHtml('Oxford United', 80)}
+    `;
+
+    const result = parseOverviewLeagueTables(html);
+    expect(result).toHaveLength(2);
+    expect(result.map((entry) => entry.title)).toEqual(['First Division', 'Second Division']);
+    expect(result[0].rows[0]).toMatchObject({ team: 'Everton', points: 90 });
+    expect(result[1].rows[0]).toMatchObject({ team: 'Oxford United', points: 80 });
+  });
+
   test('ignores Southern League subsections beneath a generic League table root', () => {
     const html = `
       <div class="mw-heading mw-heading2"><h2 id="League_table">League table</h2></div>

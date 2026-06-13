@@ -709,6 +709,66 @@ export const testPages = /** @type {TestPages} */ ([
   },
   {
     urls: {
+      overview: 'https://en.wikipedia.org/wiki/1984%E2%80%9385_in_English_football',
+    },
+    season: '1984',
+    source: 'overview',
+    tests: {
+      promoted: ['Oxford United', 'Birmingham City', 'Manchester City'],
+      relegated: ['Norwich City', 'Sunderland', 'Stoke City'],
+      tableEntries: [
+        {
+          tier: 'tier1',
+          data: {
+            team: 'Everton',
+            wasPromoted: false,
+            wasRelegated: false,
+            points: 90,
+          },
+        },
+        {
+          tier: 'tier1',
+          data: {
+            team: 'Stoke City',
+            wasPromoted: false,
+            wasRelegated: true,
+            points: 17,
+          },
+        },
+        {
+          tier: 'tier2',
+          data: {
+            team: 'Oxford United',
+            wasPromoted: true,
+            wasRelegated: false,
+            points: 84,
+          },
+        },
+      ],
+      tierMetadataEntries: [
+        {
+          tier: 'tier1',
+          data: {
+            title: 'First Division',
+            leagueId: 'First_Division',
+            leagueLevel: 1,
+            tableCount: 4,
+          },
+        },
+        {
+          tier: 'tier4',
+          data: {
+            title: 'Fourth Division',
+            leagueId: 'Fourth_Division',
+            leagueLevel: 4,
+            tableCount: 4,
+          },
+        },
+      ],
+    },
+  },
+  {
+    urls: {
       promotion: 'https://en.wikipedia.org/wiki/1986-87_Football_League',
       overview: 'https://en.wikipedia.org/wiki/1986%E2%80%9387_in_English_football',
     },

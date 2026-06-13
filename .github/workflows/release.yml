@@ -6,13 +6,15 @@ on:
       - 'v*'
 
 permissions:
-  contents: write
-  pages: write
-  id-token: write
+  contents: read
 
 jobs:
   release:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    outputs:
+      tag: ${{ steps.release_meta.outputs.tag }}
 
     steps:
       - name: Checkout code
@@ -84,8 +86,13 @@ jobs:
           cp data/club-metadata.json release-assets/club-metadata.json
           zip -r "release-assets/footy-data-kit-${{ steps.release_meta.outputs.tag }}-data.zip" data-output data/club-metadata.json
 
-      - name: Build docs site
-        run: pnpm docs:build
+      - name: Upload docs site data
+        uses: actions/upload-artifact@v4
+        with:
+          name: docs-site-data
+          path: |
+            data-output
+            data/club-metadata.json
 
       - name: Create GitHub release
         uses: softprops/action-gh-release@v1
@@ -105,13 +112,13 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Configure GitHub Pages
-        uses: actions/configure-pages@v5
-
-      - name: Upload docs site
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: ./docs
-
-      - name: Deploy docs site
-        uses: actions/deploy-pages@v4
+  deploy-docs:
+    needs: release
+    uses: ./.github/workflows/docs-site.yml
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    with:
+      release_tag: ${{ needs.release.outputs.tag }}
+      data_artifact_name: docs-site-data

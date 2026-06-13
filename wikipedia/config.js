@@ -181,6 +181,7 @@ export const WIKIPEDIA_OVERVIEW_CONFIG = Object.freeze({
   sectionHeadingIds: Object.freeze([
     'League_tables',
     'League_table',
+    'Football_League',
     'League_season',
     "League_season_(Men's)",
     'League_competitions',
