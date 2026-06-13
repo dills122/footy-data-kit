@@ -35,6 +35,18 @@ describe('wiki-overview-parser', () => {
     expect(heading.attr('id')).toBe('Football_League');
   });
 
+  test('prefers Football League over a generic League season section', () => {
+    const html = `
+      <h2 id="League_season">League season</h2>
+      <h2 id="Football_League">Football League</h2>
+    `;
+    const $ = cheerio.load(html);
+
+    const heading = findLeagueSectionHeading($);
+    expect(heading?.length).toBe(1);
+    expect(heading.attr('id')).toBe('Football_League');
+  });
+
   test('builds parsed table entries with suppressed promotion flags for top flight', () => {
     const html = `
       <div class="mw-heading mw-heading3"><h3 id="Premier_League">Premier League</h3></div>
