@@ -75,9 +75,10 @@ function getGitTags() {
   }
 }
 
-function getCurrentReleaseTag(packageVersion) {
+function getCurrentReleaseTag(packageVersion, gitTags) {
   const envTag = process.env.DOCS_RELEASE_TAG || process.env.GITHUB_REF_NAME || '';
   if (/^v\d+\.\d+\.\d+/.test(envTag)) return envTag;
+  if (gitTags.length) return [...gitTags].sort(compareTagsDescending)[0];
   return `v${packageVersion}`;
 }
 
@@ -108,8 +109,9 @@ function buildSiteData() {
   const seasonCount = seasonYears.length;
   const clubCount = Object.keys(clubMetadata.clubs || {}).length;
   const latestTierCount = getTierCount(latestSeasonRecord);
-  const currentTag = getCurrentReleaseTag(packageJson.version);
-  const tags = [...new Set([currentTag, ...getGitTags()])].sort(compareTagsDescending);
+  const gitTags = getGitTags();
+  const currentTag = getCurrentReleaseTag(packageJson.version, gitTags);
+  const tags = [...new Set([currentTag, ...gitTags])].sort(compareTagsDescending);
   const releaseSummary = `${firstSeason}-${latestSeason}. ${seasonCount} seasons. ${clubCount} club metadata records.`;
   const latestRelease = {
     ...buildRelease(currentTag, releaseSummary),
