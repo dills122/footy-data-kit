@@ -137,6 +137,56 @@ export interface ClubCoverageGap {
   length: number;
 }
 
+export interface ClubSourceRef {
+  type: string;
+  sourceUrl: string;
+  notes?: string | null;
+}
+
+export interface ClubLifecycleEvent {
+  type: string;
+  season?: number | null;
+  fromSeason?: number | null;
+  toSeason?: number | null;
+  fromName?: string | null;
+  toName?: string | null;
+  description?: string | null;
+  sourceRefs?: ClubSourceRef[];
+}
+
+export interface ClubTrackedMembership {
+  fromSeason: number;
+  toSeason?: number | null;
+  tiers?: string[];
+  basis?: string | null;
+  notes?: string | null;
+  sourceRefs?: ClubSourceRef[];
+}
+
+export interface ClubAbsenceExplanation {
+  fromSeason: number;
+  toSeason?: number | null;
+  reason: string;
+  linkedEventType?: string | null;
+  basis?: string | null;
+  notes?: string | null;
+  sourceRefs?: ClubSourceRef[];
+}
+
+export interface ClubHistory {
+  nameHistory?: ClubNamePeriod[];
+  lifecycleEvents?: ClubLifecycleEvent[];
+  trackedMembership?: ClubTrackedMembership[];
+  absenceExplanations?: ClubAbsenceExplanation[];
+}
+
+export interface ClubStatus {
+  current?: 'active' | 'defunct' | 'renamed' | 'merged' | 'phoenix' | 'unknown' | string;
+  trackedFromSeason?: number | null;
+  trackedToSeason?: number | null;
+  hasUnexplainedGaps?: boolean;
+}
+
 export interface ClubDerivedMetadata {
   source?: string | null;
   aliases?: string[];
@@ -154,7 +204,10 @@ export interface ClubDerivedMetadata {
 }
 
 export interface ClubMetadata {
+  clubId?: string;
   canonicalName: string;
+  status?: ClubStatus;
+  history?: ClubHistory;
   derived?: ClubDerivedMetadata;
   founded?: string | null;
   dissolved?: string | null;
