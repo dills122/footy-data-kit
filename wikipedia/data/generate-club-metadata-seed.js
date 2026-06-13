@@ -6,7 +6,13 @@ import * as fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { WIKIPEDIA_GENERATORS } from '../config.js';
-import { canonicalizeTeamName } from './data-quality-config.js';
+import {
+  CLUB_RELATIONSHIP_RULES,
+  getCanonicalClubName,
+  getClubIdentitySourceRefs,
+  TEMPORAL_CLUB_IDENTITY_RULES,
+} from './club-identity-config.js';
+import { canonicalizeTeamName, normalizeTeamNameText } from './data-quality-config.js';
 import { buildDatasetMetadata, loadFootballData, normaliseClubsMap } from './generate-output-files.js';
 import { getTierKeys, getTierTable, sortSeasonKeys } from './season-rules.js';
 
@@ -43,14 +49,46 @@ function incrementMapValue(map, key) {
 function createAccumulator(clubKey, teamName) {
   return {
     clubKey,
-    canonicalName: teamName,
+    canonicalName: getCanonicalClubName(clubKey, teamName),
     latestSeenSeason: null,
     aliasCounts: new Map(),
     aliasSeasons: new Map(),
+    aliasTiers: new Map(),
+    identitySources: new Map(),
+    relationships: new Map(),
     seasonsSeen: new Set(),
     tiersSeen: new Set(),
     tierSeasons: new Map(),
   };
+}
+
+function relationshipDirectionForSource(relationship) {
+  if (relationship === 'merger') return 'mergedInto';
+  if (relationship === 'relocation') return 'relocatedTo';
+  if (relationship === 'supporterPhoenix') return 'supporterFounded';
+  return 'successor';
+}
+
+function relationshipDirectionForTarget(relationship) {
+  if (relationship === 'merger') return 'formedFrom';
+  if (relationship === 'relocation') return 'relocatedFrom';
+  if (relationship === 'supporterPhoenix') return 'formedBySupportersOf';
+  return 'predecessor';
+}
+
+function addClubRelationship(accumulator, relationship) {
+  const dedupeKey = `${relationship.clubKey}:${relationship.relationship}:${relationship.direction}`;
+  accumulator.relationships.set(dedupeKey, relationship);
+}
+
+function addIdentitySourceRefs(accumulator, sourceRefs) {
+  for (const sourceRef of sourceRefs || []) {
+    if (!sourceRef?.sourceUrl) continue;
+    accumulator.identitySources.set(
+      `${sourceRef.type || 'source'}:${sourceRef.sourceUrl}`,
+      sourceRef
+    );
+  }
 }
 
 function addAliasSeason(accumulator, teamName, seasonNumber) {
@@ -59,6 +97,13 @@ function addAliasSeason(accumulator, teamName, seasonNumber) {
     accumulator.aliasSeasons.set(teamName, new Set());
   }
   accumulator.aliasSeasons.get(teamName).add(seasonNumber);
+}
+
+function addAliasTier(accumulator, teamName, tierKey) {
+  if (!accumulator.aliasTiers.has(teamName)) {
+    accumulator.aliasTiers.set(teamName, new Set());
+  }
+  accumulator.aliasTiers.get(teamName).add(tierKey);
 }
 
 function addTierSeason(accumulator, tierKey, seasonNumber) {
@@ -70,10 +115,23 @@ function addTierSeason(accumulator, tierKey, seasonNumber) {
 }
 
 function maybeUpdateCanonicalName(accumulator, teamName, seasonNumber) {
+  if (getCanonicalClubName(accumulator.clubKey, null)) return;
   if (accumulator.latestSeenSeason == null || seasonNumber >= accumulator.latestSeenSeason) {
     accumulator.canonicalName = teamName;
     accumulator.latestSeenSeason = seasonNumber;
   }
+}
+
+function resolveClubKey(teamName, seasonNumber) {
+  for (const rule of TEMPORAL_CLUB_IDENTITY_RULES) {
+    if (teamName !== rule.name) continue;
+    if (rule.startSeason != null && seasonNumber < rule.startSeason) continue;
+    if (rule.endSeason != null && seasonNumber > rule.endSeason) continue;
+    return { clubKey: rule.clubKey, sourceRefs: rule.sourceRefs || [] };
+  }
+
+  const clubKey = canonicalizeTeamName(teamName);
+  return { clubKey, sourceRefs: getClubIdentitySourceRefs(clubKey) };
 }
 
 function buildObservedNamePeriods(aliasSeasons) {
@@ -127,11 +185,44 @@ function buildCoverageGaps(seasonsSeen) {
   return gaps;
 }
 
+function buildObservedNames(aliasSeasons, aliasTiers) {
+  return [...aliasSeasons.entries()]
+    .map(([rawName, seasons]) => {
+      const seasonsSeen = sortedNumbers(seasons);
+      return {
+        rawName,
+        normalizedName: normalizeTeamNameText(rawName),
+        firstSeenSeason: seasonsSeen[0],
+        lastSeenSeason: seasonsSeen[seasonsSeen.length - 1],
+        seasonsSeen,
+        tiersSeen: sortedStrings(aliasTiers.get(rawName) || []),
+      };
+    })
+    .sort((a, b) => a.firstSeenSeason - b.firstSeenSeason || a.rawName.localeCompare(b.rawName));
+}
+
 function buildTierSeasons(tierSeasons) {
   return sortTierKeys(tierSeasons.keys()).map((tierKey) => ({
     tierKey,
     seasons: sortedNumbers(tierSeasons.get(tierKey)),
   }));
+}
+
+function buildIdentitySources(identitySources) {
+  return [...identitySources.values()].sort((a, b) => {
+    const leftType = a.type || '';
+    const rightType = b.type || '';
+    if (leftType !== rightType) return leftType.localeCompare(rightType);
+    return String(a.sourceUrl || '').localeCompare(String(b.sourceUrl || ''));
+  });
+}
+
+function buildRelationships(relationships) {
+  return [...relationships.values()].sort((a, b) => {
+    if (a.clubKey !== b.clubKey) return a.clubKey.localeCompare(b.clubKey);
+    if (a.relationship !== b.relationship) return a.relationship.localeCompare(b.relationship);
+    return a.direction.localeCompare(b.direction);
+  });
 }
 
 function buildClubMetadataRecord(accumulator) {
@@ -142,6 +233,9 @@ function buildClubMetadataRecord(accumulator) {
     derived: {
       source: DERIVED_SOURCE_ID,
       aliases: sortedStrings(accumulator.aliasCounts.keys()),
+      identitySources: buildIdentitySources(accumulator.identitySources),
+      relationships: buildRelationships(accumulator.relationships),
+      observedNames: buildObservedNames(accumulator.aliasSeasons, accumulator.aliasTiers),
       observedNamePeriods: buildObservedNamePeriods(accumulator.aliasSeasons),
       firstSeenSeason: seasonsSeen[0] ?? null,
       lastSeenSeason: seasonsSeen[seasonsSeen.length - 1] ?? null,
@@ -173,25 +267,52 @@ export function buildClubMetadataSeed(dataset) {
         const teamName = row.team.trim();
         if (!teamName) continue;
 
-        const clubKey = canonicalizeTeamName(teamName);
+        const { clubKey, sourceRefs } = resolveClubKey(teamName, seasonNumber);
         if (!clubs.has(clubKey)) {
           clubs.set(clubKey, createAccumulator(clubKey, teamName));
         }
 
         const accumulator = clubs.get(clubKey);
+        addIdentitySourceRefs(accumulator, sourceRefs);
         accumulator.seasonsSeen.add(seasonNumber);
         addAliasSeason(accumulator, teamName, seasonNumber);
+        addAliasTier(accumulator, teamName, tierKey);
         addTierSeason(accumulator, tierKey, seasonNumber);
         maybeUpdateCanonicalName(accumulator, teamName, seasonNumber);
       }
     }
   }
 
+  applyClubRelationshipRules(clubs);
+
   const entries = [...clubs.entries()]
     .map(([clubKey, accumulator]) => [clubKey, buildClubMetadataRecord(accumulator)])
     .sort(([leftKey], [rightKey]) => leftKey.localeCompare(rightKey));
 
   return normaliseClubsMap(Object.fromEntries(entries)) || {};
+}
+
+function applyClubRelationshipRules(clubs) {
+  for (const rule of CLUB_RELATIONSHIP_RULES) {
+    const fromClub = clubs.get(rule.fromClubKey);
+    const toClub = clubs.get(rule.toClubKey);
+    if (fromClub) {
+      addClubRelationship(fromClub, {
+        clubKey: rule.toClubKey,
+        relationship: rule.relationship,
+        direction: relationshipDirectionForSource(rule.relationship),
+        sourceRefs: rule.sourceRefs || [],
+      });
+    }
+    if (toClub) {
+      addClubRelationship(toClub, {
+        clubKey: rule.fromClubKey,
+        relationship: rule.relationship,
+        direction: relationshipDirectionForTarget(rule.relationship),
+        sourceRefs: rule.sourceRefs || [],
+      });
+    }
+  }
 }
 
 export function buildClubMetadataSeedDataset(inputFile, options = {}) {

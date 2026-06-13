@@ -103,6 +103,29 @@ export interface ClubObservedNamePeriod {
   endSeason: number;
 }
 
+export interface ClubObservedName {
+  rawName: string;
+  normalizedName: string;
+  firstSeenSeason: number;
+  lastSeenSeason: number;
+  seasonsSeen: number[];
+  tiersSeen: string[];
+}
+
+export interface ClubIdentitySource {
+  type: string;
+  sourceUrl: string;
+  notes?: string | null;
+}
+
+export interface ClubRelationship {
+  clubKey: string;
+  relationship: string;
+  direction: string;
+  sourceRefs?: ClubIdentitySource[];
+  notes?: string | null;
+}
+
 export interface ClubTierSeasons {
   tierKey: string;
   seasons: number[];
@@ -117,6 +140,9 @@ export interface ClubCoverageGap {
 export interface ClubDerivedMetadata {
   source?: string | null;
   aliases?: string[];
+  identitySources?: ClubIdentitySource[];
+  relationships?: ClubRelationship[];
+  observedNames?: ClubObservedName[];
   observedNamePeriods?: ClubObservedNamePeriod[];
   firstSeenSeason?: number | null;
   lastSeenSeason?: number | null;

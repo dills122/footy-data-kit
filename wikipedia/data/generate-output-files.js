@@ -226,6 +226,110 @@ function normaliseObservedNamePeriods(value) {
 /**
  * @param {unknown} value
  */
+function normaliseObservedNames(value) {
+  if (!Array.isArray(value)) return [];
+  const names = [];
+
+  for (const item of value) {
+    if (!item || typeof item !== 'object') continue;
+    const rawName = toStringValue(item.rawName);
+    const normalizedName = toStringValue(item.normalizedName);
+    const seasonsSeen = normalizeSeasonNumberArray(item.seasonsSeen);
+    if (!rawName || !normalizedName || !seasonsSeen.length) continue;
+
+    names.push({
+      rawName,
+      normalizedName,
+      firstSeenSeason: toSeasonNumberOrNull(item.firstSeenSeason) ?? seasonsSeen[0],
+      lastSeenSeason:
+        toSeasonNumberOrNull(item.lastSeenSeason) ?? seasonsSeen[seasonsSeen.length - 1],
+      seasonsSeen,
+      tiersSeen: normalizeStringArray(item.tiersSeen).sort(),
+    });
+  }
+
+  return names.sort((a, b) => a.firstSeenSeason - b.firstSeenSeason || a.rawName.localeCompare(b.rawName));
+}
+
+/**
+ * @param {unknown} value
+ */
+function normaliseIdentitySources(value) {
+  if (!Array.isArray(value)) return [];
+  const sources = [];
+  const seen = new Set();
+
+  for (const item of value) {
+    if (!item || typeof item !== 'object') continue;
+    const type = toStringValue(item.type);
+    const sourceUrl = toStringValue(item.sourceUrl);
+    if (!type || !sourceUrl) continue;
+
+    const source = {
+      type,
+      sourceUrl,
+      notes: toStringValue(item.notes),
+    };
+    const dedupeKey = `${source.type}:${source.sourceUrl}`;
+    if (seen.has(dedupeKey)) continue;
+    seen.add(dedupeKey);
+
+    sources.push(Object.fromEntries(Object.entries(source).filter(([, entry]) => entry != null)));
+  }
+
+  return sources.sort((a, b) => {
+    if (a.type !== b.type) return a.type.localeCompare(b.type);
+    return a.sourceUrl.localeCompare(b.sourceUrl);
+  });
+}
+
+/**
+ * @param {unknown} value
+ */
+function normaliseClubRelationships(value) {
+  if (!Array.isArray(value)) return [];
+  const relationships = [];
+  const seen = new Set();
+
+  for (const item of value) {
+    if (!item || typeof item !== 'object') continue;
+    const clubKey = toStringValue(item.clubKey);
+    const relationship = toStringValue(item.relationship);
+    const direction = toStringValue(item.direction);
+    if (!clubKey || !relationship || !direction) continue;
+
+    const normalized = {
+      clubKey,
+      relationship,
+      direction,
+      sourceRefs: normaliseIdentitySources(item.sourceRefs),
+      notes: toStringValue(item.notes),
+    };
+    const dedupeKey = `${normalized.clubKey}:${normalized.relationship}:${normalized.direction}`;
+    if (seen.has(dedupeKey)) continue;
+    seen.add(dedupeKey);
+
+    relationships.push(
+      Object.fromEntries(
+        Object.entries(normalized).filter(([, entry]) => {
+          if (entry == null) return false;
+          if (Array.isArray(entry)) return entry.length > 0;
+          return true;
+        })
+      )
+    );
+  }
+
+  return relationships.sort((a, b) => {
+    if (a.clubKey !== b.clubKey) return a.clubKey.localeCompare(b.clubKey);
+    if (a.relationship !== b.relationship) return a.relationship.localeCompare(b.relationship);
+    return a.direction.localeCompare(b.direction);
+  });
+}
+
+/**
+ * @param {unknown} value
+ */
 function normaliseTierSeasons(value) {
   if (!Array.isArray(value)) return [];
   const tiers = [];
@@ -273,6 +377,9 @@ function normaliseClubDerivedMetadata(value) {
   const derived = {
     source: toStringValue(value.source),
     aliases: normalizeStringArray(value.aliases),
+    identitySources: normaliseIdentitySources(value.identitySources),
+    relationships: normaliseClubRelationships(value.relationships),
+    observedNames: normaliseObservedNames(value.observedNames),
     observedNamePeriods: normaliseObservedNamePeriods(value.observedNamePeriods),
     firstSeenSeason: toSeasonNumberOrNull(value.firstSeenSeason),
     lastSeenSeason: toSeasonNumberOrNull(value.lastSeenSeason),

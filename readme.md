@@ -176,6 +176,9 @@ node rsssf/cli.js scrape --from-file ./rsssf-cache/1960-61.html --from-file ./rs
 - Every FootballData export may also include an optional top-level `clubs` map keyed by canonical club key. Layer-1 metadata is generated from the existing season tables and stored under `derived`:
   - `canonicalName`
   - `derived.aliases`
+  - `derived.identitySources[]` with source URLs for curated identity/rename decisions
+  - `derived.relationships[]` for sourced non-alias links such as phoenix clubs, mergers, relocations, and supporter-founded clubs
+  - `derived.observedNames[]` with exact `rawName`, cleaned `normalizedName`, observed seasons, and observed tiers
   - `derived.observedNamePeriods`
   - `derived.firstSeenSeason`
   - `derived.lastSeenSeason`
