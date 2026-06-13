@@ -366,6 +366,73 @@ describe('buildClubMetadataSeed', () => {
     ]);
     expect(seed['accrington stanley 1891'].status.hasUnexplainedGaps).toBe(false);
   });
+
+  test('derives gap explanations from table notes when clubs leave tracked coverage', () => {
+    const dataset = {
+      seasons: {
+        2007: {
+          tier4: {
+            metadata: {
+              sourceUrl: 'https://example.test/2007-08',
+              seasonSlug: '2007-08-example-season',
+              title: 'League Two',
+            },
+            table: [
+              {
+                team: 'Example Town',
+                notes: 'Relegation to 2008–09 Conference National',
+              },
+            ],
+          },
+        },
+        2008: { tier4: { table: [] } },
+        2009: { tier4: { table: [] } },
+        2010: { tier4: { table: [] } },
+        2011: { tier4: { table: [] } },
+        2012: {
+          tier5: {
+            table: [{ team: 'Example Town' }],
+          },
+        },
+      },
+    };
+
+    const seed = buildClubMetadataSeed(dataset);
+
+    expect(seed['example town'].history.lifecycleEvents).toEqual([
+      {
+        type: 'relegated-outside-tracked-coverage',
+        season: 2007,
+        description: 'Relegation to 2008–09 Conference National',
+        sourceRefs: [
+          {
+            type: 'wikipedia-season-page',
+            sourceUrl: 'https://example.test/2007-08',
+            notes: 'League Two table in 2007-08-example-season',
+          },
+        ],
+      },
+    ]);
+    expect(seed['example town'].history.absenceExplanations).toEqual([
+      {
+        fromSeason: 2008,
+        toSeason: 2011,
+        reason: 'outside-tracked-coverage',
+        linkedEventType: 'relegated-outside-tracked-coverage',
+        basis: 'table-note',
+        notes: 'Relegation to 2008–09 Conference National',
+        sourceRefs: [
+          {
+            type: 'wikipedia-season-page',
+            sourceUrl: 'https://example.test/2007-08',
+            notes: 'League Two table in 2007-08-example-season',
+          },
+        ],
+      },
+    ]);
+    expect(seed['example town'].status.hasUnexplainedGaps).toBe(false);
+    expect(analyzeClubContinuity(dataset, { clubs: seed })).toEqual([]);
+  });
 });
 
 describe('analyzeClubContinuity', () => {

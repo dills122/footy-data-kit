@@ -183,7 +183,7 @@ node rsssf/cli.js scrape --from-file ./rsssf-cache/1960-61.html --from-file ./rs
   - `history.nameHistory[]` for source-backed name periods
   - `history.lifecycleEvents[]` for events such as `renamed`, `merged`, `dissolved`, `not-re-elected`, or `phoenix`
   - `history.trackedMembership[]` for the season span where the club is expected in the tracked dataset
-  - `history.absenceExplanations[]` for expected absences using broad reason codes such as `official-competition-paused`, `outside-tracked-tiers`, `club-ceased`, `club-identity-changed`, `data-gap`, or `unknown`
+  - `history.absenceExplanations[]` for expected absences using broad reason codes such as `official-competition-paused`, `outside-tracked-coverage`, `club-inactive`, `club-dissolved`, `club-reformed`, or `unknown`
   - `derived.aliases`
   - `derived.identitySources[]` with source URLs for curated identity/rename decisions
   - `derived.relationships[]` for sourced non-alias links such as phoenix clubs, mergers, relocations, and supporter-founded clubs

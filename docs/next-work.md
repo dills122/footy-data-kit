@@ -15,6 +15,7 @@ Temporary working note for the next phase after the clean dataset release.
    - Expand canonical club-name handling beyond the current minimal alias set.
    - Cover historical rename and spelling variants that affect continuity checks and dataset diffs.
    - Add tests around canonicalisation so future cleanup work is less manual.
+   - Use [club-metadata-layer-2.md](/Users/dsteele/repos/footy-data-kit/docs/club-metadata-layer-2.md) as the plan for source-backed club history enrichments beyond generated table-note metadata.
 
 3. Regression fixture growth
 
