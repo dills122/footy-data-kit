@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>footy-data-kit</title>
+    <meta
+      name="description"
+      content="Small, validated English football league table datasets generated from Wikipedia."
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="page-shell">
+      <header class="site-header">
+        <p class="eyebrow">plain files for football projects</p>
+        <h1>footy-data-kit</h1>
+        <p class="lede">
+          Historic English league tables scraped, normalised, verified, and shipped as JSON. Minimal
+          tooling. No API key. No runtime dependency.
+        </p>
+      </header>
+
+      <section class="panel stats" aria-label="dataset summary">
+        <div>
+          <strong>1888-2025</strong>
+          <span>season coverage</span>
+        </div>
+        <div>
+          <strong>138</strong>
+          <span>seasons</span>
+        </div>
+        <div>
+          <strong>232</strong>
+          <span>club metadata records</span>
+        </div>
+        <div>
+          <strong>7 tiers</strong>
+          <span>latest season depth</span>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h2>What is this?</h2>
+        <p>
+          A small data kit for English football history: league tables by season, promotion and
+          relegation summaries, and a sidecar file for club identity metadata.
+        </p>
+        <p>
+          The maintained dataset is generated from Wikipedia overview pages, validated by local
+          checks, and committed as static files for direct download.
+        </p>
+      </section>
+
+      <section class="panel">
+        <h2>Links</h2>
+        <nav class="link-grid" aria-label="project links">
+          <a href="https://github.com/dills122/footy-data-kit">GitHub repo</a>
+          <a href="https://github.com/dills122/footy-data-kit/releases">Releases</a>
+          <a href="https://github.com/dills122/footy-data-kit/blob/main/readme.md">README</a>
+          <a href="https://github.com/dills122/footy-data-kit/tree/main/wikipedia">Pipeline code</a>
+        </nav>
+      </section>
+
+      <section class="panel">
+        <h2>Releases</h2>
+
+        <div class="release-pin">
+          <span class="release-label">latest</span>
+          <strong>v0.7.0</strong>
+          <span>1888-2025. 138 seasons. 232 club metadata records.</span>
+          <span class="release-actions">
+            <a href="https://github.com/dills122/footy-data-kit/releases/latest">notes</a>
+            <a
+              href="https://github.com/dills122/footy-data-kit/releases/latest/download/footy-data-kit-v0.7.0-data.zip"
+              >data zip</a
+            >
+          </span>
+        </div>
+
+        <div class="release-rows" aria-label="historic releases">
+          <div class="release-row">
+            <span>v0.6.1</span>
+            <span>previous data release</span>
+            <span class="release-actions">
+              <a href="https://github.com/dills122/footy-data-kit/releases/tag/v0.6.1">notes</a>
+              <a
+                href="https://github.com/dills122/footy-data-kit/releases/download/v0.6.1/footy-data-kit-v0.6.1-data.zip"
+                >data zip</a
+              >
+            </span>
+          </div>
+          <div class="release-row">
+            <span>v0.6.0</span>
+            <span>previous data release</span>
+            <span class="release-actions">
+              <a href="https://github.com/dills122/footy-data-kit/releases/tag/v0.6.0">notes</a>
+              <a
+                href="https://github.com/dills122/footy-data-kit/releases/download/v0.6.0/footy-data-kit-v0.6.0-data.zip"
+                >data zip</a
+              >
+            </span>
+          </div>
+          <div class="release-row">
+            <span>v0.5.0</span>
+            <span>previous data release</span>
+            <span class="release-actions">
+              <a href="https://github.com/dills122/footy-data-kit/releases/tag/v0.5.0">notes</a>
+              <a
+                href="https://github.com/dills122/footy-data-kit/releases/download/v0.5.0/footy-data-kit-v0.5.0-data.zip"
+                >data zip</a
+              >
+            </span>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="section-heading">
+          <h2>Downloads</h2>
+          <a class="release-link" href="https://github.com/dills122/footy-data-kit/releases/latest"
+            >latest release</a
+          >
+        </div>
+
+        <p>Latest release assets:</p>
+        <ul class="download-list">
+          <li>
+            <code>all-seasons.json</code>
+            <span>Full merged season dataset. 5.9M.</span>
+            <a
+              href="https://github.com/dills122/footy-data-kit/releases/latest/download/all-seasons.json"
+              >json</a
+            >
+            <a
+              href="https://raw.githubusercontent.com/dills122/footy-data-kit/main/data-output/all-seasons.json"
+              >raw</a
+            >
+          </li>
+          <li>
+            <code>all-seasons.min.json</code>
+            <span>Minified full merged season dataset. 3.1M.</span>
+            <a
+              href="https://github.com/dills122/footy-data-kit/releases/latest/download/all-seasons.min.json"
+              >min</a
+            >
+            <a
+              href="https://raw.githubusercontent.com/dills122/footy-data-kit/main/data-output/all-seasons.min.json"
+              >raw</a
+            >
+          </li>
+          <li>
+            <code>wiki_overview_tables_by_season.json</code>
+            <span>Maintained Wikipedia overview export. 5.9M.</span>
+            <a
+              href="https://github.com/dills122/footy-data-kit/releases/latest/download/wiki_overview_tables_by_season.json"
+              >json</a
+            >
+            <a
+              href="https://raw.githubusercontent.com/dills122/footy-data-kit/main/data-output/wiki_overview_tables_by_season.json"
+              >raw</a
+            >
+          </li>
+          <li>
+            <code>wiki_overview_tables_by_season.min.json</code>
+            <span>Minified Wikipedia overview export. 3.1M.</span>
+            <a
+              href="https://github.com/dills122/footy-data-kit/releases/latest/download/wiki_overview_tables_by_season.min.json"
+              >min</a
+            >
+            <a
+              href="https://raw.githubusercontent.com/dills122/footy-data-kit/main/data-output/wiki_overview_tables_by_season.min.json"
+              >raw</a
+            >
+          </li>
+          <li>
+            <code>club-metadata.json</code>
+            <span>Club identity sidecar metadata. 930K.</span>
+            <a
+              href="https://github.com/dills122/footy-data-kit/releases/latest/download/club-metadata.json"
+              >json</a
+            >
+            <a
+              href="https://raw.githubusercontent.com/dills122/footy-data-kit/main/data/club-metadata.json"
+              >raw</a
+            >
+          </li>
+        </ul>
+      </section>
+
+      <section class="panel">
+        <h2>Use it</h2>
+        <pre><code>curl -L https://github.com/dills122/footy-data-kit/releases/latest/download/all-seasons.min.json \
+  -o all-seasons.min.json</code></pre>
+      </section>
+
+      <footer>
+        <span>static files, boring formats, useful tables</span>
+        <a href="https://github.com/dills122/footy-data-kit/blob/main/LICENSE">MIT</a>
+      </footer>
+    </main>
+  </body>
+</html>

@@ -7,6 +7,8 @@ on:
 
 permissions:
   contents: write
+  pages: write
+  id-token: write
 
 jobs:
   release:
@@ -62,6 +64,7 @@ jobs:
           mkdir -p data-output
           pnpm wiki:build:overview
           pnpm wiki:build:combined
+          pnpm wiki:club-seed
           pnpm exec node wikipedia/data/verify-football-data.js --fail-on-issues ./data-output/all-seasons.json
           pnpm exec node wikipedia/data/verify-football-data.js --fail-on-issues ./data-output/wiki_overview_tables_by_season.json
           pnpm wiki:minify:combined
@@ -71,7 +74,18 @@ jobs:
 
       - name: Archive generated data
         run: |
-          zip -r "footy-data-kit-${{ steps.release_meta.outputs.tag }}-data.zip" data-output
+          mkdir -p release-assets
+          cp data-output/all-seasons.json release-assets/all-seasons.json
+          cp data-output/all-seasons.min.json release-assets/all-seasons.min.json
+          cp data-output/wiki_overview_tables_by_season.json release-assets/wiki_overview_tables_by_season.json
+          cp data-output/wiki_overview_tables_by_season.min.json release-assets/wiki_overview_tables_by_season.min.json
+          cp data-output/release-diff.json release-assets/release-diff.json
+          cp data-output/release-diff.md release-assets/release-diff.md
+          cp data/club-metadata.json release-assets/club-metadata.json
+          zip -r "release-assets/footy-data-kit-${{ steps.release_meta.outputs.tag }}-data.zip" data-output data/club-metadata.json
+
+      - name: Build docs site
+        run: pnpm docs:build
 
       - name: Create GitHub release
         uses: softprops/action-gh-release@v1
@@ -79,6 +93,25 @@ jobs:
           tag_name: ${{ steps.release_meta.outputs.tag }}
           name: Release ${{ steps.release_meta.outputs.tag }}
           body_path: ./data-output/release-diff.md
-          files: footy-data-kit-${{ steps.release_meta.outputs.tag }}-data.zip
+          files: |
+            release-assets/all-seasons.json
+            release-assets/all-seasons.min.json
+            release-assets/wiki_overview_tables_by_season.json
+            release-assets/wiki_overview_tables_by_season.min.json
+            release-assets/club-metadata.json
+            release-assets/release-diff.json
+            release-assets/release-diff.md
+            release-assets/footy-data-kit-${{ steps.release_meta.outputs.tag }}-data.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload docs site
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./docs
+
+      - name: Deploy docs site
+        uses: actions/deploy-pages@v4

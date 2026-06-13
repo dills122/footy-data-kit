@@ -34,6 +34,8 @@ jobs:
         run: pnpm lint
       - name: Formatter Check
         run: pnpm format:check
+      - name: Docs Check
+        run: pnpm docs:check
 
   data-verify:
     runs-on: ubuntu-latest
