@@ -19,6 +19,7 @@ import { getTierKeys, getTierTable, sortSeasonKeys } from './season-rules.js';
 const DEFAULT_INPUT_FILE = './data-output/all-seasons.json';
 const DEFAULT_OUTPUT_FILE = './data/club-metadata.json';
 const DERIVED_SOURCE_ID = 'football-data-output';
+const OFFICIAL_COMPETITION_PAUSED_REASON = 'official-competition-paused';
 
 function parseSeasonKey(value) {
   const parsed = Number.parseInt(String(value), 10);
@@ -40,6 +41,16 @@ function sortedNumbers(values) {
 
 function sortedStrings(values) {
   return [...values].sort((a, b) => a.localeCompare(b));
+}
+
+function slugifyClubId(value) {
+  return String(value || '')
+    .normalize('NFKD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .replace(/&/g, ' and ')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
 }
 
 function incrementMapValue(map, key) {
@@ -185,6 +196,58 @@ function buildCoverageGaps(seasonsSeen) {
   return gaps;
 }
 
+function isFullSeasonRangeCovered(startSeason, endSeason, seasonSet) {
+  for (let season = startSeason; season <= endSeason; season += 1) {
+    if (!seasonSet.has(season)) return false;
+  }
+  return true;
+}
+
+function buildAutoAbsenceExplanations(coverageGaps, officialPausedSeasons) {
+  return coverageGaps
+    .filter((gap) =>
+      isFullSeasonRangeCovered(gap.startSeason, gap.endSeason, officialPausedSeasons)
+    )
+    .map((gap) => ({
+      fromSeason: gap.startSeason,
+      toSeason: gap.endSeason,
+      reason: OFFICIAL_COMPETITION_PAUSED_REASON,
+      basis: 'season-metadata',
+    }));
+}
+
+function buildTrackedMembership(seasonsSeen, tiersSeen, latestSeason) {
+  if (!seasonsSeen.length) return [];
+  const firstSeenSeason = seasonsSeen[0];
+  const lastSeenSeason = seasonsSeen[seasonsSeen.length - 1];
+  return [
+    {
+      fromSeason: firstSeenSeason,
+      toSeason: lastSeenSeason === latestSeason ? null : lastSeenSeason,
+      tiers: sortTierKeys(tiersSeen),
+      basis: 'observed',
+    },
+  ];
+}
+
+function buildClubStatus(seasonsSeen, coverageGaps, absenceExplanations, latestSeason) {
+  const firstSeenSeason = seasonsSeen[0] ?? null;
+  const lastSeenSeason = seasonsSeen[seasonsSeen.length - 1] ?? null;
+  const explainedGapKeys = new Set(
+    absenceExplanations.map((entry) => `${entry.fromSeason}:${entry.toSeason}`)
+  );
+  const hasUnexplainedGaps = coverageGaps.some(
+    (gap) => !explainedGapKeys.has(`${gap.startSeason}:${gap.endSeason}`)
+  );
+
+  return {
+    current: lastSeenSeason === latestSeason ? 'active' : 'unknown',
+    trackedFromSeason: firstSeenSeason,
+    trackedToSeason: lastSeenSeason === latestSeason ? null : lastSeenSeason,
+    hasUnexplainedGaps,
+  };
+}
+
 function buildObservedNames(aliasSeasons, aliasTiers) {
   return [...aliasSeasons.entries()]
     .map(([rawName, seasons]) => {
@@ -225,11 +288,26 @@ function buildRelationships(relationships) {
   });
 }
 
-function buildClubMetadataRecord(accumulator) {
+function buildClubMetadataRecord(accumulator, { latestSeason, officialPausedSeasons } = {}) {
   const seasonsSeen = sortedNumbers(accumulator.seasonsSeen);
+  const tiersSeen = sortTierKeys(accumulator.tiersSeen);
+  const coverageGaps = buildCoverageGaps(accumulator.seasonsSeen);
+  const absenceExplanations = buildAutoAbsenceExplanations(
+    coverageGaps,
+    officialPausedSeasons || new Set()
+  );
+  const trackedMembership = buildTrackedMembership(seasonsSeen, tiersSeen, latestSeason);
 
   return {
+    clubId: slugifyClubId(accumulator.clubKey),
     canonicalName: accumulator.canonicalName,
+    status: buildClubStatus(seasonsSeen, coverageGaps, absenceExplanations, latestSeason),
+    history: {
+      nameHistory: [],
+      lifecycleEvents: [],
+      trackedMembership,
+      absenceExplanations,
+    },
     derived: {
       source: DERIVED_SOURCE_ID,
       aliases: sortedStrings(accumulator.aliasCounts.keys()),
@@ -241,11 +319,24 @@ function buildClubMetadataRecord(accumulator) {
       lastSeenSeason: seasonsSeen[seasonsSeen.length - 1] ?? null,
       seasonsSeen,
       totalSeasonsSeen: seasonsSeen.length,
-      tiersSeen: sortTierKeys(accumulator.tiersSeen),
+      tiersSeen,
       tierSeasons: buildTierSeasons(accumulator.tierSeasons),
-      coverageGaps: buildCoverageGaps(accumulator.seasonsSeen),
+      coverageGaps,
     },
   };
+}
+
+function isOfficialCompetitionPausedSeason(seasonRecord) {
+  const seasonInfo = seasonRecord?.seasonInfo || {};
+  return (
+    seasonInfo.officialLeagueTables === false ||
+    seasonInfo.officialCompetitionsSuspended === true ||
+    seasonInfo.officialCompetitionsAbandoned === true ||
+    seasonInfo.regionalBridgeSeason === true ||
+    ['wartime-special', 'abandoned-season', 'regional-bridge-season'].includes(
+      String(seasonInfo.competitionStatus || '')
+    )
+  );
 }
 
 /**
@@ -255,12 +346,18 @@ function buildClubMetadataRecord(accumulator) {
 export function buildClubMetadataSeed(dataset) {
   const clubs = new Map();
   const seasonKeys = sortSeasonKeys(Object.keys(dataset?.seasons || {}));
+  const seasonNumbers = seasonKeys.map(parseSeasonKey).filter(Number.isInteger);
+  const latestSeason = seasonNumbers[seasonNumbers.length - 1] ?? null;
+  const officialPausedSeasons = new Set();
 
   for (const seasonKey of seasonKeys) {
     const seasonNumber = parseSeasonKey(seasonKey);
     if (seasonNumber == null) continue;
 
     const seasonRecord = dataset.seasons[seasonKey];
+    if (isOfficialCompetitionPausedSeason(seasonRecord)) {
+      officialPausedSeasons.add(seasonNumber);
+    }
     for (const tierKey of getTierKeys(seasonRecord)) {
       for (const row of getTierTable(seasonRecord[tierKey])) {
         if (!row || typeof row !== 'object' || typeof row.team !== 'string') continue;
@@ -286,7 +383,10 @@ export function buildClubMetadataSeed(dataset) {
   applyClubRelationshipRules(clubs);
 
   const entries = [...clubs.entries()]
-    .map(([clubKey, accumulator]) => [clubKey, buildClubMetadataRecord(accumulator)])
+    .map(([clubKey, accumulator]) => [
+      clubKey,
+      buildClubMetadataRecord(accumulator, { latestSeason, officialPausedSeasons }),
+    ])
     .sort(([leftKey], [rightKey]) => leftKey.localeCompare(rightKey));
 
   return normaliseClubsMap(Object.fromEntries(entries)) || {};

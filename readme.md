@@ -173,8 +173,17 @@ node rsssf/cli.js scrape --from-file ./rsssf-cache/1960-61.html --from-file ./rs
   - `gitSha`
   - `sourceFiles`
   - `buildOptions`
-- Every FootballData export may also include an optional top-level `clubs` map keyed by canonical club key. Layer-1 metadata is generated from the existing season tables and stored under `derived`:
+- Every FootballData export may also include an optional top-level `clubs` map keyed by canonical club key. Club records are split into consumer-facing identity/status fields, source-backed `history`, and generated `derived` observations:
+  - `clubId` – URL-safe unique slug for the club identity, such as `manchester-united`
   - `canonicalName`
+  - `status.current` – small status label such as `active` or `unknown`
+  - `status.trackedFromSeason`
+  - `status.trackedToSeason`
+  - `status.hasUnexplainedGaps`
+  - `history.nameHistory[]` for source-backed name periods
+  - `history.lifecycleEvents[]` for events such as `renamed`, `merged`, `dissolved`, `not-re-elected`, or `phoenix`
+  - `history.trackedMembership[]` for the season span where the club is expected in the tracked dataset
+  - `history.absenceExplanations[]` for expected absences using broad reason codes such as `official-competition-paused`, `outside-tracked-tiers`, `club-ceased`, `club-identity-changed`, `data-gap`, or `unknown`
   - `derived.aliases`
   - `derived.identitySources[]` with source URLs for curated identity/rename decisions
   - `derived.relationships[]` for sourced non-alias links such as phoenix clubs, mergers, relocations, and supporter-founded clubs
@@ -187,7 +196,8 @@ node rsssf/cli.js scrape --from-file ./rsssf-cache/1960-61.html --from-file ./rs
   - `derived.tierSeasons`
   - `derived.coverageGaps`
 - `derived.coverageGaps` means gaps in this dataset's observed league-table coverage, not confirmed inactivity or a financial interruption.
-- Future layer-2 enrichment can add sourced facts such as `founded`, `dissolved`, `nameHistory`, `financialEvents`, `notes`, and `sourceUrl`.
+- `history` is reserved for source-backed facts and explanations. Generated observations should stay under `derived`.
+- `clubId` is additive; season table rows still expose the scraped/canonical `team` text and do not yet embed `clubId`.
 - Each season contains a `seasonInfo` summary object plus one or more `tierN` objects.
 - `seasonInfo` is not a league table. It is a season-level summary that currently stores:
   - `season`
@@ -223,6 +233,9 @@ node wikipedia/data/combine-output-files.js --output ./data-output/all-seasons.j
 
 # Run the data lint pass on every JSON file under ./data-output
 node wikipedia/data/verify-football-data.js --fail-on-issues ./data-output
+
+# Report club continuity gaps from the club metadata sidecar
+node wikipedia/data/verify-club-continuity.js
 
 # Compare a previous release file against a freshly generated one
 node wikipedia/data/compare-football-data.js ./releases/all-seasons-prev.json ./data-output/all-seasons.json

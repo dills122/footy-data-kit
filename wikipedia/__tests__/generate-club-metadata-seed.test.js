@@ -5,6 +5,7 @@ import {
   buildClubMetadataSeed,
   writeClubMetadataSeedFile,
 } from '../data/generate-club-metadata-seed.js';
+import { analyzeClubContinuity } from '../data/verify-club-continuity.js';
 
 describe('buildClubMetadataSeed', () => {
   test('derives canonical club metadata from observed league table rows', () => {
@@ -39,8 +40,28 @@ describe('buildClubMetadataSeed', () => {
     });
 
     expect(Object.keys(seed)).toEqual(['arsenal', 'birmingham city']);
-    expect(seed.arsenal).toEqual({
+    expect(seed.arsenal).toMatchObject({
+      clubId: 'arsenal',
       canonicalName: 'Arsenal',
+      status: {
+        current: 'active',
+        trackedFromSeason: 1893,
+        trackedToSeason: null,
+        hasUnexplainedGaps: true,
+      },
+      history: {
+        nameHistory: [],
+        lifecycleEvents: [],
+        trackedMembership: [
+          {
+            fromSeason: 1893,
+            toSeason: null,
+            tiers: ['tier1', 'tier2'],
+            basis: 'observed',
+          },
+        ],
+        absenceExplanations: [],
+      },
       derived: {
         source: 'football-data-output',
         aliases: ['Arsenal', 'Woolwich Arsenal'],
@@ -84,7 +105,9 @@ describe('buildClubMetadataSeed', () => {
         coverageGaps: [{ startSeason: 1895, endSeason: 1913, length: 19 }],
       },
     });
+    expect(seed.arsenal.clubId).toBe('arsenal');
     expect(seed['birmingham city'].canonicalName).toBe('Birmingham City');
+    expect(seed['birmingham city'].clubId).toBe('birmingham-city');
     expect(seed['birmingham city'].derived.aliases).toEqual(['Birmingham', 'Small Heath']);
     expect(seed['birmingham city'].derived.coverageGaps).toEqual([
       { startSeason: 1894, endSeason: 1903, length: 10 },
@@ -226,8 +249,10 @@ describe('buildClubMetadataSeed', () => {
       'south shields',
     ]);
     expect(seed['accrington stanley 1891'].canonicalName).toBe('Accrington Stanley (1891)');
+    expect(seed['accrington stanley 1891'].clubId).toBe('accrington-stanley-1891');
     expect(seed['accrington stanley 1891'].derived.seasonsSeen).toEqual([1961]);
     expect(seed['accrington stanley'].canonicalName).toBe('Accrington Stanley');
+    expect(seed['accrington stanley'].clubId).toBe('accrington-stanley');
     expect(seed['accrington stanley'].derived.seasonsSeen).toEqual([2006]);
     expect(seed['accrington stanley 1891'].derived.relationships).toEqual([
       {
@@ -261,6 +286,187 @@ describe('buildClubMetadataSeed', () => {
     ]);
     expect(seed['south shields'].canonicalName).toBe('South Shields');
     expect(seed['south shields'].derived.seasonsSeen).toEqual([2024]);
+  });
+
+  test('adds official pause explanations for wartime observed coverage gaps', () => {
+    const seed = buildClubMetadataSeed({
+      seasons: {
+        1938: {
+          tier3: {
+            table: [{ team: 'Accrington Stanley' }],
+          },
+        },
+        1939: {
+          seasonInfo: {
+            season: 1939,
+            competitionStatus: 'abandoned-season',
+            officialLeagueTables: false,
+          },
+        },
+        1940: {
+          seasonInfo: {
+            season: 1940,
+            competitionStatus: 'wartime-special',
+            officialLeagueTables: false,
+          },
+        },
+        1941: {
+          seasonInfo: {
+            season: 1941,
+            competitionStatus: 'wartime-special',
+            officialLeagueTables: false,
+          },
+        },
+        1942: {
+          seasonInfo: {
+            season: 1942,
+            competitionStatus: 'wartime-special',
+            officialLeagueTables: false,
+          },
+        },
+        1943: {
+          seasonInfo: {
+            season: 1943,
+            competitionStatus: 'wartime-special',
+            officialLeagueTables: false,
+          },
+        },
+        1944: {
+          seasonInfo: {
+            season: 1944,
+            competitionStatus: 'wartime-special',
+            officialLeagueTables: false,
+          },
+        },
+        1945: {
+          seasonInfo: {
+            season: 1945,
+            competitionStatus: 'regional-bridge-season',
+            officialLeagueTables: false,
+          },
+        },
+        1946: {
+          tier3: {
+            table: [{ team: 'Accrington Stanley' }],
+          },
+        },
+      },
+    });
+
+    expect(seed['accrington stanley 1891'].derived.coverageGaps).toEqual([
+      { startSeason: 1939, endSeason: 1945, length: 7 },
+    ]);
+    expect(seed['accrington stanley 1891'].history.absenceExplanations).toEqual([
+      {
+        fromSeason: 1939,
+        toSeason: 1945,
+        reason: 'official-competition-paused',
+        basis: 'season-metadata',
+      },
+    ]);
+    expect(seed['accrington stanley 1891'].status.hasUnexplainedGaps).toBe(false);
+  });
+});
+
+describe('analyzeClubContinuity', () => {
+  test('reports missing expected seasons outside official pauses and explanations', () => {
+    const dataset = {
+      seasons: {
+        1950: { tier2: { table: [{ team: 'Example Town' }] } },
+        1951: { tier2: { table: [] } },
+        1952: { tier2: { table: [] } },
+        1953: { tier2: { table: [{ team: 'Example Town' }] } },
+      },
+    };
+    const clubMetadata = {
+      clubs: {
+        'example town': {
+          clubId: 'example-town',
+          canonicalName: 'Example Town',
+          derived: {
+            seasonsSeen: [1950, 1953],
+          },
+          history: {
+            trackedMembership: [
+              {
+                fromSeason: 1950,
+                toSeason: 1953,
+                tiers: ['tier2'],
+                basis: 'observed',
+              },
+            ],
+            absenceExplanations: [],
+          },
+        },
+      },
+    };
+
+    expect(analyzeClubContinuity(dataset, clubMetadata)).toEqual([
+      expect.objectContaining({
+        type: 'unexplained-club-gap',
+        clubId: 'example-town',
+        canonicalName: 'Example Town',
+        fromSeason: 1951,
+        toSeason: 1952,
+        missingSeasons: [1951, 1952],
+      }),
+    ]);
+  });
+
+  test('ignores official competition pauses and explicit absence explanations', () => {
+    const dataset = {
+      seasons: {
+        1938: { tier3: { table: [{ team: 'Example Town' }] } },
+        1939: {
+          seasonInfo: {
+            season: 1939,
+            competitionStatus: 'abandoned-season',
+            officialLeagueTables: false,
+          },
+        },
+        1940: {
+          seasonInfo: {
+            season: 1940,
+            competitionStatus: 'wartime-special',
+            officialLeagueTables: false,
+          },
+        },
+        1941: {
+          seasonInfo: {
+            season: 1941,
+            competitionStatus: 'wartime-special',
+            officialLeagueTables: false,
+          },
+        },
+        1942: {
+          tier3: { table: [{ team: 'Example Town' }] },
+        },
+      },
+    };
+    const clubMetadata = {
+      clubs: {
+        'example town': {
+          clubId: 'example-town',
+          canonicalName: 'Example Town',
+          derived: {
+            seasonsSeen: [1938, 1942],
+          },
+          history: {
+            trackedMembership: [
+              {
+                fromSeason: 1938,
+                toSeason: 1942,
+                tiers: ['tier3'],
+                basis: 'observed',
+              },
+            ],
+            absenceExplanations: [{ fromSeason: 1941, toSeason: 1941, reason: 'data-gap' }],
+          },
+        },
+      },
+    };
+
+    expect(analyzeClubContinuity(dataset, clubMetadata)).toEqual([]);
   });
 });
 

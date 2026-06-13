@@ -207,6 +207,167 @@ function normaliseClubFinancialEvents(value) {
 /**
  * @param {unknown} value
  */
+function normaliseClubLifecycleEvents(value) {
+  if (!Array.isArray(value)) return [];
+  const events = [];
+  const seen = new Set();
+
+  for (const item of value) {
+    if (!item || typeof item !== 'object') continue;
+    const type = toStringValue(item.type);
+    if (!type) continue;
+
+    const normalizedItem = {
+      type,
+      season: toSeasonNumberOrNull(item.season),
+      fromSeason: toSeasonNumberOrNull(item.fromSeason),
+      toSeason: toSeasonNumberOrNull(item.toSeason),
+      fromName: toStringValue(item.fromName),
+      toName: toStringValue(item.toName),
+      description: toStringValue(item.description),
+      sourceRefs: normaliseIdentitySources(item.sourceRefs),
+    };
+    const dedupeKey = JSON.stringify(normalizedItem);
+    if (seen.has(dedupeKey)) continue;
+    seen.add(dedupeKey);
+
+    events.push(
+      Object.fromEntries(
+        Object.entries(normalizedItem).filter(([, entry]) => {
+          if (entry == null) return false;
+          if (Array.isArray(entry)) return entry.length > 0;
+          return true;
+        })
+      )
+    );
+  }
+
+  return events.sort((a, b) => {
+    const leftSeason = a.season ?? a.fromSeason ?? 0;
+    const rightSeason = b.season ?? b.fromSeason ?? 0;
+    if (leftSeason !== rightSeason) return leftSeason - rightSeason;
+    return a.type.localeCompare(b.type);
+  });
+}
+
+/**
+ * @param {unknown} value
+ */
+function normaliseClubTrackedMembership(value) {
+  if (!Array.isArray(value)) return [];
+  const memberships = [];
+  const seen = new Set();
+
+  for (const item of value) {
+    if (!item || typeof item !== 'object') continue;
+    const fromSeason = toSeasonNumberOrNull(item.fromSeason);
+    if (fromSeason == null) continue;
+
+    const normalizedItem = {
+      fromSeason,
+      toSeason: toSeasonNumberOrNull(item.toSeason),
+      tiers: normalizeStringArray(item.tiers).sort(),
+      basis: toStringValue(item.basis),
+      notes: toStringValue(item.notes),
+      sourceRefs: normaliseIdentitySources(item.sourceRefs),
+    };
+    const dedupeKey = JSON.stringify(normalizedItem);
+    if (seen.has(dedupeKey)) continue;
+    seen.add(dedupeKey);
+
+    memberships.push(
+      Object.fromEntries(
+        Object.entries(normalizedItem).filter(([key, entry]) => {
+          if (key === 'toSeason') return true;
+          if (entry == null) return false;
+          if (Array.isArray(entry)) return entry.length > 0;
+          return true;
+        })
+      )
+    );
+  }
+
+  return memberships.sort((a, b) => a.fromSeason - b.fromSeason);
+}
+
+/**
+ * @param {unknown} value
+ */
+function normaliseClubAbsenceExplanations(value) {
+  if (!Array.isArray(value)) return [];
+  const explanations = [];
+  const seen = new Set();
+
+  for (const item of value) {
+    if (!item || typeof item !== 'object') continue;
+    const fromSeason = toSeasonNumberOrNull(item.fromSeason);
+    const reason = toStringValue(item.reason);
+    if (fromSeason == null || !reason) continue;
+
+    const normalizedItem = {
+      fromSeason,
+      toSeason: toSeasonNumberOrNull(item.toSeason),
+      reason,
+      linkedEventType: toStringValue(item.linkedEventType),
+      basis: toStringValue(item.basis),
+      notes: toStringValue(item.notes),
+      sourceRefs: normaliseIdentitySources(item.sourceRefs),
+    };
+    const dedupeKey = JSON.stringify(normalizedItem);
+    if (seen.has(dedupeKey)) continue;
+    seen.add(dedupeKey);
+
+    explanations.push(
+      Object.fromEntries(
+        Object.entries(normalizedItem).filter(([, entry]) => {
+          if (entry == null) return false;
+          if (Array.isArray(entry)) return entry.length > 0;
+          return true;
+        })
+      )
+    );
+  }
+
+  return explanations.sort((a, b) => a.fromSeason - b.fromSeason);
+}
+
+/**
+ * @param {unknown} value
+ */
+function normaliseClubHistory(value) {
+  const source = value && typeof value === 'object' && !Array.isArray(value) ? value : {};
+  return {
+    nameHistory: normaliseClubNameHistory(source.nameHistory),
+    lifecycleEvents: normaliseClubLifecycleEvents(source.lifecycleEvents),
+    trackedMembership: normaliseClubTrackedMembership(source.trackedMembership),
+    absenceExplanations: normaliseClubAbsenceExplanations(source.absenceExplanations),
+  };
+}
+
+/**
+ * @param {unknown} value
+ */
+function normaliseClubStatus(value) {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return undefined;
+  const current = toStringValue(value.current);
+  const status = {
+    current,
+    trackedFromSeason: toSeasonNumberOrNull(value.trackedFromSeason),
+    trackedToSeason: toSeasonNumberOrNull(value.trackedToSeason),
+    hasUnexplainedGaps:
+      typeof value.hasUnexplainedGaps === 'boolean' ? value.hasUnexplainedGaps : null,
+  };
+
+  const cleaned = Object.fromEntries(
+    Object.entries(status).filter(([key, entry]) => key === 'trackedToSeason' || entry != null)
+  );
+
+  return Object.keys(cleaned).length ? cleaned : undefined;
+}
+
+/**
+ * @param {unknown} value
+ */
 function normaliseObservedNamePeriods(value) {
   if (!Array.isArray(value)) return [];
   const periods = [];
@@ -412,8 +573,27 @@ function normaliseClubRecord(value, fallbackKey) {
   const canonicalName = toStringValue(value.canonicalName) || toStringValue(fallbackKey);
   if (!canonicalName) return null;
 
+  const hasHistoryInput =
+    (value.history && typeof value.history === 'object' && !Array.isArray(value.history)) ||
+    value.lifecycleEvents ||
+    value.trackedMembership ||
+    value.absenceExplanations;
+  const history = hasHistoryInput
+    ? normaliseClubHistory({
+        ...(value.history && typeof value.history === 'object' && !Array.isArray(value.history)
+          ? value.history
+          : {}),
+        lifecycleEvents: value.history?.lifecycleEvents || value.lifecycleEvents,
+        trackedMembership: value.history?.trackedMembership || value.trackedMembership,
+        absenceExplanations: value.history?.absenceExplanations || value.absenceExplanations,
+      })
+    : undefined;
+
   const normalized = {
+    clubId: toStringValue(value.clubId),
     canonicalName,
+    status: normaliseClubStatus(value.status),
+    history,
     derived: normaliseClubDerivedMetadata(value.derived),
     founded: toStringValue(value.founded),
     dissolved: toStringValue(value.dissolved),
