@@ -1,18 +1,15 @@
-const TEAM_NAME_CANONICAL_FORMS = {
-  arsenal: 'arsenal',
-  'woolwich arsenal': 'arsenal',
-  birmingham: 'birmingham city',
-  'birmingham city': 'birmingham city',
-  'small heath': 'birmingham city',
-  'small heath alliance': 'birmingham city',
+import { CLUB_IDENTITY_RULES } from './club-identity-config.js';
+
+const TEAM_NAME_NORMALIZATION_ALIASES = {
+  'afc wimbledon': 'afc wimbledon',
   'brighton & hove albion': 'brighton and hove albion',
   'brighton and hove albion': 'brighton and hove albion',
   'bradford (park avenue)': 'bradford park avenue',
   'bradford park avenue': 'bradford park avenue',
   'dagenham & redbridge': 'dagenham and redbridge',
   'dagenham and redbridge': 'dagenham and redbridge',
-  glossop: 'glossop',
-  'glossop north end': 'glossop',
+  'fc halifax town': 'fc halifax town',
+  'halifax town': 'halifax town',
   'harrogate town': 'harrogate town',
   'harrogate town afc': 'harrogate town',
   'harrogate town a f c': 'harrogate town',
@@ -23,40 +20,47 @@ const TEAM_NAME_CANONICAL_FORMS = {
   wolves: 'wolverhampton wanderers',
   'sheffield united': 'sheffield united',
   wba: 'west bromwich albion',
+  wimbledon: 'wimbledon',
   'wrexham a f c': 'wrexham',
   'wrexham afc': 'wrexham',
   'newport county': 'newport county',
-  'leicester city': 'leicester city',
-  'leicester fosse': 'leicester city',
-  'manchester city': 'manchester city',
-  ardwick: 'manchester city',
-  'manchester united': 'manchester united',
-  'newton heath': 'manchester united',
-  'newton heath lyr': 'manchester united',
-  'newton heath lyr fc': 'manchester united',
-  'sheffield wednesday': 'sheffield wednesday',
-  'the wednesday': 'sheffield wednesday',
 };
 
-function normalizeKey(value) {
+export function normalizeTeamNameText(value) {
   return String(value)
     .trim()
     .toLowerCase()
     .replace(/&/g, ' and ')
     .replace(/[.'"]/g, '')
     .replace(/[()]/g, ' ')
-    .replace(/\bfc\b/g, ' ')
-    .replace(/\bafc\b/g, ' ')
     .replace(/\s+/g, ' ')
     .trim();
 }
 
+function buildClubIdentityAliasMap() {
+  const entries = [];
+
+  for (const rule of CLUB_IDENTITY_RULES) {
+    for (const alias of rule.aliases || []) {
+      entries.push([normalizeTeamNameText(alias), rule.clubKey]);
+    }
+  }
+
+  return Object.fromEntries(entries);
+}
+
+const TEAM_NAME_CANONICAL_FORMS = {
+  ...TEAM_NAME_NORMALIZATION_ALIASES,
+  ...buildClubIdentityAliasMap(),
+};
+
 export function canonicalizeTeamName(value) {
   if (typeof value !== 'string') return value;
-  const normalized = normalizeKey(value);
+  const normalized = normalizeTeamNameText(value);
   return TEAM_NAME_CANONICAL_FORMS[normalized] || normalized;
 }
 
 export default {
   canonicalizeTeamName,
+  normalizeTeamNameText,
 };

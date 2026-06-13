@@ -5,12 +5,15 @@
   "type": "module",
   "scripts": {
     "wiki:build:promotion": "node wikipedia/cli/index.js build --start 1888 --end 1990 --output ./data-output --force-update --ignore-war-years",
-    "wiki:build:overview": "node wikipedia/cli/index.js overview --start 1888 --end 2024 --output ./data-output --force-update --include-war-placeholders",
+    "wiki:build:overview": "node wikipedia/cli/index.js overview --start 1888 --end 2025 --output ./data-output --force-update --include-war-placeholders",
     "wiki:build:combined": "node wikipedia/data/combine-output-files.js --output ./data-output/all-seasons.json ./data-output/wiki_overview_tables_by_season.json",
+    "wiki:club-seed": "node wikipedia/data/generate-club-metadata-seed.js ./data-output/all-seasons.json --output ./data/club-metadata.json",
     "wiki:verify": "node wikipedia/data/verify-football-data.js --fail-on-issues ./data-output",
     "wiki:minify:promotion": "node scripts/minify-json.js ./data-output/wiki_promotion_relegations_by_season.json",
     "wiki:minify:overview": "node scripts/minify-json.js ./data-output/wiki_overview_tables_by_season.json",
     "wiki:minify:combined": "node scripts/minify-json.js ./data-output/all-seasons.json",
+    "docs:build": "node scripts/build-docs-site.js",
+    "docs:check": "node scripts/build-docs-site.js --check",
     "build:wikipedia:promotion": "pnpm wiki:build:promotion",
     "build:wikipedia:overview": "pnpm wiki:build:overview",
     "build:wikipedia:combined": "pnpm wiki:build:combined",
@@ -59,12 +62,13 @@
   "devDependencies": {
     "cross-env": "^7.0.3",
     "eslint": "^8.57.1",
-    "prettier": "^2.8.8",
     "eslint-config-prettier": "^8.10.2",
     "eslint-plugin-prettier": "^4.2.5",
     "jest": "^29.7.0",
+    "lefthook": "^1.13.6",
     "lint-staged": "^16.2.6",
-    "lefthook": "^1.13.6"
+    "mustache": "^4.2.0",
+    "prettier": "^2.8.8"
   },
   "lint-staged": {
     "*.{js,mjs,json,md}": [

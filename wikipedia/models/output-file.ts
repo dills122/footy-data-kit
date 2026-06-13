@@ -82,7 +82,94 @@ export interface DatasetMetadata {
   buildOptions?: Record<string, string | number | boolean | null>;
 }
 
+export interface ClubNamePeriod {
+  name: string;
+  startSeason?: number | null;
+  endSeason?: number | null;
+  notes?: string | null;
+}
+
+export interface ClubFinancialEvent {
+  type: string;
+  startSeason?: number | null;
+  endSeason?: number | null;
+  seasonsMissed?: number[];
+  notes?: string | null;
+}
+
+export interface ClubObservedNamePeriod {
+  name: string;
+  startSeason: number;
+  endSeason: number;
+}
+
+export interface ClubObservedName {
+  rawName: string;
+  normalizedName: string;
+  firstSeenSeason: number;
+  lastSeenSeason: number;
+  seasonsSeen: number[];
+  tiersSeen: string[];
+}
+
+export interface ClubIdentitySource {
+  type: string;
+  sourceUrl: string;
+  notes?: string | null;
+}
+
+export interface ClubRelationship {
+  clubKey: string;
+  relationship: string;
+  direction: string;
+  sourceRefs?: ClubIdentitySource[];
+  notes?: string | null;
+}
+
+export interface ClubTierSeasons {
+  tierKey: string;
+  seasons: number[];
+}
+
+export interface ClubCoverageGap {
+  startSeason: number;
+  endSeason: number;
+  length: number;
+}
+
+export interface ClubDerivedMetadata {
+  source?: string | null;
+  aliases?: string[];
+  identitySources?: ClubIdentitySource[];
+  relationships?: ClubRelationship[];
+  observedNames?: ClubObservedName[];
+  observedNamePeriods?: ClubObservedNamePeriod[];
+  firstSeenSeason?: number | null;
+  lastSeenSeason?: number | null;
+  seasonsSeen?: number[];
+  totalSeasonsSeen?: number;
+  tiersSeen?: string[];
+  tierSeasons?: ClubTierSeasons[];
+  coverageGaps?: ClubCoverageGap[];
+}
+
+export interface ClubMetadata {
+  canonicalName: string;
+  derived?: ClubDerivedMetadata;
+  founded?: string | null;
+  dissolved?: string | null;
+  nameHistory?: ClubNamePeriod[];
+  financialEvents?: ClubFinancialEvent[];
+  notes?: string | null;
+  sourceUrl?: string | null;
+}
+
+export interface ClubsMap {
+  [clubKey: string]: ClubMetadata;
+}
+
 export interface FootballData {
   metadata?: DatasetMetadata;
+  clubs?: ClubsMap;
   seasons: SeasonsMap;
 }

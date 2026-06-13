@@ -227,6 +227,14 @@ describe('compare-football-data', () => {
     expect(canonicalizeTeamName('West Brom')).toBe('west bromwich albion');
     expect(canonicalizeTeamName('WBA')).toBe('west bromwich albion');
     expect(canonicalizeTeamName('Wrexham AFC')).toBe('wrexham');
+    expect(canonicalizeTeamName('Bournemouth & Boscombe Athletic')).toBe('afc bournemouth');
+    expect(canonicalizeTeamName('Burslem Port Vale')).toBe('port vale');
+    expect(canonicalizeTeamName('Swansea Town')).toBe('swansea city');
+    expect(canonicalizeTeamName('Walsall Town Swifts')).toBe('walsall');
+    expect(canonicalizeTeamName('AFC Wimbledon')).toBe('afc wimbledon');
+    expect(canonicalizeTeamName('Wimbledon')).toBe('wimbledon');
+    expect(canonicalizeTeamName('FC Halifax Town')).toBe('fc halifax town');
+    expect(canonicalizeTeamName('Halifax Town')).toBe('halifax town');
   });
 
   test('renderMarkdownSummary produces a compact release-friendly summary', () => {

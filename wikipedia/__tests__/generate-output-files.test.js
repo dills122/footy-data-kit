@@ -132,6 +132,64 @@ describe('createFootballData', () => {
       },
     });
   });
+
+  test('normalises top-level club metadata records', () => {
+    const dataset = createFootballData({
+      clubs: {
+        'Birmingham City': {
+          canonicalName: 'Birmingham City',
+          founded: 1875,
+          nameHistory: [
+            {
+              name: 'Small Heath',
+              startSeason: '1875',
+              endSeason: '1905',
+            },
+            {
+              name: 'Birmingham',
+              startSeason: 1905,
+              endSeason: 1943,
+            },
+          ],
+          financialEvents: [
+            {
+              type: 'administration',
+              startSeason: '2023',
+              endSeason: '2024',
+              seasonsMissed: ['2024', 2025, 2025],
+            },
+          ],
+        },
+      },
+      seasons: {},
+    });
+
+    expect(dataset.clubs).toBeDefined();
+    expect(dataset.clubs['Birmingham City']).toEqual({
+      canonicalName: 'Birmingham City',
+      founded: '1875',
+      nameHistory: [
+        {
+          name: 'Small Heath',
+          startSeason: 1875,
+          endSeason: 1905,
+        },
+        {
+          name: 'Birmingham',
+          startSeason: 1905,
+          endSeason: 1943,
+        },
+      ],
+      financialEvents: [
+        {
+          type: 'administration',
+          startSeason: 2023,
+          endSeason: 2024,
+          seasonsMissed: [2024, 2025],
+        },
+      ],
+    });
+  });
 });
 
 describe('updateFootballDataFile', () => {

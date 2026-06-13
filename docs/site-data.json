@@ -1,0 +1,133 @@
+{
+  "site": {
+    "title": "footy-data-kit",
+    "description": "Small, validated English football league table datasets generated from Wikipedia.",
+    "eyebrow": "plain files for football projects",
+    "lede": "Historic English league tables scraped, normalised, verified, and shipped as JSON. Minimal tooling. No API key. No runtime dependency.",
+    "descriptionParagraphs": [
+      "A small data kit for English football history: league tables by season, promotion and relegation summaries, and a sidecar file for club identity metadata.",
+      "The maintained dataset is generated from Wikipedia overview pages, validated by local checks, and committed as static files for direct download."
+    ],
+    "footer": "static files, boring formats, useful tables"
+  },
+  "stats": [
+    { "value": "1888-2025", "label": "season coverage" },
+    { "value": "138", "label": "seasons" },
+    { "value": "232", "label": "club metadata records" },
+    { "value": "7 tiers", "label": "latest season depth" }
+  ],
+  "links": [
+    { "label": "GitHub repo", "url": "https://github.com/dills122/footy-data-kit" },
+    { "label": "Releases", "url": "https://github.com/dills122/footy-data-kit/releases" },
+    { "label": "README", "url": "https://github.com/dills122/footy-data-kit/blob/main/readme.md" },
+    {
+      "label": "Pipeline code",
+      "url": "https://github.com/dills122/footy-data-kit/tree/main/wikipedia"
+    }
+  ],
+  "latestRelease": {
+    "tag": "v0.7.0",
+    "summary": "1888-2025. 138 seasons. 232 club metadata records.",
+    "notesUrl": "https://github.com/dills122/footy-data-kit/releases/latest",
+    "zipUrl": "https://github.com/dills122/footy-data-kit/releases/latest/download/footy-data-kit-v0.7.0-data.zip"
+  },
+  "historicReleases": [
+    {
+      "tag": "v0.6.1",
+      "summary": "previous data release",
+      "notesUrl": "https://github.com/dills122/footy-data-kit/releases/tag/v0.6.1",
+      "zipUrl": "https://github.com/dills122/footy-data-kit/releases/download/v0.6.1/footy-data-kit-v0.6.1-data.zip"
+    },
+    {
+      "tag": "v0.6.0",
+      "summary": "previous data release",
+      "notesUrl": "https://github.com/dills122/footy-data-kit/releases/tag/v0.6.0",
+      "zipUrl": "https://github.com/dills122/footy-data-kit/releases/download/v0.6.0/footy-data-kit-v0.6.0-data.zip"
+    },
+    {
+      "tag": "v0.5.0",
+      "summary": "previous data release",
+      "notesUrl": "https://github.com/dills122/footy-data-kit/releases/tag/v0.5.0",
+      "zipUrl": "https://github.com/dills122/footy-data-kit/releases/download/v0.5.0/footy-data-kit-v0.5.0-data.zip"
+    }
+  ],
+  "downloads": [
+    {
+      "file": "all-seasons.json",
+      "description": "Full merged season dataset.",
+      "size": "5.9M",
+      "links": [
+        {
+          "label": "json",
+          "url": "https://github.com/dills122/footy-data-kit/releases/latest/download/all-seasons.json"
+        },
+        {
+          "label": "raw",
+          "url": "https://raw.githubusercontent.com/dills122/footy-data-kit/main/data-output/all-seasons.json"
+        }
+      ]
+    },
+    {
+      "file": "all-seasons.min.json",
+      "description": "Minified full merged season dataset.",
+      "size": "3.1M",
+      "links": [
+        {
+          "label": "min",
+          "url": "https://github.com/dills122/footy-data-kit/releases/latest/download/all-seasons.min.json"
+        },
+        {
+          "label": "raw",
+          "url": "https://raw.githubusercontent.com/dills122/footy-data-kit/main/data-output/all-seasons.min.json"
+        }
+      ]
+    },
+    {
+      "file": "wiki_overview_tables_by_season.json",
+      "description": "Maintained Wikipedia overview export.",
+      "size": "5.9M",
+      "links": [
+        {
+          "label": "json",
+          "url": "https://github.com/dills122/footy-data-kit/releases/latest/download/wiki_overview_tables_by_season.json"
+        },
+        {
+          "label": "raw",
+          "url": "https://raw.githubusercontent.com/dills122/footy-data-kit/main/data-output/wiki_overview_tables_by_season.json"
+        }
+      ]
+    },
+    {
+      "file": "wiki_overview_tables_by_season.min.json",
+      "description": "Minified Wikipedia overview export.",
+      "size": "3.1M",
+      "links": [
+        {
+          "label": "min",
+          "url": "https://github.com/dills122/footy-data-kit/releases/latest/download/wiki_overview_tables_by_season.min.json"
+        },
+        {
+          "label": "raw",
+          "url": "https://raw.githubusercontent.com/dills122/footy-data-kit/main/data-output/wiki_overview_tables_by_season.min.json"
+        }
+      ]
+    },
+    {
+      "file": "club-metadata.json",
+      "description": "Club identity sidecar metadata.",
+      "size": "930K",
+      "links": [
+        {
+          "label": "json",
+          "url": "https://github.com/dills122/footy-data-kit/releases/latest/download/club-metadata.json"
+        },
+        {
+          "label": "raw",
+          "url": "https://raw.githubusercontent.com/dills122/footy-data-kit/main/data/club-metadata.json"
+        }
+      ]
+    }
+  ],
+  "curlUrl": "https://github.com/dills122/footy-data-kit/releases/latest/download/all-seasons.min.json",
+  "licenseUrl": "https://github.com/dills122/footy-data-kit/blob/main/LICENSE"
+}

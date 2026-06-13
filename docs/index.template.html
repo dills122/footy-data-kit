@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{{site.title}}</title>
+    <meta name="description" content="{{site.description}}" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="page-shell">
+      <header class="site-header">
+        <p class="eyebrow">{{site.eyebrow}}</p>
+        <h1>{{site.title}}</h1>
+        <p class="lede">{{site.lede}}</p>
+      </header>
+
+      <section class="panel stats" aria-label="dataset summary">
+        {{#stats}}
+        <div>
+          <strong>{{value}}</strong>
+          <span>{{label}}</span>
+        </div>
+        {{/stats}}
+      </section>
+
+      <section class="panel">
+        <h2>What is this?</h2>
+        {{#site.descriptionParagraphs}}
+        <p>{{.}}</p>
+        {{/site.descriptionParagraphs}}
+      </section>
+
+      <section class="panel">
+        <h2>Links</h2>
+        <nav class="link-grid" aria-label="project links">
+          {{#links}}
+          <a href="{{{url}}}">{{label}}</a>
+          {{/links}}
+        </nav>
+      </section>
+
+      <section class="panel">
+        <h2>Releases</h2>
+
+        <div class="release-pin">
+          <span class="release-label">latest</span>
+          <strong>{{latestRelease.tag}}</strong>
+          <span>{{latestRelease.summary}}</span>
+          <span class="release-actions">
+            <a href="{{{latestRelease.notesUrl}}}">notes</a>
+            <a href="{{{latestRelease.zipUrl}}}">data zip</a>
+          </span>
+        </div>
+
+        <div class="release-rows" aria-label="historic releases">
+          {{#historicReleases}}
+          <div class="release-row">
+            <span>{{tag}}</span>
+            <span>{{summary}}</span>
+            <span class="release-actions">
+              <a href="{{{notesUrl}}}">notes</a>
+              <a href="{{{zipUrl}}}">data zip</a>
+            </span>
+          </div>
+          {{/historicReleases}} {{^historicReleases}}
+          <div class="release-row">
+            <span>none</span>
+            <span>No previous releases found.</span>
+            <span></span>
+          </div>
+          {{/historicReleases}}
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="section-heading">
+          <h2>Downloads</h2>
+          <a class="release-link" href="{{{latestRelease.notesUrl}}}">latest release</a>
+        </div>
+
+        <p>Latest release assets:</p>
+        <ul class="download-list">
+          {{#downloads}}
+          <li>
+            <code>{{file}}</code>
+            <span>{{description}} {{size}}.</span>
+            {{#links}}
+            <a href="{{{url}}}">{{label}}</a>
+            {{/links}}
+          </li>
+          {{/downloads}}
+        </ul>
+      </section>
+
+      <section class="panel">
+        <h2>Use it</h2>
+        <pre><code>curl -L {{{curlUrl}}} \
+  -o all-seasons.min.json</code></pre>
+      </section>
+
+      <footer>
+        <span>{{site.footer}}</span>
+        <a href="{{{licenseUrl}}}">MIT</a>
+      </footer>
+    </main>
+  </body>
+</html>
