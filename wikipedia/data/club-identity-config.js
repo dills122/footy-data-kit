@@ -293,10 +293,1568 @@ export const CLUB_CANONICAL_NAME_OVERRIDES = Object.freeze({
   'newport county 1912': 'Newport County (1912)',
 });
 
+const FORMER_EFL_CLUBS_URL =
+  'https://en.wikipedia.org/wiki/List_of_former_English_Football_League_clubs';
+const WIKIPEDIA_CLUB_PAGE_SOURCE_TYPE = 'wikipedia-club-page';
+
+function sourceRef(type, sourceUrl, notes) {
+  return Object.freeze({
+    type,
+    sourceUrl,
+    ...(notes ? { notes } : {}),
+  });
+}
+
+function wikipediaClubSource(sourceUrl, notes) {
+  return sourceRef(WIKIPEDIA_CLUB_PAGE_SOURCE_TYPE, sourceUrl, notes);
+}
+
+function lifecycleEvent({ type, season, date, label, notes, sourceRefs }) {
+  return Object.freeze({
+    type,
+    season,
+    ...(date ? { date } : {}),
+    label,
+    ...(notes ? { notes } : {}),
+    sourceRefs,
+  });
+}
+
+function statusOnlyRule({ clubKey, current, reason, reasonLabel, sourceRefs }) {
+  return Object.freeze({
+    clubKey,
+    status: Object.freeze({
+      current,
+      reason,
+      reasonLabel,
+      sourceRefs,
+    }),
+  });
+}
+
 const FORMER_EFL_CLUBS_SOURCE = Object.freeze([
+  sourceRef('former-efl-clubs-list', FORMER_EFL_CLUBS_URL),
+]);
+
+const CLUB_SOURCE_REFS = Object.freeze({
+  accrington: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Accrington_F.C.',
+      'Used for Football League resignation and folding context.'
+    ),
+  ]),
+  accringtonStanley1891: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Accrington_Stanley_F.C._(1891)',
+      'Used for Football League resignation, liquidation, and separate identity context.'
+    ),
+  ]),
+  darwen1870: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Darwen_F.C._(1870)',
+      'Used for original Darwen winding-up and phoenix club context.'
+    ),
+  ]),
+  bury: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Bury_F.C.',
+      'Used for EFL expulsion and later merger context.'
+    ),
+  ]),
+  bradfordParkAvenue: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Bradford_(Park_Avenue)_A.F.C.',
+      'Used for Football League replacement and liquidation context.'
+    ),
+  ]),
+  wimbledon: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Wimbledon_F.C.',
+      'Used for relocation approval, Milton Keynes move, and supporter phoenix context.'
+    ),
+  ]),
+  afcWimbledon: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/AFC_Wimbledon',
+      'Used for supporter-founded phoenix club context.'
+    ),
+  ]),
+  miltonKeynesDons: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Milton_Keynes_Dons_F.C.',
+      'Used for Wimbledon relocation and Milton Keynes Dons formation context.'
+    ),
+  ]),
+  leedsCity: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Leeds_City_F.C.',
+      'Used for expulsion, dissolution, and Leeds United replacement context.'
+    ),
+  ]),
+  aldershot: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Aldershot_F.C.',
+      'Used for in-season Football League resignation and winding-up context.'
+    ),
+  ]),
+  aldershotTown: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Aldershot_Town_F.C.',
+      'Used for Aldershot Town foundation after Aldershot folded.'
+    ),
+  ]),
+  chesterCity: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Chester_City_F.C.',
+      'Used for expulsion, winding-up, and Chester phoenix context.'
+    ),
+  ]),
+  chester: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Chester_F.C.',
+      'Used for Chester reformation after Chester City liquidation.'
+    ),
+  ]),
+  newportCounty: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Newport_County_A.F.C.',
+      'Used for Newport County bankruptcy and supporter reformation context.'
+    ),
+  ]),
+  maidstoneUnited1897: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Maidstone_United_F.C._(1897)',
+      'Used for Football League resignation, liquidation, and revived club context.'
+    ),
+  ]),
+  sunderlandAlbion: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Sunderland_Albion_F.C.',
+      'Used for Sunderland Albion dissolution context.'
+    ),
+  ]),
+  birminghamStGeorges: Object.freeze([
+    wikipediaClubSource(
+      "https://en.wikipedia.org/wiki/Birmingham_St_George's_F.C.",
+      "Used for Birmingham St George's dissolution context."
+    ),
+  ]),
+  bootle1879: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Bootle_F.C._(1879)',
+      'Used for original Bootle Football League resignation and liquidation context.'
+    ),
+  ]),
+  rotherhamTown1878: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Rotherham_Town_F.C._(1878)',
+      'Used for the original Rotherham Town Football League club dissolution context.'
+    ),
+  ]),
+  burtonWanderers: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Burton_Wanderers_F.C.',
+      'Used for Burton Wanderers merger into Burton United.'
+    ),
+  ]),
+  burtonUnited: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Burton_United_F.C.',
+      'Used for Burton United formation from Burton Swifts and Burton Wanderers, later merger context.'
+    ),
+  ]),
+  newBrightonTower: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/New_Brighton_Tower_F.C.',
+      'Used for New Brighton Tower disbanding context.'
+    ),
+  ]),
+  chesterfield: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Chesterfield_F.C.',
+      'Used for Chesterfield Town liquidation and current Chesterfield reformation context.'
+    ),
+  ]),
+  middlesbroughIronopolis: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Middlesbrough_Ironopolis',
+      'Used for Middlesbrough Ironopolis dissolution context.'
+    ),
+  ]),
+  loughborough: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Loughborough_F.C.',
+      'Used for Loughborough dissolution context.'
+    ),
+  ]),
+  burtonSwifts: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Burton_Swifts_F.C.',
+      'Used for Burton Swifts merger into Burton United.'
+    ),
+  ]),
+  rotherhamCounty: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Rotherham_County_F.C.',
+      'Used for Rotherham County merger into Rotherham United.'
+    ),
+  ]),
+  aberdareAthletic: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Aberdare_Athletic_F.C.',
+      'Used for Aberdare Athletic dissolution context.'
+    ),
+  ]),
+  thames: Object.freeze([
+    wikipediaClubSource('https://en.wikipedia.org/wiki/Thames_F.C.', 'Used for Thames dissolution context.'),
+  ]),
+  wiganBorough: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Wigan_Borough_F.C.',
+      'Used for Wigan Borough dissolution context.'
+    ),
+  ]),
+  salisburyCity: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Salisbury_City_F.C.',
+      'Used for Salisbury City dissolution context.'
+    ),
+  ]),
+  northFerribyUnited: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/North_Ferriby_United_A.F.C.',
+      'Used for North Ferriby United dissolution context.'
+    ),
+  ]),
+  macclesfieldTown: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Macclesfield_Town_F.C.',
+      'Used for Macclesfield Town winding-up context.'
+    ),
+  ]),
+  farsleyCeltic: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Farsley_Celtic_F.C.',
+      'Used for Farsley Celtic dissolution context.'
+    ),
+  ]),
+  gainsboroughTrinity: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Gainsborough_Trinity_F.C.',
+      'Used for current lower-division status and tracked coverage context.'
+    ),
+  ]),
+  durhamCity: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Durham_City_A.F.C.',
+      'Used for current lower-division status and below tracked coverage context.'
+    ),
+  ]),
+  ashington: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Ashington_A.F.C.',
+      'Used for current lower-division status and below tracked coverage context.'
+    ),
+  ]),
+  nelson: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Nelson_F.C.',
+      'Used for current lower-division status and below tracked coverage context.'
+    ),
+  ]),
+  newBrighton: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/New_Brighton_A.F.C.',
+      'Used for current lower-division status and below tracked coverage context.'
+    ),
+  ]),
+  gateshead: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Gateshead_F.C.',
+      'Used for modern Gateshead successor context.'
+    ),
+  ]),
+  glossop: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Glossop_North_End_A.F.C.',
+      'Used for current North West Counties League status and below tracked coverage context.'
+    ),
+    sourceRef(
+      'wikipedia-league-page',
+      'https://en.wikipedia.org/wiki/North_West_Counties_Football_League',
+      'Used for North West Counties League levels 9-10 context.'
+    ),
+  ]),
+  workington: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Workington_A.F.C.',
+      'Used for current lower-division status and tracked coverage context.'
+    ),
+  ]),
+  halifaxTown: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Halifax_Town_A.F.C.',
+      'Used for Halifax Town closure and FC Halifax Town phoenix context.'
+    ),
+  ]),
+  hyde: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Hyde_United_F.C.',
+      'Used for current lower-division status and tracked coverage context.'
+    ),
+  ]),
+  nuneatonTown: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Nuneaton_Town_F.C.',
+      'Used for current lower-division status and below tracked coverage context.'
+    ),
+  ]),
+  billericayTown: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Billericay_Town_F.C.',
+      'Used for current lower-division status and tracked coverage context.'
+    ),
+  ]),
+  guiseley: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Guiseley_A.F.C.',
+      'Used for current lower-division status and tracked coverage context.'
+    ),
+  ]),
+  concordRangers: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Concord_Rangers_F.C.',
+      'Used for current lower-division status and below tracked coverage context.'
+    ),
+  ]),
+  dulwichHamlet: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Dulwich_Hamlet_F.C.',
+      'Used for current lower-division status and tracked coverage context.'
+    ),
+  ]),
+  hungerfordTown: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Hungerford_Town_F.C.',
+      'Used for current lower-division status and below tracked coverage context.'
+    ),
+  ]),
+  ketteringTown: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Kettering_Town_F.C.',
+      'Used for current lower-division status and tracked coverage context.'
+    ),
+  ]),
+  banburyUnited: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Banbury_United_F.C.',
+      'Used for current lower-division status and tracked coverage context.'
+    ),
+  ]),
+  bishopsStortford: Object.freeze([
+    wikipediaClubSource(
+      "https://en.wikipedia.org/wiki/Bishop's_Stortford_F.C.",
+      "Used for Bishop's Stortford current lower-division status and tracked coverage context."
+    ),
+  ]),
+  blythSpartans: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Blyth_Spartans_A.F.C.',
+      'Used for current lower-division status and below tracked coverage context.'
+    ),
+  ]),
+  dartford: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Dartford_F.C.',
+      'Used for current lower-division status and tracked coverage context.'
+    ),
+  ]),
+  gloucesterCity: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Gloucester_City_A.F.C.',
+      'Used for current lower-division status and tracked coverage context.'
+    ),
+  ]),
+  havantAndWaterlooville: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Havant_%26_Waterlooville_F.C.',
+      'Used for current lower-division status and tracked coverage context.'
+    ),
+  ]),
+  tauntonTown: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Taunton_Town_F.C.',
+      'Used for current lower-division status and tracked coverage context.'
+    ),
+  ]),
+  aveley: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Aveley_F.C.',
+      'Used for current lower-division status and tracked coverage context.'
+    ),
+  ]),
+  needhamMarket: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Needham_Market_F.C.',
+      'Used for current lower-division status and tracked coverage context.'
+    ),
+  ]),
+  stAlbansCity: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/St_Albans_City_F.C.',
+      'Used for current lower-division status and tracked coverage context.'
+    ),
+  ]),
+  warringtonTown: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Warrington_Town_F.C.',
+      'Used for current lower-division status and tracked coverage context.'
+    ),
+  ]),
+  wellingUnited: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Welling_United_F.C.',
+      'Used for current lower-division status and tracked coverage context.'
+    ),
+  ]),
+  stalybridgeCeltic: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Stalybridge_Celtic_F.C.',
+      'Used for current lower-division status and below tracked coverage context.'
+    ),
+  ]),
+  darlington: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Darlington_F.C.',
+      'Used for current Darlington successor/phoenix and lower-division status context.'
+    ),
+  ]),
+  cheshunt: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Cheshunt_F.C.',
+      'Used for current lower-division status and tracked coverage context.'
+    ),
+  ]),
+  rushallOlympic: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Rushall_Olympic_F.C.',
+      'Used for current lower-division status and tracked coverage context.'
+    ),
+  ]),
+  weymouth: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Weymouth_F.C.',
+      'Used for current lower-division status and below tracked coverage context.'
+    ),
+  ]),
+  northwichVictoria: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Northwich_Victoria_F.C.',
+      'Used for current lower-division status and below tracked coverage context.'
+    ),
+  ]),
+  herefordUnited: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Hereford_United_F.C.',
+      'Used for winding-up and successor club context.'
+    ),
+  ]),
+  hereford: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Hereford_F.C.',
+      'Used for Hereford foundation as a phoenix club.'
+    ),
+  ]),
+  rushdenAndDiamonds: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Rushden_%26_Diamonds_F.C.',
+      'Used for Conference expulsion and dissolution context.'
+    ),
+  ]),
+  afcRushdenAndDiamonds: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/AFC_Rushden_%26_Diamonds',
+      'Used for supporter phoenix formation context.'
+    ),
+  ]),
+  scarborough: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Scarborough_F.C.',
+      'Used for winding-up and Scarborough Athletic context.'
+    ),
+  ]),
+  scarboroughAthletic: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Scarborough_Athletic_F.C.',
+      'Used for Scarborough Athletic phoenix formation context.'
+    ),
+  ]),
+});
+
+export const CLUB_LIFECYCLE_RULES = Object.freeze([
   Object.freeze({
-    type: 'former-efl-clubs-list',
-    sourceUrl: 'https://en.wikipedia.org/wiki/List_of_former_English_Football_League_clubs',
+    clubKey: 'accrington',
+    status: Object.freeze({
+      current: 'defunct',
+      reason: 'folded',
+      reasonLabel: 'Folded after leaving the Football League.',
+      sourceRefs: CLUB_SOURCE_REFS.accrington,
+    }),
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'resigned',
+        season: 1892,
+        label: 'Resigned from the Football League rather than play in the Second Division.',
+        sourceRefs: CLUB_SOURCE_REFS.accrington,
+      }),
+      lifecycleEvent({
+        type: 'folded',
+        season: 1895,
+        date: '1896-01-14',
+        label: 'Folded after financial problems outside the Football League.',
+        sourceRefs: CLUB_SOURCE_REFS.accrington,
+      }),
+    ]),
+  }),
+  Object.freeze({
+    clubKey: 'accrington stanley 1891',
+    status: Object.freeze({
+      current: 'defunct',
+      reason: 'liquidated',
+      reasonLabel: 'Resigned from the Football League in 1962 and went into liquidation in 1966.',
+      sourceRefs: CLUB_SOURCE_REFS.accringtonStanley1891,
+    }),
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'resigned',
+        season: 1961,
+        date: '1962-03-11',
+        label: 'Resigned from the Football League midway through the 1961-62 season.',
+        sourceRefs: CLUB_SOURCE_REFS.accringtonStanley1891,
+      }),
+      lifecycleEvent({
+        type: 'dissolved',
+        season: 1965,
+        label: 'Went into liquidation in 1966.',
+        sourceRefs: CLUB_SOURCE_REFS.accringtonStanley1891,
+      }),
+    ]),
+  }),
+  Object.freeze({
+    clubKey: 'darwen',
+    status: Object.freeze({
+      current: 'defunct',
+      reason: 'folded',
+      reasonLabel: 'The original Darwen club was wound up in 2009.',
+      sourceRefs: CLUB_SOURCE_REFS.darwen1870,
+    }),
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'folded',
+        season: 2008,
+        date: '2009-05-14',
+        label: 'The original Darwen club was wound up in the High Court.',
+        sourceRefs: CLUB_SOURCE_REFS.darwen1870,
+      }),
+      lifecycleEvent({
+        type: 'phoenixFormed',
+        season: 2009,
+        label: 'A successor club, A.F.C. Darwen, was formed soon after.',
+        sourceRefs: CLUB_SOURCE_REFS.darwen1870,
+      }),
+    ]),
+  }),
+  Object.freeze({
+    clubKey: 'bury',
+    status: Object.freeze({
+      current: 'historical',
+      reason: 'expelled',
+      reasonLabel:
+        'Expelled from the EFL in 2019; later Bury football continued outside tracked league coverage.',
+      sourceRefs: CLUB_SOURCE_REFS.bury,
+    }),
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'expelled',
+        season: 2019,
+        date: '2019-08-27',
+        label: 'Expelled from the English Football League after a takeover collapsed.',
+        sourceRefs: CLUB_SOURCE_REFS.bury,
+      }),
+    ]),
+  }),
+  Object.freeze({
+    clubKey: 'bradford park avenue',
+    status: Object.freeze({
+      current: 'historical',
+      reason: 'liquidated',
+      reasonLabel: 'Left the Football League in 1970 and went into liquidation in 1974.',
+      sourceRefs: CLUB_SOURCE_REFS.bradfordParkAvenue,
+    }),
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'ceasedLeagueParticipation',
+        season: 1969,
+        label: 'Replaced in the Football League by Cambridge United in 1970.',
+        sourceRefs: CLUB_SOURCE_REFS.bradfordParkAvenue,
+      }),
+      lifecycleEvent({
+        type: 'dissolved',
+        season: 1973,
+        date: '1974-05-03',
+        label: 'Went into liquidation after leaving the Football League.',
+        sourceRefs: CLUB_SOURCE_REFS.bradfordParkAvenue,
+      }),
+      lifecycleEvent({
+        type: 'reformed',
+        season: 1974,
+        label: 'Immediately re-formed as a Sunday league club.',
+        sourceRefs: CLUB_SOURCE_REFS.bradfordParkAvenue,
+      }),
+    ]),
+  }),
+  Object.freeze({
+    clubKey: 'wimbledon',
+    status: Object.freeze({
+      current: 'relocated',
+      reason: 'relocated',
+      reasonLabel:
+        'Relocated to Milton Keynes and became Milton Keynes Dons; supporters founded AFC Wimbledon.',
+      sourceRefs: CLUB_SOURCE_REFS.wimbledon,
+    }),
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'relocated',
+        season: 2002,
+        date: '2002-05-28',
+        label: 'The FA approved Wimbledon F.C. relocating to Milton Keynes.',
+        sourceRefs: CLUB_SOURCE_REFS.wimbledon,
+      }),
+      lifecycleEvent({
+        type: 'supporterPhoenixFormed',
+        season: 2002,
+        label: 'AFC Wimbledon was founded by supporters opposed to the relocation.',
+        sourceRefs: CLUB_SOURCE_REFS.afcWimbledon,
+      }),
+      lifecycleEvent({
+        type: 'renamed',
+        season: 2004,
+        label: 'The relocated club adopted the Milton Keynes Dons name.',
+        sourceRefs: CLUB_SOURCE_REFS.miltonKeynesDons,
+      }),
+    ]),
+  }),
+  Object.freeze({
+    clubKey: 'afc wimbledon',
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'supporterPhoenixFormed',
+        season: 2002,
+        label: 'Founded by former Wimbledon supporters after Wimbledon F.C. was allowed to relocate.',
+        sourceRefs: CLUB_SOURCE_REFS.afcWimbledon,
+      }),
+    ]),
+  }),
+  Object.freeze({
+    clubKey: 'milton keynes dons',
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'relocated',
+        season: 2004,
+        label: 'Formed under the Milton Keynes Dons name following Wimbledon F.C. relocating to Milton Keynes.',
+        sourceRefs: CLUB_SOURCE_REFS.miltonKeynesDons,
+      }),
+    ]),
+  }),
+  Object.freeze({
+    clubKey: 'leeds city',
+    status: Object.freeze({
+      current: 'defunct',
+      reason: 'expelled',
+      reasonLabel: 'Expelled from the Football League and dissolved in 1919.',
+      sourceRefs: CLUB_SOURCE_REFS.leedsCity,
+    }),
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'expelled',
+        season: 1919,
+        label: 'Expelled from the Football League eight games into the 1919-20 season.',
+        sourceRefs: CLUB_SOURCE_REFS.leedsCity,
+      }),
+      lifecycleEvent({
+        type: 'dissolved',
+        season: 1919,
+        label: 'Dissolved after an FA inquiry into financial irregularities.',
+        sourceRefs: CLUB_SOURCE_REFS.leedsCity,
+      }),
+    ]),
+  }),
+  Object.freeze({
+    clubKey: 'aldershot',
+    status: Object.freeze({
+      current: 'defunct',
+      reason: 'folded',
+      reasonLabel: 'Resigned from the Football League and was wound up during the 1991-92 season.',
+      sourceRefs: CLUB_SOURCE_REFS.aldershot,
+    }),
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'resigned',
+        season: 1991,
+        label: 'Resigned from the Football League during the 1991-92 season.',
+        sourceRefs: CLUB_SOURCE_REFS.aldershot,
+      }),
+      lifecycleEvent({
+        type: 'folded',
+        season: 1991,
+        label: 'Wound up in the High Court in March 1992.',
+        sourceRefs: CLUB_SOURCE_REFS.aldershot,
+      }),
+    ]),
+  }),
+  Object.freeze({
+    clubKey: 'aldershot town',
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'phoenixFormed',
+        season: 1992,
+        label: 'Founded after the closure of Aldershot F.C.',
+        sourceRefs: CLUB_SOURCE_REFS.aldershotTown,
+      }),
+    ]),
+  }),
+  Object.freeze({
+    clubKey: 'chester city',
+    status: Object.freeze({
+      current: 'defunct',
+      reason: 'folded',
+      reasonLabel: 'Expelled from the Conference and wound up in March 2010.',
+      sourceRefs: CLUB_SOURCE_REFS.chesterCity,
+    }),
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'expelled',
+        season: 2009,
+        label: 'Expelled from the Conference with results expunged.',
+        sourceRefs: CLUB_SOURCE_REFS.chesterCity,
+      }),
+      lifecycleEvent({
+        type: 'folded',
+        season: 2009,
+        date: '2010-03-10',
+        label: 'Formally wound up in the High Court.',
+        sourceRefs: CLUB_SOURCE_REFS.chesterCity,
+      }),
+    ]),
+  }),
+  Object.freeze({
+    clubKey: 'chester',
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'phoenixFormed',
+        season: 2010,
+        label: 'Reformed after the liquidation of Chester City.',
+        sourceRefs: CLUB_SOURCE_REFS.chester,
+      }),
+    ]),
+  }),
+  Object.freeze({
+    clubKey: 'newport county 1912',
+    status: Object.freeze({
+      current: 'defunct',
+      reason: 'folded',
+      reasonLabel: 'The original Newport County club folded in 1989 and was reformed by supporters.',
+      sourceRefs: CLUB_SOURCE_REFS.newportCounty,
+    }),
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'folded',
+        season: 1988,
+        label: 'The original club went out of business in 1989.',
+        sourceRefs: CLUB_SOURCE_REFS.newportCounty,
+      }),
+      lifecycleEvent({
+        type: 'reformed',
+        season: 1989,
+        label: 'Reformed by supporters in June 1989.',
+        sourceRefs: CLUB_SOURCE_REFS.newportCounty,
+      }),
+    ]),
+  }),
+  Object.freeze({
+    clubKey: 'newport county',
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'reformed',
+        season: 1989,
+        label: 'Reformed by supporters after the original Newport County folded.',
+        sourceRefs: CLUB_SOURCE_REFS.newportCounty,
+      }),
+    ]),
+  }),
+  Object.freeze({
+    clubKey: 'maidstone united 1897',
+    status: Object.freeze({
+      current: 'defunct',
+      reason: 'liquidated',
+      reasonLabel: 'Resigned from the Football League and went into liquidation in 1992.',
+      sourceRefs: CLUB_SOURCE_REFS.maidstoneUnited1897,
+    }),
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'resigned',
+        season: 1992,
+        date: '1992-08-17',
+        label: 'Resigned from the Football League before playing a 1992-93 league fixture.',
+        sourceRefs: CLUB_SOURCE_REFS.maidstoneUnited1897,
+      }),
+      lifecycleEvent({
+        type: 'dissolved',
+        season: 1992,
+        label: 'Went into liquidation after being unable to guarantee its fixtures.',
+        sourceRefs: CLUB_SOURCE_REFS.maidstoneUnited1897,
+      }),
+    ]),
+  }),
+  Object.freeze({
+    clubKey: 'sunderland albion',
+    status: Object.freeze({
+      current: 'defunct',
+      reason: 'dissolved',
+      reasonLabel: 'Dissolved in 1892 after leaving the Football Alliance/Northern League record.',
+      sourceRefs: CLUB_SOURCE_REFS.sunderlandAlbion,
+    }),
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'dissolved',
+        season: 1891,
+        label: 'Dissolved in 1892.',
+        sourceRefs: CLUB_SOURCE_REFS.sunderlandAlbion,
+      }),
+    ]),
+  }),
+  Object.freeze({
+    clubKey: 'birmingham st georges',
+    status: Object.freeze({
+      current: 'defunct',
+      reason: 'dissolved',
+      reasonLabel: 'Dissolved in 1892 after its Football Alliance period.',
+      sourceRefs: CLUB_SOURCE_REFS.birminghamStGeorges,
+    }),
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'dissolved',
+        season: 1891,
+        label: 'Dissolved in 1892.',
+        sourceRefs: CLUB_SOURCE_REFS.birminghamStGeorges,
+      }),
+    ]),
+  }),
+  Object.freeze({
+    clubKey: 'bootle',
+    status: Object.freeze({
+      current: 'defunct',
+      reason: 'liquidated',
+      reasonLabel:
+        'The original Bootle club resigned from the Football League and went into liquidation in 1893; the modern Bootle is a separate later club.',
+      sourceRefs: CLUB_SOURCE_REFS.bootle1879,
+    }),
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'resigned',
+        season: 1892,
+        label: 'Resigned after one Football League season.',
+        sourceRefs: CLUB_SOURCE_REFS.bootle1879,
+      }),
+      lifecycleEvent({
+        type: 'dissolved',
+        season: 1893,
+        date: '1893-08-28',
+        label: 'Passed a resolution to enter liquidation before the 1893-94 FA Cup tie.',
+        sourceRefs: CLUB_SOURCE_REFS.bootle1879,
+      }),
+    ]),
+  }),
+  Object.freeze({
+    clubKey: 'rotherham town',
+    status: Object.freeze({
+      current: 'defunct',
+      reason: 'dissolved',
+      reasonLabel:
+        'The original 1878 Rotherham Town club failed to apply for re-election and folded in 1896.',
+      sourceRefs: CLUB_SOURCE_REFS.rotherhamTown1878,
+    }),
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'dissolved',
+        season: 1895,
+        label: 'Folded after failing to apply for re-election at the end of the 1895-96 season.',
+        sourceRefs: CLUB_SOURCE_REFS.rotherhamTown1878,
+      }),
+    ]),
+  }),
+  Object.freeze({
+    clubKey: 'burton wanderers',
+    status: Object.freeze({
+      current: 'merged',
+      reason: 'merged',
+      reasonLabel: 'Merged with Burton Swifts in 1901 to form Burton United.',
+      sourceRefs: CLUB_SOURCE_REFS.burtonWanderers,
+    }),
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'merged',
+        season: 1901,
+        label: 'Merged with Burton Swifts to form Burton United.',
+        sourceRefs: CLUB_SOURCE_REFS.burtonWanderers,
+      }),
+    ]),
+  }),
+  Object.freeze({
+    clubKey: 'new brighton tower',
+    status: Object.freeze({
+      current: 'defunct',
+      reason: 'dissolved',
+      reasonLabel: 'Disbanded in 1901 after three Football League seasons.',
+      sourceRefs: CLUB_SOURCE_REFS.newBrightonTower,
+    }),
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'dissolved',
+        season: 1901,
+        label: 'Disbanded in the summer of 1901.',
+        sourceRefs: CLUB_SOURCE_REFS.newBrightonTower,
+      }),
+    ]),
+  }),
+  Object.freeze({
+    clubKey: 'burton united',
+    status: Object.freeze({
+      current: 'merged',
+      reason: 'merged',
+      reasonLabel:
+        'Formed from Burton Swifts and Burton Wanderers, then merged with Burton All Saints after leaving the Football League.',
+      sourceRefs: CLUB_SOURCE_REFS.burtonUnited,
+    }),
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'merged',
+        season: 1901,
+        label: 'Formed by a merger of Burton Swifts and Burton Wanderers.',
+        sourceRefs: CLUB_SOURCE_REFS.burtonUnited,
+      }),
+      lifecycleEvent({
+        type: 'notReElected',
+        season: 1906,
+        label: 'Failed to win re-election to the Football League after the 1906-07 season.',
+        sourceRefs: CLUB_SOURCE_REFS.burtonUnited,
+      }),
+      lifecycleEvent({
+        type: 'merged',
+        season: 1910,
+        label: 'Merged with Burton All Saints after the 1909-10 season.',
+        sourceRefs: CLUB_SOURCE_REFS.burtonUnited,
+      }),
+    ]),
+  }),
+  Object.freeze({
+    clubKey: 'chesterfield town',
+    status: Object.freeze({
+      current: 'defunct',
+      reason: 'liquidated',
+      reasonLabel:
+        'Failed to gain re-election to the Football League in 1909 and entered liquidation in 1915; Chesterfield was reformed in 1919.',
+      sourceRefs: CLUB_SOURCE_REFS.chesterfield,
+    }),
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'notReElected',
+        season: 1908,
+        label: 'Failed to gain re-election to the Football League and returned to the Midland League.',
+        sourceRefs: CLUB_SOURCE_REFS.chesterfield,
+      }),
+      lifecycleEvent({
+        type: 'dissolved',
+        season: 1914,
+        label: 'Entered liquidation in 1915.',
+        sourceRefs: CLUB_SOURCE_REFS.chesterfield,
+      }),
+      lifecycleEvent({
+        type: 'reformed',
+        season: 1919,
+        label: 'Reformed as Chesterfield Municipal in April 1919.',
+        sourceRefs: CLUB_SOURCE_REFS.chesterfield,
+      }),
+      lifecycleEvent({
+        type: 'renamed',
+        season: 1920,
+        label: 'Renamed Chesterfield F.C. in December 1920.',
+        sourceRefs: CLUB_SOURCE_REFS.chesterfield,
+      }),
+    ]),
+  }),
+  Object.freeze({
+    clubKey: 'middlesbrough ironopolis',
+    status: Object.freeze({
+      current: 'defunct',
+      reason: 'dissolved',
+      reasonLabel: 'Dissolved in 1894 after its single Football League season.',
+      sourceRefs: CLUB_SOURCE_REFS.middlesbroughIronopolis,
+    }),
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'dissolved',
+        season: 1894,
+        label: 'Dissolved in 1894.',
+        sourceRefs: CLUB_SOURCE_REFS.middlesbroughIronopolis,
+      }),
+    ]),
+  }),
+  Object.freeze({
+    clubKey: 'loughborough',
+    status: Object.freeze({
+      current: 'defunct',
+      reason: 'dissolved',
+      reasonLabel: 'Dissolved in 1900 after leaving the Football League.',
+      sourceRefs: CLUB_SOURCE_REFS.loughborough,
+    }),
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'dissolved',
+        season: 1900,
+        label: 'Dissolved in 1900.',
+        sourceRefs: CLUB_SOURCE_REFS.loughborough,
+      }),
+    ]),
+  }),
+  Object.freeze({
+    clubKey: 'burton swifts',
+    status: Object.freeze({
+      current: 'merged',
+      reason: 'merged',
+      reasonLabel: 'Merged with Burton Wanderers in 1901 to form Burton United.',
+      sourceRefs: CLUB_SOURCE_REFS.burtonSwifts,
+    }),
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'merged',
+        season: 1901,
+        label: 'Merged with Burton Wanderers to form Burton United.',
+        sourceRefs: CLUB_SOURCE_REFS.burtonSwifts,
+      }),
+    ]),
+  }),
+  Object.freeze({
+    clubKey: 'rotherham county',
+    status: Object.freeze({
+      current: 'merged',
+      reason: 'merged',
+      reasonLabel: 'Merged with Rotherham Town in 1925 to form Rotherham United.',
+      sourceRefs: CLUB_SOURCE_REFS.rotherhamCounty,
+    }),
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'merged',
+        season: 1925,
+        label: 'Merged into Rotherham United in 1925.',
+        sourceRefs: CLUB_SOURCE_REFS.rotherhamCounty,
+      }),
+    ]),
+  }),
+  Object.freeze({
+    clubKey: 'aberdare athletic',
+    status: Object.freeze({
+      current: 'defunct',
+      reason: 'dissolved',
+      reasonLabel: 'Dissolved in 1928 after losing its Football League place.',
+      sourceRefs: CLUB_SOURCE_REFS.aberdareAthletic,
+    }),
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'dissolved',
+        season: 1928,
+        label: 'Dissolved in 1928.',
+        sourceRefs: CLUB_SOURCE_REFS.aberdareAthletic,
+      }),
+    ]),
+  }),
+  Object.freeze({
+    clubKey: 'thames',
+    status: Object.freeze({
+      current: 'defunct',
+      reason: 'dissolved',
+      reasonLabel: 'Dissolved in 1932 after leaving the Football League.',
+      sourceRefs: CLUB_SOURCE_REFS.thames,
+    }),
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'dissolved',
+        season: 1932,
+        label: 'Dissolved in 1932.',
+        sourceRefs: CLUB_SOURCE_REFS.thames,
+      }),
+    ]),
+  }),
+  Object.freeze({
+    clubKey: 'wigan borough',
+    status: Object.freeze({
+      current: 'defunct',
+      reason: 'dissolved',
+      reasonLabel: 'Dissolved in 1931 after resigning from the Football League.',
+      sourceRefs: CLUB_SOURCE_REFS.wiganBorough,
+    }),
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'resigned',
+        season: 1931,
+        label: 'Resigned from the Football League during the 1931-32 season.',
+        sourceRefs: CLUB_SOURCE_REFS.wiganBorough,
+      }),
+      lifecycleEvent({
+        type: 'dissolved',
+        season: 1931,
+        label: 'Dissolved in 1931.',
+        sourceRefs: CLUB_SOURCE_REFS.wiganBorough,
+      }),
+    ]),
+  }),
+  Object.freeze({
+    clubKey: 'salisbury city',
+    status: Object.freeze({
+      current: 'defunct',
+      reason: 'dissolved',
+      reasonLabel: 'Dissolved in 2014 after leaving the tracked league record.',
+      sourceRefs: CLUB_SOURCE_REFS.salisburyCity,
+    }),
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'dissolved',
+        season: 2014,
+        label: 'Dissolved in 2014.',
+        sourceRefs: CLUB_SOURCE_REFS.salisburyCity,
+      }),
+    ]),
+  }),
+  Object.freeze({
+    clubKey: 'north ferriby united',
+    status: Object.freeze({
+      current: 'defunct',
+      reason: 'dissolved',
+      reasonLabel: 'Dissolved in 2019 after leaving the tracked league record.',
+      sourceRefs: CLUB_SOURCE_REFS.northFerribyUnited,
+    }),
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'dissolved',
+        season: 2019,
+        label: 'Dissolved in 2019.',
+        sourceRefs: CLUB_SOURCE_REFS.northFerribyUnited,
+      }),
+    ]),
+  }),
+  Object.freeze({
+    clubKey: 'macclesfield town',
+    status: Object.freeze({
+      current: 'defunct',
+      reason: 'dissolved',
+      reasonLabel: 'Wound up in September 2020 after leaving the EFL.',
+      sourceRefs: CLUB_SOURCE_REFS.macclesfieldTown,
+    }),
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'dissolved',
+        season: 2020,
+        date: '2020-09-16',
+        label: 'Wound up in September 2020.',
+        sourceRefs: CLUB_SOURCE_REFS.macclesfieldTown,
+      }),
+    ]),
+  }),
+  Object.freeze({
+    clubKey: 'farsley celtic',
+    status: Object.freeze({
+      current: 'defunct',
+      reason: 'dissolved',
+      reasonLabel: 'Dissolved in December 2025 after leaving the tracked league record.',
+      sourceRefs: CLUB_SOURCE_REFS.farsleyCeltic,
+    }),
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'dissolved',
+        season: 2025,
+        date: '2025-12-18',
+        label: 'Dissolved in December 2025.',
+        sourceRefs: CLUB_SOURCE_REFS.farsleyCeltic,
+      }),
+    ]),
+  }),
+  statusOnlyRule({
+    clubKey: 'gainsborough trinity',
+    current: 'active',
+    reason: 'possibly-missing-from-current-data',
+    reasonLabel:
+      'Wikipedia lists the club in the Northern Premier League Premier Division, a level 7 league inside tracked but sparse coverage.',
+    sourceRefs: CLUB_SOURCE_REFS.gainsboroughTrinity,
+  }),
+  statusOnlyRule({
+    clubKey: 'durham city',
+    current: 'active',
+    reason: 'not-in-tracked-leagues',
+    reasonLabel: 'Wikipedia lists the club in the Wearside League Division One, below current tracked coverage.',
+    sourceRefs: CLUB_SOURCE_REFS.durhamCity,
+  }),
+  statusOnlyRule({
+    clubKey: 'ashington',
+    current: 'active',
+    reason: 'not-in-tracked-leagues',
+    reasonLabel:
+      'Wikipedia lists the club in the Northern Premier League Division One East, below current tracked coverage.',
+    sourceRefs: CLUB_SOURCE_REFS.ashington,
+  }),
+  statusOnlyRule({
+    clubKey: 'nelson',
+    current: 'active',
+    reason: 'not-in-tracked-leagues',
+    reasonLabel:
+      'Wikipedia lists the club in the North West Counties League Premier Division, below current tracked coverage.',
+    sourceRefs: CLUB_SOURCE_REFS.nelson,
+  }),
+  statusOnlyRule({
+    clubKey: 'new brighton',
+    current: 'active',
+    reason: 'not-in-tracked-leagues',
+    reasonLabel: 'Wikipedia lists the club in the West Cheshire League Division Two, below current tracked coverage.',
+    sourceRefs: CLUB_SOURCE_REFS.newBrighton,
+  }),
+  statusOnlyRule({
+    clubKey: 'gateshead 1899',
+    current: 'historical',
+    reason: 'successor-active',
+    reasonLabel:
+      'The older Gateshead identity is historical; modern Gateshead is tracked separately as an active successor identity.',
+    sourceRefs: CLUB_SOURCE_REFS.gateshead,
+  }),
+  statusOnlyRule({
+    clubKey: 'workington',
+    current: 'active',
+    reason: 'possibly-missing-from-current-data',
+    reasonLabel:
+      'Wikipedia lists the club in the Northern Premier League Premier Division, a level 7 league inside tracked but sparse coverage.',
+    sourceRefs: CLUB_SOURCE_REFS.workington,
+  }),
+  statusOnlyRule({
+    clubKey: 'halifax town',
+    current: 'historical',
+    reason: 'phoenix-club-active',
+    reasonLabel:
+      'Halifax Town is historical; FC Halifax Town is tracked separately as an active phoenix identity.',
+    sourceRefs: CLUB_SOURCE_REFS.halifaxTown,
+  }),
+  statusOnlyRule({
+    clubKey: 'hyde',
+    current: 'active',
+    reason: 'possibly-missing-from-current-data',
+    reasonLabel:
+      'Wikipedia lists the club in the Northern Premier League Premier Division, a level 7 league inside tracked but sparse coverage.',
+    sourceRefs: CLUB_SOURCE_REFS.hyde,
+  }),
+  statusOnlyRule({
+    clubKey: 'nuneaton town',
+    current: 'active',
+    reason: 'not-in-tracked-leagues',
+    reasonLabel:
+      'Wikipedia lists the club in the Northern Premier League Division One Midlands, below current tracked coverage.',
+    sourceRefs: CLUB_SOURCE_REFS.nuneatonTown,
+  }),
+  statusOnlyRule({
+    clubKey: 'billericay town',
+    current: 'active',
+    reason: 'possibly-missing-from-current-data',
+    reasonLabel:
+      'Wikipedia lists the club in National League South, a level 6 league inside tracked but sparse coverage.',
+    sourceRefs: CLUB_SOURCE_REFS.billericayTown,
+  }),
+  statusOnlyRule({
+    clubKey: 'guiseley',
+    current: 'active',
+    reason: 'possibly-missing-from-current-data',
+    reasonLabel:
+      'Wikipedia lists the club in the Northern Premier League Premier Division, a level 7 league inside tracked but sparse coverage.',
+    sourceRefs: CLUB_SOURCE_REFS.guiseley,
+  }),
+  statusOnlyRule({
+    clubKey: 'concord rangers',
+    current: 'active',
+    reason: 'not-in-tracked-leagues',
+    reasonLabel: 'Wikipedia lists the club in the Isthmian League North Division, below current tracked coverage.',
+    sourceRefs: CLUB_SOURCE_REFS.concordRangers,
+  }),
+  statusOnlyRule({
+    clubKey: 'dulwich hamlet',
+    current: 'active',
+    reason: 'possibly-missing-from-current-data',
+    reasonLabel:
+      'Wikipedia lists the club in the Isthmian League Premier Division, a level 7 league inside tracked but sparse coverage.',
+    sourceRefs: CLUB_SOURCE_REFS.dulwichHamlet,
+  }),
+  statusOnlyRule({
+    clubKey: 'hungerford town',
+    current: 'active',
+    reason: 'not-in-tracked-leagues',
+    reasonLabel: 'Wikipedia lists the club in the Southern League Division One South, below current tracked coverage.',
+    sourceRefs: CLUB_SOURCE_REFS.hungerfordTown,
+  }),
+  statusOnlyRule({
+    clubKey: 'kettering town',
+    current: 'active',
+    reason: 'possibly-missing-from-current-data',
+    reasonLabel:
+      'Wikipedia lists the club in the Southern League Premier Division Central, a level 7 league inside tracked but sparse coverage.',
+    sourceRefs: CLUB_SOURCE_REFS.ketteringTown,
+  }),
+  statusOnlyRule({
+    clubKey: 'banbury united',
+    current: 'active',
+    reason: 'possibly-missing-from-current-data',
+    reasonLabel:
+      'Wikipedia lists the club in the Southern League Premier Division Central, a level 7 league inside tracked but sparse coverage.',
+    sourceRefs: CLUB_SOURCE_REFS.banburyUnited,
+  }),
+  statusOnlyRule({
+    clubKey: 'bishops stortford',
+    current: 'active',
+    reason: 'possibly-missing-from-current-data',
+    reasonLabel:
+      'Wikipedia lists the club in the Southern League Premier Division Central, a level 7 league inside tracked but sparse coverage.',
+    sourceRefs: CLUB_SOURCE_REFS.bishopsStortford,
+  }),
+  statusOnlyRule({
+    clubKey: 'blyth spartans',
+    current: 'active',
+    reason: 'not-in-tracked-leagues',
+    reasonLabel:
+      'Wikipedia lists the club in the Northern Premier League Division One East, below current tracked coverage.',
+    sourceRefs: CLUB_SOURCE_REFS.blythSpartans,
+  }),
+  statusOnlyRule({
+    clubKey: 'dartford',
+    current: 'active',
+    reason: 'possibly-missing-from-current-data',
+    reasonLabel:
+      'Wikipedia lists the club in the Isthmian League Premier Division, a level 7 league inside tracked but sparse coverage.',
+    sourceRefs: CLUB_SOURCE_REFS.dartford,
+  }),
+  statusOnlyRule({
+    clubKey: 'gloucester city',
+    current: 'active',
+    reason: 'possibly-missing-from-current-data',
+    reasonLabel:
+      'Wikipedia lists the club in the Southern League Premier Division South, a level 7 league inside tracked but sparse coverage.',
+    sourceRefs: CLUB_SOURCE_REFS.gloucesterCity,
+  }),
+  statusOnlyRule({
+    clubKey: 'havant and waterlooville',
+    current: 'active',
+    reason: 'possibly-missing-from-current-data',
+    reasonLabel:
+      'Wikipedia lists the club in the Southern League Premier Division South, a level 7 league inside tracked but sparse coverage.',
+    sourceRefs: CLUB_SOURCE_REFS.havantAndWaterlooville,
+  }),
+  statusOnlyRule({
+    clubKey: 'taunton town',
+    current: 'active',
+    reason: 'possibly-missing-from-current-data',
+    reasonLabel:
+      'Wikipedia lists the club in the Southern League Premier Division South, a level 7 league inside tracked but sparse coverage.',
+    sourceRefs: CLUB_SOURCE_REFS.tauntonTown,
+  }),
+  statusOnlyRule({
+    clubKey: 'aveley',
+    current: 'active',
+    reason: 'possibly-missing-from-current-data',
+    reasonLabel:
+      'Wikipedia lists the club in the Isthmian League Premier Division, a level 7 league inside tracked but sparse coverage.',
+    sourceRefs: CLUB_SOURCE_REFS.aveley,
+  }),
+  statusOnlyRule({
+    clubKey: 'needham market',
+    current: 'active',
+    reason: 'possibly-missing-from-current-data',
+    reasonLabel:
+      'Wikipedia lists the club in the Southern League Premier Division Central, a level 7 league inside tracked but sparse coverage.',
+    sourceRefs: CLUB_SOURCE_REFS.needhamMarket,
+  }),
+  statusOnlyRule({
+    clubKey: 'st albans city',
+    current: 'active',
+    reason: 'possibly-missing-from-current-data',
+    reasonLabel:
+      'Wikipedia lists the club in the Isthmian League Premier Division, a level 7 league inside tracked but sparse coverage.',
+    sourceRefs: CLUB_SOURCE_REFS.stAlbansCity,
+  }),
+  statusOnlyRule({
+    clubKey: 'warrington town',
+    current: 'active',
+    reason: 'possibly-missing-from-current-data',
+    reasonLabel:
+      'Wikipedia lists the club in the Northern Premier League Premier Division, a level 7 league inside tracked but sparse coverage.',
+    sourceRefs: CLUB_SOURCE_REFS.warringtonTown,
+  }),
+  statusOnlyRule({
+    clubKey: 'welling united',
+    current: 'active',
+    reason: 'possibly-missing-from-current-data',
+    reasonLabel:
+      'Wikipedia lists the club in the Isthmian League Premier Division, a level 7 league inside tracked but sparse coverage.',
+    sourceRefs: CLUB_SOURCE_REFS.wellingUnited,
+  }),
+  statusOnlyRule({
+    clubKey: 'glossop',
+    current: 'active',
+    reason: 'not-in-tracked-leagues',
+    reasonLabel:
+      'Wikipedia lists Glossop North End in the North West Counties League Premier Division, below current tracked coverage.',
+    sourceRefs: CLUB_SOURCE_REFS.glossop,
+  }),
+  statusOnlyRule({
+    clubKey: 'stalybridge celtic',
+    current: 'active',
+    reason: 'not-in-tracked-leagues',
+    reasonLabel:
+      'Wikipedia lists the club in the Northern Premier League Division One West, below current tracked coverage.',
+    sourceRefs: CLUB_SOURCE_REFS.stalybridgeCeltic,
+  }),
+  statusOnlyRule({
+    clubKey: 'darlington 1883',
+    current: 'historical',
+    reason: 'successor-active',
+    reasonLabel:
+      'The older Darlington Football League identity is historical; modern Darlington is tracked separately as an active successor identity.',
+    sourceRefs: CLUB_SOURCE_REFS.darlington,
+  }),
+  statusOnlyRule({
+    clubKey: 'cheshunt',
+    current: 'active',
+    reason: 'possibly-missing-from-current-data',
+    reasonLabel:
+      'Wikipedia lists the club in the Isthmian League Premier Division, a level 7 league inside tracked but sparse coverage.',
+    sourceRefs: CLUB_SOURCE_REFS.cheshunt,
+  }),
+  statusOnlyRule({
+    clubKey: 'rushall olympic',
+    current: 'active',
+    reason: 'possibly-missing-from-current-data',
+    reasonLabel:
+      'Wikipedia lists the club in the Southern League Premier Division Central, a level 7 league inside tracked but sparse coverage.',
+    sourceRefs: CLUB_SOURCE_REFS.rushallOlympic,
+  }),
+  statusOnlyRule({
+    clubKey: 'weymouth',
+    current: 'active',
+    reason: 'not-in-tracked-leagues',
+    reasonLabel:
+      'Wikipedia lists the club in the Southern League Division One South, below current tracked coverage.',
+    sourceRefs: CLUB_SOURCE_REFS.weymouth,
+  }),
+  Object.freeze({
+    clubKey: 'northwich victoria',
+    status: Object.freeze({
+      current: 'active',
+      reason: 'not-in-tracked-leagues',
+      reasonLabel: 'Active below current tracked league coverage after leaving the Football League.',
+      sourceRefs: CLUB_SOURCE_REFS.northwichVictoria,
+    }),
+  }),
+  Object.freeze({
+    clubKey: 'hereford united',
+    status: Object.freeze({
+      current: 'defunct',
+      reason: 'folded',
+      reasonLabel: 'Wound up in the High Court in December 2014.',
+      sourceRefs: CLUB_SOURCE_REFS.herefordUnited,
+    }),
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'folded',
+        season: 2014,
+        date: '2014-12-19',
+        label: 'Wound up in the High Court with substantial debts.',
+        sourceRefs: CLUB_SOURCE_REFS.herefordUnited,
+      }),
+    ]),
+  }),
+  Object.freeze({
+    clubKey: 'hereford',
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'phoenixFormed',
+        season: 2014,
+        date: '2014-12-22',
+        label: 'Founded as a phoenix club for Hereford United.',
+        sourceRefs: CLUB_SOURCE_REFS.hereford,
+      }),
+    ]),
+  }),
+  Object.freeze({
+    clubKey: 'rushden and diamonds',
+    status: Object.freeze({
+      current: 'defunct',
+      reason: 'dissolved',
+      reasonLabel: 'Expelled from the Conference in 2011 and subsequently dissolved.',
+      sourceRefs: CLUB_SOURCE_REFS.rushdenAndDiamonds,
+    }),
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'expelled',
+        season: 2011,
+        date: '2011-06-11',
+        label: 'Expelled from the Conference because the club could not guarantee completing fixtures.',
+        sourceRefs: CLUB_SOURCE_REFS.rushdenAndDiamonds,
+      }),
+      lifecycleEvent({
+        type: 'dissolved',
+        season: 2011,
+        label: 'The club dissolved after its financial collapse.',
+        sourceRefs: CLUB_SOURCE_REFS.rushdenAndDiamonds,
+      }),
+    ]),
+  }),
+  Object.freeze({
+    clubKey: 'scarborough',
+    status: Object.freeze({
+      current: 'defunct',
+      reason: 'folded',
+      reasonLabel: 'Wound up in 2007; Scarborough Athletic was formed as a phoenix club.',
+      sourceRefs: CLUB_SOURCE_REFS.scarborough,
+    }),
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'folded',
+        season: 2006,
+        date: '2007-06-20',
+        label: 'Wound up in the High Court after 128 years.',
+        sourceRefs: CLUB_SOURCE_REFS.scarborough,
+      }),
+      lifecycleEvent({
+        type: 'phoenixFormed',
+        season: 2007,
+        date: '2007-06-25',
+        label: 'Scarborough Athletic was formed as a phoenix club.',
+        sourceRefs: CLUB_SOURCE_REFS.scarboroughAthletic,
+      }),
+    ]),
+  }),
+  Object.freeze({
+    clubKey: 'scarborough athletic',
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'phoenixFormed',
+        season: 2007,
+        date: '2007-06-25',
+        label: 'Formed as a phoenix club after Scarborough F.C. was wound up.',
+        sourceRefs: CLUB_SOURCE_REFS.scarboroughAthletic,
+      }),
+    ]),
   }),
 ]);
 
@@ -305,97 +1863,127 @@ export const CLUB_RELATIONSHIP_RULES = Object.freeze([
     fromClubKey: 'accrington stanley 1891',
     toClubKey: 'accrington stanley',
     relationship: 'phoenix',
-    sourceRefs: FORMER_EFL_CLUBS_SOURCE,
+    season: 1968,
+    label: 'The modern Accrington Stanley was formed after the 1891 club folded.',
+    sourceRefs: CLUB_SOURCE_REFS.accringtonStanley1891,
   }),
   Object.freeze({
     fromClubKey: 'aldershot',
     toClubKey: 'aldershot town',
     relationship: 'phoenix',
-    sourceRefs: FORMER_EFL_CLUBS_SOURCE,
+    season: 1992,
+    label: 'Aldershot Town was founded after Aldershot F.C. was wound up.',
+    sourceRefs: CLUB_SOURCE_REFS.aldershotTown,
   }),
   Object.freeze({
     fromClubKey: 'burton swifts',
     toClubKey: 'burton united',
     relationship: 'merger',
-    sourceRefs: FORMER_EFL_CLUBS_SOURCE,
+    season: 1901,
+    label: 'Burton United was formed by a merger of Burton Swifts and Burton Wanderers.',
+    sourceRefs: CLUB_SOURCE_REFS.burtonSwifts,
   }),
   Object.freeze({
     fromClubKey: 'burton wanderers',
     toClubKey: 'burton united',
     relationship: 'merger',
-    sourceRefs: FORMER_EFL_CLUBS_SOURCE,
+    season: 1901,
+    label: 'Burton United was formed by a merger of Burton Swifts and Burton Wanderers.',
+    sourceRefs: CLUB_SOURCE_REFS.burtonWanderers,
   }),
   Object.freeze({
     fromClubKey: 'burton united',
     toClubKey: 'burton albion',
     relationship: 'successor',
-    sourceRefs: FORMER_EFL_CLUBS_SOURCE,
+    season: 1950,
+    label: 'The Burton football lineage continued through Burton All Saints/Burton Town and later Burton Albion.',
+    sourceRefs: CLUB_SOURCE_REFS.burtonUnited,
   }),
   Object.freeze({
     fromClubKey: 'chester city',
     toClubKey: 'chester',
     relationship: 'phoenix',
-    sourceRefs: FORMER_EFL_CLUBS_SOURCE,
+    season: 2010,
+    label: 'Chester was formed after Chester City was wound up.',
+    sourceRefs: CLUB_SOURCE_REFS.chester,
   }),
   Object.freeze({
     fromClubKey: 'darlington 1883',
     toClubKey: 'darlington',
     relationship: 'phoenix',
-    sourceRefs: FORMER_EFL_CLUBS_SOURCE,
+    label: 'Modern Darlington is tracked separately after the Football League-era club was revived outside the EFL.',
+    sourceRefs: CLUB_SOURCE_REFS.darlington,
   }),
   Object.freeze({
     fromClubKey: 'gateshead 1899',
     toClubKey: 'gateshead',
     relationship: 'successor',
-    sourceRefs: FORMER_EFL_CLUBS_SOURCE,
+    label: 'Modern Gateshead is tracked separately from the older Gateshead identity.',
+    sourceRefs: CLUB_SOURCE_REFS.gateshead,
   }),
   Object.freeze({
     fromClubKey: 'halifax town',
     toClubKey: 'fc halifax town',
     relationship: 'phoenix',
-    sourceRefs: FORMER_EFL_CLUBS_SOURCE,
+    label: 'FC Halifax Town is tracked separately as a phoenix identity after Halifax Town.',
+    sourceRefs: CLUB_SOURCE_REFS.halifaxTown,
   }),
   Object.freeze({
     fromClubKey: 'hereford united',
     toClubKey: 'hereford',
     relationship: 'phoenix',
-    sourceRefs: FORMER_EFL_CLUBS_SOURCE,
+    season: 2014,
+    label: 'Hereford was founded as a phoenix club after Hereford United was wound up.',
+    sourceRefs: CLUB_SOURCE_REFS.hereford,
   }),
   Object.freeze({
     fromClubKey: 'leeds city',
     toClubKey: 'leeds united',
     relationship: 'successor',
-    sourceRefs: FORMER_EFL_CLUBS_SOURCE,
+    season: 1919,
+    label: 'Leeds United was founded after Leeds City was expelled and dissolved.',
+    sourceRefs: CLUB_SOURCE_REFS.leedsCity,
   }),
   Object.freeze({
     fromClubKey: 'maidstone united 1897',
     toClubKey: 'maidstone united',
     relationship: 'phoenix',
-    sourceRefs: FORMER_EFL_CLUBS_SOURCE,
+    season: 1992,
+    label: 'The modern Maidstone United traces to the revived club after the 1897 club folded.',
+    sourceRefs: CLUB_SOURCE_REFS.maidstoneUnited1897,
   }),
   Object.freeze({
     fromClubKey: 'newport county 1912',
     toClubKey: 'newport county',
     relationship: 'phoenix',
-    sourceRefs: FORMER_EFL_CLUBS_SOURCE,
+    season: 1989,
+    label: 'Newport County was reformed by supporters after the original club folded.',
+    sourceRefs: CLUB_SOURCE_REFS.newportCounty,
   }),
   Object.freeze({
     fromClubKey: 'rotherham county',
     toClubKey: 'rotherham united',
     relationship: 'merger',
-    sourceRefs: FORMER_EFL_CLUBS_SOURCE,
-  }),
-  Object.freeze({
-    fromClubKey: 'rotherham town',
-    toClubKey: 'rotherham united',
-    relationship: 'merger',
-    sourceRefs: FORMER_EFL_CLUBS_SOURCE,
+    season: 1925,
+    label: 'Rotherham County merged with Rotherham Town to form Rotherham United.',
+    sourceRefs: CLUB_SOURCE_REFS.rotherhamCounty,
   }),
   Object.freeze({
     fromClubKey: 'scarborough',
     toClubKey: 'scarborough athletic',
     relationship: 'phoenix',
-    sourceRefs: FORMER_EFL_CLUBS_SOURCE,
+    season: 2007,
+    label: 'Scarborough Athletic was formed as a phoenix club after Scarborough F.C. was wound up.',
+    sourceRefs: CLUB_SOURCE_REFS.scarboroughAthletic,
+  }),
+  Object.freeze({
+    fromClubKey: 'rushden and diamonds',
+    toClubKey: 'afc rushden and diamonds',
+    relationship: 'supporterPhoenix',
+    season: 2011,
+    label:
+      'AFC Rushden & Diamonds was formed by supporters after Rushden & Diamonds was expelled and dissolved.',
+    sourceRefs: CLUB_SOURCE_REFS.afcRushdenAndDiamonds,
   }),
   Object.freeze({
     fromClubKey: 'wigan borough',
@@ -407,24 +1995,24 @@ export const CLUB_RELATIONSHIP_RULES = Object.freeze([
     fromClubKey: 'wimbledon',
     toClubKey: 'milton keynes dons',
     relationship: 'relocation',
-    sourceRefs: FORMER_EFL_CLUBS_SOURCE,
+    season: 2004,
+    label: 'Wimbledon F.C. relocated to Milton Keynes and became Milton Keynes Dons.',
+    sourceRefs: CLUB_SOURCE_REFS.miltonKeynesDons,
   }),
   Object.freeze({
     fromClubKey: 'wimbledon',
     toClubKey: 'afc wimbledon',
     relationship: 'supporterPhoenix',
-    sourceRefs: Object.freeze([
-      Object.freeze({
-        type: 'wikipedia-club-page',
-        sourceUrl: 'https://en.wikipedia.org/wiki/AFC_Wimbledon',
-        notes:
-          'AFC Wimbledon was founded by former Wimbledon supporters after the FA allowed Wimbledon F.C. to relocate to Milton Keynes.',
-      }),
-    ]),
+    season: 2002,
+    label: 'AFC Wimbledon was founded by supporters after Wimbledon F.C. was allowed to relocate.',
+    sourceRefs: CLUB_SOURCE_REFS.afcWimbledon,
   }),
 ]);
 
 const CLUB_IDENTITY_RULES_BY_KEY = new Map(CLUB_IDENTITY_RULES.map((rule) => [rule.clubKey, rule]));
+const CLUB_LIFECYCLE_RULES_BY_KEY = new Map(
+  CLUB_LIFECYCLE_RULES.map((rule) => [rule.clubKey, rule])
+);
 
 export function getCanonicalClubName(clubKey, fallbackName) {
   return CLUB_IDENTITY_RULES_BY_KEY.get(clubKey)?.canonicalName || CLUB_CANONICAL_NAME_OVERRIDES[clubKey] || fallbackName;
@@ -434,10 +2022,16 @@ export function getClubIdentitySourceRefs(clubKey) {
   return CLUB_IDENTITY_RULES_BY_KEY.get(clubKey)?.sourceRefs || Object.freeze([]);
 }
 
+export function getClubLifecycleRule(clubKey) {
+  return CLUB_LIFECYCLE_RULES_BY_KEY.get(clubKey) || null;
+}
+
 export default {
   CLUB_IDENTITY_RULES,
+  CLUB_LIFECYCLE_RULES,
   CLUB_RELATIONSHIP_RULES,
   TEMPORAL_CLUB_IDENTITY_RULES,
   getCanonicalClubName,
   getClubIdentitySourceRefs,
+  getClubLifecycleRule,
 };

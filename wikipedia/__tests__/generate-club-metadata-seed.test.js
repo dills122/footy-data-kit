@@ -1,11 +1,22 @@
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
+import { jest } from '@jest/globals';
 import {
   buildClubMetadataSeed,
   writeClubMetadataSeedFile,
 } from '../data/generate-club-metadata-seed.js';
-import { analyzeClubContinuity } from '../data/verify-club-continuity.js';
+import {
+  analyzeClubContinuity,
+  analyzeHistoricalStatusReasons,
+  runCli as runClubContinuityCli,
+} from '../data/verify-club-continuity.js';
+import {
+  buildWikipediaClubPageCandidates,
+  inferEnglishLeagueLevel,
+  suggestClubStatusReasonFromWikipedia,
+  suggestClubStatusReasonFromWikipediaHtml,
+} from '../data/suggest-club-status-reasons.js';
 
 describe('buildClubMetadataSeed', () => {
   test('derives canonical club metadata from observed league table rows', () => {
@@ -114,6 +125,36 @@ describe('buildClubMetadataSeed', () => {
     ]);
   });
 
+  test('marks clubs missing from the latest season as historical by default', () => {
+    const seed = buildClubMetadataSeed({
+      seasons: {
+        2000: {
+          tier4: {
+            table: [{ team: 'Example Historical' }],
+          },
+        },
+        2001: {
+          tier4: {
+            table: [{ team: 'Example Active' }],
+          },
+        },
+      },
+    });
+
+    expect(seed['example historical'].status).toMatchObject({
+      current: 'historical',
+      trackedFromSeason: 2000,
+      trackedToSeason: 2000,
+      hasUnexplainedGaps: false,
+    });
+    expect(seed['example active'].status).toMatchObject({
+      current: 'active',
+      trackedFromSeason: 2001,
+      trackedToSeason: null,
+      hasUnexplainedGaps: false,
+    });
+  });
+
   test('keeps successor clubs separate and applies season-aware identity rules', () => {
     const seed = buildClubMetadataSeed({
       seasons: {
@@ -166,6 +207,11 @@ describe('buildClubMetadataSeed', () => {
         notes:
           'Earlier Football League Chester records belong to the Chester City identity; modern Chester is a successor club.',
       },
+      {
+        type: 'wikipedia-club-page',
+        sourceUrl: 'https://en.wikipedia.org/wiki/Chester_City_F.C.',
+        notes: 'Used for expulsion, winding-up, and Chester phoenix context.',
+      },
     ]);
     expect(seed.chester.derived.aliases).toEqual(['Chester']);
     expect(seed['chester city'].derived.relationships).toEqual([
@@ -173,10 +219,13 @@ describe('buildClubMetadataSeed', () => {
         clubKey: 'chester',
         relationship: 'phoenix',
         direction: 'successor',
+        season: 2010,
+        label: 'Chester was formed after Chester City was wound up.',
         sourceRefs: [
           {
-            type: 'former-efl-clubs-list',
-            sourceUrl: 'https://en.wikipedia.org/wiki/List_of_former_English_Football_League_clubs',
+            type: 'wikipedia-club-page',
+            sourceUrl: 'https://en.wikipedia.org/wiki/Chester_F.C.',
+            notes: 'Used for Chester reformation after Chester City liquidation.',
           },
         ],
       },
@@ -186,10 +235,13 @@ describe('buildClubMetadataSeed', () => {
         clubKey: 'chester city',
         relationship: 'phoenix',
         direction: 'predecessor',
+        season: 2010,
+        label: 'Chester was formed after Chester City was wound up.',
         sourceRefs: [
           {
-            type: 'former-efl-clubs-list',
-            sourceUrl: 'https://en.wikipedia.org/wiki/List_of_former_English_Football_League_clubs',
+            type: 'wikipedia-club-page',
+            sourceUrl: 'https://en.wikipedia.org/wiki/Chester_F.C.',
+            notes: 'Used for Chester reformation after Chester City liquidation.',
           },
         ],
       },
@@ -199,10 +251,12 @@ describe('buildClubMetadataSeed', () => {
         clubKey: 'fc halifax town',
         relationship: 'phoenix',
         direction: 'successor',
+        label: 'FC Halifax Town is tracked separately as a phoenix identity after Halifax Town.',
         sourceRefs: [
           {
-            type: 'former-efl-clubs-list',
-            sourceUrl: 'https://en.wikipedia.org/wiki/List_of_former_English_Football_League_clubs',
+            type: 'wikipedia-club-page',
+            sourceUrl: 'https://en.wikipedia.org/wiki/Halifax_Town_A.F.C.',
+            notes: 'Used for Halifax Town closure and FC Halifax Town phoenix context.',
           },
         ],
       },
@@ -259,10 +313,14 @@ describe('buildClubMetadataSeed', () => {
         clubKey: 'accrington stanley',
         relationship: 'phoenix',
         direction: 'successor',
+        season: 1968,
+        label: 'The modern Accrington Stanley was formed after the 1891 club folded.',
         sourceRefs: [
           {
-            type: 'former-efl-clubs-list',
-            sourceUrl: 'https://en.wikipedia.org/wiki/List_of_former_English_Football_League_clubs',
+            type: 'wikipedia-club-page',
+            sourceUrl: 'https://en.wikipedia.org/wiki/Accrington_Stanley_F.C._(1891)',
+            notes:
+              'Used for Football League resignation, liquidation, and separate identity context.',
           },
         ],
       },
@@ -283,9 +341,332 @@ describe('buildClubMetadataSeed', () => {
         notes:
           'The original South Shields club relocated to Gateshead in 1930 and adopted the Gateshead name.',
       },
+      {
+        type: 'wikipedia-club-page',
+        sourceUrl: 'https://en.wikipedia.org/wiki/Gateshead_F.C.',
+        notes: 'Used for modern Gateshead successor context.',
+      },
     ]);
     expect(seed['south shields'].canonicalName).toBe('South Shields');
     expect(seed['south shields'].derived.seasonsSeen).toEqual([2024]);
+  });
+
+  test('merges curated lifecycle metadata and relationship labels for historical clubs', () => {
+    const seed = buildClubMetadataSeed({
+      seasons: {
+        1892: {
+          tier1: {
+            table: [{ team: 'Accrington' }],
+          },
+        },
+        2003: {
+          tier2: {
+            table: [{ team: 'Wimbledon' }],
+          },
+        },
+        2005: {
+          tier4: {
+            table: [{ team: 'Rushden & Diamonds' }],
+          },
+        },
+        2025: {
+          tier4: {
+            table: [{ team: 'Milton Keynes Dons' }],
+          },
+        },
+      },
+    });
+
+    expect(seed.accrington.status).toMatchObject({
+      current: 'defunct',
+      reason: 'folded',
+      reasonLabel: 'Folded after leaving the Football League.',
+      trackedFromSeason: 1892,
+      trackedToSeason: 1892,
+    });
+    expect(seed.accrington.history.lifecycleEvents).toEqual([
+      {
+        type: 'resigned',
+        season: 1892,
+        label: 'Resigned from the Football League rather than play in the Second Division.',
+        sourceRefs: [
+          {
+            type: 'wikipedia-club-page',
+            sourceUrl: 'https://en.wikipedia.org/wiki/Accrington_F.C.',
+            notes: 'Used for Football League resignation and folding context.',
+          },
+        ],
+      },
+      {
+        type: 'folded',
+        season: 1895,
+        date: '1896-01-14',
+        label: 'Folded after financial problems outside the Football League.',
+        sourceRefs: [
+          {
+            type: 'wikipedia-club-page',
+            sourceUrl: 'https://en.wikipedia.org/wiki/Accrington_F.C.',
+            notes: 'Used for Football League resignation and folding context.',
+          },
+        ],
+      },
+    ]);
+    expect(seed.wimbledon.status).toMatchObject({
+      current: 'relocated',
+      reason: 'relocated',
+      reasonLabel:
+        'Relocated to Milton Keynes and became Milton Keynes Dons; supporters founded AFC Wimbledon.',
+    });
+    expect(seed.wimbledon.derived.relationships).toEqual([
+      {
+        clubKey: 'afc wimbledon',
+        relationship: 'supporterPhoenix',
+        direction: 'supporterFounded',
+        season: 2002,
+        label:
+          'AFC Wimbledon was founded by supporters after Wimbledon F.C. was allowed to relocate.',
+        sourceRefs: [
+          {
+            type: 'wikipedia-club-page',
+            sourceUrl: 'https://en.wikipedia.org/wiki/AFC_Wimbledon',
+            notes: 'Used for supporter-founded phoenix club context.',
+          },
+        ],
+      },
+      {
+        clubKey: 'milton keynes dons',
+        relationship: 'relocation',
+        direction: 'relocatedTo',
+        season: 2004,
+        label: 'Wimbledon F.C. relocated to Milton Keynes and became Milton Keynes Dons.',
+        sourceRefs: [
+          {
+            type: 'wikipedia-club-page',
+            sourceUrl: 'https://en.wikipedia.org/wiki/Milton_Keynes_Dons_F.C.',
+            notes: 'Used for Wimbledon relocation and Milton Keynes Dons formation context.',
+          },
+        ],
+      },
+    ]);
+    expect(seed['rushden and diamonds'].derived.relationships).toEqual([
+      {
+        clubKey: 'afc rushden and diamonds',
+        relationship: 'supporterPhoenix',
+        direction: 'supporterFounded',
+        season: 2011,
+        label:
+          'AFC Rushden & Diamonds was formed by supporters after Rushden & Diamonds was expelled and dissolved.',
+        sourceRefs: [
+          {
+            type: 'wikipedia-club-page',
+            sourceUrl: 'https://en.wikipedia.org/wiki/AFC_Rushden_%26_Diamonds',
+            notes: 'Used for supporter phoenix formation context.',
+          },
+        ],
+      },
+    ]);
+  });
+
+  test('applies reviewed historical reason decisions from the Wikipedia audit', () => {
+    const seed = buildClubMetadataSeed({
+      seasons: {
+        1890: {
+          tier2: {
+            table: [{ team: 'Sunderland Albion' }, { team: "Birmingham St George's" }],
+          },
+        },
+        1892: {
+          tier2: {
+            table: [{ team: 'Bootle' }],
+          },
+        },
+        1895: {
+          tier2: {
+            table: [{ team: 'Rotherham Town' }, { team: 'Burton Wanderers' }],
+          },
+        },
+        1900: {
+          tier2: {
+            table: [{ team: 'New Brighton Tower' }],
+          },
+        },
+        1906: {
+          tier2: {
+            table: [{ team: 'Burton United' }],
+          },
+        },
+        1908: {
+          tier2: {
+            table: [{ team: 'Chesterfield Town' }],
+          },
+        },
+        2025: {
+          tier4: {
+            table: [{ team: 'Chesterfield' }],
+          },
+        },
+      },
+    });
+
+    expect(seed['sunderland albion'].status).toMatchObject({
+      current: 'defunct',
+      reason: 'dissolved',
+      reasonLabel: 'Dissolved in 1892 after leaving the Football Alliance/Northern League record.',
+    });
+    expect(seed['birmingham st georges'].status).toMatchObject({
+      current: 'defunct',
+      reason: 'dissolved',
+      reasonLabel: 'Dissolved in 1892 after its Football Alliance period.',
+    });
+    expect(seed.bootle.status).toMatchObject({
+      current: 'defunct',
+      reason: 'liquidated',
+      reasonLabel:
+        'The original Bootle club resigned from the Football League and went into liquidation in 1893; the modern Bootle is a separate later club.',
+    });
+    expect(seed['rotherham town'].status).toMatchObject({
+      current: 'defunct',
+      reason: 'dissolved',
+      reasonLabel:
+        'The original 1878 Rotherham Town club failed to apply for re-election and folded in 1896.',
+    });
+    expect(seed['rotherham town'].derived.relationships || []).not.toContainEqual(
+      expect.objectContaining({
+        clubKey: 'rotherham united',
+      })
+    );
+    expect(seed['burton wanderers'].status).toMatchObject({
+      current: 'merged',
+      reason: 'merged',
+      reasonLabel: 'Merged with Burton Swifts in 1901 to form Burton United.',
+    });
+    expect(seed['burton wanderers'].derived.relationships).toEqual([
+      expect.objectContaining({
+        clubKey: 'burton united',
+        relationship: 'merger',
+        direction: 'mergedInto',
+        season: 1901,
+      }),
+    ]);
+    expect(seed['new brighton tower'].status).toMatchObject({
+      current: 'defunct',
+      reason: 'dissolved',
+      reasonLabel: 'Disbanded in 1901 after three Football League seasons.',
+    });
+    expect(seed['burton united'].status).toMatchObject({
+      current: 'merged',
+      reason: 'merged',
+      reasonLabel:
+        'Formed from Burton Swifts and Burton Wanderers, then merged with Burton All Saints after leaving the Football League.',
+    });
+    expect(seed['burton united'].derived.relationships).toEqual([
+      expect.objectContaining({
+        clubKey: 'burton albion',
+        relationship: 'successor',
+        direction: 'successor',
+        season: 1950,
+      }),
+      expect.objectContaining({
+        clubKey: 'burton swifts',
+        relationship: 'merger',
+        direction: 'formedFrom',
+        season: 1901,
+      }),
+      expect.objectContaining({
+        clubKey: 'burton wanderers',
+        relationship: 'merger',
+        direction: 'formedFrom',
+        season: 1901,
+      }),
+    ]);
+    expect(seed['chesterfield town'].status).toMatchObject({
+      current: 'defunct',
+      reason: 'liquidated',
+      reasonLabel:
+        'Failed to gain re-election to the Football League in 1909 and entered liquidation in 1915; Chesterfield was reformed in 1919.',
+    });
+    expect(seed.chesterfield.history.lifecycleEvents).toEqual([]);
+  });
+
+  test('applies final reviewed lower-tier continuity decisions from the Wikipedia audit', () => {
+    const seed = buildClubMetadataSeed({
+      seasons: {
+        1914: {
+          tier2: {
+            table: [{ team: 'Glossop' }],
+          },
+        },
+        1922: {
+          tier3: {
+            table: [{ team: 'Stalybridge Celtic' }],
+          },
+        },
+        2009: {
+          tier4: {
+            table: [{ team: 'Darlington' }],
+          },
+        },
+        2022: {
+          tier6: {
+            table: [{ team: 'Cheshunt' }],
+          },
+        },
+        2024: {
+          tier6: {
+            table: [{ team: 'Rushall Olympic' }, { team: 'Weymouth' }],
+          },
+        },
+        2025: {
+          tier6: {
+            table: [{ team: 'Darlington' }],
+          },
+        },
+      },
+    });
+
+    expect(seed.glossop.status).toMatchObject({
+      current: 'active',
+      reason: 'not-in-tracked-leagues',
+      reasonLabel:
+        'Wikipedia lists Glossop North End in the North West Counties League Premier Division, below current tracked coverage.',
+    });
+    expect(seed['stalybridge celtic'].status).toMatchObject({
+      current: 'active',
+      reason: 'not-in-tracked-leagues',
+      reasonLabel:
+        'Wikipedia lists the club in the Northern Premier League Division One West, below current tracked coverage.',
+    });
+    expect(seed['darlington 1883'].status).toMatchObject({
+      current: 'historical',
+      reason: 'successor-active',
+      reasonLabel:
+        'The older Darlington Football League identity is historical; modern Darlington is tracked separately as an active successor identity.',
+    });
+    expect(seed['darlington 1883'].derived.relationships).toEqual([
+      expect.objectContaining({
+        clubKey: 'darlington',
+        relationship: 'phoenix',
+        direction: 'successor',
+      }),
+    ]);
+    expect(seed.cheshunt.status).toMatchObject({
+      current: 'active',
+      reason: 'possibly-missing-from-current-data',
+      reasonLabel:
+        'Wikipedia lists the club in the Isthmian League Premier Division, a level 7 league inside tracked but sparse coverage.',
+    });
+    expect(seed['rushall olympic'].status).toMatchObject({
+      current: 'active',
+      reason: 'possibly-missing-from-current-data',
+      reasonLabel:
+        'Wikipedia lists the club in the Southern League Premier Division Central, a level 7 league inside tracked but sparse coverage.',
+    });
+    expect(seed.weymouth.status).toMatchObject({
+      current: 'active',
+      reason: 'not-in-tracked-leagues',
+      reasonLabel:
+        'Wikipedia lists the club in the Southern League Division One South, below current tracked coverage.',
+    });
   });
 
   test('adds official pause explanations for wartime observed coverage gaps', () => {
@@ -435,6 +816,84 @@ describe('buildClubMetadataSeed', () => {
   });
 });
 
+describe('verify-club-continuity CLI', () => {
+  test('writes a repeatable historical reason audit JSON file', async () => {
+    const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'club-continuity-'));
+    const datasetPath = path.join(tmpDir, 'all-seasons.json');
+    const metadataPath = path.join(tmpDir, 'club-metadata.json');
+    const auditPath = path.join(tmpDir, 'club-historical-reason-audit.json');
+    const consoleSpy = jest.spyOn(console, 'log').mockImplementation(() => {});
+
+    fs.writeFileSync(
+      datasetPath,
+      JSON.stringify({
+        seasons: {
+          2000: {
+            tier4: {
+              table: [{ team: 'Example Historical' }],
+            },
+          },
+          2001: {
+            tier4: {
+              table: [{ team: 'Example Active' }],
+            },
+          },
+        },
+      })
+    );
+    fs.writeFileSync(
+      metadataPath,
+      JSON.stringify({
+        clubs: {
+          'example historical': {
+            clubId: 'example-historical',
+            canonicalName: 'Example Historical',
+            status: {
+              current: 'historical',
+              trackedFromSeason: 2000,
+              trackedToSeason: 2000,
+            },
+          },
+          'example active': {
+            clubId: 'example-active',
+            canonicalName: 'Example Active',
+            status: {
+              current: 'active',
+              trackedFromSeason: 2001,
+              trackedToSeason: null,
+            },
+          },
+        },
+      })
+    );
+
+    try {
+      await runClubContinuityCli([
+        'node',
+        'verify-club-continuity',
+        '--dataset',
+        datasetPath,
+        '--club-metadata',
+        metadataPath,
+        '--check-historical-reasons',
+        '--output',
+        auditPath,
+      ]);
+    } finally {
+      consoleSpy.mockRestore();
+    }
+
+    const audit = JSON.parse(fs.readFileSync(auditPath, 'utf8'));
+    expect(audit.issues).toEqual([
+      expect.objectContaining({
+        type: 'missing-historical-status-reason',
+        clubId: 'example-historical',
+        canonicalName: 'Example Historical',
+      }),
+    ]);
+  });
+});
+
 describe('analyzeClubContinuity', () => {
   test('reports missing expected seasons outside official pauses and explanations', () => {
     const dataset = {
@@ -534,6 +993,371 @@ describe('analyzeClubContinuity', () => {
     };
 
     expect(analyzeClubContinuity(dataset, clubMetadata)).toEqual([]);
+  });
+
+  test('reports historical club records missing status reasons when requested', () => {
+    const clubMetadata = {
+      clubs: {
+        'example historical': {
+          clubId: 'example-historical',
+          canonicalName: 'Example Historical',
+          status: {
+            current: 'historical',
+            trackedFromSeason: 1900,
+            trackedToSeason: 1905,
+          },
+        },
+        'example defunct with reason': {
+          clubId: 'example-defunct-with-reason',
+          canonicalName: 'Example Defunct With Reason',
+          status: {
+            current: 'defunct',
+            trackedFromSeason: 1900,
+            trackedToSeason: 1905,
+            reason: 'folded',
+          },
+        },
+        'example active': {
+          clubId: 'example-active',
+          canonicalName: 'Example Active',
+          status: {
+            current: 'active',
+            trackedFromSeason: 1900,
+            trackedToSeason: null,
+          },
+        },
+      },
+    };
+
+    expect(analyzeHistoricalStatusReasons(clubMetadata)).toEqual([
+      expect.objectContaining({
+        type: 'missing-historical-status-reason',
+        clubId: 'example-historical',
+        canonicalName: 'Example Historical',
+        current: 'historical',
+        trackedToSeason: 1905,
+      }),
+    ]);
+  });
+});
+
+describe('suggestClubStatusReasonFromWikipediaHtml', () => {
+  test('infers English pyramid levels from league names', () => {
+    expect(inferEnglishLeagueLevel('National League')).toBe(5);
+    expect(inferEnglishLeagueLevel('National League North')).toBe(6);
+    expect(inferEnglishLeagueLevel('Northern Premier League Premier Division')).toBe(7);
+    expect(inferEnglishLeagueLevel('Midland League Premier Division')).toBe(9);
+    expect(inferEnglishLeagueLevel('Unknown Sunday League')).toBeNull();
+  });
+
+  test('builds candidate slugs from source refs and canonical names', () => {
+    const candidates = buildWikipediaClubPageCandidates({
+      canonicalName: 'Example Town',
+      derived: {
+        identitySources: [
+          {
+            type: 'wikipedia-club-page',
+            sourceUrl: 'https://en.wikipedia.org/wiki/Example_Town_F.C.',
+          },
+        ],
+      },
+    });
+
+    expect(candidates).toEqual([
+      'Example_Town_F.C.',
+      'Example_Town',
+      'Example_Town_A.F.C.',
+      'Example_Town_football_club',
+      'Example_Town_F.C._(football_club)',
+    ]);
+  });
+
+  test('suggests defunct reasons from matching club page text', () => {
+    const suggestion = suggestClubStatusReasonFromWikipediaHtml({
+      club: { canonicalName: 'Example Town' },
+      pageUrl: 'https://en.wikipedia.org/wiki/Example_Town_F.C.',
+      html: `
+        <h1 id="firstHeading">Example Town F.C.</h1>
+        <div id="mw-content-text">
+          <div class="mw-parser-output">
+            <p><b>Example Town F.C.</b> was an association football club based in Example.</p>
+            <h2><span class="mw-headline" id="History">History</span></h2>
+            <p>The club was wound up in the High Court after financial problems.</p>
+          </div>
+        </div>
+      `,
+    });
+
+    expect(suggestion).toMatchObject({
+      foundPage: true,
+      matchedClubPage: true,
+      pageTitle: 'Example Town F.C.',
+      suggestedCurrent: 'defunct',
+      suggestedReason: 'liquidated',
+      suggestedReasonLabel: 'Wikipedia indicates the club was wound up or liquidated.',
+      evidenceSourceUrl: 'https://en.wikipedia.org/wiki/Example_Town_F.C.#History',
+      evidenceSourceLabel: 'History',
+    });
+    expect(suggestion.evidenceText).toContain('wound up');
+  });
+
+  test('suggests active below tracked coverage when the matched club page is current', () => {
+    const suggestion = suggestClubStatusReasonFromWikipediaHtml({
+      club: { canonicalName: 'Example Town' },
+      pageUrl: 'https://en.wikipedia.org/wiki/Example_Town_F.C.',
+      html: `
+        <h1 id="firstHeading">Example Town F.C.</h1>
+        <div id="mw-content-text">
+          <div class="mw-parser-output">
+            <p><b>Example Town F.C.</b> is a semi-professional football club based in Example.</p>
+            <table class="infobox">
+              <tr><th>Current league</th><td>Northern Premier League Division One</td></tr>
+            </table>
+          </div>
+        </div>
+      `,
+    });
+
+    expect(suggestion).toMatchObject({
+      foundPage: true,
+      matchedClubPage: true,
+      suggestedCurrent: 'active',
+      suggestedReason: 'not-in-tracked-leagues',
+      suggestedReasonLabel:
+        'Wikipedia indicates the club is active at level 8, below current tracked coverage.',
+      wikipediaCurrentLeague: 'Northern Premier League Division One',
+      wikipediaCurrentLeagueLevel: 8,
+      wikipediaTrackingCoverageStatus: 'below-tracked-coverage',
+      trackedLeagueLevelLimit: 7,
+      evidenceSourceUrl: 'https://en.wikipedia.org/wiki/Example_Town_F.C.',
+      evidenceSourceLabel: 'infobox',
+    });
+  });
+
+  test('uses page-level infobox citation when lifecycle evidence comes from an infobox row', () => {
+    const suggestion = suggestClubStatusReasonFromWikipediaHtml({
+      club: {
+        canonicalName: 'Example Town',
+        status: {
+          trackedToSeason: 1892,
+        },
+      },
+      pageUrl: 'https://en.wikipedia.org/wiki/Example_Town_F.C.',
+      html: `
+        <h1 id="firstHeading">Example Town F.C.</h1>
+        <div id="mw-content-text">
+          <div class="mw-parser-output">
+            <p><b>Example Town F.C.</b> was an association football club based in Example.</p>
+            <table class="infobox">
+              <tr><th>Dissolved</th><td>1892</td></tr>
+            </table>
+          </div>
+        </div>
+      `,
+    });
+
+    expect(suggestion).toMatchObject({
+      matchedClubPage: true,
+      suggestedReason: 'dissolved',
+      evidenceSourceUrl: 'https://en.wikipedia.org/wiki/Example_Town_F.C.',
+      evidenceSourceLabel: 'infobox',
+    });
+  });
+
+  test('rejects a found page when it does not look like the requested football club', () => {
+    const suggestion = suggestClubStatusReasonFromWikipediaHtml({
+      club: { canonicalName: 'Example Town' },
+      pageUrl: 'https://en.wikipedia.org/wiki/Example_Town',
+      html: `
+        <h1 id="firstHeading">Example Town</h1>
+        <div id="mw-content-text">
+          <div class="mw-parser-output">
+            <p><b>Example Town</b> is a market town and civil parish.</p>
+          </div>
+        </div>
+      `,
+    });
+
+    expect(suggestion).toMatchObject({
+      foundPage: true,
+      matchedClubPage: false,
+      suggestedReason: null,
+    });
+  });
+
+  test('rejects same-name defunct evidence when lifecycle year does not match tracked identity', () => {
+    const suggestion = suggestClubStatusReasonFromWikipediaHtml({
+      club: {
+        canonicalName: 'Example Town',
+        status: {
+          trackedToSeason: 1892,
+        },
+      },
+      pageUrl: 'https://en.wikipedia.org/wiki/Example_Town_F.C.',
+      html: `
+        <h1 id="firstHeading">Example Town F.C.</h1>
+        <div id="mw-content-text">
+          <div class="mw-parser-output">
+            <p><b>Example Town F.C.</b> was an association football club based in Example.</p>
+            <p>The later club folded during the 1953-54 campaign.</p>
+          </div>
+        </div>
+      `,
+    });
+
+    expect(suggestion).toMatchObject({
+      foundPage: true,
+      matchedClubPage: false,
+      eraMatched: false,
+      suggestedReason: null,
+      evidenceYears: [1953],
+    });
+  });
+
+  test('keeps active lower-tier suggestions even when tracked era ended earlier', () => {
+    const suggestion = suggestClubStatusReasonFromWikipediaHtml({
+      club: {
+        canonicalName: 'Example Town',
+        status: {
+          trackedToSeason: 1892,
+        },
+      },
+      pageUrl: 'https://en.wikipedia.org/wiki/Example_Town_F.C.',
+      html: `
+        <h1 id="firstHeading">Example Town F.C.</h1>
+        <div id="mw-content-text">
+          <div class="mw-parser-output">
+            <p><b>Example Town F.C.</b> is a football club based in Example.</p>
+            <table class="infobox">
+              <tr><th>Current league</th><td>Northern League</td></tr>
+            </table>
+          </div>
+        </div>
+      `,
+    });
+
+    expect(suggestion).toMatchObject({
+      matchedClubPage: true,
+      eraMatched: true,
+      suggestedCurrent: 'active',
+      suggestedReason: 'not-in-tracked-leagues',
+      wikipediaCurrentLeague: 'Northern League',
+      wikipediaCurrentLeagueLevel: 9,
+    });
+  });
+
+  test('uses current infobox league to reject stale lifecycle text for active lower-tier clubs', () => {
+    const suggestion = suggestClubStatusReasonFromWikipediaHtml({
+      club: {
+        canonicalName: 'Northwich Victoria',
+        status: {
+          trackedToSeason: 1893,
+        },
+      },
+      pageUrl: 'https://en.wikipedia.org/wiki/Northwich_Victoria_F.C.',
+      html: `
+        <h1 id="firstHeading">Northwich Victoria F.C.</h1>
+        <div id="mw-content-text">
+          <div class="mw-parser-output">
+            <p><b>Northwich Victoria F.C.</b> is a football club based in Northwich.</p>
+            <p>The original club was founded in 1874 and amalgamated with Hartford and Davenham United in 1890.</p>
+            <table class="infobox vcard">
+              <tr><th>League</th><td>Midland League Premier Division</td></tr>
+              <tr><th>2024-25</th><td>Midland League Premier Division, 2nd of 18</td></tr>
+            </table>
+          </div>
+        </div>
+      `,
+    });
+
+    expect(suggestion).toMatchObject({
+      foundPage: true,
+      matchedClubPage: true,
+      eraMatched: true,
+      suggestedCurrent: 'active',
+      suggestedReason: 'not-in-tracked-leagues',
+      wikipediaCurrentLeague: 'Midland League Premier Division',
+      wikipediaCurrentLeagueLevel: 9,
+      wikipediaTrackingCoverageStatus: 'below-tracked-coverage',
+      wikipediaLatestSeason: '2024-25',
+      rejectedLifecycleSuggestion: {
+        suggestedReason: 'merged',
+        evidenceYears: expect.arrayContaining([1890]),
+        evidenceSourceUrl: 'https://en.wikipedia.org/wiki/Northwich_Victoria_F.C.',
+        evidenceSourceLabel: 'lead',
+      },
+    });
+  });
+
+  test('flags active clubs in tracked league levels as possible current data misses', () => {
+    const suggestion = suggestClubStatusReasonFromWikipediaHtml({
+      club: {
+        canonicalName: 'Example Town',
+        status: {
+          trackedToSeason: 2021,
+        },
+      },
+      pageUrl: 'https://en.wikipedia.org/wiki/Example_Town_F.C.',
+      html: `
+        <h1 id="firstHeading">Example Town F.C.</h1>
+        <div id="mw-content-text">
+          <div class="mw-parser-output">
+            <p><b>Example Town F.C.</b> is a football club based in Example.</p>
+            <table class="infobox vcard">
+              <tr><th>League</th><td>National League North</td></tr>
+              <tr><th>Season</th><td>2025-26</td></tr>
+            </table>
+          </div>
+        </div>
+      `,
+    });
+
+    expect(suggestion).toMatchObject({
+      matchedClubPage: true,
+      suggestedCurrent: 'active',
+      suggestedReason: 'possibly-missing-from-current-data',
+      wikipediaCurrentLeague: 'National League North',
+      wikipediaCurrentLeagueLevel: 6,
+      wikipediaTrackingCoverageStatus: 'tracked-sparse',
+      wikipediaLatestSeason: '2025-26',
+    });
+  });
+
+  test('falls back to Wikipedia search results when generated slugs do not match', async () => {
+    const fetchHtml = jest.fn(async (slug) => {
+      if (slug === 'Example_Town_F.C._(1890)') {
+        return `
+          <h1 id="firstHeading">Example Town F.C. (1890)</h1>
+          <div id="mw-content-text">
+            <div class="mw-parser-output">
+              <p><b>Example Town F.C.</b> was an association football club based in Example.</p>
+              <p>The club folded before the next season.</p>
+            </div>
+          </div>
+        `;
+      }
+      throw new Error('missing page');
+    });
+    const fetchSearchTitles = jest.fn(async () => ['Example Town F.C. (1890)']);
+
+    const suggestion = await suggestClubStatusReasonFromWikipedia(
+      { canonicalName: 'Example Town' },
+      {
+        fetchHtml,
+        fetchSearchTitles,
+        delayMs: 0,
+        maxCandidates: 8,
+      }
+    );
+
+    expect(fetchSearchTitles).toHaveBeenCalledWith('Example Town football club', { limit: 5 });
+    expect(suggestion).toMatchObject({
+      matchedClubPage: true,
+      pageTitle: 'Example Town F.C. (1890)',
+      suggestedCurrent: 'defunct',
+      suggestedReason: 'folded',
+      searchResultTitles: ['Example Town F.C. (1890)'],
+    });
   });
 });
 

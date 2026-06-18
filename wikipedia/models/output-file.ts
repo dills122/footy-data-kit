@@ -122,6 +122,8 @@ export interface ClubRelationship {
   clubKey: string;
   relationship: string;
   direction: string;
+  season?: number | null;
+  label?: string | null;
   sourceRefs?: ClubIdentitySource[];
   notes?: string | null;
 }
@@ -146,11 +148,14 @@ export interface ClubSourceRef {
 export interface ClubLifecycleEvent {
   type: string;
   season?: number | null;
+  date?: string | null;
   fromSeason?: number | null;
   toSeason?: number | null;
   fromName?: string | null;
   toName?: string | null;
+  label?: string | null;
   description?: string | null;
+  notes?: string | null;
   sourceRefs?: ClubSourceRef[];
 }
 
@@ -181,10 +186,22 @@ export interface ClubHistory {
 }
 
 export interface ClubStatus {
-  current?: 'active' | 'defunct' | 'renamed' | 'merged' | 'phoenix' | 'unknown' | string;
+  current?:
+    | 'active'
+    | 'defunct'
+    | 'historical'
+    | 'relocated'
+    | 'renamed'
+    | 'merged'
+    | 'phoenix'
+    | 'unknown'
+    | string;
   trackedFromSeason?: number | null;
   trackedToSeason?: number | null;
   hasUnexplainedGaps?: boolean;
+  reason?: string | null;
+  reasonLabel?: string | null;
+  sourceRefs?: ClubSourceRef[];
 }
 
 export interface ClubDerivedMetadata {

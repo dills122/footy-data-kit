@@ -2,8 +2,8 @@
   "metadata": {
     "schemaVersion": 1,
     "generator": "club-metadata-seed",
-    "generatedAt": "2026-06-13T02:09:56.781Z",
-    "gitSha": "eb41a68",
+    "generatedAt": "2026-06-18T00:53:11.884Z",
+    "gitSha": "8db8549",
     "sourceFiles": [
       "/Users/dsteele/repos/footy-data-kit/data-output/all-seasons.json"
     ],
@@ -16,14 +16,36 @@
       "clubId": "aberdare-athletic",
       "canonicalName": "Aberdare Athletic",
       "status": {
-        "current": "unknown",
+        "current": "defunct",
         "trackedFromSeason": 1921,
         "trackedToSeason": 1926,
-        "hasUnexplainedGaps": false
+        "hasUnexplainedGaps": false,
+        "reason": "dissolved",
+        "reasonLabel": "Dissolved in 1928 after losing its Football League place.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Aberdare_Athletic_F.C.",
+            "notes": "Used for Aberdare Athletic dissolution context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
-        "lifecycleEvents": [],
+        "lifecycleEvents": [
+          {
+            "type": "dissolved",
+            "season": 1928,
+            "label": "Dissolved in 1928.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Aberdare_Athletic_F.C.",
+                "notes": "Used for Aberdare Athletic dissolution context."
+              }
+            ]
+          }
+        ],
         "trackedMembership": [
           {
             "fromSeason": 1921,
@@ -40,6 +62,13 @@
         "source": "football-data-output",
         "aliases": [
           "Aberdare Athletic"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Aberdare_Athletic_F.C.",
+            "notes": "Used for Aberdare Athletic dissolution context."
+          }
         ],
         "observedNames": [
           {
@@ -100,14 +129,49 @@
       "clubId": "accrington",
       "canonicalName": "Accrington",
       "status": {
-        "current": "unknown",
+        "current": "defunct",
         "trackedFromSeason": 1888,
         "trackedToSeason": 1892,
-        "hasUnexplainedGaps": false
+        "hasUnexplainedGaps": false,
+        "reason": "folded",
+        "reasonLabel": "Folded after leaving the Football League.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Accrington_F.C.",
+            "notes": "Used for Football League resignation and folding context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
-        "lifecycleEvents": [],
+        "lifecycleEvents": [
+          {
+            "type": "resigned",
+            "season": 1892,
+            "label": "Resigned from the Football League rather than play in the Second Division.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Accrington_F.C.",
+                "notes": "Used for Football League resignation and folding context."
+              }
+            ]
+          },
+          {
+            "type": "folded",
+            "season": 1895,
+            "date": "1896-01-14",
+            "label": "Folded after financial problems outside the Football League.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Accrington_F.C.",
+                "notes": "Used for Football League resignation and folding context."
+              }
+            ]
+          }
+        ],
         "trackedMembership": [
           {
             "fromSeason": 1888,
@@ -124,6 +188,13 @@
         "source": "football-data-output",
         "aliases": [
           "Accrington"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Accrington_F.C.",
+            "notes": "Used for Football League resignation and folding context."
+          }
         ],
         "observedNames": [
           {
@@ -212,10 +283,13 @@
             "clubKey": "accrington stanley 1891",
             "relationship": "phoenix",
             "direction": "predecessor",
+            "season": 1968,
+            "label": "The modern Accrington Stanley was formed after the 1891 club folded.",
             "sourceRefs": [
               {
-                "type": "former-efl-clubs-list",
-                "sourceUrl": "https://en.wikipedia.org/wiki/List_of_former_English_Football_League_clubs"
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Accrington_Stanley_F.C._(1891)",
+                "notes": "Used for Football League resignation, liquidation, and separate identity context."
               }
             ]
           }
@@ -328,14 +402,49 @@
       "clubId": "accrington-stanley-1891",
       "canonicalName": "Accrington Stanley (1891)",
       "status": {
-        "current": "unknown",
+        "current": "defunct",
         "trackedFromSeason": 1921,
         "trackedToSeason": 1961,
-        "hasUnexplainedGaps": false
+        "hasUnexplainedGaps": false,
+        "reason": "liquidated",
+        "reasonLabel": "Resigned from the Football League in 1962 and went into liquidation in 1966.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Accrington_Stanley_F.C._(1891)",
+            "notes": "Used for Football League resignation, liquidation, and separate identity context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
-        "lifecycleEvents": [],
+        "lifecycleEvents": [
+          {
+            "type": "resigned",
+            "season": 1961,
+            "date": "1962-03-11",
+            "label": "Resigned from the Football League midway through the 1961-62 season.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Accrington_Stanley_F.C._(1891)",
+                "notes": "Used for Football League resignation, liquidation, and separate identity context."
+              }
+            ]
+          },
+          {
+            "type": "dissolved",
+            "season": 1965,
+            "label": "Went into liquidation in 1966.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Accrington_Stanley_F.C._(1891)",
+                "notes": "Used for Football League resignation, liquidation, and separate identity context."
+              }
+            ]
+          }
+        ],
         "trackedMembership": [
           {
             "fromSeason": 1921,
@@ -366,6 +475,11 @@
             "type": "former-efl-clubs-list",
             "sourceUrl": "https://en.wikipedia.org/wiki/List_of_former_English_Football_League_clubs",
             "notes": "Former EFL list distinguishes Accrington Stanley (1891) from the new Accrington Stanley formed in 1968."
+          },
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Accrington_Stanley_F.C._(1891)",
+            "notes": "Used for Football League resignation, liquidation, and separate identity context."
           }
         ],
         "relationships": [
@@ -373,10 +487,13 @@
             "clubKey": "accrington stanley",
             "relationship": "phoenix",
             "direction": "successor",
+            "season": 1968,
+            "label": "The modern Accrington Stanley was formed after the 1891 club folded.",
             "sourceRefs": [
               {
-                "type": "former-efl-clubs-list",
-                "sourceUrl": "https://en.wikipedia.org/wiki/List_of_former_English_Football_League_clubs"
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Accrington_Stanley_F.C._(1891)",
+                "notes": "Used for Football League resignation, liquidation, and separate identity context."
               }
             ]
           }
@@ -1416,7 +1533,20 @@
       },
       "history": {
         "nameHistory": [],
-        "lifecycleEvents": [],
+        "lifecycleEvents": [
+          {
+            "type": "supporterPhoenixFormed",
+            "season": 2002,
+            "label": "Founded by former Wimbledon supporters after Wimbledon F.C. was allowed to relocate.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/AFC_Wimbledon",
+                "notes": "Used for supporter-founded phoenix club context."
+              }
+            ]
+          }
+        ],
         "trackedMembership": [
           {
             "fromSeason": 2011,
@@ -1435,16 +1565,25 @@
         "aliases": [
           "AFC Wimbledon"
         ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/AFC_Wimbledon",
+            "notes": "Used for supporter-founded phoenix club context."
+          }
+        ],
         "relationships": [
           {
             "clubKey": "wimbledon",
             "relationship": "supporterPhoenix",
             "direction": "formedBySupportersOf",
+            "season": 2002,
+            "label": "AFC Wimbledon was founded by supporters after Wimbledon F.C. was allowed to relocate.",
             "sourceRefs": [
               {
                 "type": "wikipedia-club-page",
                 "sourceUrl": "https://en.wikipedia.org/wiki/AFC_Wimbledon",
-                "notes": "AFC Wimbledon was founded by former Wimbledon supporters after the FA allowed Wimbledon F.C. to relocate to Milton Keynes."
+                "notes": "Used for supporter-founded phoenix club context."
               }
             ]
           }
@@ -1542,14 +1681,48 @@
       "clubId": "aldershot",
       "canonicalName": "Aldershot",
       "status": {
-        "current": "unknown",
+        "current": "defunct",
         "trackedFromSeason": 1932,
         "trackedToSeason": 1991,
-        "hasUnexplainedGaps": false
+        "hasUnexplainedGaps": false,
+        "reason": "folded",
+        "reasonLabel": "Resigned from the Football League and was wound up during the 1991-92 season.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Aldershot_F.C.",
+            "notes": "Used for in-season Football League resignation and winding-up context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
-        "lifecycleEvents": [],
+        "lifecycleEvents": [
+          {
+            "type": "folded",
+            "season": 1991,
+            "label": "Wound up in the High Court in March 1992.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Aldershot_F.C.",
+                "notes": "Used for in-season Football League resignation and winding-up context."
+              }
+            ]
+          },
+          {
+            "type": "resigned",
+            "season": 1991,
+            "label": "Resigned from the Football League during the 1991-92 season.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Aldershot_F.C.",
+                "notes": "Used for in-season Football League resignation and winding-up context."
+              }
+            ]
+          }
+        ],
         "trackedMembership": [
           {
             "fromSeason": 1932,
@@ -1575,15 +1748,25 @@
         "aliases": [
           "Aldershot"
         ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Aldershot_F.C.",
+            "notes": "Used for in-season Football League resignation and winding-up context."
+          }
+        ],
         "relationships": [
           {
             "clubKey": "aldershot town",
             "relationship": "phoenix",
             "direction": "successor",
+            "season": 1992,
+            "label": "Aldershot Town was founded after Aldershot F.C. was wound up.",
             "sourceRefs": [
               {
-                "type": "former-efl-clubs-list",
-                "sourceUrl": "https://en.wikipedia.org/wiki/List_of_former_English_Football_League_clubs"
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Aldershot_Town_F.C.",
+                "notes": "Used for Aldershot Town foundation after Aldershot folded."
               }
             ]
           }
@@ -1814,7 +1997,20 @@
       },
       "history": {
         "nameHistory": [],
-        "lifecycleEvents": [],
+        "lifecycleEvents": [
+          {
+            "type": "phoenixFormed",
+            "season": 1992,
+            "label": "Founded after the closure of Aldershot F.C.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Aldershot_Town_F.C.",
+                "notes": "Used for Aldershot Town foundation after Aldershot folded."
+              }
+            ]
+          }
+        ],
         "trackedMembership": [
           {
             "fromSeason": 2008,
@@ -1833,15 +2029,25 @@
         "aliases": [
           "Aldershot Town"
         ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Aldershot_Town_F.C.",
+            "notes": "Used for Aldershot Town foundation after Aldershot folded."
+          }
+        ],
         "relationships": [
           {
             "clubKey": "aldershot",
             "relationship": "phoenix",
             "direction": "predecessor",
+            "season": 1992,
+            "label": "Aldershot Town was founded after Aldershot F.C. was wound up.",
             "sourceRefs": [
               {
-                "type": "former-efl-clubs-list",
-                "sourceUrl": "https://en.wikipedia.org/wiki/List_of_former_English_Football_League_clubs"
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Aldershot_Town_F.C.",
+                "notes": "Used for Aldershot Town foundation after Aldershot folded."
               }
             ]
           }
@@ -2717,10 +2923,19 @@
       "clubId": "ashington",
       "canonicalName": "Ashington",
       "status": {
-        "current": "unknown",
+        "current": "active",
         "trackedFromSeason": 1921,
         "trackedToSeason": 1928,
-        "hasUnexplainedGaps": false
+        "hasUnexplainedGaps": false,
+        "reason": "not-in-tracked-leagues",
+        "reasonLabel": "Wikipedia lists the club in the Northern Premier League Division One East, below current tracked coverage.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Ashington_A.F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
@@ -2741,6 +2956,13 @@
         "source": "football-data-output",
         "aliases": [
           "Ashington"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Ashington_A.F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
+          }
         ],
         "observedNames": [
           {
@@ -3305,10 +3527,19 @@
       "clubId": "aveley",
       "canonicalName": "Aveley",
       "status": {
-        "current": "unknown",
+        "current": "active",
         "trackedFromSeason": 2023,
         "trackedToSeason": 2024,
-        "hasUnexplainedGaps": false
+        "hasUnexplainedGaps": false,
+        "reason": "possibly-missing-from-current-data",
+        "reasonLabel": "Wikipedia lists the club in the Isthmian League Premier Division, a level 7 league inside tracked but sparse coverage.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Aveley_F.C.",
+            "notes": "Used for current lower-division status and tracked coverage context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
@@ -3329,6 +3560,13 @@
         "source": "football-data-output",
         "aliases": [
           "Aveley"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Aveley_F.C.",
+            "notes": "Used for current lower-division status and tracked coverage context."
+          }
         ],
         "observedNames": [
           {
@@ -3377,10 +3615,19 @@
       "clubId": "banbury-united",
       "canonicalName": "Banbury United",
       "status": {
-        "current": "unknown",
+        "current": "active",
         "trackedFromSeason": 2022,
         "trackedToSeason": 2023,
-        "hasUnexplainedGaps": false
+        "hasUnexplainedGaps": false,
+        "reason": "possibly-missing-from-current-data",
+        "reasonLabel": "Wikipedia lists the club in the Southern League Premier Division Central, a level 7 league inside tracked but sparse coverage.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Banbury_United_F.C.",
+            "notes": "Used for current lower-division status and tracked coverage context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
@@ -3401,6 +3648,13 @@
         "source": "football-data-output",
         "aliases": [
           "Banbury United"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Banbury_United_F.C.",
+            "notes": "Used for current lower-division status and tracked coverage context."
+          }
         ],
         "observedNames": [
           {
@@ -4635,10 +4889,19 @@
       "clubId": "billericay-town",
       "canonicalName": "Billericay Town",
       "status": {
-        "current": "unknown",
+        "current": "active",
         "trackedFromSeason": 2021,
         "trackedToSeason": 2021,
-        "hasUnexplainedGaps": false
+        "hasUnexplainedGaps": false,
+        "reason": "possibly-missing-from-current-data",
+        "reasonLabel": "Wikipedia lists the club in National League South, a level 6 league inside tracked but sparse coverage.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Billericay_Town_F.C.",
+            "notes": "Used for current lower-division status and tracked coverage context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
@@ -4659,6 +4922,13 @@
         "source": "football-data-output",
         "aliases": [
           "Billericay Town"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Billericay_Town_F.C.",
+            "notes": "Used for current lower-division status and tracked coverage context."
+          }
         ],
         "observedNames": [
           {
@@ -5233,14 +5503,36 @@
       "clubId": "birmingham-st-georges",
       "canonicalName": "Birmingham St George's",
       "status": {
-        "current": "unknown",
+        "current": "defunct",
         "trackedFromSeason": 1890,
         "trackedToSeason": 1891,
-        "hasUnexplainedGaps": false
+        "hasUnexplainedGaps": false,
+        "reason": "dissolved",
+        "reasonLabel": "Dissolved in 1892 after its Football Alliance period.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Birmingham_St_George's_F.C.",
+            "notes": "Used for Birmingham St George's dissolution context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
-        "lifecycleEvents": [],
+        "lifecycleEvents": [
+          {
+            "type": "dissolved",
+            "season": 1891,
+            "label": "Dissolved in 1892.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Birmingham_St_George's_F.C.",
+                "notes": "Used for Birmingham St George's dissolution context."
+              }
+            ]
+          }
+        ],
         "trackedMembership": [
           {
             "fromSeason": 1890,
@@ -5257,6 +5549,13 @@
         "source": "football-data-output",
         "aliases": [
           "Birmingham St George's"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Birmingham_St_George's_F.C.",
+            "notes": "Used for Birmingham St George's dissolution context."
+          }
         ],
         "observedNames": [
           {
@@ -5305,10 +5604,19 @@
       "clubId": "bishops-stortford",
       "canonicalName": "Bishop's Stortford",
       "status": {
-        "current": "unknown",
+        "current": "active",
         "trackedFromSeason": 2023,
         "trackedToSeason": 2023,
-        "hasUnexplainedGaps": false
+        "hasUnexplainedGaps": false,
+        "reason": "possibly-missing-from-current-data",
+        "reasonLabel": "Wikipedia lists the club in the Southern League Premier Division Central, a level 7 league inside tracked but sparse coverage.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Bishop's_Stortford_F.C.",
+            "notes": "Used for Bishop's Stortford current lower-division status and tracked coverage context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
@@ -5329,6 +5637,13 @@
         "source": "football-data-output",
         "aliases": [
           "Bishop's Stortford"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Bishop's_Stortford_F.C.",
+            "notes": "Used for Bishop's Stortford current lower-division status and tracked coverage context."
+          }
         ],
         "observedNames": [
           {
@@ -6389,10 +6704,19 @@
       "clubId": "blyth-spartans",
       "canonicalName": "Blyth Spartans",
       "status": {
-        "current": "unknown",
+        "current": "active",
         "trackedFromSeason": 2021,
         "trackedToSeason": 2023,
-        "hasUnexplainedGaps": false
+        "hasUnexplainedGaps": false,
+        "reason": "not-in-tracked-leagues",
+        "reasonLabel": "Wikipedia lists the club in the Northern Premier League Division One East, below current tracked coverage.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Blyth_Spartans_A.F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
@@ -6413,6 +6737,13 @@
         "source": "football-data-output",
         "aliases": [
           "Blyth Spartans"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Blyth_Spartans_A.F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
+          }
         ],
         "observedNames": [
           {
@@ -6970,14 +7301,49 @@
       "clubId": "bootle",
       "canonicalName": "Bootle",
       "status": {
-        "current": "unknown",
+        "current": "defunct",
         "trackedFromSeason": 1890,
         "trackedToSeason": 1892,
-        "hasUnexplainedGaps": false
+        "hasUnexplainedGaps": false,
+        "reason": "liquidated",
+        "reasonLabel": "The original Bootle club resigned from the Football League and went into liquidation in 1893; the modern Bootle is a separate later club.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Bootle_F.C._(1879)",
+            "notes": "Used for original Bootle Football League resignation and liquidation context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
-        "lifecycleEvents": [],
+        "lifecycleEvents": [
+          {
+            "type": "resigned",
+            "season": 1892,
+            "label": "Resigned after one Football League season.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Bootle_F.C._(1879)",
+                "notes": "Used for original Bootle Football League resignation and liquidation context."
+              }
+            ]
+          },
+          {
+            "type": "dissolved",
+            "season": 1893,
+            "date": "1893-08-28",
+            "label": "Passed a resolution to enter liquidation before the 1893-94 FA Cup tie.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Bootle_F.C._(1879)",
+                "notes": "Used for original Bootle Football League resignation and liquidation context."
+              }
+            ]
+          }
+        ],
         "trackedMembership": [
           {
             "fromSeason": 1890,
@@ -6994,6 +7360,13 @@
         "source": "football-data-output",
         "aliases": [
           "Bootle"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Bootle_F.C._(1879)",
+            "notes": "Used for original Bootle Football League resignation and liquidation context."
+          }
         ],
         "observedNames": [
           {
@@ -7855,14 +8228,35 @@
       "clubId": "bradford-park-avenue",
       "canonicalName": "Bradford (Park Avenue)",
       "status": {
-        "current": "unknown",
+        "current": "historical",
         "trackedFromSeason": 1908,
         "trackedToSeason": 2022,
-        "hasUnexplainedGaps": false
+        "hasUnexplainedGaps": false,
+        "reason": "liquidated",
+        "reasonLabel": "Left the Football League in 1970 and went into liquidation in 1974.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Bradford_(Park_Avenue)_A.F.C.",
+            "notes": "Used for Football League replacement and liquidation context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
         "lifecycleEvents": [
+          {
+            "type": "ceasedLeagueParticipation",
+            "season": 1969,
+            "label": "Replaced in the Football League by Cambridge United in 1970.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Bradford_(Park_Avenue)_A.F.C.",
+                "notes": "Used for Football League replacement and liquidation context."
+              }
+            ]
+          },
           {
             "type": "not-re-elected",
             "season": 1969,
@@ -7872,6 +8266,31 @@
                 "type": "wikipedia-season-page",
                 "sourceUrl": "https://en.wikipedia.org/wiki/1969–70_in_English_football",
                 "notes": "Fourth Division table in 1969–70_in_English_football"
+              }
+            ]
+          },
+          {
+            "type": "dissolved",
+            "season": 1973,
+            "date": "1974-05-03",
+            "label": "Went into liquidation after leaving the Football League.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Bradford_(Park_Avenue)_A.F.C.",
+                "notes": "Used for Football League replacement and liquidation context."
+              }
+            ]
+          },
+          {
+            "type": "reformed",
+            "season": 1974,
+            "label": "Immediately re-formed as a Sunday league club.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Bradford_(Park_Avenue)_A.F.C.",
+                "notes": "Used for Football League replacement and liquidation context."
               }
             ]
           }
@@ -7924,6 +8343,13 @@
         "source": "football-data-output",
         "aliases": [
           "Bradford (Park Avenue)"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Bradford_(Park_Avenue)_A.F.C.",
+            "notes": "Used for Football League replacement and liquidation context."
+          }
         ],
         "observedNames": [
           {
@@ -10700,10 +11126,13 @@
             "clubKey": "burton united",
             "relationship": "successor",
             "direction": "predecessor",
+            "season": 1950,
+            "label": "The Burton football lineage continued through Burton All Saints/Burton Town and later Burton Albion.",
             "sourceRefs": [
               {
-                "type": "former-efl-clubs-list",
-                "sourceUrl": "https://en.wikipedia.org/wiki/List_of_former_English_Football_League_clubs"
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Burton_United_F.C.",
+                "notes": "Used for Burton United formation from Burton Swifts and Burton Wanderers, later merger context."
               }
             ]
           }
@@ -10814,14 +11243,36 @@
       "clubId": "burton-swifts",
       "canonicalName": "Burton Swifts",
       "status": {
-        "current": "unknown",
+        "current": "merged",
         "trackedFromSeason": 1891,
         "trackedToSeason": 1900,
-        "hasUnexplainedGaps": false
+        "hasUnexplainedGaps": false,
+        "reason": "merged",
+        "reasonLabel": "Merged with Burton Wanderers in 1901 to form Burton United.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Burton_Swifts_F.C.",
+            "notes": "Used for Burton Swifts merger into Burton United."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
-        "lifecycleEvents": [],
+        "lifecycleEvents": [
+          {
+            "type": "merged",
+            "season": 1901,
+            "label": "Merged with Burton Wanderers to form Burton United.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Burton_Swifts_F.C.",
+                "notes": "Used for Burton Swifts merger into Burton United."
+              }
+            ]
+          }
+        ],
         "trackedMembership": [
           {
             "fromSeason": 1891,
@@ -10839,15 +11290,25 @@
         "aliases": [
           "Burton Swifts"
         ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Burton_Swifts_F.C.",
+            "notes": "Used for Burton Swifts merger into Burton United."
+          }
+        ],
         "relationships": [
           {
             "clubKey": "burton united",
             "relationship": "merger",
             "direction": "mergedInto",
+            "season": 1901,
+            "label": "Burton United was formed by a merger of Burton Swifts and Burton Wanderers.",
             "sourceRefs": [
               {
-                "type": "former-efl-clubs-list",
-                "sourceUrl": "https://en.wikipedia.org/wiki/List_of_former_English_Football_League_clubs"
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Burton_Swifts_F.C.",
+                "notes": "Used for Burton Swifts merger into Burton United."
               }
             ]
           }
@@ -10923,14 +11384,60 @@
       "clubId": "burton-united",
       "canonicalName": "Burton United",
       "status": {
-        "current": "unknown",
+        "current": "merged",
         "trackedFromSeason": 1901,
         "trackedToSeason": 1906,
-        "hasUnexplainedGaps": false
+        "hasUnexplainedGaps": false,
+        "reason": "merged",
+        "reasonLabel": "Formed from Burton Swifts and Burton Wanderers, then merged with Burton All Saints after leaving the Football League.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Burton_United_F.C.",
+            "notes": "Used for Burton United formation from Burton Swifts and Burton Wanderers, later merger context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
-        "lifecycleEvents": [],
+        "lifecycleEvents": [
+          {
+            "type": "merged",
+            "season": 1901,
+            "label": "Formed by a merger of Burton Swifts and Burton Wanderers.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Burton_United_F.C.",
+                "notes": "Used for Burton United formation from Burton Swifts and Burton Wanderers, later merger context."
+              }
+            ]
+          },
+          {
+            "type": "notReElected",
+            "season": 1906,
+            "label": "Failed to win re-election to the Football League after the 1906-07 season.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Burton_United_F.C.",
+                "notes": "Used for Burton United formation from Burton Swifts and Burton Wanderers, later merger context."
+              }
+            ]
+          },
+          {
+            "type": "merged",
+            "season": 1910,
+            "label": "Merged with Burton All Saints after the 1909-10 season.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Burton_United_F.C.",
+                "notes": "Used for Burton United formation from Burton Swifts and Burton Wanderers, later merger context."
+              }
+            ]
+          }
+        ],
         "trackedMembership": [
           {
             "fromSeason": 1901,
@@ -10948,15 +11455,25 @@
         "aliases": [
           "Burton United"
         ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Burton_United_F.C.",
+            "notes": "Used for Burton United formation from Burton Swifts and Burton Wanderers, later merger context."
+          }
+        ],
         "relationships": [
           {
             "clubKey": "burton albion",
             "relationship": "successor",
             "direction": "successor",
+            "season": 1950,
+            "label": "The Burton football lineage continued through Burton All Saints/Burton Town and later Burton Albion.",
             "sourceRefs": [
               {
-                "type": "former-efl-clubs-list",
-                "sourceUrl": "https://en.wikipedia.org/wiki/List_of_former_English_Football_League_clubs"
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Burton_United_F.C.",
+                "notes": "Used for Burton United formation from Burton Swifts and Burton Wanderers, later merger context."
               }
             ]
           },
@@ -10964,10 +11481,13 @@
             "clubKey": "burton swifts",
             "relationship": "merger",
             "direction": "formedFrom",
+            "season": 1901,
+            "label": "Burton United was formed by a merger of Burton Swifts and Burton Wanderers.",
             "sourceRefs": [
               {
-                "type": "former-efl-clubs-list",
-                "sourceUrl": "https://en.wikipedia.org/wiki/List_of_former_English_Football_League_clubs"
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Burton_Swifts_F.C.",
+                "notes": "Used for Burton Swifts merger into Burton United."
               }
             ]
           },
@@ -10975,10 +11495,13 @@
             "clubKey": "burton wanderers",
             "relationship": "merger",
             "direction": "formedFrom",
+            "season": 1901,
+            "label": "Burton United was formed by a merger of Burton Swifts and Burton Wanderers.",
             "sourceRefs": [
               {
-                "type": "former-efl-clubs-list",
-                "sourceUrl": "https://en.wikipedia.org/wiki/List_of_former_English_Football_League_clubs"
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Burton_Wanderers_F.C.",
+                "notes": "Used for Burton Wanderers merger into Burton United."
               }
             ]
           }
@@ -11042,14 +11565,36 @@
       "clubId": "burton-wanderers",
       "canonicalName": "Burton Wanderers",
       "status": {
-        "current": "unknown",
+        "current": "merged",
         "trackedFromSeason": 1894,
         "trackedToSeason": 1896,
-        "hasUnexplainedGaps": false
+        "hasUnexplainedGaps": false,
+        "reason": "merged",
+        "reasonLabel": "Merged with Burton Swifts in 1901 to form Burton United.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Burton_Wanderers_F.C.",
+            "notes": "Used for Burton Wanderers merger into Burton United."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
-        "lifecycleEvents": [],
+        "lifecycleEvents": [
+          {
+            "type": "merged",
+            "season": 1901,
+            "label": "Merged with Burton Swifts to form Burton United.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Burton_Wanderers_F.C.",
+                "notes": "Used for Burton Wanderers merger into Burton United."
+              }
+            ]
+          }
+        ],
         "trackedMembership": [
           {
             "fromSeason": 1894,
@@ -11067,15 +11612,25 @@
         "aliases": [
           "Burton Wanderers"
         ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Burton_Wanderers_F.C.",
+            "notes": "Used for Burton Wanderers merger into Burton United."
+          }
+        ],
         "relationships": [
           {
             "clubKey": "burton united",
             "relationship": "merger",
             "direction": "mergedInto",
+            "season": 1901,
+            "label": "Burton United was formed by a merger of Burton Swifts and Burton Wanderers.",
             "sourceRefs": [
               {
-                "type": "former-efl-clubs-list",
-                "sourceUrl": "https://en.wikipedia.org/wiki/List_of_former_English_Football_League_clubs"
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Burton_Wanderers_F.C.",
+                "notes": "Used for Burton Wanderers merger into Burton United."
               }
             ]
           }
@@ -11130,14 +11685,37 @@
       "clubId": "bury",
       "canonicalName": "Bury",
       "status": {
-        "current": "unknown",
+        "current": "historical",
         "trackedFromSeason": 1894,
         "trackedToSeason": 2019,
-        "hasUnexplainedGaps": false
+        "hasUnexplainedGaps": false,
+        "reason": "expelled",
+        "reasonLabel": "Expelled from the EFL in 2019; later Bury football continued outside tracked league coverage.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Bury_F.C.",
+            "notes": "Used for EFL expulsion and later merger context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
-        "lifecycleEvents": [],
+        "lifecycleEvents": [
+          {
+            "type": "expelled",
+            "season": 2019,
+            "date": "2019-08-27",
+            "label": "Expelled from the English Football League after a takeover collapsed.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Bury_F.C.",
+                "notes": "Used for EFL expulsion and later merger context."
+              }
+            ]
+          }
+        ],
         "trackedMembership": [
           {
             "fromSeason": 1894,
@@ -11170,6 +11748,13 @@
         "source": "football-data-output",
         "aliases": [
           "Bury"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Bury_F.C.",
+            "notes": "Used for EFL expulsion and later merger context."
+          }
         ],
         "observedNames": [
           {
@@ -13945,10 +14530,19 @@
       "clubId": "cheshunt",
       "canonicalName": "Cheshunt",
       "status": {
-        "current": "unknown",
+        "current": "active",
         "trackedFromSeason": 2022,
         "trackedToSeason": 2022,
-        "hasUnexplainedGaps": false
+        "hasUnexplainedGaps": false,
+        "reason": "possibly-missing-from-current-data",
+        "reasonLabel": "Wikipedia lists the club in the Isthmian League Premier Division, a level 7 league inside tracked but sparse coverage.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Cheshunt_F.C.",
+            "notes": "Used for current lower-division status and tracked coverage context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
@@ -13969,6 +14563,13 @@
         "source": "football-data-output",
         "aliases": [
           "Cheshunt"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Cheshunt_F.C.",
+            "notes": "Used for current lower-division status and tracked coverage context."
+          }
         ],
         "observedNames": [
           {
@@ -14023,6 +14624,18 @@
         "nameHistory": [],
         "lifecycleEvents": [
           {
+            "type": "phoenixFormed",
+            "season": 2010,
+            "label": "Reformed after the liquidation of Chester City.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Chester_F.C.",
+                "notes": "Used for Chester reformation after Chester City liquidation."
+              }
+            ]
+          },
+          {
             "type": "relegated-outside-tracked-coverage",
             "season": 2017,
             "description": "Relegation to National League North",
@@ -14069,15 +14682,25 @@
         "aliases": [
           "Chester"
         ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Chester_F.C.",
+            "notes": "Used for Chester reformation after Chester City liquidation."
+          }
+        ],
         "relationships": [
           {
             "clubKey": "chester city",
             "relationship": "phoenix",
             "direction": "predecessor",
+            "season": 2010,
+            "label": "Chester was formed after Chester City was wound up.",
             "sourceRefs": [
               {
-                "type": "former-efl-clubs-list",
-                "sourceUrl": "https://en.wikipedia.org/wiki/List_of_former_English_Football_League_clubs"
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Chester_F.C.",
+                "notes": "Used for Chester reformation after Chester City liquidation."
               }
             ]
           }
@@ -14172,10 +14795,19 @@
       "clubId": "chester-city",
       "canonicalName": "Chester City",
       "status": {
-        "current": "unknown",
+        "current": "defunct",
         "trackedFromSeason": 1931,
         "trackedToSeason": 2008,
-        "hasUnexplainedGaps": false
+        "hasUnexplainedGaps": false,
+        "reason": "folded",
+        "reasonLabel": "Expelled from the Conference and wound up in March 2010.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Chester_City_F.C.",
+            "notes": "Used for expulsion, winding-up, and Chester phoenix context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
@@ -14189,6 +14821,31 @@
                 "type": "wikipedia-season-page",
                 "sourceUrl": "https://en.wikipedia.org/wiki/1999–2000_in_English_football",
                 "notes": "Football League Division Three table in 1999–2000_in_English_football"
+              }
+            ]
+          },
+          {
+            "type": "folded",
+            "season": 2009,
+            "date": "2010-03-10",
+            "label": "Formally wound up in the High Court.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Chester_City_F.C.",
+                "notes": "Used for expulsion, winding-up, and Chester phoenix context."
+              }
+            ]
+          },
+          {
+            "type": "expelled",
+            "season": 2009,
+            "label": "Expelled from the Conference with results expunged.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Chester_City_F.C.",
+                "notes": "Used for expulsion, winding-up, and Chester phoenix context."
               }
             ]
           }
@@ -14239,6 +14896,11 @@
             "type": "former-efl-clubs-list",
             "sourceUrl": "https://en.wikipedia.org/wiki/List_of_former_English_Football_League_clubs",
             "notes": "Earlier Football League Chester records belong to the Chester City identity; modern Chester is a successor club."
+          },
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Chester_City_F.C.",
+            "notes": "Used for expulsion, winding-up, and Chester phoenix context."
           }
         ],
         "relationships": [
@@ -14246,10 +14908,13 @@
             "clubKey": "chester",
             "relationship": "phoenix",
             "direction": "successor",
+            "season": 2010,
+            "label": "Chester was formed after Chester City was wound up.",
             "sourceRefs": [
               {
-                "type": "former-efl-clubs-list",
-                "sourceUrl": "https://en.wikipedia.org/wiki/List_of_former_English_Football_League_clubs"
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Chester_F.C.",
+                "notes": "Used for Chester reformation after Chester City liquidation."
               }
             ]
           }
@@ -14945,14 +15610,72 @@
       "clubId": "chesterfield-town",
       "canonicalName": "Chesterfield Town",
       "status": {
-        "current": "unknown",
+        "current": "defunct",
         "trackedFromSeason": 1899,
         "trackedToSeason": 1908,
-        "hasUnexplainedGaps": false
+        "hasUnexplainedGaps": false,
+        "reason": "liquidated",
+        "reasonLabel": "Failed to gain re-election to the Football League in 1909 and entered liquidation in 1915; Chesterfield was reformed in 1919.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Chesterfield_F.C.",
+            "notes": "Used for Chesterfield Town liquidation and current Chesterfield reformation context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
-        "lifecycleEvents": [],
+        "lifecycleEvents": [
+          {
+            "type": "notReElected",
+            "season": 1908,
+            "label": "Failed to gain re-election to the Football League and returned to the Midland League.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Chesterfield_F.C.",
+                "notes": "Used for Chesterfield Town liquidation and current Chesterfield reformation context."
+              }
+            ]
+          },
+          {
+            "type": "dissolved",
+            "season": 1914,
+            "label": "Entered liquidation in 1915.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Chesterfield_F.C.",
+                "notes": "Used for Chesterfield Town liquidation and current Chesterfield reformation context."
+              }
+            ]
+          },
+          {
+            "type": "reformed",
+            "season": 1919,
+            "label": "Reformed as Chesterfield Municipal in April 1919.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Chesterfield_F.C.",
+                "notes": "Used for Chesterfield Town liquidation and current Chesterfield reformation context."
+              }
+            ]
+          },
+          {
+            "type": "renamed",
+            "season": 1920,
+            "label": "Renamed Chesterfield F.C. in December 1920.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Chesterfield_F.C.",
+                "notes": "Used for Chesterfield Town liquidation and current Chesterfield reformation context."
+              }
+            ]
+          }
+        ],
         "trackedMembership": [
           {
             "fromSeason": 1899,
@@ -14969,6 +15692,13 @@
         "source": "football-data-output",
         "aliases": [
           "Chesterfield Town"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Chesterfield_F.C.",
+            "notes": "Used for Chesterfield Town liquidation and current Chesterfield reformation context."
+          }
         ],
         "observedNames": [
           {
@@ -15600,10 +16330,19 @@
       "clubId": "concord-rangers",
       "canonicalName": "Concord Rangers",
       "status": {
-        "current": "unknown",
+        "current": "active",
         "trackedFromSeason": 2021,
         "trackedToSeason": 2022,
-        "hasUnexplainedGaps": false
+        "hasUnexplainedGaps": false,
+        "reason": "not-in-tracked-leagues",
+        "reasonLabel": "Wikipedia lists the club in the Isthmian League North Division, below current tracked coverage.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Concord_Rangers_F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
@@ -15624,6 +16363,13 @@
         "source": "football-data-output",
         "aliases": [
           "Concord Rangers"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Concord_Rangers_F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
+          }
         ],
         "observedNames": [
           {
@@ -17315,10 +18061,12 @@
             "clubKey": "darlington 1883",
             "relationship": "phoenix",
             "direction": "predecessor",
+            "label": "Modern Darlington is tracked separately after the Football League-era club was revived outside the EFL.",
             "sourceRefs": [
               {
-                "type": "former-efl-clubs-list",
-                "sourceUrl": "https://en.wikipedia.org/wiki/List_of_former_English_Football_League_clubs"
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Darlington_F.C.",
+                "notes": "Used for current Darlington successor/phoenix and lower-division status context."
               }
             ]
           }
@@ -17379,10 +18127,19 @@
       "clubId": "darlington-1883",
       "canonicalName": "Darlington (1883)",
       "status": {
-        "current": "unknown",
+        "current": "historical",
         "trackedFromSeason": 1921,
         "trackedToSeason": 2009,
-        "hasUnexplainedGaps": false
+        "hasUnexplainedGaps": false,
+        "reason": "successor-active",
+        "reasonLabel": "The older Darlington Football League identity is historical; modern Darlington is tracked separately as an active successor identity.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Darlington_F.C.",
+            "notes": "Used for current Darlington successor/phoenix and lower-division status context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
@@ -17446,6 +18203,11 @@
             "type": "former-efl-clubs-list",
             "sourceUrl": "https://en.wikipedia.org/wiki/List_of_former_English_Football_League_clubs",
             "notes": "Former EFL list describes Darlington as defunct with a revived version later playing."
+          },
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Darlington_F.C.",
+            "notes": "Used for current Darlington successor/phoenix and lower-division status context."
           }
         ],
         "relationships": [
@@ -17453,10 +18215,12 @@
             "clubKey": "darlington",
             "relationship": "phoenix",
             "direction": "successor",
+            "label": "Modern Darlington is tracked separately after the Football League-era club was revived outside the EFL.",
             "sourceRefs": [
               {
-                "type": "former-efl-clubs-list",
-                "sourceUrl": "https://en.wikipedia.org/wiki/List_of_former_English_Football_League_clubs"
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Darlington_F.C.",
+                "notes": "Used for current Darlington successor/phoenix and lower-division status context."
               }
             ]
           }
@@ -17781,10 +18545,19 @@
       "clubId": "dartford",
       "canonicalName": "Dartford",
       "status": {
-        "current": "unknown",
+        "current": "active",
         "trackedFromSeason": 2012,
         "trackedToSeason": 2023,
-        "hasUnexplainedGaps": false
+        "hasUnexplainedGaps": false,
+        "reason": "possibly-missing-from-current-data",
+        "reasonLabel": "Wikipedia lists the club in the Isthmian League Premier Division, a level 7 league inside tracked but sparse coverage.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Dartford_F.C.",
+            "notes": "Used for current lower-division status and tracked coverage context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
@@ -17835,6 +18608,13 @@
         "source": "football-data-output",
         "aliases": [
           "Dartford"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Dartford_F.C.",
+            "notes": "Used for current lower-division status and tracked coverage context."
+          }
         ],
         "observedNames": [
           {
@@ -17914,14 +18694,49 @@
       "clubId": "darwen",
       "canonicalName": "Darwen",
       "status": {
-        "current": "unknown",
+        "current": "defunct",
         "trackedFromSeason": 1890,
         "trackedToSeason": 1898,
-        "hasUnexplainedGaps": false
+        "hasUnexplainedGaps": false,
+        "reason": "folded",
+        "reasonLabel": "The original Darwen club was wound up in 2009.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Darwen_F.C._(1870)",
+            "notes": "Used for original Darwen winding-up and phoenix club context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
-        "lifecycleEvents": [],
+        "lifecycleEvents": [
+          {
+            "type": "folded",
+            "season": 2008,
+            "date": "2009-05-14",
+            "label": "The original Darwen club was wound up in the High Court.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Darwen_F.C._(1870)",
+                "notes": "Used for original Darwen winding-up and phoenix club context."
+              }
+            ]
+          },
+          {
+            "type": "phoenixFormed",
+            "season": 2009,
+            "label": "A successor club, A.F.C. Darwen, was formed soon after.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Darwen_F.C._(1870)",
+                "notes": "Used for original Darwen winding-up and phoenix club context."
+              }
+            ]
+          }
+        ],
         "trackedMembership": [
           {
             "fromSeason": 1890,
@@ -17939,6 +18754,13 @@
         "source": "football-data-output",
         "aliases": [
           "Darwen"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Darwen_F.C._(1870)",
+            "notes": "Used for original Darwen winding-up and phoenix club context."
+          }
         ],
         "observedNames": [
           {
@@ -19245,10 +20067,19 @@
       "clubId": "dulwich-hamlet",
       "canonicalName": "Dulwich Hamlet",
       "status": {
-        "current": "unknown",
+        "current": "active",
         "trackedFromSeason": 2021,
         "trackedToSeason": 2022,
-        "hasUnexplainedGaps": false
+        "hasUnexplainedGaps": false,
+        "reason": "possibly-missing-from-current-data",
+        "reasonLabel": "Wikipedia lists the club in the Isthmian League Premier Division, a level 7 league inside tracked but sparse coverage.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Dulwich_Hamlet_F.C.",
+            "notes": "Used for current lower-division status and tracked coverage context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
@@ -19269,6 +20100,13 @@
         "source": "football-data-output",
         "aliases": [
           "Dulwich Hamlet"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Dulwich_Hamlet_F.C.",
+            "notes": "Used for current lower-division status and tracked coverage context."
+          }
         ],
         "observedNames": [
           {
@@ -19317,10 +20155,19 @@
       "clubId": "durham-city",
       "canonicalName": "Durham City",
       "status": {
-        "current": "unknown",
+        "current": "active",
         "trackedFromSeason": 1921,
         "trackedToSeason": 1927,
-        "hasUnexplainedGaps": false
+        "hasUnexplainedGaps": false,
+        "reason": "not-in-tracked-leagues",
+        "reasonLabel": "Wikipedia lists the club in the Wearside League Division One, below current tracked coverage.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Durham_City_A.F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
@@ -19341,6 +20188,13 @@
         "source": "football-data-output",
         "aliases": [
           "Durham City"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Durham_City_A.F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
+          }
         ],
         "observedNames": [
           {
@@ -20819,14 +21673,37 @@
       "clubId": "farsley-celtic",
       "canonicalName": "Farsley Celtic",
       "status": {
-        "current": "unknown",
+        "current": "defunct",
         "trackedFromSeason": 2021,
         "trackedToSeason": 2024,
-        "hasUnexplainedGaps": false
+        "hasUnexplainedGaps": false,
+        "reason": "dissolved",
+        "reasonLabel": "Dissolved in December 2025 after leaving the tracked league record.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Farsley_Celtic_F.C.",
+            "notes": "Used for Farsley Celtic dissolution context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
-        "lifecycleEvents": [],
+        "lifecycleEvents": [
+          {
+            "type": "dissolved",
+            "season": 2025,
+            "date": "2025-12-18",
+            "label": "Dissolved in December 2025.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Farsley_Celtic_F.C.",
+                "notes": "Used for Farsley Celtic dissolution context."
+              }
+            ]
+          }
+        ],
         "trackedMembership": [
           {
             "fromSeason": 2021,
@@ -20843,6 +21720,13 @@
         "source": "football-data-output",
         "aliases": [
           "Farsley Celtic"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Farsley_Celtic_F.C.",
+            "notes": "Used for Farsley Celtic dissolution context."
+          }
         ],
         "observedNames": [
           {
@@ -20956,10 +21840,12 @@
             "clubKey": "halifax town",
             "relationship": "phoenix",
             "direction": "predecessor",
+            "label": "FC Halifax Town is tracked separately as a phoenix identity after Halifax Town.",
             "sourceRefs": [
               {
-                "type": "former-efl-clubs-list",
-                "sourceUrl": "https://en.wikipedia.org/wiki/List_of_former_English_Football_League_clubs"
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Halifax_Town_A.F.C.",
+                "notes": "Used for Halifax Town closure and FC Halifax Town phoenix context."
               }
             ]
           }
@@ -21742,10 +22628,19 @@
       "clubId": "gainsborough-trinity",
       "canonicalName": "Gainsborough Trinity",
       "status": {
-        "current": "unknown",
+        "current": "active",
         "trackedFromSeason": 1896,
         "trackedToSeason": 1911,
-        "hasUnexplainedGaps": false
+        "hasUnexplainedGaps": false,
+        "reason": "possibly-missing-from-current-data",
+        "reasonLabel": "Wikipedia lists the club in the Northern Premier League Premier Division, a level 7 league inside tracked but sparse coverage.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Gainsborough_Trinity_F.C.",
+            "notes": "Used for current lower-division status and tracked coverage context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
@@ -21766,6 +22661,13 @@
         "source": "football-data-output",
         "aliases": [
           "Gainsborough Trinity"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Gainsborough_Trinity_F.C.",
+            "notes": "Used for current lower-division status and tracked coverage context."
+          }
         ],
         "observedNames": [
           {
@@ -21916,10 +22818,12 @@
             "clubKey": "gateshead 1899",
             "relationship": "successor",
             "direction": "predecessor",
+            "label": "Modern Gateshead is tracked separately from the older Gateshead identity.",
             "sourceRefs": [
               {
-                "type": "former-efl-clubs-list",
-                "sourceUrl": "https://en.wikipedia.org/wiki/List_of_former_English_Football_League_clubs"
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Gateshead_F.C.",
+                "notes": "Used for modern Gateshead successor context."
               }
             ]
           }
@@ -22020,10 +22924,19 @@
       "clubId": "gateshead-1899",
       "canonicalName": "Gateshead (1899)",
       "status": {
-        "current": "unknown",
+        "current": "historical",
         "trackedFromSeason": 1919,
         "trackedToSeason": 1959,
-        "hasUnexplainedGaps": false
+        "hasUnexplainedGaps": false,
+        "reason": "successor-active",
+        "reasonLabel": "The older Gateshead identity is historical; modern Gateshead is tracked separately as an active successor identity.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Gateshead_F.C.",
+            "notes": "Used for modern Gateshead successor context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
@@ -22065,6 +22978,11 @@
             "type": "wikipedia-club-page",
             "sourceUrl": "https://en.wikipedia.org/wiki/Gateshead_A.F.C.",
             "notes": "The original South Shields club relocated to Gateshead in 1930 and adopted the Gateshead name."
+          },
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Gateshead_F.C.",
+            "notes": "Used for modern Gateshead successor context."
           }
         ],
         "relationships": [
@@ -22072,10 +22990,12 @@
             "clubKey": "gateshead",
             "relationship": "successor",
             "direction": "successor",
+            "label": "Modern Gateshead is tracked separately from the older Gateshead identity.",
             "sourceRefs": [
               {
-                "type": "former-efl-clubs-list",
-                "sourceUrl": "https://en.wikipedia.org/wiki/List_of_former_English_Football_League_clubs"
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Gateshead_F.C.",
+                "notes": "Used for modern Gateshead successor context."
               }
             ]
           }
@@ -22670,10 +23590,24 @@
       "clubId": "glossop",
       "canonicalName": "Glossop",
       "status": {
-        "current": "unknown",
+        "current": "active",
         "trackedFromSeason": 1898,
         "trackedToSeason": 1914,
-        "hasUnexplainedGaps": false
+        "hasUnexplainedGaps": false,
+        "reason": "not-in-tracked-leagues",
+        "reasonLabel": "Wikipedia lists Glossop North End in the North West Counties League Premier Division, below current tracked coverage.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Glossop_North_End_A.F.C.",
+            "notes": "Used for current North West Counties League status and below tracked coverage context."
+          },
+          {
+            "type": "wikipedia-league-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/North_West_Counties_Football_League",
+            "notes": "Used for North West Counties League levels 9-10 context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
@@ -22701,6 +23635,16 @@
           {
             "type": "former-efl-clubs-list",
             "sourceUrl": "https://en.wikipedia.org/wiki/List_of_former_English_Football_League_clubs"
+          },
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Glossop_North_End_A.F.C.",
+            "notes": "Used for current North West Counties League status and below tracked coverage context."
+          },
+          {
+            "type": "wikipedia-league-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/North_West_Counties_Football_League",
+            "notes": "Used for North West Counties League levels 9-10 context."
           }
         ],
         "observedNames": [
@@ -22818,10 +23762,19 @@
       "clubId": "gloucester-city",
       "canonicalName": "Gloucester City",
       "status": {
-        "current": "unknown",
+        "current": "active",
         "trackedFromSeason": 2021,
         "trackedToSeason": 2023,
-        "hasUnexplainedGaps": false
+        "hasUnexplainedGaps": false,
+        "reason": "possibly-missing-from-current-data",
+        "reasonLabel": "Wikipedia lists the club in the Southern League Premier Division South, a level 7 league inside tracked but sparse coverage.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Gloucester_City_A.F.C.",
+            "notes": "Used for current lower-division status and tracked coverage context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
@@ -22842,6 +23795,13 @@
         "source": "football-data-output",
         "aliases": [
           "Gloucester City"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Gloucester_City_A.F.C.",
+            "notes": "Used for current lower-division status and tracked coverage context."
+          }
         ],
         "observedNames": [
           {
@@ -23467,10 +24427,19 @@
       "clubId": "guiseley",
       "canonicalName": "Guiseley",
       "status": {
-        "current": "unknown",
+        "current": "active",
         "trackedFromSeason": 2015,
         "trackedToSeason": 2021,
-        "hasUnexplainedGaps": false
+        "hasUnexplainedGaps": false,
+        "reason": "possibly-missing-from-current-data",
+        "reasonLabel": "Wikipedia lists the club in the Northern Premier League Premier Division, a level 7 league inside tracked but sparse coverage.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Guiseley_A.F.C.",
+            "notes": "Used for current lower-division status and tracked coverage context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
@@ -23521,6 +24490,13 @@
         "source": "football-data-output",
         "aliases": [
           "Guiseley"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Guiseley_A.F.C.",
+            "notes": "Used for current lower-division status and tracked coverage context."
+          }
         ],
         "observedNames": [
           {
@@ -23594,10 +24570,19 @@
       "clubId": "halifax-town",
       "canonicalName": "Halifax Town",
       "status": {
-        "current": "unknown",
+        "current": "historical",
         "trackedFromSeason": 1921,
         "trackedToSeason": 2001,
-        "hasUnexplainedGaps": false
+        "hasUnexplainedGaps": false,
+        "reason": "phoenix-club-active",
+        "reasonLabel": "Halifax Town is historical; FC Halifax Town is tracked separately as an active phoenix identity.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Halifax_Town_A.F.C.",
+            "notes": "Used for Halifax Town closure and FC Halifax Town phoenix context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
@@ -23655,15 +24640,24 @@
         "aliases": [
           "Halifax Town"
         ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Halifax_Town_A.F.C.",
+            "notes": "Used for Halifax Town closure and FC Halifax Town phoenix context."
+          }
+        ],
         "relationships": [
           {
             "clubKey": "fc halifax town",
             "relationship": "phoenix",
             "direction": "successor",
+            "label": "FC Halifax Town is tracked separately as a phoenix identity after Halifax Town.",
             "sourceRefs": [
               {
-                "type": "former-efl-clubs-list",
-                "sourceUrl": "https://en.wikipedia.org/wiki/List_of_former_English_Football_League_clubs"
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Halifax_Town_A.F.C.",
+                "notes": "Used for Halifax Town closure and FC Halifax Town phoenix context."
               }
             ]
           }
@@ -24571,10 +25565,19 @@
       "clubId": "havant-and-waterlooville",
       "canonicalName": "Havant & Waterlooville",
       "status": {
-        "current": "unknown",
+        "current": "active",
         "trackedFromSeason": 2018,
         "trackedToSeason": 2023,
-        "hasUnexplainedGaps": false
+        "hasUnexplainedGaps": false,
+        "reason": "possibly-missing-from-current-data",
+        "reasonLabel": "Wikipedia lists the club in the Southern League Premier Division South, a level 7 league inside tracked but sparse coverage.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Havant_%26_Waterlooville_F.C.",
+            "notes": "Used for current lower-division status and tracked coverage context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
@@ -24625,6 +25628,13 @@
         "source": "football-data-output",
         "aliases": [
           "Havant & Waterlooville"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Havant_%26_Waterlooville_F.C.",
+            "notes": "Used for current lower-division status and tracked coverage context."
+          }
         ],
         "observedNames": [
           {
@@ -24786,7 +25796,21 @@
       },
       "history": {
         "nameHistory": [],
-        "lifecycleEvents": [],
+        "lifecycleEvents": [
+          {
+            "type": "phoenixFormed",
+            "season": 2014,
+            "date": "2014-12-22",
+            "label": "Founded as a phoenix club for Hereford United.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Hereford_F.C.",
+                "notes": "Used for Hereford foundation as a phoenix club."
+              }
+            ]
+          }
+        ],
         "trackedMembership": [
           {
             "fromSeason": 2021,
@@ -24804,15 +25828,25 @@
         "aliases": [
           "Hereford"
         ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Hereford_F.C.",
+            "notes": "Used for Hereford foundation as a phoenix club."
+          }
+        ],
         "relationships": [
           {
             "clubKey": "hereford united",
             "relationship": "phoenix",
             "direction": "predecessor",
+            "season": 2014,
+            "label": "Hereford was founded as a phoenix club after Hereford United was wound up.",
             "sourceRefs": [
               {
-                "type": "former-efl-clubs-list",
-                "sourceUrl": "https://en.wikipedia.org/wiki/List_of_former_English_Football_League_clubs"
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Hereford_F.C.",
+                "notes": "Used for Hereford foundation as a phoenix club."
               }
             ]
           }
@@ -24873,10 +25907,19 @@
       "clubId": "hereford-united",
       "canonicalName": "Hereford United",
       "status": {
-        "current": "unknown",
+        "current": "defunct",
         "trackedFromSeason": 1972,
         "trackedToSeason": 2013,
-        "hasUnexplainedGaps": false
+        "hasUnexplainedGaps": false,
+        "reason": "folded",
+        "reasonLabel": "Wound up in the High Court in December 2014.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Hereford_United_F.C.",
+            "notes": "Used for winding-up and successor club context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
@@ -24890,6 +25933,19 @@
                 "type": "wikipedia-season-page",
                 "sourceUrl": "https://en.wikipedia.org/wiki/1996–97_in_English_football",
                 "notes": "Third Division table in 1996–97_in_English_football"
+              }
+            ]
+          },
+          {
+            "type": "folded",
+            "season": 2014,
+            "date": "2014-12-19",
+            "label": "Wound up in the High Court with substantial debts.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Hereford_United_F.C.",
+                "notes": "Used for winding-up and successor club context."
               }
             ]
           }
@@ -24930,15 +25986,25 @@
         "aliases": [
           "Hereford United"
         ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Hereford_United_F.C.",
+            "notes": "Used for winding-up and successor club context."
+          }
+        ],
         "relationships": [
           {
             "clubKey": "hereford",
             "relationship": "phoenix",
             "direction": "successor",
+            "season": 2014,
+            "label": "Hereford was founded as a phoenix club after Hereford United was wound up.",
             "sourceRefs": [
               {
-                "type": "former-efl-clubs-list",
-                "sourceUrl": "https://en.wikipedia.org/wiki/List_of_former_English_Football_League_clubs"
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Hereford_F.C.",
+                "notes": "Used for Hereford foundation as a phoenix club."
               }
             ]
           }
@@ -26152,10 +27218,19 @@
       "clubId": "hungerford-town",
       "canonicalName": "Hungerford Town",
       "status": {
-        "current": "unknown",
+        "current": "active",
         "trackedFromSeason": 2021,
         "trackedToSeason": 2022,
-        "hasUnexplainedGaps": false
+        "hasUnexplainedGaps": false,
+        "reason": "not-in-tracked-leagues",
+        "reasonLabel": "Wikipedia lists the club in the Southern League Division One South, below current tracked coverage.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Hungerford_Town_F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
@@ -26176,6 +27251,13 @@
         "source": "football-data-output",
         "aliases": [
           "Hungerford Town"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Hungerford_Town_F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
+          }
         ],
         "observedNames": [
           {
@@ -26224,10 +27306,19 @@
       "clubId": "hyde",
       "canonicalName": "Hyde",
       "status": {
-        "current": "unknown",
+        "current": "active",
         "trackedFromSeason": 2012,
         "trackedToSeason": 2013,
-        "hasUnexplainedGaps": false
+        "hasUnexplainedGaps": false,
+        "reason": "possibly-missing-from-current-data",
+        "reasonLabel": "Wikipedia lists the club in the Northern Premier League Premier Division, a level 7 league inside tracked but sparse coverage.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Hyde_United_F.C.",
+            "notes": "Used for current lower-division status and tracked coverage context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
@@ -26248,6 +27339,13 @@
         "source": "football-data-output",
         "aliases": [
           "Hyde"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Hyde_United_F.C.",
+            "notes": "Used for current lower-division status and tracked coverage context."
+          }
         ],
         "observedNames": [
           {
@@ -26648,10 +27746,19 @@
       "clubId": "kettering-town",
       "canonicalName": "Kettering Town",
       "status": {
-        "current": "unknown",
+        "current": "active",
         "trackedFromSeason": 2021,
         "trackedToSeason": 2022,
-        "hasUnexplainedGaps": false
+        "hasUnexplainedGaps": false,
+        "reason": "possibly-missing-from-current-data",
+        "reasonLabel": "Wikipedia lists the club in the Southern League Premier Division Central, a level 7 league inside tracked but sparse coverage.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Kettering_Town_F.C.",
+            "notes": "Used for current lower-division status and tracked coverage context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
@@ -26672,6 +27779,13 @@
         "source": "football-data-output",
         "aliases": [
           "Kettering Town"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Kettering_Town_F.C.",
+            "notes": "Used for current lower-division status and tracked coverage context."
+          }
         ],
         "observedNames": [
           {
@@ -27133,14 +28247,48 @@
       "clubId": "leeds-city",
       "canonicalName": "Leeds City",
       "status": {
-        "current": "unknown",
+        "current": "defunct",
         "trackedFromSeason": 1905,
         "trackedToSeason": 1914,
-        "hasUnexplainedGaps": false
+        "hasUnexplainedGaps": false,
+        "reason": "expelled",
+        "reasonLabel": "Expelled from the Football League and dissolved in 1919.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Leeds_City_F.C.",
+            "notes": "Used for expulsion, dissolution, and Leeds United replacement context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
-        "lifecycleEvents": [],
+        "lifecycleEvents": [
+          {
+            "type": "dissolved",
+            "season": 1919,
+            "label": "Dissolved after an FA inquiry into financial irregularities.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Leeds_City_F.C.",
+                "notes": "Used for expulsion, dissolution, and Leeds United replacement context."
+              }
+            ]
+          },
+          {
+            "type": "expelled",
+            "season": 1919,
+            "label": "Expelled from the Football League eight games into the 1919-20 season.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Leeds_City_F.C.",
+                "notes": "Used for expulsion, dissolution, and Leeds United replacement context."
+              }
+            ]
+          }
+        ],
         "trackedMembership": [
           {
             "fromSeason": 1905,
@@ -27158,15 +28306,25 @@
         "aliases": [
           "Leeds City"
         ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Leeds_City_F.C.",
+            "notes": "Used for expulsion, dissolution, and Leeds United replacement context."
+          }
+        ],
         "relationships": [
           {
             "clubKey": "leeds united",
             "relationship": "successor",
             "direction": "successor",
+            "season": 1919,
+            "label": "Leeds United was founded after Leeds City was expelled and dissolved.",
             "sourceRefs": [
               {
-                "type": "former-efl-clubs-list",
-                "sourceUrl": "https://en.wikipedia.org/wiki/List_of_former_English_Football_League_clubs"
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Leeds_City_F.C.",
+                "notes": "Used for expulsion, dissolution, and Leeds United replacement context."
               }
             ]
           }
@@ -27281,10 +28439,13 @@
             "clubKey": "leeds city",
             "relationship": "successor",
             "direction": "predecessor",
+            "season": 1919,
+            "label": "Leeds United was founded after Leeds City was expelled and dissolved.",
             "sourceRefs": [
               {
-                "type": "former-efl-clubs-list",
-                "sourceUrl": "https://en.wikipedia.org/wiki/List_of_former_English_Football_League_clubs"
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Leeds_City_F.C.",
+                "notes": "Used for expulsion, dissolution, and Leeds United replacement context."
               }
             ]
           }
@@ -29801,14 +30962,36 @@
       "clubId": "loughborough",
       "canonicalName": "Loughborough",
       "status": {
-        "current": "unknown",
+        "current": "defunct",
         "trackedFromSeason": 1895,
         "trackedToSeason": 1899,
-        "hasUnexplainedGaps": false
+        "hasUnexplainedGaps": false,
+        "reason": "dissolved",
+        "reasonLabel": "Dissolved in 1900 after leaving the Football League.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Loughborough_F.C.",
+            "notes": "Used for Loughborough dissolution context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
-        "lifecycleEvents": [],
+        "lifecycleEvents": [
+          {
+            "type": "dissolved",
+            "season": 1900,
+            "label": "Dissolved in 1900.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Loughborough_F.C.",
+                "notes": "Used for Loughborough dissolution context."
+              }
+            ]
+          }
+        ],
         "trackedMembership": [
           {
             "fromSeason": 1895,
@@ -29825,6 +31008,13 @@
         "source": "football-data-output",
         "aliases": [
           "Loughborough"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Loughborough_F.C.",
+            "notes": "Used for Loughborough dissolution context."
+          }
         ],
         "observedNames": [
           {
@@ -30440,14 +31630,37 @@
       "clubId": "macclesfield-town",
       "canonicalName": "Macclesfield Town",
       "status": {
-        "current": "unknown",
+        "current": "defunct",
         "trackedFromSeason": 1997,
         "trackedToSeason": 2020,
-        "hasUnexplainedGaps": false
+        "hasUnexplainedGaps": false,
+        "reason": "dissolved",
+        "reasonLabel": "Wound up in September 2020 after leaving the EFL.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Macclesfield_Town_F.C.",
+            "notes": "Used for Macclesfield Town winding-up context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
-        "lifecycleEvents": [],
+        "lifecycleEvents": [
+          {
+            "type": "dissolved",
+            "season": 2020,
+            "date": "2020-09-16",
+            "label": "Wound up in September 2020.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Macclesfield_Town_F.C.",
+                "notes": "Used for Macclesfield Town winding-up context."
+              }
+            ]
+          }
+        ],
         "trackedMembership": [
           {
             "fromSeason": 1997,
@@ -30466,6 +31679,13 @@
         "source": "football-data-output",
         "aliases": [
           "Macclesfield Town"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Macclesfield_Town_F.C.",
+            "notes": "Used for Macclesfield Town winding-up context."
+          }
         ],
         "observedNames": [
           {
@@ -30755,10 +31975,13 @@
             "clubKey": "maidstone united 1897",
             "relationship": "phoenix",
             "direction": "predecessor",
+            "season": 1992,
+            "label": "The modern Maidstone United traces to the revived club after the 1897 club folded.",
             "sourceRefs": [
               {
-                "type": "former-efl-clubs-list",
-                "sourceUrl": "https://en.wikipedia.org/wiki/List_of_former_English_Football_League_clubs"
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Maidstone_United_F.C._(1897)",
+                "notes": "Used for Football League resignation, liquidation, and revived club context."
               }
             ]
           }
@@ -30847,14 +32070,49 @@
       "clubId": "maidstone-united-1897",
       "canonicalName": "Maidstone United (1897)",
       "status": {
-        "current": "unknown",
+        "current": "defunct",
         "trackedFromSeason": 1989,
         "trackedToSeason": 1992,
-        "hasUnexplainedGaps": false
+        "hasUnexplainedGaps": false,
+        "reason": "liquidated",
+        "reasonLabel": "Resigned from the Football League and went into liquidation in 1992.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Maidstone_United_F.C._(1897)",
+            "notes": "Used for Football League resignation, liquidation, and revived club context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
-        "lifecycleEvents": [],
+        "lifecycleEvents": [
+          {
+            "type": "resigned",
+            "season": 1992,
+            "date": "1992-08-17",
+            "label": "Resigned from the Football League before playing a 1992-93 league fixture.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Maidstone_United_F.C._(1897)",
+                "notes": "Used for Football League resignation, liquidation, and revived club context."
+              }
+            ]
+          },
+          {
+            "type": "dissolved",
+            "season": 1992,
+            "label": "Went into liquidation after being unable to guarantee its fixtures.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Maidstone_United_F.C._(1897)",
+                "notes": "Used for Football League resignation, liquidation, and revived club context."
+              }
+            ]
+          }
+        ],
         "trackedMembership": [
           {
             "fromSeason": 1989,
@@ -30877,6 +32135,11 @@
             "type": "former-efl-clubs-list",
             "sourceUrl": "https://en.wikipedia.org/wiki/List_of_former_English_Football_League_clubs",
             "notes": "Former EFL list describes Maidstone United as liquidated with a revived version later playing."
+          },
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Maidstone_United_F.C._(1897)",
+            "notes": "Used for Football League resignation, liquidation, and revived club context."
           }
         ],
         "relationships": [
@@ -30884,10 +32147,13 @@
             "clubKey": "maidstone united",
             "relationship": "phoenix",
             "direction": "successor",
+            "season": 1992,
+            "label": "The modern Maidstone United traces to the revived club after the 1897 club folded.",
             "sourceRefs": [
               {
-                "type": "former-efl-clubs-list",
-                "sourceUrl": "https://en.wikipedia.org/wiki/List_of_former_English_Football_League_clubs"
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Maidstone_United_F.C._(1897)",
+                "notes": "Used for Football League resignation, liquidation, and revived club context."
               }
             ]
           }
@@ -33058,14 +34324,36 @@
       "clubId": "middlesbrough-ironopolis",
       "canonicalName": "Middlesbrough Ironopolis",
       "status": {
-        "current": "unknown",
+        "current": "defunct",
         "trackedFromSeason": 1893,
         "trackedToSeason": 1893,
-        "hasUnexplainedGaps": false
+        "hasUnexplainedGaps": false,
+        "reason": "dissolved",
+        "reasonLabel": "Dissolved in 1894 after its single Football League season.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Middlesbrough_Ironopolis",
+            "notes": "Used for Middlesbrough Ironopolis dissolution context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
-        "lifecycleEvents": [],
+        "lifecycleEvents": [
+          {
+            "type": "dissolved",
+            "season": 1894,
+            "label": "Dissolved in 1894.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Middlesbrough_Ironopolis",
+                "notes": "Used for Middlesbrough Ironopolis dissolution context."
+              }
+            ]
+          }
+        ],
         "trackedMembership": [
           {
             "fromSeason": 1893,
@@ -33082,6 +34370,13 @@
         "source": "football-data-output",
         "aliases": [
           "Middlesbrough Ironopolis"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Middlesbrough_Ironopolis",
+            "notes": "Used for Middlesbrough Ironopolis dissolution context."
+          }
         ],
         "observedNames": [
           {
@@ -33540,7 +34835,20 @@
       },
       "history": {
         "nameHistory": [],
-        "lifecycleEvents": [],
+        "lifecycleEvents": [
+          {
+            "type": "relocated",
+            "season": 2004,
+            "label": "Formed under the Milton Keynes Dons name following Wimbledon F.C. relocating to Milton Keynes.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Milton_Keynes_Dons_F.C.",
+                "notes": "Used for Wimbledon relocation and Milton Keynes Dons formation context."
+              }
+            ]
+          }
+        ],
         "trackedMembership": [
           {
             "fromSeason": 2004,
@@ -33560,15 +34868,25 @@
         "aliases": [
           "Milton Keynes Dons"
         ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Milton_Keynes_Dons_F.C.",
+            "notes": "Used for Wimbledon relocation and Milton Keynes Dons formation context."
+          }
+        ],
         "relationships": [
           {
             "clubKey": "wimbledon",
             "relationship": "relocation",
             "direction": "relocatedFrom",
+            "season": 2004,
+            "label": "Wimbledon F.C. relocated to Milton Keynes and became Milton Keynes Dons.",
             "sourceRefs": [
               {
-                "type": "former-efl-clubs-list",
-                "sourceUrl": "https://en.wikipedia.org/wiki/List_of_former_English_Football_League_clubs"
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Milton_Keynes_Dons_F.C.",
+                "notes": "Used for Wimbledon relocation and Milton Keynes Dons formation context."
               }
             ]
           }
@@ -33833,10 +35151,19 @@
       "clubId": "needham-market",
       "canonicalName": "Needham Market",
       "status": {
-        "current": "unknown",
+        "current": "active",
         "trackedFromSeason": 2024,
         "trackedToSeason": 2024,
-        "hasUnexplainedGaps": false
+        "hasUnexplainedGaps": false,
+        "reason": "possibly-missing-from-current-data",
+        "reasonLabel": "Wikipedia lists the club in the Southern League Premier Division Central, a level 7 league inside tracked but sparse coverage.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Needham_Market_F.C.",
+            "notes": "Used for current lower-division status and tracked coverage context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
@@ -33857,6 +35184,13 @@
         "source": "football-data-output",
         "aliases": [
           "Needham Market"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Needham_Market_F.C.",
+            "notes": "Used for current lower-division status and tracked coverage context."
+          }
         ],
         "observedNames": [
           {
@@ -33902,10 +35236,19 @@
       "clubId": "nelson",
       "canonicalName": "Nelson",
       "status": {
-        "current": "unknown",
+        "current": "active",
         "trackedFromSeason": 1921,
         "trackedToSeason": 1930,
-        "hasUnexplainedGaps": false
+        "hasUnexplainedGaps": false,
+        "reason": "not-in-tracked-leagues",
+        "reasonLabel": "Wikipedia lists the club in the North West Counties League Premier Division, below current tracked coverage.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Nelson_F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
@@ -33927,6 +35270,13 @@
         "source": "football-data-output",
         "aliases": [
           "Nelson"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Nelson_F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
+          }
         ],
         "observedNames": [
           {
@@ -34006,10 +35356,19 @@
       "clubId": "new-brighton",
       "canonicalName": "New Brighton",
       "status": {
-        "current": "unknown",
+        "current": "active",
         "trackedFromSeason": 1923,
         "trackedToSeason": 1950,
-        "hasUnexplainedGaps": false
+        "hasUnexplainedGaps": false,
+        "reason": "not-in-tracked-leagues",
+        "reasonLabel": "Wikipedia lists the club in the West Cheshire League Division Two, below current tracked coverage.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/New_Brighton_A.F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
@@ -34037,6 +35396,13 @@
         "source": "football-data-output",
         "aliases": [
           "New Brighton"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/New_Brighton_A.F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
+          }
         ],
         "observedNames": [
           {
@@ -34154,14 +35520,36 @@
       "clubId": "new-brighton-tower",
       "canonicalName": "New Brighton Tower",
       "status": {
-        "current": "unknown",
+        "current": "defunct",
         "trackedFromSeason": 1898,
         "trackedToSeason": 1900,
-        "hasUnexplainedGaps": false
+        "hasUnexplainedGaps": false,
+        "reason": "dissolved",
+        "reasonLabel": "Disbanded in 1901 after three Football League seasons.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/New_Brighton_Tower_F.C.",
+            "notes": "Used for New Brighton Tower disbanding context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
-        "lifecycleEvents": [],
+        "lifecycleEvents": [
+          {
+            "type": "dissolved",
+            "season": 1901,
+            "label": "Disbanded in the summer of 1901.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/New_Brighton_Tower_F.C.",
+                "notes": "Used for New Brighton Tower disbanding context."
+              }
+            ]
+          }
+        ],
         "trackedMembership": [
           {
             "fromSeason": 1898,
@@ -34178,6 +35566,13 @@
         "source": "football-data-output",
         "aliases": [
           "New Brighton Tower"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/New_Brighton_Tower_F.C.",
+            "notes": "Used for New Brighton Tower disbanding context."
+          }
         ],
         "observedNames": [
           {
@@ -34711,7 +36106,20 @@
       },
       "history": {
         "nameHistory": [],
-        "lifecycleEvents": [],
+        "lifecycleEvents": [
+          {
+            "type": "reformed",
+            "season": 1989,
+            "label": "Reformed by supporters after the original Newport County folded.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Newport_County_A.F.C.",
+                "notes": "Used for Newport County bankruptcy and supporter reformation context."
+              }
+            ]
+          }
+        ],
         "trackedMembership": [
           {
             "fromSeason": 2012,
@@ -34730,15 +36138,25 @@
         "aliases": [
           "Newport County"
         ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Newport_County_A.F.C.",
+            "notes": "Used for Newport County bankruptcy and supporter reformation context."
+          }
+        ],
         "relationships": [
           {
             "clubKey": "newport county 1912",
             "relationship": "phoenix",
             "direction": "predecessor",
+            "season": 1989,
+            "label": "Newport County was reformed by supporters after the original club folded.",
             "sourceRefs": [
               {
-                "type": "former-efl-clubs-list",
-                "sourceUrl": "https://en.wikipedia.org/wiki/List_of_former_English_Football_League_clubs"
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Newport_County_A.F.C.",
+                "notes": "Used for Newport County bankruptcy and supporter reformation context."
               }
             ]
           }
@@ -34833,10 +36251,19 @@
       "clubId": "newport-county-1912",
       "canonicalName": "Newport County (1912)",
       "status": {
-        "current": "unknown",
+        "current": "defunct",
         "trackedFromSeason": 1920,
         "trackedToSeason": 1987,
-        "hasUnexplainedGaps": false
+        "hasUnexplainedGaps": false,
+        "reason": "folded",
+        "reasonLabel": "The original Newport County club folded in 1989 and was reformed by supporters.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Newport_County_A.F.C.",
+            "notes": "Used for Newport County bankruptcy and supporter reformation context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
@@ -34850,6 +36277,30 @@
                 "type": "wikipedia-season-page",
                 "sourceUrl": "https://en.wikipedia.org/wiki/1930–31_in_English_football",
                 "notes": "Third Division South table in 1930–31_in_English_football"
+              }
+            ]
+          },
+          {
+            "type": "folded",
+            "season": 1988,
+            "label": "The original club went out of business in 1989.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Newport_County_A.F.C.",
+                "notes": "Used for Newport County bankruptcy and supporter reformation context."
+              }
+            ]
+          },
+          {
+            "type": "reformed",
+            "season": 1989,
+            "label": "Reformed by supporters in June 1989.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Newport_County_A.F.C.",
+                "notes": "Used for Newport County bankruptcy and supporter reformation context."
               }
             ]
           }
@@ -34900,6 +36351,11 @@
             "type": "former-efl-clubs-list",
             "sourceUrl": "https://en.wikipedia.org/wiki/List_of_former_English_Football_League_clubs",
             "notes": "Former EFL list describes Newport County as defunct with a revived version later playing."
+          },
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Newport_County_A.F.C.",
+            "notes": "Used for Newport County bankruptcy and supporter reformation context."
           }
         ],
         "relationships": [
@@ -34907,10 +36363,13 @@
             "clubKey": "newport county",
             "relationship": "phoenix",
             "direction": "successor",
+            "season": 1989,
+            "label": "Newport County was reformed by supporters after the original club folded.",
             "sourceRefs": [
               {
-                "type": "former-efl-clubs-list",
-                "sourceUrl": "https://en.wikipedia.org/wiki/List_of_former_English_Football_League_clubs"
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Newport_County_A.F.C.",
+                "notes": "Used for Newport County bankruptcy and supporter reformation context."
               }
             ]
           }
@@ -35172,14 +36631,36 @@
       "clubId": "north-ferriby-united",
       "canonicalName": "North Ferriby United",
       "status": {
-        "current": "unknown",
+        "current": "defunct",
         "trackedFromSeason": 2016,
         "trackedToSeason": 2016,
-        "hasUnexplainedGaps": false
+        "hasUnexplainedGaps": false,
+        "reason": "dissolved",
+        "reasonLabel": "Dissolved in 2019 after leaving the tracked league record.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/North_Ferriby_United_A.F.C.",
+            "notes": "Used for North Ferriby United dissolution context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
-        "lifecycleEvents": [],
+        "lifecycleEvents": [
+          {
+            "type": "dissolved",
+            "season": 2019,
+            "label": "Dissolved in 2019.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/North_Ferriby_United_A.F.C.",
+                "notes": "Used for North Ferriby United dissolution context."
+              }
+            ]
+          }
+        ],
         "trackedMembership": [
           {
             "fromSeason": 2016,
@@ -35196,6 +36677,13 @@
         "source": "football-data-output",
         "aliases": [
           "North Ferriby United"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/North_Ferriby_United_A.F.C.",
+            "notes": "Used for North Ferriby United dissolution context."
+          }
         ],
         "observedNames": [
           {
@@ -35647,10 +37135,19 @@
       "clubId": "northwich-victoria",
       "canonicalName": "Northwich Victoria",
       "status": {
-        "current": "unknown",
+        "current": "active",
         "trackedFromSeason": 1892,
         "trackedToSeason": 1893,
-        "hasUnexplainedGaps": false
+        "hasUnexplainedGaps": false,
+        "reason": "not-in-tracked-leagues",
+        "reasonLabel": "Active below current tracked league coverage after leaving the Football League.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Northwich_Victoria_F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
@@ -35671,6 +37168,13 @@
         "source": "football-data-output",
         "aliases": [
           "Northwich Victoria"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Northwich_Victoria_F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
+          }
         ],
         "observedNames": [
           {
@@ -37139,10 +38643,19 @@
       "clubId": "nuneaton-town",
       "canonicalName": "Nuneaton Town",
       "status": {
-        "current": "unknown",
+        "current": "active",
         "trackedFromSeason": 2012,
         "trackedToSeason": 2014,
-        "hasUnexplainedGaps": false
+        "hasUnexplainedGaps": false,
+        "reason": "not-in-tracked-leagues",
+        "reasonLabel": "Wikipedia lists the club in the Northern Premier League Division One Midlands, below current tracked coverage.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Nuneaton_Town_F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
@@ -37163,6 +38676,13 @@
         "source": "football-data-output",
         "aliases": [
           "Nuneaton Town"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Nuneaton_Town_F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
+          }
         ],
         "observedNames": [
           {
@@ -41559,14 +43079,36 @@
       "clubId": "rotherham-county",
       "canonicalName": "Rotherham County",
       "status": {
-        "current": "unknown",
+        "current": "merged",
         "trackedFromSeason": 1919,
         "trackedToSeason": 1924,
-        "hasUnexplainedGaps": false
+        "hasUnexplainedGaps": false,
+        "reason": "merged",
+        "reasonLabel": "Merged with Rotherham Town in 1925 to form Rotherham United.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Rotherham_County_F.C.",
+            "notes": "Used for Rotherham County merger into Rotherham United."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
-        "lifecycleEvents": [],
+        "lifecycleEvents": [
+          {
+            "type": "merged",
+            "season": 1925,
+            "label": "Merged into Rotherham United in 1925.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Rotherham_County_F.C.",
+                "notes": "Used for Rotherham County merger into Rotherham United."
+              }
+            ]
+          }
+        ],
         "trackedMembership": [
           {
             "fromSeason": 1919,
@@ -41585,15 +43127,25 @@
         "aliases": [
           "Rotherham County"
         ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Rotherham_County_F.C.",
+            "notes": "Used for Rotherham County merger into Rotherham United."
+          }
+        ],
         "relationships": [
           {
             "clubKey": "rotherham united",
             "relationship": "merger",
             "direction": "mergedInto",
+            "season": 1925,
+            "label": "Rotherham County merged with Rotherham Town to form Rotherham United.",
             "sourceRefs": [
               {
-                "type": "former-efl-clubs-list",
-                "sourceUrl": "https://en.wikipedia.org/wiki/List_of_former_English_Football_League_clubs"
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Rotherham_County_F.C.",
+                "notes": "Used for Rotherham County merger into Rotherham United."
               }
             ]
           }
@@ -41664,14 +43216,36 @@
       "clubId": "rotherham-town",
       "canonicalName": "Rotherham Town",
       "status": {
-        "current": "unknown",
+        "current": "defunct",
         "trackedFromSeason": 1893,
         "trackedToSeason": 1895,
-        "hasUnexplainedGaps": false
+        "hasUnexplainedGaps": false,
+        "reason": "dissolved",
+        "reasonLabel": "The original 1878 Rotherham Town club failed to apply for re-election and folded in 1896.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Rotherham_Town_F.C._(1878)",
+            "notes": "Used for the original Rotherham Town Football League club dissolution context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
-        "lifecycleEvents": [],
+        "lifecycleEvents": [
+          {
+            "type": "dissolved",
+            "season": 1895,
+            "label": "Folded after failing to apply for re-election at the end of the 1895-96 season.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Rotherham_Town_F.C._(1878)",
+                "notes": "Used for the original Rotherham Town Football League club dissolution context."
+              }
+            ]
+          }
+        ],
         "trackedMembership": [
           {
             "fromSeason": 1893,
@@ -41689,17 +43263,11 @@
         "aliases": [
           "Rotherham Town"
         ],
-        "relationships": [
+        "identitySources": [
           {
-            "clubKey": "rotherham united",
-            "relationship": "merger",
-            "direction": "mergedInto",
-            "sourceRefs": [
-              {
-                "type": "former-efl-clubs-list",
-                "sourceUrl": "https://en.wikipedia.org/wiki/List_of_former_English_Football_League_clubs"
-              }
-            ]
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Rotherham_Town_F.C._(1878)",
+            "notes": "Used for the original Rotherham Town Football League club dissolution context."
           }
         ],
         "observedNames": [
@@ -41791,21 +43359,13 @@
             "clubKey": "rotherham county",
             "relationship": "merger",
             "direction": "formedFrom",
+            "season": 1925,
+            "label": "Rotherham County merged with Rotherham Town to form Rotherham United.",
             "sourceRefs": [
               {
-                "type": "former-efl-clubs-list",
-                "sourceUrl": "https://en.wikipedia.org/wiki/List_of_former_English_Football_League_clubs"
-              }
-            ]
-          },
-          {
-            "clubKey": "rotherham town",
-            "relationship": "merger",
-            "direction": "formedFrom",
-            "sourceRefs": [
-              {
-                "type": "former-efl-clubs-list",
-                "sourceUrl": "https://en.wikipedia.org/wiki/List_of_former_English_Football_League_clubs"
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Rotherham_County_F.C.",
+                "notes": "Used for Rotherham County merger into Rotherham United."
               }
             ]
           }
@@ -42159,10 +43719,19 @@
       "clubId": "rushall-olympic",
       "canonicalName": "Rushall Olympic",
       "status": {
-        "current": "unknown",
+        "current": "active",
         "trackedFromSeason": 2023,
         "trackedToSeason": 2024,
-        "hasUnexplainedGaps": false
+        "hasUnexplainedGaps": false,
+        "reason": "possibly-missing-from-current-data",
+        "reasonLabel": "Wikipedia lists the club in the Southern League Premier Division Central, a level 7 league inside tracked but sparse coverage.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Rushall_Olympic_F.C.",
+            "notes": "Used for current lower-division status and tracked coverage context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
@@ -42183,6 +43752,13 @@
         "source": "football-data-output",
         "aliases": [
           "Rushall Olympic"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Rushall_Olympic_F.C.",
+            "notes": "Used for current lower-division status and tracked coverage context."
+          }
         ],
         "observedNames": [
           {
@@ -42231,14 +43807,49 @@
       "clubId": "rushden-and-diamonds",
       "canonicalName": "Rushden & Diamonds",
       "status": {
-        "current": "unknown",
+        "current": "defunct",
         "trackedFromSeason": 2001,
         "trackedToSeason": 2005,
-        "hasUnexplainedGaps": false
+        "hasUnexplainedGaps": false,
+        "reason": "dissolved",
+        "reasonLabel": "Expelled from the Conference in 2011 and subsequently dissolved.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Rushden_%26_Diamonds_F.C.",
+            "notes": "Used for Conference expulsion and dissolution context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
-        "lifecycleEvents": [],
+        "lifecycleEvents": [
+          {
+            "type": "expelled",
+            "season": 2011,
+            "date": "2011-06-11",
+            "label": "Expelled from the Conference because the club could not guarantee completing fixtures.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Rushden_%26_Diamonds_F.C.",
+                "notes": "Used for Conference expulsion and dissolution context."
+              }
+            ]
+          },
+          {
+            "type": "dissolved",
+            "season": 2011,
+            "label": "The club dissolved after its financial collapse.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Rushden_%26_Diamonds_F.C.",
+                "notes": "Used for Conference expulsion and dissolution context."
+              }
+            ]
+          }
+        ],
         "trackedMembership": [
           {
             "fromSeason": 2001,
@@ -42256,6 +43867,29 @@
         "source": "football-data-output",
         "aliases": [
           "Rushden & Diamonds"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Rushden_%26_Diamonds_F.C.",
+            "notes": "Used for Conference expulsion and dissolution context."
+          }
+        ],
+        "relationships": [
+          {
+            "clubKey": "afc rushden and diamonds",
+            "relationship": "supporterPhoenix",
+            "direction": "supporterFounded",
+            "season": 2011,
+            "label": "AFC Rushden & Diamonds was formed by supporters after Rushden & Diamonds was expelled and dissolved.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/AFC_Rushden_%26_Diamonds",
+                "notes": "Used for supporter phoenix formation context."
+              }
+            ]
+          }
         ],
         "observedNames": [
           {
@@ -42490,14 +44124,36 @@
       "clubId": "salisbury-city",
       "canonicalName": "Salisbury City",
       "status": {
-        "current": "unknown",
+        "current": "defunct",
         "trackedFromSeason": 2013,
         "trackedToSeason": 2013,
-        "hasUnexplainedGaps": false
+        "hasUnexplainedGaps": false,
+        "reason": "dissolved",
+        "reasonLabel": "Dissolved in 2014 after leaving the tracked league record.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Salisbury_City_F.C.",
+            "notes": "Used for Salisbury City dissolution context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
-        "lifecycleEvents": [],
+        "lifecycleEvents": [
+          {
+            "type": "dissolved",
+            "season": 2014,
+            "label": "Dissolved in 2014.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Salisbury_City_F.C.",
+                "notes": "Used for Salisbury City dissolution context."
+              }
+            ]
+          }
+        ],
         "trackedMembership": [
           {
             "fromSeason": 2013,
@@ -42514,6 +44170,13 @@
         "source": "football-data-output",
         "aliases": [
           "Salisbury City"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Salisbury_City_F.C.",
+            "notes": "Used for Salisbury City dissolution context."
+          }
         ],
         "observedNames": [
           {
@@ -42559,14 +44222,50 @@
       "clubId": "scarborough",
       "canonicalName": "Scarborough",
       "status": {
-        "current": "unknown",
+        "current": "defunct",
         "trackedFromSeason": 1987,
         "trackedToSeason": 1998,
-        "hasUnexplainedGaps": false
+        "hasUnexplainedGaps": false,
+        "reason": "folded",
+        "reasonLabel": "Wound up in 2007; Scarborough Athletic was formed as a phoenix club.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Scarborough_F.C.",
+            "notes": "Used for winding-up and Scarborough Athletic context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
-        "lifecycleEvents": [],
+        "lifecycleEvents": [
+          {
+            "type": "folded",
+            "season": 2006,
+            "date": "2007-06-20",
+            "label": "Wound up in the High Court after 128 years.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Scarborough_F.C.",
+                "notes": "Used for winding-up and Scarborough Athletic context."
+              }
+            ]
+          },
+          {
+            "type": "phoenixFormed",
+            "season": 2007,
+            "date": "2007-06-25",
+            "label": "Scarborough Athletic was formed as a phoenix club.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Scarborough_Athletic_F.C.",
+                "notes": "Used for Scarborough Athletic phoenix formation context."
+              }
+            ]
+          }
+        ],
         "trackedMembership": [
           {
             "fromSeason": 1987,
@@ -42584,15 +44283,30 @@
         "aliases": [
           "Scarborough"
         ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Scarborough_Athletic_F.C.",
+            "notes": "Used for Scarborough Athletic phoenix formation context."
+          },
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Scarborough_F.C.",
+            "notes": "Used for winding-up and Scarborough Athletic context."
+          }
+        ],
         "relationships": [
           {
             "clubKey": "scarborough athletic",
             "relationship": "phoenix",
             "direction": "successor",
+            "season": 2007,
+            "label": "Scarborough Athletic was formed as a phoenix club after Scarborough F.C. was wound up.",
             "sourceRefs": [
               {
-                "type": "former-efl-clubs-list",
-                "sourceUrl": "https://en.wikipedia.org/wiki/List_of_former_English_Football_League_clubs"
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Scarborough_Athletic_F.C.",
+                "notes": "Used for Scarborough Athletic phoenix formation context."
               }
             ]
           }
@@ -42681,7 +44395,21 @@
       },
       "history": {
         "nameHistory": [],
-        "lifecycleEvents": [],
+        "lifecycleEvents": [
+          {
+            "type": "phoenixFormed",
+            "season": 2007,
+            "date": "2007-06-25",
+            "label": "Formed as a phoenix club after Scarborough F.C. was wound up.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Scarborough_Athletic_F.C.",
+                "notes": "Used for Scarborough Athletic phoenix formation context."
+              }
+            ]
+          }
+        ],
         "trackedMembership": [
           {
             "fromSeason": 2022,
@@ -42699,15 +44427,25 @@
         "aliases": [
           "Scarborough Athletic"
         ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Scarborough_Athletic_F.C.",
+            "notes": "Used for Scarborough Athletic phoenix formation context."
+          }
+        ],
         "relationships": [
           {
             "clubKey": "scarborough",
             "relationship": "phoenix",
             "direction": "predecessor",
+            "season": 2007,
+            "label": "Scarborough Athletic was formed as a phoenix club after Scarborough F.C. was wound up.",
             "sourceRefs": [
               {
-                "type": "former-efl-clubs-list",
-                "sourceUrl": "https://en.wikipedia.org/wiki/List_of_former_English_Football_League_clubs"
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Scarborough_Athletic_F.C.",
+                "notes": "Used for Scarborough Athletic phoenix formation context."
               }
             ]
           }
@@ -45981,10 +47719,19 @@
       "clubId": "st-albans-city",
       "canonicalName": "St Albans City",
       "status": {
-        "current": "unknown",
+        "current": "active",
         "trackedFromSeason": 2021,
         "trackedToSeason": 2024,
-        "hasUnexplainedGaps": false
+        "hasUnexplainedGaps": false,
+        "reason": "possibly-missing-from-current-data",
+        "reasonLabel": "Wikipedia lists the club in the Isthmian League Premier Division, a level 7 league inside tracked but sparse coverage.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/St_Albans_City_F.C.",
+            "notes": "Used for current lower-division status and tracked coverage context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
@@ -46005,6 +47752,13 @@
         "source": "football-data-output",
         "aliases": [
           "St Albans City"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/St_Albans_City_F.C.",
+            "notes": "Used for current lower-division status and tracked coverage context."
+          }
         ],
         "observedNames": [
           {
@@ -46059,10 +47813,19 @@
       "clubId": "stalybridge-celtic",
       "canonicalName": "Stalybridge Celtic",
       "status": {
-        "current": "unknown",
+        "current": "active",
         "trackedFromSeason": 1921,
         "trackedToSeason": 1922,
-        "hasUnexplainedGaps": false
+        "hasUnexplainedGaps": false,
+        "reason": "not-in-tracked-leagues",
+        "reasonLabel": "Wikipedia lists the club in the Northern Premier League Division One West, below current tracked coverage.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Stalybridge_Celtic_F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
@@ -46083,6 +47846,13 @@
         "source": "football-data-output",
         "aliases": [
           "Stalybridge Celtic"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Stalybridge_Celtic_F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
+          }
         ],
         "observedNames": [
           {
@@ -47826,14 +49596,36 @@
       "clubId": "sunderland-albion",
       "canonicalName": "Sunderland Albion",
       "status": {
-        "current": "unknown",
+        "current": "defunct",
         "trackedFromSeason": 1890,
         "trackedToSeason": 1890,
-        "hasUnexplainedGaps": false
+        "hasUnexplainedGaps": false,
+        "reason": "dissolved",
+        "reasonLabel": "Dissolved in 1892 after leaving the Football Alliance/Northern League record.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Sunderland_Albion_F.C.",
+            "notes": "Used for Sunderland Albion dissolution context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
-        "lifecycleEvents": [],
+        "lifecycleEvents": [
+          {
+            "type": "dissolved",
+            "season": 1891,
+            "label": "Dissolved in 1892.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Sunderland_Albion_F.C.",
+                "notes": "Used for Sunderland Albion dissolution context."
+              }
+            ]
+          }
+        ],
         "trackedMembership": [
           {
             "fromSeason": 1890,
@@ -47850,6 +49642,13 @@
         "source": "football-data-output",
         "aliases": [
           "Sunderland Albion"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Sunderland_Albion_F.C.",
+            "notes": "Used for Sunderland Albion dissolution context."
+          }
         ],
         "observedNames": [
           {
@@ -48966,10 +50765,19 @@
       "clubId": "taunton-town",
       "canonicalName": "Taunton Town",
       "status": {
-        "current": "unknown",
+        "current": "active",
         "trackedFromSeason": 2022,
         "trackedToSeason": 2023,
-        "hasUnexplainedGaps": false
+        "hasUnexplainedGaps": false,
+        "reason": "possibly-missing-from-current-data",
+        "reasonLabel": "Wikipedia lists the club in the Southern League Premier Division South, a level 7 league inside tracked but sparse coverage.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Taunton_Town_F.C.",
+            "notes": "Used for current lower-division status and tracked coverage context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
@@ -48990,6 +50798,13 @@
         "source": "football-data-output",
         "aliases": [
           "Taunton Town"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Taunton_Town_F.C.",
+            "notes": "Used for current lower-division status and tracked coverage context."
+          }
         ],
         "observedNames": [
           {
@@ -49038,14 +50853,36 @@
       "clubId": "thames",
       "canonicalName": "Thames",
       "status": {
-        "current": "unknown",
+        "current": "defunct",
         "trackedFromSeason": 1930,
         "trackedToSeason": 1931,
-        "hasUnexplainedGaps": false
+        "hasUnexplainedGaps": false,
+        "reason": "dissolved",
+        "reasonLabel": "Dissolved in 1932 after leaving the Football League.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Thames_F.C.",
+            "notes": "Used for Thames dissolution context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
-        "lifecycleEvents": [],
+        "lifecycleEvents": [
+          {
+            "type": "dissolved",
+            "season": 1932,
+            "label": "Dissolved in 1932.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Thames_F.C.",
+                "notes": "Used for Thames dissolution context."
+              }
+            ]
+          }
+        ],
         "trackedMembership": [
           {
             "fromSeason": 1930,
@@ -49062,6 +50899,13 @@
         "source": "football-data-output",
         "aliases": [
           "Thames"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Thames_F.C.",
+            "notes": "Used for Thames dissolution context."
+          }
         ],
         "observedNames": [
           {
@@ -51077,10 +52921,19 @@
       "clubId": "warrington-town",
       "canonicalName": "Warrington Town",
       "status": {
-        "current": "unknown",
+        "current": "active",
         "trackedFromSeason": 2023,
         "trackedToSeason": 2024,
-        "hasUnexplainedGaps": false
+        "hasUnexplainedGaps": false,
+        "reason": "possibly-missing-from-current-data",
+        "reasonLabel": "Wikipedia lists the club in the Northern Premier League Premier Division, a level 7 league inside tracked but sparse coverage.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Warrington_Town_F.C.",
+            "notes": "Used for current lower-division status and tracked coverage context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
@@ -51101,6 +52954,13 @@
         "source": "football-data-output",
         "aliases": [
           "Warrington Town"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Warrington_Town_F.C.",
+            "notes": "Used for current lower-division status and tracked coverage context."
+          }
         ],
         "observedNames": [
           {
@@ -51639,10 +53499,19 @@
       "clubId": "welling-united",
       "canonicalName": "Welling United",
       "status": {
-        "current": "unknown",
+        "current": "active",
         "trackedFromSeason": 2013,
         "trackedToSeason": 2024,
-        "hasUnexplainedGaps": false
+        "hasUnexplainedGaps": false,
+        "reason": "possibly-missing-from-current-data",
+        "reasonLabel": "Wikipedia lists the club in the Isthmian League Premier Division, a level 7 league inside tracked but sparse coverage.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Welling_United_F.C.",
+            "notes": "Used for current lower-division status and tracked coverage context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
@@ -51693,6 +53562,13 @@
         "source": "football-data-output",
         "aliases": [
           "Welling United"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Welling_United_F.C.",
+            "notes": "Used for current lower-division status and tracked coverage context."
+          }
         ],
         "observedNames": [
           {
@@ -52741,10 +54617,19 @@
       "clubId": "weymouth",
       "canonicalName": "Weymouth",
       "status": {
-        "current": "unknown",
+        "current": "active",
         "trackedFromSeason": 2020,
         "trackedToSeason": 2024,
-        "hasUnexplainedGaps": false
+        "hasUnexplainedGaps": false,
+        "reason": "not-in-tracked-leagues",
+        "reasonLabel": "Wikipedia lists the club in the Southern League Division One South, below current tracked coverage.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Weymouth_F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
@@ -52766,6 +54651,13 @@
         "source": "football-data-output",
         "aliases": [
           "Weymouth"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Weymouth_F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
+          }
         ],
         "observedNames": [
           {
@@ -53077,14 +54969,48 @@
       "clubId": "wigan-borough",
       "canonicalName": "Wigan Borough",
       "status": {
-        "current": "unknown",
+        "current": "defunct",
         "trackedFromSeason": 1921,
         "trackedToSeason": 1931,
-        "hasUnexplainedGaps": false
+        "hasUnexplainedGaps": false,
+        "reason": "dissolved",
+        "reasonLabel": "Dissolved in 1931 after resigning from the Football League.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Wigan_Borough_F.C.",
+            "notes": "Used for Wigan Borough dissolution context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
-        "lifecycleEvents": [],
+        "lifecycleEvents": [
+          {
+            "type": "dissolved",
+            "season": 1931,
+            "label": "Dissolved in 1931.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Wigan_Borough_F.C.",
+                "notes": "Used for Wigan Borough dissolution context."
+              }
+            ]
+          },
+          {
+            "type": "resigned",
+            "season": 1931,
+            "label": "Resigned from the Football League during the 1931-32 season.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Wigan_Borough_F.C.",
+                "notes": "Used for Wigan Borough dissolution context."
+              }
+            ]
+          }
+        ],
         "trackedMembership": [
           {
             "fromSeason": 1921,
@@ -53101,6 +55027,13 @@
         "source": "football-data-output",
         "aliases": [
           "Wigan Borough"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Wigan_Borough_F.C.",
+            "notes": "Used for Wigan Borough dissolution context."
+          }
         ],
         "relationships": [
           {
@@ -53189,14 +55122,61 @@
       "clubId": "wimbledon",
       "canonicalName": "Wimbledon",
       "status": {
-        "current": "unknown",
+        "current": "relocated",
         "trackedFromSeason": 1977,
         "trackedToSeason": 2003,
-        "hasUnexplainedGaps": false
+        "hasUnexplainedGaps": false,
+        "reason": "relocated",
+        "reasonLabel": "Relocated to Milton Keynes and became Milton Keynes Dons; supporters founded AFC Wimbledon.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Wimbledon_F.C.",
+            "notes": "Used for relocation approval, Milton Keynes move, and supporter phoenix context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
-        "lifecycleEvents": [],
+        "lifecycleEvents": [
+          {
+            "type": "relocated",
+            "season": 2002,
+            "date": "2002-05-28",
+            "label": "The FA approved Wimbledon F.C. relocating to Milton Keynes.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Wimbledon_F.C.",
+                "notes": "Used for relocation approval, Milton Keynes move, and supporter phoenix context."
+              }
+            ]
+          },
+          {
+            "type": "supporterPhoenixFormed",
+            "season": 2002,
+            "label": "AFC Wimbledon was founded by supporters opposed to the relocation.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/AFC_Wimbledon",
+                "notes": "Used for supporter-founded phoenix club context."
+              }
+            ]
+          },
+          {
+            "type": "renamed",
+            "season": 2004,
+            "label": "The relocated club adopted the Milton Keynes Dons name.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Milton_Keynes_Dons_F.C.",
+                "notes": "Used for Wimbledon relocation and Milton Keynes Dons formation context."
+              }
+            ]
+          }
+        ],
         "trackedMembership": [
           {
             "fromSeason": 1977,
@@ -53217,16 +55197,35 @@
         "aliases": [
           "Wimbledon"
         ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/AFC_Wimbledon",
+            "notes": "Used for supporter-founded phoenix club context."
+          },
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Milton_Keynes_Dons_F.C.",
+            "notes": "Used for Wimbledon relocation and Milton Keynes Dons formation context."
+          },
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Wimbledon_F.C.",
+            "notes": "Used for relocation approval, Milton Keynes move, and supporter phoenix context."
+          }
+        ],
         "relationships": [
           {
             "clubKey": "afc wimbledon",
             "relationship": "supporterPhoenix",
             "direction": "supporterFounded",
+            "season": 2002,
+            "label": "AFC Wimbledon was founded by supporters after Wimbledon F.C. was allowed to relocate.",
             "sourceRefs": [
               {
                 "type": "wikipedia-club-page",
                 "sourceUrl": "https://en.wikipedia.org/wiki/AFC_Wimbledon",
-                "notes": "AFC Wimbledon was founded by former Wimbledon supporters after the FA allowed Wimbledon F.C. to relocate to Milton Keynes."
+                "notes": "Used for supporter-founded phoenix club context."
               }
             ]
           },
@@ -53234,10 +55233,13 @@
             "clubKey": "milton keynes dons",
             "relationship": "relocation",
             "direction": "relocatedTo",
+            "season": 2004,
+            "label": "Wimbledon F.C. relocated to Milton Keynes and became Milton Keynes Dons.",
             "sourceRefs": [
               {
-                "type": "former-efl-clubs-list",
-                "sourceUrl": "https://en.wikipedia.org/wiki/List_of_former_English_Football_League_clubs"
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Milton_Keynes_Dons_F.C.",
+                "notes": "Used for Wimbledon relocation and Milton Keynes Dons formation context."
               }
             ]
           }
@@ -54037,10 +56039,19 @@
       "clubId": "workington",
       "canonicalName": "Workington",
       "status": {
-        "current": "unknown",
+        "current": "active",
         "trackedFromSeason": 1951,
         "trackedToSeason": 1976,
-        "hasUnexplainedGaps": false
+        "hasUnexplainedGaps": false,
+        "reason": "possibly-missing-from-current-data",
+        "reasonLabel": "Wikipedia lists the club in the Northern Premier League Premier Division, a level 7 league inside tracked but sparse coverage.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Workington_A.F.C.",
+            "notes": "Used for current lower-division status and tracked coverage context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
@@ -54062,6 +56073,13 @@
         "source": "football-data-output",
         "aliases": [
           "Workington"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Workington_A.F.C.",
+            "notes": "Used for current lower-division status and tracked coverage context."
+          }
         ],
         "observedNames": [
           {

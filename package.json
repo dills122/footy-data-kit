@@ -8,6 +8,7 @@
     "wiki:build:overview": "node wikipedia/cli/index.js overview --start 1888 --end 2025 --output ./data-output --force-update --include-war-placeholders",
     "wiki:build:combined": "node wikipedia/data/combine-output-files.js --output ./data-output/all-seasons.json ./data-output/wiki_overview_tables_by_season.json",
     "wiki:club-seed": "node wikipedia/data/generate-club-metadata-seed.js ./data-output/all-seasons.json --output ./data/club-metadata.json",
+    "wiki:club-historical-audit": "node wikipedia/data/verify-club-continuity.js --check-historical-reasons --suggest-historical-reasons-from-wikipedia --wikipedia-limit 1000 --output ./data/club-historical-reason-audit.json",
     "wiki:club-verify": "node wikipedia/data/verify-club-continuity.js",
     "wiki:verify": "node wikipedia/data/verify-football-data.js --fail-on-issues ./data-output",
     "wiki:minify:promotion": "node scripts/minify-json.js ./data-output/wiki_promotion_relegations_by_season.json",

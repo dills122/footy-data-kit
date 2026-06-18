@@ -127,7 +127,7 @@
     {
       "file": "club-metadata.json",
       "description": "Club identity sidecar metadata.",
-      "size": "1.1M",
+      "size": "1.2M",
       "links": [
         {
           "label": "json",
