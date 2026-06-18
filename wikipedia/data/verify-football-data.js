@@ -4,7 +4,7 @@ import { Command } from 'commander';
 import * as fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { WIKIPEDIA_DATA_SOURCES } from '../config.js';
+import { getWikipediaLeagueLevelRule, WIKIPEDIA_DATA_SOURCES } from '../config.js';
 import { canonicalizeTeamName } from './data-quality-config.js';
 import { loadFootballData } from './generate-output-files.ts';
 import {
@@ -684,6 +684,7 @@ function analyzeSeasonLeagueOrdering(seasonKey, seasonValue) {
       continue;
     }
     if (inferredTier == null || inferredTier === tierNumber) continue;
+    if (isKnownParallelLeagueSlot(metadata, seasonNumber, inferredTier, tierNumber)) continue;
 
     issues.push(
       createIssue({
@@ -696,6 +697,20 @@ function analyzeSeasonLeagueOrdering(seasonKey, seasonValue) {
   }
 
   return issues;
+}
+
+function isKnownParallelLeagueSlot(metadata, seasonNumber, inferredTier, tierNumber) {
+  if (inferredTier == null || inferredTier >= tierNumber) return false;
+
+  const configuredRule = getWikipediaLeagueLevelRule(
+    `${metadata?.title || ''} ${metadata?.leagueId || ''}`,
+    seasonNumber
+  );
+  if (configuredRule?.parallelGroup) return true;
+
+  const tableIndex = Number(metadata?.tableIndex);
+  const leagueId = String(metadata?.leagueId || '');
+  return seasonNumber >= 2021 && leagueId === 'National_League' && tableIndex > 0;
 }
 
 /**

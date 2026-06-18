@@ -420,11 +420,16 @@ export function reconcileSeasonInfoContinuity(dataset, options = {}) {
 }
 
 export function getExpectedMinimumTierCount(seasonNumber) {
-  if (seasonNumber >= WIKIPEDIA_SEASON_RANGES.premierLeagueStartSeason - 1) return 4;
   if (WIKIPEDIA_MINIMUM_TIER_OVERRIDES[seasonNumber] != null) {
     return WIKIPEDIA_MINIMUM_TIER_OVERRIDES[seasonNumber];
   }
-  if (seasonNumber >= 1888) return 2;
+  if (seasonNumber >= 2021) return 7;
+  if (seasonNumber >= 2012) return 5;
+  if (seasonNumber >= WIKIPEDIA_SEASON_RANGES.fourthDivisionStartSeason) return 4;
+  if (seasonNumber >= WIKIPEDIA_SEASON_RANGES.regionalThirdDivisionStartSeason) return 4;
+  if (seasonNumber >= WIKIPEDIA_SEASON_RANGES.thirdDivisionStartSeason) return 3;
+  if (seasonNumber >= 1890) return 2;
+  if (seasonNumber >= 1888) return 1;
   return null;
 }
 

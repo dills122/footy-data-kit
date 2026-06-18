@@ -54,6 +54,14 @@ export interface SeasonInfo {
   regionalBridgeSeason?: boolean | null;
   promotionRelegationApplies?: boolean | null;
   specialCompetitions?: string[];
+  leagueStructureSpecialCases?: LeagueStructureSpecialCase[];
+  notes?: string | null;
+}
+
+export interface LeagueStructureSpecialCase {
+  type: string;
+  levels: number[];
+  tierKeys: string[];
   notes?: string | null;
 }
 

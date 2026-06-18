@@ -15,6 +15,45 @@ function toStringValue(value: unknown): string | null {
   return text.length ? text : null;
 }
 
+function normalizeNumberList(values: unknown): number[] {
+  if (!Array.isArray(values)) return [];
+  return Array.from(
+    new Set(
+      values
+        .filter((value) => value != null)
+        .map((value) => Number(value))
+        .filter((value): value is number => Number.isFinite(value))
+    )
+  );
+}
+
+function normalizeStringList(values: unknown): string[] {
+  if (!Array.isArray(values)) return [];
+  return Array.from(
+    new Set(
+      values
+        .map((value) => toStringValue(value))
+        .filter((value): value is string => value != null)
+    )
+  );
+}
+
+function normalizeLeagueStructureSpecialCases(values: unknown): SeasonInfo['leagueStructureSpecialCases'] {
+  if (!Array.isArray(values)) return [];
+
+  return values
+    .filter((value): value is Record<string, unknown> => {
+      return Boolean(value) && typeof value === 'object' && !Array.isArray(value);
+    })
+    .map((value) => ({
+      type: toStringValue(value.type) || 'unknown',
+      levels: normalizeNumberList(value.levels),
+      tierKeys: normalizeStringList(value.tierKeys),
+      notes: toStringValue(value.notes),
+    }))
+    .filter((value) => value.type !== 'unknown' || value.levels.length || value.tierKeys.length);
+}
+
 export function normaliseSeasonInfo(
   seasonInfoValue: Record<string, unknown>,
   seasonKey: string
@@ -28,13 +67,7 @@ export function normaliseSeasonInfo(
       : 0;
 
   const specialCompetitions = Array.isArray(seasonInfoValue.specialCompetitions)
-    ? Array.from(
-        new Set(
-          seasonInfoValue.specialCompetitions
-            .map((value) => toStringValue(value))
-            .filter((value): value is string => value != null)
-        )
-      )
+    ? normalizeStringList(seasonInfoValue.specialCompetitions)
     : [];
 
   return {
@@ -70,6 +103,9 @@ export function normaliseSeasonInfo(
         ? seasonInfoValue.promotionRelegationApplies
         : null,
     specialCompetitions,
+    leagueStructureSpecialCases: normalizeLeagueStructureSpecialCases(
+      seasonInfoValue.leagueStructureSpecialCases
+    ),
     notes: toStringValue(seasonInfoValue.notes),
   };
 }

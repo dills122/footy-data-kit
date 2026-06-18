@@ -174,11 +174,16 @@ describe('season-rules', () => {
   });
 
   test('continuity and coverage helpers are stable', () => {
+    expect(getExpectedMinimumTierCount(2021)).toBe(7);
+    expect(getExpectedMinimumTierCount(2012)).toBe(5);
     expect(getExpectedMinimumTierCount(1991)).toBe(4);
+    expect(getExpectedMinimumTierCount(1958)).toBe(4);
+    expect(getExpectedMinimumTierCount(1950)).toBe(4);
+    expect(getExpectedMinimumTierCount(1921)).toBe(4);
+    expect(getExpectedMinimumTierCount(1920)).toBe(3);
     expect(getExpectedMinimumTierCount(1888)).toBe(1);
     expect(getExpectedMinimumTierCount(1889)).toBe(1);
     expect(getExpectedMinimumTierCount(1890)).toBe(2);
-    expect(getExpectedMinimumTierCount(1950)).toBe(2);
     expect(shouldIgnoreMissingSeasonData({ kind: 'promotion-only' }, '1915')).toBe(true);
     expect(shouldIgnoreMissingSeasonData({ kind: 'promotion-only' }, '2005')).toBe(false);
     expect(shouldSkipContinuityForSeason({ kind: 'promotion-only' }, 1991)).toBe(true);

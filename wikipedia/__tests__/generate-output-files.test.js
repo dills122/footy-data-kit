@@ -227,6 +227,15 @@ describe('createFootballData', () => {
             regionalBridgeSeason: true,
             promotionRelegationApplies: false,
             specialCompetitions: ['London Combination', 'London Combination', '', null],
+            leagueStructureSpecialCases: [
+              {
+                type: ' restructure-placement ',
+                levels: ['3', 4, 4, null],
+                tierKeys: ['tier3', 'tier4', 'tier4', ''],
+                notes: ' Final North/South season ',
+              },
+              null,
+            ],
             notes: ' Wartime regional competitions only ',
           },
         },
@@ -249,6 +258,14 @@ describe('createFootballData', () => {
       regionalBridgeSeason: true,
       promotionRelegationApplies: false,
       specialCompetitions: ['London Combination'],
+      leagueStructureSpecialCases: [
+        {
+          type: 'restructure-placement',
+          levels: [3, 4],
+          tierKeys: ['tier3', 'tier4'],
+          notes: 'Final North/South season',
+        },
+      ],
       notes: 'Wartime regional competitions only',
     });
   });
