@@ -1,6 +1,6 @@
 {
-  "datasetPath": "/Users/dsteele/repos/footy-data-kit/data-output/all-seasons.json",
-  "clubMetadataPath": "/Users/dsteele/repos/footy-data-kit/data/club-metadata.json",
+  "datasetPath": "./data-output/all-seasons.json",
+  "clubMetadataPath": "./data/club-metadata.json",
   "clubCount": 232,
   "continuityIssueCount": 0,
   "historicalReasonIssueCount": 0,

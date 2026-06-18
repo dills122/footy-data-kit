@@ -31,6 +31,14 @@ function writeJsonFile(filePath, data, { cwd = process.cwd(), compact = false } 
   return resolvedOutput;
 }
 
+function formatReportPath(filePath, cwd = process.cwd()) {
+  const relativePath = path.relative(cwd, filePath);
+  if (!relativePath || relativePath.startsWith('..') || path.isAbsolute(relativePath)) {
+    return filePath;
+  }
+  return `./${relativePath}`;
+}
+
 function getSeasonNumbers(dataset) {
   return sortSeasonKeys(Object.keys(dataset?.seasons || {}))
     .map(parseSeasonNumber)
@@ -244,8 +252,8 @@ export function analyzeClubContinuityFiles({
   const issues = [...continuityIssues, ...historicalReasonIssues];
 
   return {
-    datasetPath: resolvedDatasetPath,
-    clubMetadataPath: resolvedClubMetadataPath,
+    datasetPath: formatReportPath(resolvedDatasetPath, cwd),
+    clubMetadataPath: formatReportPath(resolvedClubMetadataPath, cwd),
     clubCount: Object.keys(clubMetadata?.clubs || {}).length,
     continuityIssueCount: continuityIssues.length,
     historicalReasonIssueCount: historicalReasonIssues.length,

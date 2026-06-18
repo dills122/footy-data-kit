@@ -8,6 +8,7 @@ import {
 } from '../data/generate-club-metadata-seed.js';
 import {
   analyzeClubContinuity,
+  analyzeClubContinuityFiles,
   analyzeHistoricalStatusReasons,
   runCli as runClubContinuityCli,
 } from '../data/verify-club-continuity.js';
@@ -867,6 +868,16 @@ describe('verify-club-continuity CLI', () => {
       })
     );
 
+    const report = analyzeClubContinuityFiles({
+      datasetPath: 'all-seasons.json',
+      clubMetadataPath: 'club-metadata.json',
+      checkHistoricalReasons: true,
+      cwd: tmpDir,
+    });
+
+    expect(report.datasetPath).toBe('./all-seasons.json');
+    expect(report.clubMetadataPath).toBe('./club-metadata.json');
+
     try {
       await runClubContinuityCli([
         'node',
@@ -884,6 +895,8 @@ describe('verify-club-continuity CLI', () => {
     }
 
     const audit = JSON.parse(fs.readFileSync(auditPath, 'utf8'));
+    expect(audit.datasetPath).toBe(datasetPath);
+    expect(audit.clubMetadataPath).toBe(metadataPath);
     expect(audit.issues).toEqual([
       expect.objectContaining({
         type: 'missing-historical-status-reason',
