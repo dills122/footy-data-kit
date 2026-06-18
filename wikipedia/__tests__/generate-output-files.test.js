@@ -142,6 +142,72 @@ describe('createFootballData', () => {
     expect(tier2[0].wasPromoted).toBe(true);
   });
 
+  test('normalises structured tier metadata and explicit outcome lists', () => {
+    const dataset = createFootballData({
+      seasons: {
+        1902: {
+          tier3: {
+            season: '1902',
+            table: [
+              null,
+              {
+                pos: '1',
+                team: 'Delta FC',
+                played: '34',
+                won: '22',
+                drawn: '5',
+                lost: '7',
+                goalsFor: '75',
+                goalsAgainst: '36',
+                points: '49',
+                notes: 'Promoted through election',
+              },
+              {
+                pos: '2',
+                team: 'Echo FC',
+                played: '34',
+                won: '20',
+                drawn: '7',
+                lost: '7',
+                goalsFor: '70',
+                goalsAgainst: '40',
+                points: '47',
+                notes: 'Relegated',
+              },
+            ],
+            promoted: ['Manual Promoted FC'],
+            relegated: ['Manual Relegated FC'],
+            sourceUrl: 'https://example.test/season',
+            seasonSlug: '1902-03_example',
+            tier: 'tier3',
+            title: 'Example Division',
+            seasonMetadata: {
+              leagueId: 'example-division',
+              tableIndex: 2,
+              tableCount: 4,
+            },
+          },
+        },
+      },
+    });
+
+    const tier3 = dataset.seasons['1902'].tier3;
+    expect(tier3.season).toBe(1902);
+    expect(tier3.table.map((row) => row.team)).toEqual(['Delta FC', 'Echo FC']);
+    expect(tier3.promoted).toEqual(['Manual Promoted FC']);
+    expect(tier3.relegated).toEqual(['Manual Relegated FC']);
+    expect(tier3.metadata).toMatchObject({
+      source: 'wikipedia-overview',
+      sourceUrl: 'https://example.test/season',
+      seasonSlug: '1902-03_example',
+      tierKey: 'tier3',
+      title: 'Example Division',
+      leagueId: 'example-division',
+      tableIndex: 2,
+      tableCount: 4,
+    });
+  });
+
   test('preserves top-level dataset metadata', () => {
     const dataset = createFootballData({
       metadata: {
