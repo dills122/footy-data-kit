@@ -1,0 +1,521 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://dills122.github.io/footy-data-kit/schemas/club-metadata.schema.json",
+  "title": "ClubMetadataExport",
+  "description": "Sidecar club identity metadata keyed by clubId. Records combine source-backed history with generated observations from the season tables.",
+  "type": "object",
+  "required": ["clubs"],
+  "additionalProperties": false,
+  "properties": {
+    "metadata": {
+      "$ref": "#/definitions/DatasetMetadata"
+    },
+    "clubs": {
+      "$ref": "#/definitions/ClubsMap"
+    }
+  },
+  "definitions": {
+    "DatasetMetadata": {
+      "type": "object",
+      "description": "Build provenance for the generated club metadata sidecar.",
+      "additionalProperties": false,
+      "properties": {
+        "schemaVersion": {
+          "type": "integer"
+        },
+        "generator": {
+          "type": ["string", "null"]
+        },
+        "generatedAt": {
+          "type": ["string", "null"],
+          "format": "date-time"
+        },
+        "gitSha": {
+          "type": ["string", "null"]
+        },
+        "sourceFiles": {
+          "$ref": "#/definitions/StringList"
+        },
+        "buildOptions": {
+          "type": "object",
+          "additionalProperties": {
+            "type": ["string", "number", "boolean", "null"]
+          }
+        }
+      }
+    },
+    "ClubsMap": {
+      "type": "object",
+      "description": "Map of canonical club key to club metadata record.",
+      "patternProperties": {
+        "^[a-z0-9][a-z0-9 -]*$": {
+          "$ref": "#/definitions/ClubMetadata"
+        }
+      },
+      "additionalProperties": false
+    },
+    "ClubMetadata": {
+      "type": "object",
+      "description": "Metadata for a single club identity.",
+      "required": ["canonicalName"],
+      "additionalProperties": false,
+      "properties": {
+        "clubId": {
+          "type": "string",
+          "description": "URL-safe stable club identity slug."
+        },
+        "canonicalName": {
+          "type": "string",
+          "description": "Preferred display name for this club identity."
+        },
+        "status": {
+          "$ref": "#/definitions/ClubStatus"
+        },
+        "history": {
+          "$ref": "#/definitions/ClubHistory"
+        },
+        "derived": {
+          "$ref": "#/definitions/ClubDerivedMetadata"
+        },
+        "founded": {
+          "type": ["string", "null"]
+        },
+        "dissolved": {
+          "type": ["string", "null"]
+        },
+        "nameHistory": {
+          "type": "array",
+          "description": "Legacy name-history field. Prefer history.nameHistory for new consumers.",
+          "items": {
+            "$ref": "#/definitions/ClubNamePeriod"
+          }
+        },
+        "financialEvents": {
+          "type": "array",
+          "description": "Legacy financial-event field. Prefer source-backed lifecycle events for new consumers.",
+          "items": {
+            "$ref": "#/definitions/ClubFinancialEvent"
+          }
+        },
+        "notes": {
+          "type": ["string", "null"]
+        },
+        "sourceUrl": {
+          "type": ["string", "null"],
+          "format": "uri"
+        }
+      }
+    },
+    "ClubStatus": {
+      "type": "object",
+      "description": "Consumer-facing status summary for the club identity.",
+      "additionalProperties": false,
+      "properties": {
+        "current": {
+          "type": "string",
+          "description": "Small status label such as active, historical, defunct, merged, relocated, renamed, phoenix, or unknown."
+        },
+        "trackedFromSeason": {
+          "type": ["integer", "null"]
+        },
+        "trackedToSeason": {
+          "type": ["integer", "null"]
+        },
+        "hasUnexplainedGaps": {
+          "type": "boolean"
+        },
+        "reason": {
+          "type": ["string", "null"]
+        },
+        "reasonLabel": {
+          "type": ["string", "null"]
+        },
+        "sourceRefs": {
+          "$ref": "#/definitions/SourceRefs"
+        }
+      }
+    },
+    "ClubHistory": {
+      "type": "object",
+      "description": "Source-backed club history and expected membership context.",
+      "additionalProperties": false,
+      "properties": {
+        "nameHistory": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ClubNamePeriod"
+          }
+        },
+        "lifecycleEvents": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ClubLifecycleEvent"
+          }
+        },
+        "trackedMembership": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ClubTrackedMembership"
+          }
+        },
+        "absenceExplanations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ClubAbsenceExplanation"
+          }
+        }
+      }
+    },
+    "ClubDerivedMetadata": {
+      "type": "object",
+      "description": "Generated observations from the season table data. These fields describe dataset coverage, not necessarily real-world club activity.",
+      "additionalProperties": false,
+      "properties": {
+        "source": {
+          "type": ["string", "null"]
+        },
+        "aliases": {
+          "$ref": "#/definitions/StringList"
+        },
+        "identitySources": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ClubIdentitySource"
+          }
+        },
+        "relationships": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ClubRelationship"
+          }
+        },
+        "observedNames": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ClubObservedName"
+          }
+        },
+        "observedNamePeriods": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ClubObservedNamePeriod"
+          }
+        },
+        "firstSeenSeason": {
+          "type": ["integer", "null"]
+        },
+        "lastSeenSeason": {
+          "type": ["integer", "null"]
+        },
+        "seasonsSeen": {
+          "$ref": "#/definitions/IntegerList"
+        },
+        "totalSeasonsSeen": {
+          "type": "integer"
+        },
+        "tiersSeen": {
+          "$ref": "#/definitions/StringList"
+        },
+        "tierSeasons": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ClubTierSeasons"
+          }
+        },
+        "coverageGaps": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ClubCoverageGap"
+          }
+        }
+      }
+    },
+    "ClubNamePeriod": {
+      "type": "object",
+      "required": ["name"],
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "startSeason": {
+          "type": ["integer", "null"]
+        },
+        "endSeason": {
+          "type": ["integer", "null"]
+        },
+        "notes": {
+          "type": ["string", "null"]
+        }
+      }
+    },
+    "ClubFinancialEvent": {
+      "type": "object",
+      "required": ["type"],
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "startSeason": {
+          "type": ["integer", "null"]
+        },
+        "endSeason": {
+          "type": ["integer", "null"]
+        },
+        "seasonsMissed": {
+          "$ref": "#/definitions/IntegerList"
+        },
+        "notes": {
+          "type": ["string", "null"]
+        }
+      }
+    },
+    "ClubLifecycleEvent": {
+      "type": "object",
+      "required": ["type"],
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "Event label such as renamed, merged, dissolved, not-re-elected, relocated, or phoenix."
+        },
+        "season": {
+          "type": ["integer", "null"]
+        },
+        "date": {
+          "type": ["string", "null"]
+        },
+        "fromSeason": {
+          "type": ["integer", "null"]
+        },
+        "toSeason": {
+          "type": ["integer", "null"]
+        },
+        "fromName": {
+          "type": ["string", "null"]
+        },
+        "toName": {
+          "type": ["string", "null"]
+        },
+        "label": {
+          "type": ["string", "null"]
+        },
+        "description": {
+          "type": ["string", "null"]
+        },
+        "notes": {
+          "type": ["string", "null"]
+        },
+        "sourceRefs": {
+          "$ref": "#/definitions/SourceRefs"
+        }
+      }
+    },
+    "ClubTrackedMembership": {
+      "type": "object",
+      "required": ["fromSeason"],
+      "additionalProperties": false,
+      "properties": {
+        "fromSeason": {
+          "type": "integer"
+        },
+        "toSeason": {
+          "type": ["integer", "null"]
+        },
+        "tiers": {
+          "$ref": "#/definitions/StringList"
+        },
+        "basis": {
+          "type": ["string", "null"]
+        },
+        "notes": {
+          "type": ["string", "null"]
+        },
+        "sourceRefs": {
+          "$ref": "#/definitions/SourceRefs"
+        }
+      }
+    },
+    "ClubAbsenceExplanation": {
+      "type": "object",
+      "required": ["fromSeason", "reason"],
+      "additionalProperties": false,
+      "properties": {
+        "fromSeason": {
+          "type": "integer"
+        },
+        "toSeason": {
+          "type": ["integer", "null"]
+        },
+        "reason": {
+          "type": "string",
+          "description": "Broad reason code such as official-competition-paused, outside-tracked-coverage, club-inactive, club-dissolved, club-reformed, or unknown."
+        },
+        "linkedEventType": {
+          "type": ["string", "null"]
+        },
+        "basis": {
+          "type": ["string", "null"]
+        },
+        "notes": {
+          "type": ["string", "null"]
+        },
+        "sourceRefs": {
+          "$ref": "#/definitions/SourceRefs"
+        }
+      }
+    },
+    "ClubIdentitySource": {
+      "type": "object",
+      "required": ["type", "sourceUrl"],
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "sourceUrl": {
+          "type": "string",
+          "format": "uri"
+        },
+        "notes": {
+          "type": ["string", "null"]
+        }
+      }
+    },
+    "ClubSourceRef": {
+      "type": "object",
+      "required": ["type", "sourceUrl"],
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "sourceUrl": {
+          "type": "string",
+          "format": "uri"
+        },
+        "notes": {
+          "type": ["string", "null"]
+        }
+      }
+    },
+    "ClubRelationship": {
+      "type": "object",
+      "required": ["clubKey", "relationship", "direction"],
+      "additionalProperties": false,
+      "properties": {
+        "clubKey": {
+          "type": "string"
+        },
+        "relationship": {
+          "type": "string"
+        },
+        "direction": {
+          "type": "string"
+        },
+        "season": {
+          "type": ["integer", "null"]
+        },
+        "label": {
+          "type": ["string", "null"]
+        },
+        "sourceRefs": {
+          "$ref": "#/definitions/SourceRefs"
+        },
+        "notes": {
+          "type": ["string", "null"]
+        }
+      }
+    },
+    "ClubObservedName": {
+      "type": "object",
+      "required": ["rawName", "normalizedName", "firstSeenSeason", "lastSeenSeason"],
+      "additionalProperties": false,
+      "properties": {
+        "rawName": {
+          "type": "string"
+        },
+        "normalizedName": {
+          "type": "string"
+        },
+        "firstSeenSeason": {
+          "type": "integer"
+        },
+        "lastSeenSeason": {
+          "type": "integer"
+        },
+        "seasonsSeen": {
+          "$ref": "#/definitions/IntegerList"
+        },
+        "tiersSeen": {
+          "$ref": "#/definitions/StringList"
+        }
+      }
+    },
+    "ClubObservedNamePeriod": {
+      "type": "object",
+      "required": ["name", "startSeason", "endSeason"],
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "startSeason": {
+          "type": "integer"
+        },
+        "endSeason": {
+          "type": "integer"
+        }
+      }
+    },
+    "ClubTierSeasons": {
+      "type": "object",
+      "required": ["tierKey", "seasons"],
+      "additionalProperties": false,
+      "properties": {
+        "tierKey": {
+          "type": "string",
+          "pattern": "^tier\\d+$"
+        },
+        "seasons": {
+          "$ref": "#/definitions/IntegerList"
+        }
+      }
+    },
+    "ClubCoverageGap": {
+      "type": "object",
+      "required": ["startSeason", "endSeason", "length"],
+      "additionalProperties": false,
+      "properties": {
+        "startSeason": {
+          "type": "integer"
+        },
+        "endSeason": {
+          "type": "integer"
+        },
+        "length": {
+          "type": "integer"
+        }
+      }
+    },
+    "SourceRefs": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/ClubSourceRef"
+      }
+    },
+    "StringList": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "IntegerList": {
+      "type": "array",
+      "items": {
+        "type": "integer"
+      }
+    }
+  }
+}

@@ -19,10 +19,27 @@
   "links": [
     { "label": "GitHub repo", "url": "https://github.com/dills122/footy-data-kit" },
     { "label": "Releases", "url": "https://github.com/dills122/footy-data-kit/releases" },
+    { "label": "Schema docs", "url": "./schema/" },
     { "label": "README", "url": "https://github.com/dills122/footy-data-kit/blob/main/readme.md" },
     {
       "label": "Pipeline code",
       "url": "https://github.com/dills122/footy-data-kit/tree/main/wikipedia"
+    }
+  ],
+  "schemaDocs": [
+    {
+      "title": "ClubMetadataExport",
+      "description": "Sidecar club identity metadata keyed by clubId. Records combine source-backed history with generated observations from the season tables.",
+      "fileName": "club-metadata.schema.json",
+      "docUrl": "./schema/club-metadata.html",
+      "rawUrl": "https://raw.githubusercontent.com/dills122/footy-data-kit/main/schemas/club-metadata.schema.json"
+    },
+    {
+      "title": "FootballData",
+      "description": "Merged English football season dataset. Season records contain a seasonInfo summary and zero or more tierN league-table records.",
+      "fileName": "football-data.schema.json",
+      "docUrl": "./schema/football-data.html",
+      "rawUrl": "https://raw.githubusercontent.com/dills122/footy-data-kit/main/schemas/football-data.schema.json"
     }
   ],
   "latestRelease": {

@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ClubMetadataExport schema | footy-data-kit</title>
+    <meta
+      name="description"
+      content="Sidecar club identity metadata keyed by clubId. Records combine source-backed history with generated observations from the season tables."
+    />
+    <link rel="stylesheet" href="../styles.css" />
+  </head>
+  <body>
+    <main class="page-shell">
+      <header class="site-header">
+        <p class="eyebrow">schema reference</p>
+        <h1>ClubMetadataExport</h1>
+        <p class="lede">
+          Sidecar club identity metadata keyed by clubId. Records combine source-backed history with
+          generated observations from the season tables.
+        </p>
+      </header>
+
+      <section class="panel">
+        <h2>Schema Links</h2>
+        <nav class="link-grid" aria-label="schema links">
+          <a href="../index.html">docs home</a>
+          <a href="./index.html">schema index</a>
+          <a
+            href="https://raw.githubusercontent.com/dills122/footy-data-kit/main/schemas/club-metadata.schema.json"
+            >raw schema</a
+          >
+          <a href="./football-data.html">FootballData</a>
+        </nav>
+      </section>
+
+      <section class="panel">
+        <h2>Contents</h2>
+        <nav class="schema-toc" aria-label="schema contents">
+          <a href="#root">Root</a><a href="#club-absence-explanation">ClubAbsenceExplanation</a
+          ><a href="#club-coverage-gap">ClubCoverageGap</a
+          ><a href="#club-derived-metadata">ClubDerivedMetadata</a
+          ><a href="#club-financial-event">ClubFinancialEvent</a
+          ><a href="#club-history">ClubHistory</a
+          ><a href="#club-identity-source">ClubIdentitySource</a
+          ><a href="#club-lifecycle-event">ClubLifecycleEvent</a
+          ><a href="#club-metadata">ClubMetadata</a><a href="#club-name-period">ClubNamePeriod</a
+          ><a href="#club-observed-name">ClubObservedName</a
+          ><a href="#club-observed-name-period">ClubObservedNamePeriod</a
+          ><a href="#club-relationship">ClubRelationship</a><a href="#clubs-map">ClubsMap</a
+          ><a href="#club-source-ref">ClubSourceRef</a><a href="#club-status">ClubStatus</a
+          ><a href="#club-tier-seasons">ClubTierSeasons</a
+          ><a href="#club-tracked-membership">ClubTrackedMembership</a
+          ><a href="#dataset-metadata">DatasetMetadata</a><a href="#integer-list">IntegerList</a
+          ><a href="#source-refs">SourceRefs</a><a href="#string-list">StringList</a>
+        </nav>
+      </section>
+
+      <section class="panel schema-definition" id="root">
+        <div class="section-heading">
+          <h2>Root</h2>
+          <a href="#root">anchor</a>
+        </div>
+        <div class="schema-summary">
+          <span>type <code>object</code></span>
+          <span>1 required</span><span>closed object</span>
+        </div>
+        <p>
+          Sidecar club identity metadata keyed by clubId. Records combine source-backed history with
+          generated observations from the season tables.
+        </p>
+        <div class="schema-table">
+          <div class="schema-row">
+            <code>metadata</code>
+            <span><a href="#dataset-metadata">DatasetMetadata</a></span>
+            <span>optional</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>clubs</code>
+            <span><a href="#clubs-map">ClubsMap</a></span>
+            <span>required</span>
+            <span></span>
+          </div>
+        </div>
+      </section>
+      <section class="panel schema-definition" id="club-absence-explanation">
+        <div class="section-heading">
+          <h2>ClubAbsenceExplanation</h2>
+          <a href="#club-absence-explanation">anchor</a>
+        </div>
+        <div class="schema-summary">
+          <span>type <code>object</code></span>
+          <span>2 required</span><span>closed object</span>
+        </div>
+
+        <div class="schema-table">
+          <div class="schema-row">
+            <code>fromSeason</code>
+            <span><code>integer</code></span>
+            <span>required</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>toSeason</code>
+            <span><code>integer</code> | <code>null</code></span>
+            <span>optional</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>reason</code>
+            <span><code>string</code></span>
+            <span>required</span>
+            <span
+              >Broad reason code such as official-competition-paused, outside-tracked-coverage,
+              club-inactive, club-dissolved, club-reformed, or unknown.</span
+            >
+          </div>
+          <div class="schema-row">
+            <code>linkedEventType</code>
+            <span><code>string</code> | <code>null</code></span>
+            <span>optional</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>basis</code>
+            <span><code>string</code> | <code>null</code></span>
+            <span>optional</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>notes</code>
+            <span><code>string</code> | <code>null</code></span>
+            <span>optional</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>sourceRefs</code>
+            <span><a href="#source-refs">SourceRefs</a></span>
+            <span>optional</span>
+            <span></span>
+          </div>
+        </div>
+      </section>
+      <section class="panel schema-definition" id="club-coverage-gap">
+        <div class="section-heading">
+          <h2>ClubCoverageGap</h2>
+          <a href="#club-coverage-gap">anchor</a>
+        </div>
+        <div class="schema-summary">
+          <span>type <code>object</code></span>
+          <span>3 required</span><span>closed object</span>
+        </div>
+
+        <div class="schema-table">
+          <div class="schema-row">
+            <code>startSeason</code>
+            <span><code>integer</code></span>
+            <span>required</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>endSeason</code>
+            <span><code>integer</code></span>
+            <span>required</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>length</code>
+            <span><code>integer</code></span>
+            <span>required</span>
+            <span></span>
+          </div>
+        </div>
+      </section>
+      <section class="panel schema-definition" id="club-derived-metadata">
+        <div class="section-heading">
+          <h2>ClubDerivedMetadata</h2>
+          <a href="#club-derived-metadata">anchor</a>
+        </div>
+        <div class="schema-summary">
+          <span>type <code>object</code></span>
+          <span>closed object</span>
+        </div>
+        <p>
+          Generated observations from the season table data. These fields describe dataset coverage,
+          not necessarily real-world club activity.
+        </p>
+        <div class="schema-table">
+          <div class="schema-row">
+            <code>source</code>
+            <span><code>string</code> | <code>null</code></span>
+            <span>optional</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>aliases</code>
+            <span><a href="#string-list">StringList</a></span>
+            <span>optional</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>identitySources</code>
+            <span><code>array</code></span>
+            <span>optional</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>relationships</code>
+            <span><code>array</code></span>
+            <span>optional</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>observedNames</code>
+            <span><code>array</code></span>
+            <span>optional</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>observedNamePeriods</code>
+            <span><code>array</code></span>
+            <span>optional</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>firstSeenSeason</code>
+            <span><code>integer</code> | <code>null</code></span>
+            <span>optional</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>lastSeenSeason</code>
+            <span><code>integer</code> | <code>null</code></span>
+            <span>optional</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>seasonsSeen</code>
+            <span><a href="#integer-list">IntegerList</a></span>
+            <span>optional</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>totalSeasonsSeen</code>
+            <span><code>integer</code></span>
+            <span>optional</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>tiersSeen</code>
+            <span><a href="#string-list">StringList</a></span>
+            <span>optional</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>tierSeasons</code>
+            <span><code>array</code></span>
+            <span>optional</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>coverageGaps</code>
+            <span><code>array</code></span>
+            <span>optional</span>
+            <span></span>
+          </div>
+        </div>
+      </section>
+      <section class="panel schema-definition" id="club-financial-event">
+        <div class="section-heading">
+          <h2>ClubFinancialEvent</h2>
+          <a href="#club-financial-event">anchor</a>
+        </div>
+        <div class="schema-summary">
+          <span>type <code>object</code></span>
+          <span>1 required</span><span>closed object</span>
+        </div>
+
+        <div class="schema-table">
+          <div class="schema-row">
+            <code>type</code>
+            <span><code>string</code></span>
+            <span>required</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>startSeason</code>
+            <span><code>integer</code> | <code>null</code></span>
+            <span>optional</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>endSeason</code>
+            <span><code>integer</code> | <code>null</code></span>
+            <span>optional</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>seasonsMissed</code>
+            <span><a href="#integer-list">IntegerList</a></span>
+            <span>optional</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>notes</code>
+            <span><code>string</code> | <code>null</code></span>
+            <span>optional</span>
+            <span></span>
+          </div>
+        </div>
+      </section>
+      <section class="panel schema-definition" id="club-history">
+        <div class="section-heading">
+          <h2>ClubHistory</h2>
+          <a href="#club-history">anchor</a>
+        </div>
+        <div class="schema-summary">
+          <span>type <code>object</code></span>
+          <span>closed object</span>
+        </div>
+        <p>Source-backed club history and expected membership context.</p>
+        <div class="schema-table">
+          <div class="schema-row">
+            <code>nameHistory</code>
+            <span><code>array</code></span>
+            <span>optional</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>lifecycleEvents</code>
+            <span><code>array</code></span>
+            <span>optional</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>trackedMembership</code>
+            <span><code>array</code></span>
+            <span>optional</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>absenceExplanations</code>
+            <span><code>array</code></span>
+            <span>optional</span>
+            <span></span>
+          </div>
+        </div>
+      </section>
+      <section class="panel schema-definition" id="club-identity-source">
+        <div class="section-heading">
+          <h2>ClubIdentitySource</h2>
+          <a href="#club-identity-source">anchor</a>
+        </div>
+        <div class="schema-summary">
+          <span>type <code>object</code></span>
+          <span>2 required</span><span>closed object</span>
+        </div>
+
+        <div class="schema-table">
+          <div class="schema-row">
+            <code>type</code>
+            <span><code>string</code></span>
+            <span>required</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>sourceUrl</code>
+            <span><code>string</code></span>
+            <span>required</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>notes</code>
+            <span><code>string</code> | <code>null</code></span>
+            <span>optional</span>
+            <span></span>
+          </div>
+        </div>
+      </section>
+      <section class="panel schema-definition" id="club-lifecycle-event">
+        <div class="section-heading">
+          <h2>ClubLifecycleEvent</h2>
+          <a href="#club-lifecycle-event">anchor</a>
+        </div>
+        <div class="schema-summary">
+          <span>type <code>object</code></span>
+          <span>1 required</span><span>closed object</span>
+        </div>
+
+        <div class="schema-table">
+          <div class="schema-row">
+            <code>type</code>
+            <span><code>string</code></span>
+            <span>required</span>
+            <span
+              >Event label such as renamed, merged, dissolved, not-re-elected, relocated, or
+              phoenix.</span
+            >
+          </div>
+          <div class="schema-row">
+            <code>season</code>
+            <span><code>integer</code> | <code>null</code></span>
+            <span>optional</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>date</code>
+            <span><code>string</code> | <code>null</code></span>
+            <span>optional</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>fromSeason</code>
+            <span><code>integer</code> | <code>null</code></span>
+            <span>optional</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>toSeason</code>
+            <span><code>integer</code> | <code>null</code></span>
+            <span>optional</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>fromName</code>
+            <span><code>string</code> | <code>null</code></span>
+            <span>optional</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>toName</code>
+            <span><code>string</code> | <code>null</code></span>
+            <span>optional</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>label</code>
+            <span><code>string</code> | <code>null</code></span>
+            <span>optional</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>description</code>
+            <span><code>string</code> | <code>null</code></span>
+            <span>optional</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>notes</code>
+            <span><code>string</code> | <code>null</code></span>
+            <span>optional</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>sourceRefs</code>
+            <span><a href="#source-refs">SourceRefs</a></span>
+            <span>optional</span>
+            <span></span>
+          </div>
+        </div>
+      </section>
+      <section class="panel schema-definition" id="club-metadata">
+        <div class="section-heading">
+          <h2>ClubMetadata</h2>
+          <a href="#club-metadata">anchor</a>
+        </div>
+        <div class="schema-summary">
+          <span>type <code>object</code></span>
+          <span>1 required</span><span>closed object</span>
+        </div>
+        <p>Metadata for a single club identity.</p>
+        <div class="schema-table">
+          <div class="schema-row">
+            <code>clubId</code>
+            <span><code>string</code></span>
+            <span>optional</span>
+            <span>URL-safe stable club identity slug.</span>
+          </div>
+          <div class="schema-row">
+            <code>canonicalName</code>
+            <span><code>string</code></span>
+            <span>required</span>
+            <span>Preferred display name for this club identity.</span>
+          </div>
+          <div class="schema-row">
+            <code>status</code>
+            <span><a href="#club-status">ClubStatus</a></span>
+            <span>optional</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>history</code>
+            <span><a href="#club-history">ClubHistory</a></span>
+            <span>optional</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>derived</code>
+            <span><a href="#club-derived-metadata">ClubDerivedMetadata</a></span>
+            <span>optional</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>founded</code>
+            <span><code>string</code> | <code>null</code></span>
+            <span>optional</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>dissolved</code>
+            <span><code>string</code> | <code>null</code></span>
+            <span>optional</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>nameHistory</code>
+            <span><code>array</code></span>
+            <span>optional</span>
+            <span>Legacy name-history field. Prefer history.nameHistory for new consumers.</span>
+          </div>
+          <div class="schema-row">
+            <code>financialEvents</code>
+            <span><code>array</code></span>
+            <span>optional</span>
+            <span
+              >Legacy financial-event field. Prefer source-backed lifecycle events for new
+              consumers.</span
+            >
+          </div>
+          <div class="schema-row">
+            <code>notes</code>
+            <span><code>string</code> | <code>null</code></span>
+            <span>optional</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>sourceUrl</code>
+            <span><code>string</code> | <code>null</code></span>
+            <span>optional</span>
+            <span></span>
+          </div>
+        </div>
+      </section>
+      <section class="panel schema-definition" id="club-name-period">
+        <div class="section-heading">
+          <h2>ClubNamePeriod</h2>
+          <a href="#club-name-period">anchor</a>
+        </div>
+        <div class="schema-summary">
+          <span>type <code>object</code></span>
+          <span>1 required</span><span>closed object</span>
+        </div>
+
+        <div class="schema-table">
+          <div class="schema-row">
+            <code>name</code>
+            <span><code>string</code></span>
+            <span>required</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>startSeason</code>
+            <span><code>integer</code> | <code>null</code></span>
+            <span>optional</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>endSeason</code>
+            <span><code>integer</code> | <code>null</code></span>
+            <span>optional</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>notes</code>
+            <span><code>string</code> | <code>null</code></span>
+            <span>optional</span>
+            <span></span>
+          </div>
+        </div>
+      </section>
+      <section class="panel schema-definition" id="club-observed-name">
+        <div class="section-heading">
+          <h2>ClubObservedName</h2>
+          <a href="#club-observed-name">anchor</a>
+        </div>
+        <div class="schema-summary">
+          <span>type <code>object</code></span>
+          <span>4 required</span><span>closed object</span>
+        </div>
+
+        <div class="schema-table">
+          <div class="schema-row">
+            <code>rawName</code>
+            <span><code>string</code></span>
+            <span>required</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>normalizedName</code>
+            <span><code>string</code></span>
+            <span>required</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>firstSeenSeason</code>
+            <span><code>integer</code></span>
+            <span>required</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>lastSeenSeason</code>
+            <span><code>integer</code></span>
+            <span>required</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>seasonsSeen</code>
+            <span><a href="#integer-list">IntegerList</a></span>
+            <span>optional</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>tiersSeen</code>
+            <span><a href="#string-list">StringList</a></span>
+            <span>optional</span>
+            <span></span>
+          </div>
+        </div>
+      </section>
+      <section class="panel schema-definition" id="club-observed-name-period">
+        <div class="section-heading">
+          <h2>ClubObservedNamePeriod</h2>
+          <a href="#club-observed-name-period">anchor</a>
+        </div>
+        <div class="schema-summary">
+          <span>type <code>object</code></span>
+          <span>3 required</span><span>closed object</span>
+        </div>
+
+        <div class="schema-table">
+          <div class="schema-row">
+            <code>name</code>
+            <span><code>string</code></span>
+            <span>required</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>startSeason</code>
+            <span><code>integer</code></span>
+            <span>required</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>endSeason</code>
+            <span><code>integer</code></span>
+            <span>required</span>
+            <span></span>
+          </div>
+        </div>
+      </section>
+      <section class="panel schema-definition" id="club-relationship">
+        <div class="section-heading">
+          <h2>ClubRelationship</h2>
+          <a href="#club-relationship">anchor</a>
+        </div>
+        <div class="schema-summary">
+          <span>type <code>object</code></span>
+          <span>3 required</span><span>closed object</span>
+        </div>
+
+        <div class="schema-table">
+          <div class="schema-row">
+            <code>clubKey</code>
+            <span><code>string</code></span>
+            <span>required</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>relationship</code>
+            <span><code>string</code></span>
+            <span>required</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>direction</code>
+            <span><code>string</code></span>
+            <span>required</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>season</code>
+            <span><code>integer</code> | <code>null</code></span>
+            <span>optional</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>label</code>
+            <span><code>string</code> | <code>null</code></span>
+            <span>optional</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>sourceRefs</code>
+            <span><a href="#source-refs">SourceRefs</a></span>
+            <span>optional</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>notes</code>
+            <span><code>string</code> | <code>null</code></span>
+            <span>optional</span>
+            <span></span>
+          </div>
+        </div>
+      </section>
+      <section class="panel schema-definition" id="clubs-map">
+        <div class="section-heading">
+          <h2>ClubsMap</h2>
+          <a href="#clubs-map">anchor</a>
+        </div>
+        <div class="schema-summary">
+          <span>type <code>object</code></span>
+          <span>closed object</span><span>pattern keys</span>
+        </div>
+        <p>Map of canonical club key to club metadata record.</p>
+        <div class="schema-table">
+          <div class="schema-row">
+            <code>^[a-z0-9][a-z0-9 -]*$</code>
+            <span><a href="#club-metadata">ClubMetadata</a></span>
+            <span>optional</span>
+            <span>Pattern property</span>
+          </div>
+        </div>
+      </section>
+      <section class="panel schema-definition" id="club-source-ref">
+        <div class="section-heading">
+          <h2>ClubSourceRef</h2>
+          <a href="#club-source-ref">anchor</a>
+        </div>
+        <div class="schema-summary">
+          <span>type <code>object</code></span>
+          <span>2 required</span><span>closed object</span>
+        </div>
+
+        <div class="schema-table">
+          <div class="schema-row">
+            <code>type</code>
+            <span><code>string</code></span>
+            <span>required</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>sourceUrl</code>
+            <span><code>string</code></span>
+            <span>required</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>notes</code>
+            <span><code>string</code> | <code>null</code></span>
+            <span>optional</span>
+            <span></span>
+          </div>
+        </div>
+      </section>
+      <section class="panel schema-definition" id="club-status">
+        <div class="section-heading">
+          <h2>ClubStatus</h2>
+          <a href="#club-status">anchor</a>
+        </div>
+        <div class="schema-summary">
+          <span>type <code>object</code></span>
+          <span>closed object</span>
+        </div>
+        <p>Consumer-facing status summary for the club identity.</p>
+        <div class="schema-table">
+          <div class="schema-row">
+            <code>current</code>
+            <span><code>string</code></span>
+            <span>optional</span>
+            <span
+              >Small status label such as active, historical, defunct, merged, relocated, renamed,
+              phoenix, or unknown.</span
+            >
+          </div>
+          <div class="schema-row">
+            <code>trackedFromSeason</code>
+            <span><code>integer</code> | <code>null</code></span>
+            <span>optional</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>trackedToSeason</code>
+            <span><code>integer</code> | <code>null</code></span>
+            <span>optional</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>hasUnexplainedGaps</code>
+            <span><code>boolean</code></span>
+            <span>optional</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>reason</code>
+            <span><code>string</code> | <code>null</code></span>
+            <span>optional</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>reasonLabel</code>
+            <span><code>string</code> | <code>null</code></span>
+            <span>optional</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>sourceRefs</code>
+            <span><a href="#source-refs">SourceRefs</a></span>
+            <span>optional</span>
+            <span></span>
+          </div>
+        </div>
+      </section>
+      <section class="panel schema-definition" id="club-tier-seasons">
+        <div class="section-heading">
+          <h2>ClubTierSeasons</h2>
+          <a href="#club-tier-seasons">anchor</a>
+        </div>
+        <div class="schema-summary">
+          <span>type <code>object</code></span>
+          <span>2 required</span><span>closed object</span>
+        </div>
+
+        <div class="schema-table">
+          <div class="schema-row">
+            <code>tierKey</code>
+            <span><code>string</code></span>
+            <span>required</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>seasons</code>
+            <span><a href="#integer-list">IntegerList</a></span>
+            <span>required</span>
+            <span></span>
+          </div>
+        </div>
+      </section>
+      <section class="panel schema-definition" id="club-tracked-membership">
+        <div class="section-heading">
+          <h2>ClubTrackedMembership</h2>
+          <a href="#club-tracked-membership">anchor</a>
+        </div>
+        <div class="schema-summary">
+          <span>type <code>object</code></span>
+          <span>1 required</span><span>closed object</span>
+        </div>
+
+        <div class="schema-table">
+          <div class="schema-row">
+            <code>fromSeason</code>
+            <span><code>integer</code></span>
+            <span>required</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>toSeason</code>
+            <span><code>integer</code> | <code>null</code></span>
+            <span>optional</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>tiers</code>
+            <span><a href="#string-list">StringList</a></span>
+            <span>optional</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>basis</code>
+            <span><code>string</code> | <code>null</code></span>
+            <span>optional</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>notes</code>
+            <span><code>string</code> | <code>null</code></span>
+            <span>optional</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>sourceRefs</code>
+            <span><a href="#source-refs">SourceRefs</a></span>
+            <span>optional</span>
+            <span></span>
+          </div>
+        </div>
+      </section>
+      <section class="panel schema-definition" id="dataset-metadata">
+        <div class="section-heading">
+          <h2>DatasetMetadata</h2>
+          <a href="#dataset-metadata">anchor</a>
+        </div>
+        <div class="schema-summary">
+          <span>type <code>object</code></span>
+          <span>closed object</span>
+        </div>
+        <p>Build provenance for the generated club metadata sidecar.</p>
+        <div class="schema-table">
+          <div class="schema-row">
+            <code>schemaVersion</code>
+            <span><code>integer</code></span>
+            <span>optional</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>generator</code>
+            <span><code>string</code> | <code>null</code></span>
+            <span>optional</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>generatedAt</code>
+            <span><code>string</code> | <code>null</code></span>
+            <span>optional</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>gitSha</code>
+            <span><code>string</code> | <code>null</code></span>
+            <span>optional</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>sourceFiles</code>
+            <span><a href="#string-list">StringList</a></span>
+            <span>optional</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>buildOptions</code>
+            <span><code>object</code></span>
+            <span>optional</span>
+            <span></span>
+          </div>
+        </div>
+      </section>
+      <section class="panel schema-definition" id="integer-list">
+        <div class="section-heading">
+          <h2>IntegerList</h2>
+          <a href="#integer-list">anchor</a>
+        </div>
+        <div class="schema-summary">
+          <span>type <code>array</code></span>
+        </div>
+
+        <p class="schema-muted">No named properties.</p>
+      </section>
+      <section class="panel schema-definition" id="source-refs">
+        <div class="section-heading">
+          <h2>SourceRefs</h2>
+          <a href="#source-refs">anchor</a>
+        </div>
+        <div class="schema-summary">
+          <span>type <code>array</code></span>
+        </div>
+
+        <p class="schema-muted">No named properties.</p>
+      </section>
+      <section class="panel schema-definition" id="string-list">
+        <div class="section-heading">
+          <h2>StringList</h2>
+          <a href="#string-list">anchor</a>
+        </div>
+        <div class="schema-summary">
+          <span>type <code>array</code></span>
+        </div>
+
+        <p class="schema-muted">No named properties.</p>
+      </section>
+
+      <footer>
+        <span>generated from schemas/club-metadata.schema.json</span>
+        <a href="../index.html">footy-data-kit</a>
+      </footer>
+    </main>
+  </body>
+</html>

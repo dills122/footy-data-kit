@@ -1,0 +1,306 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://dills122.github.io/footy-data-kit/schemas/football-data.schema.json",
+  "title": "FootballData",
+  "description": "Merged English football season dataset. Season records contain a seasonInfo summary and zero or more tierN league-table records.",
+  "type": "object",
+  "required": ["seasons"],
+  "additionalProperties": false,
+  "properties": {
+    "metadata": {
+      "$ref": "#/definitions/DatasetMetadata"
+    },
+    "clubs": {
+      "$ref": "#/definitions/ClubsMap",
+      "description": "Optional embedded club metadata. Release assets normally publish club metadata as a sidecar file instead."
+    },
+    "seasons": {
+      "$ref": "#/definitions/SeasonsMap"
+    }
+  },
+  "definitions": {
+    "DatasetMetadata": {
+      "type": "object",
+      "description": "Build provenance for a generated FootballData export.",
+      "additionalProperties": false,
+      "properties": {
+        "schemaVersion": {
+          "type": "integer",
+          "description": "Version of the generated dataset contract."
+        },
+        "generator": {
+          "type": ["string", "null"],
+          "description": "Generator or merge command that produced this export."
+        },
+        "generatedAt": {
+          "type": ["string", "null"],
+          "format": "date-time",
+          "description": "ISO timestamp for the data generation run."
+        },
+        "gitSha": {
+          "type": ["string", "null"],
+          "description": "Git commit SHA used for the data generation run."
+        },
+        "sourceFiles": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Input files used to build the export."
+        },
+        "buildOptions": {
+          "type": "object",
+          "additionalProperties": {
+            "type": ["string", "number", "boolean", "null"]
+          },
+          "description": "Selected build options captured as primitive values."
+        }
+      }
+    },
+    "SeasonsMap": {
+      "type": "object",
+      "description": "Map of starting season year to season data. For example, 2025 means the 2025-26 season.",
+      "patternProperties": {
+        "^\\d{4}$": {
+          "$ref": "#/definitions/SeasonData"
+        }
+      },
+      "additionalProperties": false
+    },
+    "SeasonData": {
+      "type": "object",
+      "description": "A single season. Wartime or abandoned placeholder seasons may contain only seasonInfo.",
+      "required": ["seasonInfo"],
+      "properties": {
+        "seasonInfo": {
+          "$ref": "#/definitions/SeasonInfo"
+        }
+      },
+      "patternProperties": {
+        "^tier\\d+$": {
+          "$ref": "#/definitions/TierData"
+        }
+      },
+      "additionalProperties": false
+    },
+    "SeasonInfo": {
+      "type": "object",
+      "description": "Season-level summary. promoted and relegated describe movement into and out of the next season's top flight.",
+      "required": ["season", "table", "relegated", "promoted"],
+      "additionalProperties": false,
+      "properties": {
+        "season": {
+          "type": "integer",
+          "description": "Starting year for the season."
+        },
+        "table": {
+          "type": "array",
+          "maxItems": 0,
+          "description": "Always empty. seasonInfo is a summary object, not a league table."
+        },
+        "relegated": {
+          "$ref": "#/definitions/StringList"
+        },
+        "promoted": {
+          "$ref": "#/definitions/StringList"
+        },
+        "seasonSlug": {
+          "type": ["string", "null"]
+        },
+        "sourceUrl": {
+          "type": ["string", "null"],
+          "format": "uri"
+        },
+        "tableCount": {
+          "type": ["integer", "null"]
+        },
+        "competitionStatus": {
+          "type": ["string", "null"]
+        },
+        "warSuspensionLabel": {
+          "type": ["string", "null"]
+        },
+        "officialLeagueTables": {
+          "type": ["boolean", "null"]
+        },
+        "officialCompetitionsSuspended": {
+          "type": ["boolean", "null"]
+        },
+        "officialCompetitionsAbandoned": {
+          "type": ["boolean", "null"]
+        },
+        "regionalBridgeSeason": {
+          "type": ["boolean", "null"]
+        },
+        "promotionRelegationApplies": {
+          "type": ["boolean", "null"]
+        },
+        "specialCompetitions": {
+          "$ref": "#/definitions/StringList"
+        },
+        "notes": {
+          "type": ["string", "null"]
+        }
+      }
+    },
+    "TierData": {
+      "type": "object",
+      "description": "League-table data for one tier in a season.",
+      "required": ["season", "table", "relegated", "promoted"],
+      "additionalProperties": false,
+      "properties": {
+        "season": {
+          "type": "integer"
+        },
+        "table": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/LeagueTableEntry"
+          }
+        },
+        "relegated": {
+          "$ref": "#/definitions/StringList"
+        },
+        "promoted": {
+          "$ref": "#/definitions/StringList"
+        },
+        "metadata": {
+          "$ref": "#/definitions/TierMetadata"
+        }
+      }
+    },
+    "LeagueTableEntry": {
+      "type": "object",
+      "description": "One final league-table row.",
+      "required": [
+        "pos",
+        "team",
+        "played",
+        "won",
+        "drawn",
+        "lost",
+        "goalsFor",
+        "goalsAgainst",
+        "goalDifference",
+        "goalAverage",
+        "points",
+        "notes",
+        "wasRelegated",
+        "wasPromoted",
+        "isExpansionTeam",
+        "wasReElected",
+        "wasReprieved"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "pos": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "team": {
+          "type": "string"
+        },
+        "played": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "won": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "drawn": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "lost": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "goalsFor": {
+          "type": "integer"
+        },
+        "goalsAgainst": {
+          "type": "integer"
+        },
+        "goalDifference": {
+          "type": ["integer", "null"]
+        },
+        "goalAverage": {
+          "type": ["number", "null"]
+        },
+        "points": {
+          "type": "integer"
+        },
+        "notes": {
+          "type": ["string", "null"]
+        },
+        "wasRelegated": {
+          "type": "boolean"
+        },
+        "wasPromoted": {
+          "type": "boolean"
+        },
+        "isExpansionTeam": {
+          "type": "boolean"
+        },
+        "wasReElected": {
+          "type": "boolean"
+        },
+        "wasReprieved": {
+          "type": "boolean"
+        }
+      }
+    },
+    "TierMetadata": {
+      "type": "object",
+      "description": "Source and table-selection metadata for a tier record.",
+      "additionalProperties": false,
+      "properties": {
+        "source": {
+          "type": "string"
+        },
+        "sourceUrl": {
+          "type": ["string", "null"],
+          "format": "uri"
+        },
+        "seasonSlug": {
+          "type": ["string", "null"]
+        },
+        "leagueId": {
+          "type": ["string", "null"]
+        },
+        "title": {
+          "type": ["string", "null"]
+        },
+        "leagueLevel": {
+          "type": ["integer", "null"]
+        },
+        "tableIndex": {
+          "type": ["integer", "null"]
+        },
+        "tableCount": {
+          "type": ["integer", "null"]
+        },
+        "tierKey": {
+          "type": ["string", "null"],
+          "pattern": "^tier\\d+$"
+        }
+      }
+    },
+    "ClubsMap": {
+      "type": "object",
+      "patternProperties": {
+        "^[a-z0-9][a-z0-9 -]*$": {
+          "$ref": "club-metadata.schema.json#/definitions/ClubMetadata"
+        }
+      },
+      "additionalProperties": false
+    },
+    "StringList": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}
