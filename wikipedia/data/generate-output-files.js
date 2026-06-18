@@ -220,11 +220,14 @@ function normaliseClubLifecycleEvents(value) {
     const normalizedItem = {
       type,
       season: toSeasonNumberOrNull(item.season),
+      date: toStringValue(item.date),
       fromSeason: toSeasonNumberOrNull(item.fromSeason),
       toSeason: toSeasonNumberOrNull(item.toSeason),
       fromName: toStringValue(item.fromName),
       toName: toStringValue(item.toName),
+      label: toStringValue(item.label),
       description: toStringValue(item.description),
+      notes: toStringValue(item.notes),
       sourceRefs: normaliseIdentitySources(item.sourceRefs),
     };
     const dedupeKey = JSON.stringify(normalizedItem);
@@ -246,6 +249,10 @@ function normaliseClubLifecycleEvents(value) {
     const leftSeason = a.season ?? a.fromSeason ?? 0;
     const rightSeason = b.season ?? b.fromSeason ?? 0;
     if (leftSeason !== rightSeason) return leftSeason - rightSeason;
+    const leftDate = a.date || '';
+    const rightDate = b.date || '';
+    if (leftDate && rightDate && leftDate !== rightDate) return leftDate.localeCompare(rightDate);
+    if (leftDate !== rightDate) return leftDate ? -1 : 1;
     return a.type.localeCompare(b.type);
   });
 }
@@ -356,10 +363,18 @@ function normaliseClubStatus(value) {
     trackedToSeason: toSeasonNumberOrNull(value.trackedToSeason),
     hasUnexplainedGaps:
       typeof value.hasUnexplainedGaps === 'boolean' ? value.hasUnexplainedGaps : null,
+    reason: toStringValue(value.reason),
+    reasonLabel: toStringValue(value.reasonLabel),
+    sourceRefs: normaliseIdentitySources(value.sourceRefs),
   };
 
   const cleaned = Object.fromEntries(
-    Object.entries(status).filter(([key, entry]) => key === 'trackedToSeason' || entry != null)
+    Object.entries(status).filter(([key, entry]) => {
+      if (key === 'trackedToSeason') return true;
+      if (entry == null) return false;
+      if (Array.isArray(entry)) return entry.length > 0;
+      return true;
+    })
   );
 
   return Object.keys(cleaned).length ? cleaned : undefined;
@@ -463,6 +478,8 @@ function normaliseClubRelationships(value) {
       clubKey,
       relationship,
       direction,
+      season: toSeasonNumberOrNull(item.season),
+      label: toStringValue(item.label),
       sourceRefs: normaliseIdentitySources(item.sourceRefs),
       notes: toStringValue(item.notes),
     };

@@ -304,7 +304,8 @@ export function buildSeasonOverviewSeasonRecord({ seasonKey, seasonYear, seasonS
 export function buildHistoricalSeasonPlaceholderRecord(seasonKey, seasonSlug) {
   const placeholder = buildHistoricalPlaceholderSeasonInfo(seasonKey);
 
-  const { promoted, relegated, season, ...metadata } = placeholder;
+  const { promoted, relegated, ...metadata } = placeholder;
+  delete metadata.season;
   const seasonInfo = buildSeasonInfo(seasonKey, {
     promoted,
     relegated,

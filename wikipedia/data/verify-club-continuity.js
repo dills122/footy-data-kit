@@ -7,12 +7,36 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { loadFootballData } from './generate-output-files.js';
 import { isHistoricalPlaceholderSeason, parseSeasonNumber, sortSeasonKeys } from './season-rules.js';
+import { addWikipediaStatusReasonSuggestions } from './suggest-club-status-reasons.js';
 
 const DEFAULT_DATASET_FILE = './data-output/all-seasons.json';
 const DEFAULT_CLUB_METADATA_FILE = './data/club-metadata.json';
+const DEFAULT_AUDIT_OUTPUT_FILE = './data/club-historical-reason-audit.json';
+const HISTORICAL_STATUS_VALUES = new Set([
+  'historical',
+  'defunct',
+  'merged',
+  'relocated',
+  'renamed',
+]);
 
 function loadJson(filePath) {
   return JSON.parse(fs.readFileSync(filePath, 'utf8'));
+}
+
+function writeJsonFile(filePath, data, { cwd = process.cwd(), compact = false } = {}) {
+  const resolvedOutput = path.resolve(cwd, filePath);
+  fs.mkdirSync(path.dirname(resolvedOutput), { recursive: true });
+  fs.writeFileSync(resolvedOutput, JSON.stringify(data, null, compact ? 0 : 2));
+  return resolvedOutput;
+}
+
+function formatReportPath(filePath, cwd = process.cwd()) {
+  const relativePath = path.relative(cwd, filePath);
+  if (!relativePath || relativePath.startsWith('..') || path.isAbsolute(relativePath)) {
+    return filePath;
+  }
+  return `./${relativePath}`;
 }
 
 function getSeasonNumbers(dataset) {
@@ -102,6 +126,47 @@ function createGapIssue({ clubKey, club, membership, missingSeasons }) {
   };
 }
 
+function createMissingHistoricalReasonIssue({ clubKey, club }) {
+  return {
+    type: 'missing-historical-status-reason',
+    clubKey,
+    clubId: club.clubId || null,
+    canonicalName: club.canonicalName,
+    current: club.status?.current || null,
+    trackedFromSeason: parseSeasonNumber(club.status?.trackedFromSeason),
+    trackedToSeason: parseSeasonNumber(club.status?.trackedToSeason),
+    suggestedReason: 'unknown',
+    message: `${club.canonicalName} is marked ${club.status?.current || 'historical'} but has no status reason`,
+  };
+}
+
+function hasStatusReason(club) {
+  const reason = typeof club?.status?.reason === 'string' ? club.status.reason.trim() : '';
+  const reasonLabel =
+    typeof club?.status?.reasonLabel === 'string' ? club.status.reasonLabel.trim() : '';
+  return Boolean(reason || reasonLabel);
+}
+
+export function analyzeHistoricalStatusReasons(clubMetadata) {
+  const clubs = clubMetadata?.clubs || {};
+  const issues = [];
+
+  for (const [clubKey, club] of Object.entries(clubs)) {
+    if (!club || typeof club !== 'object') continue;
+    const current = typeof club.status?.current === 'string' ? club.status.current : '';
+    if (!HISTORICAL_STATUS_VALUES.has(current)) continue;
+    if (hasStatusReason(club)) continue;
+    issues.push(createMissingHistoricalReasonIssue({ clubKey, club }));
+  }
+
+  return issues.sort((a, b) => {
+    if ((a.trackedToSeason ?? 0) !== (b.trackedToSeason ?? 0)) {
+      return (a.trackedToSeason ?? 0) - (b.trackedToSeason ?? 0);
+    }
+    return a.clubKey.localeCompare(b.clubKey);
+  });
+}
+
 function analyzeClubContinuityForRecord({
   clubKey,
   club,
@@ -173,24 +238,71 @@ export function analyzeClubContinuity(dataset, clubMetadata) {
 export function analyzeClubContinuityFiles({
   datasetPath = DEFAULT_DATASET_FILE,
   clubMetadataPath = DEFAULT_CLUB_METADATA_FILE,
+  checkHistoricalReasons = false,
   cwd = process.cwd(),
 } = {}) {
   const resolvedDatasetPath = path.resolve(cwd, datasetPath);
   const resolvedClubMetadataPath = path.resolve(cwd, clubMetadataPath);
   const dataset = loadFootballData(resolvedDatasetPath);
   const clubMetadata = loadJson(resolvedClubMetadataPath);
-  const issues = analyzeClubContinuity(dataset, clubMetadata);
+  const continuityIssues = analyzeClubContinuity(dataset, clubMetadata);
+  const historicalReasonIssues = checkHistoricalReasons
+    ? analyzeHistoricalStatusReasons(clubMetadata)
+    : [];
+  const issues = [...continuityIssues, ...historicalReasonIssues];
 
   return {
-    datasetPath: resolvedDatasetPath,
-    clubMetadataPath: resolvedClubMetadataPath,
+    datasetPath: formatReportPath(resolvedDatasetPath, cwd),
+    clubMetadataPath: formatReportPath(resolvedClubMetadataPath, cwd),
     clubCount: Object.keys(clubMetadata?.clubs || {}).length,
+    continuityIssueCount: continuityIssues.length,
+    historicalReasonIssueCount: historicalReasonIssues.length,
     issueCount: issues.length,
     issues,
   };
 }
 
-export function runCli(argv = process.argv) {
+function parsePositiveInteger(value, fallback) {
+  const parsed = Number.parseInt(String(value), 10);
+  return Number.isInteger(parsed) && parsed > 0 ? parsed : fallback;
+}
+
+export async function analyzeClubContinuityFilesWithWikipediaSuggestions({
+  datasetPath = DEFAULT_DATASET_FILE,
+  clubMetadataPath = DEFAULT_CLUB_METADATA_FILE,
+  checkHistoricalReasons = false,
+  suggestHistoricalReasonsFromWikipedia = false,
+  wikipediaLimit = 10,
+  cwd = process.cwd(),
+} = {}) {
+  const report = analyzeClubContinuityFiles({
+    datasetPath,
+    clubMetadataPath,
+    checkHistoricalReasons,
+    cwd,
+  });
+
+  if (!suggestHistoricalReasonsFromWikipedia) return report;
+
+  const resolvedClubMetadataPath = path.resolve(cwd, clubMetadataPath);
+  const clubMetadata = loadJson(resolvedClubMetadataPath);
+  const historicalReasonIssues = report.issues.filter(
+    (issue) => issue.type === 'missing-historical-status-reason'
+  );
+  const selectedIssues = historicalReasonIssues.slice(0, wikipediaLimit);
+  const enrichedIssues = await addWikipediaStatusReasonSuggestions(selectedIssues, clubMetadata);
+  const enrichedByClubKey = new Map(enrichedIssues.map((issue) => [issue.clubKey, issue]));
+  const issues = report.issues.map((issue) => enrichedByClubKey.get(issue.clubKey) || issue);
+
+  return {
+    ...report,
+    wikipediaSuggestionCount: enrichedIssues.length,
+    wikipediaSuggestionLimit: wikipediaLimit,
+    issues,
+  };
+}
+
+export async function runCli(argv = process.argv) {
   const program = new Command();
 
   program
@@ -202,31 +314,82 @@ export function runCli(argv = process.argv) {
       'Club metadata sidecar JSON file',
       DEFAULT_CLUB_METADATA_FILE
     )
+    .option(
+      '--check-historical-reasons',
+      'Report historical/defunct/relocated records missing status.reason or status.reasonLabel',
+      false
+    )
+    .option(
+      '--suggest-historical-reasons-from-wikipedia',
+      'Fetch candidate Wikipedia club pages for missing historical reasons and attach reason suggestions',
+      false
+    )
+    .option(
+      '--wikipedia-limit <count>',
+      'Maximum missing historical-reason issues to enrich from Wikipedia',
+      '10'
+    )
+    .option(
+      '-o, --output <file>',
+      'Write the machine-readable continuity report to a JSON file',
+      undefined
+    )
+    .option(
+      '--historical-audit-output',
+      `Write the historical reason audit to ${DEFAULT_AUDIT_OUTPUT_FILE}`,
+      false
+    )
+    .option('--compact', 'Write JSON output without indentation', false)
     .option('--json', 'Print machine-readable JSON output', false)
     .option('--fail-on-issues', 'Exit non-zero when continuity issues are found', false);
 
   program.parse(argv);
   const options = program.opts();
-  const report = analyzeClubContinuityFiles({
+  const report = await analyzeClubContinuityFilesWithWikipediaSuggestions({
     datasetPath: options.dataset,
     clubMetadataPath: options.clubMetadata,
+    checkHistoricalReasons: options.checkHistoricalReasons,
+    suggestHistoricalReasonsFromWikipedia: options.suggestHistoricalReasonsFromWikipedia,
+    wikipediaLimit: parsePositiveInteger(options.wikipediaLimit, 10),
     cwd: process.cwd(),
   });
+
+  const outputFile = options.historicalAuditOutput
+    ? DEFAULT_AUDIT_OUTPUT_FILE
+    : options.output;
+  const outputPath = outputFile
+    ? writeJsonFile(outputFile, report, { cwd: process.cwd(), compact: options.compact })
+    : null;
 
   if (options.json) {
     console.log(JSON.stringify(report, null, 2));
   } else {
     console.log(`Club metadata records scanned: ${report.clubCount}`);
+    if (outputPath) {
+      console.log(`Wrote club continuity report -> ${outputPath}`);
+    }
     if (!report.issues.length) {
       console.log('No club continuity issues detected ✅');
     } else {
-      console.log(`Club continuity issues detected: ${report.issues.length}`);
+      console.log(`Club metadata issues detected: ${report.issues.length}`);
       for (const issue of report.issues) {
-        const seasonLabel =
-          issue.fromSeason === issue.toSeason
-            ? String(issue.fromSeason)
-            : `${issue.fromSeason}-${issue.toSeason}`;
-        console.log(`- ${issue.canonicalName} (${issue.clubId || issue.clubKey}): ${seasonLabel}`);
+        if (issue.type === 'missing-historical-status-reason') {
+          const trackedTo = issue.trackedToSeason == null ? 'unknown' : issue.trackedToSeason;
+          const suggestion = issue.wikipediaSuggestion?.matchedClubPage
+            ? `; wiki suggests ${issue.wikipediaSuggestion.suggestedReason || 'unknown'}`
+            : '';
+          console.log(
+            `- ${issue.canonicalName} (${issue.clubId || issue.clubKey}): missing historical reason after ${trackedTo}${suggestion}`
+          );
+        } else {
+          const seasonLabel =
+            issue.fromSeason === issue.toSeason
+              ? String(issue.fromSeason)
+              : `${issue.fromSeason}-${issue.toSeason}`;
+          console.log(
+            `- ${issue.canonicalName} (${issue.clubId || issue.clubKey}): ${seasonLabel}`
+          );
+        }
       }
     }
   }
@@ -243,11 +406,13 @@ const isDirectExecution = process.argv[1]
   : false;
 
 if (isDirectExecution) {
-  runCli(process.argv);
+  await runCli(process.argv);
 }
 
 export default {
   analyzeClubContinuity,
   analyzeClubContinuityFiles,
+  analyzeClubContinuityFilesWithWikipediaSuggestions,
+  analyzeHistoricalStatusReasons,
   runCli,
 };

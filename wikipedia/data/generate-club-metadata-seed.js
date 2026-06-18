@@ -10,6 +10,7 @@ import {
   CLUB_RELATIONSHIP_RULES,
   getCanonicalClubName,
   getClubIdentitySourceRefs,
+  getClubLifecycleRule,
   TEMPORAL_CLUB_IDENTITY_RULES,
 } from './club-identity-config.js';
 import { canonicalizeTeamName, normalizeTeamNameText } from './data-quality-config.js';
@@ -368,11 +369,64 @@ function buildClubStatus(seasonsSeen, coverageGaps, absenceExplanations, latestS
   );
 
   return {
-    current: lastSeenSeason === latestSeason ? 'active' : 'unknown',
+    current: lastSeenSeason === latestSeason ? 'active' : 'historical',
     trackedFromSeason: firstSeenSeason,
     trackedToSeason: lastSeenSeason === latestSeason ? null : lastSeenSeason,
     hasUnexplainedGaps,
   };
+}
+
+function mergeClubStatus(autoStatus, lifecycleRule) {
+  if (!lifecycleRule?.status) return autoStatus;
+  return {
+    ...autoStatus,
+    ...lifecycleRule.status,
+    trackedFromSeason: autoStatus.trackedFromSeason,
+    trackedToSeason: autoStatus.trackedToSeason,
+    hasUnexplainedGaps: autoStatus.hasUnexplainedGaps,
+  };
+}
+
+function sortLifecycleEvents(events) {
+  return [...events].sort((a, b) => {
+    if ((a.season ?? Number.MAX_SAFE_INTEGER) !== (b.season ?? Number.MAX_SAFE_INTEGER)) {
+      return (a.season ?? Number.MAX_SAFE_INTEGER) - (b.season ?? Number.MAX_SAFE_INTEGER);
+    }
+    const leftDate = a.date || '';
+    const rightDate = b.date || '';
+    if (leftDate && rightDate && leftDate !== rightDate) return leftDate.localeCompare(rightDate);
+    if (leftDate !== rightDate) return leftDate ? -1 : 1;
+    return String(a.type || '').localeCompare(String(b.type || ''));
+  });
+}
+
+function mergeLifecycleEvents(autoEvents, lifecycleRule) {
+  const events = [...autoEvents, ...(lifecycleRule?.lifecycleEvents || [])];
+  const seen = new Set();
+  return sortLifecycleEvents(
+    events.filter((event) => {
+      const key = JSON.stringify(event);
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    })
+  );
+}
+
+function addSourceRefsToMap(sourceMap, sourceRefs) {
+  for (const sourceRef of sourceRefs || []) {
+    if (!sourceRef?.sourceUrl) continue;
+    sourceMap.set(`${sourceRef.type || 'source'}:${sourceRef.sourceUrl}`, sourceRef);
+  }
+}
+
+function buildRecordIdentitySources(identitySources, lifecycleRule) {
+  const sourceMap = new Map(identitySources);
+  addSourceRefsToMap(sourceMap, lifecycleRule?.status?.sourceRefs);
+  for (const event of lifecycleRule?.lifecycleEvents || []) {
+    addSourceRefsToMap(sourceMap, event.sourceRefs);
+  }
+  return buildIdentitySources(sourceMap);
 }
 
 function buildObservedNames(aliasSeasons, aliasTiers) {
@@ -424,13 +478,18 @@ function buildClubMetadataRecord(accumulator, { latestSeason, officialPausedSeas
     officialPausedSeasons || new Set(),
     accumulator.rowObservations
   );
-  const lifecycleEvents = buildTableNoteLifecycleEvents(coverageGaps, accumulator.rowObservations);
+  const lifecycleRule = getClubLifecycleRule(accumulator.clubKey);
+  const lifecycleEvents = mergeLifecycleEvents(
+    buildTableNoteLifecycleEvents(coverageGaps, accumulator.rowObservations),
+    lifecycleRule
+  );
   const trackedMembership = buildTrackedMembership(seasonsSeen, tiersSeen, latestSeason);
+  const autoStatus = buildClubStatus(seasonsSeen, coverageGaps, absenceExplanations, latestSeason);
 
   return {
     clubId: slugifyClubId(accumulator.clubKey),
     canonicalName: accumulator.canonicalName,
-    status: buildClubStatus(seasonsSeen, coverageGaps, absenceExplanations, latestSeason),
+    status: mergeClubStatus(autoStatus, lifecycleRule),
     history: {
       nameHistory: [],
       lifecycleEvents,
@@ -440,7 +499,7 @@ function buildClubMetadataRecord(accumulator, { latestSeason, officialPausedSeas
     derived: {
       source: DERIVED_SOURCE_ID,
       aliases: sortedStrings(accumulator.aliasCounts.keys()),
-      identitySources: buildIdentitySources(accumulator.identitySources),
+      identitySources: buildRecordIdentitySources(accumulator.identitySources, lifecycleRule),
       relationships: buildRelationships(accumulator.relationships),
       observedNames: buildObservedNames(accumulator.aliasSeasons, accumulator.aliasTiers),
       observedNamePeriods: buildObservedNamePeriods(accumulator.aliasSeasons),
@@ -531,6 +590,8 @@ function applyClubRelationshipRules(clubs) {
         clubKey: rule.toClubKey,
         relationship: rule.relationship,
         direction: relationshipDirectionForSource(rule.relationship),
+        ...(rule.season != null ? { season: rule.season } : {}),
+        ...(rule.label ? { label: rule.label } : {}),
         sourceRefs: rule.sourceRefs || [],
       });
     }
@@ -539,6 +600,8 @@ function applyClubRelationshipRules(clubs) {
         clubKey: rule.fromClubKey,
         relationship: rule.relationship,
         direction: relationshipDirectionForTarget(rule.relationship),
+        ...(rule.season != null ? { season: rule.season } : {}),
+        ...(rule.label ? { label: rule.label } : {}),
         sourceRefs: rule.sourceRefs || [],
       });
     }

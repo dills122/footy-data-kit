@@ -7,12 +7,13 @@ This repo scrapes, normalises, and validates historic English league tables from
 
 - A supported Wikipedia scraping workflow that can resume after interruptions.
 - Utilities to merge overlapping sources, verify season integrity, and minify the resulting datasets.
+- Source-backed club identity metadata for active, historical, defunct, merged, relocated, and phoenix/successor cases.
 - Jest unit + integration tests focused on the active Wikipedia pipeline.
 
 ## Supported Scope
 
 - `wikipedia/` is the actively supported ingestion path.
-- `rsssf/`, `scripts/csv-data/`, and older reference exports should be treated as legacy tooling unless you are intentionally doing archive work.
+- `rsssf/`, `scripts/csv-data/`, and older reference exports should be treated as legacy tooling unless you are intentionally doing archive work. See [RSSSF legacy tooling](docs/rsssf-legacy.md).
 - The overview scraper (`node wikipedia/cli/index.js overview`) is now the primary maintained Wikipedia dataset flow across the full historical range.
 - The promotion/relegation scraper (`node wikipedia/cli/index.js build`) remains available as a legacy/historical fallback for classic Football League season pages.
 
@@ -33,21 +34,22 @@ pnpm i
 1. **Generate Wikipedia data**
    ```bash
    # Primary maintained flow: overview parser across the full supported range
-   node wikipedia/cli/index.js overview --start 1888 --end 2024 --output ./data-output --include-war-placeholders
+   pnpm -s wiki:build:overview
    ```
 2. **Merge and normalise**
    ```bash
-   node wikipedia/data/combine-output-files.js --output ./data-output/all-seasons.json \
-     ./data-output/wiki_overview_tables_by_season.json
+   pnpm -s wiki:build:combined
+   pnpm -s wiki:club-seed
    ```
 3. **Validate and test**
    ```bash
-   node wikipedia/data/verify-football-data.js --fail-on-issues ./data-output
+   pnpm -s verify:data
    pnpm test:integration
    ```
 4. **Minify for distribution (optional)**
    ```bash
-   node scripts/minify-json.js ./data-output/all-seasons.json
+   pnpm -s wiki:minify:combined
+   pnpm -s wiki:minify:overview
    ```
 
 All commands are resumable. If you stop a scraper with `Ctrl+C`, progress written to `data-output` stays intact.
@@ -60,15 +62,16 @@ The default maintained dataset workflow now uses the overview parser end to end.
 # Setup Repo, Install Deps
 pnpm i
 # Generate Data
-node wikipedia/cli/index.js overview --start 1888 --end 2024 --output ./data-output --force-update --include-war-placeholders
-# Combine data into all-seasons file
-node wikipedia/data/combine-output-files.js --output ./data-output/all-seasons.json ./data-output/wiki_overview_tables_by_season.json
-# Verify the generated data
-node wikipedia/data/verify-football-data.js --fail-on-issues ./data-output
+pnpm -s wiki:build:overview
+# Combine data into all-seasons file and regenerate club metadata
+pnpm -s wiki:build:combined
+pnpm -s wiki:club-seed
+# Verify generated data plus club historical-reason metadata
+pnpm -s verify:data
 pnpm test:integration
 # If all is good, finally minify data ready for external use
-node scripts/minify-json.js ./data-output/all-seasons.json
-node scripts/minify-json.js ./data-output/wiki_overview_tables_by_season.json
+pnpm -s wiki:minify:combined
+pnpm -s wiki:minify:overview
 ```
 
 ### Legacy promotion fixture rebuild flow
@@ -91,11 +94,11 @@ pnpm test:integration:promotion
 
 ## Project Structure
 
-- `data/` – raw reference files and one-off exports.
-- `data-output/` – canonical JSON outputs grouped by source (e.g. `data-output/rsssf`).
+- `data/` – generated sidecar club metadata, review artifacts, raw reference files, and one-off exports.
+- `data-output/` – canonical Wikipedia JSON outputs grouped by source.
 - `scripts/` – helper utilities such as `minify-json.js` plus older one-off generators.
 - `wikipedia/` – the main scraper, parsers, and FootballData models.
-- `rsssf/` – legacy RSSSF parsing experiments.
+- `rsssf/` – legacy RSSSF parsing experiments. See [RSSSF legacy tooling](docs/rsssf-legacy.md).
 - `shared/`, `club_names.json` – shared helpers and canonicalised club naming.
 - `data/club-metadata.json` – generated sidecar club metadata derived from the FootballData season outputs.
 
@@ -125,39 +128,11 @@ Each run saves season-by-season progress immediately, so reruns are fast. The `c
 
 > Tip: for the checked-in overview dataset we now run `overview` across the full supported range. Keep `build` around for legacy comparisons, targeted fixture repair, and classic-season parser regressions.
 
-## RSSSF CLI (`rsssf-scraper`)
-
-`node rsssf/cli.js scrape [options]` converts RSSSF HTML into the same FootballData schema. This path is kept for legacy/archive work and is not the primary maintained workflow.
-
-| Option                                    | Description                                                                                                                                  |
-| ----------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
-| `-u, --url <url>`                         | One or more RSSSF page URLs to fetch. Repeat for multiple seasons.                                                                           |
-| `-f, --from-file <file>`                  | Parse saved HTML instead of fetching over the network (repeatable).                                                                          |
-| `-s, --start <year>` / `-e, --end <year>` | Generate season URLs using the default template (`https://www.rsssf.org/engpaul/FLA/{seasonSlug}.html`). Requires both flags to be provided. |
-| `--url-template <template>`               | Custom season URL template – supports `{seasonSlug}`, `{startYear}`, `{endYear}`, `{seasonSlugUnderscore}`, etc.                             |
-| `-o, --output <path>`                     | JSON output path. Multiple sources treat this as a directory; range scraping writes an aggregate file under `data-output/rsssf`.             |
-| `--pretty`                                | Pretty-print instead of minified JSON.                                                                                                       |
-| `--save-html <path>`                      | Persist the raw HTML alongside the JSON (single file or directory depending on the context).                                                 |
-
-Range mode continually updates `data-output/rsssf/rsssf_promotion_relegations_by_season.json` and guards against partial data loss by saving after each season (even when interrupted).
-
-### Example invocations
-
-```bash
-# Pretty-print one season to stdout-style JSON
-node rsssf/cli.js scrape --url https://www.rsssf.org/engpaul/FLA/1908-09.html --pretty
-
-# Fetch several seasons, write each JSON into data-output/rsssf, and persist HTML copies
-node rsssf/cli.js scrape --start 1950 --end 1952 --output ./data-output/rsssf --save-html ./data-output/rsssf/html
-
-# Parse existing HTML exports (useful for offline work)
-node rsssf/cli.js scrape --from-file ./rsssf-cache/1960-61.html --from-file ./rsssf-cache/1961-62.html
-```
-
 ## JSON Utilities
 
 - `wikipedia/data/combine-output-files.js` – merge multiple FootballData JSON files, drop war-year placeholders, prefer the richest tier record for each season, and show a grouped “missing seasons” summary. Use `--include-empty` to keep placeholder entries, `--compact` for minified JSON, and repeat `--club-metadata <file>` to merge sidecar club metadata.
-- `wikipedia/data/generate-club-metadata-seed.js` – derive the layer-1 club metadata sidecar from an existing FootballData JSON file.
+- `wikipedia/data/generate-club-metadata-seed.js` – derive the club metadata sidecar from an existing FootballData JSON file plus curated source-backed lifecycle rules.
+- `wikipedia/data/verify-club-continuity.js` – verify club metadata continuity and historical status reasons. Use `pnpm -s wiki:club-historical-audit` to write the repo review artifact at `data/club-historical-reason-audit.json`; use `pnpm -s wiki:club-historical-audit:check` or `pnpm -s verify:data` for fail-on-issues checks.
 - `wikipedia/data/compare-football-data.js` – compare two FootballData JSON files and report season, tier, table, outcome-list, and metadata changes between releases. Pass `--json` for machine-readable output.
   Pass `--markdown` for a release-note-friendly summary.
 - `scripts/minify-json.js` – shrink JSON files in place or alongside (`foo.min.json`) so they are ready for publishing.
@@ -165,7 +140,8 @@ node rsssf/cli.js scrape --from-file ./rsssf-cache/1960-61.html --from-file ./rs
 
 ## Exported Data Shape
 
-- The final contract is the merged file: `data-output/all-seasons.json`.
+- The main season contract is the merged file: `data-output/all-seasons.json`.
+- Club identity data is published separately as the sidecar file `data/club-metadata.json`.
 - Every FootballData export may include a top-level `metadata` object with release provenance:
   - `schemaVersion`
   - `generator`
@@ -173,7 +149,7 @@ node rsssf/cli.js scrape --from-file ./rsssf-cache/1960-61.html --from-file ./rs
   - `gitSha`
   - `sourceFiles`
   - `buildOptions`
-- Every FootballData export may also include an optional top-level `clubs` map keyed by canonical club key. Club records are split into consumer-facing identity/status fields, source-backed `history`, and generated `derived` observations:
+- The club metadata sidecar has a top-level `clubs` map keyed by canonical club key. Club records are split into consumer-facing identity/status fields, source-backed `history`, and generated `derived` observations:
   - `clubId` – URL-safe unique slug for the club identity, such as `manchester-united`
   - `canonicalName`
   - `status.current` – small status label such as `active` or `unknown`
@@ -221,21 +197,16 @@ node rsssf/cli.js scrape --from-file ./rsssf-cache/1960-61.html --from-file ./rs
 
 ```bash
 # Build the maintained merged dataset from the overview export
-node wikipedia/data/combine-output-files.js --output ./data-output/all-seasons.json \
-  ./data-output/wiki_overview_tables_by_season.json
+pnpm -s wiki:build:combined
 
-# Build all-seasons and merge sidecar club metadata
-node wikipedia/data/generate-club-metadata-seed.js ./data-output/all-seasons.json \
-  --output ./data/club-metadata.json
-node wikipedia/data/combine-output-files.js --output ./data-output/all-seasons.json \
-  --club-metadata ./data/club-metadata.json \
-  ./data-output/wiki_overview_tables_by_season.json
+# Build sidecar club metadata
+pnpm -s wiki:club-seed
 
-# Run the data lint pass on every JSON file under ./data-output
-node wikipedia/data/verify-football-data.js --fail-on-issues ./data-output
+# Run the data lint pass and historical club-reason check
+pnpm -s verify:data
 
-# Report club continuity gaps from the club metadata sidecar
-node wikipedia/data/verify-club-continuity.js
+# Write the historical club-reason audit review artifact
+pnpm -s wiki:club-historical-audit
 
 # Compare a previous release file against a freshly generated one
 node wikipedia/data/compare-football-data.js ./releases/all-seasons-prev.json ./data-output/all-seasons.json

@@ -1,0 +1,11 @@
+{
+  "datasetPath": "./data-output/all-seasons.json",
+  "clubMetadataPath": "./data/club-metadata.json",
+  "clubCount": 232,
+  "continuityIssueCount": 0,
+  "historicalReasonIssueCount": 0,
+  "issueCount": 0,
+  "issues": [],
+  "wikipediaSuggestionCount": 0,
+  "wikipediaSuggestionLimit": 1000
+}
