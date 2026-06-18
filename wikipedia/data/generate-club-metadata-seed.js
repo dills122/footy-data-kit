@@ -528,8 +528,8 @@ function isOfficialCompetitionPausedSeason(seasonRecord) {
 }
 
 /**
- * @param {import('./models/output-file').FootballData} dataset
- * @returns {import('./models/output-file').ClubsMap}
+ * @param {import('../models/output-file.ts').FootballData} dataset
+ * @returns {import('../models/output-file.ts').ClubsMap}
  */
 export function buildClubMetadataSeed(dataset) {
   const clubs = new Map();

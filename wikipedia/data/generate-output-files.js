@@ -6,15 +6,15 @@ import * as path from 'node:path';
 import { WIKIPEDIA_DATA_SOURCES } from '../config.js';
 import { isExpansionTeam, wasPromoted, wasRelegated } from '../utils.js';
 
-/** @typedef {import('./models/output-file').LeagueTableEntry} LeagueTableEntry */
-/** @typedef {import('./models/output-file').TierData} TierData */
-/** @typedef {import('./models/output-file').SeasonData} SeasonData */
-/** @typedef {import('./models/output-file').SeasonsMap} SeasonsMap */
-/** @typedef {import('./models/output-file').FootballData} FootballData */
-/** @typedef {import('./models/output-file').SeasonInfo} SeasonInfo */
-/** @typedef {import('./models/output-file').DatasetMetadata} DatasetMetadata */
-/** @typedef {import('./models/output-file').ClubMetadata} ClubMetadata */
-/** @typedef {import('./models/output-file').ClubsMap} ClubsMap */
+/** @typedef {import('../models/output-file.ts').LeagueTableEntry} LeagueTableEntry */
+/** @typedef {import('../models/output-file.ts').TierData} TierData */
+/** @typedef {import('../models/output-file.ts').SeasonData} SeasonData */
+/** @typedef {import('../models/output-file.ts').SeasonsMap} SeasonsMap */
+/** @typedef {import('../models/output-file.ts').FootballData} FootballData */
+/** @typedef {import('../models/output-file.ts').SeasonInfo} SeasonInfo */
+/** @typedef {import('../models/output-file.ts').DatasetMetadata} DatasetMetadata */
+/** @typedef {import('../models/output-file.ts').ClubMetadata} ClubMetadata */
+/** @typedef {import('../models/output-file.ts').ClubsMap} ClubsMap */
 
 const NUMBER_FIELDS = [
   'pos',
