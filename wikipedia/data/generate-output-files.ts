@@ -1,8 +1,17 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment -- TODO: remove as generator normalizers are typed incrementally.
-// @ts-nocheck
-
+/* eslint-disable @typescript-eslint/no-explicit-any -- Club metadata normalization accepts legacy schema-loose JSON input. */
 import * as fs from 'node:fs';
 import * as path from 'node:path';
+import type {
+  ClubMetadata,
+  ClubsMap,
+  DatasetMetadata,
+  FootballData,
+  LeagueTableEntry,
+  SeasonData,
+  SeasonInfo,
+  SeasonsMap,
+  TierData,
+} from '../models/output-file.ts';
 import { buildDatasetMetadata, normaliseDatasetMetadata } from './output-dataset-metadata.ts';
 import { normaliseLeagueTableEntry } from './output-entry-normalizer.ts';
 import {
@@ -15,39 +24,47 @@ import { normaliseSeasonInfo, normaliseSeasonRecord } from './output-season-norm
 export { buildDatasetMetadata } from './output-dataset-metadata.ts';
 export { normaliseLeagueTableEntry } from './output-entry-normalizer.ts';
 
-/** @typedef {import('../models/output-file.ts').LeagueTableEntry} LeagueTableEntry */
-/** @typedef {import('../models/output-file.ts').TierData} TierData */
-/** @typedef {import('../models/output-file.ts').SeasonData} SeasonData */
-/** @typedef {import('../models/output-file.ts').SeasonsMap} SeasonsMap */
-/** @typedef {import('../models/output-file.ts').FootballData} FootballData */
-/** @typedef {import('../models/output-file.ts').SeasonInfo} SeasonInfo */
-/** @typedef {import('../models/output-file.ts').DatasetMetadata} DatasetMetadata */
-/** @typedef {import('../models/output-file.ts').ClubMetadata} ClubMetadata */
-/** @typedef {import('../models/output-file.ts').ClubsMap} ClubsMap */
+type AnyRecord = Record<string, any>;
+type SaveFootballDataOptions = {
+  pretty?: boolean | number;
+  metadata?: DatasetMetadata | Record<string, unknown>;
+};
+type BuildTierDataOptions = {
+  promoted?: unknown;
+  relegated?: unknown;
+  metadata?: Record<string, unknown>;
+};
+type BuildSeasonInfoOptions = {
+  promoted?: unknown;
+  relegated?: unknown;
+  metadata?: Record<string, unknown>;
+};
 
 /**
  * @param {unknown} value
  */
-function toStringValue(value) {
+function toStringValue(value: unknown): string | null {
   if (value == null) return null;
   const text = String(value).trim();
   return text.length ? text : null;
 }
 
-function normalizeStringArray(value) {
+function normalizeStringArray(value: unknown): string[] {
   if (!Array.isArray(value)) return [];
   return Array.from(
-    new Set(value.map((entry) => toStringValue(entry)).filter((entry) => entry != null))
+    new Set(
+      value.map((entry) => toStringValue(entry)).filter((entry): entry is string => entry != null)
+    )
   );
 }
 
-function normalizeSeasonNumberArray(value) {
+function normalizeSeasonNumberArray(value: unknown): number[] {
   if (!Array.isArray(value)) return [];
   return Array.from(
     new Set(
       value
         .map((entry) => toSeasonNumberOrNull(entry))
-        .filter((entry) => Number.isInteger(entry))
+        .filter((entry): entry is number => Number.isInteger(entry))
     )
   ).sort((a, b) => a - b);
 }
@@ -55,7 +72,7 @@ function normalizeSeasonNumberArray(value) {
 /**
  * @param {unknown} value
  */
-function toSeasonNumberOrNull(value) {
+function toSeasonNumberOrNull(value: unknown): number | null {
   if (value == null || value === '') return null;
   const parsed = Number.parseInt(String(value), 10);
   return Number.isFinite(parsed) ? parsed : null;
@@ -64,10 +81,10 @@ function toSeasonNumberOrNull(value) {
 /**
  * @param {unknown} value
  */
-function normaliseClubNameHistory(value) {
+function normaliseClubNameHistory(value: any): any[] {
   if (!Array.isArray(value)) return [];
   const seen = new Set();
-  const history = [];
+  const history: AnyRecord[] = [];
 
   for (const item of value) {
     if (!item || typeof item !== 'object') continue;
@@ -95,9 +112,9 @@ function normaliseClubNameHistory(value) {
 /**
  * @param {unknown} value
  */
-function normaliseClubFinancialEvents(value) {
+function normaliseClubFinancialEvents(value: any): any[] {
   if (!Array.isArray(value)) return [];
-  const events = [];
+  const events: AnyRecord[] = [];
   const seen = new Set();
 
   for (const item of value) {
@@ -108,9 +125,9 @@ function normaliseClubFinancialEvents(value) {
     const seasonsMissed = Array.isArray(item.seasonsMissed)
       ? Array.from(
           new Set(
-            item.seasonsMissed
-              .map((entry) => toSeasonNumberOrNull(entry))
-              .filter((entry) => Number.isInteger(entry))
+            (item.seasonsMissed as unknown[])
+              .map((entry: unknown) => toSeasonNumberOrNull(entry))
+              .filter((entry): entry is number => Number.isInteger(entry))
           )
         ).sort((a, b) => a - b)
       : [];
@@ -142,9 +159,9 @@ function normaliseClubFinancialEvents(value) {
 /**
  * @param {unknown} value
  */
-function normaliseClubLifecycleEvents(value) {
+function normaliseClubLifecycleEvents(value: any): any[] {
   if (!Array.isArray(value)) return [];
-  const events = [];
+  const events: AnyRecord[] = [];
   const seen = new Set();
 
   for (const item of value) {
@@ -195,9 +212,9 @@ function normaliseClubLifecycleEvents(value) {
 /**
  * @param {unknown} value
  */
-function normaliseClubTrackedMembership(value) {
+function normaliseClubTrackedMembership(value: any): any[] {
   if (!Array.isArray(value)) return [];
-  const memberships = [];
+  const memberships: AnyRecord[] = [];
   const seen = new Set();
 
   for (const item of value) {
@@ -235,9 +252,9 @@ function normaliseClubTrackedMembership(value) {
 /**
  * @param {unknown} value
  */
-function normaliseClubAbsenceExplanations(value) {
+function normaliseClubAbsenceExplanations(value: any): any[] {
   if (!Array.isArray(value)) return [];
-  const explanations = [];
+  const explanations: AnyRecord[] = [];
   const seen = new Set();
 
   for (const item of value) {
@@ -276,7 +293,7 @@ function normaliseClubAbsenceExplanations(value) {
 /**
  * @param {unknown} value
  */
-function normaliseClubHistory(value) {
+function normaliseClubHistory(value: any): AnyRecord {
   const source = value && typeof value === 'object' && !Array.isArray(value) ? value : {};
   return {
     nameHistory: normaliseClubNameHistory(source.nameHistory),
@@ -289,7 +306,7 @@ function normaliseClubHistory(value) {
 /**
  * @param {unknown} value
  */
-function normaliseClubStatus(value) {
+function normaliseClubStatus(value: any): AnyRecord | undefined {
   if (!value || typeof value !== 'object' || Array.isArray(value)) return undefined;
   const current = toStringValue(value.current);
   const status = {
@@ -318,9 +335,9 @@ function normaliseClubStatus(value) {
 /**
  * @param {unknown} value
  */
-function normaliseObservedNamePeriods(value) {
+function normaliseObservedNamePeriods(value: any): any[] {
   if (!Array.isArray(value)) return [];
-  const periods = [];
+  const periods: AnyRecord[] = [];
 
   for (const item of value) {
     if (!item || typeof item !== 'object') continue;
@@ -337,9 +354,9 @@ function normaliseObservedNamePeriods(value) {
 /**
  * @param {unknown} value
  */
-function normaliseObservedNames(value) {
+function normaliseObservedNames(value: any): any[] {
   if (!Array.isArray(value)) return [];
-  const names = [];
+  const names: AnyRecord[] = [];
 
   for (const item of value) {
     if (!item || typeof item !== 'object') continue;
@@ -365,9 +382,9 @@ function normaliseObservedNames(value) {
 /**
  * @param {unknown} value
  */
-function normaliseIdentitySources(value) {
+function normaliseIdentitySources(value: any): any[] {
   if (!Array.isArray(value)) return [];
-  const sources = [];
+  const sources: AnyRecord[] = [];
   const seen = new Set();
 
   for (const item of value) {
@@ -397,9 +414,9 @@ function normaliseIdentitySources(value) {
 /**
  * @param {unknown} value
  */
-function normaliseClubRelationships(value) {
+function normaliseClubRelationships(value: any): any[] {
   if (!Array.isArray(value)) return [];
-  const relationships = [];
+  const relationships: AnyRecord[] = [];
   const seen = new Set();
 
   for (const item of value) {
@@ -443,9 +460,9 @@ function normaliseClubRelationships(value) {
 /**
  * @param {unknown} value
  */
-function normaliseTierSeasons(value) {
+function normaliseTierSeasons(value: any): any[] {
   if (!Array.isArray(value)) return [];
-  const tiers = [];
+  const tiers: AnyRecord[] = [];
 
   for (const item of value) {
     if (!item || typeof item !== 'object') continue;
@@ -461,9 +478,9 @@ function normaliseTierSeasons(value) {
 /**
  * @param {unknown} value
  */
-function normaliseCoverageGaps(value) {
+function normaliseCoverageGaps(value: any): any[] {
   if (!Array.isArray(value)) return [];
-  const gaps = [];
+  const gaps: AnyRecord[] = [];
 
   for (const item of value) {
     if (!item || typeof item !== 'object') continue;
@@ -480,7 +497,7 @@ function normaliseCoverageGaps(value) {
 /**
  * @param {unknown} value
  */
-function normaliseClubDerivedMetadata(value) {
+function normaliseClubDerivedMetadata(value: any): AnyRecord | undefined {
   if (!value || typeof value !== 'object' || Array.isArray(value)) return undefined;
 
   const seasonsSeen = normalizeSeasonNumberArray(value.seasonsSeen);
@@ -519,7 +536,7 @@ function normaliseClubDerivedMetadata(value) {
  * @param {string} fallbackKey
  * @returns {ClubMetadata | null}
  */
-function normaliseClubRecord(value, fallbackKey) {
+function normaliseClubRecord(value: any, fallbackKey: string): ClubMetadata | null {
   if (!value || typeof value !== 'object' || Array.isArray(value)) return null;
 
   const canonicalName = toStringValue(value.canonicalName) || toStringValue(fallbackKey);
@@ -566,18 +583,17 @@ function normaliseClubRecord(value, fallbackKey) {
     })
   );
 
-  return /** @type {ClubMetadata} */ (cleaned);
+  return cleaned as unknown as ClubMetadata;
 }
 
 /**
  * @param {unknown} value
  * @returns {ClubsMap | undefined}
  */
-export function normaliseClubsMap(value) {
+export function normaliseClubsMap(value: any): ClubsMap | undefined {
   if (!value || typeof value !== 'object' || Array.isArray(value)) return undefined;
 
-  /** @type {ClubsMap} */
-  const clubs = {};
+  const clubs: ClubsMap = {};
 
   for (const [key, clubValue] of Object.entries(value)) {
     const normalized = normaliseClubRecord(clubValue, key);
@@ -593,13 +609,15 @@ export function normaliseClubsMap(value) {
  * @param {ClubsMap | undefined} source
  * @returns {ClubsMap | undefined}
  */
-export function mergeClubsMap(target, source) {
+export function mergeClubsMap(
+  target: ClubsMap | undefined,
+  source: ClubsMap | undefined
+): ClubsMap | undefined {
   if (!source || !Object.keys(source).length) return target;
   if (!target || !Object.keys(target).length) return { ...source };
 
-  /** @type {ClubsMap} */
-  const merged = { ...target };
-  const sourceEntries = Object.entries(source);
+  const merged: ClubsMap = { ...target };
+  const sourceEntries = Object.entries(source) as [string, ClubMetadata][];
 
   for (const [clubKey, incomingClub] of sourceEntries) {
     const existingClub = merged[clubKey];
@@ -643,7 +661,7 @@ export function mergeClubsMap(target, source) {
  * @param {Partial<FootballData> | Record<string, unknown>} [initial]
  * @returns {FootballData}
  */
-export function createFootballData(initial) {
+export function createFootballData(initial: Partial<FootballData> | Record<string, unknown> = {}): FootballData {
   const metadata =
     initial && typeof initial === 'object' && 'metadata' in initial
       ? normaliseDatasetMetadata(initial.metadata)
@@ -652,19 +670,18 @@ export function createFootballData(initial) {
     initial && typeof initial === 'object' && 'clubs' in initial
       ? normaliseClubsMap(initial.clubs)
       : undefined;
-  const seasonsSource =
+  const seasonsSource: Record<string, unknown> =
     initial && typeof initial === 'object' && 'seasons' in initial
-      ? /** @type {Record<string, unknown>} */ (initial?.seasons)
+      ? ((initial as AnyRecord).seasons as Record<string, unknown>)
       : initial && typeof initial === 'object' && ('clubs' in initial || 'metadata' in initial)
-      ? {}
-      : /** @type {Record<string, unknown>} */ (initial || {});
+        ? {}
+        : (initial as Record<string, unknown>);
 
-  /** @type {SeasonsMap} */
-  const seasons = {};
+  const seasons: SeasonsMap = {};
   for (const [seasonKey, seasonValue] of Object.entries(seasonsSource)) {
     if (!seasonValue || typeof seasonValue !== 'object') continue;
     seasons[seasonKey] = normaliseSeasonRecord(
-      /** @type {Record<string, unknown>} */ (seasonValue),
+      seasonValue as Record<string, unknown>,
       seasonKey
     );
   }
@@ -687,7 +704,11 @@ export function createFootballData(initial) {
  * }} [options]
  * @returns {TierData}
  */
-export function buildTierData(season, tableRows, options = {}) {
+export function buildTierData(
+  season: string | number,
+  tableRows: Array<Partial<LeagueTableEntry> & Record<string, unknown>>,
+  options: BuildTierDataOptions = {}
+): TierData {
   const seasonNumber = Number.parseInt(String(season), 10);
   const safeSeason = Number.isFinite(seasonNumber) ? seasonNumber : 0;
   const sanitizedRows = sanitizeRows(tableRows);
@@ -696,12 +717,12 @@ export function buildTierData(season, tableRows, options = {}) {
   const promoted = normaliseOutcomeList(options.promoted, normalizedTable, 'wasPromoted');
   const relegated = normaliseOutcomeList(options.relegated, normalizedTable, 'wasRelegated');
 
-  const tierData = /** @type {TierData} */ ({
+  const tierData: TierData = {
     season: safeSeason,
     table: normalizedTable,
     promoted,
     relegated,
-  });
+  };
 
   if (options.metadata && typeof options.metadata === 'object') {
     const metadata = normaliseTierMetadata({ metadata: options.metadata });
@@ -723,7 +744,10 @@ export function buildTierData(season, tableRows, options = {}) {
  * }} [options]
  * @returns {SeasonInfo}
  */
-export function buildSeasonInfo(season, options = {}) {
+export function buildSeasonInfo(
+  season: string | number,
+  options: BuildSeasonInfoOptions = {}
+): SeasonInfo {
   const seasonNumber = Number.parseInt(String(season), 10);
   const safeSeason = Number.isFinite(seasonNumber) ? seasonNumber : 0;
 
@@ -744,11 +768,11 @@ export function buildSeasonInfo(season, options = {}) {
  * @param {FootballData} data
  * @param {string} seasonKey
  */
-function ensureSeason(data, seasonKey) {
+function ensureSeason(data: FootballData, seasonKey: string): SeasonData {
   if (!data.seasons[seasonKey]) {
-    data.seasons[seasonKey] = /** @type {SeasonData} */ ({});
+    data.seasons[seasonKey] = {} as SeasonData;
   }
-  return /** @type {SeasonData} */ (data.seasons[seasonKey]);
+  return data.seasons[seasonKey] as SeasonData;
 }
 
 /**
@@ -758,7 +782,12 @@ function ensureSeason(data, seasonKey) {
  * @param {string} tierKey
  * @param {TierData | LeagueTableEntry[]} tierValue
  */
-export function upsertSeasonTier(dataset, seasonKey, tierKey, tierValue) {
+export function upsertSeasonTier(
+  dataset: FootballData,
+  seasonKey: string | number,
+  tierKey: string,
+  tierValue: TierData | LeagueTableEntry[]
+): FootballData {
   if (!dataset || typeof dataset !== 'object' || !dataset.seasons) {
     throw new TypeError('Dataset must be a FootballData object');
   }
@@ -767,10 +796,12 @@ export function upsertSeasonTier(dataset, seasonKey, tierKey, tierValue) {
   const seasonRecord = ensureSeason(dataset, key);
 
   if (Array.isArray(tierValue)) {
-    seasonRecord[tierKey] = tierValue.map((row) => normaliseLeagueTableEntry(row));
+    (seasonRecord as AnyRecord)[tierKey] = tierValue.map((row) =>
+      normaliseLeagueTableEntry(row as unknown as Partial<LeagueTableEntry> & Record<string, unknown>)
+    );
   } else if (tierValue && typeof tierValue === 'object') {
-    seasonRecord[tierKey] = normaliseTierData(
-      /** @type {Record<string, unknown>} */ (tierValue),
+    (seasonRecord as AnyRecord)[tierKey] = normaliseTierData(
+      tierValue as unknown as Record<string, unknown>,
       key
     );
   } else {
@@ -786,7 +817,11 @@ export function upsertSeasonTier(dataset, seasonKey, tierKey, tierValue) {
  * @param {string | number} seasonKey
  * @param {SeasonData} seasonValue
  */
-export function setSeasonRecord(dataset, seasonKey, seasonValue) {
+export function setSeasonRecord(
+  dataset: FootballData,
+  seasonKey: string | number,
+  seasonValue: SeasonData
+): FootballData {
   if (!dataset || typeof dataset !== 'object') {
     throw new TypeError('Dataset must be a FootballData object');
   }
@@ -804,7 +839,7 @@ export function setSeasonRecord(dataset, seasonKey, seasonValue) {
  * @param {FootballData} target
  * @param {FootballData} source
  */
-export function mergeFootballData(target, source) {
+export function mergeFootballData(target: FootballData, source: FootballData): FootballData {
   if (!target || !target.seasons) {
     throw new TypeError('Target must include a seasons map');
   }
@@ -829,13 +864,13 @@ export function mergeFootballData(target, source) {
  * @param {string} filePath
  * @returns {FootballData}
  */
-export function loadFootballData(filePath) {
+export function loadFootballData(filePath: string): FootballData {
   try {
     const raw = fs.readFileSync(filePath, 'utf8');
     const parsed = JSON.parse(raw);
     return createFootballData(parsed);
-  } catch (err) {
-    if (err && /** @type {{ code?: string }} */ (err).code === 'ENOENT') {
+  } catch (err: any) {
+    if (err && err.code === 'ENOENT') {
       return createFootballData();
     }
     throw err;
@@ -848,7 +883,11 @@ export function loadFootballData(filePath) {
  * @param {FootballData} data
  * @param {{ pretty?: boolean | number, metadata?: DatasetMetadata | Record<string, unknown> }} [options]
  */
-export function saveFootballData(filePath, data, options) {
+export function saveFootballData(
+  filePath: string,
+  data: FootballData,
+  options?: SaveFootballDataOptions
+): void {
   const pretty = options?.pretty ?? true;
   const spacing = typeof pretty === 'number' ? pretty : pretty ? 2 : 0;
   const metadata = options?.metadata
@@ -874,7 +913,13 @@ export function saveFootballData(filePath, data, options) {
  * @param {{ pretty?: boolean | number }} [options]
  * @returns {FootballData}
  */
-export function updateFootballDataFile(filePath, seasonKey, tierKey, tierValue, options) {
+export function updateFootballDataFile(
+  filePath: string,
+  seasonKey: string | number,
+  tierKey: string,
+  tierValue: TierData | LeagueTableEntry[],
+  options?: SaveFootballDataOptions
+): FootballData {
   const footballData = loadFootballData(filePath);
   upsertSeasonTier(footballData, seasonKey, tierKey, tierValue);
   saveFootballData(filePath, footballData, options);
