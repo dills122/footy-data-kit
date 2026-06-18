@@ -78,8 +78,7 @@ function getGitTags() {
 function getCurrentReleaseTag(packageVersion, gitTags) {
   const envTag = process.env.DOCS_RELEASE_TAG || process.env.GITHUB_REF_NAME || '';
   if (/^v\d+\.\d+\.\d+/.test(envTag)) return envTag;
-  if (gitTags.length) return [...gitTags].sort(compareTagsDescending)[0];
-  return `v${packageVersion}`;
+  return [...new Set([`v${packageVersion}`, ...gitTags])].sort(compareTagsDescending)[0];
 }
 
 function getTierCount(seasonRecord) {
