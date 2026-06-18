@@ -22,6 +22,11 @@ const LEGACY_TIER_METADATA_FIELDS = ['seasonSlug', 'sourceUrl', 'tier', 'title',
 const REQUIRED_TIER_METADATA_FIELDS = ['source', 'seasonSlug', 'tierKey'];
 const REQUIRED_OVERVIEW_METADATA_FIELDS = ['title', 'leagueId', 'tableIndex', 'tableCount'];
 const REQUIRED_DATASET_METADATA_FIELDS = ['schemaVersion', 'generator', 'generatedAt'];
+const POINTS_ORDER_EXEMPTIONS = new Set([
+  '2019:tier3',
+  '2019:tier4',
+  '2019:tier5',
+]);
 const CONTINUITY_CONFIG = {
   topFlightTierKey: 'tier1',
   seasonPromotedPath: 'promoted',
@@ -267,6 +272,20 @@ function analyzeTier(seasonKey, tierKey, tierValue) {
     );
   }
 
+  if (!isPointsOrderExempt(seasonKey, tierKey)) {
+    const tableOrderMismatches = findTableOrderMismatches(tierMeta.table);
+    if (tableOrderMismatches.length) {
+      tierIssues.push(
+        createIssue({
+          type: 'table-order-mismatch',
+          season: seasonKey,
+          tier: tierKey,
+          message: `Table rows are not sorted by points: ${tableOrderMismatches.join('; ')}`,
+        })
+      );
+    }
+  }
+
   const statMismatchRows = tierMeta.table
     .filter((row) => Number.isFinite(row.played))
     .filter((row) => row.played !== row.won + row.drawn + row.lost)
@@ -432,6 +451,30 @@ function extractTierMeta(tierValue, seasonKey) {
     metadata,
     rawValue: tierValue,
   };
+}
+
+function describeOrderMismatch(previousRow, currentRow) {
+  return `${currentRow.team} (${currentRow.points} pts, pos ${currentRow.pos}) should not be below ${previousRow.team} (${previousRow.points} pts, pos ${previousRow.pos})`;
+}
+
+function findTableOrderMismatches(table) {
+  const mismatches = [];
+  for (let index = 1; index < table.length; index += 1) {
+    const previousRow = table[index - 1];
+    const currentRow = table[index];
+    if (
+      Number.isFinite(previousRow.points) &&
+      Number.isFinite(currentRow.points) &&
+      currentRow.points > previousRow.points
+    ) {
+      mismatches.push(describeOrderMismatch(previousRow, currentRow));
+    }
+  }
+  return mismatches;
+}
+
+function isPointsOrderExempt(seasonKey, tierKey) {
+  return POINTS_ORDER_EXEMPTIONS.has(`${seasonKey}:${tierKey}`);
 }
 
 /**
