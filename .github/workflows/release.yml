@@ -72,6 +72,13 @@ jobs:
           pnpm wiki:minify:overview
           pnpm exec node wikipedia/data/compare-football-data.js --json ./release-baseline/all-seasons.previous.json ./data-output/all-seasons.json > ./data-output/release-diff.json
           pnpm exec node wikipedia/data/compare-football-data.js --markdown ./release-baseline/all-seasons.previous.json ./data-output/all-seasons.json > ./data-output/release-diff.md
+          pnpm exec node wikipedia/data/build-release-notes.js \
+            --tag "${{ steps.release_meta.outputs.tag }}" \
+            --diff ./data-output/release-diff.json \
+            --current ./data-output/all-seasons.json \
+            --club-metadata ./data/club-metadata.json \
+            --manual "./docs/release-notes/${{ steps.release_meta.outputs.tag }}.md" \
+            --output ./data-output/release-notes.md
 
       - name: Archive generated data
         run: |
@@ -82,6 +89,7 @@ jobs:
           cp data-output/wiki_overview_tables_by_season.min.json release-assets/wiki_overview_tables_by_season.min.json
           cp data-output/release-diff.json release-assets/release-diff.json
           cp data-output/release-diff.md release-assets/release-diff.md
+          cp data-output/release-notes.md release-assets/release-notes.md
           cp data/club-metadata.json release-assets/club-metadata.json
           zip -r "release-assets/footy-data-kit-${{ steps.release_meta.outputs.tag }}-data.zip" data-output data/club-metadata.json
 
@@ -98,7 +106,7 @@ jobs:
         with:
           tag_name: ${{ steps.release_meta.outputs.tag }}
           name: Release ${{ steps.release_meta.outputs.tag }}
-          body_path: ./data-output/release-diff.md
+          body_path: ./data-output/release-notes.md
           files: |
             release-assets/all-seasons.json
             release-assets/all-seasons.min.json
@@ -107,6 +115,7 @@ jobs:
             release-assets/club-metadata.json
             release-assets/release-diff.json
             release-assets/release-diff.md
+            release-assets/release-notes.md
             release-assets/footy-data-kit-${{ steps.release_meta.outputs.tag }}-data.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
