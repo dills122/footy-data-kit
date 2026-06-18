@@ -5,7 +5,8 @@ import { execSync } from 'node:child_process';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import { WIKIPEDIA_DATA_SOURCES } from '../config.js';
-import { isExpansionTeam, wasPromoted, wasRelegated } from '../utils.js';
+import { normaliseLeagueTableEntry } from './output-entry-normalizer.ts';
+export { normaliseLeagueTableEntry } from './output-entry-normalizer.ts';
 
 /** @typedef {import('../models/output-file.ts').LeagueTableEntry} LeagueTableEntry */
 /** @typedef {import('../models/output-file.ts').TierData} TierData */
@@ -17,42 +18,8 @@ import { isExpansionTeam, wasPromoted, wasRelegated } from '../utils.js';
 /** @typedef {import('../models/output-file.ts').ClubMetadata} ClubMetadata */
 /** @typedef {import('../models/output-file.ts').ClubsMap} ClubsMap */
 
-const NUMBER_FIELDS = [
-  'pos',
-  'played',
-  'won',
-  'drawn',
-  'lost',
-  'goalsFor',
-  'goalsAgainst',
-  'points',
-];
-const OPTIONAL_NUMBER_FIELDS = ['goalDifference', 'goalAverage'];
-const BOOLEAN_FIELDS = [
-  'wasRelegated',
-  'wasPromoted',
-  'isExpansionTeam',
-  'wasReElected',
-  'wasReprieved',
-];
 const DATASET_SCHEMA_VERSION = 1;
 let cachedGitSha;
-
-/**
- * @param {string | number | null | undefined} value
- * @param {boolean} allowNull
- */
-function toNumber(value, allowNull) {
-  if (value == null || value === '') {
-    if (allowNull) return null;
-    return 0;
-  }
-
-  const parsed = Number(value);
-  if (Number.isFinite(parsed)) return parsed;
-
-  throw new TypeError(`Expected numeric value, received: ${value}`);
-}
 
 /**
  * @param {unknown} value
@@ -738,22 +705,6 @@ export function buildDatasetMetadata({
 }
 
 /**
- * @param {unknown} value
- */
-function toBoolean(value) {
-  if (typeof value === 'boolean') return value;
-  if (value == null) return false;
-  if (typeof value === 'number') return value !== 0;
-  if (typeof value === 'string') {
-    const normalized = value.trim().toLowerCase();
-    if (!normalized.length) return false;
-    if (['true', 'yes', 'y', 'promoted', 'relegated'].includes(normalized)) return true;
-    if (['false', 'no', 'n'].includes(normalized)) return false;
-  }
-  return Boolean(value);
-}
-
-/**
  * Ensure we have a string array with no duplicates.
  * @param {unknown} value
  * @param {LeagueTableEntry[]} fallbackRows
@@ -798,99 +749,6 @@ function sanitizeRows(rows) {
   }
 
   return sanitized;
-}
-
-/**
- * Normalise a single league table entry.
- * @param {Partial<LeagueTableEntry> & Record<string, unknown>} raw
- * @returns {LeagueTableEntry}
- */
-export function normaliseLeagueTableEntry(raw) {
-  if (!raw || typeof raw !== 'object') {
-    throw new TypeError('Expected an object to normalise LeagueTableEntry');
-  }
-
-  /** @type {Record<string, unknown>} */
-  const record = { ...raw };
-  const notes = toStringValue(record.notes);
-
-  for (const key of NUMBER_FIELDS) {
-    record[key] = toNumber(record[key], false);
-  }
-  for (const key of OPTIONAL_NUMBER_FIELDS) {
-    record[key] = toNumber(record[key], true);
-  }
-
-  const goalsForNumber = Number.isFinite(record.goalsFor) ? record.goalsFor : null;
-  const goalsAgainstNumber = Number.isFinite(record.goalsAgainst) ? record.goalsAgainst : null;
-  if (goalsForNumber != null && goalsAgainstNumber != null) {
-    record.goalDifference = goalsForNumber - goalsAgainstNumber;
-  }
-
-  const teamName = toStringValue(record.team);
-  if (!teamName) {
-    throw new TypeError('League table entry is missing a team name');
-  }
-
-  record.team = teamName;
-  record.notes = notes;
-
-  const derivedRelegated = wasRelegated(notes);
-  const derivedPromoted = wasPromoted(notes);
-  const derivedExpansion = isExpansionTeam(notes);
-  const derivedReElected = notes ? notes.toLowerCase().includes('re-elected') : false;
-  const derivedReprieved = notes
-    ? /repriv(?:ed|e)d from re-election/i.test(notes.toLowerCase())
-    : false;
-
-  for (const key of BOOLEAN_FIELDS) {
-    const value = record[key];
-    if (typeof value === 'boolean') continue;
-
-    switch (key) {
-      case 'wasRelegated':
-        record[key] = derivedRelegated;
-        break;
-      case 'wasPromoted':
-        record[key] = derivedPromoted;
-        break;
-      case 'isExpansionTeam':
-        record[key] = derivedExpansion;
-        break;
-      case 'wasReElected':
-        record[key] = derivedReElected;
-        break;
-      case 'wasReprieved':
-        record[key] = derivedReprieved;
-        break;
-      default:
-        record[key] = false;
-    }
-  }
-
-  for (const key of BOOLEAN_FIELDS) {
-    record[key] = toBoolean(record[key]);
-  }
-
-  return /** @type {LeagueTableEntry} */ ({
-    pos: record.pos,
-    team: record.team,
-    played: record.played,
-    won: record.won,
-    drawn: record.drawn,
-    lost: record.lost,
-    goalsFor: record.goalsFor,
-    goalsAgainst: record.goalsAgainst,
-    goalDifference: record.goalDifference,
-    goalAverage: record.goalAverage,
-    points: record.points,
-    notes: record.notes,
-    wasRelegated: record.wasRelegated,
-    wasPromoted: record.wasPromoted,
-    isExpansionTeam: record.isExpansionTeam,
-    wasReElected: record.wasReElected,
-    wasReprieved: record.wasReprieved,
-  });
 }
 
 /**

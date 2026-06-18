@@ -33,6 +33,44 @@ describe('normaliseLeagueTableEntry', () => {
     expect(entry.wasRelegated).toBe(false);
     expect(entry.goalDifference).toBe(38);
   });
+
+  test('preserves explicit boolean flags and normalises numeric strings', () => {
+    const entry = normaliseLeagueTableEntry({
+      pos: '22',
+      team: 'Sample Town',
+      played: '42',
+      won: '10',
+      drawn: '8',
+      lost: '24',
+      goalsFor: '40',
+      goalsAgainst: '80',
+      goalAverage: '',
+      points: '28',
+      notes: null,
+      wasRelegated: true,
+      wasPromoted: false,
+    });
+
+    expect(entry.wasRelegated).toBe(true);
+    expect(entry.wasPromoted).toBe(false);
+    expect(entry.goalDifference).toBe(-40);
+    expect(entry.goalAverage).toBeNull();
+  });
+
+  test('rejects rows without a team name', () => {
+    expect(() =>
+      normaliseLeagueTableEntry({
+        pos: 1,
+        played: 42,
+        won: 25,
+        drawn: 10,
+        lost: 7,
+        goalsFor: 82,
+        goalsAgainst: 44,
+        points: 60,
+      })
+    ).toThrow('League table entry is missing a team name');
+  });
 });
 
 describe('createFootballData', () => {
