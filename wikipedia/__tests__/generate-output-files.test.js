@@ -208,6 +208,51 @@ describe('createFootballData', () => {
     });
   });
 
+  test('normalises seasonInfo metadata and special competition lists', () => {
+    const dataset = createFootballData({
+      seasons: {
+        1915: {
+          seasonInfo: {
+            season: '1915',
+            promoted: ['Alpha FC', 'Alpha FC', ''],
+            relegated: ['Beta FC'],
+            seasonSlug: '1915-16_in_English_football',
+            sourceUrl: 'https://example.test/1915',
+            tableCount: '3',
+            competitionStatus: ' suspended ',
+            warSuspensionLabel: 'World War I',
+            officialLeagueTables: false,
+            officialCompetitionsSuspended: true,
+            officialCompetitionsAbandoned: false,
+            regionalBridgeSeason: true,
+            promotionRelegationApplies: false,
+            specialCompetitions: ['London Combination', 'London Combination', '', null],
+            notes: ' Wartime regional competitions only ',
+          },
+        },
+      },
+    });
+
+    expect(dataset.seasons['1915'].seasonInfo).toEqual({
+      season: 1915,
+      table: [],
+      promoted: ['Alpha FC'],
+      relegated: ['Beta FC'],
+      seasonSlug: '1915-16_in_English_football',
+      sourceUrl: 'https://example.test/1915',
+      tableCount: 3,
+      competitionStatus: 'suspended',
+      warSuspensionLabel: 'World War I',
+      officialLeagueTables: false,
+      officialCompetitionsSuspended: true,
+      officialCompetitionsAbandoned: false,
+      regionalBridgeSeason: true,
+      promotionRelegationApplies: false,
+      specialCompetitions: ['London Combination'],
+      notes: 'Wartime regional competitions only',
+    });
+  });
+
   test('preserves top-level dataset metadata', () => {
     const dataset = createFootballData({
       metadata: {

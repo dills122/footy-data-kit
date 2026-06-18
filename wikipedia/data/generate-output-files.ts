@@ -6,12 +6,12 @@ import * as fs from 'node:fs';
 import * as path from 'node:path';
 import { normaliseLeagueTableEntry } from './output-entry-normalizer.ts';
 import {
-  isTierData,
   normaliseOutcomeList,
   normaliseTierData,
   normaliseTierMetadata,
   sanitizeRows,
 } from './output-tier-normalizer.ts';
+import { normaliseSeasonInfo, normaliseSeasonRecord } from './output-season-normalizer.ts';
 export { normaliseLeagueTableEntry } from './output-entry-normalizer.ts';
 
 /** @typedef {import('../models/output-file.ts').LeagueTableEntry} LeagueTableEntry */
@@ -708,105 +708,6 @@ export function buildDatasetMetadata({
     sourceFiles,
     buildOptions,
   });
-}
-
-/**
- * @param {Record<string, unknown>} seasonInfoValue
- * @param {string} seasonKey
- * @returns {SeasonInfo}
- */
-function normaliseSeasonInfo(seasonInfoValue, seasonKey) {
-  const parsedSeason = Number.parseInt(String(seasonInfoValue.season ?? seasonKey), 10);
-  const fallbackSeason = Number.parseInt(seasonKey, 10);
-  const season = Number.isFinite(parsedSeason)
-    ? parsedSeason
-    : Number.isFinite(fallbackSeason)
-    ? fallbackSeason
-    : 0;
-
-  const specialCompetitions = Array.isArray(seasonInfoValue.specialCompetitions)
-    ? Array.from(
-        new Set(
-          seasonInfoValue.specialCompetitions
-            .map((value) => toStringValue(value))
-            .filter((value) => value != null)
-        )
-      )
-    : [];
-
-  return /** @type {SeasonInfo} */ ({
-    season,
-    table: [],
-    relegated: normaliseOutcomeList(seasonInfoValue.relegated, [], 'wasRelegated'),
-    promoted: normaliseOutcomeList(seasonInfoValue.promoted, [], 'wasPromoted'),
-    seasonSlug: toStringValue(seasonInfoValue.seasonSlug),
-    sourceUrl: toStringValue(seasonInfoValue.sourceUrl),
-    tableCount: Number.isFinite(Number(seasonInfoValue.tableCount))
-      ? Number(seasonInfoValue.tableCount)
-      : null,
-    competitionStatus: toStringValue(seasonInfoValue.competitionStatus),
-    warSuspensionLabel: toStringValue(seasonInfoValue.warSuspensionLabel),
-    officialLeagueTables:
-      typeof seasonInfoValue.officialLeagueTables === 'boolean'
-        ? seasonInfoValue.officialLeagueTables
-        : null,
-    officialCompetitionsSuspended:
-      typeof seasonInfoValue.officialCompetitionsSuspended === 'boolean'
-        ? seasonInfoValue.officialCompetitionsSuspended
-        : null,
-    officialCompetitionsAbandoned:
-      typeof seasonInfoValue.officialCompetitionsAbandoned === 'boolean'
-        ? seasonInfoValue.officialCompetitionsAbandoned
-        : null,
-    regionalBridgeSeason:
-      typeof seasonInfoValue.regionalBridgeSeason === 'boolean'
-        ? seasonInfoValue.regionalBridgeSeason
-        : null,
-    promotionRelegationApplies:
-      typeof seasonInfoValue.promotionRelegationApplies === 'boolean'
-        ? seasonInfoValue.promotionRelegationApplies
-        : null,
-    specialCompetitions,
-    notes: toStringValue(seasonInfoValue.notes),
-  });
-}
-
-/**
- * Normalise raw season data into a SeasonData map.
- * @param {Record<string, unknown>} seasonValue
- * @param {string} seasonKey
- * @returns {SeasonData}
- */
-function normaliseSeasonRecord(seasonValue, seasonKey) {
-  /** @type {SeasonData} */
-  const result = {};
-  const entries = seasonValue && typeof seasonValue === 'object' ? seasonValue : {};
-
-  for (const [tierKey, tierValue] of Object.entries(entries)) {
-    if (
-      tierKey === 'seasonInfo' &&
-      tierValue &&
-      typeof tierValue === 'object' &&
-      !Array.isArray(tierValue)
-    ) {
-      result[tierKey] = normaliseSeasonInfo(
-        /** @type {Record<string, unknown>} */ (tierValue),
-        seasonKey
-      );
-    } else if (Array.isArray(tierValue)) {
-      const sanitized = sanitizeRows(tierValue);
-      result[tierKey] = sanitized.map((row) => normaliseLeagueTableEntry(row));
-    } else if (isTierData(tierValue)) {
-      result[tierKey] = normaliseTierData(tierValue, seasonKey);
-    } else if (tierValue && typeof tierValue === 'object') {
-      result[tierKey] = normaliseTierData(
-        /** @type {Record<string, unknown>} */ (tierValue),
-        seasonKey
-      );
-    }
-  }
-
-  return result;
 }
 
 /**
