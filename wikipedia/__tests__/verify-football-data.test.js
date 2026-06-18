@@ -86,6 +86,183 @@ describe('verify-football-data', () => {
     expect(issueTypes).toContain('duplicate-positions');
   });
 
+  test('analyzeDataset reports table rows that are out of points order', () => {
+    const issues = analyzeDataset({
+      metadata: {
+        schemaVersion: 1,
+        generator: 'wikipedia-overview',
+        generatedAt: '2026-06-18T00:00:00.000Z',
+      },
+      seasons: {
+        2025: {
+          seasonInfo: {
+            season: 2025,
+            table: [],
+            promoted: [],
+            relegated: [],
+          },
+          tier3: {
+            season: 2025,
+            table: [
+              {
+                pos: 21,
+                team: 'Example Safe',
+                played: 46,
+                won: 11,
+                drawn: 11,
+                lost: 24,
+                goalsFor: 45,
+                goalsAgainst: 70,
+                goalDifference: -25,
+                goalAverage: null,
+                points: 44,
+                notes: null,
+                wasRelegated: false,
+                wasPromoted: false,
+                isExpansionTeam: false,
+                wasReElected: false,
+                wasReprieved: false,
+              },
+              {
+                pos: 22,
+                team: 'Rotherham United',
+                played: 46,
+                won: 10,
+                drawn: 11,
+                lost: 25,
+                goalsFor: 41,
+                goalsAgainst: 71,
+                goalDifference: -30,
+                goalAverage: null,
+                points: 41,
+                notes: 'Relegation to EFL League Two',
+                wasRelegated: true,
+                wasPromoted: false,
+                isExpansionTeam: false,
+                wasReElected: false,
+                wasReprieved: false,
+              },
+              {
+                pos: 23,
+                team: 'Port Vale',
+                played: 46,
+                won: 10,
+                drawn: 12,
+                lost: 24,
+                goalsFor: 36,
+                goalsAgainst: 61,
+                goalDifference: -25,
+                goalAverage: null,
+                points: 42,
+                notes: 'Relegation to EFL League Two',
+                wasRelegated: true,
+                wasPromoted: false,
+                isExpansionTeam: false,
+                wasReElected: false,
+                wasReprieved: false,
+              },
+            ],
+            promoted: [],
+            relegated: ['Rotherham United', 'Port Vale'],
+            metadata: {
+              source: 'wikipedia-overview',
+              seasonSlug: '2025-26',
+              sourceUrl: 'https://example.com/2025',
+              tierKey: 'tier3',
+              title: 'League One',
+              leagueId: 'League_One',
+              tableIndex: 2,
+              tableCount: 7,
+            },
+          },
+        },
+      },
+    });
+
+    const tableOrderIssue = issues.find((issue) => issue.type === 'table-order-mismatch');
+    expect(tableOrderIssue).toBeDefined();
+    expect(tableOrderIssue.message).toContain(
+      'Port Vale (42 pts, pos 23) should not be below Rotherham United (41 pts, pos 22)'
+    );
+  });
+
+  test('analyzeDataset allows 2019 curtailed leagues ordered by points per game', () => {
+    const issues = analyzeDataset({
+      metadata: {
+        schemaVersion: 1,
+        generator: 'wikipedia-overview',
+        generatedAt: '2026-06-18T00:00:00.000Z',
+      },
+      seasons: {
+        2019: {
+          seasonInfo: {
+            season: 2019,
+            table: [],
+            promoted: [],
+            relegated: [],
+          },
+          tier3: {
+            season: 2019,
+            table: [
+              {
+                pos: 3,
+                team: 'Wycombe Wanderers',
+                played: 34,
+                won: 17,
+                drawn: 8,
+                lost: 9,
+                goalsFor: 45,
+                goalsAgainst: 40,
+                goalDifference: 5,
+                goalAverage: null,
+                points: 59,
+                notes: 'Qualification for League One play-offs',
+                wasRelegated: false,
+                wasPromoted: true,
+                isExpansionTeam: false,
+                wasReElected: false,
+                wasReprieved: false,
+              },
+              {
+                pos: 4,
+                team: 'Oxford United',
+                played: 35,
+                won: 17,
+                drawn: 9,
+                lost: 9,
+                goalsFor: 61,
+                goalsAgainst: 37,
+                goalDifference: 24,
+                goalAverage: null,
+                points: 60,
+                notes: 'Qualification for League One play-offs',
+                wasRelegated: false,
+                wasPromoted: false,
+                isExpansionTeam: false,
+                wasReElected: false,
+                wasReprieved: false,
+              },
+            ],
+            promoted: [],
+            relegated: [],
+            metadata: {
+              source: 'wikipedia-overview',
+              seasonSlug: '2019-20',
+              sourceUrl: 'https://example.com/2019',
+              tierKey: 'tier3',
+              title: 'League One',
+              leagueId: 'League_One',
+              tableIndex: 2,
+              tableCount: 5,
+            },
+          },
+        },
+      },
+    });
+
+    expect(issues.find((issue) => issue.type === 'table-order-mismatch')).toBeUndefined();
+  });
+
   test('analyzeDataset reports tier contract and football-context issues', () => {
     const issues = analyzeDataset({
       seasons: {

@@ -135,6 +135,7 @@ Each run saves season-by-season progress immediately, so reruns are fast. The `c
 - `wikipedia/data/verify-club-continuity.js` – verify club metadata continuity and historical status reasons. Use `pnpm -s wiki:club-historical-audit` to write the repo review artifact at `data/club-historical-reason-audit.json`; use `pnpm -s wiki:club-historical-audit:check` or `pnpm -s verify:data` for fail-on-issues checks.
 - `wikipedia/data/compare-football-data.js` – compare two FootballData JSON files and report season, tier, table, outcome-list, and metadata changes between releases. Pass `--json` for machine-readable output.
   Pass `--markdown` for a release-note-friendly summary.
+- `wikipedia/data/build-release-notes.js` – combine a curated note from `docs/release-notes/vX.Y.Z.md` with generated dataset counts, club metadata counts, validation notes, and the release diff. The release workflow publishes this as `release-notes.md` and uses it as the GitHub release body.
 - `scripts/minify-json.js` – shrink JSON files in place or alongside (`foo.min.json`) so they are ready for publishing.
 - `wikipedia/data/verify-football-data.js` – lint FootballData exports for empty tiers, duplicate teams, stat mismatches, or promotion/relegation inconsistencies. Pass `--fail-on-issues` to exit non-zero when anomalies exist.
 
@@ -214,9 +215,24 @@ node wikipedia/data/compare-football-data.js ./releases/all-seasons-prev.json ./
 # Generate a markdown release summary
 node wikipedia/data/compare-football-data.js --markdown ./releases/all-seasons-prev.json ./data-output/all-seasons.json
 
+# Build the final user-facing release notes body
+node wikipedia/data/build-release-notes.js \
+  --tag v0.8.2 \
+  --diff ./data-output/release-diff.json \
+  --current ./data-output/all-seasons.json \
+  --club-metadata ./data/club-metadata.json \
+  --manual ./docs/release-notes/v0.8.2.md \
+  --output ./data-output/release-notes.md
+
 # Minify the merged dataset next to its original (writes all-seasons.min.json)
 node scripts/minify-json.js ./data-output/all-seasons.json
 ```
+
+## Release Notes
+
+Each release can include a short curated note at `docs/release-notes/vX.Y.Z.md`. Keep that file focused on user-facing changes: what improved, whether schemas changed, and anything consumers should watch for.
+
+The GitHub release body is generated from that curated note plus release facts from the rebuilt data files. The generated body includes coverage counts, club metadata counts, validation checks, published asset names, and the compact data diff. The raw diff remains attached as `release-diff.json` and `release-diff.md`.
 
 ## Testing
 
