@@ -106,14 +106,6 @@ function significantClubTokens(value) {
     .filter((token) => token && token.length > 1 && !STOP_WORDS.has(token));
 }
 
-function decodeWikipediaSlug(slug) {
-  try {
-    return decodeURIComponent(String(slug || '').replace(/_/g, ' '));
-  } catch {
-    return String(slug || '').replace(/_/g, ' ');
-  }
-}
-
 export function wikipediaSlugFromUrl(sourceUrl) {
   const match = String(sourceUrl || '').match(/\/wiki\/([^#?]+)/);
   return match ? match[1] : null;
