@@ -1,9 +1,9 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment -- TODO: remove as generator normalizers are typed incrementally.
 // @ts-nocheck
 
-import { execSync } from 'node:child_process';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
+import { buildDatasetMetadata, normaliseDatasetMetadata } from './output-dataset-metadata.ts';
 import { normaliseLeagueTableEntry } from './output-entry-normalizer.ts';
 import {
   normaliseOutcomeList,
@@ -12,6 +12,7 @@ import {
   sanitizeRows,
 } from './output-tier-normalizer.ts';
 import { normaliseSeasonInfo, normaliseSeasonRecord } from './output-season-normalizer.ts';
+export { buildDatasetMetadata } from './output-dataset-metadata.ts';
 export { normaliseLeagueTableEntry } from './output-entry-normalizer.ts';
 
 /** @typedef {import('../models/output-file.ts').LeagueTableEntry} LeagueTableEntry */
@@ -23,9 +24,6 @@ export { normaliseLeagueTableEntry } from './output-entry-normalizer.ts';
 /** @typedef {import('../models/output-file.ts').DatasetMetadata} DatasetMetadata */
 /** @typedef {import('../models/output-file.ts').ClubMetadata} ClubMetadata */
 /** @typedef {import('../models/output-file.ts').ClubsMap} ClubsMap */
-
-const DATASET_SCHEMA_VERSION = 1;
-let cachedGitSha;
 
 /**
  * @param {unknown} value
@@ -61,43 +59,6 @@ function toSeasonNumberOrNull(value) {
   if (value == null || value === '') return null;
   const parsed = Number.parseInt(String(value), 10);
   return Number.isFinite(parsed) ? parsed : null;
-}
-
-function normalizeBuildOptions(value) {
-  if (!value || typeof value !== 'object' || Array.isArray(value)) return undefined;
-  const entries = Object.entries(value)
-    .map(([key, entry]) => {
-      if (entry == null) return [key, null];
-      if (['string', 'number', 'boolean'].includes(typeof entry)) return [key, entry];
-      return null;
-    })
-    .filter(Boolean);
-
-  if (!entries.length) return undefined;
-  return Object.fromEntries(entries);
-}
-
-function normaliseDatasetMetadata(value) {
-  if (!value || typeof value !== 'object' || Array.isArray(value)) return undefined;
-
-  const schemaVersion = Number(value.schemaVersion);
-  const metadata = {
-    schemaVersion: Number.isFinite(schemaVersion) ? schemaVersion : DATASET_SCHEMA_VERSION,
-    generator: toStringValue(value.generator),
-    generatedAt: toStringValue(value.generatedAt),
-    gitSha: toStringValue(value.gitSha),
-    sourceFiles: normalizeStringArray(value.sourceFiles),
-    buildOptions: normalizeBuildOptions(value.buildOptions),
-  };
-
-  return Object.fromEntries(
-    Object.entries(metadata).filter(([, entry]) => {
-      if (entry == null) return false;
-      if (Array.isArray(entry)) return entry.length > 0;
-      if (typeof entry === 'object') return Object.keys(entry).length > 0;
-      return true;
-    })
-  );
 }
 
 /**
@@ -675,39 +636,6 @@ export function mergeClubsMap(target, source) {
   }
 
   return merged;
-}
-
-function getCurrentGitSha(cwd = process.cwd()) {
-  if (cachedGitSha !== undefined) return cachedGitSha;
-
-  try {
-    cachedGitSha = execSync('git rev-parse --short HEAD', {
-      cwd,
-      encoding: 'utf8',
-      stdio: ['ignore', 'pipe', 'ignore'],
-    }).trim();
-  } catch {
-    cachedGitSha = null;
-  }
-
-  return cachedGitSha;
-}
-
-export function buildDatasetMetadata({
-  generator,
-  sourceFiles,
-  buildOptions,
-  generatedAt = new Date().toISOString(),
-  gitSha = getCurrentGitSha(),
-} = {}) {
-  return normaliseDatasetMetadata({
-    schemaVersion: DATASET_SCHEMA_VERSION,
-    generator,
-    generatedAt,
-    gitSha,
-    sourceFiles,
-    buildOptions,
-  });
 }
 
 /**

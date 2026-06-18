@@ -495,6 +495,38 @@ describe('saveFootballData', () => {
   });
 });
 
+describe('buildDatasetMetadata', () => {
+  test('normalises source files and filters unsupported build options', () => {
+    expect(
+      buildDatasetMetadata({
+        generator: 'wikipedia-overview',
+        generatedAt: '2026-03-08T13:00:00.000Z',
+        gitSha: 'def5678',
+        sourceFiles: ['/tmp/a.json', '/tmp/a.json', ''],
+        buildOptions: {
+          startYear: 1991,
+          endYear: 2024,
+          ignoreWarYears: true,
+          nullValue: null,
+          nested: { unsupported: true },
+        },
+      })
+    ).toEqual({
+      schemaVersion: 1,
+      generator: 'wikipedia-overview',
+      generatedAt: '2026-03-08T13:00:00.000Z',
+      gitSha: 'def5678',
+      sourceFiles: ['/tmp/a.json'],
+      buildOptions: {
+        startYear: 1991,
+        endYear: 2024,
+        ignoreWarYears: true,
+        nullValue: null,
+      },
+    });
+  });
+});
+
 describe('setSeasonRecord', () => {
   test('preserves metadata fields on tier payloads', () => {
     const dataset = createFootballData();
