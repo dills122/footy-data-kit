@@ -443,6 +443,164 @@ describe('parseOverviewLeagueTables', () => {
       leagueLevel: 3,
       tierKey: 'tier4',
     });
+    expect(seasonRecord.seasonInfo.leagueStructureSpecialCases).toEqual([
+      expect.objectContaining({
+        type: 'parallel-regional-level',
+        tierKeys: ['tier3', 'tier4'],
+      }),
+    ]);
+  });
+
+  test('annotates the 1957 regional-to-national tier restructure season', () => {
+    const seasonRecord = buildSeasonOverviewSeasonRecord({
+      seasonKey: '1957',
+      seasonYear: 1957,
+      seasonSlug: '1957–58_in_English_football',
+      tables: [
+        {
+          title: 'First Division',
+          id: 'First_Division',
+          tableIndex: 0,
+          rows: [{ pos: 1, team: 'Wolverhampton Wanderers', played: 42, points: 64 }],
+        },
+        {
+          title: 'Second Division',
+          id: 'Second_Division',
+          tableIndex: 1,
+          rows: [{ pos: 1, team: 'West Ham United', played: 42, points: 57 }],
+        },
+        {
+          title: 'Third Division North',
+          id: 'Third_Division_North',
+          tableIndex: 2,
+          rows: [{ pos: 1, team: 'Scunthorpe & Lindsey United', played: 46, points: 66 }],
+        },
+        {
+          title: 'Third Division South',
+          id: 'Third_Division_South',
+          tableIndex: 3,
+          rows: [{ pos: 1, team: 'Brighton & Hove Albion', played: 46, points: 60 }],
+        },
+      ],
+    });
+
+    expect(seasonRecord.tier4.metadata.leagueLevel).toBe(3);
+    expect(seasonRecord.seasonInfo.leagueStructureSpecialCases).toEqual([
+      expect.objectContaining({
+        type: 'restructure-placement',
+        levels: [3, 4],
+      }),
+    ]);
+  });
+
+  test('annotates the 2004 League One and League Two rebrand boundary', () => {
+    const seasonRecord = buildSeasonOverviewSeasonRecord({
+      seasonKey: '2004',
+      seasonYear: 2004,
+      seasonSlug: '2004–05_in_English_football',
+      tables: [
+        {
+          title: 'FA Premier League',
+          id: 'FA_Premier_League',
+          tableIndex: 0,
+          rows: [{ pos: 1, team: 'Chelsea', played: 38, points: 95 }],
+        },
+        {
+          title: 'Football League Championship',
+          id: 'Football_League_Championship',
+          tableIndex: 1,
+          rows: [{ pos: 1, team: 'Sunderland', played: 46, points: 94 }],
+        },
+        {
+          title: 'Football League One',
+          id: 'Football_League_One',
+          tableIndex: 2,
+          rows: [{ pos: 1, team: 'Luton Town', played: 46, points: 98 }],
+        },
+        {
+          title: 'Football League Two',
+          id: 'Football_League_Two',
+          tableIndex: 3,
+          rows: [{ pos: 1, team: 'Yeovil Town', played: 46, points: 83 }],
+        },
+      ],
+    });
+
+    expect(seasonRecord.tier3.metadata).toMatchObject({
+      title: 'Football League One',
+      leagueLevel: 3,
+    });
+    expect(seasonRecord.tier4.metadata).toMatchObject({
+      title: 'Football League Two',
+      leagueLevel: 4,
+    });
+    expect(seasonRecord.seasonInfo.leagueStructureSpecialCases).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({ type: 'efl-rebrand' }),
+        expect.objectContaining({ type: 'national-league-system-restructure' }),
+      ])
+    );
+  });
+
+  test('stores National League North and South as parallel level 6 tables', () => {
+    const seasonRecord = buildSeasonOverviewSeasonRecord({
+      seasonKey: '2021',
+      seasonYear: 2021,
+      seasonSlug: '2021–22_in_English_football',
+      tables: [
+        {
+          title: 'Premier League',
+          id: 'Premier_League',
+          tableIndex: 0,
+          rows: [{ pos: 1, team: 'Manchester City', played: 38, points: 93 }],
+        },
+        {
+          title: 'Championship',
+          id: 'Championship',
+          tableIndex: 1,
+          rows: [{ pos: 1, team: 'Fulham', played: 46, points: 90 }],
+        },
+        {
+          title: 'League One',
+          id: 'League_One',
+          tableIndex: 2,
+          rows: [{ pos: 1, team: 'Wigan Athletic', played: 46, points: 92 }],
+        },
+        {
+          title: 'League Two',
+          id: 'League_Two',
+          tableIndex: 3,
+          rows: [{ pos: 1, team: 'Forest Green Rovers', played: 46, points: 84 }],
+        },
+        {
+          title: 'National League',
+          id: 'National_League',
+          tableIndex: 4,
+          rows: [{ pos: 1, team: 'Stockport County', played: 44, points: 94 }],
+        },
+        {
+          title: 'National League North',
+          id: 'National_League_North',
+          tableIndex: 5,
+          rows: [{ pos: 1, team: 'Gateshead', played: 42, points: 94 }],
+        },
+        {
+          title: 'National League South',
+          id: 'National_League_South',
+          tableIndex: 6,
+          rows: [{ pos: 1, team: 'Maidstone United', played: 40, points: 87 }],
+        },
+      ],
+    });
+
+    expect(seasonRecord.tier6.metadata).toMatchObject({
+      title: 'National League North',
+      leagueLevel: 6,
+    });
+    expect(seasonRecord.tier7.metadata).toMatchObject({
+      title: 'National League South',
+      leagueLevel: 6,
+    });
   });
 
   test('keeps pre-war four-division seasons aligned with second-tier top-flight movement', () => {
@@ -553,6 +711,62 @@ describe('parseOverviewLeagueTables', () => {
     const sunderland = seasonRecord.tier2.table.find((row) => row.team === 'Sunderland');
     expect(swindon.wasPromoted).toBe(false);
     expect(sunderland.wasPromoted).toBe(true);
+  });
+
+  test('applies config-driven administrative outcome overrides for 2019 League Two', () => {
+    const seasonRecord = buildSeasonOverviewSeasonRecord({
+      seasonKey: '2019',
+      seasonYear: 2019,
+      seasonSlug: '2019–20_in_English_football',
+      tables: [
+        {
+          title: 'Premier League',
+          id: 'Premier_League',
+          tableIndex: 0,
+          rows: [{ pos: 1, team: 'Liverpool', played: 38, points: 99 }],
+        },
+        {
+          title: 'Championship',
+          id: 'Championship',
+          tableIndex: 1,
+          rows: [{ pos: 1, team: 'Leeds United', played: 46, points: 93 }],
+        },
+        {
+          title: 'League One',
+          id: 'League_One',
+          tableIndex: 2,
+          rows: [
+            { pos: 1, team: 'Coventry City', played: 34, points: 67, wasPromoted: true },
+            { pos: 24, team: 'Bury', played: 0, points: 0, wasRelegated: true },
+          ],
+        },
+        {
+          title: 'League Two',
+          id: 'League_Two',
+          tableIndex: 3,
+          rows: [
+            { pos: 23, team: 'Stevenage', played: 36, points: 35, wasRelegated: true },
+            { pos: 24, team: 'Macclesfield Town', played: 37, points: 23, wasRelegated: true },
+          ],
+        },
+      ],
+    });
+
+    expect(seasonRecord.tier4.relegated).toEqual(['Macclesfield Town']);
+    expect(seasonRecord.tier4.table.find((row) => row.team === 'Stevenage')).toMatchObject({
+      wasRelegated: false,
+      outcomeStatus: 'reprieved',
+    });
+    expect(seasonRecord.tier4.table.find((row) => row.team === 'Macclesfield Town')).toMatchObject({
+      wasRelegated: true,
+      outcomeStatus: 'relegated-after-points-deduction',
+    });
+    expect(seasonRecord.seasonInfo.leagueStructureSpecialCases).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({ type: 'covid-curtailed-season' }),
+        expect.objectContaining({ type: 'administrative-outcome' }),
+      ])
+    );
   });
 
   test('builds metadata-only placeholder records for abandoned and bridge seasons', () => {

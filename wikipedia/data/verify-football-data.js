@@ -4,9 +4,9 @@ import { Command } from 'commander';
 import * as fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { WIKIPEDIA_DATA_SOURCES } from '../config.js';
+import { getWikipediaLeagueLevelRule, WIKIPEDIA_DATA_SOURCES } from '../config.js';
 import { canonicalizeTeamName } from './data-quality-config.js';
-import { loadFootballData } from './generate-output-files.js';
+import { loadFootballData } from './generate-output-files.ts';
 import {
   compareSeasonKeys,
   getExpectedMinimumTierCount,
@@ -97,7 +97,7 @@ export function analyzeFile(filePath) {
 }
 
 /**
- * @param {import('./models/output-file.js').FootballData} dataset
+ * @param {import('../models/output-file.ts').FootballData} dataset
  * @param {{ profile?: DatasetProfile }} [options]
  * @returns {Issue[]}
  */
@@ -146,7 +146,7 @@ export function analyzeDataset(dataset, options = {}) {
 }
 
 /**
- * @param {import('./models/output-file.js').FootballData} dataset
+ * @param {import('../models/output-file.ts').FootballData} dataset
  * @param {DatasetProfile} profile
  * @returns {Issue[]}
  */
@@ -194,7 +194,7 @@ function analyzeDatasetContract(dataset, profile) {
 /**
  * @param {string} seasonKey
  * @param {string} tierKey
- * @param {import('./models/output-file.js').TierData | import('./models/output-file.js').LeagueTableEntry[]} tierValue
+ * @param {import('../models/output-file.ts').TierData | import('../models/output-file.ts').LeagueTableEntry[]} tierValue
  * @returns {TierAnalysis}
  */
 function analyzeTier(seasonKey, tierKey, tierValue) {
@@ -416,7 +416,7 @@ function analyzeTier(seasonKey, tierKey, tierValue) {
 }
 
 /**
- * @param {import('./models/output-file.js').TierData | import('./models/output-file.js').LeagueTableEntry[]} tierValue
+ * @param {import('../models/output-file.ts').TierData | import('../models/output-file.ts').LeagueTableEntry[]} tierValue
  * @param {string} seasonKey
  */
 function extractTierMeta(tierValue, seasonKey) {
@@ -479,7 +479,7 @@ function isPointsOrderExempt(seasonKey, tierKey) {
 
 /**
  * @param {string} seasonKey
- * @param {import('./models/output-file.js').SeasonData} seasonValue
+ * @param {import('../models/output-file.ts').SeasonData} seasonValue
  * @returns {Issue[]}
  */
 function analyzeSeasonContract(seasonKey, seasonValue) {
@@ -625,7 +625,7 @@ function analyzeSeasonContract(seasonKey, seasonValue) {
 
 /**
  * @param {string} seasonKey
- * @param {import('./models/output-file.js').SeasonData} seasonValue
+ * @param {import('../models/output-file.ts').SeasonData} seasonValue
  * @param {DatasetProfile} profile
  * @returns {Issue[]}
  */
@@ -651,7 +651,7 @@ function analyzeSeasonTierCoverage(seasonKey, seasonValue, profile) {
 
 /**
  * @param {string} seasonKey
- * @param {import('./models/output-file.js').SeasonData} seasonValue
+ * @param {import('../models/output-file.ts').SeasonData} seasonValue
  * @returns {Issue[]}
  */
 function analyzeSeasonLeagueOrdering(seasonKey, seasonValue) {
@@ -684,6 +684,7 @@ function analyzeSeasonLeagueOrdering(seasonKey, seasonValue) {
       continue;
     }
     if (inferredTier == null || inferredTier === tierNumber) continue;
+    if (isKnownParallelLeagueSlot(metadata, seasonNumber, inferredTier, tierNumber)) continue;
 
     issues.push(
       createIssue({
@@ -698,8 +699,22 @@ function analyzeSeasonLeagueOrdering(seasonKey, seasonValue) {
   return issues;
 }
 
+function isKnownParallelLeagueSlot(metadata, seasonNumber, inferredTier, tierNumber) {
+  if (inferredTier == null || inferredTier >= tierNumber) return false;
+
+  const configuredRule = getWikipediaLeagueLevelRule(
+    `${metadata?.title || ''} ${metadata?.leagueId || ''}`,
+    seasonNumber
+  );
+  if (configuredRule?.parallelGroup) return true;
+
+  const tableIndex = Number(metadata?.tableIndex);
+  const leagueId = String(metadata?.leagueId || '');
+  return seasonNumber >= 2021 && leagueId === 'National_League' && tableIndex > 0;
+}
+
 /**
- * @param {import('./models/output-file.js').FootballData} dataset
+ * @param {import('../models/output-file.ts').FootballData} dataset
  * @param {DatasetProfile} profile
  * @returns {Issue[]}
  */
@@ -772,7 +787,7 @@ function analyzeSeasonContinuity(dataset, profile) {
 }
 
 /**
- * @param {import('./models/output-file.js').FootballData} dataset
+ * @param {import('../models/output-file.ts').FootballData} dataset
  * @returns {DatasetProfile}
  */
 function detectDatasetProfile(dataset) {

@@ -4,6 +4,7 @@ import {
   deriveMajorTierIndexes,
   findLeagueSectionHeading,
   headingHasLeagueKeyword,
+  inferOverviewTierNumber,
   isExcludedOverviewCompetitionLabel,
   parseOverviewTablesForHeading,
 } from '../parser-core/wiki-overview-parser.js';
@@ -114,6 +115,38 @@ describe('wiki-overview-parser', () => {
     const result = deriveMajorTierIndexes(tables);
     expect(result.topFlightIndex).toBe(0);
     expect(result.secondTierIndex).toBe(1);
+  });
+
+  test('infers historically renamed tier 3 and tier 4 league levels', () => {
+    expect(
+      inferOverviewTierNumber({ title: 'Third Division South', id: 'Third_Division_South' }, 1957)
+    ).toBe(3);
+    expect(inferOverviewTierNumber({ title: 'Fourth Division', id: 'Fourth_Division' }, 1958)).toBe(
+      4
+    );
+    expect(
+      inferOverviewTierNumber(
+        { title: 'Football League Second Division', id: 'Football_League_Second_Division' },
+        2003
+      )
+    ).toBe(3);
+    expect(
+      inferOverviewTierNumber({ title: 'Football League One', id: 'Football_League_One' }, 2004)
+    ).toBe(3);
+    expect(inferOverviewTierNumber({ title: 'League Two', id: 'League_Two' }, 2021)).toBe(4);
+  });
+
+  test('infers parallel National League North and South as level 6', () => {
+    expect(
+      inferOverviewTierNumber({ title: 'National League North', id: 'National_League_North' }, 2021)
+    ).toBe(6);
+    expect(inferOverviewTierNumber({ title: 'South', id: 'South' }, 2025)).toBe(6);
+    expect(
+      inferOverviewTierNumber(
+        { title: 'Northern Premier League Premier Division', id: 'Northern_Premier_League' },
+        2025
+      )
+    ).toBe(7);
   });
 
   test('collectOutcomeTeams filters by selected indexes and flags', () => {

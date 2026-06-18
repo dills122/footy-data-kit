@@ -14,7 +14,7 @@ import {
   TEMPORAL_CLUB_IDENTITY_RULES,
 } from './club-identity-config.js';
 import { canonicalizeTeamName, normalizeTeamNameText } from './data-quality-config.js';
-import { buildDatasetMetadata, loadFootballData, normaliseClubsMap } from './generate-output-files.js';
+import { buildDatasetMetadata, loadFootballData, normaliseClubsMap } from './generate-output-files.ts';
 import { getTierKeys, getTierTable, sortSeasonKeys } from './season-rules.js';
 
 const DEFAULT_INPUT_FILE = './data-output/all-seasons.json';
@@ -528,8 +528,8 @@ function isOfficialCompetitionPausedSeason(seasonRecord) {
 }
 
 /**
- * @param {import('./models/output-file').FootballData} dataset
- * @returns {import('./models/output-file').ClubsMap}
+ * @param {import('../models/output-file.ts').FootballData} dataset
+ * @returns {import('../models/output-file.ts').ClubsMap}
  */
 export function buildClubMetadataSeed(dataset) {
   const clubs = new Map();

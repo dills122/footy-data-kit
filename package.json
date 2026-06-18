@@ -32,8 +32,9 @@
     "test:integration:overview": "cross-env NODE_OPTIONS=--experimental-vm-modules WIKI_TEST_SOURCE=overview jest -c jest.integration.config.js",
     "test:coverage": "pnpm -s test:jest -- --coverage",
     "test:watch": "pnpm -s test:jest -- --watch",
-    "lint": "eslint . --ext .js,.mjs",
-    "lint:fix": "eslint . --ext .js,.mjs --fix",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint . --ext .js,.mjs,.ts",
+    "lint:fix": "eslint . --ext .js,.mjs,.ts --fix",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "prepare": "lefthook install"
@@ -66,6 +67,9 @@
     "wikipedia": "^2.4.2"
   },
   "devDependencies": {
+    "@types/node": "^22.19.21",
+    "@typescript-eslint/eslint-plugin": "^8.61.1",
+    "@typescript-eslint/parser": "^8.61.1",
     "ajv": "8.17.1",
     "cross-env": "^7.0.3",
     "eslint": "^8.57.1",
@@ -75,14 +79,15 @@
     "lefthook": "^1.13.6",
     "lint-staged": "^16.2.6",
     "mustache": "^4.2.0",
-    "prettier": "^2.8.8"
+    "prettier": "^2.8.8",
+    "typescript": "^6.0.3"
   },
   "lint-staged": {
-    "*.{js,mjs,json,md}": [
+    "*.{js,mjs,ts,json,md}": [
       "prettier --write",
       "git add"
     ],
-    "*.{js,mjs}": [
+    "*.{js,mjs,ts}": [
       "eslint --fix",
       "git add"
     ]

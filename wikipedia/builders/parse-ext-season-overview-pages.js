@@ -3,11 +3,12 @@ import * as path from 'node:path';
 import {
   buildOverviewSeasonSlug as buildOverviewSeasonSlugFromConfig,
   buildWikipediaArticleUrl,
+  getWikipediaLeagueStructureSpecialCases,
   resolveWikipediaDatasetPath,
   WIKIPEDIA_DATA_SOURCES,
 } from '../config.js';
 import { createDatasetStore } from '../data/dataset-store.js';
-import { buildSeasonInfo, buildTierData } from '../data/generate-output-files.js';
+import { buildSeasonInfo, buildTierData } from '../data/generate-output-files.ts';
 import {
   applyOverviewSeasonOutcomeOverrides,
   buildHistoricalPlaceholderSeasonInfo,
@@ -250,6 +251,7 @@ export function buildSeasonOverviewSeasonRecord({ seasonKey, seasonYear, seasonS
       : [];
   const relegatedTeams =
     topFlightIndex != null ? collectTopFlightRelegations(normalizedTables[topFlightIndex]) : [];
+  const leagueStructureSpecialCases = getWikipediaLeagueStructureSpecialCases(safeSeason);
 
   const seasonInfo = buildSeasonInfo(safeSeason, {
     promoted: promotedTeams,
@@ -257,6 +259,7 @@ export function buildSeasonOverviewSeasonRecord({ seasonKey, seasonYear, seasonS
     metadata: {
       seasonSlug,
       tableCount: tables.length,
+      ...(leagueStructureSpecialCases.length ? { leagueStructureSpecialCases } : {}),
     },
   });
 

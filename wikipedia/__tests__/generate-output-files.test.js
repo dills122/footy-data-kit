@@ -9,7 +9,7 @@ import {
   loadFootballData,
   saveFootballData,
   setSeasonRecord,
-} from '../data/generate-output-files.js';
+} from '../data/generate-output-files.ts';
 
 describe('normaliseLeagueTableEntry', () => {
   test('derives promotion and relegation flags from notes when omitted', () => {
@@ -32,6 +32,44 @@ describe('normaliseLeagueTableEntry', () => {
     expect(entry.wasPromoted).toBe(true);
     expect(entry.wasRelegated).toBe(false);
     expect(entry.goalDifference).toBe(38);
+  });
+
+  test('preserves explicit boolean flags and normalises numeric strings', () => {
+    const entry = normaliseLeagueTableEntry({
+      pos: '22',
+      team: 'Sample Town',
+      played: '42',
+      won: '10',
+      drawn: '8',
+      lost: '24',
+      goalsFor: '40',
+      goalsAgainst: '80',
+      goalAverage: '',
+      points: '28',
+      notes: null,
+      wasRelegated: true,
+      wasPromoted: false,
+    });
+
+    expect(entry.wasRelegated).toBe(true);
+    expect(entry.wasPromoted).toBe(false);
+    expect(entry.goalDifference).toBe(-40);
+    expect(entry.goalAverage).toBeNull();
+  });
+
+  test('rejects rows without a team name', () => {
+    expect(() =>
+      normaliseLeagueTableEntry({
+        pos: 1,
+        played: 42,
+        won: 25,
+        drawn: 10,
+        lost: 7,
+        goalsFor: 82,
+        goalsAgainst: 44,
+        points: 60,
+      })
+    ).toThrow('League table entry is missing a team name');
   });
 });
 
@@ -102,6 +140,134 @@ describe('createFootballData', () => {
     const tier2 = dataset.seasons['1901'].tier2;
     expect(Array.isArray(tier2)).toBe(true);
     expect(tier2[0].wasPromoted).toBe(true);
+  });
+
+  test('normalises structured tier metadata and explicit outcome lists', () => {
+    const dataset = createFootballData({
+      seasons: {
+        1902: {
+          tier3: {
+            season: '1902',
+            table: [
+              null,
+              {
+                pos: '1',
+                team: 'Delta FC',
+                played: '34',
+                won: '22',
+                drawn: '5',
+                lost: '7',
+                goalsFor: '75',
+                goalsAgainst: '36',
+                points: '49',
+                notes: 'Promoted through election',
+              },
+              {
+                pos: '2',
+                team: 'Echo FC',
+                played: '34',
+                won: '20',
+                drawn: '7',
+                lost: '7',
+                goalsFor: '70',
+                goalsAgainst: '40',
+                points: '47',
+                notes: 'Relegated',
+              },
+            ],
+            promoted: ['Manual Promoted FC'],
+            relegated: ['Manual Relegated FC'],
+            sourceUrl: 'https://example.test/season',
+            seasonSlug: '1902-03_example',
+            tier: 'tier3',
+            title: 'Example Division',
+            seasonMetadata: {
+              leagueId: 'example-division',
+              tableIndex: 2,
+              tableCount: 4,
+            },
+          },
+        },
+      },
+    });
+
+    const tier3 = dataset.seasons['1902'].tier3;
+    expect(tier3.season).toBe(1902);
+    expect(tier3.table.map((row) => row.team)).toEqual(['Delta FC', 'Echo FC']);
+    expect(tier3.promoted).toEqual(['Manual Promoted FC']);
+    expect(tier3.relegated).toEqual(['Manual Relegated FC']);
+    expect(tier3.metadata).toMatchObject({
+      source: 'wikipedia-overview',
+      sourceUrl: 'https://example.test/season',
+      seasonSlug: '1902-03_example',
+      tierKey: 'tier3',
+      title: 'Example Division',
+      leagueId: 'example-division',
+      tableIndex: 2,
+      tableCount: 4,
+    });
+  });
+
+  test('normalises seasonInfo metadata and special competition lists', () => {
+    const dataset = createFootballData({
+      seasons: {
+        1915: {
+          seasonInfo: {
+            season: '1915',
+            promoted: ['Alpha FC', 'Alpha FC', ''],
+            relegated: ['Beta FC'],
+            seasonSlug: '1915-16_in_English_football',
+            sourceUrl: 'https://example.test/1915',
+            tableCount: '3',
+            competitionStatus: ' suspended ',
+            warSuspensionLabel: 'World War I',
+            officialLeagueTables: false,
+            officialCompetitionsSuspended: true,
+            officialCompetitionsAbandoned: false,
+            regionalBridgeSeason: true,
+            promotionRelegationApplies: false,
+            specialCompetitions: ['London Combination', 'London Combination', '', null],
+            leagueStructureSpecialCases: [
+              {
+                type: ' restructure-placement ',
+                levels: ['3', 4, 4, null],
+                tierKeys: ['tier3', 'tier4', 'tier4', ''],
+                notes: ' Final North/South season ',
+              },
+              null,
+            ],
+            notes: ' Wartime regional competitions only ',
+          },
+        },
+      },
+    });
+
+    expect(dataset.seasons['1915'].seasonInfo).toEqual({
+      season: 1915,
+      table: [],
+      promoted: ['Alpha FC'],
+      relegated: ['Beta FC'],
+      seasonSlug: '1915-16_in_English_football',
+      sourceUrl: 'https://example.test/1915',
+      tableCount: 3,
+      competitionStatus: 'suspended',
+      warSuspensionLabel: 'World War I',
+      officialLeagueTables: false,
+      officialCompetitionsSuspended: true,
+      officialCompetitionsAbandoned: false,
+      regionalBridgeSeason: true,
+      promotionRelegationApplies: false,
+      specialCompetitions: ['London Combination'],
+      leagueStructureSpecialCases: [
+        {
+          type: 'restructure-placement',
+          levels: [3, 4],
+          tierKeys: ['tier3', 'tier4'],
+          notes: 'Final North/South season',
+        },
+      ],
+      notes: 'Wartime regional competitions only',
+    });
   });
 
   test('preserves top-level dataset metadata', () => {
@@ -341,6 +507,38 @@ describe('saveFootballData', () => {
         startYear: 1991,
         endYear: 2024,
         ignoreWarYears: true,
+      },
+    });
+  });
+});
+
+describe('buildDatasetMetadata', () => {
+  test('normalises source files and filters unsupported build options', () => {
+    expect(
+      buildDatasetMetadata({
+        generator: 'wikipedia-overview',
+        generatedAt: '2026-03-08T13:00:00.000Z',
+        gitSha: 'def5678',
+        sourceFiles: ['/tmp/a.json', '/tmp/a.json', ''],
+        buildOptions: {
+          startYear: 1991,
+          endYear: 2024,
+          ignoreWarYears: true,
+          nullValue: null,
+          nested: { unsupported: true },
+        },
+      })
+    ).toEqual({
+      schemaVersion: 1,
+      generator: 'wikipedia-overview',
+      generatedAt: '2026-03-08T13:00:00.000Z',
+      gitSha: 'def5678',
+      sourceFiles: ['/tmp/a.json'],
+      buildOptions: {
+        startYear: 1991,
+        endYear: 2024,
+        ignoreWarYears: true,
+        nullValue: null,
       },
     });
   });

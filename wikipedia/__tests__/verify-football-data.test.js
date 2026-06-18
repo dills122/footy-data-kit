@@ -653,18 +653,18 @@ describe('verify-football-data', () => {
         generatedAt: '2026-03-08T05:00:00.000Z',
       },
       seasons: {
-        2021: {
+        2011: {
           seasonInfo: {
-            season: 2021,
+            season: 2011,
             table: [],
             promoted: [],
             relegated: [],
-            seasonSlug: '2021-22_in_English_football',
-            sourceUrl: 'https://example.com/2021',
+            seasonSlug: '2011-12_in_English_football',
+            sourceUrl: 'https://example.com/2011',
             tableCount: 4,
           },
           tier1: {
-            season: 2021,
+            season: 2011,
             table: [
               {
                 pos: 1,
@@ -690,8 +690,8 @@ describe('verify-football-data', () => {
             relegated: [],
             metadata: {
               source: 'wikipedia-overview',
-              seasonSlug: '2021-22',
-              sourceUrl: 'https://example.com/2021',
+              seasonSlug: '2011-12',
+              sourceUrl: 'https://example.com/2011',
               tierKey: 'tier1',
               title: 'Premier League',
               leagueId: 'Premier_League',
@@ -700,14 +700,14 @@ describe('verify-football-data', () => {
             },
           },
           tier2: {
-            season: 2021,
+            season: 2011,
             table: [],
             promoted: [],
             relegated: [],
             metadata: {
               source: 'wikipedia-overview',
-              seasonSlug: '2021-22',
-              sourceUrl: 'https://example.com/2021',
+              seasonSlug: '2011-12',
+              sourceUrl: 'https://example.com/2011',
               tierKey: 'tier2',
               title: 'Championship',
               leagueId: 'Championship',
@@ -716,14 +716,14 @@ describe('verify-football-data', () => {
             },
           },
           tier3: {
-            season: 2021,
+            season: 2011,
             table: [],
             promoted: [],
             relegated: [],
             metadata: {
               source: 'wikipedia-overview',
-              seasonSlug: '2021-22',
-              sourceUrl: 'https://example.com/2021',
+              seasonSlug: '2011-12',
+              sourceUrl: 'https://example.com/2011',
               tierKey: 'tier3',
               title: 'League One',
               leagueId: 'League_One',
@@ -732,14 +732,14 @@ describe('verify-football-data', () => {
             },
           },
           tier4: {
-            season: 2021,
+            season: 2011,
             table: [],
             promoted: [],
             relegated: [],
             metadata: {
               source: 'wikipedia-overview',
-              seasonSlug: '2021-22',
-              sourceUrl: 'https://example.com/2021',
+              seasonSlug: '2011-12',
+              sourceUrl: 'https://example.com/2011',
               tierKey: 'tier4',
               title: 'League Two',
               leagueId: 'League_Two',

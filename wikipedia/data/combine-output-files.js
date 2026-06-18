@@ -11,7 +11,7 @@ import {
   mergeClubsMap,
   normaliseClubsMap,
   saveFootballData,
-} from './generate-output-files.js';
+} from './generate-output-files.ts';
 import {
   getSeasonCompetitionStatus,
   normaliseGoalDifference,
