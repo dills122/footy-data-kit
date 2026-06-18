@@ -11,10 +11,11 @@
     <link rel="stylesheet" href="../styles.css" />
   </head>
   <body>
-    <main class="page-shell">
+    <main class="page-shell schema-shell">
       <header class="site-header">
         <p class="eyebrow">schema reference</p>
-        <h1>FootballData</h1>
+        <h1>Football Data</h1>
+        <code class="schema-title-symbol">FootballData</code>
         <p class="lede">
           Merged English football season dataset. Season records contain a seasonInfo summary and
           zero or more tierN league-table records.
@@ -37,18 +38,46 @@
       <section class="panel">
         <h2>Contents</h2>
         <nav class="schema-toc" aria-label="schema contents">
-          <a href="#root">Root</a><a href="#clubs-map">ClubsMap</a
-          ><a href="#dataset-metadata">DatasetMetadata</a
-          ><a href="#league-table-entry">LeagueTableEntry</a><a href="#season-data">SeasonData</a
-          ><a href="#season-info">SeasonInfo</a><a href="#seasons-map">SeasonsMap</a
-          ><a href="#string-list">StringList</a><a href="#tier-data">TierData</a
-          ><a href="#tier-metadata">TierMetadata</a>
+          <a href="#root">
+            <span>Root</span>
+            <code>Root</code> </a
+          ><a href="#clubs-map">
+            <span>Clubs Map</span>
+            <code>ClubsMap</code> </a
+          ><a href="#dataset-metadata">
+            <span>Dataset Metadata</span>
+            <code>DatasetMetadata</code> </a
+          ><a href="#league-table-entry">
+            <span>League Table Entry</span>
+            <code>LeagueTableEntry</code> </a
+          ><a href="#season-data">
+            <span>Season Data</span>
+            <code>SeasonData</code> </a
+          ><a href="#season-info">
+            <span>Season Info</span>
+            <code>SeasonInfo</code> </a
+          ><a href="#seasons-map">
+            <span>Seasons Map</span>
+            <code>SeasonsMap</code> </a
+          ><a href="#string-list">
+            <span>String List</span>
+            <code>StringList</code> </a
+          ><a href="#tier-data">
+            <span>Tier Data</span>
+            <code>TierData</code> </a
+          ><a href="#tier-metadata">
+            <span>Tier Metadata</span>
+            <code>TierMetadata</code>
+          </a>
         </nav>
       </section>
 
       <section class="panel schema-definition" id="root">
         <div class="section-heading">
-          <h2>Root</h2>
+          <div>
+            <h2>Root</h2>
+            <code class="schema-symbol">Root</code>
+          </div>
           <a href="#root">anchor</a>
         </div>
         <div class="schema-summary">
@@ -59,33 +88,52 @@
           Merged English football season dataset. Season records contain a seasonInfo summary and
           zero or more tierN league-table records.
         </p>
-        <div class="schema-table">
-          <div class="schema-row">
-            <code>metadata</code>
-            <span><a href="#dataset-metadata">DatasetMetadata</a></span>
-            <span>optional</span>
-            <span></span>
-          </div>
-          <div class="schema-row">
-            <code>clubs</code>
-            <span><a href="#clubs-map">ClubsMap</a></span>
-            <span>optional</span>
-            <span
-              >Optional embedded club metadata. Release assets normally publish club metadata as a
-              sidecar file instead.</span
-            >
-          </div>
-          <div class="schema-row">
-            <code>seasons</code>
-            <span><a href="#seasons-map">SeasonsMap</a></span>
-            <span>required</span>
-            <span></span>
-          </div>
-        </div>
+        <table class="schema-table">
+          <thead>
+            <tr>
+              <th scope="col">Property key</th>
+              <th scope="col">Type</th>
+              <th scope="col">Use</th>
+              <th scope="col">Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row"><code>metadata</code></th>
+              <td>
+                <a href="#dataset-metadata"><code>DatasetMetadata</code></a>
+              </td>
+              <td><span class="schema-requirement is-optional">optional</span></td>
+              <td><span class="schema-muted">No description.</span></td>
+            </tr>
+            <tr>
+              <th scope="row"><code>clubs</code></th>
+              <td>
+                <a href="#clubs-map"><code>ClubsMap</code></a>
+              </td>
+              <td><span class="schema-requirement is-optional">optional</span></td>
+              <td>
+                Optional embedded club metadata. Release assets normally publish club metadata as a
+                sidecar file instead.
+              </td>
+            </tr>
+            <tr>
+              <th scope="row"><code>seasons</code></th>
+              <td>
+                <a href="#seasons-map"><code>SeasonsMap</code></a>
+              </td>
+              <td><span class="schema-requirement is-required">required</span></td>
+              <td><span class="schema-muted">No description.</span></td>
+            </tr>
+          </tbody>
+        </table>
       </section>
       <section class="panel schema-definition" id="clubs-map">
         <div class="section-heading">
-          <h2>ClubsMap</h2>
+          <div>
+            <h2>Clubs Map</h2>
+            <code class="schema-symbol">ClubsMap</code>
+          </div>
           <a href="#clubs-map">anchor</a>
         </div>
         <div class="schema-summary">
@@ -93,18 +141,33 @@
           <span>closed object</span><span>pattern keys</span>
         </div>
 
-        <div class="schema-table">
-          <div class="schema-row">
-            <code>^[a-z0-9][a-z0-9 -]*$</code>
-            <span><a href="club-metadata.html#club-metadata">ClubMetadata</a></span>
-            <span>optional</span>
-            <span>Pattern property</span>
-          </div>
-        </div>
+        <table class="schema-table">
+          <thead>
+            <tr>
+              <th scope="col">Property key</th>
+              <th scope="col">Type</th>
+              <th scope="col">Use</th>
+              <th scope="col">Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row"><code>^[a-z0-9][a-z0-9 -]*$</code></th>
+              <td>
+                <a href="club-metadata.html#club-metadata"><code>ClubMetadata</code></a>
+              </td>
+              <td><span class="schema-requirement is-optional">optional</span></td>
+              <td>Pattern property.</td>
+            </tr>
+          </tbody>
+        </table>
       </section>
       <section class="panel schema-definition" id="dataset-metadata">
         <div class="section-heading">
-          <h2>DatasetMetadata</h2>
+          <div>
+            <h2>Dataset Metadata</h2>
+            <code class="schema-symbol">DatasetMetadata</code>
+          </div>
           <a href="#dataset-metadata">anchor</a>
         </div>
         <div class="schema-summary">
@@ -112,48 +175,61 @@
           <span>closed object</span>
         </div>
         <p>Build provenance for a generated FootballData export.</p>
-        <div class="schema-table">
-          <div class="schema-row">
-            <code>schemaVersion</code>
-            <span><code>integer</code></span>
-            <span>optional</span>
-            <span>Version of the generated dataset contract.</span>
-          </div>
-          <div class="schema-row">
-            <code>generator</code>
-            <span><code>string</code> | <code>null</code></span>
-            <span>optional</span>
-            <span>Generator or merge command that produced this export.</span>
-          </div>
-          <div class="schema-row">
-            <code>generatedAt</code>
-            <span><code>string</code> | <code>null</code></span>
-            <span>optional</span>
-            <span>ISO timestamp for the data generation run.</span>
-          </div>
-          <div class="schema-row">
-            <code>gitSha</code>
-            <span><code>string</code> | <code>null</code></span>
-            <span>optional</span>
-            <span>Git commit SHA used for the data generation run.</span>
-          </div>
-          <div class="schema-row">
-            <code>sourceFiles</code>
-            <span><code>array</code></span>
-            <span>optional</span>
-            <span>Input files used to build the export.</span>
-          </div>
-          <div class="schema-row">
-            <code>buildOptions</code>
-            <span><code>object</code></span>
-            <span>optional</span>
-            <span>Selected build options captured as primitive values.</span>
-          </div>
-        </div>
+        <table class="schema-table">
+          <thead>
+            <tr>
+              <th scope="col">Property key</th>
+              <th scope="col">Type</th>
+              <th scope="col">Use</th>
+              <th scope="col">Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row"><code>schemaVersion</code></th>
+              <td><code>integer</code></td>
+              <td><span class="schema-requirement is-optional">optional</span></td>
+              <td>Version of the generated dataset contract.</td>
+            </tr>
+            <tr>
+              <th scope="row"><code>generator</code></th>
+              <td><code>string</code> | <code>null</code></td>
+              <td><span class="schema-requirement is-optional">optional</span></td>
+              <td>Generator or merge command that produced this export.</td>
+            </tr>
+            <tr>
+              <th scope="row"><code>generatedAt</code></th>
+              <td><code>string</code> | <code>null</code></td>
+              <td><span class="schema-requirement is-optional">optional</span></td>
+              <td>ISO timestamp for the data generation run.</td>
+            </tr>
+            <tr>
+              <th scope="row"><code>gitSha</code></th>
+              <td><code>string</code> | <code>null</code></td>
+              <td><span class="schema-requirement is-optional">optional</span></td>
+              <td>Git commit SHA used for the data generation run.</td>
+            </tr>
+            <tr>
+              <th scope="row"><code>sourceFiles</code></th>
+              <td><code>array</code></td>
+              <td><span class="schema-requirement is-optional">optional</span></td>
+              <td>Input files used to build the export.</td>
+            </tr>
+            <tr>
+              <th scope="row"><code>buildOptions</code></th>
+              <td><code>object</code></td>
+              <td><span class="schema-requirement is-optional">optional</span></td>
+              <td>Selected build options captured as primitive values.</td>
+            </tr>
+          </tbody>
+        </table>
       </section>
       <section class="panel schema-definition" id="league-table-entry">
         <div class="section-heading">
-          <h2>LeagueTableEntry</h2>
+          <div>
+            <h2>League Table Entry</h2>
+            <code class="schema-symbol">LeagueTableEntry</code>
+          </div>
           <a href="#league-table-entry">anchor</a>
         </div>
         <div class="schema-summary">
@@ -161,114 +237,127 @@
           <span>17 required</span><span>closed object</span>
         </div>
         <p>One final league-table row.</p>
-        <div class="schema-table">
-          <div class="schema-row">
-            <code>pos</code>
-            <span><code>integer</code></span>
-            <span>required</span>
-            <span></span>
-          </div>
-          <div class="schema-row">
-            <code>team</code>
-            <span><code>string</code></span>
-            <span>required</span>
-            <span></span>
-          </div>
-          <div class="schema-row">
-            <code>played</code>
-            <span><code>integer</code></span>
-            <span>required</span>
-            <span></span>
-          </div>
-          <div class="schema-row">
-            <code>won</code>
-            <span><code>integer</code></span>
-            <span>required</span>
-            <span></span>
-          </div>
-          <div class="schema-row">
-            <code>drawn</code>
-            <span><code>integer</code></span>
-            <span>required</span>
-            <span></span>
-          </div>
-          <div class="schema-row">
-            <code>lost</code>
-            <span><code>integer</code></span>
-            <span>required</span>
-            <span></span>
-          </div>
-          <div class="schema-row">
-            <code>goalsFor</code>
-            <span><code>integer</code></span>
-            <span>required</span>
-            <span></span>
-          </div>
-          <div class="schema-row">
-            <code>goalsAgainst</code>
-            <span><code>integer</code></span>
-            <span>required</span>
-            <span></span>
-          </div>
-          <div class="schema-row">
-            <code>goalDifference</code>
-            <span><code>integer</code> | <code>null</code></span>
-            <span>required</span>
-            <span></span>
-          </div>
-          <div class="schema-row">
-            <code>goalAverage</code>
-            <span><code>number</code> | <code>null</code></span>
-            <span>required</span>
-            <span></span>
-          </div>
-          <div class="schema-row">
-            <code>points</code>
-            <span><code>integer</code></span>
-            <span>required</span>
-            <span></span>
-          </div>
-          <div class="schema-row">
-            <code>notes</code>
-            <span><code>string</code> | <code>null</code></span>
-            <span>required</span>
-            <span></span>
-          </div>
-          <div class="schema-row">
-            <code>wasRelegated</code>
-            <span><code>boolean</code></span>
-            <span>required</span>
-            <span></span>
-          </div>
-          <div class="schema-row">
-            <code>wasPromoted</code>
-            <span><code>boolean</code></span>
-            <span>required</span>
-            <span></span>
-          </div>
-          <div class="schema-row">
-            <code>isExpansionTeam</code>
-            <span><code>boolean</code></span>
-            <span>required</span>
-            <span></span>
-          </div>
-          <div class="schema-row">
-            <code>wasReElected</code>
-            <span><code>boolean</code></span>
-            <span>required</span>
-            <span></span>
-          </div>
-          <div class="schema-row">
-            <code>wasReprieved</code>
-            <span><code>boolean</code></span>
-            <span>required</span>
-            <span></span>
-          </div>
-        </div>
+        <table class="schema-table">
+          <thead>
+            <tr>
+              <th scope="col">Property key</th>
+              <th scope="col">Type</th>
+              <th scope="col">Use</th>
+              <th scope="col">Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row"><code>pos</code></th>
+              <td><code>integer</code></td>
+              <td><span class="schema-requirement is-required">required</span></td>
+              <td><span class="schema-muted">No description.</span></td>
+            </tr>
+            <tr>
+              <th scope="row"><code>team</code></th>
+              <td><code>string</code></td>
+              <td><span class="schema-requirement is-required">required</span></td>
+              <td><span class="schema-muted">No description.</span></td>
+            </tr>
+            <tr>
+              <th scope="row"><code>played</code></th>
+              <td><code>integer</code></td>
+              <td><span class="schema-requirement is-required">required</span></td>
+              <td><span class="schema-muted">No description.</span></td>
+            </tr>
+            <tr>
+              <th scope="row"><code>won</code></th>
+              <td><code>integer</code></td>
+              <td><span class="schema-requirement is-required">required</span></td>
+              <td><span class="schema-muted">No description.</span></td>
+            </tr>
+            <tr>
+              <th scope="row"><code>drawn</code></th>
+              <td><code>integer</code></td>
+              <td><span class="schema-requirement is-required">required</span></td>
+              <td><span class="schema-muted">No description.</span></td>
+            </tr>
+            <tr>
+              <th scope="row"><code>lost</code></th>
+              <td><code>integer</code></td>
+              <td><span class="schema-requirement is-required">required</span></td>
+              <td><span class="schema-muted">No description.</span></td>
+            </tr>
+            <tr>
+              <th scope="row"><code>goalsFor</code></th>
+              <td><code>integer</code></td>
+              <td><span class="schema-requirement is-required">required</span></td>
+              <td><span class="schema-muted">No description.</span></td>
+            </tr>
+            <tr>
+              <th scope="row"><code>goalsAgainst</code></th>
+              <td><code>integer</code></td>
+              <td><span class="schema-requirement is-required">required</span></td>
+              <td><span class="schema-muted">No description.</span></td>
+            </tr>
+            <tr>
+              <th scope="row"><code>goalDifference</code></th>
+              <td><code>integer</code> | <code>null</code></td>
+              <td><span class="schema-requirement is-required">required</span></td>
+              <td><span class="schema-muted">No description.</span></td>
+            </tr>
+            <tr>
+              <th scope="row"><code>goalAverage</code></th>
+              <td><code>number</code> | <code>null</code></td>
+              <td><span class="schema-requirement is-required">required</span></td>
+              <td><span class="schema-muted">No description.</span></td>
+            </tr>
+            <tr>
+              <th scope="row"><code>points</code></th>
+              <td><code>integer</code></td>
+              <td><span class="schema-requirement is-required">required</span></td>
+              <td><span class="schema-muted">No description.</span></td>
+            </tr>
+            <tr>
+              <th scope="row"><code>notes</code></th>
+              <td><code>string</code> | <code>null</code></td>
+              <td><span class="schema-requirement is-required">required</span></td>
+              <td><span class="schema-muted">No description.</span></td>
+            </tr>
+            <tr>
+              <th scope="row"><code>wasRelegated</code></th>
+              <td><code>boolean</code></td>
+              <td><span class="schema-requirement is-required">required</span></td>
+              <td><span class="schema-muted">No description.</span></td>
+            </tr>
+            <tr>
+              <th scope="row"><code>wasPromoted</code></th>
+              <td><code>boolean</code></td>
+              <td><span class="schema-requirement is-required">required</span></td>
+              <td><span class="schema-muted">No description.</span></td>
+            </tr>
+            <tr>
+              <th scope="row"><code>isExpansionTeam</code></th>
+              <td><code>boolean</code></td>
+              <td><span class="schema-requirement is-required">required</span></td>
+              <td><span class="schema-muted">No description.</span></td>
+            </tr>
+            <tr>
+              <th scope="row"><code>wasReElected</code></th>
+              <td><code>boolean</code></td>
+              <td><span class="schema-requirement is-required">required</span></td>
+              <td><span class="schema-muted">No description.</span></td>
+            </tr>
+            <tr>
+              <th scope="row"><code>wasReprieved</code></th>
+              <td><code>boolean</code></td>
+              <td><span class="schema-requirement is-required">required</span></td>
+              <td><span class="schema-muted">No description.</span></td>
+            </tr>
+          </tbody>
+        </table>
       </section>
       <section class="panel schema-definition" id="season-data">
         <div class="section-heading">
-          <h2>SeasonData</h2>
+          <div>
+            <h2>Season Data</h2>
+            <code class="schema-symbol">SeasonData</code>
+          </div>
           <a href="#season-data">anchor</a>
         </div>
         <div class="schema-summary">
@@ -278,24 +367,41 @@
         <p>
           A single season. Wartime or abandoned placeholder seasons may contain only seasonInfo.
         </p>
-        <div class="schema-table">
-          <div class="schema-row">
-            <code>seasonInfo</code>
-            <span><a href="#season-info">SeasonInfo</a></span>
-            <span>required</span>
-            <span></span>
-          </div>
-          <div class="schema-row">
-            <code>^tier\d+$</code>
-            <span><a href="#tier-data">TierData</a></span>
-            <span>optional</span>
-            <span>Pattern property</span>
-          </div>
-        </div>
+        <table class="schema-table">
+          <thead>
+            <tr>
+              <th scope="col">Property key</th>
+              <th scope="col">Type</th>
+              <th scope="col">Use</th>
+              <th scope="col">Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row"><code>seasonInfo</code></th>
+              <td>
+                <a href="#season-info"><code>SeasonInfo</code></a>
+              </td>
+              <td><span class="schema-requirement is-required">required</span></td>
+              <td><span class="schema-muted">No description.</span></td>
+            </tr>
+            <tr>
+              <th scope="row"><code>^tier\d+$</code></th>
+              <td>
+                <a href="#tier-data"><code>TierData</code></a>
+              </td>
+              <td><span class="schema-requirement is-optional">optional</span></td>
+              <td>Pattern property.</td>
+            </tr>
+          </tbody>
+        </table>
       </section>
       <section class="panel schema-definition" id="season-info">
         <div class="section-heading">
-          <h2>SeasonInfo</h2>
+          <div>
+            <h2>Season Info</h2>
+            <code class="schema-symbol">SeasonInfo</code>
+          </div>
           <a href="#season-info">anchor</a>
         </div>
         <div class="schema-summary">
@@ -306,108 +412,127 @@
           Season-level summary. promoted and relegated describe movement into and out of the next
           season's top flight.
         </p>
-        <div class="schema-table">
-          <div class="schema-row">
-            <code>season</code>
-            <span><code>integer</code></span>
-            <span>required</span>
-            <span>Starting year for the season.</span>
-          </div>
-          <div class="schema-row">
-            <code>table</code>
-            <span><code>array</code></span>
-            <span>required</span>
-            <span>Always empty. seasonInfo is a summary object, not a league table.</span>
-          </div>
-          <div class="schema-row">
-            <code>relegated</code>
-            <span><a href="#string-list">StringList</a></span>
-            <span>required</span>
-            <span></span>
-          </div>
-          <div class="schema-row">
-            <code>promoted</code>
-            <span><a href="#string-list">StringList</a></span>
-            <span>required</span>
-            <span></span>
-          </div>
-          <div class="schema-row">
-            <code>seasonSlug</code>
-            <span><code>string</code> | <code>null</code></span>
-            <span>optional</span>
-            <span></span>
-          </div>
-          <div class="schema-row">
-            <code>sourceUrl</code>
-            <span><code>string</code> | <code>null</code></span>
-            <span>optional</span>
-            <span></span>
-          </div>
-          <div class="schema-row">
-            <code>tableCount</code>
-            <span><code>integer</code> | <code>null</code></span>
-            <span>optional</span>
-            <span></span>
-          </div>
-          <div class="schema-row">
-            <code>competitionStatus</code>
-            <span><code>string</code> | <code>null</code></span>
-            <span>optional</span>
-            <span></span>
-          </div>
-          <div class="schema-row">
-            <code>warSuspensionLabel</code>
-            <span><code>string</code> | <code>null</code></span>
-            <span>optional</span>
-            <span></span>
-          </div>
-          <div class="schema-row">
-            <code>officialLeagueTables</code>
-            <span><code>boolean</code> | <code>null</code></span>
-            <span>optional</span>
-            <span></span>
-          </div>
-          <div class="schema-row">
-            <code>officialCompetitionsSuspended</code>
-            <span><code>boolean</code> | <code>null</code></span>
-            <span>optional</span>
-            <span></span>
-          </div>
-          <div class="schema-row">
-            <code>officialCompetitionsAbandoned</code>
-            <span><code>boolean</code> | <code>null</code></span>
-            <span>optional</span>
-            <span></span>
-          </div>
-          <div class="schema-row">
-            <code>regionalBridgeSeason</code>
-            <span><code>boolean</code> | <code>null</code></span>
-            <span>optional</span>
-            <span></span>
-          </div>
-          <div class="schema-row">
-            <code>promotionRelegationApplies</code>
-            <span><code>boolean</code> | <code>null</code></span>
-            <span>optional</span>
-            <span></span>
-          </div>
-          <div class="schema-row">
-            <code>specialCompetitions</code>
-            <span><a href="#string-list">StringList</a></span>
-            <span>optional</span>
-            <span></span>
-          </div>
-          <div class="schema-row">
-            <code>notes</code>
-            <span><code>string</code> | <code>null</code></span>
-            <span>optional</span>
-            <span></span>
-          </div>
-        </div>
+        <table class="schema-table">
+          <thead>
+            <tr>
+              <th scope="col">Property key</th>
+              <th scope="col">Type</th>
+              <th scope="col">Use</th>
+              <th scope="col">Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row"><code>season</code></th>
+              <td><code>integer</code></td>
+              <td><span class="schema-requirement is-required">required</span></td>
+              <td>Starting year for the season.</td>
+            </tr>
+            <tr>
+              <th scope="row"><code>table</code></th>
+              <td><code>array</code></td>
+              <td><span class="schema-requirement is-required">required</span></td>
+              <td>Always empty. seasonInfo is a summary object, not a league table.</td>
+            </tr>
+            <tr>
+              <th scope="row"><code>relegated</code></th>
+              <td>
+                <a href="#string-list"><code>StringList</code></a>
+              </td>
+              <td><span class="schema-requirement is-required">required</span></td>
+              <td><span class="schema-muted">No description.</span></td>
+            </tr>
+            <tr>
+              <th scope="row"><code>promoted</code></th>
+              <td>
+                <a href="#string-list"><code>StringList</code></a>
+              </td>
+              <td><span class="schema-requirement is-required">required</span></td>
+              <td><span class="schema-muted">No description.</span></td>
+            </tr>
+            <tr>
+              <th scope="row"><code>seasonSlug</code></th>
+              <td><code>string</code> | <code>null</code></td>
+              <td><span class="schema-requirement is-optional">optional</span></td>
+              <td><span class="schema-muted">No description.</span></td>
+            </tr>
+            <tr>
+              <th scope="row"><code>sourceUrl</code></th>
+              <td><code>string</code> | <code>null</code></td>
+              <td><span class="schema-requirement is-optional">optional</span></td>
+              <td><span class="schema-muted">No description.</span></td>
+            </tr>
+            <tr>
+              <th scope="row"><code>tableCount</code></th>
+              <td><code>integer</code> | <code>null</code></td>
+              <td><span class="schema-requirement is-optional">optional</span></td>
+              <td><span class="schema-muted">No description.</span></td>
+            </tr>
+            <tr>
+              <th scope="row"><code>competitionStatus</code></th>
+              <td><code>string</code> | <code>null</code></td>
+              <td><span class="schema-requirement is-optional">optional</span></td>
+              <td><span class="schema-muted">No description.</span></td>
+            </tr>
+            <tr>
+              <th scope="row"><code>warSuspensionLabel</code></th>
+              <td><code>string</code> | <code>null</code></td>
+              <td><span class="schema-requirement is-optional">optional</span></td>
+              <td><span class="schema-muted">No description.</span></td>
+            </tr>
+            <tr>
+              <th scope="row"><code>officialLeagueTables</code></th>
+              <td><code>boolean</code> | <code>null</code></td>
+              <td><span class="schema-requirement is-optional">optional</span></td>
+              <td><span class="schema-muted">No description.</span></td>
+            </tr>
+            <tr>
+              <th scope="row"><code>officialCompetitionsSuspended</code></th>
+              <td><code>boolean</code> | <code>null</code></td>
+              <td><span class="schema-requirement is-optional">optional</span></td>
+              <td><span class="schema-muted">No description.</span></td>
+            </tr>
+            <tr>
+              <th scope="row"><code>officialCompetitionsAbandoned</code></th>
+              <td><code>boolean</code> | <code>null</code></td>
+              <td><span class="schema-requirement is-optional">optional</span></td>
+              <td><span class="schema-muted">No description.</span></td>
+            </tr>
+            <tr>
+              <th scope="row"><code>regionalBridgeSeason</code></th>
+              <td><code>boolean</code> | <code>null</code></td>
+              <td><span class="schema-requirement is-optional">optional</span></td>
+              <td><span class="schema-muted">No description.</span></td>
+            </tr>
+            <tr>
+              <th scope="row"><code>promotionRelegationApplies</code></th>
+              <td><code>boolean</code> | <code>null</code></td>
+              <td><span class="schema-requirement is-optional">optional</span></td>
+              <td><span class="schema-muted">No description.</span></td>
+            </tr>
+            <tr>
+              <th scope="row"><code>specialCompetitions</code></th>
+              <td>
+                <a href="#string-list"><code>StringList</code></a>
+              </td>
+              <td><span class="schema-requirement is-optional">optional</span></td>
+              <td><span class="schema-muted">No description.</span></td>
+            </tr>
+            <tr>
+              <th scope="row"><code>notes</code></th>
+              <td><code>string</code> | <code>null</code></td>
+              <td><span class="schema-requirement is-optional">optional</span></td>
+              <td><span class="schema-muted">No description.</span></td>
+            </tr>
+          </tbody>
+        </table>
       </section>
       <section class="panel schema-definition" id="seasons-map">
         <div class="section-heading">
-          <h2>SeasonsMap</h2>
+          <div>
+            <h2>Seasons Map</h2>
+            <code class="schema-symbol">SeasonsMap</code>
+          </div>
           <a href="#seasons-map">anchor</a>
         </div>
         <div class="schema-summary">
@@ -417,18 +542,33 @@
         <p>
           Map of starting season year to season data. For example, 2025 means the 2025-26 season.
         </p>
-        <div class="schema-table">
-          <div class="schema-row">
-            <code>^\d{4}$</code>
-            <span><a href="#season-data">SeasonData</a></span>
-            <span>optional</span>
-            <span>Pattern property</span>
-          </div>
-        </div>
+        <table class="schema-table">
+          <thead>
+            <tr>
+              <th scope="col">Property key</th>
+              <th scope="col">Type</th>
+              <th scope="col">Use</th>
+              <th scope="col">Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row"><code>^\d{4}$</code></th>
+              <td>
+                <a href="#season-data"><code>SeasonData</code></a>
+              </td>
+              <td><span class="schema-requirement is-optional">optional</span></td>
+              <td>Pattern property.</td>
+            </tr>
+          </tbody>
+        </table>
       </section>
       <section class="panel schema-definition" id="string-list">
         <div class="section-heading">
-          <h2>StringList</h2>
+          <div>
+            <h2>String List</h2>
+            <code class="schema-symbol">StringList</code>
+          </div>
           <a href="#string-list">anchor</a>
         </div>
         <div class="schema-summary">
@@ -439,7 +579,10 @@
       </section>
       <section class="panel schema-definition" id="tier-data">
         <div class="section-heading">
-          <h2>TierData</h2>
+          <div>
+            <h2>Tier Data</h2>
+            <code class="schema-symbol">TierData</code>
+          </div>
           <a href="#tier-data">anchor</a>
         </div>
         <div class="schema-summary">
@@ -447,42 +590,61 @@
           <span>4 required</span><span>closed object</span>
         </div>
         <p>League-table data for one tier in a season.</p>
-        <div class="schema-table">
-          <div class="schema-row">
-            <code>season</code>
-            <span><code>integer</code></span>
-            <span>required</span>
-            <span></span>
-          </div>
-          <div class="schema-row">
-            <code>table</code>
-            <span><code>array</code></span>
-            <span>required</span>
-            <span></span>
-          </div>
-          <div class="schema-row">
-            <code>relegated</code>
-            <span><a href="#string-list">StringList</a></span>
-            <span>required</span>
-            <span></span>
-          </div>
-          <div class="schema-row">
-            <code>promoted</code>
-            <span><a href="#string-list">StringList</a></span>
-            <span>required</span>
-            <span></span>
-          </div>
-          <div class="schema-row">
-            <code>metadata</code>
-            <span><a href="#tier-metadata">TierMetadata</a></span>
-            <span>optional</span>
-            <span></span>
-          </div>
-        </div>
+        <table class="schema-table">
+          <thead>
+            <tr>
+              <th scope="col">Property key</th>
+              <th scope="col">Type</th>
+              <th scope="col">Use</th>
+              <th scope="col">Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row"><code>season</code></th>
+              <td><code>integer</code></td>
+              <td><span class="schema-requirement is-required">required</span></td>
+              <td><span class="schema-muted">No description.</span></td>
+            </tr>
+            <tr>
+              <th scope="row"><code>table</code></th>
+              <td><code>array</code></td>
+              <td><span class="schema-requirement is-required">required</span></td>
+              <td><span class="schema-muted">No description.</span></td>
+            </tr>
+            <tr>
+              <th scope="row"><code>relegated</code></th>
+              <td>
+                <a href="#string-list"><code>StringList</code></a>
+              </td>
+              <td><span class="schema-requirement is-required">required</span></td>
+              <td><span class="schema-muted">No description.</span></td>
+            </tr>
+            <tr>
+              <th scope="row"><code>promoted</code></th>
+              <td>
+                <a href="#string-list"><code>StringList</code></a>
+              </td>
+              <td><span class="schema-requirement is-required">required</span></td>
+              <td><span class="schema-muted">No description.</span></td>
+            </tr>
+            <tr>
+              <th scope="row"><code>metadata</code></th>
+              <td>
+                <a href="#tier-metadata"><code>TierMetadata</code></a>
+              </td>
+              <td><span class="schema-requirement is-optional">optional</span></td>
+              <td><span class="schema-muted">No description.</span></td>
+            </tr>
+          </tbody>
+        </table>
       </section>
       <section class="panel schema-definition" id="tier-metadata">
         <div class="section-heading">
-          <h2>TierMetadata</h2>
+          <div>
+            <h2>Tier Metadata</h2>
+            <code class="schema-symbol">TierMetadata</code>
+          </div>
           <a href="#tier-metadata">anchor</a>
         </div>
         <div class="schema-summary">
@@ -490,62 +652,72 @@
           <span>closed object</span>
         </div>
         <p>Source and table-selection metadata for a tier record.</p>
-        <div class="schema-table">
-          <div class="schema-row">
-            <code>source</code>
-            <span><code>string</code></span>
-            <span>optional</span>
-            <span></span>
-          </div>
-          <div class="schema-row">
-            <code>sourceUrl</code>
-            <span><code>string</code> | <code>null</code></span>
-            <span>optional</span>
-            <span></span>
-          </div>
-          <div class="schema-row">
-            <code>seasonSlug</code>
-            <span><code>string</code> | <code>null</code></span>
-            <span>optional</span>
-            <span></span>
-          </div>
-          <div class="schema-row">
-            <code>leagueId</code>
-            <span><code>string</code> | <code>null</code></span>
-            <span>optional</span>
-            <span></span>
-          </div>
-          <div class="schema-row">
-            <code>title</code>
-            <span><code>string</code> | <code>null</code></span>
-            <span>optional</span>
-            <span></span>
-          </div>
-          <div class="schema-row">
-            <code>leagueLevel</code>
-            <span><code>integer</code> | <code>null</code></span>
-            <span>optional</span>
-            <span></span>
-          </div>
-          <div class="schema-row">
-            <code>tableIndex</code>
-            <span><code>integer</code> | <code>null</code></span>
-            <span>optional</span>
-            <span></span>
-          </div>
-          <div class="schema-row">
-            <code>tableCount</code>
-            <span><code>integer</code> | <code>null</code></span>
-            <span>optional</span>
-            <span></span>
-          </div>
-          <div class="schema-row">
-            <code>tierKey</code>
-            <span><code>string</code> | <code>null</code></span>
-            <span>optional</span>
-            <span></span>
-          </div>
-        </div>
+        <table class="schema-table">
+          <thead>
+            <tr>
+              <th scope="col">Property key</th>
+              <th scope="col">Type</th>
+              <th scope="col">Use</th>
+              <th scope="col">Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row"><code>source</code></th>
+              <td><code>string</code></td>
+              <td><span class="schema-requirement is-optional">optional</span></td>
+              <td><span class="schema-muted">No description.</span></td>
+            </tr>
+            <tr>
+              <th scope="row"><code>sourceUrl</code></th>
+              <td><code>string</code> | <code>null</code></td>
+              <td><span class="schema-requirement is-optional">optional</span></td>
+              <td><span class="schema-muted">No description.</span></td>
+            </tr>
+            <tr>
+              <th scope="row"><code>seasonSlug</code></th>
+              <td><code>string</code> | <code>null</code></td>
+              <td><span class="schema-requirement is-optional">optional</span></td>
+              <td><span class="schema-muted">No description.</span></td>
+            </tr>
+            <tr>
+              <th scope="row"><code>leagueId</code></th>
+              <td><code>string</code> | <code>null</code></td>
+              <td><span class="schema-requirement is-optional">optional</span></td>
+              <td><span class="schema-muted">No description.</span></td>
+            </tr>
+            <tr>
+              <th scope="row"><code>title</code></th>
+              <td><code>string</code> | <code>null</code></td>
+              <td><span class="schema-requirement is-optional">optional</span></td>
+              <td><span class="schema-muted">No description.</span></td>
+            </tr>
+            <tr>
+              <th scope="row"><code>leagueLevel</code></th>
+              <td><code>integer</code> | <code>null</code></td>
+              <td><span class="schema-requirement is-optional">optional</span></td>
+              <td><span class="schema-muted">No description.</span></td>
+            </tr>
+            <tr>
+              <th scope="row"><code>tableIndex</code></th>
+              <td><code>integer</code> | <code>null</code></td>
+              <td><span class="schema-requirement is-optional">optional</span></td>
+              <td><span class="schema-muted">No description.</span></td>
+            </tr>
+            <tr>
+              <th scope="row"><code>tableCount</code></th>
+              <td><code>integer</code> | <code>null</code></td>
+              <td><span class="schema-requirement is-optional">optional</span></td>
+              <td><span class="schema-muted">No description.</span></td>
+            </tr>
+            <tr>
+              <th scope="row"><code>tierKey</code></th>
+              <td><code>string</code> | <code>null</code></td>
+              <td><span class="schema-requirement is-optional">optional</span></td>
+              <td><span class="schema-muted">No description.</span></td>
+            </tr>
+          </tbody>
+        </table>
       </section>
 
       <footer>

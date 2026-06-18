@@ -29,6 +29,34 @@ Install dependencies once:
 pnpm i
 ```
 
+## AI Central Context
+
+This repo keeps footy-data-kit-specific Codex guidance in tracked steering files and uses local AI Central symlinks for shared skills and reusable steering.
+
+Tracked files:
+
+- `AGENTS.md`
+- `.codex/steering/README.md`
+- `.codex/steering/repository-steering.md`
+- `.codex/steering/data-contracts-steering.md`
+- `.codex/steering/pipeline-testing-steering.md`
+- `.codex/steering/javascript-steering.md`
+
+Ignored local links:
+
+- `.codex/skills/`
+- `.codex/steering/frontend-design-steering.md`
+- `.codex/steering/javascript-esm-steering.md`
+- `.codex/steering/testing-quality-gates-steering.md`
+
+Refresh local AI Central links with:
+
+```bash
+pnpm codex:links
+```
+
+By default the script looks for AI Central at `../ai-central/templates`. Set `AI_CENTRAL_HOME` if your checkout lives elsewhere.
+
 ## Quick Start
 
 1. **Generate Wikipedia data**

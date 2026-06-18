@@ -14,6 +14,7 @@
     "wiki:verify": "node wikipedia/data/verify-football-data.js --fail-on-issues ./data-output",
     "schema:verify": "node wikipedia/data/verify-json-schemas.js",
     "verify:data": "pnpm -s wiki:verify && pnpm -s wiki:club-historical-audit:check && pnpm -s schema:verify",
+    "codex:links": "node scripts/dev/setup-codex-links.mjs",
     "wiki:minify:promotion": "node scripts/minify-json.js ./data-output/wiki_promotion_relegations_by_season.json",
     "wiki:minify:overview": "node scripts/minify-json.js ./data-output/wiki_overview_tables_by_season.json",
     "wiki:minify:combined": "node scripts/minify-json.js ./data-output/all-seasons.json",
