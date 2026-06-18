@@ -7,7 +7,7 @@ import {
   WIKIPEDIA_DATA_SOURCES,
 } from '../config.js';
 import { createDatasetStore } from '../data/dataset-store.js';
-import { buildSeasonInfo, buildTierData } from '../data/generate-output-files.js';
+import { buildSeasonInfo, buildTierData } from '../data/generate-output-files.ts';
 import {
   applyOverviewSeasonOutcomeOverrides,
   buildHistoricalPlaceholderSeasonInfo,

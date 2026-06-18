@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import { Command } from 'commander';
 import { isWikipediaWarSuspensionYear, WIKIPEDIA_DATA_SOURCES } from '../config.js';
-import { loadFootballData } from '../data/generate-output-files.js';
+import { loadFootballData } from '../data/generate-output-files.ts';
 import {
   buildSeasonOverview,
   buildSeasonOverviewForSlug,

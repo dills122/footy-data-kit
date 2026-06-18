@@ -5,7 +5,7 @@ import * as fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { getTierKeys, sortSeasonKeys } from './season-rules.js';
-import { loadFootballData } from './generate-output-files.js';
+import { loadFootballData } from './generate-output-files.ts';
 
 const RELEASE_ASSETS = [
   'all-seasons.json',

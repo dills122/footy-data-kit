@@ -9,7 +9,7 @@ import {
   loadFootballData,
   saveFootballData,
   setSeasonRecord,
-} from '../data/generate-output-files.js';
+} from '../data/generate-output-files.ts';
 
 describe('normaliseLeagueTableEntry', () => {
   test('derives promotion and relegation flags from notes when omitted', () => {

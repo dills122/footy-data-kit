@@ -6,7 +6,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { WIKIPEDIA_DATA_SOURCES } from '../config.js';
 import { canonicalizeTeamName } from './data-quality-config.js';
-import { loadFootballData } from './generate-output-files.js';
+import { loadFootballData } from './generate-output-files.ts';
 import {
   compareSeasonKeys,
   getExpectedMinimumTierCount,

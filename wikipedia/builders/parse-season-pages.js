@@ -1,4 +1,4 @@
-import { buildSeasonInfo, buildTierData } from '../data/generate-output-files.js';
+import { buildSeasonInfo, buildTierData } from '../data/generate-output-files.ts';
 import {
   buildPromotionSeasonSlug,
   buildWikipediaArticleUrl,

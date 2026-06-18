@@ -3,7 +3,7 @@ import {
   loadFootballData,
   saveFootballData,
   setSeasonRecord,
-} from './generate-output-files.js';
+} from './generate-output-files.ts';
 
 export function createDatasetStore(filePath, { generator, buildOptions } = {}) {
   const dataset = loadFootballData(filePath);

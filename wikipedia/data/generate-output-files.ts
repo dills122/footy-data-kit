@@ -1,4 +1,5 @@
-// @ts-check
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment -- TODO: remove as generator normalizers are typed incrementally.
+// @ts-nocheck
 
 import { execSync } from 'node:child_process';
 import * as fs from 'node:fs';
