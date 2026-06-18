@@ -94,6 +94,25 @@
       </section>
 
       <section class="panel">
+        <div class="section-heading">
+          <h2>Schema</h2>
+          <a class="release-link" href="./schema/">schema index</a>
+        </div>
+
+        <p>Human-readable JSON Schema references for the published data files.</p>
+        <ul class="download-list schema-list">
+          {{#schemaDocs}}
+          <li>
+            <code>{{fileName}}</code>
+            <span>{{description}}</span>
+            <a href="{{{docUrl}}}">view</a>
+            <a href="{{{rawUrl}}}">raw</a>
+          </li>
+          {{/schemaDocs}}
+        </ul>
+      </section>
+
+      <section class="panel">
         <h2>Use it</h2>
         <pre><code>curl -L {{{curlUrl}}} \
   -o all-seasons.min.json</code></pre>

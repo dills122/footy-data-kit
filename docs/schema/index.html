@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Schema reference | footy-data-kit</title>
+    <meta name="description" content="Static schema reference for footy-data-kit JSON exports." />
+    <link rel="stylesheet" href="../styles.css" />
+  </head>
+  <body>
+    <main class="page-shell">
+      <header class="site-header">
+        <p class="eyebrow">data contract</p>
+        <h1>schema reference</h1>
+        <p class="lede">Human-readable JSON Schema documentation for the published data files.</p>
+      </header>
+
+      <section class="panel">
+        <h2>Schema Files</h2>
+        <ul class="download-list schema-list">
+          <li>
+            <code>club-metadata.schema.json</code>
+            <span
+              >Sidecar club identity metadata keyed by clubId. Records combine source-backed history
+              with generated observations from the season tables.</span
+            >
+            <a href="./club-metadata.html">view</a>
+            <a
+              href="https://raw.githubusercontent.com/dills122/footy-data-kit/main/schemas/club-metadata.schema.json"
+              >raw</a
+            >
+          </li>
+          <li>
+            <code>football-data.schema.json</code>
+            <span
+              >Merged English football season dataset. Season records contain a seasonInfo summary
+              and zero or more tierN league-table records.</span
+            >
+            <a href="./football-data.html">view</a>
+            <a
+              href="https://raw.githubusercontent.com/dills122/footy-data-kit/main/schemas/football-data.schema.json"
+              >raw</a
+            >
+          </li>
+        </ul>
+      </section>
+
+      <section class="panel">
+        <h2>Use These Schemas</h2>
+        <p>
+          The schemas document the generated JSON contract and can be used by validators that
+          support JSON Schema Draft-07.
+        </p>
+        <pre><code>schemas/football-data.schema.json
+schemas/club-metadata.schema.json</code></pre>
+      </section>
+
+      <footer>
+        <span>static schema docs</span>
+        <a href="../index.html">docs home</a>
+      </footer>
+    </main>
+  </body>
+</html>

@@ -96,6 +96,7 @@ pnpm test:integration:promotion
 
 - `data/` – generated sidecar club metadata, review artifacts, raw reference files, and one-off exports.
 - `data-output/` – canonical Wikipedia JSON outputs grouped by source.
+- `schemas/` – JSON Schema Draft-07 contracts for the published season dataset and club metadata sidecar.
 - `scripts/` – helper utilities such as `minify-json.js` plus older one-off generators.
 - `wikipedia/` – the main scraper, parsers, and FootballData models.
 - `rsssf/` – legacy RSSSF parsing experiments. See [RSSSF legacy tooling](docs/rsssf-legacy.md).
@@ -143,6 +144,7 @@ Each run saves season-by-season progress immediately, so reruns are fast. The `c
 
 - The main season contract is the merged file: `data-output/all-seasons.json`.
 - Club identity data is published separately as the sidecar file `data/club-metadata.json`.
+- JSON Schema contracts live in `schemas/` and are rendered into the docs site under `docs/schema/`.
 - Every FootballData export may include a top-level `metadata` object with release provenance:
   - `schemaVersion`
   - `generator`

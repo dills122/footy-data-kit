@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>FootballData schema | footy-data-kit</title>
+    <meta
+      name="description"
+      content="Merged English football season dataset. Season records contain a seasonInfo summary and zero or more tierN league-table records."
+    />
+    <link rel="stylesheet" href="../styles.css" />
+  </head>
+  <body>
+    <main class="page-shell">
+      <header class="site-header">
+        <p class="eyebrow">schema reference</p>
+        <h1>FootballData</h1>
+        <p class="lede">
+          Merged English football season dataset. Season records contain a seasonInfo summary and
+          zero or more tierN league-table records.
+        </p>
+      </header>
+
+      <section class="panel">
+        <h2>Schema Links</h2>
+        <nav class="link-grid" aria-label="schema links">
+          <a href="../index.html">docs home</a>
+          <a href="./index.html">schema index</a>
+          <a
+            href="https://raw.githubusercontent.com/dills122/footy-data-kit/main/schemas/football-data.schema.json"
+            >raw schema</a
+          >
+          <a href="./club-metadata.html">ClubMetadataExport</a>
+        </nav>
+      </section>
+
+      <section class="panel">
+        <h2>Contents</h2>
+        <nav class="schema-toc" aria-label="schema contents">
+          <a href="#root">Root</a><a href="#clubs-map">ClubsMap</a
+          ><a href="#dataset-metadata">DatasetMetadata</a
+          ><a href="#league-table-entry">LeagueTableEntry</a><a href="#season-data">SeasonData</a
+          ><a href="#season-info">SeasonInfo</a><a href="#seasons-map">SeasonsMap</a
+          ><a href="#string-list">StringList</a><a href="#tier-data">TierData</a
+          ><a href="#tier-metadata">TierMetadata</a>
+        </nav>
+      </section>
+
+      <section class="panel schema-definition" id="root">
+        <div class="section-heading">
+          <h2>Root</h2>
+          <a href="#root">anchor</a>
+        </div>
+        <div class="schema-summary">
+          <span>type <code>object</code></span>
+          <span>1 required</span><span>closed object</span>
+        </div>
+        <p>
+          Merged English football season dataset. Season records contain a seasonInfo summary and
+          zero or more tierN league-table records.
+        </p>
+        <div class="schema-table">
+          <div class="schema-row">
+            <code>metadata</code>
+            <span><a href="#dataset-metadata">DatasetMetadata</a></span>
+            <span>optional</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>clubs</code>
+            <span><a href="#clubs-map">ClubsMap</a></span>
+            <span>optional</span>
+            <span
+              >Optional embedded club metadata. Release assets normally publish club metadata as a
+              sidecar file instead.</span
+            >
+          </div>
+          <div class="schema-row">
+            <code>seasons</code>
+            <span><a href="#seasons-map">SeasonsMap</a></span>
+            <span>required</span>
+            <span></span>
+          </div>
+        </div>
+      </section>
+      <section class="panel schema-definition" id="clubs-map">
+        <div class="section-heading">
+          <h2>ClubsMap</h2>
+          <a href="#clubs-map">anchor</a>
+        </div>
+        <div class="schema-summary">
+          <span>type <code>object</code></span>
+          <span>closed object</span><span>pattern keys</span>
+        </div>
+
+        <div class="schema-table">
+          <div class="schema-row">
+            <code>^[a-z0-9][a-z0-9-]*$</code>
+            <span><a href="club-metadata.html#club-metadata">ClubMetadata</a></span>
+            <span>optional</span>
+            <span>Pattern property</span>
+          </div>
+        </div>
+      </section>
+      <section class="panel schema-definition" id="dataset-metadata">
+        <div class="section-heading">
+          <h2>DatasetMetadata</h2>
+          <a href="#dataset-metadata">anchor</a>
+        </div>
+        <div class="schema-summary">
+          <span>type <code>object</code></span>
+          <span>closed object</span>
+        </div>
+        <p>Build provenance for a generated FootballData export.</p>
+        <div class="schema-table">
+          <div class="schema-row">
+            <code>schemaVersion</code>
+            <span><code>integer</code></span>
+            <span>optional</span>
+            <span>Version of the generated dataset contract.</span>
+          </div>
+          <div class="schema-row">
+            <code>generator</code>
+            <span><code>string</code> | <code>null</code></span>
+            <span>optional</span>
+            <span>Generator or merge command that produced this export.</span>
+          </div>
+          <div class="schema-row">
+            <code>generatedAt</code>
+            <span><code>string</code> | <code>null</code></span>
+            <span>optional</span>
+            <span>ISO timestamp for the data generation run.</span>
+          </div>
+          <div class="schema-row">
+            <code>gitSha</code>
+            <span><code>string</code> | <code>null</code></span>
+            <span>optional</span>
+            <span>Git commit SHA used for the data generation run.</span>
+          </div>
+          <div class="schema-row">
+            <code>sourceFiles</code>
+            <span><code>array</code></span>
+            <span>optional</span>
+            <span>Input files used to build the export.</span>
+          </div>
+          <div class="schema-row">
+            <code>buildOptions</code>
+            <span><code>object</code></span>
+            <span>optional</span>
+            <span>Selected build options captured as primitive values.</span>
+          </div>
+        </div>
+      </section>
+      <section class="panel schema-definition" id="league-table-entry">
+        <div class="section-heading">
+          <h2>LeagueTableEntry</h2>
+          <a href="#league-table-entry">anchor</a>
+        </div>
+        <div class="schema-summary">
+          <span>type <code>object</code></span>
+          <span>17 required</span><span>closed object</span>
+        </div>
+        <p>One final league-table row.</p>
+        <div class="schema-table">
+          <div class="schema-row">
+            <code>pos</code>
+            <span><code>integer</code></span>
+            <span>required</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>team</code>
+            <span><code>string</code></span>
+            <span>required</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>played</code>
+            <span><code>integer</code></span>
+            <span>required</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>won</code>
+            <span><code>integer</code></span>
+            <span>required</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>drawn</code>
+            <span><code>integer</code></span>
+            <span>required</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>lost</code>
+            <span><code>integer</code></span>
+            <span>required</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>goalsFor</code>
+            <span><code>integer</code></span>
+            <span>required</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>goalsAgainst</code>
+            <span><code>integer</code></span>
+            <span>required</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>goalDifference</code>
+            <span><code>integer</code> | <code>null</code></span>
+            <span>required</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>goalAverage</code>
+            <span><code>number</code> | <code>null</code></span>
+            <span>required</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>points</code>
+            <span><code>integer</code></span>
+            <span>required</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>notes</code>
+            <span><code>string</code> | <code>null</code></span>
+            <span>required</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>wasRelegated</code>
+            <span><code>boolean</code></span>
+            <span>required</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>wasPromoted</code>
+            <span><code>boolean</code></span>
+            <span>required</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>isExpansionTeam</code>
+            <span><code>boolean</code></span>
+            <span>required</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>wasReElected</code>
+            <span><code>boolean</code></span>
+            <span>required</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>wasReprieved</code>
+            <span><code>boolean</code></span>
+            <span>required</span>
+            <span></span>
+          </div>
+        </div>
+      </section>
+      <section class="panel schema-definition" id="season-data">
+        <div class="section-heading">
+          <h2>SeasonData</h2>
+          <a href="#season-data">anchor</a>
+        </div>
+        <div class="schema-summary">
+          <span>type <code>object</code></span>
+          <span>1 required</span><span>closed object</span><span>pattern keys</span>
+        </div>
+        <p>
+          A single season. Wartime or abandoned placeholder seasons may contain only seasonInfo.
+        </p>
+        <div class="schema-table">
+          <div class="schema-row">
+            <code>seasonInfo</code>
+            <span><a href="#season-info">SeasonInfo</a></span>
+            <span>required</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>^tier\d+$</code>
+            <span><a href="#tier-data">TierData</a></span>
+            <span>optional</span>
+            <span>Pattern property</span>
+          </div>
+        </div>
+      </section>
+      <section class="panel schema-definition" id="season-info">
+        <div class="section-heading">
+          <h2>SeasonInfo</h2>
+          <a href="#season-info">anchor</a>
+        </div>
+        <div class="schema-summary">
+          <span>type <code>object</code></span>
+          <span>4 required</span><span>closed object</span>
+        </div>
+        <p>
+          Season-level summary. promoted and relegated describe movement into and out of the next
+          season's top flight.
+        </p>
+        <div class="schema-table">
+          <div class="schema-row">
+            <code>season</code>
+            <span><code>integer</code></span>
+            <span>required</span>
+            <span>Starting year for the season.</span>
+          </div>
+          <div class="schema-row">
+            <code>table</code>
+            <span><code>array</code></span>
+            <span>required</span>
+            <span>Always empty. seasonInfo is a summary object, not a league table.</span>
+          </div>
+          <div class="schema-row">
+            <code>relegated</code>
+            <span><a href="#string-list">StringList</a></span>
+            <span>required</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>promoted</code>
+            <span><a href="#string-list">StringList</a></span>
+            <span>required</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>seasonSlug</code>
+            <span><code>string</code> | <code>null</code></span>
+            <span>optional</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>sourceUrl</code>
+            <span><code>string</code> | <code>null</code></span>
+            <span>optional</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>tableCount</code>
+            <span><code>integer</code> | <code>null</code></span>
+            <span>optional</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>competitionStatus</code>
+            <span><code>string</code> | <code>null</code></span>
+            <span>optional</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>warSuspensionLabel</code>
+            <span><code>string</code> | <code>null</code></span>
+            <span>optional</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>officialLeagueTables</code>
+            <span><code>boolean</code> | <code>null</code></span>
+            <span>optional</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>officialCompetitionsSuspended</code>
+            <span><code>boolean</code> | <code>null</code></span>
+            <span>optional</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>officialCompetitionsAbandoned</code>
+            <span><code>boolean</code> | <code>null</code></span>
+            <span>optional</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>regionalBridgeSeason</code>
+            <span><code>boolean</code> | <code>null</code></span>
+            <span>optional</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>promotionRelegationApplies</code>
+            <span><code>boolean</code> | <code>null</code></span>
+            <span>optional</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>specialCompetitions</code>
+            <span><a href="#string-list">StringList</a></span>
+            <span>optional</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>notes</code>
+            <span><code>string</code> | <code>null</code></span>
+            <span>optional</span>
+            <span></span>
+          </div>
+        </div>
+      </section>
+      <section class="panel schema-definition" id="seasons-map">
+        <div class="section-heading">
+          <h2>SeasonsMap</h2>
+          <a href="#seasons-map">anchor</a>
+        </div>
+        <div class="schema-summary">
+          <span>type <code>object</code></span>
+          <span>closed object</span><span>pattern keys</span>
+        </div>
+        <p>
+          Map of starting season year to season data. For example, 2025 means the 2025-26 season.
+        </p>
+        <div class="schema-table">
+          <div class="schema-row">
+            <code>^\d{4}$</code>
+            <span><a href="#season-data">SeasonData</a></span>
+            <span>optional</span>
+            <span>Pattern property</span>
+          </div>
+        </div>
+      </section>
+      <section class="panel schema-definition" id="string-list">
+        <div class="section-heading">
+          <h2>StringList</h2>
+          <a href="#string-list">anchor</a>
+        </div>
+        <div class="schema-summary">
+          <span>type <code>array</code></span>
+        </div>
+
+        <p class="schema-muted">No named properties.</p>
+      </section>
+      <section class="panel schema-definition" id="tier-data">
+        <div class="section-heading">
+          <h2>TierData</h2>
+          <a href="#tier-data">anchor</a>
+        </div>
+        <div class="schema-summary">
+          <span>type <code>object</code></span>
+          <span>4 required</span><span>closed object</span>
+        </div>
+        <p>League-table data for one tier in a season.</p>
+        <div class="schema-table">
+          <div class="schema-row">
+            <code>season</code>
+            <span><code>integer</code></span>
+            <span>required</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>table</code>
+            <span><code>array</code></span>
+            <span>required</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>relegated</code>
+            <span><a href="#string-list">StringList</a></span>
+            <span>required</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>promoted</code>
+            <span><a href="#string-list">StringList</a></span>
+            <span>required</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>metadata</code>
+            <span><a href="#tier-metadata">TierMetadata</a></span>
+            <span>optional</span>
+            <span></span>
+          </div>
+        </div>
+      </section>
+      <section class="panel schema-definition" id="tier-metadata">
+        <div class="section-heading">
+          <h2>TierMetadata</h2>
+          <a href="#tier-metadata">anchor</a>
+        </div>
+        <div class="schema-summary">
+          <span>type <code>object</code></span>
+          <span>closed object</span>
+        </div>
+        <p>Source and table-selection metadata for a tier record.</p>
+        <div class="schema-table">
+          <div class="schema-row">
+            <code>source</code>
+            <span><code>string</code></span>
+            <span>optional</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>sourceUrl</code>
+            <span><code>string</code> | <code>null</code></span>
+            <span>optional</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>seasonSlug</code>
+            <span><code>string</code> | <code>null</code></span>
+            <span>optional</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>leagueId</code>
+            <span><code>string</code> | <code>null</code></span>
+            <span>optional</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>title</code>
+            <span><code>string</code> | <code>null</code></span>
+            <span>optional</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>leagueLevel</code>
+            <span><code>integer</code> | <code>null</code></span>
+            <span>optional</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>tableIndex</code>
+            <span><code>integer</code> | <code>null</code></span>
+            <span>optional</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>tableCount</code>
+            <span><code>integer</code> | <code>null</code></span>
+            <span>optional</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>tierKey</code>
+            <span><code>string</code> | <code>null</code></span>
+            <span>optional</span>
+            <span></span>
+          </div>
+        </div>
+      </section>
+
+      <footer>
+        <span>generated from schemas/football-data.schema.json</span>
+        <a href="../index.html">footy-data-kit</a>
+      </footer>
+    </main>
+  </body>
+</html>
