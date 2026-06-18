@@ -7,16 +7,48 @@
   "required": ["clubs"],
   "additionalProperties": false,
   "properties": {
+    "metadata": {
+      "$ref": "#/definitions/DatasetMetadata"
+    },
     "clubs": {
       "$ref": "#/definitions/ClubsMap"
     }
   },
   "definitions": {
+    "DatasetMetadata": {
+      "type": "object",
+      "description": "Build provenance for the generated club metadata sidecar.",
+      "additionalProperties": false,
+      "properties": {
+        "schemaVersion": {
+          "type": "integer"
+        },
+        "generator": {
+          "type": ["string", "null"]
+        },
+        "generatedAt": {
+          "type": ["string", "null"],
+          "format": "date-time"
+        },
+        "gitSha": {
+          "type": ["string", "null"]
+        },
+        "sourceFiles": {
+          "$ref": "#/definitions/StringList"
+        },
+        "buildOptions": {
+          "type": "object",
+          "additionalProperties": {
+            "type": ["string", "number", "boolean", "null"]
+          }
+        }
+      }
+    },
     "ClubsMap": {
       "type": "object",
-      "description": "Map of club key to club metadata record.",
+      "description": "Map of canonical club key to club metadata record.",
       "patternProperties": {
-        "^[a-z0-9][a-z0-9-]*$": {
+        "^[a-z0-9][a-z0-9 -]*$": {
           "$ref": "#/definitions/ClubMetadata"
         }
       },

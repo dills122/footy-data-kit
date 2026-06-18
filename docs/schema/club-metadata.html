@@ -51,8 +51,8 @@
           ><a href="#club-source-ref">ClubSourceRef</a><a href="#club-status">ClubStatus</a
           ><a href="#club-tier-seasons">ClubTierSeasons</a
           ><a href="#club-tracked-membership">ClubTrackedMembership</a
-          ><a href="#integer-list">IntegerList</a><a href="#source-refs">SourceRefs</a
-          ><a href="#string-list">StringList</a>
+          ><a href="#dataset-metadata">DatasetMetadata</a><a href="#integer-list">IntegerList</a
+          ><a href="#source-refs">SourceRefs</a><a href="#string-list">StringList</a>
         </nav>
       </section>
 
@@ -70,6 +70,12 @@
           generated observations from the season tables.
         </p>
         <div class="schema-table">
+          <div class="schema-row">
+            <code>metadata</code>
+            <span><a href="#dataset-metadata">DatasetMetadata</a></span>
+            <span>optional</span>
+            <span></span>
+          </div>
           <div class="schema-row">
             <code>clubs</code>
             <span><a href="#clubs-map">ClubsMap</a></span>
@@ -717,10 +723,10 @@
           <span>type <code>object</code></span>
           <span>closed object</span><span>pattern keys</span>
         </div>
-        <p>Map of club key to club metadata record.</p>
+        <p>Map of canonical club key to club metadata record.</p>
         <div class="schema-table">
           <div class="schema-row">
-            <code>^[a-z0-9][a-z0-9-]*$</code>
+            <code>^[a-z0-9][a-z0-9 -]*$</code>
             <span><a href="#club-metadata">ClubMetadata</a></span>
             <span>optional</span>
             <span>Pattern property</span>
@@ -885,6 +891,55 @@
           <div class="schema-row">
             <code>sourceRefs</code>
             <span><a href="#source-refs">SourceRefs</a></span>
+            <span>optional</span>
+            <span></span>
+          </div>
+        </div>
+      </section>
+      <section class="panel schema-definition" id="dataset-metadata">
+        <div class="section-heading">
+          <h2>DatasetMetadata</h2>
+          <a href="#dataset-metadata">anchor</a>
+        </div>
+        <div class="schema-summary">
+          <span>type <code>object</code></span>
+          <span>closed object</span>
+        </div>
+        <p>Build provenance for the generated club metadata sidecar.</p>
+        <div class="schema-table">
+          <div class="schema-row">
+            <code>schemaVersion</code>
+            <span><code>integer</code></span>
+            <span>optional</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>generator</code>
+            <span><code>string</code> | <code>null</code></span>
+            <span>optional</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>generatedAt</code>
+            <span><code>string</code> | <code>null</code></span>
+            <span>optional</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>gitSha</code>
+            <span><code>string</code> | <code>null</code></span>
+            <span>optional</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>sourceFiles</code>
+            <span><a href="#string-list">StringList</a></span>
+            <span>optional</span>
+            <span></span>
+          </div>
+          <div class="schema-row">
+            <code>buildOptions</code>
+            <span><code>object</code></span>
             <span>optional</span>
             <span></span>
           </div>

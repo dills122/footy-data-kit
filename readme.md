@@ -137,6 +137,7 @@ Each run saves season-by-season progress immediately, so reruns are fast. The `c
 - `wikipedia/data/compare-football-data.js` – compare two FootballData JSON files and report season, tier, table, outcome-list, and metadata changes between releases. Pass `--json` for machine-readable output.
   Pass `--markdown` for a release-note-friendly summary.
 - `wikipedia/data/build-release-notes.js` – combine a curated note from `docs/release-notes/vX.Y.Z.md` with generated dataset counts, club metadata counts, validation notes, and the release diff. The release workflow publishes this as `release-notes.md` and uses it as the GitHub release body.
+- `wikipedia/data/verify-json-schemas.js` – validate generated data files against the JSON Schema contracts in `schemas/`. Run with `pnpm -s schema:verify`; this is also included in `pnpm -s verify:data`.
 - `scripts/minify-json.js` – shrink JSON files in place or alongside (`foo.min.json`) so they are ready for publishing.
 - `wikipedia/data/verify-football-data.js` – lint FootballData exports for empty tiers, duplicate teams, stat mismatches, or promotion/relegation inconsistencies. Pass `--fail-on-issues` to exit non-zero when anomalies exist.
 
@@ -207,6 +208,9 @@ pnpm -s wiki:club-seed
 
 # Run the data lint pass and historical club-reason check
 pnpm -s verify:data
+
+# Run only the JSON Schema drift check
+pnpm -s schema:verify
 
 # Write the historical club-reason audit review artifact
 pnpm -s wiki:club-historical-audit

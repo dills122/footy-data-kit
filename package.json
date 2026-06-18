@@ -12,7 +12,8 @@
     "wiki:club-historical-audit:check": "node wikipedia/data/verify-club-continuity.js --check-historical-reasons --fail-on-issues",
     "wiki:club-verify": "node wikipedia/data/verify-club-continuity.js",
     "wiki:verify": "node wikipedia/data/verify-football-data.js --fail-on-issues ./data-output",
-    "verify:data": "pnpm -s wiki:verify && pnpm -s wiki:club-historical-audit:check",
+    "schema:verify": "node wikipedia/data/verify-json-schemas.js",
+    "verify:data": "pnpm -s wiki:verify && pnpm -s wiki:club-historical-audit:check && pnpm -s schema:verify",
     "wiki:minify:promotion": "node scripts/minify-json.js ./data-output/wiki_promotion_relegations_by_season.json",
     "wiki:minify:overview": "node scripts/minify-json.js ./data-output/wiki_overview_tables_by_season.json",
     "wiki:minify:combined": "node scripts/minify-json.js ./data-output/all-seasons.json",
@@ -64,6 +65,7 @@
     "wikipedia": "^2.4.2"
   },
   "devDependencies": {
+    "ajv": "8.17.1",
     "cross-env": "^7.0.3",
     "eslint": "^8.57.1",
     "eslint-config-prettier": "^8.10.2",
