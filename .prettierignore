@@ -4,3 +4,7 @@ data-output
 coverage
 data
 tmp
+.codex/skills
+.codex/steering/frontend-design-steering.md
+.codex/steering/javascript-esm-steering.md
+.codex/steering/testing-quality-gates-steering.md

@@ -147,12 +147,22 @@ function getSchemaRefHref(ref, currentSchemaFile) {
   return null;
 }
 
+function humanizeSchemaName(name) {
+  return String(name)
+    .replace(/([a-z0-9])([A-Z])/g, '$1 $2')
+    .replace(/([A-Z]+)([A-Z][a-z])/g, '$1 $2')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
 function renderType(schema, currentSchemaFile) {
   if (!schema || typeof schema !== 'object') return 'unknown';
   if (schema.$ref) {
     const href = getSchemaRefHref(schema.$ref, currentSchemaFile);
     const label = escapeHtml(getSchemaRefLabel(schema.$ref));
-    return href ? `<a href="${escapeHtml(href)}">${label}</a>` : `<code>${label}</code>`;
+    return href
+      ? `<a href="${escapeHtml(href)}"><code>${label}</code></a>`
+      : `<code>${label}</code>`;
   }
   if (schema.const !== undefined) return `<code>${escapeHtml(JSON.stringify(schema.const))}</code>`;
   if (Array.isArray(schema.type)) {
@@ -198,29 +208,55 @@ function renderPropertyRows(schema, currentSchemaFile) {
       name: pattern,
       required: false,
       type: renderType(propertySchema, currentSchemaFile),
-      description: 'Pattern property',
+      description: propertySchema?.description
+        ? `Pattern property. ${propertySchema.description}`
+        : 'Pattern property.',
     });
   }
 
   if (!rows.length) return '<p class="schema-muted">No named properties.</p>';
 
-  return `<div class="schema-table">${rows
-    .map(
-      (row) => `<div class="schema-row">
-        <code>${escapeHtml(row.name)}</code>
-        <span>${row.type}</span>
-        <span>${row.required ? 'required' : 'optional'}</span>
-        <span>${escapeHtml(row.description)}</span>
-      </div>`
-    )
-    .join('')}</div>`;
+  return `<table class="schema-table">
+    <thead>
+      <tr>
+        <th scope="col">Property key</th>
+        <th scope="col">Type</th>
+        <th scope="col">Use</th>
+        <th scope="col">Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      ${rows
+        .map(
+          (row) => `<tr>
+            <th scope="row"><code>${escapeHtml(row.name)}</code></th>
+            <td>${row.type}</td>
+            <td><span class="schema-requirement ${row.required ? 'is-required' : 'is-optional'}">${
+            row.required ? 'required' : 'optional'
+          }</span></td>
+            <td>${
+              row.description
+                ? escapeHtml(row.description)
+                : '<span class="schema-muted">No description.</span>'
+            }</td>
+          </tr>`
+        )
+        .join('')}
+    </tbody>
+  </table>`;
 }
 
 function renderDefinitionSection(name, schema, currentSchemaFile) {
+  const slug = slugify(name);
+  const title = humanizeSchemaName(name);
+
   return `<section class="panel schema-definition" id="${escapeHtml(slugify(name))}">
     <div class="section-heading">
-      <h2>${escapeHtml(name)}</h2>
-      <a href="#${escapeHtml(slugify(name))}">anchor</a>
+      <div>
+        <h2>${escapeHtml(title)}</h2>
+        <code class="schema-symbol">${escapeHtml(name)}</code>
+      </div>
+      <a href="#${escapeHtml(slug)}">anchor</a>
     </div>
     <div class="schema-summary">
       <span>type ${renderType(schema, currentSchemaFile)}</span>
@@ -237,7 +273,12 @@ function renderSchemaPage(schemaDoc, schemaDocs) {
   );
   const allSections = [['Root', schemaDoc.schema], ...definitions];
   const nav = allSections
-    .map(([name]) => `<a href="#${escapeHtml(slugify(name))}">${escapeHtml(name)}</a>`)
+    .map(
+      ([name]) => `<a href="#${escapeHtml(slugify(name))}">
+        <span>${escapeHtml(humanizeSchemaName(name))}</span>
+        <code>${escapeHtml(name)}</code>
+      </a>`
+    )
     .join('');
   const peerLinks = schemaDocs
     .filter((entry) => entry.baseName !== schemaDoc.baseName)
@@ -255,10 +296,11 @@ function renderSchemaPage(schemaDoc, schemaDocs) {
         <link rel="stylesheet" href="../styles.css" />
       </head>
       <body>
-        <main class="page-shell">
+        <main class="page-shell schema-shell">
           <header class="site-header">
             <p class="eyebrow">schema reference</p>
-            <h1>${escapeHtml(schemaDoc.title)}</h1>
+            <h1>${escapeHtml(humanizeSchemaName(schemaDoc.title))}</h1>
+            <code class="schema-title-symbol">${escapeHtml(schemaDoc.title)}</code>
             <p class="lede">${escapeHtml(schemaDoc.description)}</p>
           </header>
 

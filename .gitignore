@@ -143,3 +143,10 @@ vite.config.ts.timestamp-*
 .DS_Store
 
 tmp
+
+# Codex local integration links. These point at user-specific AI Central
+# checkouts and are recreated with `pnpm codex:links`.
+.codex/skills/
+.codex/steering/frontend-design-steering.md
+.codex/steering/javascript-esm-steering.md
+.codex/steering/testing-quality-gates-steering.md
