@@ -67,9 +67,9 @@ jobs:
           pnpm wiki:build:overview
           pnpm wiki:build:combined
           pnpm wiki:club-seed
-          pnpm -s verify:data
           pnpm wiki:minify:combined
           pnpm wiki:minify:overview
+          pnpm -s verify:data
           pnpm exec node wikipedia/data/compare-football-data.js --json ./release-baseline/all-seasons.previous.json ./data-output/all-seasons.json > ./data-output/release-diff.json
           pnpm exec node wikipedia/data/compare-football-data.js --markdown ./release-baseline/all-seasons.previous.json ./data-output/all-seasons.json > ./data-output/release-diff.md
           pnpm exec node wikipedia/data/build-release-notes.js \
