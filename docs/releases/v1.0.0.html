@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>v1.0.0 release notes | footy-data-kit</title>
+    <meta
+      name="description"
+      content="Marks the Wikipedia overview pipeline as v1-ready with fail-closed release gates, documented metadata semantics, explicit administrative outcomes, and 35.5% integration season coverage."
+    />
+    <link rel="stylesheet" href="../styles.css" />
+  </head>
+  <body>
+    <main class="page-shell">
+      <header class="site-header">
+        <p class="eyebrow">release notes</p>
+        <h1>v1.0.0</h1>
+        <p class="lede">
+          Marks the Wikipedia overview pipeline as v1-ready with fail-closed release gates,
+          documented metadata semantics, explicit administrative outcomes, and 35.5% integration
+          season coverage.
+        </p>
+      </header>
+
+      <section class="panel">
+        <h2>Release</h2>
+        <ul class="release-meta">
+          <li><span>title</span><strong>Source-of-truth readiness</strong></li>
+          <li><span>date</span><strong>2026-06-19</strong></li>
+          <li><span>type</span><strong>major</strong></li>
+          <li><span>schema</span><strong>compatible</strong></li>
+        </ul>
+      </section>
+
+      <section class="panel release-notes-body">
+        <h2>Summary</h2>
+        <ul>
+          <li>
+            Marks the Wikipedia overview pipeline as the v1 source-of-truth path for the supported
+            English league-table dataset: 138 season records from 1888 through 2025 and 232
+            generated club metadata records.
+          </li>
+          <li>
+            Turns the release process into a fail-closed workflow with dry-run completeness checks,
+            schema validation, data verification, club-continuity verification, release-note
+            validation, docs generation, and integration coverage reporting.
+          </li>
+          <li>
+            Clarifies the v1 data contract for consumers: tier keys represent pyramid levels,
+            row-level administrative outcomes are explicit, club metadata fields are documented by
+            stability/caution area, and known historical ambiguity is called out instead of guessed.
+          </li>
+        </ul>
+        <h2>Breaking Changes</h2>
+        <p>None.</p>
+        <h2>Data Changes</h2>
+        <ul>
+          <li>
+            Preserved the canonical <code>tierN</code> pyramid-level contract, including Third
+            Division North/South under <code>tier3.divisions[]</code> before 1958 and modern
+            National League North/South under the level-six parallel structure.
+          </li>
+          <li>
+            Added explicit row-level administrative outcomes with <code>outcomeStatus</code> for
+            reviewed cases including resignation, folded clubs, expulsion, reprieve,
+            points-deduction relegation, and expelled-and-folded rows.
+          </li>
+          <li>
+            Corrected 1957-58 restructure semantics so Fourth Division placement rows are no longer
+            treated as ordinary relegation outcomes.
+          </li>
+          <li>
+            Kept generated club metadata at 232 records and documented the v1 meaning of generated
+            observations, curated/source-backed history, derived relationships, and caution areas in
+            <code>docs/v1-metadata-audit.md</code>.
+          </li>
+          <li>
+            Expanded integration fixtures to 49 of 138 seasons, or 35.5%, with coverage across early
+            Football League seasons, test-match era movement, the first Third Division, Third
+            Division North/South, the 1958 restructure, Premier League and EFL naming eras,
+            COVID/pandemic seasons, administrative club outcomes, tier 5, and modern level 6.
+          </li>
+        </ul>
+        <h2>Bug Fixes</h2>
+        <ul>
+          <li>
+            Fixed release verification so directory scans no longer treat non-FootballData JSON
+            sidecars as valid &quot;0 seasons&quot; datasets.
+          </li>
+          <li>
+            Fixed release dry-run behavior so incomplete regenerated output fails before
+            minification and schema checks can produce a false green.
+          </li>
+          <li>
+            Fixed administrative/restructure verification gaps around 1957-58 placement rows and
+            2019-20 Bury, Stevenage, and Macclesfield Town semantics.
+          </li>
+          <li>
+            Fixed reprieve and canonical tier-label handling inherited from the v0.9.1 prep work.
+          </li>
+        </ul>
+        <h2>Validation</h2>
+        <ul>
+          <li>
+            Release dry-run data generation completed with 138 seasons and 232 club metadata
+            records, then passed data verification, club-continuity verification, and JSON Schema
+            validation.
+          </li>
+          <li>
+            Integration coverage reports 49 covered seasons, 57 live integration tests, 153
+            table-row assertions, 218 transition-team assertions, 16 tier-metadata assertions, and
+            15 season-info assertions.
+          </li>
+          <li>
+            <code>pnpm -s test:jest</code>, <code>pnpm -s test:integration</code>,
+            <code>pnpm -s verify:data</code>, <code>pnpm -s lint</code>,
+            <code>pnpm -s typecheck</code>, <code>pnpm -s format:check</code>,
+            <code>pnpm -s docs:check</code>, and release-note validation have passed during v1 prep.
+          </li>
+          <li>
+            Release notes and docs pages are generated from checked-in release metadata, and
+            release-note validation now guards required sections for the active package tag.
+          </li>
+        </ul>
+        <h2>Consumer Notes</h2>
+        <ul>
+          <li>
+            The v1 supported scope is the generated English league-table dataset from the maintained
+            <code>wikipedia/</code> overview pipeline. Legacy <code>rsssf/</code> code remains
+            outside the active ingestion path.
+          </li>
+          <li>
+            No schema break is included in v1. Consumers should still treat
+            <code>outcomeStatus</code> and documented metadata fields as the clearer source for
+            administrative outcomes and lifecycle/status interpretation.
+          </li>
+          <li>
+            <code>trackedFromSeason</code> and <code>trackedToSeason</code> in club metadata are
+            observed coverage bounds in the generated dataset, not founded/dissolved dates.
+          </li>
+          <li>
+            <code>status.current</code> is a current high-level club metadata status, not a
+            per-season table-row outcome. Use row-level fields such as <code>outcomeStatus</code>,
+            <code>wasRelegated</code>, <code>wasReprieved</code>, and notes for season-specific
+            interpretation.
+          </li>
+          <li>
+            <code>derived.relationships</code> is an audit/navigation aid for lineage-like records,
+            not legal proof of club continuity.
+          </li>
+        </ul>
+        <h2>Known Limitations</h2>
+        <ul>
+          <li>
+            V1 is source-of-truth ready for the supported generated scope; it is not a claim of
+            exhaustive lower-tier history or complete legal-entity modeling for every club.
+          </li>
+          <li>
+            Tier 5 and tier 6 are covered by targeted modern fixtures and generated data where
+            source pages expose usable tables, but they are not yet as deeply vetted as tiers 1-4.
+          </li>
+          <li>
+            Club metadata includes source-backed lifecycle and lineage work for reviewed records,
+            but unresolved historical ambiguity is documented or deferred rather than filled with
+            weak assertions.
+          </li>
+          <li>
+            TypeScript migration remains partial. The main contracts, output normalization,
+            verification, and release gates are stronger, but parser-heavy modules are still mostly
+            JavaScript.
+          </li>
+        </ul>
+      </section>
+
+      <section class="panel">
+        <h2>Links</h2>
+        <nav class="link-grid" aria-label="release links">
+          <a href="./index.html">release history</a>
+          <a href="../index.html">docs home</a>
+          <a href="https://github.com/dills122/footy-data-kit/releases/tag/v1.0.0"
+            >github release</a
+          >
+          <a
+            href="https://github.com/dills122/footy-data-kit/releases/download/v1.0.0/footy-data-kit-v1.0.0-data.zip"
+            >data zip</a
+          >
+        </nav>
+      </section>
+
+      <footer>
+        <span>v1.0.0</span>
+        <a href="./index.html">release history</a>
+      </footer>
+    </main>
+  </body>
+</html>
