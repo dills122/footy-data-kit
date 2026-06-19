@@ -5,15 +5,21 @@ release plan and source of truth.
 
 ## Active Focus
 
-1. Harden v1 administrative and structural outcome semantics in generated data.
-2. Harden data verification until the release can be treated as source-of-truth worthy.
-3. Keep integration coverage above the 30-40% v1 floor while adding targeted boundary depth.
-4. Audit current metadata and identify what should be stable, missing, or deferred.
-5. Start the TypeScript migration with contracts, config, and verification boundaries.
+1. Run the v1 release-candidate gate on a clean branch: release dry-run data,
+   generated diff review, docs check, lint, typecheck, unit tests, integration
+   tests, and data verification.
+2. Keep integration coverage above the 30-40% v1 floor while adding only
+   targeted boundary depth for meaningful gaps found during release review.
+3. Treat the v1 metadata audit as the consumer contract for current club
+   metadata fields and document unresolved ambiguity instead of adding weak
+   assertions.
+4. Defer broad TypeScript migration until after v1 unless a typed contract or
+   verifier boundary is needed to protect the release.
 
 ## Reference Notes
 
 - [club-metadata-layer-2.md](/Users/dsteele/repos/footy-data-kit/docs/club-metadata-layer-2.md)
+- [v1-metadata-audit.md](/Users/dsteele/repos/footy-data-kit/docs/v1-metadata-audit.md)
 - [tier3-tier4-parser-readiness-plan.md](/Users/dsteele/repos/footy-data-kit/docs/tier3-tier4-parser-readiness-plan.md)
 - [lower-tier-coverage-analysis.md](/Users/dsteele/repos/footy-data-kit/docs/lower-tier-coverage-analysis.md)
 - [parallel-season-levels-contract.md](/Users/dsteele/repos/footy-data-kit/docs/parallel-season-levels-contract.md)

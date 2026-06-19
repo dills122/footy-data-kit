@@ -35,7 +35,7 @@ Operating principles:
 
 Current release:
 
-- `v0.9.0`
+- `v0.9.1`
 
 Current state:
 
@@ -45,13 +45,19 @@ Current state:
 - JSON Schema contracts exist for the season dataset and club metadata sidecar.
 - Data verification checks schema shape, table consistency, club continuity, and
   historical club-reason coverage.
+- Release dry-run automation now fails closed when regenerated season or club
+  metadata output is incomplete.
 - Integration coverage is at the v1 floor at 43 of 138 season records, or 31.2%,
   but it still needs targeted boundary depth before v1.
+- Row-level administrative outcomes are represented with `outcomeStatus` for
+  reviewed expulsion, failed re-election, resignation, liquidation, merger, and
+  abandonment cases.
 - TypeScript is present but partial: the repo has strict TS settings and a small
   number of `.ts` model/normalizer files, while most pipeline, parser, verifier,
   and test code is still JavaScript.
-- Club metadata is useful but needs a deliberate audit: what is generated, what
-  is source-backed, what is missing, and what should wait for later layers.
+- Club metadata has a documented v1 contract and audit boundary, including which
+  fields are generated observations, curated/source-backed history, derived
+  relationships, or intentionally incomplete.
 
 ## V0.9.1: Data Label Correctness And V1 Prep
 
@@ -180,6 +186,8 @@ TypeScript:
 - `pnpm -s verify:data` passes.
 - Integration coverage reaches 30-40% of seasons.
 - A metadata audit document exists and is linked from the roadmap or README.
+- Release dry-run completeness checks confirm the expected season count and at
+  least one generated club metadata record before minified assets are verified.
 - Known data limitations are documented in release notes or docs.
 - No generated data diff is released without human review.
 
@@ -370,6 +378,7 @@ Human review:
 - Review any changed promotion/relegation arrays.
 - Review metadata additions for source quality and consumer meaning.
 - Document unresolved ambiguity instead of guessing.
+- Confirm release dry-run completeness before trusting verification output.
 
 Future checks to consider:
 
@@ -383,7 +392,8 @@ Future checks to consider:
 
 - What exact integration coverage counting script or report should define the
   30-40% v1 target?
-- Which current metadata fields are v1-stable versus experimental?
+- How much post-v1 consumer documentation should be added around metadata
+  caveats and lineage examples?
 - Is row-level `clubId` a v2 schema change or a v1.x additive field?
 - What should the minimum TypeScript conversion threshold be for v1.1 and v1.2?
 - Which files should count toward the 95% maintained-code coverage target?
@@ -393,6 +403,7 @@ Future checks to consider:
 Use these as detailed references for implementation slices:
 
 - `docs/club-metadata-layer-2.md`
+- `docs/v1-metadata-audit.md`
 - `docs/tier3-tier4-parser-readiness-plan.md`
 - `docs/lower-tier-coverage-analysis.md`
 - `docs/historical-overview-parsing.md`
