@@ -35,7 +35,7 @@ Operating principles:
 
 Current release:
 
-- `v0.8.2`
+- `v0.9.0`
 
 Current state:
 
@@ -45,13 +45,37 @@ Current state:
 - JSON Schema contracts exist for the season dataset and club metadata sidecar.
 - Data verification checks schema shape, table consistency, club continuity, and
   historical club-reason coverage.
-- Integration tests exist, but they should cover more seasons and more known
-  weird historical cases before v1.
+- Integration coverage is at the v1 floor at 43 of 138 season records, or 31.2%,
+  but it still needs targeted boundary depth before v1.
 - TypeScript is present but partial: the repo has strict TS settings and a small
   number of `.ts` model/normalizer files, while most pipeline, parser, verifier,
   and test code is still JavaScript.
 - Club metadata is useful but needs a deliberate audit: what is generated, what
   is source-backed, what is missing, and what should wait for later layers.
+
+## V0.9.1: Data Label Correctness And V1 Prep
+
+Purpose:
+
+- Correct consumer-visible labels and row flags in the existing dataset before
+  the v1 readiness release.
+
+Scope:
+
+- Keep the `tierN` parallel-league contract stable.
+- Fix generated row flags where reprieve notes were not reflected by
+  `wasReprieved`.
+- Replace generic overview tier titles such as `League tables` with canonical
+  season/level labels while preserving source `leagueId` metadata.
+- Add verifier coverage for reprieve note/flag mismatches.
+- Update release notes, docs, and generated output in one reviewable slice.
+
+Non-goals:
+
+- Do not backfill tier 5 or level 6 coverage.
+- Do not redesign restructure semantics for 1957-58 beyond documenting the
+  remaining decision.
+- Do not change the published schema shape.
 
 ## Release Tracks
 

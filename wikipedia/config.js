@@ -593,6 +593,17 @@ export function getWikipediaLeagueLevelRule(label, seasonNumber) {
   return matches[0]?.rule || null;
 }
 
+export function getWikipediaCanonicalLeagueLabel(seasonNumber, level) {
+  if (!Number.isFinite(seasonNumber) || !Number.isFinite(level)) return null;
+
+  const rule = WIKIPEDIA_LEAGUE_LEVEL_RULES.find(
+    (entry) =>
+      entry.level === level && !entry.parallelGroup && seasonIsInRuleRange(entry, seasonNumber)
+  );
+
+  return rule?.labels?.[0] || null;
+}
+
 export function getWikipediaLeagueStructureSpecialCases(seasonNumber) {
   if (!Number.isFinite(seasonNumber)) return [];
   const specialCases = WIKIPEDIA_LEAGUE_STRUCTURE_SPECIAL_SEASONS[seasonNumber];

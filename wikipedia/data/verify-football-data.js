@@ -5,6 +5,7 @@ import * as fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { getWikipediaLeagueLevelRule, WIKIPEDIA_DATA_SOURCES } from '../config.js';
+import { wasReprieved } from '../utils.js';
 import { canonicalizeTeamName } from './data-quality-config.js';
 import { loadFootballData } from './generate-output-files.ts';
 import {
@@ -331,6 +332,23 @@ function analyzeTier(seasonKey, tierKey, tierValue) {
         season: seasonKey,
         tier: tierKey,
         message: `Goal difference does not equal GF-GA for: ${goalDiffMismatch.join(', ')}`,
+      })
+    );
+  }
+
+  const missingReprievedFlags = tierMeta.table
+    .filter((row) => wasReprieved(row.notes) && row.wasReprieved !== true)
+    .map((row) => row.team);
+
+  if (missingReprievedFlags.length) {
+    tierIssues.push(
+      createIssue({
+        type: 'reprieved-flag-mismatch',
+        season: seasonKey,
+        tier: tierKey,
+        message: `Rows with reprieve notes should set wasReprieved: ${missingReprievedFlags.join(
+          ', '
+        )}`,
       })
     );
   }

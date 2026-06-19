@@ -3,6 +3,7 @@ import * as path from 'node:path';
 import {
   buildOverviewSeasonSlug as buildOverviewSeasonSlugFromConfig,
   buildWikipediaArticleUrl,
+  getWikipediaCanonicalLeagueLabel,
   getWikipediaLeagueLevelRule,
   getWikipediaLeagueStructureSpecialCases,
   resolveWikipediaDatasetPath,
@@ -275,6 +276,13 @@ function resolveDivisionKey(table) {
   return null;
 }
 
+function resolveOverviewMetadataTitle(table, safeSeason, leagueLevel) {
+  const title = table?.title || null;
+  if (!isGenericLeagueHeading(title)) return title;
+
+  return getWikipediaCanonicalLeagueLabel(safeSeason, leagueLevel) || title;
+}
+
 function buildOverviewTierMetadata({
   table,
   safeSeason,
@@ -292,7 +300,7 @@ function buildOverviewTierMetadata({
     sourceUrl: buildWikipediaArticleUrl(seasonSlug),
     seasonSlug,
     leagueId: table.id || null,
-    title: table.title,
+    title: resolveOverviewMetadataTitle(table, safeSeason, profile.level ?? leagueLevel),
     leagueLevel: profile.level ?? leagueLevel ?? null,
     tableIndex: table.tableIndex ?? index,
     tableCount,

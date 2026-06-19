@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>v0.9.1 release notes | footy-data-kit</title>
+    <meta
+      name="description"
+      content="Fixed reprieved-row flags, replaced generic overview tier titles with canonical league labels, and added verifier coverage for reprieve note/flag consistency."
+    />
+    <link rel="stylesheet" href="../styles.css" />
+  </head>
+  <body>
+    <main class="page-shell">
+      <header class="site-header">
+        <p class="eyebrow">release notes</p>
+        <h1>v0.9.1</h1>
+        <p class="lede">
+          Fixed reprieved-row flags, replaced generic overview tier titles with canonical league
+          labels, and added verifier coverage for reprieve note/flag consistency.
+        </p>
+      </header>
+
+      <section class="panel">
+        <h2>Release</h2>
+        <ul class="release-meta">
+          <li><span>title</span><strong>Data label correctness for v1 prep</strong></li>
+          <li><span>date</span><strong>2026-06-19</strong></li>
+          <li><span>type</span><strong>data</strong></li>
+          <li><span>schema</span><strong>compatible</strong></li>
+        </ul>
+      </section>
+
+      <section class="panel release-notes-body">
+        <h2>Summary</h2>
+        <ul>
+          <li>
+            Tightened existing generated data labels ahead of v1 by fixing reprieved-row flags and
+            replacing generic overview tier titles with canonical league names.
+          </li>
+          <li>
+            Added verifier coverage so future releases fail when a row note says a club was
+            reprieved but <code>wasReprieved</code> is not set.
+          </li>
+          <li>
+            Updated roadmap and next-work docs to reflect the post-v0.9.0 baseline and the v0.9.1
+            correctness scope.
+          </li>
+        </ul>
+        <h2>Breaking Changes</h2>
+        <p>None.</p>
+        <h2>Data Changes</h2>
+        <ul>
+          <li>
+            Rows with notes such as <code>Reprieved from re-election</code> or
+            <code>Reprieved from relegation</code> now set <code>wasReprieved: true</code>.
+          </li>
+          <li>
+            Generic overview metadata titles such as <code>League tables</code> are replaced with
+            canonical season/level labels including <code>Premier League</code>,
+            <code>Championship</code>, <code>League One</code>, <code>League Two</code>, and
+            <code>Conference Premier</code>.
+          </li>
+          <li>
+            Source <code>leagueId</code> values remain unchanged so consumers can still inspect the
+            original Wikipedia heading identity.
+          </li>
+          <li>
+            The legacy promotion aggregate was regenerated from source and now drops several stale
+            top-flight relegation flags/lists where the current source no longer marks those clubs
+            as relegated: <code>1892:tier1</code>, <code>1893:tier1</code>, <code>1894:tier1</code>,
+            <code>1895:tier1</code>, <code>1896:tier1</code>, and <code>1987:tier1</code>.
+          </li>
+        </ul>
+        <h2>Bug Fixes</h2>
+        <ul>
+          <li>Fixed reprieve detection in the shared table parser and typed output normalizer.</li>
+          <li>
+            Fixed generated tier metadata labels for overview pages whose source heading is generic
+            but whose season/level position is unambiguous.
+          </li>
+        </ul>
+        <h2>Validation</h2>
+        <ul>
+          <li>
+            Added focused Jest coverage for reprieved row parsing, typed entry normalization,
+            overview metadata title canonicalization, and verifier note/flag consistency.
+          </li>
+          <li>
+            Added a data verifier check for rows with reprieve notes and missing
+            <code>wasReprieved</code> flags.
+          </li>
+        </ul>
+        <h2>Consumer Notes</h2>
+        <ul>
+          <li>No schema shape change is included in this release.</li>
+          <li>
+            <code>wasRelegated</code> semantics are unchanged for reprieved-from-relegation rows;
+            this release adds the missing <code>wasReprieved</code> flag so consumers can
+            distinguish those rows.
+          </li>
+          <li>This is not a tier 5 or level 6 backfill release.</li>
+        </ul>
+        <h2>Known Limitations</h2>
+        <ul>
+          <li>
+            The 1957-58 Third Division North/South restructure still needs a v1 decision on whether
+            bottom-half placement into the new Fourth Division should remain represented as ordinary
+            relegation or gain more explicit restructure-placement metadata.
+          </li>
+          <li>
+            Lower-tier historical coverage beyond the currently generated dataset remains deferred
+            until after v1 readiness work.
+          </li>
+        </ul>
+      </section>
+
+      <section class="panel">
+        <h2>Links</h2>
+        <nav class="link-grid" aria-label="release links">
+          <a href="./index.html">release history</a>
+          <a href="../index.html">docs home</a>
+          <a href="https://github.com/dills122/footy-data-kit/releases/tag/v0.9.1"
+            >github release</a
+          >
+          <a
+            href="https://github.com/dills122/footy-data-kit/releases/download/v0.9.1/footy-data-kit-v0.9.1-data.zip"
+            >data zip</a
+          >
+        </nav>
+      </section>
+
+      <footer>
+        <span>v0.9.1</span>
+        <a href="./index.html">release history</a>
+      </footer>
+    </main>
+  </body>
+</html>

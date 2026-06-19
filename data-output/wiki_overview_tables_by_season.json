@@ -2,8 +2,8 @@
   "metadata": {
     "schemaVersion": 1,
     "generator": "wikipedia-overview",
-    "generatedAt": "2026-06-19T02:58:00.586Z",
-    "gitSha": "197e521",
+    "generatedAt": "2026-06-19T17:49:11.282Z",
+    "gitSha": "a6fc4fd",
     "buildOptions": {
       "startYear": 1888,
       "endYear": 2025,
@@ -1330,7 +1330,7 @@
             "wasPromoted": false,
             "isExpansionTeam": false,
             "wasReElected": false,
-            "wasReprieved": false
+            "wasReprieved": true
           },
           {
             "pos": 13,
@@ -144407,7 +144407,7 @@
             "wasPromoted": false,
             "isExpansionTeam": false,
             "wasReElected": false,
-            "wasReprieved": false
+            "wasReprieved": true
           }
         ],
         "relegated": [
@@ -146300,7 +146300,7 @@
             "wasPromoted": false,
             "isExpansionTeam": false,
             "wasReElected": false,
-            "wasReprieved": false
+            "wasReprieved": true
           }
         ],
         "relegated": [
@@ -148180,7 +148180,7 @@
             "wasPromoted": false,
             "isExpansionTeam": false,
             "wasReElected": false,
-            "wasReprieved": false
+            "wasReprieved": true
           }
         ],
         "relegated": [
@@ -173116,7 +173116,7 @@
           "sourceUrl": "https://en.wikipedia.org/wiki/2009–10_in_English_football",
           "seasonSlug": "2009–10_in_English_football",
           "leagueId": "Table",
-          "title": "League tables",
+          "title": "Premier League",
           "leagueLevel": 1,
           "tableIndex": 0,
           "tableCount": 4,
@@ -178762,7 +178762,7 @@
           "sourceUrl": "https://en.wikipedia.org/wiki/2012–13_in_English_football",
           "seasonSlug": "2012–13_in_English_football",
           "leagueId": "League_table",
-          "title": "League tables",
+          "title": "Premier League",
           "leagueLevel": 1,
           "tableIndex": 0,
           "tableCount": 5,
@@ -179245,7 +179245,7 @@
           "sourceUrl": "https://en.wikipedia.org/wiki/2012–13_in_English_football",
           "seasonSlug": "2012–13_in_English_football",
           "leagueId": "League_table_2",
-          "title": "League tables",
+          "title": "Championship",
           "leagueLevel": 2,
           "tableIndex": 0,
           "tableCount": 5,
@@ -179729,7 +179729,7 @@
           "sourceUrl": "https://en.wikipedia.org/wiki/2012–13_in_English_football",
           "seasonSlug": "2012–13_in_English_football",
           "leagueId": "League_table_3",
-          "title": "League tables",
+          "title": "League One",
           "leagueLevel": 3,
           "tableIndex": 0,
           "tableCount": 5,
@@ -180212,7 +180212,7 @@
           "sourceUrl": "https://en.wikipedia.org/wiki/2012–13_in_English_football",
           "seasonSlug": "2012–13_in_English_football",
           "leagueId": "League_table_4",
-          "title": "League tables",
+          "title": "League Two",
           "leagueLevel": 4,
           "tableIndex": 0,
           "tableCount": 5,
@@ -180695,7 +180695,7 @@
           "sourceUrl": "https://en.wikipedia.org/wiki/2012–13_in_English_football",
           "seasonSlug": "2012–13_in_English_football",
           "leagueId": "League_table_5",
-          "title": "League tables",
+          "title": "Conference Premier",
           "leagueLevel": 5,
           "tableIndex": 0,
           "tableCount": 5,
@@ -181127,7 +181127,7 @@
           "sourceUrl": "https://en.wikipedia.org/wiki/2013–14_in_English_football",
           "seasonSlug": "2013–14_in_English_football",
           "leagueId": "League_table",
-          "title": "League tables",
+          "title": "Premier League",
           "leagueLevel": 1,
           "tableIndex": 0,
           "tableCount": 5,
@@ -181610,7 +181610,7 @@
           "sourceUrl": "https://en.wikipedia.org/wiki/2013–14_in_English_football",
           "seasonSlug": "2013–14_in_English_football",
           "leagueId": "League_table_2",
-          "title": "League tables",
+          "title": "Championship",
           "leagueLevel": 2,
           "tableIndex": 0,
           "tableCount": 5,
@@ -182094,7 +182094,7 @@
           "sourceUrl": "https://en.wikipedia.org/wiki/2013–14_in_English_football",
           "seasonSlug": "2013–14_in_English_football",
           "leagueId": "League_table_3",
-          "title": "League tables",
+          "title": "League One",
           "leagueLevel": 3,
           "tableIndex": 0,
           "tableCount": 5,
@@ -182577,7 +182577,7 @@
           "sourceUrl": "https://en.wikipedia.org/wiki/2013–14_in_English_football",
           "seasonSlug": "2013–14_in_English_football",
           "leagueId": "League_table_4",
-          "title": "League tables",
+          "title": "League Two",
           "leagueLevel": 4,
           "tableIndex": 0,
           "tableCount": 5,
@@ -183059,7 +183059,7 @@
           "sourceUrl": "https://en.wikipedia.org/wiki/2013–14_in_English_football",
           "seasonSlug": "2013–14_in_English_football",
           "leagueId": "League_table_5",
-          "title": "League tables",
+          "title": "Conference Premier",
           "leagueLevel": 5,
           "tableIndex": 0,
           "tableCount": 5,
@@ -196754,7 +196754,7 @@
             "wasPromoted": false,
             "isExpansionTeam": false,
             "wasReElected": false,
-            "wasReprieved": false
+            "wasReprieved": true
           },
           {
             "pos": 24,
@@ -197198,7 +197198,7 @@
             "wasPromoted": false,
             "isExpansionTeam": false,
             "wasReElected": false,
-            "wasReprieved": false
+            "wasReprieved": true
           },
           {
             "pos": 22,
@@ -199563,7 +199563,7 @@
             "wasPromoted": false,
             "isExpansionTeam": false,
             "wasReElected": false,
-            "wasReprieved": false
+            "wasReprieved": true
           },
           {
             "pos": 22,
@@ -199582,7 +199582,7 @@
             "wasPromoted": false,
             "isExpansionTeam": false,
             "wasReElected": false,
-            "wasReprieved": false
+            "wasReprieved": true
           },
           {
             "pos": 23,

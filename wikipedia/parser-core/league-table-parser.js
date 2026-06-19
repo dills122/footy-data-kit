@@ -1,4 +1,11 @@
-import { cellText, isExpansionTeam, normalizeHeader, wasPromoted, wasRelegated } from '../utils.js';
+import {
+  cellText,
+  isExpansionTeam,
+  normalizeHeader,
+  wasPromoted,
+  wasRelegated,
+  wasReprieved,
+} from '../utils.js';
 
 function splitLegendCodes(raw) {
   return String(raw || '')
@@ -209,9 +216,7 @@ export function parseLeagueTableRows($, tableEl, options = {}) {
     row.wasReElected = String(row.notes || '')
       .toLowerCase()
       .includes('re-elected');
-    row.wasReprieved = /repriv(?:ed|ed) from re-election/.test(
-      String(row.notes || '').toLowerCase()
-    );
+    row.wasReprieved = wasReprieved(row.notes);
 
     const teamIndex = idxOf('team');
     if (!suppressPromotionFlags && legendMap && teamIndex !== -1 && cellElements[teamIndex]) {

@@ -2,8 +2,8 @@
   "metadata": {
     "schemaVersion": 1,
     "generator": "wikipedia-promotion",
-    "generatedAt": "2026-03-11T02:16:32.513Z",
-    "gitSha": "ab5adb0",
+    "generatedAt": "2026-06-19T17:53:18.861Z",
+    "gitSha": "a6fc4fd",
     "buildOptions": {
       "startYear": 1888,
       "endYear": 1990,
@@ -21,7 +21,17 @@
         "promoted": [],
         "seasonSlug": "1888-89_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/1888-89_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 1888,
@@ -518,7 +528,17 @@
         ],
         "seasonSlug": "1889-90_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/1889-90_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 1889,
@@ -1018,7 +1038,17 @@
         ],
         "seasonSlug": "1890-91_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/1890-91_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 1890,
@@ -1517,7 +1547,17 @@
         ],
         "seasonSlug": "1891-92_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/1891-92_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 1891,
@@ -1748,7 +1788,7 @@
             "wasPromoted": false,
             "isExpansionTeam": false,
             "wasReElected": false,
-            "wasReprieved": false
+            "wasReprieved": true
           },
           {
             "pos": 13,
@@ -2029,7 +2069,7 @@
             "wasPromoted": false,
             "isExpansionTeam": false,
             "wasReElected": false,
-            "wasReprieved": false
+            "wasReprieved": true
           },
           {
             "pos": 13,
@@ -2096,7 +2136,17 @@
         ],
         "seasonSlug": "1892-93_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/1892-93_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 1892,
@@ -2361,7 +2411,7 @@
             "goalAverage": 0.869,
             "points": 24,
             "notes": "Qualification for test matches",
-            "wasRelegated": true,
+            "wasRelegated": false,
             "wasPromoted": false,
             "isExpansionTeam": false,
             "wasReElected": false,
@@ -2380,7 +2430,7 @@
             "goalAverage": 0.704,
             "points": 23,
             "notes": "Resigned from league after test matches",
-            "wasRelegated": true,
+            "wasRelegated": false,
             "wasPromoted": false,
             "isExpansionTeam": false,
             "wasReElected": false,
@@ -2406,10 +2456,7 @@
             "wasReprieved": false
           }
         ],
-        "relegated": [
-          "Notts County",
-          "Accrington"
-        ],
+        "relegated": [],
         "promoted": [],
         "metadata": {
           "source": "wikipedia-promotion",
@@ -2677,7 +2724,17 @@
         ],
         "seasonSlug": "1893-94_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/1893-94_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 1893,
@@ -2961,7 +3018,7 @@
             "goalAverage": 0.446,
             "points": 19,
             "notes": "Qualification for test matches",
-            "wasRelegated": true,
+            "wasRelegated": false,
             "wasPromoted": false,
             "isExpansionTeam": false,
             "wasReElected": false,
@@ -2980,17 +3037,14 @@
             "goalAverage": 0.5,
             "points": 14,
             "notes": "Qualification for test matches",
-            "wasRelegated": true,
+            "wasRelegated": false,
             "wasPromoted": false,
             "isExpansionTeam": false,
             "wasReElected": false,
             "wasReprieved": false
           }
         ],
-        "relegated": [
-          "Darwen",
-          "Newton Heath"
-        ],
+        "relegated": [],
         "promoted": [],
         "metadata": {
           "source": "wikipedia-promotion",
@@ -3315,7 +3369,17 @@
         ],
         "seasonSlug": "1894-95_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/1894-95_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 1894,
@@ -3618,16 +3682,14 @@
             "goalAverage": 0.729,
             "points": 22,
             "notes": "Qualification for test matches",
-            "wasRelegated": true,
+            "wasRelegated": false,
             "wasPromoted": false,
             "isExpansionTeam": false,
             "wasReElected": false,
             "wasReprieved": false
           }
         ],
-        "relegated": [
-          "Liverpool"
-        ],
+        "relegated": [],
         "promoted": [],
         "metadata": {
           "source": "wikipedia-promotion",
@@ -3970,7 +4032,17 @@
         ],
         "seasonSlug": "1895-96_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/1895-96_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 1895,
@@ -4254,7 +4326,7 @@
             "goalAverage": 0.494,
             "points": 20,
             "notes": "Qualification for test matches",
-            "wasRelegated": true,
+            "wasRelegated": false,
             "wasPromoted": false,
             "isExpansionTeam": false,
             "wasReElected": false,
@@ -4280,9 +4352,7 @@
             "wasReprieved": false
           }
         ],
-        "relegated": [
-          "Small Heath"
-        ],
+        "relegated": [],
         "promoted": [],
         "metadata": {
           "source": "wikipedia-promotion",
@@ -4626,7 +4696,17 @@
         ],
         "seasonSlug": "1896-97_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/1896-97_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 1896,
@@ -4929,16 +5009,14 @@
             "goalAverage": 0.705,
             "points": 19,
             "notes": "Qualification for test matches",
-            "wasRelegated": true,
+            "wasRelegated": false,
             "wasPromoted": false,
             "isExpansionTeam": false,
             "wasReElected": false,
             "wasReprieved": false
           }
         ],
-        "relegated": [
-          "Burnley"
-        ],
+        "relegated": [],
         "promoted": [],
         "metadata": {
           "source": "wikipedia-promotion",
@@ -5280,7 +5358,17 @@
         ],
         "seasonSlug": "1897-98_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/1897-98_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 1897,
@@ -5934,7 +6022,17 @@
         ],
         "seasonSlug": "1898-99_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/1898-99_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 1898,
@@ -6670,7 +6768,17 @@
         ],
         "seasonSlug": "1899-1900_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/1899-1900_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 1899,
@@ -7405,7 +7513,17 @@
         ],
         "seasonSlug": "1900-01_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/1900-01_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 1900,
@@ -8140,7 +8258,17 @@
         ],
         "seasonSlug": "1901-02_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/1901-02_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 1901,
@@ -8873,7 +9001,17 @@
         ],
         "seasonSlug": "1902-03_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/1902-03_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 1902,
@@ -9608,7 +9746,17 @@
         ],
         "seasonSlug": "1903-04_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/1903-04_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 1903,
@@ -10340,7 +10488,17 @@
         ],
         "seasonSlug": "1904-05_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/1904-05_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 1904,
@@ -11072,7 +11230,17 @@
         ],
         "seasonSlug": "1905-06_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/1905-06_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 1905,
@@ -11881,7 +12049,17 @@
         ],
         "seasonSlug": "1906-07_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/1906-07_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 1906,
@@ -12693,7 +12871,17 @@
         ],
         "seasonSlug": "1907-08_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/1907-08_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 1907,
@@ -13505,7 +13693,17 @@
         ],
         "seasonSlug": "1908-09_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/1908-09_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 1908,
@@ -14316,7 +14514,17 @@
         ],
         "seasonSlug": "1909-10_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/1909-10_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 1909,
@@ -15127,7 +15335,17 @@
         ],
         "seasonSlug": "1910-11_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/1910-11_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 1910,
@@ -15938,7 +16156,17 @@
         ],
         "seasonSlug": "1911-12_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/1911-12_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 1911,
@@ -16749,7 +16977,17 @@
         ],
         "seasonSlug": "1912-13_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/1912-13_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 1912,
@@ -17558,7 +17796,17 @@
         ],
         "seasonSlug": "1913-14_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/1913-14_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 1913,
@@ -18367,7 +18615,17 @@
         ],
         "seasonSlug": "1914-15_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/1914-15_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 1914,
@@ -19178,7 +19436,17 @@
         ],
         "seasonSlug": "1919-20_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/1919-20_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 1919,
@@ -20066,7 +20334,17 @@
         ],
         "seasonSlug": "1920-21_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/1920-21_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 1920,
@@ -20953,7 +21231,17 @@
         ],
         "seasonSlug": "1921-22_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/1921-22_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 1921,
@@ -21841,7 +22129,17 @@
         ],
         "seasonSlug": "1922-23_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/1922-23_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 1922,
@@ -22729,7 +23027,17 @@
         ],
         "seasonSlug": "1923-24_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/1923-24_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 1923,
@@ -23617,7 +23925,17 @@
         ],
         "seasonSlug": "1924-25_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/1924-25_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 1924,
@@ -24505,7 +24823,17 @@
         ],
         "seasonSlug": "1925-26_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/1925-26_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 1925,
@@ -25393,7 +25721,17 @@
         ],
         "seasonSlug": "1926-27_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/1926-27_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 1926,
@@ -26281,7 +26619,17 @@
         ],
         "seasonSlug": "1927-28_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/1927-28_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 1927,
@@ -27169,7 +27517,17 @@
         ],
         "seasonSlug": "1928-29_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/1928-29_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 1928,
@@ -28057,7 +28415,17 @@
         ],
         "seasonSlug": "1929-30_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/1929-30_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 1929,
@@ -28945,7 +29313,17 @@
         ],
         "seasonSlug": "1930-31_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/1930-31_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 1930,
@@ -29833,7 +30211,17 @@
         ],
         "seasonSlug": "1931-32_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/1931-32_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 1931,
@@ -30721,7 +31109,17 @@
         ],
         "seasonSlug": "1932-33_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/1932-33_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 1932,
@@ -31609,7 +32007,17 @@
         ],
         "seasonSlug": "1933-34_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/1933-34_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 1933,
@@ -32497,7 +32905,17 @@
         ],
         "seasonSlug": "1934-35_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/1934-35_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 1934,
@@ -33385,7 +33803,17 @@
         ],
         "seasonSlug": "1935-36_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/1935-36_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 1935,
@@ -34273,7 +34701,17 @@
         ],
         "seasonSlug": "1936-37_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/1936-37_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 1936,
@@ -35161,7 +35599,17 @@
         ],
         "seasonSlug": "1937-38_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/1937-38_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 1937,
@@ -36049,7 +36497,17 @@
         ],
         "seasonSlug": "1938-39_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/1938-39_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 1938,
@@ -36937,7 +37395,17 @@
         ],
         "seasonSlug": "1939-40_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/1939-40_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 1939,
@@ -37339,7 +37807,7 @@
             "wasPromoted": false,
             "isExpansionTeam": false,
             "wasReElected": false,
-            "wasReprieved": false
+            "wasReprieved": true
           },
           {
             "pos": 22,
@@ -37358,7 +37826,7 @@
             "wasPromoted": false,
             "isExpansionTeam": false,
             "wasReElected": false,
-            "wasReprieved": false
+            "wasReprieved": true
           }
         ],
         "relegated": [
@@ -37773,7 +38241,7 @@
             "wasPromoted": false,
             "isExpansionTeam": false,
             "wasReElected": false,
-            "wasReprieved": false
+            "wasReprieved": true
           },
           {
             "pos": 22,
@@ -37792,7 +38260,7 @@
             "wasPromoted": false,
             "isExpansionTeam": false,
             "wasReElected": false,
-            "wasReprieved": false
+            "wasReprieved": true
           }
         ],
         "relegated": [
@@ -37825,7 +38293,17 @@
         ],
         "seasonSlug": "1946-47_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/1946-47_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 1946,
@@ -38713,7 +39191,17 @@
         ],
         "seasonSlug": "1947-48_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/1947-48_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 1947,
@@ -39601,7 +40089,17 @@
         ],
         "seasonSlug": "1948-49_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/1948-49_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 1948,
@@ -40489,7 +40987,17 @@
         ],
         "seasonSlug": "1949-50_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/1949-50_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 1949,
@@ -41377,7 +41885,17 @@
         ],
         "seasonSlug": "1950-51_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/1950-51_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 1950,
@@ -42265,7 +42783,17 @@
         ],
         "seasonSlug": "1951-52_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/1951-52_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 1951,
@@ -43153,7 +43681,17 @@
         ],
         "seasonSlug": "1952-53_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/1952-53_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 1952,
@@ -44041,7 +44579,17 @@
         ],
         "seasonSlug": "1953-54_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/1953-54_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 1953,
@@ -44929,7 +45477,17 @@
         ],
         "seasonSlug": "1954-55_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/1954-55_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 1954,
@@ -45817,7 +46375,17 @@
         ],
         "seasonSlug": "1955-56_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/1955-56_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 1955,
@@ -46705,7 +47273,17 @@
         ],
         "seasonSlug": "1956-57_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/1956-57_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 1956,
@@ -47593,7 +48171,17 @@
         ],
         "seasonSlug": "1957-58_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/1957-58_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 1957,
@@ -48481,7 +49069,17 @@
         ],
         "seasonSlug": "1958-59_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/1958-59_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 1958,
@@ -49369,7 +49967,17 @@
         ],
         "seasonSlug": "1959-60_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/1959-60_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 1959,
@@ -50257,7 +50865,17 @@
         ],
         "seasonSlug": "1960-61_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/1960-61_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 1960,
@@ -51145,7 +51763,17 @@
         ],
         "seasonSlug": "1961-62_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/1961-62_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 1961,
@@ -52033,7 +52661,17 @@
         ],
         "seasonSlug": "1962-63_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/1962-63_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 1962,
@@ -52921,7 +53559,17 @@
         ],
         "seasonSlug": "1963-64_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/1963-64_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 1963,
@@ -53809,7 +54457,17 @@
         ],
         "seasonSlug": "1964-65_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/1964-65_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 1964,
@@ -54697,7 +55355,17 @@
         ],
         "seasonSlug": "1965-66_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/1965-66_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 1965,
@@ -55585,7 +56253,17 @@
         ],
         "seasonSlug": "1966-67_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/1966-67_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 1966,
@@ -56473,7 +57151,17 @@
         ],
         "seasonSlug": "1967-68_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/1967-68_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 1967,
@@ -57361,7 +58049,17 @@
         ],
         "seasonSlug": "1968-69_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/1968-69_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 1968,
@@ -58249,7 +58947,17 @@
         ],
         "seasonSlug": "1969-70_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/1969-70_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 1969,
@@ -59137,7 +59845,17 @@
         ],
         "seasonSlug": "1970-71_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/1970-71_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 1970,
@@ -60025,7 +60743,17 @@
         ],
         "seasonSlug": "1971-72_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/1971-72_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 1971,
@@ -60913,7 +61641,17 @@
         ],
         "seasonSlug": "1972-73_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/1972-73_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 1972,
@@ -61803,7 +62541,17 @@
         ],
         "seasonSlug": "1973-74_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/1973-74_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 1973,
@@ -62696,7 +63444,17 @@
         ],
         "seasonSlug": "1974-75_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/1974-75_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 1974,
@@ -63589,7 +64347,17 @@
         ],
         "seasonSlug": "1975-76_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/1975-76_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 1975,
@@ -64482,7 +65250,17 @@
         ],
         "seasonSlug": "1976-77_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/1976-77_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 1976,
@@ -65375,7 +66153,17 @@
         ],
         "seasonSlug": "1977-78_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/1977-78_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 1977,
@@ -66268,7 +67056,17 @@
         ],
         "seasonSlug": "1978-79_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/1978-79_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 1978,
@@ -67161,7 +67959,17 @@
         ],
         "seasonSlug": "1979-80_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/1979-80_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 1979,
@@ -68054,7 +68862,17 @@
         ],
         "seasonSlug": "1980-81_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/1980-81_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 1980,
@@ -68947,7 +69765,17 @@
         ],
         "seasonSlug": "1981-82_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/1981-82_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 1981,
@@ -69840,7 +70668,17 @@
         ],
         "seasonSlug": "1982-83_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/1982-83_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 1982,
@@ -70733,7 +71571,17 @@
         ],
         "seasonSlug": "1983-84_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/1983-84_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 1983,
@@ -71626,7 +72474,17 @@
         ],
         "seasonSlug": "1984-85_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/1984-85_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 1984,
@@ -72519,7 +73377,17 @@
         ],
         "seasonSlug": "1985-86_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/1985-86_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 1985,
@@ -73411,7 +74279,17 @@
         ],
         "seasonSlug": "1986-87_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/1986-87_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 1986,
@@ -74304,7 +75182,17 @@
         ],
         "seasonSlug": "1987-88_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/1987-88_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 1987,
@@ -74645,7 +75533,7 @@
             "goalAverage": null,
             "points": 42,
             "notes": "Qualified for Second Division play-offs",
-            "wasRelegated": true,
+            "wasRelegated": false,
             "wasPromoted": false,
             "isExpansionTeam": false,
             "wasReElected": false,
@@ -74710,7 +75598,6 @@
           }
         ],
         "relegated": [
-          "Chelsea",
           "Portsmouth",
           "Watford",
           "Oxford United"
@@ -75198,7 +76085,17 @@
         ],
         "seasonSlug": "1988-89_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/1988-89_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 1988,
@@ -76091,7 +76988,17 @@
         ],
         "seasonSlug": "1989-90_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/1989-90_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 1989,
@@ -76985,7 +77892,17 @@
         ],
         "seasonSlug": "1990-91_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/1990-91_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 1990,
@@ -77877,7 +78794,17 @@
         ],
         "seasonSlug": "1991-92_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/1991-92_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 1991,
@@ -78808,7 +79735,17 @@
         ],
         "seasonSlug": "1992-93_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/1992-93_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 1992,
@@ -79778,7 +80715,17 @@
         ],
         "seasonSlug": "1993-94_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/1993-94_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 1993,
@@ -80748,7 +81695,17 @@
         ],
         "seasonSlug": "1994-95_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/1994-95_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 1994,
@@ -81719,7 +82676,17 @@
         ],
         "seasonSlug": "1995-96_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/1995-96_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 1995,
@@ -82689,7 +83656,17 @@
         ],
         "seasonSlug": "1996-97_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/1996-97_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 1996,
@@ -83659,7 +84636,17 @@
         ],
         "seasonSlug": "1997-98_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/1997-98_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 1997,
@@ -84629,7 +85616,17 @@
         ],
         "seasonSlug": "1998-99_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/1998-99_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 1998,
@@ -85599,7 +86596,17 @@
         ],
         "seasonSlug": "1999-2000_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/1999-2000_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 1999,
@@ -86569,7 +87576,17 @@
         ],
         "seasonSlug": "2000-01_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/2000-01_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 2000,
@@ -87539,7 +88556,17 @@
         ],
         "seasonSlug": "2001-02_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/2001-02_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 2001,
@@ -88509,7 +89536,17 @@
         ],
         "seasonSlug": "2002-03_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/2002-03_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 2002,
@@ -89479,7 +90516,17 @@
         ],
         "seasonSlug": "2003-04_Football_League",
         "sourceUrl": "https://en.wikipedia.org/wiki/2003-04_Football_League",
-        "tableCount": 0
+        "tableCount": 0,
+        "competitionStatus": null,
+        "warSuspensionLabel": null,
+        "officialLeagueTables": null,
+        "officialCompetitionsSuspended": null,
+        "officialCompetitionsAbandoned": null,
+        "regionalBridgeSeason": null,
+        "promotionRelegationApplies": null,
+        "specialCompetitions": [],
+        "leagueStructureSpecialCases": [],
+        "notes": null
       },
       "tier1": {
         "season": 2003,

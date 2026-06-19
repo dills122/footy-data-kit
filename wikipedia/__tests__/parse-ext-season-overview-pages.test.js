@@ -791,6 +791,56 @@ describe('parseOverviewLeagueTables', () => {
     );
   });
 
+  test('publishes canonical tier titles when overview headings are generic', () => {
+    const seasonRecord = buildSeasonOverviewSeasonRecord({
+      seasonKey: '2012',
+      seasonYear: 2012,
+      seasonSlug: '2012–13_in_English_football',
+      tables: [
+        {
+          title: 'League tables',
+          id: 'League_table',
+          tableIndex: 0,
+          rows: [{ pos: 1, team: 'Premier FC', played: 38, points: 89 }],
+        },
+        {
+          title: 'League tables',
+          id: 'League_table_2',
+          tableIndex: 1,
+          rows: [{ pos: 1, team: 'Championship FC', played: 46, points: 87 }],
+        },
+        {
+          title: 'League tables',
+          id: 'League_table_3',
+          tableIndex: 2,
+          rows: [{ pos: 1, team: 'League One FC', played: 46, points: 84 }],
+        },
+        {
+          title: 'League tables',
+          id: 'League_table_4',
+          tableIndex: 3,
+          rows: [{ pos: 1, team: 'League Two FC', played: 46, points: 83 }],
+        },
+        {
+          title: 'League tables',
+          id: 'League_table_5',
+          tableIndex: 4,
+          rows: [{ pos: 1, team: 'Conference FC', played: 46, points: 82 }],
+        },
+      ],
+    });
+
+    expect(seasonRecord.tier1.metadata).toMatchObject({
+      title: 'Premier League',
+      leagueId: 'League_table',
+      leagueLevel: 1,
+    });
+    expect(seasonRecord.tier2.metadata.title).toBe('Championship');
+    expect(seasonRecord.tier3.metadata.title).toBe('League One');
+    expect(seasonRecord.tier4.metadata.title).toBe('League Two');
+    expect(seasonRecord.tier5.metadata.title).toBe('Conference Premier');
+  });
+
   test('builds metadata-only placeholder records for abandoned and bridge seasons', () => {
     const abandoned = buildHistoricalSeasonPlaceholderRecord('1939', '1939–40_in_English_football');
     const bridge = buildHistoricalSeasonPlaceholderRecord('1945', '1945–46_in_English_football');
