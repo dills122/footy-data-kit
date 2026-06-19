@@ -1,5 +1,5 @@
 import { WIKIPEDIA_DATA_SOURCES } from '../config.js';
-import type { LeagueTableEntry, TierData, TierMetadata } from '../models/output-file.ts';
+import type { LeagueTableEntry, TierData, TierDivisionData, TierMetadata } from '../models/output-file.ts';
 import { normaliseLeagueTableEntry } from './output-entry-normalizer.ts';
 
 type LeagueTableEntryInput = Partial<LeagueTableEntry> & Record<string, unknown>;
@@ -63,6 +63,10 @@ export function isTierData(tierValue: unknown): tierValue is TierData {
     'season' in tierValue &&
     'table' in tierValue
   );
+}
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return Boolean(value) && typeof value === 'object' && !Array.isArray(value);
 }
 
 export function normaliseTierMetadata(value: Record<string, unknown>): TierMetadata | undefined {
@@ -134,6 +138,7 @@ export function normaliseTierData(tierValue: Record<string, unknown>, seasonKey:
   delete extra.relegated;
   delete extra.promoted;
   delete extra.metadata;
+  delete extra.divisions;
   delete extra.sourceUrl;
   delete extra.seasonSlug;
   delete extra.tier;
@@ -141,6 +146,7 @@ export function normaliseTierData(tierValue: Record<string, unknown>, seasonKey:
   delete extra.seasonMetadata;
 
   const metadata = normaliseTierMetadata(tierValue);
+  const divisions = normaliseTierDivisions(tierValue.divisions, seasonKey);
 
   return {
     ...extra,
@@ -149,5 +155,15 @@ export function normaliseTierData(tierValue: Record<string, unknown>, seasonKey:
     relegated: normaliseOutcomeList(tierValue.relegated, normalisedTable, 'wasRelegated'),
     promoted: normaliseOutcomeList(tierValue.promoted, normalisedTable, 'wasPromoted'),
     ...(metadata ? { metadata } : {}),
+    ...(divisions.length ? { divisions } : {}),
   };
+}
+
+function normaliseTierDivisions(value: unknown, seasonKey: string): TierDivisionData[] {
+  if (!Array.isArray(value)) return [];
+
+  return value
+    .filter(isRecord)
+    .map((division) => normaliseTierData(division, seasonKey) as TierDivisionData)
+    .filter((division) => division.table.length || division.promoted.length || division.relegated.length);
 }

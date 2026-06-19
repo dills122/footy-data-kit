@@ -20,7 +20,7 @@ export const HISTORICAL_PLACEHOLDER_STATUSES = Object.freeze([
 ]);
 
 const EMPTY_LIST = Object.freeze([]);
-const TIER_RESERVED_KEYS = new Set(['season', 'table', 'promoted', 'relegated']);
+const TIER_RESERVED_KEYS = new Set(['season', 'table', 'promoted', 'relegated', 'divisions']);
 const HISTORICAL_STATUS_DEFAULTS = Object.freeze({
   'wartime-special': Object.freeze({
     officialCompetitionsSuspended: true,
@@ -202,7 +202,14 @@ export function getTierTable(tierValue) {
     return tierValue;
   }
   if (tierValue && typeof tierValue === 'object' && Array.isArray(tierValue.table)) {
+    if (tierValue.table.length) return tierValue.table;
+    if (Array.isArray(tierValue.divisions)) {
+      return tierValue.divisions.flatMap((division) => getTierTable(division));
+    }
     return tierValue.table;
+  }
+  if (tierValue && typeof tierValue === 'object' && Array.isArray(tierValue.divisions)) {
+    return tierValue.divisions.flatMap((division) => getTierTable(division));
   }
   return [];
 }
@@ -220,7 +227,10 @@ export function getTierOutcomeCount(tierValue) {
   }
   const promoted = Array.isArray(tierValue.promoted) ? tierValue.promoted.length : 0;
   const relegated = Array.isArray(tierValue.relegated) ? tierValue.relegated.length : 0;
-  return promoted + relegated;
+  const divisionOutcomes = Array.isArray(tierValue.divisions)
+    ? tierValue.divisions.reduce((count, division) => count + getTierOutcomeCount(division), 0)
+    : 0;
+  return promoted + relegated + divisionOutcomes;
 }
 
 export function getTierMetadataCount(tierValue) {
@@ -275,8 +285,9 @@ export function blockHasData(block) {
   const table = Array.isArray(block.table) ? block.table : [];
   const promoted = Array.isArray(block.promoted) ? block.promoted : [];
   const relegated = Array.isArray(block.relegated) ? block.relegated : [];
+  const divisions = Array.isArray(block.divisions) ? block.divisions : [];
 
-  if (table.length || promoted.length || relegated.length) {
+  if (table.length || promoted.length || relegated.length || divisions.some(blockHasData)) {
     return true;
   }
 
@@ -423,10 +434,10 @@ export function getExpectedMinimumTierCount(seasonNumber) {
   if (WIKIPEDIA_MINIMUM_TIER_OVERRIDES[seasonNumber] != null) {
     return WIKIPEDIA_MINIMUM_TIER_OVERRIDES[seasonNumber];
   }
-  if (seasonNumber >= 2021) return 7;
+  if (seasonNumber >= 2021) return 6;
   if (seasonNumber >= 2012) return 5;
   if (seasonNumber >= WIKIPEDIA_SEASON_RANGES.fourthDivisionStartSeason) return 4;
-  if (seasonNumber >= WIKIPEDIA_SEASON_RANGES.regionalThirdDivisionStartSeason) return 4;
+  if (seasonNumber >= WIKIPEDIA_SEASON_RANGES.regionalThirdDivisionStartSeason) return 3;
   if (seasonNumber >= WIKIPEDIA_SEASON_RANGES.thirdDivisionStartSeason) return 3;
   if (seasonNumber >= 1890) return 2;
   if (seasonNumber >= 1888) return 1;

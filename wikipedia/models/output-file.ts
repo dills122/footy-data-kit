@@ -25,6 +25,10 @@ export interface TierMetadata {
   leagueId?: string | null;
   title?: string | null;
   leagueLevel?: number | null;
+  structure?: 'single-league' | 'parallel-leagues' | string | null;
+  parallelGroup?: string | null;
+  divisionKey?: string | null;
+  divisionCount?: number | null;
   tableIndex?: number | null;
   tableCount?: number | null;
   tierKey?: string | null;
@@ -36,6 +40,15 @@ export interface TierData {
   relegated: string[];
   promoted: string[];
   metadata?: TierMetadata;
+  divisions?: TierDivisionData[];
+}
+
+export interface TierDivisionData extends TierData {
+  metadata?: TierMetadata;
+}
+
+export interface ParallelTierData extends TierData {
+  divisions: TierDivisionData[];
 }
 
 export interface SeasonInfo {

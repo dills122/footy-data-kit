@@ -10,25 +10,25 @@ Source checked:
 
 Current coverage by level area:
 
-| Level area   | Current coverage                           | Main issue                                                      |
-| ------------ | ------------------------------------------ | --------------------------------------------------------------- |
-| Tier 1       | 1888-2025, excluding war gaps              | Mature coverage                                                 |
-| Tier 2       | 1890-2025, excluding war gaps              | Mature coverage                                                 |
-| Tier 3       | 1920-2025, excluding WWII gap              | Good coverage, but 1921-1957 has parallel North/South divisions |
-| Tier 4       | Stored from 1921, true level 4 starts 1958 | `tier4` is Third Division South, level 3, from 1921-1957        |
-| Tier 5       | 2012-2025 only                             | Missing 1979-2011 Alliance/Conference/National tier             |
-| Level 6      | 2021-2025 only                             | Missing 2004-2020 National League North/South                   |
-| True level 7 | Not really parsed                          | Current `tier7` is National League South, so level 6            |
+| Level area   | Current coverage              | Main issue                                                        |
+| ------------ | ----------------------------- | ----------------------------------------------------------------- |
+| Tier 1       | 1888-2025, excluding war gaps | Mature coverage                                                   |
+| Tier 2       | 1890-2025, excluding war gaps | Mature coverage                                                   |
+| Tier 3       | 1920-2025, excluding WWII gap | Good coverage; 1921-1957 uses `tier3.divisions[]` for North/South |
+| Tier 4       | 1958-2025, excluding WWII gap | True level 4 starts with the 1958 Fourth Division                 |
+| Tier 5       | 2012-2025 only                | Missing 1979-2011 Alliance/Conference/National tier               |
+| Level 6      | 2021-2025 only                | Missing 2004-2020 National League North/South                     |
+| True level 7 | Not really parsed             | Configured but not currently emitted as a v1 coverage target      |
 
-Important modeling issue:
+Important modeling rule:
 
-- `tierN` is sometimes a table slot, not the actual pyramid level.
-- From 1921-1957, `tier3` is Third Division North and `tier4` is Third Division South, but both have `metadata.leagueLevel: 3`.
-- From 2021-2025, National League North and National League South are stored as `tier6` and `tier7`, but both should be level 6 according to the repo's lower-level metadata model.
+- `tierN` represents the actual pyramid level.
+- From 1921-1957, Third Division North and Third Division South are stored under `tier3.divisions[]`.
+- From 2021-2025, National League North and National League South are stored under `tier6.divisions[]`.
 
 Recommended lower-tier slice order from the coverage snapshot:
 
-1. Fix or lock the parallel-league metadata model so parser and verifier logic trust `metadata.leagueLevel`, not the `tierN` slot number.
+1. Keep the parallel-league contract stable so parser, verifier, and downstream logic treat `tierN` as the actual level.
 2. Backfill level 6 for 2012-2020 after the modern parallel-league model is stable.
 3. Backfill tier 5 for 2004-2011, plus level 6 National League North/South for the same range.
 4. Backfill tier 5 for 1979-2003.
@@ -46,31 +46,31 @@ This section focuses on the third and fourth levels because those are the neares
 
 ### Level 3
 
-| Seasons      | League shape                                                                       | Generated representation                                | Notes                                                                      |
-| ------------ | ---------------------------------------------------------------------------------- | ------------------------------------------------------- | -------------------------------------------------------------------------- |
-| 1920-1921    | Football League Third Division                                                     | `tier3`, `leagueLevel: 3`                               | First third-tier season; no fourth tier                                    |
-| 1921-1958    | Third Division North and Third Division South, parallel regional level-3 divisions | `tier3` = North, `tier4` = South; both `leagueLevel: 3` | `tier4` is a table slot here, not level 4                                  |
-| 1958-1992    | National Football League Third Division                                            | `tier3`, `leagueLevel: 3`                               | Fourth Division begins in 1958, so `tier4` becomes a true level-4 division |
-| 1992-2004    | Football League Second Division                                                    | `tier3`, `leagueLevel: 3`                               | Premier League breakaway shifted Football League names down one level      |
-| 2004-present | Football League One / EFL League One                                               | `tier3`, `leagueLevel: 3`                               | Rebrand from the old Football League Second Division                       |
+| Seasons      | League shape                                                                       | Generated representation              | Notes                                                                      |
+| ------------ | ---------------------------------------------------------------------------------- | ------------------------------------- | -------------------------------------------------------------------------- |
+| 1920-1921    | Football League Third Division                                                     | `tier3`, `leagueLevel: 3`             | First third-tier season; no fourth tier                                    |
+| 1921-1958    | Third Division North and Third Division South, parallel regional level-3 divisions | `tier3.divisions[]`, `leagueLevel: 3` | No true level-4 table exists before 1958                                   |
+| 1958-1992    | National Football League Third Division                                            | `tier3`, `leagueLevel: 3`             | Fourth Division begins in 1958, so `tier4` becomes a true level-4 division |
+| 1992-2004    | Football League Second Division                                                    | `tier3`, `leagueLevel: 3`             | Premier League breakaway shifted Football League names down one level      |
+| 2004-present | Football League One / EFL League One                                               | `tier3`, `leagueLevel: 3`             | Rebrand from the old Football League Second Division                       |
 
 ### Level 4
 
-| Seasons      | League shape                               | Generated representation  | Notes                                                             |
-| ------------ | ------------------------------------------ | ------------------------- | ----------------------------------------------------------------- |
-| 1920-1958    | No true fourth tier in the Football League | No true level-4 table     | Current `tier4` from 1921-1957 is Third Division South at level 3 |
-| 1958-1992    | Football League Fourth Division            | `tier4`, `leagueLevel: 4` | Created from the regional Third Division North/South restructure  |
-| 1992-2004    | Football League Third Division             | `tier4`, `leagueLevel: 4` | Old Fourth Division renamed after Premier League formation        |
-| 2004-present | Football League Two / EFL League Two       | `tier4`, `leagueLevel: 4` | Rebrand from the old Football League Third Division               |
+| Seasons      | League shape                               | Generated representation  | Notes                                                            |
+| ------------ | ------------------------------------------ | ------------------------- | ---------------------------------------------------------------- |
+| 1920-1958    | No true fourth tier in the Football League | No true level-4 table     | Third Division South is represented under `tier3.divisions[]`    |
+| 1958-1992    | Football League Fourth Division            | `tier4`, `leagueLevel: 4` | Created from the regional Third Division North/South restructure |
+| 1992-2004    | Football League Third Division             | `tier4`, `leagueLevel: 4` | Old Fourth Division renamed after Premier League formation       |
+| 2004-present | Football League Two / EFL League Two       | `tier4`, `leagueLevel: 4` | Rebrand from the old Football League Third Division              |
 
 ## Generated Tier 3 And Tier 4 Data Observations
 
 Generated overview rows currently match the major structural boundaries:
 
 - `tier3` exists from 1920 onward except WWII suspension years.
-- `tier4` exists from 1921 onward, but only becomes true level 4 in 1958.
-- `tier3` row counts are expected at 22 in 1920, 20-22 in early Third Division North, then 24 from 1950 onward except special cases.
-- `tier4` row counts are expected at 22-24 for Third Division South before 1958, 24 for most true Fourth Division / League Two seasons, and lower during the early 1990s disruption.
+- `tier4` exists from 1958 onward as the true fourth level.
+- `tier3` row counts are expected at 22 in 1920; from 1921-1957 each regional division has its own row count under `tier3.divisions[]`; then the national tier is usually 24 from 1958 onward except special cases.
+- `tier4` row counts are expected at 24 for most true Fourth Division / League Two seasons, and lower during the early 1990s disruption.
 
 Static CSV coverage:
 
@@ -91,9 +91,9 @@ Metadata/title cleanup candidates:
 This is the most important tier semantics boundary already in the data.
 
 - Third Division North and Third Division South are parallel level-3 divisions.
-- Current output stores them as `tier3` and `tier4`.
-- Any logic that assumes `tier4` means level 4 will be wrong for these seasons.
-- Parser, verifier, and downstream analysis should prefer `metadata.leagueLevel`.
+- Current output stores them under `tier3.divisions[]`.
+- Any logic that needs all level-3 clubs should flatten the division tables for those seasons.
+- Parser, verifier, and downstream analysis should treat `metadata.structure: "parallel-leagues"` as the signal to read divisions.
 
 Target seasons:
 

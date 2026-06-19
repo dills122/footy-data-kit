@@ -21,6 +21,12 @@ import {
 const LEGACY_TIER_METADATA_FIELDS = ['seasonSlug', 'sourceUrl', 'tier', 'title', 'seasonMetadata'];
 const REQUIRED_TIER_METADATA_FIELDS = ['source', 'seasonSlug', 'tierKey'];
 const REQUIRED_OVERVIEW_METADATA_FIELDS = ['title', 'leagueId', 'tableIndex', 'tableCount'];
+const REQUIRED_PARALLEL_PARENT_METADATA_FIELDS = [
+  'leagueLevel',
+  'parallelGroup',
+  'divisionCount',
+  'tableCount',
+];
 const REQUIRED_DATASET_METADATA_FIELDS = ['schemaVersion', 'generator', 'generatedAt'];
 const POINTS_ORDER_EXEMPTIONS = new Set([
   // 2019-20 curtailed leagues were finalized by points per game.
@@ -247,8 +253,10 @@ function analyzeTier(seasonKey, tierKey, tierValue) {
     );
   }
 
-  const duplicatePositions = findDuplicates(
-    tierMeta.table.map((row) => row.pos).filter((pos) => Number.isFinite(pos))
+  const duplicatePositions = tierMeta.tableSegments.flatMap((segment) =>
+    findDuplicates(segment.rows.map((row) => row.pos).filter((pos) => Number.isFinite(pos))).map(
+      (position) => formatSegmentValue(segment.label, position)
+    )
   );
   if (duplicatePositions.length) {
     tierIssues.push(
@@ -261,8 +269,10 @@ function analyzeTier(seasonKey, tierKey, tierValue) {
     );
   }
 
-  const missingPositions = findMissingPositions(
-    tierMeta.table.map((row) => row.pos).filter((pos) => Number.isFinite(pos))
+  const missingPositions = tierMeta.tableSegments.flatMap((segment) =>
+    findMissingPositions(
+      segment.rows.map((row) => row.pos).filter((pos) => Number.isFinite(pos))
+    ).map((position) => formatSegmentValue(segment.label, position))
   );
   if (missingPositions.length) {
     tierIssues.push(
@@ -276,7 +286,11 @@ function analyzeTier(seasonKey, tierKey, tierValue) {
   }
 
   if (!isPointsOrderExempt(seasonKey, tierKey)) {
-    const tableOrderMismatches = findTableOrderMismatches(tierMeta.table);
+    const tableOrderMismatches = tierMeta.tableSegments.flatMap((segment) =>
+      findTableOrderMismatches(segment.rows).map((message) =>
+        segment.label ? `${segment.label}: ${message}` : message
+      )
+    );
     if (tableOrderMismatches.length) {
       tierIssues.push(
         createIssue({
@@ -423,11 +437,8 @@ function analyzeTier(seasonKey, tierKey, tierValue) {
  * @param {string} seasonKey
  */
 function extractTierMeta(tierValue, seasonKey) {
-  const table = Array.isArray(tierValue)
-    ? tierValue
-    : Array.isArray(tierValue.table)
-    ? tierValue.table
-    : [];
+  const tableSegments = extractTierTableSegments(tierValue);
+  const table = tableSegments.flatMap((segment) => segment.rows);
   const promoted =
     !Array.isArray(tierValue) && Array.isArray(tierValue.promoted) ? tierValue.promoted : [];
   const relegated =
@@ -453,7 +464,40 @@ function extractTierMeta(tierValue, seasonKey) {
     normalisedSeasonKey: normSeason,
     metadata,
     rawValue: tierValue,
+    tableSegments,
   };
+}
+
+function extractTierTableSegments(tierValue) {
+  if (Array.isArray(tierValue)) {
+    return [{ label: null, rows: tierValue }];
+  }
+
+  if (!tierValue || typeof tierValue !== 'object') {
+    return [];
+  }
+
+  if (Array.isArray(tierValue.divisions) && tierValue.divisions.length) {
+    return tierValue.divisions
+      .map((division, index) => {
+        const label =
+          division?.metadata?.divisionKey ||
+          division?.metadata?.title ||
+          division?.metadata?.leagueId ||
+          `division-${index + 1}`;
+        return {
+          label,
+          rows: Array.isArray(division?.table) ? division.table : [],
+        };
+      })
+      .filter((segment) => segment.rows.length);
+  }
+
+  return Array.isArray(tierValue.table) ? [{ label: null, rows: tierValue.table }] : [];
+}
+
+function formatSegmentValue(label, value) {
+  return label ? `${label}:${value}` : value;
 }
 
 function describeOrderMismatch(previousRow, currentRow) {
@@ -581,45 +625,83 @@ function analyzeSeasonContract(seasonKey, seasonValue) {
       continue;
     }
 
-    const missingMetadata = REQUIRED_TIER_METADATA_FIELDS.filter(
-      (field) => metadata[field] == null
-    );
-    if (missingMetadata.length) {
-      issues.push(
-        createIssue({
-          type: 'incomplete-tier-metadata',
-          season: seasonKey,
-          tier: tierKey,
-          message: `Tier metadata missing required fields: ${missingMetadata.join(', ')}`,
-        })
-      );
-    }
+    issues.push(...analyzeTierMetadata(seasonKey, tierKey, metadata, tierKey));
 
-    if (metadata.tierKey != null && metadata.tierKey !== tierKey) {
-      issues.push(
-        createIssue({
-          type: 'tier-metadata-mismatch',
-          season: seasonKey,
-          tier: tierKey,
-          message: `metadata.tierKey (${metadata.tierKey}) does not match ${tierKey}`,
-        })
-      );
-    }
+    if (Array.isArray(tierValue.divisions)) {
+      tierValue.divisions.forEach((division, index) => {
+        const divisionMetadata =
+          division && typeof division === 'object' && !Array.isArray(division)
+            ? division.metadata
+            : null;
+        if (!divisionMetadata || typeof divisionMetadata !== 'object') {
+          issues.push(
+            createIssue({
+              type: 'missing-tier-metadata',
+              season: seasonKey,
+              tier: `${tierKey}:division-${index + 1}`,
+              message: 'Tier division is missing the metadata object',
+            })
+          );
+          return;
+        }
 
-    if (metadata.source === WIKIPEDIA_DATA_SOURCES.overview.sourceId) {
-      const missingOverviewFields = REQUIRED_OVERVIEW_METADATA_FIELDS.filter(
-        (field) => metadata[field] == null
-      );
-      if (missingOverviewFields.length) {
+        const divisionLabel =
+          divisionMetadata.divisionKey || divisionMetadata.title || `division-${index + 1}`;
         issues.push(
-          createIssue({
-            type: 'incomplete-overview-metadata',
-            season: seasonKey,
-            tier: tierKey,
-            message: `Overview tier metadata missing fields: ${missingOverviewFields.join(', ')}`,
-          })
+          ...analyzeTierMetadata(
+            seasonKey,
+            `${tierKey}:${divisionLabel}`,
+            divisionMetadata,
+            tierKey
+          )
         );
-      }
+      });
+    }
+  }
+
+  return issues;
+}
+
+function analyzeTierMetadata(seasonKey, tierLabel, metadata, expectedTierKey) {
+  const issues = [];
+  const missingMetadata = REQUIRED_TIER_METADATA_FIELDS.filter((field) => metadata[field] == null);
+  if (missingMetadata.length) {
+    issues.push(
+      createIssue({
+        type: 'incomplete-tier-metadata',
+        season: seasonKey,
+        tier: tierLabel,
+        message: `Tier metadata missing required fields: ${missingMetadata.join(', ')}`,
+      })
+    );
+  }
+
+  if (metadata.tierKey != null && metadata.tierKey !== expectedTierKey) {
+    issues.push(
+      createIssue({
+        type: 'tier-metadata-mismatch',
+        season: seasonKey,
+        tier: tierLabel,
+        message: `metadata.tierKey (${metadata.tierKey}) does not match ${expectedTierKey}`,
+      })
+    );
+  }
+
+  if (metadata.source === WIKIPEDIA_DATA_SOURCES.overview.sourceId) {
+    const requiredFields =
+      metadata.structure === 'parallel-leagues'
+        ? REQUIRED_PARALLEL_PARENT_METADATA_FIELDS
+        : REQUIRED_OVERVIEW_METADATA_FIELDS;
+    const missingOverviewFields = requiredFields.filter((field) => metadata[field] == null);
+    if (missingOverviewFields.length) {
+      issues.push(
+        createIssue({
+          type: 'incomplete-overview-metadata',
+          season: seasonKey,
+          tier: tierLabel,
+          message: `Overview tier metadata missing fields: ${missingOverviewFields.join(', ')}`,
+        })
+      );
     }
   }
 

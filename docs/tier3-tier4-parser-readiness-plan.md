@@ -13,16 +13,16 @@ Primary goal:
 Non-goals for this slice:
 
 - do not backfill tier 5, level 6, or true level 7 data yet
-- do not redesign the output JSON shape
+- do not hand-edit generated output JSON shape outside the parser/generator flow
 - do not hand-edit generated `data-output/` files
 - do not make the overview parser absorb non-Football-League competitions just because they appear on the same page
 
 Important model distinction:
 
-- `tierN` is the stored output slot
-- `metadata.leagueLevel` is the actual football pyramid level
+- `tierN` is the actual football pyramid level
+- `metadata.structure` tells consumers whether a tier is a single league or a parallel-league parent
 
-That distinction is required for historical parallel leagues. From 1921 through 1957, `tier3` and `tier4` are Third Division North and Third Division South, but both are level 3. From 2021 onward, current National League North and South output uses separate slots while both leagues are level 6.
+That distinction is required for historical parallel leagues. From 1921 through 1957, Third Division North and Third Division South are represented under `tier3.divisions[]`. Modern National League North and South are represented under `tier6.divisions[]`.
 
 ## Current State
 
@@ -31,7 +31,7 @@ Already in place:
 - shared config knows the major lower-tier league names, level ranges, and special seasons
 - overview generation can attach `leagueStructureSpecialCases` into `seasonInfo`
 - output normalization preserves that special-case metadata
-- verifier logic accepts known parallel-league slots when `metadata.leagueLevel` is lower than the stored `tierN` slot
+- verifier logic understands `divisions[]` for known parallel-league levels
 - focused tests cover the current config and verifier behavior
 - current generated output passes verification with the new metadata rules
 
@@ -42,10 +42,10 @@ Known parser limitation:
 
 ## Architecture Decisions
 
-Keep the current output contract:
+Keep the canonical output contract:
 
-- continue writing `tier1`, `tier2`, `tier3`, `tier4`, and later slots as top-level season record properties
-- represent historical parallel leagues by slot plus `metadata.leagueLevel`
+- continue writing `tier1`, `tier2`, `tier3`, `tier4`, and later levels as top-level season record properties
+- represent historical parallel leagues with `metadata.structure: "parallel-leagues"` and child `divisions[]`
 - attach source-specific context in metadata rather than changing the top-level shape
 
 Centralize domain facts:
@@ -54,10 +54,10 @@ Centralize domain facts:
 - do not add one-off historical checks directly inside row parsing unless there is no reusable rule
 - keep naming aliases and structural exceptions near the existing Wikipedia config
 
-Separate parser identity from output slot:
+Separate parser identity from output level:
 
 - parser output should preserve the source table title/id
-- generation should decide the output slot
+- generation should decide the output level and whether to group parallel divisions
 - metadata should carry canonical or inferred identity when source labels are ambiguous
 
 Regenerate only after parser behavior is locked:
@@ -71,7 +71,7 @@ Work should land in this order:
 
 1. Config and metadata model are stable.
 2. Parser table identity becomes reliable for tier 3 and tier 4 page shapes.
-3. Builder maps parsed tables into stable slots and levels.
+3. Builder maps parsed tables into stable levels and parallel division groups.
 4. Verifier and comparison tooling understand expected historical anomalies.
 5. Boundary fixtures cover the major structural seasons.
 6. Temporary regeneration confirms the data diff.
@@ -86,7 +86,7 @@ Goal:
 Tasks:
 
 - add or expand parser tests for representative tier 3 and tier 4 table structures
-- add builder tests that assert output slot and `metadata.leagueLevel` separately
+- add builder tests that assert `tierN`, `metadata.leagueLevel`, and `divisions[]` separately
 - add verifier tests for known historical anomalies rather than relying on broad tolerances
 
 Representative seasons:
@@ -102,7 +102,7 @@ Representative seasons:
 
 Acceptance criteria:
 
-- tests prove `tier4` before 1958 is not treated as pyramid level 4
+- tests prove no `tier4` exists before the true fourth level begins in 1958
 - tests prove true level 4 starts in 1958
 - tests prove 1992 and 2004 name changes do not alter stored level semantics
 - verifier treats documented low row counts and parallel divisions as expected, not as parser failures
@@ -252,7 +252,7 @@ Acceptance criteria:
 
 - semantic corrections are made in dedicated commits with tests
 - parser mechanics do not silently decide historical policy
-- downstream users can distinguish output slots, pyramid levels, and administrative exceptions
+- downstream users can distinguish single-league tiers, parallel-league tiers, and administrative exceptions
 
 ## Verification Plan
 
@@ -290,7 +290,7 @@ The next parser implementation slice is ready when:
 - existing config rules for tier 3 and tier 4 are committed
 - this plan and the coverage analysis are committed
 - target seasons for the slice are named up front
-- expected output slot and `leagueLevel` behavior is written down before regeneration
+- expected level and `divisions[]` behavior is written down before regeneration
 
 ## Definition Of Done For The First Parser Slice
 

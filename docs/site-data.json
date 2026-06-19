@@ -14,7 +14,7 @@
     { "value": "1888-2025", "label": "season coverage" },
     { "value": "138", "label": "seasons" },
     { "value": "232", "label": "club metadata records" },
-    { "value": "7 tiers", "label": "latest season depth" }
+    { "value": "6 tiers", "label": "latest season depth" }
   ],
   "links": [
     { "label": "GitHub repo", "url": "https://github.com/dills122/footy-data-kit" },
@@ -101,7 +101,7 @@
     {
       "file": "all-seasons.json",
       "description": "Full merged season dataset.",
-      "size": "5.9M",
+      "size": "6.1M",
       "links": [
         {
           "label": "json",
@@ -116,7 +116,7 @@
     {
       "file": "all-seasons.min.json",
       "description": "Minified full merged season dataset.",
-      "size": "3.1M",
+      "size": "3.2M",
       "links": [
         {
           "label": "min",
@@ -131,7 +131,7 @@
     {
       "file": "wiki_overview_tables_by_season.json",
       "description": "Maintained Wikipedia overview export.",
-      "size": "5.9M",
+      "size": "6.1M",
       "links": [
         {
           "label": "json",
@@ -146,7 +146,7 @@
     {
       "file": "wiki_overview_tables_by_season.min.json",
       "description": "Minified Wikipedia overview export.",
-      "size": "3.1M",
+      "size": "3.2M",
       "links": [
         {
           "label": "min",

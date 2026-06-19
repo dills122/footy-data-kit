@@ -57,9 +57,13 @@ function getTierKeys(record) {
 }
 
 function getTableRows(tier) {
-  return Array.isArray(tier?.table)
-    ? tier.table.filter((row) => row && typeof row === 'object')
-    : [];
+  if (Array.isArray(tier?.table) && tier.table.length) {
+    return tier.table.filter((row) => row && typeof row === 'object');
+  }
+  if (Array.isArray(tier?.divisions)) {
+    return tier.divisions.flatMap((division) => getTableRows(division));
+  }
+  return [];
 }
 
 function compareMetadata(before, after) {

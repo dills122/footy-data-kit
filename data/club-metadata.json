@@ -2,8 +2,8 @@
   "metadata": {
     "schemaVersion": 1,
     "generator": "club-metadata-seed",
-    "generatedAt": "2026-06-18T00:53:11.884Z",
-    "gitSha": "8db8549",
+    "generatedAt": "2026-06-19T03:00:49.854Z",
+    "gitSha": "197e521",
     "sourceFiles": [
       "/Users/dsteele/repos/footy-data-kit/data-output/all-seasons.json"
     ],
@@ -51,7 +51,7 @@
             "fromSeason": 1921,
             "toSeason": 1926,
             "tiers": [
-              "tier4"
+              "tier3"
             ],
             "basis": "observed"
           }
@@ -85,7 +85,7 @@
               1926
             ],
             "tiersSeen": [
-              "tier4"
+              "tier3"
             ]
           }
         ],
@@ -108,11 +108,11 @@
         ],
         "totalSeasonsSeen": 6,
         "tiersSeen": [
-          "tier4"
+          "tier3"
         ],
         "tierSeasons": [
           {
-            "tierKey": "tier4",
+            "tierKey": "tier3",
             "seasons": [
               1921,
               1922,
@@ -1013,6 +1013,34 @@
           {
             "tierKey": "tier3",
             "seasons": [
+              1923,
+              1924,
+              1925,
+              1926,
+              1927,
+              1928,
+              1929,
+              1930,
+              1931,
+              1932,
+              1933,
+              1934,
+              1935,
+              1936,
+              1937,
+              1938,
+              1946,
+              1947,
+              1948,
+              1949,
+              1950,
+              1951,
+              1952,
+              1953,
+              1954,
+              1955,
+              1956,
+              1957,
               1958,
               1959,
               1960,
@@ -1059,34 +1087,6 @@
           {
             "tierKey": "tier4",
             "seasons": [
-              1923,
-              1924,
-              1925,
-              1926,
-              1927,
-              1928,
-              1929,
-              1930,
-              1931,
-              1932,
-              1933,
-              1934,
-              1935,
-              1936,
-              1937,
-              1938,
-              1946,
-              1947,
-              1948,
-              1949,
-              1950,
-              1951,
-              1952,
-              1953,
-              1954,
-              1955,
-              1956,
-              1957,
               1970,
               1975,
               1976,
@@ -1293,7 +1293,7 @@
               {
                 "type": "wikipedia-season-page",
                 "sourceUrl": "https://en.wikipedia.org/wiki/2022–23_in_English_football",
-                "notes": "North table in 2022–23_in_English_football"
+                "notes": "tier6 table in 2022–23_in_English_football"
               }
             ]
           }
@@ -1351,7 +1351,7 @@
               {
                 "type": "wikipedia-season-page",
                 "sourceUrl": "https://en.wikipedia.org/wiki/2022–23_in_English_football",
-                "notes": "North table in 2022–23_in_English_football"
+                "notes": "tier6 table in 2022–23_in_English_football"
               }
             ]
           }
@@ -1470,7 +1470,7 @@
             "fromSeason": 2025,
             "toSeason": null,
             "tiers": [
-              "tier7"
+              "tier6"
             ],
             "basis": "observed"
           }
@@ -1492,7 +1492,7 @@
               2025
             ],
             "tiersSeen": [
-              "tier7"
+              "tier6"
             ]
           }
         ],
@@ -1510,11 +1510,11 @@
         ],
         "totalSeasonsSeen": 1,
         "tiersSeen": [
-          "tier7"
+          "tier6"
         ],
         "tierSeasons": [
           {
-            "tierKey": "tier7",
+            "tierKey": "tier6",
             "seasons": [
               2025
             ]
@@ -1916,16 +1916,6 @@
           {
             "tierKey": "tier3",
             "seasons": [
-              1973,
-              1974,
-              1975,
-              1987,
-              1988
-            ]
-          },
-          {
-            "tierKey": "tier4",
-            "seasons": [
               1932,
               1933,
               1934,
@@ -1945,6 +1935,16 @@
               1955,
               1956,
               1957,
+              1973,
+              1974,
+              1975,
+              1987,
+              1988
+            ]
+          },
+          {
+            "tierKey": "tier4",
+            "seasons": [
               1958,
               1959,
               1960,
@@ -3549,7 +3549,7 @@
             "fromSeason": 2023,
             "toSeason": 2024,
             "tiers": [
-              "tier7"
+              "tier6"
             ],
             "basis": "observed"
           }
@@ -3579,7 +3579,7 @@
               2024
             ],
             "tiersSeen": [
-              "tier7"
+              "tier6"
             ]
           }
         ],
@@ -3598,11 +3598,11 @@
         ],
         "totalSeasonsSeen": 2,
         "tiersSeen": [
-          "tier7"
+          "tier6"
         ],
         "tierSeasons": [
           {
-            "tierKey": "tier7",
+            "tierKey": "tier6",
             "seasons": [
               2023,
               2024
@@ -4752,7 +4752,7 @@
             "fromSeason": 2021,
             "toSeason": null,
             "tiers": [
-              "tier7"
+              "tier6"
             ],
             "basis": "observed"
           }
@@ -4778,7 +4778,7 @@
               2025
             ],
             "tiersSeen": [
-              "tier7"
+              "tier6"
             ]
           }
         ],
@@ -4800,11 +4800,11 @@
         ],
         "totalSeasonsSeen": 5,
         "tiersSeen": [
-          "tier7"
+          "tier6"
         ],
         "tierSeasons": [
           {
-            "tierKey": "tier7",
+            "tierKey": "tier6",
             "seasons": [
               2021,
               2022,
@@ -4911,7 +4911,7 @@
             "fromSeason": 2021,
             "toSeason": 2021,
             "tiers": [
-              "tier7"
+              "tier6"
             ],
             "basis": "observed"
           }
@@ -4940,7 +4940,7 @@
               2021
             ],
             "tiersSeen": [
-              "tier7"
+              "tier6"
             ]
           }
         ],
@@ -4958,11 +4958,11 @@
         ],
         "totalSeasonsSeen": 1,
         "tiersSeen": [
-          "tier7"
+          "tier6"
         ],
         "tierSeasons": [
           {
-            "tierKey": "tier7",
+            "tierKey": "tier6",
             "seasons": [
               2021
             ]
@@ -7432,7 +7432,7 @@
             "toSeason": null,
             "tiers": [
               "tier5",
-              "tier7"
+              "tier6"
             ],
             "basis": "observed"
           }
@@ -7465,7 +7465,7 @@
             ],
             "tiersSeen": [
               "tier5",
-              "tier7"
+              "tier6"
             ]
           }
         ],
@@ -7494,7 +7494,7 @@
         "totalSeasonsSeen": 11,
         "tiersSeen": [
           "tier5",
-          "tier7"
+          "tier6"
         ],
         "tierSeasons": [
           {
@@ -7513,7 +7513,7 @@
             ]
           },
           {
-            "tierKey": "tier7",
+            "tierKey": "tier6",
             "seasons": [
               2024
             ]
@@ -8650,7 +8650,7 @@
             "toSeason": null,
             "tiers": [
               "tier5",
-              "tier7"
+              "tier6"
             ],
             "basis": "observed"
           }
@@ -8714,7 +8714,7 @@
             ],
             "tiersSeen": [
               "tier5",
-              "tier7"
+              "tier6"
             ]
           }
         ],
@@ -8753,7 +8753,7 @@
         "totalSeasonsSeen": 11,
         "tiersSeen": [
           "tier5",
-          "tier7"
+          "tier6"
         ],
         "tierSeasons": [
           {
@@ -8770,7 +8770,7 @@
             ]
           },
           {
-            "tierKey": "tier7",
+            "tierKey": "tier6",
             "seasons": [
               2021,
               2022,
@@ -9110,6 +9110,22 @@
             "tierKey": "tier3",
             "seasons": [
               1920,
+              1921,
+              1922,
+              1923,
+              1924,
+              1925,
+              1926,
+              1927,
+              1928,
+              1929,
+              1930,
+              1931,
+              1932,
+              1954,
+              1955,
+              1956,
+              1957,
               1958,
               1959,
               1960,
@@ -9155,22 +9171,6 @@
           {
             "tierKey": "tier4",
             "seasons": [
-              1921,
-              1922,
-              1923,
-              1924,
-              1925,
-              1926,
-              1927,
-              1928,
-              1929,
-              1930,
-              1931,
-              1932,
-              1954,
-              1955,
-              1956,
-              1957,
               1962,
               1966,
               1967,
@@ -9526,35 +9526,6 @@
             "tierKey": "tier3",
             "seasons": [
               1920,
-              1962,
-              1965,
-              1966,
-              1967,
-              1968,
-              1969,
-              1970,
-              1971,
-              1973,
-              1974,
-              1975,
-              1976,
-              1987,
-              1992,
-              1993,
-              1994,
-              1995,
-              2001,
-              2003,
-              2006,
-              2007,
-              2008,
-              2009,
-              2010
-            ]
-          },
-          {
-            "tierKey": "tier4",
-            "seasons": [
               1921,
               1922,
               1923,
@@ -9585,6 +9556,35 @@
               1955,
               1956,
               1957,
+              1962,
+              1965,
+              1966,
+              1967,
+              1968,
+              1969,
+              1970,
+              1971,
+              1973,
+              1974,
+              1975,
+              1976,
+              1987,
+              1992,
+              1993,
+              1994,
+              1995,
+              2001,
+              2003,
+              2006,
+              2007,
+              2008,
+              2009,
+              2010
+            ]
+          },
+          {
+            "tierKey": "tier4",
+            "seasons": [
               1963,
               1964,
               1996,
@@ -10002,6 +10002,26 @@
           {
             "tierKey": "tier3",
             "seasons": [
+              1922,
+              1924,
+              1925,
+              1926,
+              1932,
+              1933,
+              1934,
+              1935,
+              1936,
+              1937,
+              1938,
+              1946,
+              1947,
+              1948,
+              1949,
+              1950,
+              1951,
+              1952,
+              1953,
+              1954,
               1960,
               1961,
               1962,
@@ -10032,26 +10052,6 @@
           {
             "tierKey": "tier4",
             "seasons": [
-              1922,
-              1924,
-              1925,
-              1926,
-              1932,
-              1933,
-              1934,
-              1935,
-              1936,
-              1937,
-              1938,
-              1946,
-              1947,
-              1948,
-              1949,
-              1950,
-              1951,
-              1952,
-              1953,
-              1954,
               1982,
               1983
             ]
@@ -10376,6 +10376,31 @@
             "tierKey": "tier3",
             "seasons": [
               1920,
+              1921,
+              1922,
+              1923,
+              1924,
+              1925,
+              1926,
+              1927,
+              1928,
+              1929,
+              1930,
+              1931,
+              1932,
+              1933,
+              1934,
+              1935,
+              1936,
+              1937,
+              1938,
+              1946,
+              1947,
+              1948,
+              1949,
+              1950,
+              1951,
+              1952,
               1962,
               1963,
               1964,
@@ -10422,31 +10447,6 @@
           {
             "tierKey": "tier4",
             "seasons": [
-              1921,
-              1922,
-              1923,
-              1924,
-              1925,
-              1926,
-              1927,
-              1928,
-              1929,
-              1930,
-              1931,
-              1932,
-              1933,
-              1934,
-              1935,
-              1936,
-              1937,
-              1938,
-              1946,
-              1947,
-              1948,
-              1949,
-              1950,
-              1951,
-              1952,
               2001,
               2002,
               2003,
@@ -12896,6 +12896,15 @@
           {
             "tierKey": "tier3",
             "seasons": [
+              1931,
+              1932,
+              1933,
+              1934,
+              1935,
+              1936,
+              1937,
+              1938,
+              1946,
               1975,
               1982,
               1985,
@@ -12912,15 +12921,6 @@
           {
             "tierKey": "tier4",
             "seasons": [
-              1931,
-              1932,
-              1933,
-              1934,
-              1935,
-              1936,
-              1937,
-              1938,
-              1946,
               1986,
               1987,
               1990,
@@ -13387,8 +13387,7 @@
             "tiers": [
               "tier1",
               "tier2",
-              "tier3",
-              "tier4"
+              "tier3"
             ],
             "basis": "observed"
           }
@@ -13516,8 +13515,7 @@
             "tiersSeen": [
               "tier1",
               "tier2",
-              "tier3",
-              "tier4"
+              "tier3"
             ]
           }
         ],
@@ -13639,8 +13637,7 @@
         "tiersSeen": [
           "tier1",
           "tier2",
-          "tier3",
-          "tier4"
+          "tier3"
         ],
         "tierSeasons": [
           {
@@ -13729,6 +13726,16 @@
           {
             "tierKey": "tier3",
             "seasons": [
+              1921,
+              1922,
+              1923,
+              1924,
+              1925,
+              1926,
+              1927,
+              1928,
+              1933,
+              1934,
               1972,
               1973,
               1974,
@@ -13744,21 +13751,6 @@
               2022,
               2023,
               2024
-            ]
-          },
-          {
-            "tierKey": "tier4",
-            "seasons": [
-              1921,
-              1922,
-              1923,
-              1924,
-              1925,
-              1926,
-              1927,
-              1928,
-              1933,
-              1934
             ]
           }
         ],
@@ -13788,7 +13780,7 @@
             "fromSeason": 2021,
             "toSeason": null,
             "tiers": [
-              "tier7"
+              "tier6"
             ],
             "basis": "observed"
           }
@@ -13814,7 +13806,7 @@
               2025
             ],
             "tiersSeen": [
-              "tier7"
+              "tier6"
             ]
           }
         ],
@@ -13836,11 +13828,11 @@
         ],
         "totalSeasonsSeen": 5,
         "tiersSeen": [
-          "tier7"
+          "tier6"
         ],
         "tierSeasons": [
           {
-            "tierKey": "tier7",
+            "tierKey": "tier6",
             "seasons": [
               2021,
               2022,
@@ -14471,7 +14463,7 @@
             "fromSeason": 2024,
             "toSeason": null,
             "tiers": [
-              "tier7"
+              "tier6"
             ],
             "basis": "observed"
           }
@@ -14494,7 +14486,7 @@
               2025
             ],
             "tiersSeen": [
-              "tier7"
+              "tier6"
             ]
           }
         ],
@@ -14513,11 +14505,11 @@
         ],
         "totalSeasonsSeen": 2,
         "tiersSeen": [
-          "tier7"
+          "tier6"
         ],
         "tierSeasons": [
           {
-            "tierKey": "tier7",
+            "tierKey": "tier6",
             "seasons": [
               2024,
               2025
@@ -14552,7 +14544,7 @@
             "fromSeason": 2022,
             "toSeason": 2022,
             "tiers": [
-              "tier7"
+              "tier6"
             ],
             "basis": "observed"
           }
@@ -14581,7 +14573,7 @@
               2022
             ],
             "tiersSeen": [
-              "tier7"
+              "tier6"
             ]
           }
         ],
@@ -14599,11 +14591,11 @@
         ],
         "totalSeasonsSeen": 1,
         "tiersSeen": [
-          "tier7"
+          "tier6"
         ],
         "tierSeasons": [
           {
-            "tierKey": "tier7",
+            "tierKey": "tier6",
             "seasons": [
               2022
             ]
@@ -15784,7 +15776,7 @@
             "fromSeason": 2021,
             "toSeason": null,
             "tiers": [
-              "tier7"
+              "tier6"
             ],
             "basis": "observed"
           }
@@ -15810,7 +15802,7 @@
               2025
             ],
             "tiersSeen": [
-              "tier7"
+              "tier6"
             ]
           }
         ],
@@ -15832,11 +15824,11 @@
         ],
         "totalSeasonsSeen": 5,
         "tiersSeen": [
-          "tier7"
+          "tier6"
         ],
         "tierSeasons": [
           {
-            "tierKey": "tier7",
+            "tierKey": "tier6",
             "seasons": [
               2021,
               2022,
@@ -16237,6 +16229,14 @@
           {
             "tierKey": "tier3",
             "seasons": [
+              1950,
+              1951,
+              1952,
+              1953,
+              1954,
+              1955,
+              1956,
+              1957,
               1958,
               1959,
               1960,
@@ -16272,14 +16272,6 @@
           {
             "tierKey": "tier4",
             "seasons": [
-              1950,
-              1951,
-              1952,
-              1953,
-              1954,
-              1955,
-              1956,
-              1957,
               1961,
               1965,
               1968,
@@ -16352,7 +16344,7 @@
             "fromSeason": 2021,
             "toSeason": 2022,
             "tiers": [
-              "tier7"
+              "tier6"
             ],
             "basis": "observed"
           }
@@ -16382,7 +16374,7 @@
               2022
             ],
             "tiersSeen": [
-              "tier7"
+              "tier6"
             ]
           }
         ],
@@ -16401,11 +16393,11 @@
         ],
         "totalSeasonsSeen": 2,
         "tiersSeen": [
-          "tier7"
+          "tier6"
         ],
         "tierSeasons": [
           {
-            "tierKey": "tier7",
+            "tierKey": "tier6",
             "seasons": [
               2021,
               2022
@@ -16776,6 +16768,22 @@
             "tierKey": "tier3",
             "seasons": [
               1925,
+              1926,
+              1927,
+              1928,
+              1929,
+              1930,
+              1931,
+              1932,
+              1933,
+              1934,
+              1935,
+              1952,
+              1953,
+              1954,
+              1955,
+              1956,
+              1957,
               1959,
               1960,
               1961,
@@ -16793,22 +16801,6 @@
           {
             "tierKey": "tier4",
             "seasons": [
-              1926,
-              1927,
-              1928,
-              1929,
-              1930,
-              1931,
-              1932,
-              1933,
-              1934,
-              1935,
-              1952,
-              1953,
-              1954,
-              1955,
-              1956,
-              1957,
               1958,
               2017
             ]
@@ -17747,17 +17739,6 @@
             "tierKey": "tier3",
             "seasons": [
               1920,
-              1961,
-              1962,
-              1963,
-              1974,
-              1975,
-              1976
-            ]
-          },
-          {
-            "tierKey": "tier4",
-            "seasons": [
               1925,
               1926,
               1927,
@@ -17784,6 +17765,17 @@
               1955,
               1956,
               1957,
+              1961,
+              1962,
+              1963,
+              1974,
+              1975,
+              1976
+            ]
+          },
+          {
+            "tierKey": "tier4",
+            "seasons": [
               1958,
               1959,
               1960
@@ -17900,7 +17892,7 @@
               "tier3",
               "tier4",
               "tier5",
-              "tier7"
+              "tier6"
             ],
             "basis": "observed"
           }
@@ -17943,7 +17935,7 @@
               "tier3",
               "tier4",
               "tier5",
-              "tier7"
+              "tier6"
             ]
           }
         ],
@@ -17982,7 +17974,7 @@
           "tier3",
           "tier4",
           "tier5",
-          "tier7"
+          "tier6"
         ],
         "tierSeasons": [
           {
@@ -18019,7 +18011,7 @@
             ]
           },
           {
-            "tierKey": "tier7",
+            "tierKey": "tier6",
             "seasons": [
               2025
             ]
@@ -18581,7 +18573,7 @@
             "toSeason": 2023,
             "tiers": [
               "tier5",
-              "tier7"
+              "tier6"
             ],
             "basis": "observed"
           }
@@ -18632,7 +18624,7 @@
             ],
             "tiersSeen": [
               "tier5",
-              "tier7"
+              "tier6"
             ]
           }
         ],
@@ -18661,7 +18653,7 @@
         "totalSeasonsSeen": 6,
         "tiersSeen": [
           "tier5",
-          "tier7"
+          "tier6"
         ],
         "tierSeasons": [
           {
@@ -18673,7 +18665,7 @@
             ]
           },
           {
-            "tierKey": "tier7",
+            "tierKey": "tier6",
             "seasons": [
               2021,
               2022,
@@ -19844,7 +19836,7 @@
             "toSeason": null,
             "tiers": [
               "tier5",
-              "tier7"
+              "tier6"
             ],
             "basis": "observed"
           }
@@ -19871,7 +19863,7 @@
             ],
             "tiersSeen": [
               "tier5",
-              "tier7"
+              "tier6"
             ]
           }
         ],
@@ -19894,7 +19886,7 @@
         "totalSeasonsSeen": 5,
         "tiersSeen": [
           "tier5",
-          "tier7"
+          "tier6"
         ],
         "tierSeasons": [
           {
@@ -19905,7 +19897,7 @@
             ]
           },
           {
-            "tierKey": "tier7",
+            "tierKey": "tier6",
             "seasons": [
               2021,
               2024,
@@ -19935,7 +19927,7 @@
               {
                 "type": "wikipedia-season-page",
                 "sourceUrl": "https://en.wikipedia.org/wiki/2023–24_in_English_football",
-                "notes": "South table in 2023–24_in_English_football"
+                "notes": "tier6 table in 2023–24_in_English_football"
               }
             ]
           }
@@ -19946,7 +19938,7 @@
             "toSeason": null,
             "tiers": [
               "tier5",
-              "tier7"
+              "tier6"
             ],
             "basis": "observed"
           }
@@ -19963,7 +19955,7 @@
               {
                 "type": "wikipedia-season-page",
                 "sourceUrl": "https://en.wikipedia.org/wiki/2023–24_in_English_football",
-                "notes": "South table in 2023–24_in_English_football"
+                "notes": "tier6 table in 2023–24_in_English_football"
               }
             ]
           }
@@ -19995,7 +19987,7 @@
             ],
             "tiersSeen": [
               "tier5",
-              "tier7"
+              "tier6"
             ]
           }
         ],
@@ -20029,7 +20021,7 @@
         "totalSeasonsSeen": 11,
         "tiersSeen": [
           "tier5",
-          "tier7"
+          "tier6"
         ],
         "tierSeasons": [
           {
@@ -20046,7 +20038,7 @@
             ]
           },
           {
-            "tierKey": "tier7",
+            "tierKey": "tier6",
             "seasons": [
               2022,
               2023,
@@ -20089,7 +20081,7 @@
             "fromSeason": 2021,
             "toSeason": 2022,
             "tiers": [
-              "tier7"
+              "tier6"
             ],
             "basis": "observed"
           }
@@ -20119,7 +20111,7 @@
               2022
             ],
             "tiersSeen": [
-              "tier7"
+              "tier6"
             ]
           }
         ],
@@ -20138,11 +20130,11 @@
         ],
         "totalSeasonsSeen": 2,
         "tiersSeen": [
-          "tier7"
+          "tier6"
         ],
         "tierSeasons": [
           {
-            "tierKey": "tier7",
+            "tierKey": "tier6",
             "seasons": [
               2021,
               2022
@@ -20271,7 +20263,7 @@
             "fromSeason": 2021,
             "toSeason": null,
             "tiers": [
-              "tier7"
+              "tier6"
             ],
             "basis": "observed"
           }
@@ -20297,7 +20289,7 @@
               2025
             ],
             "tiersSeen": [
-              "tier7"
+              "tier6"
             ]
           }
         ],
@@ -20319,11 +20311,11 @@
         ],
         "totalSeasonsSeen": 5,
         "tiersSeen": [
-          "tier7"
+          "tier6"
         ],
         "tierSeasons": [
           {
-            "tierKey": "tier7",
+            "tierKey": "tier6",
             "seasons": [
               2021,
               2022,
@@ -20480,7 +20472,7 @@
             "toSeason": null,
             "tiers": [
               "tier5",
-              "tier7"
+              "tier6"
             ],
             "basis": "observed"
           }
@@ -20542,7 +20534,7 @@
             ],
             "tiersSeen": [
               "tier5",
-              "tier7"
+              "tier6"
             ]
           }
         ],
@@ -20579,7 +20571,7 @@
         "totalSeasonsSeen": 9,
         "tiersSeen": [
           "tier5",
-          "tier7"
+          "tier6"
         ],
         "tierSeasons": [
           {
@@ -20594,7 +20586,7 @@
             ]
           },
           {
-            "tierKey": "tier7",
+            "tierKey": "tier6",
             "seasons": [
               2021,
               2022,
@@ -20633,7 +20625,7 @@
             "fromSeason": 2024,
             "toSeason": null,
             "tiers": [
-              "tier7"
+              "tier6"
             ],
             "basis": "observed"
           }
@@ -20656,7 +20648,7 @@
               2025
             ],
             "tiersSeen": [
-              "tier7"
+              "tier6"
             ]
           }
         ],
@@ -20675,11 +20667,11 @@
         ],
         "totalSeasonsSeen": 2,
         "tiersSeen": [
-          "tier7"
+          "tier6"
         ],
         "tierSeasons": [
           {
-            "tierKey": "tier7",
+            "tierKey": "tier6",
             "seasons": [
               2024,
               2025
@@ -21476,31 +21468,6 @@
             "tierKey": "tier3",
             "seasons": [
               1920,
-              1964,
-              1965,
-              1977,
-              1978,
-              1979,
-              1980,
-              1981,
-              1982,
-              1983,
-              1990,
-              1991,
-              1992,
-              1993,
-              2009,
-              2010,
-              2011,
-              2022,
-              2023,
-              2024,
-              2025
-            ]
-          },
-          {
-            "tierKey": "tier4",
-            "seasons": [
               1921,
               1922,
               1923,
@@ -21531,6 +21498,31 @@
               1955,
               1956,
               1957,
+              1964,
+              1965,
+              1977,
+              1978,
+              1979,
+              1980,
+              1981,
+              1982,
+              1983,
+              1990,
+              1991,
+              1992,
+              1993,
+              2009,
+              2010,
+              2011,
+              2022,
+              2023,
+              2024,
+              2025
+            ]
+          },
+          {
+            "tierKey": "tier4",
+            "seasons": [
               1958,
               1959,
               1960,
@@ -21608,7 +21600,7 @@
             "fromSeason": 2022,
             "toSeason": null,
             "tiers": [
-              "tier7"
+              "tier6"
             ],
             "basis": "observed"
           }
@@ -21633,7 +21625,7 @@
               2025
             ],
             "tiersSeen": [
-              "tier7"
+              "tier6"
             ]
           }
         ],
@@ -21654,11 +21646,11 @@
         ],
         "totalSeasonsSeen": 4,
         "tiersSeen": [
-          "tier7"
+          "tier6"
         ],
         "tierSeasons": [
           {
-            "tierKey": "tier7",
+            "tierKey": "tier6",
             "seasons": [
               2022,
               2023,
@@ -22581,6 +22573,10 @@
           {
             "tierKey": "tier3",
             "seasons": [
+              1928,
+              1929,
+              1930,
+              1931,
               1969,
               1970,
               1980,
@@ -22600,10 +22596,6 @@
           {
             "tierKey": "tier4",
             "seasons": [
-              1928,
-              1929,
-              1930,
-              1931,
               1994,
               1995,
               1996
@@ -23201,7 +23193,7 @@
               {
                 "type": "wikipedia-season-page",
                 "sourceUrl": "https://en.wikipedia.org/wiki/1937–38_in_English_football",
-                "notes": "Third Division South table in 1937–38_in_English_football"
+                "notes": "tier3 table in 1937–38_in_English_football"
               }
             ]
           }
@@ -23230,7 +23222,7 @@
               {
                 "type": "wikipedia-season-page",
                 "sourceUrl": "https://en.wikipedia.org/wiki/1937–38_in_English_football",
-                "notes": "Third Division South table in 1937–38_in_English_football"
+                "notes": "tier3 table in 1937–38_in_English_football"
               }
             ]
           }
@@ -23481,6 +23473,31 @@
             "tierKey": "tier3",
             "seasons": [
               1920,
+              1921,
+              1922,
+              1923,
+              1924,
+              1925,
+              1926,
+              1927,
+              1928,
+              1929,
+              1930,
+              1931,
+              1932,
+              1933,
+              1934,
+              1935,
+              1936,
+              1937,
+              1950,
+              1951,
+              1952,
+              1953,
+              1954,
+              1955,
+              1956,
+              1957,
               1964,
               1965,
               1966,
@@ -23525,31 +23542,6 @@
           {
             "tierKey": "tier4",
             "seasons": [
-              1921,
-              1922,
-              1923,
-              1924,
-              1925,
-              1926,
-              1927,
-              1928,
-              1929,
-              1930,
-              1931,
-              1932,
-              1933,
-              1934,
-              1935,
-              1936,
-              1937,
-              1950,
-              1951,
-              1952,
-              1953,
-              1954,
-              1955,
-              1956,
-              1957,
               1958,
               1959,
               1960,
@@ -24952,7 +24944,7 @@
             "fromSeason": 2021,
             "toSeason": null,
             "tiers": [
-              "tier7"
+              "tier6"
             ],
             "basis": "observed"
           }
@@ -24978,7 +24970,7 @@
               2025
             ],
             "tiersSeen": [
-              "tier7"
+              "tier6"
             ]
           }
         ],
@@ -25000,11 +24992,11 @@
         ],
         "totalSeasonsSeen": 5,
         "tiersSeen": [
-          "tier7"
+          "tier6"
         ],
         "tierSeasons": [
           {
-            "tierKey": "tier7",
+            "tierKey": "tier6",
             "seasons": [
               2021,
               2022,
@@ -25601,7 +25593,7 @@
             "toSeason": 2023,
             "tiers": [
               "tier5",
-              "tier7"
+              "tier6"
             ],
             "basis": "observed"
           }
@@ -25650,7 +25642,7 @@
             ],
             "tiersSeen": [
               "tier5",
-              "tier7"
+              "tier6"
             ]
           }
         ],
@@ -25677,7 +25669,7 @@
         "totalSeasonsSeen": 4,
         "tiersSeen": [
           "tier5",
-          "tier7"
+          "tier6"
         ],
         "tierSeasons": [
           {
@@ -25687,7 +25679,7 @@
             ]
           },
           {
-            "tierKey": "tier7",
+            "tierKey": "tier6",
             "seasons": [
               2021,
               2022,
@@ -25721,7 +25713,7 @@
             "fromSeason": 2021,
             "toSeason": null,
             "tiers": [
-              "tier7"
+              "tier6"
             ],
             "basis": "observed"
           }
@@ -25747,7 +25739,7 @@
               2025
             ],
             "tiersSeen": [
-              "tier7"
+              "tier6"
             ]
           }
         ],
@@ -25769,11 +25761,11 @@
         ],
         "totalSeasonsSeen": 5,
         "tiersSeen": [
-          "tier7"
+          "tier6"
         ],
         "tierSeasons": [
           {
-            "tierKey": "tier7",
+            "tierKey": "tier6",
             "seasons": [
               2021,
               2022,
@@ -26195,7 +26187,7 @@
             "fromSeason": 2024,
             "toSeason": null,
             "tiers": [
-              "tier7"
+              "tier6"
             ],
             "basis": "observed"
           }
@@ -26218,7 +26210,7 @@
               2025
             ],
             "tiersSeen": [
-              "tier7"
+              "tier6"
             ]
           }
         ],
@@ -26237,11 +26229,11 @@
         ],
         "totalSeasonsSeen": 2,
         "tiersSeen": [
-          "tier7"
+          "tier6"
         ],
         "tierSeasons": [
           {
-            "tierKey": "tier7",
+            "tierKey": "tier6",
             "seasons": [
               2024,
               2025
@@ -26267,7 +26259,7 @@
             "fromSeason": 2025,
             "toSeason": null,
             "tiers": [
-              "tier7"
+              "tier6"
             ],
             "basis": "observed"
           }
@@ -26289,7 +26281,7 @@
               2025
             ],
             "tiersSeen": [
-              "tier7"
+              "tier6"
             ]
           }
         ],
@@ -26307,11 +26299,11 @@
         ],
         "totalSeasonsSeen": 1,
         "tiersSeen": [
-          "tier7"
+          "tier6"
         ],
         "tierSeasons": [
           {
-            "tierKey": "tier7",
+            "tierKey": "tier6",
             "seasons": [
               2025
             ]
@@ -27240,7 +27232,7 @@
             "fromSeason": 2021,
             "toSeason": 2022,
             "tiers": [
-              "tier7"
+              "tier6"
             ],
             "basis": "observed"
           }
@@ -27270,7 +27262,7 @@
               2022
             ],
             "tiersSeen": [
-              "tier7"
+              "tier6"
             ]
           }
         ],
@@ -27289,11 +27281,11 @@
         ],
         "totalSeasonsSeen": 2,
         "tiersSeen": [
-          "tier7"
+          "tier6"
         ],
         "tierSeasons": [
           {
-            "tierKey": "tier7",
+            "tierKey": "tier6",
             "seasons": [
               2021,
               2022
@@ -27409,8 +27401,7 @@
             "tiers": [
               "tier1",
               "tier2",
-              "tier3",
-              "tier4"
+              "tier3"
             ],
             "basis": "observed"
           }
@@ -27521,8 +27512,7 @@
             "tiersSeen": [
               "tier1",
               "tier2",
-              "tier3",
-              "tier4"
+              "tier3"
             ]
           }
         ],
@@ -27627,8 +27617,7 @@
         "tiersSeen": [
           "tier1",
           "tier2",
-          "tier3",
-          "tier4"
+          "tier3"
         ],
         "tierSeasons": [
           {
@@ -27710,15 +27699,6 @@
           {
             "tierKey": "tier3",
             "seasons": [
-              2019,
-              2020,
-              2021,
-              2022
-            ]
-          },
-          {
-            "tierKey": "tier4",
-            "seasons": [
               1938,
               1946,
               1947,
@@ -27729,7 +27709,11 @@
               1952,
               1953,
               1955,
-              1956
+              1956,
+              2019,
+              2020,
+              2021,
+              2022
             ]
           }
         ],
@@ -28144,7 +28128,7 @@
               {
                 "type": "wikipedia-season-page",
                 "sourceUrl": "https://en.wikipedia.org/wiki/2022–23_in_English_football",
-                "notes": "North table in 2022–23_in_English_football"
+                "notes": "tier6 table in 2022–23_in_English_football"
               }
             ]
           }
@@ -28171,7 +28155,7 @@
               {
                 "type": "wikipedia-season-page",
                 "sourceUrl": "https://en.wikipedia.org/wiki/2022–23_in_English_football",
-                "notes": "North table in 2022–23_in_English_football"
+                "notes": "tier6 table in 2022–23_in_English_football"
               }
             ]
           }
@@ -29403,7 +29387,7 @@
             ],
             "tiersSeen": [
               "tier2",
-              "tier4"
+              "tier3"
             ]
           },
           {
@@ -29720,6 +29704,26 @@
           {
             "tierKey": "tier3",
             "seasons": [
+              1929,
+              1930,
+              1931,
+              1932,
+              1933,
+              1934,
+              1935,
+              1936,
+              1937,
+              1938,
+              1946,
+              1947,
+              1948,
+              1949,
+              1950,
+              1951,
+              1952,
+              1953,
+              1954,
+              1955,
               1966,
               1967,
               1968,
@@ -29750,26 +29754,6 @@
           {
             "tierKey": "tier4",
             "seasons": [
-              1929,
-              1930,
-              1931,
-              1932,
-              1933,
-              1934,
-              1935,
-              1936,
-              1937,
-              1938,
-              1946,
-              1947,
-              1948,
-              1949,
-              1950,
-              1951,
-              1952,
-              1953,
-              1954,
-              1955,
               1985,
               1986,
               1987,
@@ -31483,6 +31467,22 @@
             "tierKey": "tier3",
             "seasons": [
               1920,
+              1921,
+              1922,
+              1923,
+              1924,
+              1925,
+              1926,
+              1927,
+              1928,
+              1929,
+              1930,
+              1931,
+              1932,
+              1933,
+              1934,
+              1935,
+              1936,
               1963,
               1964,
               1968,
@@ -31503,22 +31503,6 @@
           {
             "tierKey": "tier4",
             "seasons": [
-              1921,
-              1922,
-              1923,
-              1924,
-              1925,
-              1926,
-              1927,
-              1928,
-              1929,
-              1930,
-              1931,
-              1932,
-              1933,
-              1934,
-              1935,
-              1936,
               1965,
               1966,
               1967,
@@ -31828,7 +31812,7 @@
             "toSeason": null,
             "tiers": [
               "tier5",
-              "tier7"
+              "tier6"
             ],
             "basis": "observed"
           }
@@ -31859,7 +31843,7 @@
             ],
             "tiersSeen": [
               "tier5",
-              "tier7"
+              "tier6"
             ]
           }
         ],
@@ -31886,7 +31870,7 @@
         "totalSeasonsSeen": 9,
         "tiersSeen": [
           "tier5",
-          "tier7"
+          "tier6"
         ],
         "tierSeasons": [
           {
@@ -31903,7 +31887,7 @@
             ]
           },
           {
-            "tierKey": "tier7",
+            "tierKey": "tier6",
             "seasons": [
               2025
             ]
@@ -31942,7 +31926,7 @@
             "toSeason": null,
             "tiers": [
               "tier5",
-              "tier7"
+              "tier6"
             ],
             "basis": "observed"
           }
@@ -32004,7 +31988,7 @@
             ],
             "tiersSeen": [
               "tier5",
-              "tier7"
+              "tier6"
             ]
           }
         ],
@@ -32035,7 +32019,7 @@
         "totalSeasonsSeen": 8,
         "tiersSeen": [
           "tier5",
-          "tier7"
+          "tier6"
         ],
         "tierSeasons": [
           {
@@ -32048,7 +32032,7 @@
             ]
           },
           {
-            "tierKey": "tier7",
+            "tierKey": "tier6",
             "seasons": [
               2021,
               2023,
@@ -33517,11 +33501,15 @@
           {
             "tierKey": "tier3",
             "seasons": [
+              1931,
               1932,
               1933,
               1934,
               1935,
               1936,
+              1937,
+              1938,
+              1946,
               1947,
               1948,
               1949,
@@ -33562,10 +33550,6 @@
           {
             "tierKey": "tier4",
             "seasons": [
-              1931,
-              1937,
-              1938,
-              1946,
               1960,
               1961,
               1962,
@@ -33719,7 +33703,7 @@
               {
                 "type": "wikipedia-season-page",
                 "sourceUrl": "https://en.wikipedia.org/wiki/1929–30_in_English_football",
-                "notes": "Third Division South table in 1929–30_in_English_football"
+                "notes": "tier3 table in 1929–30_in_English_football"
               }
             ]
           }
@@ -33730,7 +33714,6 @@
             "toSeason": null,
             "tiers": [
               "tier3",
-              "tier4",
               "tier6"
             ],
             "basis": "observed"
@@ -33748,7 +33731,7 @@
               {
                 "type": "wikipedia-season-page",
                 "sourceUrl": "https://en.wikipedia.org/wiki/1929–30_in_English_football",
-                "notes": "Third Division South table in 1929–30_in_English_football"
+                "notes": "tier3 table in 1929–30_in_English_football"
               }
             ]
           }
@@ -33780,7 +33763,6 @@
             ],
             "tiersSeen": [
               "tier3",
-              "tier4",
               "tier6"
             ]
           }
@@ -33815,19 +33797,13 @@
         "totalSeasonsSeen": 11,
         "tiersSeen": [
           "tier3",
-          "tier4",
           "tier6"
         ],
         "tierSeasons": [
           {
             "tierKey": "tier3",
             "seasons": [
-              1920
-            ]
-          },
-          {
-            "tierKey": "tier4",
-            "seasons": [
+              1920,
               1921,
               1922,
               1923,
@@ -34760,6 +34736,27 @@
             "tierKey": "tier3",
             "seasons": [
               1920,
+              1921,
+              1922,
+              1923,
+              1924,
+              1925,
+              1926,
+              1927,
+              1934,
+              1935,
+              1936,
+              1937,
+              1948,
+              1949,
+              1950,
+              1951,
+              1952,
+              1953,
+              1954,
+              1955,
+              1956,
+              1957,
               1962,
               1963,
               1965,
@@ -34786,27 +34783,6 @@
           {
             "tierKey": "tier4",
             "seasons": [
-              1921,
-              1922,
-              1923,
-              1924,
-              1925,
-              1926,
-              1927,
-              1934,
-              1935,
-              1936,
-              1937,
-              1948,
-              1949,
-              1950,
-              1951,
-              1952,
-              1953,
-              1954,
-              1955,
-              1956,
-              1957,
               1958,
               1959,
               1960,
@@ -36276,7 +36252,7 @@
               {
                 "type": "wikipedia-season-page",
                 "sourceUrl": "https://en.wikipedia.org/wiki/1930–31_in_English_football",
-                "notes": "Third Division South table in 1930–31_in_English_football"
+                "notes": "tier3 table in 1930–31_in_English_football"
               }
             ]
           },
@@ -36329,7 +36305,7 @@
               {
                 "type": "wikipedia-season-page",
                 "sourceUrl": "https://en.wikipedia.org/wiki/1930–31_in_English_football",
-                "notes": "Third Division South table in 1930–31_in_English_football"
+                "notes": "tier3 table in 1930–31_in_English_football"
               }
             ]
           },
@@ -36547,22 +36523,6 @@
             "tierKey": "tier3",
             "seasons": [
               1920,
-              1958,
-              1959,
-              1960,
-              1961,
-              1980,
-              1981,
-              1982,
-              1983,
-              1984,
-              1985,
-              1986
-            ]
-          },
-          {
-            "tierKey": "tier4",
-            "seasons": [
               1921,
               1922,
               1923,
@@ -36591,6 +36551,22 @@
               1955,
               1956,
               1957,
+              1958,
+              1959,
+              1960,
+              1961,
+              1980,
+              1981,
+              1982,
+              1983,
+              1984,
+              1985,
+              1986
+            ]
+          },
+          {
+            "tierKey": "tier4",
+            "seasons": [
               1962,
               1963,
               1964,
@@ -37020,33 +36996,6 @@
             "tierKey": "tier3",
             "seasons": [
               1920,
-              1961,
-              1962,
-              1967,
-              1968,
-              1976,
-              1987,
-              1988,
-              1989,
-              1997,
-              1998,
-              2000,
-              2001,
-              2002,
-              2006,
-              2007,
-              2008,
-              2016,
-              2017,
-              2020,
-              2023,
-              2024,
-              2025
-            ]
-          },
-          {
-            "tierKey": "tier4",
-            "seasons": [
               1921,
               1922,
               1923,
@@ -37077,6 +37026,33 @@
               1955,
               1956,
               1957,
+              1961,
+              1962,
+              1967,
+              1968,
+              1976,
+              1987,
+              1988,
+              1989,
+              1997,
+              1998,
+              2000,
+              2001,
+              2002,
+              2006,
+              2007,
+              2008,
+              2016,
+              2017,
+              2020,
+              2023,
+              2024,
+              2025
+            ]
+          },
+          {
+            "tierKey": "tier4",
+            "seasons": [
               1958,
               1959,
               1960,
@@ -37238,8 +37214,7 @@
             "tiers": [
               "tier1",
               "tier2",
-              "tier3",
-              "tier4"
+              "tier3"
             ],
             "basis": "observed"
           }
@@ -37368,8 +37343,7 @@
             "tiersSeen": [
               "tier1",
               "tier2",
-              "tier3",
-              "tier4"
+              "tier3"
             ]
           }
         ],
@@ -37492,8 +37466,7 @@
         "tiersSeen": [
           "tier1",
           "tier2",
-          "tier3",
-          "tier4"
+          "tier3"
         ],
         "tierSeasons": [
           {
@@ -37580,14 +37553,6 @@
             "tierKey": "tier3",
             "seasons": [
               1920,
-              1958,
-              1959,
-              2009
-            ]
-          },
-          {
-            "tierKey": "tier4",
-            "seasons": [
               1921,
               1922,
               1923,
@@ -37612,7 +37577,10 @@
               1954,
               1955,
               1956,
-              1957
+              1957,
+              1958,
+              1959,
+              2009
             ]
           }
         ],
@@ -37644,8 +37612,7 @@
             "tiers": [
               "tier1",
               "tier2",
-              "tier3",
-              "tier4"
+              "tier3"
             ],
             "basis": "observed"
           }
@@ -37806,8 +37773,7 @@
             "tiersSeen": [
               "tier1",
               "tier2",
-              "tier3",
-              "tier4"
+              "tier3"
             ]
           }
         ],
@@ -37961,8 +37927,7 @@
         "tiersSeen": [
           "tier1",
           "tier2",
-          "tier3",
-          "tier4"
+          "tier3"
         ],
         "tierSeasons": [
           {
@@ -38098,16 +38063,11 @@
           {
             "tierKey": "tier3",
             "seasons": [
+              1949,
+              1950,
               2005,
               2006,
               2007
-            ]
-          },
-          {
-            "tierKey": "tier4",
-            "seasons": [
-              1949,
-              1950
             ]
           }
         ],
@@ -38552,6 +38512,15 @@
           {
             "tierKey": "tier3",
             "seasons": [
+              1930,
+              1935,
+              1936,
+              1937,
+              1938,
+              1946,
+              1947,
+              1948,
+              1949,
               1958,
               1960,
               1961,
@@ -38582,15 +38551,6 @@
           {
             "tierKey": "tier4",
             "seasons": [
-              1930,
-              1935,
-              1936,
-              1937,
-              1938,
-              1946,
-              1947,
-              1948,
-              1949,
               1959,
               1964,
               1965,
@@ -39205,8 +39165,7 @@
             "toSeason": null,
             "tiers": [
               "tier5",
-              "tier6",
-              "tier7"
+              "tier6"
             ],
             "basis": "observed"
           }
@@ -39233,8 +39192,7 @@
             ],
             "tiersSeen": [
               "tier5",
-              "tier6",
-              "tier7"
+              "tier6"
             ]
           }
         ],
@@ -39257,8 +39215,7 @@
         "totalSeasonsSeen": 5,
         "tiersSeen": [
           "tier5",
-          "tier6",
-          "tier7"
+          "tier6"
         ],
         "tierSeasons": [
           {
@@ -39270,15 +39227,10 @@
           {
             "tierKey": "tier6",
             "seasons": [
+              2021,
+              2022,
               2024,
               2025
-            ]
-          },
-          {
-            "tierKey": "tier7",
-            "seasons": [
-              2021,
-              2022
             ]
           }
         ]
@@ -40278,6 +40230,19 @@
             "tierKey": "tier3",
             "seasons": [
               1920,
+              1921,
+              1922,
+              1923,
+              1924,
+              1925,
+              1926,
+              1927,
+              1928,
+              1929,
+              1950,
+              1951,
+              1956,
+              1957,
               1958,
               1968,
               1969,
@@ -40314,19 +40279,6 @@
           {
             "tierKey": "tier4",
             "seasons": [
-              1921,
-              1922,
-              1923,
-              1924,
-              1925,
-              1926,
-              1927,
-              1928,
-              1929,
-              1950,
-              1951,
-              1956,
-              1957,
               1995,
               1998,
               1999,
@@ -40788,8 +40740,16 @@
               1929,
               1936,
               1937,
+              1938,
+              1946,
+              1947,
+              1948,
+              1949,
+              1950,
+              1951,
               1952,
               1953,
+              1957,
               1959,
               1960,
               1961,
@@ -40830,14 +40790,6 @@
           {
             "tierKey": "tier4",
             "seasons": [
-              1938,
-              1946,
-              1947,
-              1948,
-              1949,
-              1950,
-              1951,
-              1957,
               1958,
               1965,
               1966,
@@ -41250,6 +41202,9 @@
             "tierKey": "tier3",
             "seasons": [
               1920,
+              1921,
+              1922,
+              1923,
               1961,
               1976,
               1977,
@@ -41269,9 +41224,6 @@
           {
             "tierKey": "tier4",
             "seasons": [
-              1921,
-              1922,
-              1923,
               1978,
               1979,
               2013,
@@ -41815,8 +41767,7 @@
             "tiers": [
               "tier1",
               "tier2",
-              "tier3",
-              "tier4"
+              "tier3"
             ],
             "basis": "observed"
           }
@@ -41945,8 +41896,7 @@
             "tiersSeen": [
               "tier1",
               "tier2",
-              "tier3",
-              "tier4"
+              "tier3"
             ]
           }
         ],
@@ -42069,8 +42019,7 @@
         "tiersSeen": [
           "tier1",
           "tier2",
-          "tier3",
-          "tier4"
+          "tier3"
         ],
         "tierSeasons": [
           {
@@ -42147,23 +42096,6 @@
             "tierKey": "tier3",
             "seasons": [
               1920,
-              1958,
-              1959,
-              1960,
-              1961,
-              1962,
-              1963,
-              1964,
-              1965,
-              1966,
-              2001,
-              2002,
-              2003
-            ]
-          },
-          {
-            "tierKey": "tier4",
-            "seasons": [
               1921,
               1922,
               1923,
@@ -42189,7 +42121,19 @@
               1954,
               1955,
               1956,
-              1957
+              1957,
+              1958,
+              1959,
+              1960,
+              1961,
+              1962,
+              1963,
+              1964,
+              1965,
+              1966,
+              2001,
+              2002,
+              2003
             ]
           }
         ],
@@ -42597,6 +42541,31 @@
             "tierKey": "tier3",
             "seasons": [
               1920,
+              1921,
+              1922,
+              1923,
+              1924,
+              1925,
+              1931,
+              1932,
+              1933,
+              1934,
+              1935,
+              1936,
+              1937,
+              1938,
+              1946,
+              1947,
+              1948,
+              1949,
+              1950,
+              1951,
+              1952,
+              1953,
+              1954,
+              1955,
+              1956,
+              1957,
               1958,
               1959,
               1960,
@@ -42635,31 +42604,6 @@
           {
             "tierKey": "tier4",
             "seasons": [
-              1921,
-              1922,
-              1923,
-              1924,
-              1925,
-              1931,
-              1932,
-              1933,
-              1934,
-              1935,
-              1936,
-              1937,
-              1938,
-              1946,
-              1947,
-              1948,
-              1949,
-              1950,
-              1951,
-              1952,
-              1953,
-              1954,
-              1955,
-              1956,
-              1957,
               1971,
               1972,
               1973,
@@ -44065,7 +44009,7 @@
             "fromSeason": 2024,
             "toSeason": null,
             "tiers": [
-              "tier7"
+              "tier6"
             ],
             "basis": "observed"
           }
@@ -44088,7 +44032,7 @@
               2025
             ],
             "tiersSeen": [
-              "tier7"
+              "tier6"
             ]
           }
         ],
@@ -44107,11 +44051,11 @@
         ],
         "totalSeasonsSeen": 2,
         "tiersSeen": [
-          "tier7"
+          "tier6"
         ],
         "tierSeasons": [
           {
-            "tierKey": "tier7",
+            "tierKey": "tier6",
             "seasons": [
               2024,
               2025
@@ -46125,6 +46069,13 @@
             "tierKey": "tier3",
             "seasons": [
               1950,
+              1951,
+              1952,
+              1953,
+              1954,
+              1955,
+              1956,
+              1957,
               1959,
               1960,
               1961,
@@ -46167,13 +46118,6 @@
           {
             "tierKey": "tier4",
             "seasons": [
-              1951,
-              1952,
-              1953,
-              1954,
-              1955,
-              1956,
-              1957,
               1958,
               1974,
               1992,
@@ -46223,7 +46167,7 @@
             "fromSeason": 2021,
             "toSeason": null,
             "tiers": [
-              "tier7"
+              "tier6"
             ],
             "basis": "observed"
           }
@@ -46249,7 +46193,7 @@
               2025
             ],
             "tiersSeen": [
-              "tier7"
+              "tier6"
             ]
           }
         ],
@@ -46271,11 +46215,11 @@
         ],
         "totalSeasonsSeen": 5,
         "tiersSeen": [
-          "tier7"
+          "tier6"
         ],
         "tierSeasons": [
           {
-            "tierKey": "tier7",
+            "tierKey": "tier6",
             "seasons": [
               2021,
               2022,
@@ -46477,8 +46421,7 @@
             "tiers": [
               "tier1",
               "tier2",
-              "tier3",
-              "tier4"
+              "tier3"
             ],
             "basis": "observed"
           }
@@ -46607,8 +46550,7 @@
             "tiersSeen": [
               "tier1",
               "tier2",
-              "tier3",
-              "tier4"
+              "tier3"
             ]
           }
         ],
@@ -46731,8 +46673,7 @@
         "tiersSeen": [
           "tier1",
           "tier2",
-          "tier3",
-          "tier4"
+          "tier3"
         ],
         "tierSeasons": [
           {
@@ -46837,21 +46778,16 @@
             "tierKey": "tier3",
             "seasons": [
               1920,
-              1958,
-              1959,
-              2009,
-              2010
-            ]
-          },
-          {
-            "tierKey": "tier4",
-            "seasons": [
               1921,
               1953,
               1954,
               1955,
               1956,
-              1957
+              1957,
+              1958,
+              1959,
+              2009,
+              2010
             ]
           }
         ],
@@ -47157,6 +47093,36 @@
             "tierKey": "tier3",
             "seasons": [
               1920,
+              1921,
+              1922,
+              1923,
+              1924,
+              1925,
+              1926,
+              1927,
+              1928,
+              1929,
+              1930,
+              1931,
+              1932,
+              1933,
+              1934,
+              1935,
+              1936,
+              1937,
+              1938,
+              1946,
+              1947,
+              1948,
+              1949,
+              1950,
+              1951,
+              1952,
+              1953,
+              1954,
+              1955,
+              1956,
+              1957,
               1958,
               1959,
               1960,
@@ -47192,36 +47158,6 @@
           {
             "tierKey": "tier4",
             "seasons": [
-              1921,
-              1922,
-              1923,
-              1924,
-              1925,
-              1926,
-              1927,
-              1928,
-              1929,
-              1930,
-              1931,
-              1932,
-              1933,
-              1934,
-              1935,
-              1936,
-              1937,
-              1938,
-              1946,
-              1947,
-              1948,
-              1949,
-              1950,
-              1951,
-              1952,
-              1953,
-              1954,
-              1955,
-              1956,
-              1957,
               1966,
               1967,
               1968,
@@ -47741,7 +47677,7 @@
             "fromSeason": 2021,
             "toSeason": 2024,
             "tiers": [
-              "tier7"
+              "tier6"
             ],
             "basis": "observed"
           }
@@ -47773,7 +47709,7 @@
               2024
             ],
             "tiersSeen": [
-              "tier7"
+              "tier6"
             ]
           }
         ],
@@ -47794,11 +47730,11 @@
         ],
         "totalSeasonsSeen": 4,
         "tiersSeen": [
-          "tier7"
+          "tier6"
         ],
         "tierSeasons": [
           {
-            "tierKey": "tier7",
+            "tierKey": "tier6",
             "seasons": [
               2021,
               2022,
@@ -50164,6 +50100,12 @@
             "tierKey": "tier3",
             "seasons": [
               1920,
+              1921,
+              1922,
+              1923,
+              1924,
+              1947,
+              1948,
               1965,
               1966,
               1970,
@@ -50189,12 +50131,6 @@
           {
             "tierKey": "tier4",
             "seasons": [
-              1921,
-              1922,
-              1923,
-              1924,
-              1947,
-              1948,
               1967,
               1968,
               1969,
@@ -50535,6 +50471,36 @@
             "tierKey": "tier3",
             "seasons": [
               1920,
+              1921,
+              1922,
+              1923,
+              1924,
+              1925,
+              1926,
+              1927,
+              1928,
+              1929,
+              1930,
+              1931,
+              1932,
+              1933,
+              1934,
+              1935,
+              1936,
+              1937,
+              1938,
+              1946,
+              1947,
+              1948,
+              1949,
+              1950,
+              1951,
+              1952,
+              1953,
+              1954,
+              1955,
+              1956,
+              1957,
               1958,
               1959,
               1960,
@@ -50575,36 +50541,6 @@
           {
             "tierKey": "tier4",
             "seasons": [
-              1921,
-              1922,
-              1923,
-              1924,
-              1925,
-              1926,
-              1927,
-              1928,
-              1929,
-              1930,
-              1931,
-              1932,
-              1933,
-              1934,
-              1935,
-              1936,
-              1937,
-              1938,
-              1946,
-              1947,
-              1948,
-              1949,
-              1950,
-              1951,
-              1952,
-              1953,
-              1954,
-              1955,
-              1956,
-              1957,
               1982,
               1983,
               1984,
@@ -50787,7 +50723,7 @@
             "fromSeason": 2022,
             "toSeason": 2023,
             "tiers": [
-              "tier7"
+              "tier6"
             ],
             "basis": "observed"
           }
@@ -50817,7 +50753,7 @@
               2023
             ],
             "tiersSeen": [
-              "tier7"
+              "tier6"
             ]
           }
         ],
@@ -50836,11 +50772,11 @@
         ],
         "totalSeasonsSeen": 2,
         "tiersSeen": [
-          "tier7"
+          "tier6"
         ],
         "tierSeasons": [
           {
-            "tierKey": "tier7",
+            "tierKey": "tier6",
             "seasons": [
               2022,
               2023
@@ -50888,7 +50824,7 @@
             "fromSeason": 1930,
             "toSeason": 1931,
             "tiers": [
-              "tier4"
+              "tier3"
             ],
             "basis": "observed"
           }
@@ -50918,7 +50854,7 @@
               1931
             ],
             "tiersSeen": [
-              "tier4"
+              "tier3"
             ]
           }
         ],
@@ -50937,11 +50873,11 @@
         ],
         "totalSeasonsSeen": 2,
         "tiersSeen": [
-          "tier4"
+          "tier3"
         ],
         "tierSeasons": [
           {
-            "tierKey": "tier4",
+            "tierKey": "tier3",
             "seasons": [
               1930,
               1931
@@ -50967,7 +50903,7 @@
             "fromSeason": 2021,
             "toSeason": null,
             "tiers": [
-              "tier7"
+              "tier6"
             ],
             "basis": "observed"
           }
@@ -50993,7 +50929,7 @@
               2025
             ],
             "tiersSeen": [
-              "tier7"
+              "tier6"
             ]
           }
         ],
@@ -51015,11 +50951,11 @@
         ],
         "totalSeasonsSeen": 5,
         "tiersSeen": [
-          "tier7"
+          "tier6"
         ],
         "tierSeasons": [
           {
-            "tierKey": "tier7",
+            "tierKey": "tier6",
             "seasons": [
               2021,
               2022,
@@ -51076,7 +51012,7 @@
               "tier3",
               "tier4",
               "tier5",
-              "tier7"
+              "tier6"
             ],
             "basis": "observed"
           }
@@ -51226,7 +51162,7 @@
               "tier3",
               "tier4",
               "tier5",
-              "tier7"
+              "tier6"
             ]
           }
         ],
@@ -51350,26 +51286,11 @@
           "tier3",
           "tier4",
           "tier5",
-          "tier7"
+          "tier6"
         ],
         "tierSeasons": [
           {
             "tierKey": "tier3",
-            "seasons": [
-              1960,
-              1961,
-              1966,
-              1967,
-              1968,
-              1969,
-              1970,
-              1971,
-              1991,
-              2004
-            ]
-          },
-          {
-            "tierKey": "tier4",
             "seasons": [
               1927,
               1928,
@@ -51395,6 +51316,21 @@
               1955,
               1956,
               1957,
+              1960,
+              1961,
+              1966,
+              1967,
+              1968,
+              1969,
+              1970,
+              1971,
+              1991,
+              2004
+            ]
+          },
+          {
+            "tierKey": "tier4",
+            "seasons": [
               1958,
               1959,
               1962,
@@ -51455,7 +51391,7 @@
             ]
           },
           {
-            "tierKey": "tier7",
+            "tierKey": "tier6",
             "seasons": [
               2023,
               2024,
@@ -52333,7 +52269,7 @@
             "toSeason": null,
             "tiers": [
               "tier5",
-              "tier7"
+              "tier6"
             ],
             "basis": "observed"
           }
@@ -52358,7 +52294,7 @@
             ],
             "tiersSeen": [
               "tier5",
-              "tier7"
+              "tier6"
             ]
           }
         ],
@@ -52379,7 +52315,7 @@
         "totalSeasonsSeen": 3,
         "tiersSeen": [
           "tier5",
-          "tier7"
+          "tier6"
         ],
         "tierSeasons": [
           {
@@ -52389,7 +52325,7 @@
             ]
           },
           {
-            "tierKey": "tier7",
+            "tierKey": "tier6",
             "seasons": [
               2023,
               2024
@@ -52805,11 +52741,30 @@
               1924,
               1925,
               1926,
+              1927,
+              1928,
+              1929,
+              1930,
               1931,
               1932,
               1933,
               1934,
               1935,
+              1936,
+              1937,
+              1938,
+              1946,
+              1947,
+              1948,
+              1949,
+              1950,
+              1951,
+              1952,
+              1953,
+              1954,
+              1955,
+              1956,
+              1957,
               1960,
               1963,
               1964,
@@ -52860,25 +52815,6 @@
           {
             "tierKey": "tier4",
             "seasons": [
-              1927,
-              1928,
-              1929,
-              1930,
-              1936,
-              1937,
-              1938,
-              1946,
-              1947,
-              1948,
-              1949,
-              1950,
-              1951,
-              1952,
-              1953,
-              1954,
-              1955,
-              1956,
-              1957,
               1958,
               1959,
               1979,
@@ -53344,26 +53280,6 @@
             "tierKey": "tier3",
             "seasons": [
               1920,
-              1960,
-              1961,
-              1962,
-              1963,
-              1964,
-              1965,
-              1966,
-              1967,
-              1968,
-              1972,
-              1973,
-              1974,
-              1978,
-              1996,
-              1997
-            ]
-          },
-          {
-            "tierKey": "tier4",
-            "seasons": [
               1921,
               1922,
               1923,
@@ -53394,6 +53310,26 @@
               1955,
               1956,
               1957,
+              1960,
+              1961,
+              1962,
+              1963,
+              1964,
+              1965,
+              1966,
+              1967,
+              1968,
+              1972,
+              1973,
+              1974,
+              1978,
+              1996,
+              1997
+            ]
+          },
+          {
+            "tierKey": "tier4",
+            "seasons": [
               1958,
               1959,
               1975,
@@ -53535,7 +53471,7 @@
             "toSeason": 2024,
             "tiers": [
               "tier5",
-              "tier7"
+              "tier6"
             ],
             "basis": "observed"
           }
@@ -53587,7 +53523,7 @@
             ],
             "tiersSeen": [
               "tier5",
-              "tier7"
+              "tier6"
             ]
           }
         ],
@@ -53617,7 +53553,7 @@
         "totalSeasonsSeen": 7,
         "tiersSeen": [
           "tier5",
-          "tier7"
+          "tier6"
         ],
         "tierSeasons": [
           {
@@ -53629,7 +53565,7 @@
             ]
           },
           {
-            "tierKey": "tier7",
+            "tierKey": "tier6",
             "seasons": [
               2021,
               2022,
@@ -54555,7 +54491,7 @@
             "fromSeason": 2023,
             "toSeason": null,
             "tiers": [
-              "tier7"
+              "tier6"
             ],
             "basis": "observed"
           }
@@ -54579,7 +54515,7 @@
               2025
             ],
             "tiersSeen": [
-              "tier7"
+              "tier6"
             ]
           }
         ],
@@ -54599,11 +54535,11 @@
         ],
         "totalSeasonsSeen": 3,
         "tiersSeen": [
-          "tier7"
+          "tier6"
         ],
         "tierSeasons": [
           {
-            "tierKey": "tier7",
+            "tierKey": "tier6",
             "seasons": [
               2023,
               2024,
@@ -54640,7 +54576,7 @@
             "toSeason": 2024,
             "tiers": [
               "tier5",
-              "tier7"
+              "tier6"
             ],
             "basis": "observed"
           }
@@ -54674,7 +54610,7 @@
             ],
             "tiersSeen": [
               "tier5",
-              "tier7"
+              "tier6"
             ]
           }
         ],
@@ -54697,7 +54633,7 @@
         "totalSeasonsSeen": 5,
         "tiersSeen": [
           "tier5",
-          "tier7"
+          "tier6"
         ],
         "tierSeasons": [
           {
@@ -54708,7 +54644,7 @@
             ]
           },
           {
-            "tierKey": "tier7",
+            "tierKey": "tier6",
             "seasons": [
               2022,
               2023,
@@ -56289,7 +56225,7 @@
             "fromSeason": 2022,
             "toSeason": null,
             "tiers": [
-              "tier7"
+              "tier6"
             ],
             "basis": "observed"
           }
@@ -56314,7 +56250,7 @@
               2025
             ],
             "tiersSeen": [
-              "tier7"
+              "tier6"
             ]
           }
         ],
@@ -56335,11 +56271,11 @@
         ],
         "totalSeasonsSeen": 4,
         "tiersSeen": [
-          "tier7"
+          "tier6"
         ],
         "tierSeasons": [
           {
-            "tierKey": "tier7",
+            "tierKey": "tier6",
             "seasons": [
               2022,
               2023,
@@ -56981,7 +56917,7 @@
               "tier3",
               "tier4",
               "tier5",
-              "tier7"
+              "tier6"
             ],
             "basis": "observed"
           }
@@ -57029,7 +56965,7 @@
               "tier3",
               "tier4",
               "tier5",
-              "tier7"
+              "tier6"
             ]
           }
         ],
@@ -57073,7 +57009,7 @@
           "tier3",
           "tier4",
           "tier5",
-          "tier7"
+          "tier6"
         ],
         "tierSeasons": [
           {
@@ -57119,7 +57055,7 @@
             ]
           },
           {
-            "tierKey": "tier7",
+            "tierKey": "tier6",
             "seasons": [
               2023
             ]

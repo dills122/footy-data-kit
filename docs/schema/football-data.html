@@ -68,6 +68,9 @@
           ><a href="#tier-data">
             <span>Tier Data</span>
             <code>TierData</code> </a
+          ><a href="#tier-division-data">
+            <span>Tier Division Data</span>
+            <code>TierDivisionData</code> </a
           ><a href="#tier-metadata">
             <span>Tier Metadata</span>
             <code>TierMetadata</code>
@@ -698,6 +701,74 @@
               <td><span class="schema-requirement is-optional">optional</span></td>
               <td><span class="schema-muted">No description.</span></td>
             </tr>
+            <tr>
+              <th scope="row"><code>divisions</code></th>
+              <td><code>array</code></td>
+              <td><span class="schema-requirement is-optional">optional</span></td>
+              <td>Parallel league tables that share this pyramid level.</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+      <section class="panel schema-definition" id="tier-division-data">
+        <div class="section-heading">
+          <div>
+            <h2>Tier Division Data</h2>
+            <code class="schema-symbol">TierDivisionData</code>
+          </div>
+          <a href="#tier-division-data">anchor</a>
+        </div>
+        <div class="schema-summary">
+          <span>type <code>object</code></span>
+          <span>4 required</span><span>closed object</span>
+        </div>
+        <p>One league table inside a parallel tier.</p>
+        <table class="schema-table">
+          <thead>
+            <tr>
+              <th scope="col">Property key</th>
+              <th scope="col">Type</th>
+              <th scope="col">Use</th>
+              <th scope="col">Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row"><code>season</code></th>
+              <td><code>integer</code></td>
+              <td><span class="schema-requirement is-required">required</span></td>
+              <td><span class="schema-muted">No description.</span></td>
+            </tr>
+            <tr>
+              <th scope="row"><code>table</code></th>
+              <td><code>array</code></td>
+              <td><span class="schema-requirement is-required">required</span></td>
+              <td><span class="schema-muted">No description.</span></td>
+            </tr>
+            <tr>
+              <th scope="row"><code>relegated</code></th>
+              <td>
+                <a href="#string-list"><code>StringList</code></a>
+              </td>
+              <td><span class="schema-requirement is-required">required</span></td>
+              <td><span class="schema-muted">No description.</span></td>
+            </tr>
+            <tr>
+              <th scope="row"><code>promoted</code></th>
+              <td>
+                <a href="#string-list"><code>StringList</code></a>
+              </td>
+              <td><span class="schema-requirement is-required">required</span></td>
+              <td><span class="schema-muted">No description.</span></td>
+            </tr>
+            <tr>
+              <th scope="row"><code>metadata</code></th>
+              <td>
+                <a href="#tier-metadata"><code>TierMetadata</code></a>
+              </td>
+              <td><span class="schema-requirement is-optional">optional</span></td>
+              <td><span class="schema-muted">No description.</span></td>
+            </tr>
           </tbody>
         </table>
       </section>
@@ -756,6 +827,30 @@
             </tr>
             <tr>
               <th scope="row"><code>leagueLevel</code></th>
+              <td><code>integer</code> | <code>null</code></td>
+              <td><span class="schema-requirement is-optional">optional</span></td>
+              <td><span class="schema-muted">No description.</span></td>
+            </tr>
+            <tr>
+              <th scope="row"><code>structure</code></th>
+              <td><code>string</code> | <code>null</code></td>
+              <td><span class="schema-requirement is-optional">optional</span></td>
+              <td><span class="schema-muted">No description.</span></td>
+            </tr>
+            <tr>
+              <th scope="row"><code>parallelGroup</code></th>
+              <td><code>string</code> | <code>null</code></td>
+              <td><span class="schema-requirement is-optional">optional</span></td>
+              <td><span class="schema-muted">No description.</span></td>
+            </tr>
+            <tr>
+              <th scope="row"><code>divisionKey</code></th>
+              <td><code>string</code> | <code>null</code></td>
+              <td><span class="schema-requirement is-optional">optional</span></td>
+              <td><span class="schema-muted">No description.</span></td>
+            </tr>
+            <tr>
+              <th scope="row"><code>divisionCount</code></th>
               <td><code>integer</code> | <code>null</code></td>
               <td><span class="schema-requirement is-optional">optional</span></td>
               <td><span class="schema-muted">No description.</span></td>

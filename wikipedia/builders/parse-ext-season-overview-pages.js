@@ -3,6 +3,7 @@ import * as path from 'node:path';
 import {
   buildOverviewSeasonSlug as buildOverviewSeasonSlugFromConfig,
   buildWikipediaArticleUrl,
+  getWikipediaLeagueLevelRule,
   getWikipediaLeagueStructureSpecialCases,
   resolveWikipediaDatasetPath,
   WIKIPEDIA_DATA_SOURCES,
@@ -238,6 +239,144 @@ function resolveOverviewOutputFile(outputFile) {
     : resolveWikipediaDatasetPath(WIKIPEDIA_DATA_SOURCES.overview.key);
 }
 
+function getOverviewTableRule(table, seasonNumber) {
+  return getWikipediaLeagueLevelRule(`${table?.title || ''} ${table?.id || ''}`, seasonNumber);
+}
+
+function getOverviewLeagueProfile(table, seasonNumber) {
+  const tableIndex = Number(table?.tableIndex);
+  const leagueId = String(table?.id || '');
+  if (seasonNumber >= 2021 && leagueId === 'National_League' && tableIndex > 0) {
+    return {
+      level: 6,
+      parallelGroup: 'national-league-north-south',
+    };
+  }
+
+  const rule = getOverviewTableRule(table, seasonNumber);
+  return {
+    level: inferOverviewTierNumber(table, seasonNumber),
+    parallelGroup: rule?.parallelGroup || null,
+  };
+}
+
+function resolveDivisionKey(table) {
+  const text = `${table?.title || ''} ${table?.id || ''}`.toLowerCase();
+  if (text.includes('north')) return 'north';
+  if (text.includes('south')) return 'south';
+  if (String(table?.id || '') === 'National_League') {
+    const tableIndex = Number(table?.tableIndex);
+    if (tableIndex === 1) return 'north';
+    if (tableIndex === 2) return 'south';
+  }
+  if (text.includes('central')) return 'central';
+  if (text.includes('isthmian')) return 'isthmian';
+  if (text.includes('northern')) return 'northern';
+  return null;
+}
+
+function buildOverviewTierMetadata({
+  table,
+  safeSeason,
+  seasonSlug,
+  tierKey,
+  index,
+  tableCount,
+  leagueLevel,
+}) {
+  const profile = getOverviewLeagueProfile(table, safeSeason);
+  const parallelGroup = profile.parallelGroup || null;
+
+  return {
+    source: WIKIPEDIA_DATA_SOURCES.overview.sourceId,
+    sourceUrl: buildWikipediaArticleUrl(seasonSlug),
+    seasonSlug,
+    leagueId: table.id || null,
+    title: table.title,
+    leagueLevel: profile.level ?? leagueLevel ?? null,
+    tableIndex: table.tableIndex ?? index,
+    tableCount,
+    tierKey,
+    ...(parallelGroup ? { parallelGroup } : {}),
+  };
+}
+
+function buildOverviewTableTier({
+  table,
+  safeSeason,
+  seasonSlug,
+  tierKey,
+  index,
+  tableCount,
+  leagueLevel,
+}) {
+  return buildTierData(safeSeason, table.rows, {
+    promoted: tierKey === 'tier2' ? collectTopFlightPromotions(table, safeSeason) : undefined,
+    relegated: tierKey === 'tier1' ? collectTopFlightRelegations(table) : undefined,
+    metadata: {
+      ...buildOverviewTierMetadata({
+        table,
+        safeSeason,
+        seasonSlug,
+        tierKey,
+        index,
+        tableCount,
+        leagueLevel,
+      }),
+      structure: 'single-league',
+    },
+  });
+}
+
+function buildParallelOverviewTier({
+  entries,
+  safeSeason,
+  seasonSlug,
+  tierKey,
+  leagueLevel,
+  parallelGroup,
+  tableCount,
+}) {
+  const divisions = entries.map(({ table, index }) => {
+    const divisionKey = resolveDivisionKey(table);
+    return buildTierData(safeSeason, table.rows, {
+      metadata: {
+        ...buildOverviewTierMetadata({
+          table,
+          safeSeason,
+          seasonSlug,
+          tierKey,
+          index,
+          tableCount,
+          leagueLevel,
+        }),
+        structure: 'single-league',
+        parallelGroup,
+        ...(divisionKey ? { divisionKey } : {}),
+      },
+    });
+  });
+  const promoted = Array.from(new Set(divisions.flatMap((division) => division.promoted)));
+  const relegated = Array.from(new Set(divisions.flatMap((division) => division.relegated)));
+
+  return buildTierData(safeSeason, [], {
+    promoted,
+    relegated,
+    metadata: {
+      source: WIKIPEDIA_DATA_SOURCES.overview.sourceId,
+      sourceUrl: buildWikipediaArticleUrl(seasonSlug),
+      seasonSlug,
+      leagueLevel,
+      structure: 'parallel-leagues',
+      parallelGroup,
+      divisionCount: divisions.length,
+      tableCount,
+      tierKey,
+    },
+    divisions,
+  });
+}
+
 export function buildSeasonOverviewSeasonRecord({ seasonKey, seasonYear, seasonSlug, tables }) {
   const numericSeason = Number.isFinite(seasonYear)
     ? /** @type {number} */ (seasonYear)
@@ -266,12 +405,20 @@ export function buildSeasonOverviewSeasonRecord({ seasonKey, seasonYear, seasonS
   const record = { seasonInfo };
   const usedTierNumbers = new Set();
   let nextSequentialTier = 1;
+  const groupedEntries = [];
+  const parallelGroupKeys = new Map();
 
   normalizedTables.forEach((table, index) => {
-    const inferredTierNumber = inferOverviewTierNumber(table, safeSeason);
+    const profile = getOverviewLeagueProfile(table, safeSeason);
+    const inferredTierNumber = profile.level;
+    const parallelGroup = profile.parallelGroup || null;
     let tierNumber = inferredTierNumber;
+    const parallelKey =
+      inferredTierNumber != null && parallelGroup ? `${inferredTierNumber}:${parallelGroup}` : null;
 
-    if (tierNumber == null || usedTierNumbers.has(tierNumber)) {
+    if (parallelKey && parallelGroupKeys.has(parallelKey)) {
+      tierNumber = inferredTierNumber;
+    } else if (tierNumber == null || usedTierNumbers.has(tierNumber)) {
       while (usedTierNumbers.has(nextSequentialTier)) {
         nextSequentialTier += 1;
       }
@@ -279,27 +426,58 @@ export function buildSeasonOverviewSeasonRecord({ seasonKey, seasonYear, seasonS
     }
 
     usedTierNumbers.add(tierNumber);
+    if (parallelKey) {
+      parallelGroupKeys.set(parallelKey, tierNumber);
+    }
     while (usedTierNumbers.has(nextSequentialTier)) {
       nextSequentialTier += 1;
     }
 
     const tierKey = `tier${tierNumber}`;
-    record[tierKey] = buildTierData(safeSeason, table.rows, {
-      promoted: tierNumber === 2 ? collectTopFlightPromotions(table, safeSeason) : undefined,
-      relegated: tierNumber === 1 ? collectTopFlightRelegations(table) : undefined,
-      metadata: {
-        source: WIKIPEDIA_DATA_SOURCES.overview.sourceId,
-        sourceUrl: buildWikipediaArticleUrl(seasonSlug),
-        seasonSlug,
-        leagueId: table.id || null,
-        title: table.title,
-        leagueLevel: inferredTierNumber ?? tierNumber,
-        tableIndex: table.tableIndex ?? index,
-        tableCount: tables.length,
-        tierKey,
-      },
+    groupedEntries.push({
+      table,
+      index,
+      tierKey,
+      tierNumber,
+      leagueLevel: inferredTierNumber ?? tierNumber,
+      parallelGroup,
     });
   });
+
+  const entriesByTierKey = new Map();
+  for (const entry of groupedEntries) {
+    const existing = entriesByTierKey.get(entry.tierKey) || [];
+    existing.push(entry);
+    entriesByTierKey.set(entry.tierKey, existing);
+  }
+
+  for (const [tierKey, entries] of entriesByTierKey) {
+    const parallelGroup = entries[0]?.parallelGroup || null;
+    const leagueLevel = entries[0]?.leagueLevel;
+    if (parallelGroup && entries.length > 1) {
+      record[tierKey] = buildParallelOverviewTier({
+        entries,
+        safeSeason,
+        seasonSlug,
+        tierKey,
+        leagueLevel,
+        parallelGroup,
+        tableCount: tables.length,
+      });
+      continue;
+    }
+
+    const entry = entries[0];
+    record[tierKey] = buildOverviewTableTier({
+      table: entry.table,
+      safeSeason,
+      seasonSlug,
+      tierKey,
+      index: entry.index,
+      tableCount: tables.length,
+      leagueLevel: entry.leagueLevel,
+    });
+  }
 
   return applyOverviewSeasonOutcomeOverrides(record, seasonKey);
 }

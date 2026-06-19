@@ -200,6 +200,39 @@
         },
         "metadata": {
           "$ref": "#/definitions/TierMetadata"
+        },
+        "divisions": {
+          "type": "array",
+          "description": "Parallel league tables that share this pyramid level.",
+          "items": {
+            "$ref": "#/definitions/TierDivisionData"
+          }
+        }
+      }
+    },
+    "TierDivisionData": {
+      "type": "object",
+      "description": "One league table inside a parallel tier.",
+      "required": ["season", "table", "relegated", "promoted"],
+      "additionalProperties": false,
+      "properties": {
+        "season": {
+          "type": "integer"
+        },
+        "table": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/LeagueTableEntry"
+          }
+        },
+        "relegated": {
+          "$ref": "#/definitions/StringList"
+        },
+        "promoted": {
+          "$ref": "#/definitions/StringList"
+        },
+        "metadata": {
+          "$ref": "#/definitions/TierMetadata"
         }
       }
     },
@@ -307,6 +340,19 @@
           "type": ["string", "null"]
         },
         "leagueLevel": {
+          "type": ["integer", "null"]
+        },
+        "structure": {
+          "type": ["string", "null"],
+          "enum": ["single-league", "parallel-leagues", null]
+        },
+        "parallelGroup": {
+          "type": ["string", "null"]
+        },
+        "divisionKey": {
+          "type": ["string", "null"]
+        },
+        "divisionCount": {
           "type": ["integer", "null"]
         },
         "tableIndex": {
