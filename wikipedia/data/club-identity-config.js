@@ -228,6 +228,20 @@ export const TEMPORAL_CLUB_IDENTITY_RULES = Object.freeze([
     ]),
   }),
   Object.freeze({
+    name: 'Darlington 1883',
+    startSeason: 2012,
+    endSeason: 2017,
+    clubKey: 'darlington',
+    relationship: 'phoenix',
+    sourceRefs: Object.freeze([
+      Object.freeze({
+        type: 'wikipedia-club-page',
+        sourceUrl: 'https://en.wikipedia.org/wiki/Darlington_F.C.',
+        notes: 'Darlington 1883 was the successor club name before the FA approved the Darlington name again.',
+      }),
+    ]),
+  }),
+  Object.freeze({
     name: 'Gateshead',
     endSeason: 1959,
     clubKey: 'gateshead 1899',
@@ -451,6 +465,12 @@ const CLUB_SOURCE_REFS = Object.freeze({
       'Used for the original Rotherham Town Football League club dissolution context.'
     ),
   ]),
+  rotherhamTown1899: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Rotherham_Town_F.C._(1899)',
+      'Used for the later Rotherham Town merger into Rotherham United context.'
+    ),
+  ]),
   burtonWanderers: Object.freeze([
     wikipediaClubSource(
       'https://en.wikipedia.org/wiki/Burton_Wanderers_F.C.',
@@ -535,7 +555,17 @@ const CLUB_SOURCE_REFS = Object.freeze({
   farsleyCeltic: Object.freeze([
     wikipediaClubSource(
       'https://en.wikipedia.org/wiki/Farsley_Celtic_F.C.',
-      'Used for Farsley Celtic dissolution context.'
+      'Used for Farsley Celtic fold/reform/name-return/dissolution context.'
+    ),
+  ]),
+  merthyrTown: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Merthyr_Town_F.C.',
+      'Used for Merthyr Town, Merthyr Tydfil, liquidation, and reformed Merthyr Town context.'
+    ),
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Merthyr_Tydfil_F.C.',
+      'Used for Merthyr Tydfil liquidation and successor Merthyr Town context.'
     ),
   ]),
   gainsboroughTrinity: Object.freeze([
@@ -565,7 +595,7 @@ const CLUB_SOURCE_REFS = Object.freeze({
   newBrighton: Object.freeze([
     wikipediaClubSource(
       'https://en.wikipedia.org/wiki/New_Brighton_A.F.C.',
-      'Used for current lower-division status and below tracked coverage context.'
+      'Used for original New Brighton dissolution and later same-name club context.'
     ),
   ]),
   gateshead: Object.freeze([
@@ -888,7 +918,8 @@ export const CLUB_LIFECYCLE_RULES = Object.freeze([
     status: Object.freeze({
       current: 'historical',
       reason: 'liquidated',
-      reasonLabel: 'Left the Football League in 1970 and went into liquidation in 1974.',
+      reasonLabel:
+        'Left the Football League in 1970, went into liquidation in 1974, and continued through same-name revived club eras.',
       sourceRefs: CLUB_SOURCE_REFS.bradfordParkAvenue,
     }),
     lifecycleEvents: Object.freeze([
@@ -909,6 +940,12 @@ export const CLUB_LIFECYCLE_RULES = Object.freeze([
         type: 'reformed',
         season: 1974,
         label: 'Immediately re-formed as a Sunday league club.',
+        sourceRefs: CLUB_SOURCE_REFS.bradfordParkAvenue,
+      }),
+      lifecycleEvent({
+        type: 'returnedToGround',
+        season: 1987,
+        label: 'The revived club played a full season at the renovated Park Avenue ground.',
         sourceRefs: CLUB_SOURCE_REFS.bradfordParkAvenue,
       }),
     ]),
@@ -1194,6 +1231,42 @@ export const CLUB_LIFECYCLE_RULES = Object.freeze([
     ]),
   }),
   Object.freeze({
+    clubKey: 'merthyr town',
+    status: Object.freeze({
+      current: 'active',
+      reason: 'successor-active',
+      reasonLabel:
+        'Metadata spans the Football League-era Merthyr Town, Merthyr Tydfil, and the reformed Merthyr Town successor lineage.',
+      sourceRefs: CLUB_SOURCE_REFS.merthyrTown,
+    }),
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'dissolved',
+        season: 1934,
+        label: 'Original Merthyr Town ceased playing in 1934.',
+        sourceRefs: CLUB_SOURCE_REFS.merthyrTown,
+      }),
+      lifecycleEvent({
+        type: 'reformed',
+        season: 1945,
+        label: 'The club re-emerged as Merthyr Tydfil in 1945.',
+        sourceRefs: CLUB_SOURCE_REFS.merthyrTown,
+      }),
+      lifecycleEvent({
+        type: 'liquidated',
+        season: 2010,
+        label: 'Merthyr Tydfil was liquidated in 2010.',
+        sourceRefs: CLUB_SOURCE_REFS.merthyrTown,
+      }),
+      lifecycleEvent({
+        type: 'reformed',
+        season: 2010,
+        label: 'A new club was formed under the Merthyr Town name in 2010.',
+        sourceRefs: CLUB_SOURCE_REFS.merthyrTown,
+      }),
+    ]),
+  }),
+  Object.freeze({
     clubKey: 'burton wanderers',
     status: Object.freeze({
       current: 'merged',
@@ -1233,7 +1306,7 @@ export const CLUB_LIFECYCLE_RULES = Object.freeze([
       current: 'merged',
       reason: 'merged',
       reasonLabel:
-        'Formed from Burton Swifts and Burton Wanderers, then merged with Burton All Saints after leaving the Football League.',
+        'Formed from Burton Swifts and Burton Wanderers, played its last competitive season in 1910, and legally ended in a 1924 merger with Burton All Saints.',
       sourceRefs: CLUB_SOURCE_REFS.burtonUnited,
     }),
     lifecycleEvents: Object.freeze([
@@ -1252,7 +1325,13 @@ export const CLUB_LIFECYCLE_RULES = Object.freeze([
       lifecycleEvent({
         type: 'merged',
         season: 1910,
-        label: 'Merged with Burton All Saints after the 1909-10 season.',
+        label: 'Played its last competitive season in 1910 before later joining the Burton All Saints lineage.',
+        sourceRefs: CLUB_SOURCE_REFS.burtonUnited,
+      }),
+      lifecycleEvent({
+        type: 'merged',
+        season: 1924,
+        label: 'Merged with Burton All Saints, legally ending Burton United.',
         sourceRefs: CLUB_SOURCE_REFS.burtonUnited,
       }),
     ]),
@@ -1349,15 +1428,22 @@ export const CLUB_LIFECYCLE_RULES = Object.freeze([
     status: Object.freeze({
       current: 'merged',
       reason: 'merged',
-      reasonLabel: 'Merged with Rotherham Town in 1925 to form Rotherham United.',
-      sourceRefs: CLUB_SOURCE_REFS.rotherhamCounty,
+      reasonLabel:
+        'Merged with the later Rotherham Town (1899), not the earlier Football League Rotherham Town, in 1925 to form Rotherham United.',
+      sourceRefs: Object.freeze([
+        ...CLUB_SOURCE_REFS.rotherhamCounty,
+        ...CLUB_SOURCE_REFS.rotherhamTown1899,
+      ]),
     }),
     lifecycleEvents: Object.freeze([
       lifecycleEvent({
         type: 'merged',
         season: 1925,
-        label: 'Merged into Rotherham United in 1925.',
-        sourceRefs: CLUB_SOURCE_REFS.rotherhamCounty,
+        label: 'Merged with the later Rotherham Town (1899) into Rotherham United in 1925.',
+        sourceRefs: Object.freeze([
+          ...CLUB_SOURCE_REFS.rotherhamCounty,
+          ...CLUB_SOURCE_REFS.rotherhamTown1899,
+        ]),
       }),
     ]),
   }),
@@ -1475,10 +1561,35 @@ export const CLUB_LIFECYCLE_RULES = Object.freeze([
     status: Object.freeze({
       current: 'defunct',
       reason: 'dissolved',
-      reasonLabel: 'Dissolved in December 2025 after leaving the tracked league record.',
+      reasonLabel:
+        'Folded in 2010, reformed as Farsley AFC, returned to the Farsley Celtic name in 2015, and dissolved in December 2025.',
       sourceRefs: CLUB_SOURCE_REFS.farsleyCeltic,
     }),
     lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'dissolved',
+        season: 2010,
+        label: 'Folded in 2010.',
+        sourceRefs: CLUB_SOURCE_REFS.farsleyCeltic,
+      }),
+      lifecycleEvent({
+        type: 'reformed',
+        season: 2010,
+        label: 'Reformed as Farsley AFC.',
+        sourceRefs: CLUB_SOURCE_REFS.farsleyCeltic,
+      }),
+      lifecycleEvent({
+        type: 'renamed',
+        season: 2015,
+        label: 'Returned to the Farsley Celtic name in 2015.',
+        sourceRefs: CLUB_SOURCE_REFS.farsleyCeltic,
+      }),
+      lifecycleEvent({
+        type: 'withdrew',
+        season: 2025,
+        label: 'Resigned from the Northern Counties East League before liquidation.',
+        sourceRefs: CLUB_SOURCE_REFS.farsleyCeltic,
+      }),
       lifecycleEvent({
         type: 'dissolved',
         season: 2025,
@@ -1519,12 +1630,35 @@ export const CLUB_LIFECYCLE_RULES = Object.freeze([
       'Wikipedia lists the club in the North West Counties League Premier Division, below current tracked coverage.',
     sourceRefs: CLUB_SOURCE_REFS.nelson,
   }),
-  statusOnlyRule({
+  Object.freeze({
     clubKey: 'new brighton',
-    current: 'active',
-    reason: 'not-in-tracked-leagues',
-    reasonLabel: 'Wikipedia lists the club in the West Cheshire League Division Two, below current tracked coverage.',
-    sourceRefs: CLUB_SOURCE_REFS.newBrighton,
+    status: Object.freeze({
+      current: 'defunct',
+      reason: 'dissolved',
+      reasonLabel:
+        'The original Football League club disbanded in 1983; a later same-name club formed in 1993 and folded in 2012.',
+      sourceRefs: CLUB_SOURCE_REFS.newBrighton,
+    }),
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'dissolved',
+        season: 1983,
+        label: 'The original club disbanded in 1983.',
+        sourceRefs: CLUB_SOURCE_REFS.newBrighton,
+      }),
+      lifecycleEvent({
+        type: 'phoenix',
+        season: 1993,
+        label: 'A later club with the same name was formed in 1993.',
+        sourceRefs: CLUB_SOURCE_REFS.newBrighton,
+      }),
+      lifecycleEvent({
+        type: 'dissolved',
+        season: 2012,
+        label: 'The later same-name club folded in 2012.',
+        sourceRefs: CLUB_SOURCE_REFS.newBrighton,
+      }),
+    ]),
   }),
   statusOnlyRule({
     clubKey: 'gateshead 1899',
@@ -1965,8 +2099,12 @@ export const CLUB_RELATIONSHIP_RULES = Object.freeze([
     toClubKey: 'rotherham united',
     relationship: 'merger',
     season: 1925,
-    label: 'Rotherham County merged with Rotherham Town to form Rotherham United.',
-    sourceRefs: CLUB_SOURCE_REFS.rotherhamCounty,
+    label:
+      'Rotherham County merged with the later Rotherham Town (1899), not the earlier Football League Rotherham Town, to form Rotherham United.',
+    sourceRefs: Object.freeze([
+      ...CLUB_SOURCE_REFS.rotherhamCounty,
+      ...CLUB_SOURCE_REFS.rotherhamTown1899,
+    ]),
   }),
   Object.freeze({
     fromClubKey: 'scarborough',
@@ -2014,6 +2152,317 @@ const CLUB_LIFECYCLE_RULES_BY_KEY = new Map(
   CLUB_LIFECYCLE_RULES.map((rule) => [rule.clubKey, rule])
 );
 
+function lineageAuditRule({
+  clubKey,
+  observedNames,
+  allowedSeasonRanges,
+  expectedStatus,
+  note,
+  sourceRefs,
+}) {
+  return Object.freeze({
+    clubKey,
+    observedNames: Object.freeze(observedNames),
+    allowedSeasonRanges: Object.freeze(
+      allowedSeasonRanges.map((range) =>
+        Object.freeze({
+          fromSeason: range.fromSeason,
+          toSeason: range.toSeason ?? null,
+          label: range.label ?? null,
+        })
+      )
+    ),
+    expectedStatus: expectedStatus ? Object.freeze({ ...expectedStatus }) : null,
+    note,
+    sourceRefs,
+  });
+}
+
+export const CLUB_LINEAGE_AUDIT_RULES = Object.freeze([
+  lineageAuditRule({
+    clubKey: 'accrington',
+    observedNames: ['Accrington'],
+    allowedSeasonRanges: [{ fromSeason: 1888, toSeason: 1892 }],
+    expectedStatus: { current: 'defunct', reason: 'folded' },
+    note: 'Original Accrington identity folded after leaving the Football League.',
+    sourceRefs: CLUB_SOURCE_REFS.accrington,
+  }),
+  lineageAuditRule({
+    clubKey: 'accrington stanley 1891',
+    observedNames: ['Accrington Stanley'],
+    allowedSeasonRanges: [
+      { fromSeason: 1921, toSeason: 1961, label: 'original Accrington Stanley' },
+      { fromSeason: 2006, toSeason: null, label: 'modern Accrington Stanley' },
+    ],
+    expectedStatus: { current: 'defunct', reason: 'liquidated' },
+    note: 'The 1891 Accrington Stanley identity is distinct from the modern club formed in 1968.',
+    sourceRefs: CLUB_SOURCE_REFS.accringtonStanley1891,
+  }),
+  lineageAuditRule({
+    clubKey: 'accrington stanley',
+    observedNames: [],
+    allowedSeasonRanges: [],
+    expectedStatus: { current: 'active' },
+    note: 'The modern Accrington Stanley identity should remain separate from the 1891 club.',
+    sourceRefs: CLUB_SOURCE_REFS.accringtonStanley1891,
+  }),
+  lineageAuditRule({
+    clubKey: 'bootle',
+    observedNames: ['Bootle'],
+    allowedSeasonRanges: [{ fromSeason: 1890, toSeason: 1892 }],
+    expectedStatus: { current: 'defunct', reason: 'liquidated' },
+    note: 'Original Bootle resigned from the Football League and went into liquidation in 1893.',
+    sourceRefs: CLUB_SOURCE_REFS.bootle1879,
+  }),
+  lineageAuditRule({
+    clubKey: 'new brighton',
+    observedNames: ['New Brighton'],
+    allowedSeasonRanges: [{ fromSeason: 1923, toSeason: 1950 }],
+    expectedStatus: { current: 'defunct', reason: 'dissolved' },
+    note: 'Original New Brighton left the Football League after 1950-51 and later disbanded.',
+    sourceRefs: CLUB_SOURCE_REFS.newBrighton,
+  }),
+  lineageAuditRule({
+    clubKey: 'aberdare athletic',
+    observedNames: ['Aberdare Athletic'],
+    allowedSeasonRanges: [{ fromSeason: 1921, toSeason: 1926 }],
+    expectedStatus: { current: 'defunct', reason: 'dissolved' },
+    note: 'Aberdare Athletic lost its Football League place and dissolved in 1928.',
+    sourceRefs: CLUB_SOURCE_REFS.aberdareAthletic,
+  }),
+  lineageAuditRule({
+    clubKey: 'middlesbrough ironopolis',
+    observedNames: ['Middlesbrough Ironopolis'],
+    allowedSeasonRanges: [{ fromSeason: 1893, toSeason: 1893 }],
+    expectedStatus: { current: 'defunct', reason: 'dissolved' },
+    note: 'Middlesbrough Ironopolis dissolved after its single Football League season.',
+    sourceRefs: CLUB_SOURCE_REFS.middlesbroughIronopolis,
+  }),
+  lineageAuditRule({
+    clubKey: 'leeds city',
+    observedNames: ['Leeds City'],
+    allowedSeasonRanges: [{ fromSeason: 1905, toSeason: 1919 }],
+    expectedStatus: { current: 'defunct', reason: 'expelled' },
+    note: 'Leeds City was expelled and dissolved in 1919.',
+    sourceRefs: CLUB_SOURCE_REFS.leedsCity,
+  }),
+  lineageAuditRule({
+    clubKey: 'chester city',
+    observedNames: ['Chester City'],
+    allowedSeasonRanges: [{ fromSeason: 1982, toSeason: 2009 }],
+    expectedStatus: { current: 'defunct', reason: 'folded' },
+    note: 'Chester City was expelled and wound up in 2010; modern Chester is separate.',
+    sourceRefs: CLUB_SOURCE_REFS.chesterCity,
+  }),
+  lineageAuditRule({
+    clubKey: 'hereford united',
+    observedNames: ['Hereford United'],
+    allowedSeasonRanges: [{ fromSeason: 1972, toSeason: 2013 }],
+    expectedStatus: { current: 'defunct', reason: 'folded' },
+    note: 'Hereford United was wound up in 2014; modern Hereford is a phoenix club.',
+    sourceRefs: CLUB_SOURCE_REFS.herefordUnited,
+  }),
+  lineageAuditRule({
+    clubKey: 'macclesfield town',
+    observedNames: ['Macclesfield Town'],
+    allowedSeasonRanges: [{ fromSeason: 1997, toSeason: 2020 }],
+    expectedStatus: { current: 'defunct', reason: 'dissolved' },
+    note: 'Macclesfield Town was wound up in 2020.',
+    sourceRefs: CLUB_SOURCE_REFS.macclesfieldTown,
+  }),
+  lineageAuditRule({
+    clubKey: 'bury',
+    observedNames: ['Bury'],
+    allowedSeasonRanges: [{ fromSeason: 1894, toSeason: 2019 }],
+    expectedStatus: { current: 'historical', reason: 'expelled' },
+    note: 'Bury was expelled from the EFL in 2019; later football continued outside tracked coverage.',
+    sourceRefs: CLUB_SOURCE_REFS.bury,
+  }),
+  lineageAuditRule({
+    clubKey: 'bradford park avenue',
+    observedNames: ['Bradford (Park Avenue)', 'Bradford Park Avenue'],
+    allowedSeasonRanges: [
+      { fromSeason: 1908, toSeason: 1974, label: 'original Football League identity' },
+      { fromSeason: 1987, toSeason: null, label: 'same-name revived/phoenix identity' },
+    ],
+    expectedStatus: { current: 'historical', reason: 'liquidated' },
+    note: 'Bradford (Park Avenue) includes a same-name revival; keep the historical/liquidated context explicit.',
+    sourceRefs: CLUB_SOURCE_REFS.bradfordParkAvenue,
+  }),
+  lineageAuditRule({
+    clubKey: 'farsley celtic',
+    observedNames: ['Farsley Celtic'],
+    allowedSeasonRanges: [{ fromSeason: 2021, toSeason: 2025 }],
+    expectedStatus: { current: 'defunct', reason: 'dissolved' },
+    note: 'Farsley Celtic has fold/reform/name-return/dissolution lineage events and should remain defunct after 2025.',
+    sourceRefs: CLUB_SOURCE_REFS.farsleyCeltic,
+  }),
+  lineageAuditRule({
+    clubKey: 'darlington 1883',
+    observedNames: ['Darlington'],
+    allowedSeasonRanges: [
+      { fromSeason: 1921, toSeason: 2009, label: 'Football League-era Darlington' },
+      { fromSeason: 2012, toSeason: null, label: 'modern Darlington/Darlington 1883 successor name' },
+    ],
+    expectedStatus: { current: 'historical', reason: 'successor-active' },
+    note: 'Rows named Darlington before 2010 belong to the old entity; Darlington 1883/modern Darlington belongs to the successor entity.',
+    sourceRefs: CLUB_SOURCE_REFS.darlington,
+  }),
+  lineageAuditRule({
+    clubKey: 'darlington',
+    observedNames: ['Darlington 1883'],
+    allowedSeasonRanges: [{ fromSeason: 2012, toSeason: 2017 }],
+    expectedStatus: { current: 'active' },
+    note: 'Darlington 1883 was the temporary name of the successor club before the FA approved the Darlington name again.',
+    sourceRefs: CLUB_SOURCE_REFS.darlington,
+  }),
+  lineageAuditRule({
+    clubKey: 'gateshead 1899',
+    observedNames: ['South Shields', 'Gateshead'],
+    allowedSeasonRanges: [
+      { fromSeason: 1919, toSeason: 1959, label: 'South Shields/Gateshead Football League identity' },
+      { fromSeason: 2009, toSeason: null, label: 'current Gateshead or later South Shields tracked identity' },
+    ],
+    expectedStatus: { current: 'historical', reason: 'successor-active' },
+    note: 'South Shields relocated to Gateshead in 1930; modern Gateshead and modern South Shields are separate later clubs.',
+    sourceRefs: CLUB_SOURCE_REFS.gateshead,
+  }),
+  lineageAuditRule({
+    clubKey: 'south shields',
+    observedNames: ['South Shields'],
+    allowedSeasonRanges: [
+      { fromSeason: 1919, toSeason: 1929, label: 'pre-relocation South Shields identity' },
+      { fromSeason: 2023, toSeason: null, label: 'modern South Shields tracked identity' },
+    ],
+    expectedStatus: { current: 'active' },
+    note: 'Modern South Shields must remain separate from the South Shields identity that relocated to Gateshead.',
+    sourceRefs: CLUB_SOURCE_REFS.gateshead,
+  }),
+  lineageAuditRule({
+    clubKey: 'burton united',
+    observedNames: ['Burton United'],
+    allowedSeasonRanges: [{ fromSeason: 1901, toSeason: 1910 }],
+    expectedStatus: { current: 'merged', reason: 'merged' },
+    note: 'Burton United played its last competitive season in 1910 and legally ended through the later Burton All Saints merger.',
+    sourceRefs: CLUB_SOURCE_REFS.burtonUnited,
+  }),
+  lineageAuditRule({
+    clubKey: 'rotherham town',
+    observedNames: ['Rotherham Town'],
+    allowedSeasonRanges: [
+      { fromSeason: 1893, toSeason: 1895, label: 'original Football League Rotherham Town' },
+    ],
+    expectedStatus: { current: 'defunct', reason: 'dissolved' },
+    note: 'The tracked Rotherham Town row is the 1878 club, not the later Rotherham Town (1899) merger partner.',
+    sourceRefs: CLUB_SOURCE_REFS.rotherhamTown1878,
+  }),
+  lineageAuditRule({
+    clubKey: 'merthyr town',
+    observedNames: ['Merthyr Town'],
+    allowedSeasonRanges: [
+      { fromSeason: 1920, toSeason: 1929, label: 'Football League-era Merthyr Town' },
+      { fromSeason: 2010, toSeason: null, label: 'reformed Merthyr Town successor' },
+    ],
+    expectedStatus: { current: 'active', reason: 'successor-active' },
+    note: 'Metadata spans original Merthyr Town, Merthyr Tydfil, and the reformed Merthyr Town successor lineage.',
+    sourceRefs: CLUB_SOURCE_REFS.merthyrTown,
+  }),
+  lineageAuditRule({
+    clubKey: 'northwich victoria',
+    observedNames: ['Northwich Victoria'],
+    allowedSeasonRanges: [{ fromSeason: 1892, toSeason: 1893 }],
+    expectedStatus: { current: 'active', reason: 'not-in-tracked-leagues' },
+    note: 'Active status means current club exists below tracked coverage, not continued Football League membership.',
+    sourceRefs: CLUB_SOURCE_REFS.northwichVictoria,
+  }),
+  lineageAuditRule({
+    clubKey: 'nelson',
+    observedNames: ['Nelson'],
+    allowedSeasonRanges: [{ fromSeason: 1921, toSeason: 1930 }],
+    expectedStatus: { current: 'active', reason: 'not-in-tracked-leagues' },
+    note: 'Active status means current club exists below tracked coverage after leaving the Football League.',
+    sourceRefs: CLUB_SOURCE_REFS.nelson,
+  }),
+  lineageAuditRule({
+    clubKey: 'durham city',
+    observedNames: ['Durham City'],
+    allowedSeasonRanges: [{ fromSeason: 1921, toSeason: 1927 }],
+    expectedStatus: { current: 'active', reason: 'not-in-tracked-leagues' },
+    note: 'Active status means current club exists below tracked coverage after leaving the Football League.',
+    sourceRefs: CLUB_SOURCE_REFS.durhamCity,
+  }),
+  lineageAuditRule({
+    clubKey: 'chesterfield town',
+    observedNames: ['Chesterfield Town'],
+    allowedSeasonRanges: [{ fromSeason: 1899, toSeason: 1908 }],
+    expectedStatus: { current: 'defunct', reason: 'liquidated' },
+    note: 'Chesterfield Town should stay separate from modern Chesterfield.',
+    sourceRefs: CLUB_SOURCE_REFS.chesterfield,
+  }),
+  lineageAuditRule({
+    clubKey: 'maidstone united 1897',
+    observedNames: ['Maidstone United'],
+    allowedSeasonRanges: [
+      { fromSeason: 1989, toSeason: 1992, label: 'original Maidstone United Football League identity' },
+      { fromSeason: 2016, toSeason: null, label: 'modern Maidstone United tracked identity' },
+    ],
+    expectedStatus: { current: 'defunct', reason: 'liquidated' },
+    note: 'Original Maidstone United and modern Maidstone United share a name but are separate identities.',
+    sourceRefs: CLUB_SOURCE_REFS.maidstoneUnited1897,
+  }),
+  lineageAuditRule({
+    clubKey: 'maidstone united',
+    observedNames: [],
+    allowedSeasonRanges: [],
+    expectedStatus: { current: 'active' },
+    note: 'Modern Maidstone United should remain separate from the 1897 club.',
+    sourceRefs: CLUB_SOURCE_REFS.maidstoneUnited1897,
+  }),
+  lineageAuditRule({
+    clubKey: 'newport county 1912',
+    observedNames: ['Newport County'],
+    allowedSeasonRanges: [
+      { fromSeason: 1920, toSeason: 1987, label: 'original Newport County Football League identity' },
+      { fromSeason: 2012, toSeason: null, label: 'modern Newport County tracked identity' },
+    ],
+    expectedStatus: { current: 'defunct', reason: 'folded' },
+    note: 'Original Newport County and modern Newport County share a name but are separate identities.',
+    sourceRefs: CLUB_SOURCE_REFS.newportCounty,
+  }),
+  lineageAuditRule({
+    clubKey: 'newport county',
+    observedNames: [],
+    allowedSeasonRanges: [],
+    expectedStatus: { current: 'active' },
+    note: 'Modern Newport County should remain separate from the 1912 club.',
+    sourceRefs: CLUB_SOURCE_REFS.newportCounty,
+  }),
+  lineageAuditRule({
+    clubKey: 'wimbledon',
+    observedNames: ['Wimbledon'],
+    allowedSeasonRanges: [{ fromSeason: 1977, toSeason: 2003 }],
+    expectedStatus: { current: 'relocated', reason: 'relocated' },
+    note: 'Wimbledon relocated to Milton Keynes; AFC Wimbledon is tracked separately as a supporter phoenix.',
+    sourceRefs: CLUB_SOURCE_REFS.wimbledon,
+  }),
+  lineageAuditRule({
+    clubKey: 'afc wimbledon',
+    observedNames: ['AFC Wimbledon'],
+    allowedSeasonRanges: [{ fromSeason: 2011, toSeason: null }],
+    expectedStatus: { current: 'active' },
+    note: 'AFC Wimbledon should remain separate from Wimbledon F.C. legal continuity.',
+    sourceRefs: CLUB_SOURCE_REFS.afcWimbledon,
+  }),
+  lineageAuditRule({
+    clubKey: 'milton keynes dons',
+    observedNames: ['Milton Keynes Dons'],
+    allowedSeasonRanges: [{ fromSeason: 2004, toSeason: null }],
+    expectedStatus: { current: 'active' },
+    note: 'Milton Keynes Dons should remain the relocation successor of Wimbledon F.C.',
+    sourceRefs: CLUB_SOURCE_REFS.miltonKeynesDons,
+  }),
+]);
+
 export function getCanonicalClubName(clubKey, fallbackName) {
   return CLUB_IDENTITY_RULES_BY_KEY.get(clubKey)?.canonicalName || CLUB_CANONICAL_NAME_OVERRIDES[clubKey] || fallbackName;
 }
@@ -2029,6 +2478,7 @@ export function getClubLifecycleRule(clubKey) {
 export default {
   CLUB_IDENTITY_RULES,
   CLUB_LIFECYCLE_RULES,
+  CLUB_LINEAGE_AUDIT_RULES,
   CLUB_RELATIONSHIP_RULES,
   TEMPORAL_CLUB_IDENTITY_RULES,
   getCanonicalClubName,

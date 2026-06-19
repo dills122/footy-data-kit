@@ -5,7 +5,7 @@ release plan and source of truth.
 
 ## Active Focus
 
-1. Finish v0.9.1 data-label correctness work for reprieved rows and generic tier titles.
+1. Harden v1 administrative and structural outcome semantics in generated data.
 2. Harden data verification until the release can be treated as source-of-truth worthy.
 3. Keep integration coverage above the 30-40% v1 floor while adding targeted boundary depth.
 4. Audit current metadata and identify what should be stable, missing, or deferred.

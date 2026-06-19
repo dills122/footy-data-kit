@@ -1222,4 +1222,188 @@ describe('verify-football-data', () => {
     expect(issueTypes).toContain('restructure-placement-relegation-flag');
     expect(issueTypes).toContain('restructure-placement-relegated-list');
   });
+
+  test('analyzeDataset reports rows whose administrative notes lack matching outcomeStatus', () => {
+    const issues = analyzeDataset({
+      metadata: {
+        schemaVersion: 1,
+        generator: 'wikipedia-overview',
+        generatedAt: '2026-06-18T00:00:00.000Z',
+      },
+      seasons: {
+        2020: {
+          seasonInfo: {
+            season: 2020,
+            table: [],
+            promoted: [],
+            relegated: [],
+          },
+          tier5: {
+            season: 2020,
+            table: [
+              {
+                pos: 24,
+                team: 'Macclesfield Town',
+                played: 0,
+                won: 0,
+                drawn: 0,
+                lost: 0,
+                goalsFor: 0,
+                goalsAgainst: 0,
+                goalDifference: 0,
+                goalAverage: null,
+                points: 0,
+                notes: 'Club expelled and folded',
+                wasRelegated: false,
+                wasPromoted: false,
+                isExpansionTeam: false,
+                wasReElected: false,
+                wasReprieved: false,
+                outcomeStatus: null,
+              },
+            ],
+            promoted: [],
+            relegated: [],
+            metadata: {
+              source: 'wikipedia-overview',
+              seasonSlug: '2020-21',
+              tierKey: 'tier5',
+              title: 'National League',
+              leagueId: 'National_League',
+              leagueLevel: 5,
+              tableIndex: 0,
+              tableCount: 1,
+            },
+          },
+        },
+      },
+    });
+
+    expect(issues.map((issue) => issue.type)).toContain('outcome-status-mismatch');
+  });
+
+  test('analyzeDataset reports 2019 administrative outcomes labeled as ordinary relegation', () => {
+    const issues = analyzeDataset({
+      metadata: {
+        schemaVersion: 1,
+        generator: 'wikipedia-overview',
+        generatedAt: '2026-06-18T00:00:00.000Z',
+      },
+      seasons: {
+        2019: {
+          seasonInfo: {
+            season: 2019,
+            table: [],
+            promoted: [],
+            relegated: [],
+            leagueStructureSpecialCases: [
+              {
+                type: 'administrative-outcome',
+                levels: [3, 4],
+                tierKeys: ['tier3', 'tier4'],
+                notes:
+                  'Bury was expelled from League One; Macclesfield Town was relegated from League Two after points deductions and Stevenage was reprieved.',
+              },
+            ],
+          },
+          tier3: {
+            season: 2019,
+            table: [
+              {
+                pos: 24,
+                team: 'Bury',
+                played: 0,
+                won: 0,
+                drawn: 0,
+                lost: 0,
+                goalsFor: 0,
+                goalsAgainst: 0,
+                goalDifference: 0,
+                goalAverage: null,
+                points: -12,
+                notes: 'Club expelled',
+                wasRelegated: true,
+                wasPromoted: false,
+                isExpansionTeam: false,
+                wasReElected: false,
+                wasReprieved: false,
+                outcomeStatus: 'expelled',
+              },
+            ],
+            promoted: [],
+            relegated: ['Bury'],
+            metadata: {
+              source: 'wikipedia-overview',
+              seasonSlug: '2019-20',
+              tierKey: 'tier3',
+              title: 'League One',
+              leagueId: 'League_One',
+              leagueLevel: 3,
+              tableIndex: 0,
+              tableCount: 2,
+            },
+          },
+          tier4: {
+            season: 2019,
+            table: [
+              {
+                pos: 23,
+                team: 'Stevenage',
+                played: 36,
+                won: 3,
+                drawn: 13,
+                lost: 20,
+                goalsFor: 24,
+                goalsAgainst: 50,
+                goalDifference: -26,
+                goalAverage: null,
+                points: 22,
+                notes: 'Reprieved from relegation',
+                wasRelegated: false,
+                wasPromoted: false,
+                isExpansionTeam: false,
+                wasReElected: false,
+                wasReprieved: true,
+                outcomeStatus: 'reprieved',
+              },
+              {
+                pos: 24,
+                team: 'Macclesfield Town',
+                played: 37,
+                won: 7,
+                drawn: 15,
+                lost: 15,
+                goalsFor: 32,
+                goalsAgainst: 47,
+                goalDifference: -15,
+                goalAverage: null,
+                points: 19,
+                notes: 'Relegation to the National League',
+                wasRelegated: true,
+                wasPromoted: false,
+                isExpansionTeam: false,
+                wasReElected: false,
+                wasReprieved: false,
+                outcomeStatus: 'relegated-after-points-deduction',
+              },
+            ],
+            promoted: [],
+            relegated: ['Macclesfield Town'],
+            metadata: {
+              source: 'wikipedia-overview',
+              seasonSlug: '2019-20',
+              tierKey: 'tier4',
+              title: 'League Two',
+              leagueId: 'League_Two',
+              leagueLevel: 4,
+              tableIndex: 1,
+              tableCount: 2,
+            },
+          },
+        },
+      },
+    });
+
+    expect(issues.map((issue) => issue.type)).toContain('administrative-outcome-mismatch');
+  });
 });

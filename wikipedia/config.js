@@ -146,9 +146,10 @@ export const WIKIPEDIA_OVERVIEW_SEASON_OUTCOME_OVERRIDES = Object.freeze({
   2019: Object.freeze({
     tiers: Object.freeze({
       tier3: Object.freeze({
+        relegated: Object.freeze(['Tranmere Rovers', 'Southend United', 'Bolton Wanderers']),
         rowFlagOverrides: Object.freeze({
           Bury: Object.freeze({
-            wasRelegated: true,
+            wasRelegated: false,
             outcomeStatus: 'expelled',
           }),
         }),

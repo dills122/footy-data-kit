@@ -290,7 +290,7 @@
         </div>
         <div class="schema-summary">
           <span>type <code>object</code></span>
-          <span>17 required</span><span>closed object</span>
+          <span>18 required</span><span>closed object</span>
         </div>
         <p>One final league-table row.</p>
         <table class="schema-table">
@@ -404,6 +404,16 @@
               <td><code>boolean</code></td>
               <td><span class="schema-requirement is-required">required</span></td>
               <td><span class="schema-muted">No description.</span></td>
+            </tr>
+            <tr>
+              <th scope="row"><code>outcomeStatus</code></th>
+              <td><code>string</code> | <code>null</code></td>
+              <td><span class="schema-requirement is-required">required</span></td>
+              <td>
+                Administrative or exceptional row outcome, such as expelled, folded, resigned,
+                failed-re-election-and-demoted, reprieved, or relegated-after-points-deduction. Null
+                for ordinary rows.
+              </td>
             </tr>
           </tbody>
         </table>

@@ -24,6 +24,7 @@ const ROW_COMPARE_FIELDS = [
   'isExpansionTeam',
   'wasReElected',
   'wasReprieved',
+  'outcomeStatus',
 ];
 
 function asObject(value) {

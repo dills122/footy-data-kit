@@ -244,10 +244,10 @@ Goal:
 Resolved semantic decision:
 
 - 1957-58 bottom-half movement into the new Fourth Division is represented as restructure placement, not ordinary relegation
+- 2019-20 administrative outcomes are represented with row-level `outcomeStatus`; Bury is expelled rather than ordinarily relegated, Stevenage is reprieved, and Macclesfield Town is the final League Two relegation outcome after points deductions
 
 Open decisions:
 
-- whether 2019-20 relegation fields should represent table markers, final administrative outcomes, or both
 - whether to add a stable `canonicalLeagueId` or `leagueGroup` metadata field for variant source titles
 - whether generic source titles from pages such as 2012 and 2013 should be normalized in output or preserved with only supplemental metadata
 

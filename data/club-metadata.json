@@ -2,8 +2,8 @@
   "metadata": {
     "schemaVersion": 1,
     "generator": "club-metadata-seed",
-    "generatedAt": "2026-06-19T03:00:49.854Z",
-    "gitSha": "197e521",
+    "generatedAt": "2026-06-19T19:12:45.844Z",
+    "gitSha": "2ec3d8e",
     "sourceFiles": [
       "/Users/dsteele/repos/footy-data-kit/data-output/all-seasons.json"
     ],
@@ -1269,7 +1269,7 @@
               {
                 "type": "wikipedia-season-page",
                 "sourceUrl": "https://en.wikipedia.org/wiki/2012–13_in_English_football",
-                "notes": "League tables table in 2012–13_in_English_football"
+                "notes": "Conference Premier table in 2012–13_in_English_football"
               }
             ]
           },
@@ -1321,7 +1321,7 @@
               {
                 "type": "wikipedia-season-page",
                 "sourceUrl": "https://en.wikipedia.org/wiki/2012–13_in_English_football",
-                "notes": "League tables table in 2012–13_in_English_football"
+                "notes": "Conference Premier table in 2012–13_in_English_football"
               }
             ]
           },
@@ -4423,7 +4423,7 @@
               {
                 "type": "wikipedia-season-page",
                 "sourceUrl": "https://en.wikipedia.org/wiki/2012–13_in_English_football",
-                "notes": "League tables table in 2012–13_in_English_football"
+                "notes": "Conference Premier table in 2012–13_in_English_football"
               }
             ]
           }
@@ -4473,7 +4473,7 @@
               {
                 "type": "wikipedia-season-page",
                 "sourceUrl": "https://en.wikipedia.org/wiki/2012–13_in_English_football",
-                "notes": "League tables table in 2012–13_in_English_football"
+                "notes": "Conference Premier table in 2012–13_in_English_football"
               }
             ]
           }
@@ -8233,7 +8233,7 @@
         "trackedToSeason": 2022,
         "hasUnexplainedGaps": false,
         "reason": "liquidated",
-        "reasonLabel": "Left the Football League in 1970 and went into liquidation in 1974.",
+        "reasonLabel": "Left the Football League in 1970, went into liquidation in 1974, and continued through same-name revived club eras.",
         "sourceRefs": [
           {
             "type": "wikipedia-club-page",
@@ -8286,6 +8286,18 @@
             "type": "reformed",
             "season": 1974,
             "label": "Immediately re-formed as a Sunday league club.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Bradford_(Park_Avenue)_A.F.C.",
+                "notes": "Used for Football League replacement and liquidation context."
+              }
+            ]
+          },
+          {
+            "type": "returnedToGround",
+            "season": 1987,
+            "label": "The revived club played a full season at the renovated Park Avenue ground.",
             "sourceRefs": [
               {
                 "type": "wikipedia-club-page",
@@ -11389,7 +11401,7 @@
         "trackedToSeason": 1906,
         "hasUnexplainedGaps": false,
         "reason": "merged",
-        "reasonLabel": "Formed from Burton Swifts and Burton Wanderers, then merged with Burton All Saints after leaving the Football League.",
+        "reasonLabel": "Formed from Burton Swifts and Burton Wanderers, played its last competitive season in 1910, and legally ended in a 1924 merger with Burton All Saints.",
         "sourceRefs": [
           {
             "type": "wikipedia-club-page",
@@ -11428,7 +11440,19 @@
           {
             "type": "merged",
             "season": 1910,
-            "label": "Merged with Burton All Saints after the 1909-10 season.",
+            "label": "Played its last competitive season in 1910 before later joining the Burton All Saints lineage.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Burton_United_F.C.",
+                "notes": "Used for Burton United formation from Burton Swifts and Burton Wanderers, later merger context."
+              }
+            ]
+          },
+          {
+            "type": "merged",
+            "season": 1924,
+            "label": "Merged with Burton All Saints, legally ending Burton United.",
             "sourceRefs": [
               {
                 "type": "wikipedia-club-page",
@@ -20449,7 +20473,7 @@
               {
                 "type": "wikipedia-season-page",
                 "sourceUrl": "https://en.wikipedia.org/wiki/2012–13_in_English_football",
-                "notes": "League tables table in 2012–13_in_English_football"
+                "notes": "Conference Premier table in 2012–13_in_English_football"
               }
             ]
           },
@@ -20489,7 +20513,7 @@
               {
                 "type": "wikipedia-season-page",
                 "sourceUrl": "https://en.wikipedia.org/wiki/2012–13_in_English_football",
-                "notes": "League tables table in 2012–13_in_English_football"
+                "notes": "Conference Premier table in 2012–13_in_English_football"
               }
             ]
           },
@@ -21670,18 +21694,54 @@
         "trackedToSeason": 2024,
         "hasUnexplainedGaps": false,
         "reason": "dissolved",
-        "reasonLabel": "Dissolved in December 2025 after leaving the tracked league record.",
+        "reasonLabel": "Folded in 2010, reformed as Farsley AFC, returned to the Farsley Celtic name in 2015, and dissolved in December 2025.",
         "sourceRefs": [
           {
             "type": "wikipedia-club-page",
             "sourceUrl": "https://en.wikipedia.org/wiki/Farsley_Celtic_F.C.",
-            "notes": "Used for Farsley Celtic dissolution context."
+            "notes": "Used for Farsley Celtic fold/reform/name-return/dissolution context."
           }
         ]
       },
       "history": {
         "nameHistory": [],
         "lifecycleEvents": [
+          {
+            "type": "dissolved",
+            "season": 2010,
+            "label": "Folded in 2010.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Farsley_Celtic_F.C.",
+                "notes": "Used for Farsley Celtic fold/reform/name-return/dissolution context."
+              }
+            ]
+          },
+          {
+            "type": "reformed",
+            "season": 2010,
+            "label": "Reformed as Farsley AFC.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Farsley_Celtic_F.C.",
+                "notes": "Used for Farsley Celtic fold/reform/name-return/dissolution context."
+              }
+            ]
+          },
+          {
+            "type": "renamed",
+            "season": 2015,
+            "label": "Returned to the Farsley Celtic name in 2015.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Farsley_Celtic_F.C.",
+                "notes": "Used for Farsley Celtic fold/reform/name-return/dissolution context."
+              }
+            ]
+          },
           {
             "type": "dissolved",
             "season": 2025,
@@ -21691,7 +21751,19 @@
               {
                 "type": "wikipedia-club-page",
                 "sourceUrl": "https://en.wikipedia.org/wiki/Farsley_Celtic_F.C.",
-                "notes": "Used for Farsley Celtic dissolution context."
+                "notes": "Used for Farsley Celtic fold/reform/name-return/dissolution context."
+              }
+            ]
+          },
+          {
+            "type": "withdrew",
+            "season": 2025,
+            "label": "Resigned from the Northern Counties East League before liquidation.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Farsley_Celtic_F.C.",
+                "notes": "Used for Farsley Celtic fold/reform/name-return/dissolution context."
               }
             ]
           }
@@ -21717,7 +21789,7 @@
           {
             "type": "wikipedia-club-page",
             "sourceUrl": "https://en.wikipedia.org/wiki/Farsley_Celtic_F.C.",
-            "notes": "Used for Farsley Celtic dissolution context."
+            "notes": "Used for Farsley Celtic fold/reform/name-return/dissolution context."
           }
         ],
         "observedNames": [
@@ -33690,7 +33762,21 @@
         "current": "active",
         "trackedFromSeason": 1920,
         "trackedToSeason": null,
-        "hasUnexplainedGaps": false
+        "hasUnexplainedGaps": false,
+        "reason": "successor-active",
+        "reasonLabel": "Metadata spans the Football League-era Merthyr Town, Merthyr Tydfil, and the reformed Merthyr Town successor lineage.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Merthyr_Town_F.C.",
+            "notes": "Used for Merthyr Town, Merthyr Tydfil, liquidation, and reformed Merthyr Town context."
+          },
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Merthyr_Tydfil_F.C.",
+            "notes": "Used for Merthyr Tydfil liquidation and successor Merthyr Town context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
@@ -33704,6 +33790,74 @@
                 "type": "wikipedia-season-page",
                 "sourceUrl": "https://en.wikipedia.org/wiki/1929–30_in_English_football",
                 "notes": "tier3 table in 1929–30_in_English_football"
+              }
+            ]
+          },
+          {
+            "type": "dissolved",
+            "season": 1934,
+            "label": "Original Merthyr Town ceased playing in 1934.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Merthyr_Town_F.C.",
+                "notes": "Used for Merthyr Town, Merthyr Tydfil, liquidation, and reformed Merthyr Town context."
+              },
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Merthyr_Tydfil_F.C.",
+                "notes": "Used for Merthyr Tydfil liquidation and successor Merthyr Town context."
+              }
+            ]
+          },
+          {
+            "type": "reformed",
+            "season": 1945,
+            "label": "The club re-emerged as Merthyr Tydfil in 1945.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Merthyr_Town_F.C.",
+                "notes": "Used for Merthyr Town, Merthyr Tydfil, liquidation, and reformed Merthyr Town context."
+              },
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Merthyr_Tydfil_F.C.",
+                "notes": "Used for Merthyr Tydfil liquidation and successor Merthyr Town context."
+              }
+            ]
+          },
+          {
+            "type": "liquidated",
+            "season": 2010,
+            "label": "Merthyr Tydfil was liquidated in 2010.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Merthyr_Town_F.C.",
+                "notes": "Used for Merthyr Town, Merthyr Tydfil, liquidation, and reformed Merthyr Town context."
+              },
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Merthyr_Tydfil_F.C.",
+                "notes": "Used for Merthyr Tydfil liquidation and successor Merthyr Town context."
+              }
+            ]
+          },
+          {
+            "type": "reformed",
+            "season": 2010,
+            "label": "A new club was formed under the Merthyr Town name in 2010.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Merthyr_Town_F.C.",
+                "notes": "Used for Merthyr Town, Merthyr Tydfil, liquidation, and reformed Merthyr Town context."
+              },
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Merthyr_Tydfil_F.C.",
+                "notes": "Used for Merthyr Tydfil liquidation and successor Merthyr Town context."
               }
             ]
           }
@@ -33741,6 +33895,18 @@
         "source": "football-data-output",
         "aliases": [
           "Merthyr Town"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Merthyr_Town_F.C.",
+            "notes": "Used for Merthyr Town, Merthyr Tydfil, liquidation, and reformed Merthyr Town context."
+          },
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Merthyr_Tydfil_F.C.",
+            "notes": "Used for Merthyr Tydfil liquidation and successor Merthyr Town context."
+          }
         ],
         "observedNames": [
           {
@@ -35332,23 +35498,60 @@
       "clubId": "new-brighton",
       "canonicalName": "New Brighton",
       "status": {
-        "current": "active",
+        "current": "defunct",
         "trackedFromSeason": 1923,
         "trackedToSeason": 1950,
         "hasUnexplainedGaps": false,
-        "reason": "not-in-tracked-leagues",
-        "reasonLabel": "Wikipedia lists the club in the West Cheshire League Division Two, below current tracked coverage.",
+        "reason": "dissolved",
+        "reasonLabel": "The original Football League club disbanded in 1983; a later same-name club formed in 1993 and folded in 2012.",
         "sourceRefs": [
           {
             "type": "wikipedia-club-page",
             "sourceUrl": "https://en.wikipedia.org/wiki/New_Brighton_A.F.C.",
-            "notes": "Used for current lower-division status and below tracked coverage context."
+            "notes": "Used for original New Brighton dissolution and later same-name club context."
           }
         ]
       },
       "history": {
         "nameHistory": [],
-        "lifecycleEvents": [],
+        "lifecycleEvents": [
+          {
+            "type": "dissolved",
+            "season": 1983,
+            "label": "The original club disbanded in 1983.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/New_Brighton_A.F.C.",
+                "notes": "Used for original New Brighton dissolution and later same-name club context."
+              }
+            ]
+          },
+          {
+            "type": "phoenix",
+            "season": 1993,
+            "label": "A later club with the same name was formed in 1993.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/New_Brighton_A.F.C.",
+                "notes": "Used for original New Brighton dissolution and later same-name club context."
+              }
+            ]
+          },
+          {
+            "type": "dissolved",
+            "season": 2012,
+            "label": "The later same-name club folded in 2012.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/New_Brighton_A.F.C.",
+                "notes": "Used for original New Brighton dissolution and later same-name club context."
+              }
+            ]
+          }
+        ],
         "trackedMembership": [
           {
             "fromSeason": 1923,
@@ -35377,7 +35580,7 @@
           {
             "type": "wikipedia-club-page",
             "sourceUrl": "https://en.wikipedia.org/wiki/New_Brighton_A.F.C.",
-            "notes": "Used for current lower-division status and below tracked coverage context."
+            "notes": "Used for original New Brighton dissolution and later same-name club context."
           }
         ],
         "observedNames": [
@@ -43028,12 +43231,17 @@
         "trackedToSeason": 1924,
         "hasUnexplainedGaps": false,
         "reason": "merged",
-        "reasonLabel": "Merged with Rotherham Town in 1925 to form Rotherham United.",
+        "reasonLabel": "Merged with the later Rotherham Town (1899), not the earlier Football League Rotherham Town, in 1925 to form Rotherham United.",
         "sourceRefs": [
           {
             "type": "wikipedia-club-page",
             "sourceUrl": "https://en.wikipedia.org/wiki/Rotherham_County_F.C.",
             "notes": "Used for Rotherham County merger into Rotherham United."
+          },
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Rotherham_Town_F.C._(1899)",
+            "notes": "Used for the later Rotherham Town merger into Rotherham United context."
           }
         ]
       },
@@ -43043,12 +43251,17 @@
           {
             "type": "merged",
             "season": 1925,
-            "label": "Merged into Rotherham United in 1925.",
+            "label": "Merged with the later Rotherham Town (1899) into Rotherham United in 1925.",
             "sourceRefs": [
               {
                 "type": "wikipedia-club-page",
                 "sourceUrl": "https://en.wikipedia.org/wiki/Rotherham_County_F.C.",
                 "notes": "Used for Rotherham County merger into Rotherham United."
+              },
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Rotherham_Town_F.C._(1899)",
+                "notes": "Used for the later Rotherham Town merger into Rotherham United context."
               }
             ]
           }
@@ -43076,6 +43289,11 @@
             "type": "wikipedia-club-page",
             "sourceUrl": "https://en.wikipedia.org/wiki/Rotherham_County_F.C.",
             "notes": "Used for Rotherham County merger into Rotherham United."
+          },
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Rotherham_Town_F.C._(1899)",
+            "notes": "Used for the later Rotherham Town merger into Rotherham United context."
           }
         ],
         "relationships": [
@@ -43084,12 +43302,17 @@
             "relationship": "merger",
             "direction": "mergedInto",
             "season": 1925,
-            "label": "Rotherham County merged with Rotherham Town to form Rotherham United.",
+            "label": "Rotherham County merged with the later Rotherham Town (1899), not the earlier Football League Rotherham Town, to form Rotherham United.",
             "sourceRefs": [
               {
                 "type": "wikipedia-club-page",
                 "sourceUrl": "https://en.wikipedia.org/wiki/Rotherham_County_F.C.",
                 "notes": "Used for Rotherham County merger into Rotherham United."
+              },
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Rotherham_Town_F.C._(1899)",
+                "notes": "Used for the later Rotherham Town merger into Rotherham United context."
               }
             ]
           }
@@ -43304,12 +43527,17 @@
             "relationship": "merger",
             "direction": "formedFrom",
             "season": 1925,
-            "label": "Rotherham County merged with Rotherham Town to form Rotherham United.",
+            "label": "Rotherham County merged with the later Rotherham Town (1899), not the earlier Football League Rotherham Town, to form Rotherham United.",
             "sourceRefs": [
               {
                 "type": "wikipedia-club-page",
                 "sourceUrl": "https://en.wikipedia.org/wiki/Rotherham_County_F.C.",
                 "notes": "Used for Rotherham County merger into Rotherham United."
+              },
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Rotherham_Town_F.C._(1899)",
+                "notes": "Used for the later Rotherham Town merger into Rotherham United context."
               }
             ]
           }
@@ -47999,7 +48227,7 @@
               {
                 "type": "wikipedia-season-page",
                 "sourceUrl": "https://en.wikipedia.org/wiki/2012–13_in_English_football",
-                "notes": "League tables table in 2012–13_in_English_football"
+                "notes": "Conference Premier table in 2012–13_in_English_football"
               }
             ]
           }
@@ -48071,7 +48299,7 @@
               {
                 "type": "wikipedia-season-page",
                 "sourceUrl": "https://en.wikipedia.org/wiki/2012–13_in_English_football",
-                "notes": "League tables table in 2012–13_in_English_football"
+                "notes": "Conference Premier table in 2012–13_in_English_football"
               }
             ]
           }
@@ -50587,7 +50815,7 @@
               {
                 "type": "wikipedia-season-page",
                 "sourceUrl": "https://en.wikipedia.org/wiki/2013–14_in_English_football",
-                "notes": "League tables table in 2013–14_in_English_football"
+                "notes": "Conference Premier table in 2013–14_in_English_football"
               }
             ]
           }
@@ -50615,7 +50843,7 @@
               {
                 "type": "wikipedia-season-page",
                 "sourceUrl": "https://en.wikipedia.org/wiki/2013–14_in_English_football",
-                "notes": "League tables table in 2013–14_in_English_football"
+                "notes": "Conference Premier table in 2013–14_in_English_football"
               }
             ]
           }

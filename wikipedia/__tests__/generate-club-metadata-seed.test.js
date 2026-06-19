@@ -9,6 +9,7 @@ import {
 import {
   analyzeClubContinuity,
   analyzeClubContinuityFiles,
+  analyzeClubLineageWatchlist,
   analyzeHistoricalStatusReasons,
   runCli as runClubContinuityCli,
 } from '../data/verify-club-continuity.js';
@@ -558,7 +559,7 @@ describe('buildClubMetadataSeed', () => {
       current: 'merged',
       reason: 'merged',
       reasonLabel:
-        'Formed from Burton Swifts and Burton Wanderers, then merged with Burton All Saints after leaving the Football League.',
+        'Formed from Burton Swifts and Burton Wanderers, played its last competitive season in 1910, and legally ended in a 1924 merger with Burton All Saints.',
     });
     expect(seed['burton united'].derived.relationships).toEqual([
       expect.objectContaining({
@@ -602,6 +603,21 @@ describe('buildClubMetadataSeed', () => {
             table: [{ team: 'Stalybridge Celtic' }],
           },
         },
+        1929: {
+          tier3: {
+            table: [
+              {
+                team: 'Merthyr Town',
+                notes: 'Failed re-election and demoted to the Southern League',
+              },
+            ],
+          },
+        },
+        1950: {
+          tier3: {
+            table: [{ team: 'New Brighton' }],
+          },
+        },
         2009: {
           tier4: {
             table: [{ team: 'Darlington' }],
@@ -614,12 +630,12 @@ describe('buildClubMetadataSeed', () => {
         },
         2024: {
           tier6: {
-            table: [{ team: 'Rushall Olympic' }, { team: 'Weymouth' }],
+            table: [{ team: 'Farsley Celtic' }, { team: 'Rushall Olympic' }, { team: 'Weymouth' }],
           },
         },
         2025: {
           tier6: {
-            table: [{ team: 'Darlington' }],
+            table: [{ team: 'Darlington' }, { team: 'Merthyr Town' }],
           },
         },
       },
@@ -637,6 +653,26 @@ describe('buildClubMetadataSeed', () => {
       reasonLabel:
         'Wikipedia lists the club in the Northern Premier League Division One West, below current tracked coverage.',
     });
+    expect(seed['new brighton'].status).toMatchObject({
+      current: 'defunct',
+      reason: 'dissolved',
+      reasonLabel:
+        'The original Football League club disbanded in 1983; a later same-name club formed in 1993 and folded in 2012.',
+    });
+    expect(seed['new brighton'].history.lifecycleEvents).toEqual([
+      expect.objectContaining({
+        type: 'dissolved',
+        season: 1983,
+      }),
+      expect.objectContaining({
+        type: 'phoenix',
+        season: 1993,
+      }),
+      expect.objectContaining({
+        type: 'dissolved',
+        season: 2012,
+      }),
+    ]);
     expect(seed['darlington 1883'].status).toMatchObject({
       current: 'historical',
       reason: 'successor-active',
@@ -648,6 +684,62 @@ describe('buildClubMetadataSeed', () => {
         clubKey: 'darlington',
         relationship: 'phoenix',
         direction: 'successor',
+      }),
+    ]);
+    expect(seed['farsley celtic'].status).toMatchObject({
+      current: 'defunct',
+      reason: 'dissolved',
+      reasonLabel:
+        'Folded in 2010, reformed as Farsley AFC, returned to the Farsley Celtic name in 2015, and dissolved in December 2025.',
+    });
+    expect(seed['farsley celtic'].history.lifecycleEvents).toEqual([
+      expect.objectContaining({
+        type: 'dissolved',
+        season: 2010,
+      }),
+      expect.objectContaining({
+        type: 'reformed',
+        season: 2010,
+      }),
+      expect.objectContaining({
+        type: 'renamed',
+        season: 2015,
+      }),
+      expect.objectContaining({
+        type: 'dissolved',
+        season: 2025,
+      }),
+      expect.objectContaining({
+        type: 'withdrew',
+        season: 2025,
+      }),
+    ]);
+    expect(seed['merthyr town'].status).toMatchObject({
+      current: 'active',
+      reason: 'successor-active',
+      reasonLabel:
+        'Metadata spans the Football League-era Merthyr Town, Merthyr Tydfil, and the reformed Merthyr Town successor lineage.',
+    });
+    expect(seed['merthyr town'].history.lifecycleEvents).toEqual([
+      expect.objectContaining({
+        type: 'not-re-elected',
+        season: 1929,
+      }),
+      expect.objectContaining({
+        type: 'dissolved',
+        season: 1934,
+      }),
+      expect.objectContaining({
+        type: 'reformed',
+        season: 1945,
+      }),
+      expect.objectContaining({
+        type: 'liquidated',
+        season: 2010,
+      }),
+      expect.objectContaining({
+        type: 'reformed',
+        season: 2010,
       }),
     ]);
     expect(seed.cheshunt.status).toMatchObject({
@@ -1051,6 +1143,97 @@ describe('analyzeClubContinuity', () => {
         trackedToSeason: 1905,
       }),
     ]);
+  });
+
+  test('reports source-backed lineage rows outside allowed season windows', () => {
+    const dataset = {
+      seasons: {
+        1950: { tier3: { table: [{ team: 'New Brighton' }] } },
+        1951: { tier3: { table: [{ team: 'New Brighton' }] } },
+      },
+    };
+    const clubMetadata = {
+      clubs: {
+        'new brighton': {
+          clubId: 'new-brighton',
+          canonicalName: 'New Brighton',
+          status: {
+            current: 'defunct',
+            reason: 'dissolved',
+          },
+        },
+      },
+    };
+
+    expect(analyzeClubLineageWatchlist(dataset, clubMetadata)).toEqual([
+      expect.objectContaining({
+        type: 'club-lineage-season-range-violation',
+        clubKey: 'new brighton',
+        observedName: 'New Brighton',
+        season: 1951,
+        path: 'seasons.1951.tier3.table.0',
+      }),
+    ]);
+  });
+
+  test('reports source-backed lineage metadata status drift', () => {
+    const dataset = {
+      seasons: {
+        1950: { tier3: { table: [{ team: 'New Brighton' }] } },
+      },
+    };
+    const clubMetadata = {
+      clubs: {
+        'new brighton': {
+          clubId: 'new-brighton',
+          canonicalName: 'New Brighton',
+          status: {
+            current: 'active',
+            reason: 'not-in-tracked-leagues',
+          },
+        },
+      },
+    };
+
+    expect(analyzeClubLineageWatchlist(dataset, clubMetadata)).toEqual([
+      expect.objectContaining({
+        type: 'club-lineage-status-mismatch',
+        clubKey: 'new brighton',
+        field: 'current',
+        expected: 'defunct',
+        actual: 'active',
+      }),
+      expect.objectContaining({
+        type: 'club-lineage-status-mismatch',
+        clubKey: 'new brighton',
+        field: 'reason',
+        expected: 'dissolved',
+        actual: 'not-in-tracked-leagues',
+      }),
+    ]);
+  });
+
+  test('allows documented same-name successor windows without masking metadata expectations', () => {
+    const dataset = {
+      seasons: {
+        1969: { tier4: { table: [{ team: 'Bradford (Park Avenue)' }] } },
+        2022: { tier6: { table: [{ team: 'Bradford (Park Avenue)' }] } },
+      },
+    };
+    const clubMetadata = {
+      clubs: {
+        'bradford park avenue': {
+          clubId: 'bradford-park-avenue',
+          canonicalName: 'Bradford (Park Avenue)',
+          status: {
+            current: 'historical',
+            reason: 'liquidated',
+          },
+        },
+      },
+    };
+
+    expect(analyzeClubLineageWatchlist(dataset, clubMetadata)).toEqual([]);
   });
 });
 

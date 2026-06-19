@@ -16,6 +16,7 @@ export interface LeagueTableEntry {
   isExpansionTeam: boolean;
   wasReElected: boolean;
   wasReprieved: boolean;
+  outcomeStatus: string | null;
 }
 
 export interface TierMetadata {

@@ -68,6 +68,51 @@ describe('normaliseLeagueTableEntry', () => {
     expect(electionEntry.wasReElected).toBe(false);
     expect(relegationEntry.wasReprieved).toBe(true);
     expect(relegationEntry.wasRelegated).toBe(true);
+    expect(relegationEntry.outcomeStatus).toBe('reprieved');
+  });
+
+  test('publishes administrative outcome status from row notes', () => {
+    const expelledEntry = normaliseLeagueTableEntry({
+      pos: '24',
+      team: 'Administrative FC',
+      played: '0',
+      won: '0',
+      drawn: '0',
+      lost: '0',
+      goalsFor: '0',
+      goalsAgainst: '0',
+      points: '-12',
+      notes: 'Club expelled',
+    });
+    const failedElectionEntry = normaliseLeagueTableEntry({
+      pos: '22',
+      team: 'Election FC',
+      played: '42',
+      won: '8',
+      drawn: '8',
+      lost: '26',
+      goalsFor: '35',
+      goalsAgainst: '80',
+      points: '24',
+      notes: 'Failed re-election and demoted to the Southern League',
+    });
+    const explicitEntry = normaliseLeagueTableEntry({
+      pos: '24',
+      team: 'Deduction FC',
+      played: '37',
+      won: '7',
+      drawn: '15',
+      lost: '15',
+      goalsFor: '32',
+      goalsAgainst: '47',
+      points: '19',
+      notes: 'Relegation to the National League',
+      outcomeStatus: 'relegated-after-points-deduction',
+    });
+
+    expect(expelledEntry.outcomeStatus).toBe('expelled');
+    expect(failedElectionEntry.outcomeStatus).toBe('failed-re-election-and-demoted');
+    expect(explicitEntry.outcomeStatus).toBe('relegated-after-points-deduction');
   });
 
   test('preserves explicit boolean flags and normalises numeric strings', () => {

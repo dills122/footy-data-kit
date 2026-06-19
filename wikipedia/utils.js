@@ -101,6 +101,30 @@ export function wasReprieved(note) {
   return /\brepri(?:e)?ved\b/.test(n);
 }
 
+export function deriveOutcomeStatus(note) {
+  const n = String(note || '').toLowerCase();
+  if (!n) return null;
+
+  const wasExpelled = n.includes('expelled');
+  const hasFolded = n.includes('folded');
+  const resigned = n.includes('resigned from');
+  const failedReElection = n.includes('failed re-election');
+  const demoted = n.includes('demoted');
+
+  if (wasExpelled && hasFolded) return 'expelled-and-folded';
+  if (wasExpelled) return 'expelled';
+  if (failedReElection && demoted) return 'failed-re-election-and-demoted';
+  if (failedReElection && hasFolded) return 'failed-re-election-and-folded';
+  if (failedReElection) return 'failed-re-election';
+  if (resigned && hasFolded) return 'resigned-and-folded';
+  if (resigned) return 'resigned';
+  if (hasFolded) return 'folded';
+  if (demoted) return 'demoted';
+  if (wasReprieved(note)) return 'reprieved';
+
+  return null;
+}
+
 export function isExpansionTeam(note) {
   const n = String(note || '').toLowerCase();
   return (
