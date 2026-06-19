@@ -19,3 +19,4 @@ release plan and source of truth.
 - [parallel-season-levels-contract.md](/Users/dsteele/repos/footy-data-kit/docs/parallel-season-levels-contract.md)
 - [historical-overview-parsing.md](/Users/dsteele/repos/footy-data-kit/docs/historical-overview-parsing.md)
 - [refactor-overview.md](/Users/dsteele/repos/footy-data-kit/docs/refactor-overview.md)
+- [cloudflare-r2-release-archive-plan.md](/Users/dsteele/repos/footy-data-kit/docs/cloudflare-r2-release-archive-plan.md)
