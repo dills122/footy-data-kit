@@ -94,15 +94,15 @@ describe('verify-football-data', () => {
         generatedAt: '2026-06-18T00:00:00.000Z',
       },
       seasons: {
-        2025: {
+        2024: {
           seasonInfo: {
-            season: 2025,
+            season: 2024,
             table: [],
             promoted: [],
             relegated: [],
           },
           tier3: {
-            season: 2025,
+            season: 2024,
             table: [
               {
                 pos: 21,
@@ -166,8 +166,8 @@ describe('verify-football-data', () => {
             relegated: ['Rotherham United', 'Port Vale'],
             metadata: {
               source: 'wikipedia-overview',
-              seasonSlug: '2025-26',
-              sourceUrl: 'https://example.com/2025',
+              seasonSlug: '2024-25',
+              sourceUrl: 'https://example.com/2024',
               tierKey: 'tier3',
               title: 'League One',
               leagueId: 'League_One',
@@ -254,6 +254,83 @@ describe('verify-football-data', () => {
               leagueId: 'League_One',
               tableIndex: 2,
               tableCount: 5,
+            },
+          },
+        },
+      },
+    });
+
+    expect(issues.find((issue) => issue.type === 'table-order-mismatch')).toBeUndefined();
+  });
+
+  test('analyzeDataset allows the tracked 2025 League One source-order anomaly', () => {
+    const issues = analyzeDataset({
+      metadata: {
+        schemaVersion: 1,
+        generator: 'wikipedia-overview',
+        generatedAt: '2026-06-18T00:00:00.000Z',
+      },
+      seasons: {
+        2025: {
+          seasonInfo: {
+            season: 2025,
+            table: [],
+            promoted: [],
+            relegated: [],
+          },
+          tier3: {
+            season: 2025,
+            table: [
+              {
+                pos: 22,
+                team: 'Rotherham United',
+                played: 46,
+                won: 10,
+                drawn: 11,
+                lost: 25,
+                goalsFor: 41,
+                goalsAgainst: 71,
+                goalDifference: -30,
+                goalAverage: null,
+                points: 41,
+                notes: 'Relegation to EFL League Two',
+                wasRelegated: true,
+                wasPromoted: false,
+                isExpansionTeam: false,
+                wasReElected: false,
+                wasReprieved: false,
+              },
+              {
+                pos: 23,
+                team: 'Port Vale',
+                played: 46,
+                won: 10,
+                drawn: 12,
+                lost: 24,
+                goalsFor: 36,
+                goalsAgainst: 61,
+                goalDifference: -25,
+                goalAverage: null,
+                points: 42,
+                notes: 'Relegation to EFL League Two',
+                wasRelegated: true,
+                wasPromoted: false,
+                isExpansionTeam: false,
+                wasReElected: false,
+                wasReprieved: false,
+              },
+            ],
+            promoted: [],
+            relegated: ['Rotherham United', 'Port Vale'],
+            metadata: {
+              source: 'wikipedia-overview',
+              seasonSlug: '2025-26',
+              sourceUrl: 'https://example.com/2025',
+              tierKey: 'tier3',
+              title: 'League One',
+              leagueId: 'League_One',
+              tableIndex: 2,
+              tableCount: 7,
             },
           },
         },

@@ -191,7 +191,7 @@ export function renderReleaseNotes({
     '- Prettier format check',
     '- FootballData structural validation',
     '- Club continuity and historical-reason validation',
-    '- Table points-order validation, with the known 2019-20 points-per-game tiers explicitly exempted',
+    '- Table points-order validation, with known points-per-game and source-order exceptions explicitly exempted',
     '',
     '## Assets',
     '',

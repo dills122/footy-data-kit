@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>v0.9.0 release notes | footy-data-kit</title>
+    <meta
+      name="description"
+      content="Added release-note validation and docs pages, pre-release dry-run checks, TypeScript checking foundations, schema docs, and expanded integration fixtures to 31.2% of seasons."
+    />
+    <link rel="stylesheet" href="../styles.css" />
+  </head>
+  <body>
+    <main class="page-shell">
+      <header class="site-header">
+        <p class="eyebrow">release notes</p>
+        <h1>v0.9.0</h1>
+        <p class="lede">
+          Added release-note validation and docs pages, pre-release dry-run checks, TypeScript
+          checking foundations, schema docs, and expanded integration fixtures to 31.2% of seasons.
+        </p>
+      </header>
+
+      <section class="panel">
+        <h2>Release</h2>
+        <ul class="release-meta">
+          <li><span>title</span><strong>Release hardening and integration coverage</strong></li>
+          <li><span>date</span><strong>2026-06-19</strong></li>
+          <li><span>type</span><strong>release-hardening</strong></li>
+          <li><span>schema</span><strong>compatible</strong></li>
+        </ul>
+      </section>
+
+      <section class="panel release-notes-body">
+        <h2>Summary</h2>
+        <ul>
+          <li>
+            Added the release-notes workflow needed for safer pre-releases, including checked-in
+            curated notes, generated docs-site release pages, and validation that required
+            release-note sections are present.
+          </li>
+          <li>
+            Expanded source-of-truth readiness work with stronger schema verification, generated
+            schema documentation, release dry-run checks, and an explicit integration coverage
+            report.
+          </li>
+          <li>
+            Continued the TypeScript migration by adding TypeScript checking infrastructure and
+            converting the output generation path into typed modules.
+          </li>
+        </ul>
+        <h2>Breaking Changes</h2>
+        <p>None.</p>
+        <h2>Data Changes</h2>
+        <ul>
+          <li>No intentional generated season-table data change is included in this release.</li>
+          <li>
+            Added integration fixtures for 10 high-value seasons: <code>1921</code>,
+            <code>1923</code>, <code>1930</code>, <code>1951</code>, <code>1991</code>,
+            <code>1994</code>, <code>2004</code>, <code>2019</code>, <code>2021</code>, and
+            <code>2024</code>.
+          </li>
+          <li>
+            Expanded direct integration coverage to 43 of 138 season records, or 31.2% of the
+            checked-in dataset.
+          </li>
+          <li>
+            Added direct fixture coverage through <code>tier7</code>, including split Third Division
+            seasons, failed re-election and demotion cases, folded-club rows, the EFL rebrand,
+            COVID/points-per-game handling, tier 5, and modern National League North/South rows.
+          </li>
+        </ul>
+        <h2>Bug Fixes</h2>
+        <ul>
+          <li>
+            Fixed release schema verification ordering so generated schemas can be checked reliably
+            during release validation.
+          </li>
+          <li>
+            Added schema coverage for <code>seasonInfo.leagueStructureSpecialCases</code> so the
+            published football-data schema matches the generated dataset contract.
+          </li>
+        </ul>
+        <h2>Validation</h2>
+        <ul>
+          <li>
+            Added <code>release-notes:check</code>, <code>release-notes:check:all</code>,
+            <code>release:check</code>, and <code>release:dry-run-data</code> so release candidates
+            can validate notes, docs output, and rebuilt data before publishing.
+          </li>
+          <li>
+            Added <code>integration:coverage</code> to report unique-season fixture coverage, source
+            modes, asserted tiers, assertion counts, and tagged scenario coverage without fetching
+            live pages.
+          </li>
+          <li>
+            Added a pre-release CI workflow that checks release notes, docs generation, type
+            checking, linting, formatting, schema verification, and data verification.
+          </li>
+          <li>
+            Tracked the current <code>2025:tier3</code> points-order exception explicitly so the
+            release verifier can distinguish that source-order anomaly from ordinary table-order
+            regressions.
+          </li>
+          <li>
+            Added docs-site deployment gating for changes to release notes, docs-site generation,
+            schemas, and package metadata after merge to <code>main</code>.
+          </li>
+        </ul>
+        <h2>Consumer Notes</h2>
+        <ul>
+          <li>No intentional schema break is included in this release.</li>
+          <li>
+            The new release-note pages make release details easier to inspect on the docs site; the
+            GitHub release body should stay shorter and link to the full docs page.
+          </li>
+          <li>
+            Integration coverage percentage means unique seasons with at least one live integration
+            fixture. It does not mean every row or every club in those seasons has exhaustive
+            assertions.
+          </li>
+        </ul>
+        <h2>Known Limitations</h2>
+        <ul>
+          <li>
+            Lower-tier historical coverage still needs deeper vetting before every tier can be
+            treated as equally mature.
+          </li>
+          <li>TypeScript migration is in progress; the codebase is not fully typed yet.</li>
+          <li>
+            Current <code>tier6</code> and <code>tier7</code> lower-tier metadata still needs
+            follow-up review as part of the tier 5/6 hardening work.
+          </li>
+          <li>
+            The live <code>2025-26</code> League One source currently orders
+            <code>Rotherham United</code> above <code>Port Vale</code> while exposing fewer points
+            for Rotherham; this is treated as a narrow source-order exception, not as a general
+            relaxation of table-order validation.
+          </li>
+        </ul>
+      </section>
+
+      <section class="panel">
+        <h2>Links</h2>
+        <nav class="link-grid" aria-label="release links">
+          <a href="./index.html">release history</a>
+          <a href="../index.html">docs home</a>
+          <a href="https://github.com/dills122/footy-data-kit/releases/tag/v0.9.0"
+            >github release</a
+          >
+          <a
+            href="https://github.com/dills122/footy-data-kit/releases/download/v0.9.0/footy-data-kit-v0.9.0-data.zip"
+            >data zip</a
+          >
+        </nav>
+      </section>
+
+      <footer>
+        <span>v0.9.0</span>
+        <a href="./index.html">release history</a>
+      </footer>
+    </main>
+  </body>
+</html>
