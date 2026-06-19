@@ -38,6 +38,7 @@ export function findLeagueSectionHeading($, options = {}) {
     else if (/^(the )?football league$/.test(normalized)) score = 92;
     else if (/^men's football/.test(normalized)) score = 75;
     else if (/^final standings/.test(normalized)) score = 95;
+    else if (/^final tables?/.test(normalized)) score = 95;
     else if (normalized.includes('league') && normalized.includes('table')) score = 70;
 
     if (!score) return;
@@ -61,7 +62,7 @@ export function headingHasLeagueKeyword(title) {
 
 export function isGenericLeagueHeading(title) {
   if (!title) return false;
-  const normalized = String(title).trim().toLowerCase();
+  const normalized = String(title).replace(/\s+/g, ' ').trim().toLowerCase();
   return WIKIPEDIA_OVERVIEW_CONFIG.genericLeagueHeadings.includes(normalized);
 }
 

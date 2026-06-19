@@ -234,6 +234,33 @@ describe('parseOverviewLeagueTables', () => {
     expect(rows[2].wasRelegated).toBe(true);
   });
 
+  test('parses competition pages that use Final table as the league-table root', () => {
+    const html = `
+      <div class="mw-heading mw-heading2"><h2 id="New_teams_in_the_league_this_season">New teams in the league this season</h2></div>
+      <p>Several new teams joined.</p>
+      <div class="mw-heading mw-heading2"><h2 id="Final_table">Final table</h2></div>
+      ${buildTableHtml('Alliance FC', 60)}
+      <table class="wikitable">
+        <tr><th>Home \\ Away</th><th>ALT</th><th>BAR</th></tr>
+        <tr><th scope="row">ALT</th><td>—</td><td>1–0</td></tr>
+      </table>
+      <div class="mw-heading mw-heading2"><h2 id="Election_to_the_Football_League">Election to the Football League</h2></div>
+      <table class="wikitable">
+        <tr><th>Club</th><th>Votes</th></tr>
+        <tr><td>Election FC</td><td>30</td></tr>
+      </table>
+    `;
+
+    const result = parseOverviewLeagueTables(html);
+
+    expect(result).toHaveLength(1);
+    expect(result[0]).toMatchObject({
+      title: 'Final table',
+      id: 'Final_table',
+    });
+    expect(result[0].rows[0]).toMatchObject({ team: 'Alliance FC', points: 60 });
+  });
+
   test('parses nested Conference Premier, North, and South lower-tier sections', () => {
     const html = `
       <div class="mw-heading mw-heading2"><h2 id="League_tables">League tables</h2></div>
@@ -1698,5 +1725,28 @@ describe('buildSeasonOverviewTierRecordsForSlug', () => {
       tierKey: 'tier5',
     });
     expect(result.tierRecords.tier5.table[0].team).toBe('Altrincham');
+  });
+
+  test('uses lower-tier source title when a supplemental source heading is final league table', async () => {
+    const result = await buildSeasonOverviewTierRecordsForSlug('1986–87_Football_Conference', {
+      fetchSeasonOverviewTables: async () => [
+        {
+          title: 'Final league table',
+          id: 'Final_league_table',
+          tableIndex: 0,
+          rows: [{ pos: 1, team: 'Scarborough', played: 42, points: 74 }],
+        },
+      ],
+    });
+
+    expect(result.seasonKey).toBe('1986');
+    expect(result.tierRecords.tier1).toBeUndefined();
+    expect(result.tierRecords.tier5.metadata).toMatchObject({
+      title: 'Football Conference',
+      leagueId: 'Final_league_table',
+      leagueLevel: 5,
+      tierKey: 'tier5',
+    });
+    expect(result.tierRecords.tier5.table[0].team).toBe('Scarborough');
   });
 });

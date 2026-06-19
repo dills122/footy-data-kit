@@ -2192,7 +2192,7 @@ export const CLUB_LINEAGE_AUDIT_RULES = Object.freeze([
     observedNames: ['Accrington Stanley'],
     allowedSeasonRanges: [
       { fromSeason: 1921, toSeason: 1961, label: 'original Accrington Stanley' },
-      { fromSeason: 2006, toSeason: null, label: 'modern Accrington Stanley' },
+      { fromSeason: 2003, toSeason: null, label: 'modern Accrington Stanley' },
     ],
     expectedStatus: { current: 'defunct', reason: 'liquidated' },
     note: 'The 1891 Accrington Stanley identity is distinct from the modern club formed in 1968.',
@@ -2265,7 +2265,7 @@ export const CLUB_LINEAGE_AUDIT_RULES = Object.freeze([
   lineageAuditRule({
     clubKey: 'macclesfield town',
     observedNames: ['Macclesfield Town'],
-    allowedSeasonRanges: [{ fromSeason: 1997, toSeason: 2020 }],
+    allowedSeasonRanges: [{ fromSeason: 1987, toSeason: 2020 }],
     expectedStatus: { current: 'defunct', reason: 'dissolved' },
     note: 'Macclesfield Town was wound up in 2020.',
     sourceRefs: CLUB_SOURCE_REFS.macclesfieldTown,
@@ -2292,7 +2292,10 @@ export const CLUB_LINEAGE_AUDIT_RULES = Object.freeze([
   lineageAuditRule({
     clubKey: 'farsley celtic',
     observedNames: ['Farsley Celtic'],
-    allowedSeasonRanges: [{ fromSeason: 2021, toSeason: 2025 }],
+    allowedSeasonRanges: [
+      { fromSeason: 2006, toSeason: 2009, label: 'pre-reform Conference identity' },
+      { fromSeason: 2015, toSeason: 2025, label: 'name restored after reforming as Farsley AFC' },
+    ],
     expectedStatus: { current: 'defunct', reason: 'dissolved' },
     note: 'Farsley Celtic has fold/reform/name-return/dissolution lineage events and should remain defunct after 2025.',
     sourceRefs: CLUB_SOURCE_REFS.farsleyCeltic,
@@ -2301,7 +2304,7 @@ export const CLUB_LINEAGE_AUDIT_RULES = Object.freeze([
     clubKey: 'darlington 1883',
     observedNames: ['Darlington'],
     allowedSeasonRanges: [
-      { fromSeason: 1921, toSeason: 2009, label: 'Football League-era Darlington' },
+      { fromSeason: 1921, toSeason: 2011, label: 'Football League and Conference-era Darlington' },
       { fromSeason: 2012, toSeason: null, label: 'modern Darlington/Darlington 1883 successor name' },
     ],
     expectedStatus: { current: 'historical', reason: 'successor-active' },
@@ -2321,7 +2324,8 @@ export const CLUB_LINEAGE_AUDIT_RULES = Object.freeze([
     observedNames: ['South Shields', 'Gateshead'],
     allowedSeasonRanges: [
       { fromSeason: 1919, toSeason: 1959, label: 'South Shields/Gateshead Football League identity' },
-      { fromSeason: 2009, toSeason: null, label: 'current Gateshead or later South Shields tracked identity' },
+      { fromSeason: 1983, toSeason: 1998, label: 'same-name lower-tier Gateshead identity' },
+      { fromSeason: 2008, toSeason: null, label: 'current Gateshead or later South Shields tracked identity' },
     ],
     expectedStatus: { current: 'historical', reason: 'successor-active' },
     note: 'South Shields relocated to Gateshead in 1930; modern Gateshead and modern South Shields are separate later clubs.',
@@ -2370,7 +2374,10 @@ export const CLUB_LINEAGE_AUDIT_RULES = Object.freeze([
   lineageAuditRule({
     clubKey: 'northwich victoria',
     observedNames: ['Northwich Victoria'],
-    allowedSeasonRanges: [{ fromSeason: 1892, toSeason: 1893 }],
+    allowedSeasonRanges: [
+      { fromSeason: 1892, toSeason: 1893, label: 'Football League membership' },
+      { fromSeason: 1979, toSeason: 2009, label: 'Alliance/Conference membership' },
+    ],
     expectedStatus: { current: 'active', reason: 'not-in-tracked-leagues' },
     note: 'Active status means current club exists below tracked coverage, not continued Football League membership.',
     sourceRefs: CLUB_SOURCE_REFS.northwichVictoria,
@@ -2403,8 +2410,8 @@ export const CLUB_LINEAGE_AUDIT_RULES = Object.freeze([
     clubKey: 'maidstone united 1897',
     observedNames: ['Maidstone United'],
     allowedSeasonRanges: [
-      { fromSeason: 1989, toSeason: 1992, label: 'original Maidstone United Football League identity' },
-      { fromSeason: 2016, toSeason: null, label: 'modern Maidstone United tracked identity' },
+      { fromSeason: 1979, toSeason: 1992, label: 'original Maidstone United Alliance/Football League identity' },
+      { fromSeason: 2015, toSeason: null, label: 'modern Maidstone United tracked identity' },
     ],
     expectedStatus: { current: 'defunct', reason: 'liquidated' },
     note: 'Original Maidstone United and modern Maidstone United share a name but are separate identities.',
@@ -2422,8 +2429,8 @@ export const CLUB_LINEAGE_AUDIT_RULES = Object.freeze([
     clubKey: 'newport county 1912',
     observedNames: ['Newport County'],
     allowedSeasonRanges: [
-      { fromSeason: 1920, toSeason: 1987, label: 'original Newport County Football League identity' },
-      { fromSeason: 2012, toSeason: null, label: 'modern Newport County tracked identity' },
+      { fromSeason: 1920, toSeason: 1988, label: 'original Newport County Football League/Conference identity' },
+      { fromSeason: 2004, toSeason: null, label: 'modern Newport County tracked identity' },
     ],
     expectedStatus: { current: 'defunct', reason: 'folded' },
     note: 'Original Newport County and modern Newport County share a name but are separate identities.',
@@ -2448,7 +2455,7 @@ export const CLUB_LINEAGE_AUDIT_RULES = Object.freeze([
   lineageAuditRule({
     clubKey: 'afc wimbledon',
     observedNames: ['AFC Wimbledon'],
-    allowedSeasonRanges: [{ fromSeason: 2011, toSeason: null }],
+    allowedSeasonRanges: [{ fromSeason: 2008, toSeason: null }],
     expectedStatus: { current: 'active' },
     note: 'AFC Wimbledon should remain separate from Wimbledon F.C. legal continuity.',
     sourceRefs: CLUB_SOURCE_REFS.afcWimbledon,

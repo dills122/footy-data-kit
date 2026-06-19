@@ -38,6 +38,7 @@ const POINTS_ORDER_EXEMPTIONS = new Set([
   '2019:tier3',
   '2019:tier4',
   '2019:tier5',
+  '2019:tier6',
   // 2025-26 League One currently has a source-order anomaly in the relegation rows.
   '2025:tier3',
 ]);

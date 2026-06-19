@@ -5,16 +5,18 @@ release plan and source of truth.
 
 ## Active Focus
 
-1. Execute phase 0 through phase 3 from
-   [post-v1-phase-0-3-plan.md](/Users/dsteele/repos/footy-data-kit/docs/post-v1-phase-0-3-plan.md)
-   on the active post-v1 branch.
-2. Reset planning docs and local verification notes now that `v1.0.0` is the
-   released baseline.
-3. Progress TypeScript migration through shared contracts, config/season-rule
-   boundaries, and parser output types before parser-heavy implementation
-   rewrites.
-4. Lock tier 1-4 semantics with focused tests, then prepare tier 5 and level 6
-   backfill slices without checking in generated `data-output/` changes.
+1. Finish review and release preparation for the completed phase 0 through
+   phase 3 branch in
+   [post-v1-phase-0-3-plan.md](/Users/dsteele/repos/footy-data-kit/docs/post-v1-phase-0-3-plan.md).
+2. Review the generated-output diff for the lower-tier backfill: tier 5 now
+   covers 1979-2025 and level 6 now covers 2004-2025.
+3. Continue TypeScript migration with the next implementation slice: convert
+   shared config/season-rule boundaries or the parser/builder boundary before
+   parser-heavy rewrites.
+4. Decide whether the next data expansion target is true level 7, or a cleanup
+   pass over tier 5/6 metadata and source-diff review.
+5. Plan the club metadata sidecar expansion for lower-tier-only clubs before
+   regenerating `data/club-metadata.json` from the expanded season dataset.
 
 ## Reference Notes
 

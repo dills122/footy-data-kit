@@ -58,10 +58,12 @@ Current state:
 - Club metadata has a documented v1 contract and audit boundary, including which
   fields are generated observations, curated/source-backed history, derived
   relationships, or intentionally incomplete.
-- The active post-v1 branch focus is phase 0 through phase 3 from
+- The active post-v1 branch completed phase 0 through phase 3 from
   [post-v1-phase-0-3-plan.md](./post-v1-phase-0-3-plan.md): reset the planning
-  baseline, advance TypeScript contracts, lock tier 1-4 semantics, and prepare
-  lower-tier backfill slices without hand-editing generated output.
+  baseline, advance TypeScript contracts, lock tier 1-4 semantics, and backfill
+  generated tier 5 and level 6 output from per-competition source pages.
+- Lower-tier generated coverage now includes tier 5 from 1979-2025 and level 6
+  from 2004-2025, with level 6 represented as `tier6.divisions[]`.
 
 ## V0.9.1: Data Label Correctness And V1 Prep
 
