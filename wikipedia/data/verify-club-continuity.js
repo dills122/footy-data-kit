@@ -6,6 +6,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { loadFootballData } from './generate-output-files.ts';
+import { CLUB_LINEAGE_AUDIT_RULES } from './club-identity-config.js';
 import { isHistoricalPlaceholderSeason, parseSeasonNumber, sortSeasonKeys } from './season-rules.js';
 import { addWikipediaStatusReasonSuggestions } from './suggest-club-status-reasons.js';
 
@@ -147,6 +148,128 @@ function hasStatusReason(club) {
   return Boolean(reason || reasonLabel);
 }
 
+function getTierNumberFromKey(key) {
+  return /^tier\d+$/.test(key) ? Number(key.slice(4)) : null;
+}
+
+function collectDatasetClubAppearances(dataset) {
+  const appearances = [];
+
+  function visit(value, { season, tier, pathParts }) {
+    if (!value || typeof value !== 'object') return;
+
+    if (Array.isArray(value)) {
+      value.forEach((entry, index) => {
+        visit(entry, { season, tier, pathParts: [...pathParts, String(index)] });
+      });
+      return;
+    }
+
+    const club = value.club ?? value.team ?? value.name;
+    if (typeof club === 'string' && club.trim()) {
+      appearances.push({
+        club,
+        season,
+        tier,
+        path: pathParts.join('.'),
+      });
+    }
+
+    for (const [key, childValue] of Object.entries(value)) {
+      const childTier = getTierNumberFromKey(key) ?? tier;
+      visit(childValue, {
+        season,
+        tier: childTier,
+        pathParts: [...pathParts, key],
+      });
+    }
+  }
+
+  for (const [seasonKey, seasonRecord] of Object.entries(dataset?.seasons || {})) {
+    const season = parseSeasonNumber(seasonKey);
+    if (season == null) continue;
+    visit(seasonRecord, { season, tier: null, pathParts: ['seasons', seasonKey] });
+  }
+
+  return appearances;
+}
+
+function seasonIsWithinAllowedRanges(season, allowedSeasonRanges = []) {
+  return allowedSeasonRanges.some((range) => {
+    const fromSeason = parseSeasonNumber(range.fromSeason);
+    const toSeason = range.toSeason == null ? null : parseSeasonNumber(range.toSeason);
+    if (fromSeason == null) return false;
+    if (season < fromSeason) return false;
+    return toSeason == null || season <= toSeason;
+  });
+}
+
+function createLineageSeasonRangeIssue({ rule, appearance }) {
+  return {
+    type: 'club-lineage-season-range-violation',
+    clubKey: rule.clubKey,
+    observedName: appearance.club,
+    season: appearance.season,
+    tier: appearance.tier,
+    path: appearance.path,
+    allowedSeasonRanges: rule.allowedSeasonRanges,
+    sourceRefs: rule.sourceRefs || [],
+    message: `${appearance.club} appears in ${appearance.season}, outside its source-backed lineage window`,
+  };
+}
+
+function createLineageStatusMismatchIssue({ rule, club, field, expected, actual }) {
+  return {
+    type: 'club-lineage-status-mismatch',
+    clubKey: rule.clubKey,
+    clubId: club.clubId || null,
+    canonicalName: club.canonicalName || rule.clubKey,
+    field,
+    expected,
+    actual: actual ?? null,
+    sourceRefs: rule.sourceRefs || [],
+    message: `${club.canonicalName || rule.clubKey} metadata ${field} is ${actual ?? 'null'}; expected ${expected}`,
+  };
+}
+
+export function analyzeClubLineageWatchlist(
+  dataset,
+  clubMetadata,
+  rules = CLUB_LINEAGE_AUDIT_RULES
+) {
+  const appearances = collectDatasetClubAppearances(dataset);
+  const clubs = clubMetadata?.clubs || {};
+  const issues = [];
+
+  for (const rule of rules) {
+    const observedNames = new Set(rule.observedNames || []);
+    for (const appearance of appearances) {
+      if (!observedNames.has(appearance.club)) continue;
+      if (seasonIsWithinAllowedRanges(appearance.season, rule.allowedSeasonRanges)) continue;
+      issues.push(createLineageSeasonRangeIssue({ rule, appearance }));
+    }
+
+    const expectedStatus = rule.expectedStatus || {};
+    const expectedStatusEntries = Object.entries(expectedStatus).filter(([, value]) => value != null);
+    if (!expectedStatusEntries.length) continue;
+
+    const club = clubs[rule.clubKey];
+    if (!club || typeof club !== 'object') continue;
+    for (const [field, expected] of expectedStatusEntries) {
+      const actual = club.status?.[field];
+      if (actual === expected) continue;
+      issues.push(createLineageStatusMismatchIssue({ rule, club, field, expected, actual }));
+    }
+  }
+
+  return issues.sort((a, b) => {
+    const aSeason = a.season ?? 0;
+    const bSeason = b.season ?? 0;
+    if (aSeason !== bSeason) return aSeason - bSeason;
+    return a.clubKey.localeCompare(b.clubKey);
+  });
+}
+
 export function analyzeHistoricalStatusReasons(clubMetadata) {
   const clubs = clubMetadata?.clubs || {};
   const issues = [];
@@ -246,16 +369,18 @@ export function analyzeClubContinuityFiles({
   const dataset = loadFootballData(resolvedDatasetPath);
   const clubMetadata = loadJson(resolvedClubMetadataPath);
   const continuityIssues = analyzeClubContinuity(dataset, clubMetadata);
+  const lineageIssues = analyzeClubLineageWatchlist(dataset, clubMetadata);
   const historicalReasonIssues = checkHistoricalReasons
     ? analyzeHistoricalStatusReasons(clubMetadata)
     : [];
-  const issues = [...continuityIssues, ...historicalReasonIssues];
+  const issues = [...continuityIssues, ...lineageIssues, ...historicalReasonIssues];
 
   return {
     datasetPath: formatReportPath(resolvedDatasetPath, cwd),
     clubMetadataPath: formatReportPath(resolvedClubMetadataPath, cwd),
     clubCount: Object.keys(clubMetadata?.clubs || {}).length,
     continuityIssueCount: continuityIssues.length,
+    lineageIssueCount: lineageIssues.length,
     historicalReasonIssueCount: historicalReasonIssues.length,
     issueCount: issues.length,
     issues,
@@ -381,6 +506,14 @@ export async function runCli(argv = process.argv) {
           console.log(
             `- ${issue.canonicalName} (${issue.clubId || issue.clubKey}): missing historical reason after ${trackedTo}${suggestion}`
           );
+        } else if (issue.type === 'club-lineage-season-range-violation') {
+          console.log(
+            `- ${issue.observedName} (${issue.clubKey}): unexpected row in ${issue.season} at ${issue.path}`
+          );
+        } else if (issue.type === 'club-lineage-status-mismatch') {
+          console.log(
+            `- ${issue.canonicalName} (${issue.clubId || issue.clubKey}): expected status.${issue.field}=${issue.expected}, found ${issue.actual}`
+          );
         } else {
           const seasonLabel =
             issue.fromSeason === issue.toSeason
@@ -413,6 +546,7 @@ export default {
   analyzeClubContinuity,
   analyzeClubContinuityFiles,
   analyzeClubContinuityFilesWithWikipediaSuggestions,
+  analyzeClubLineageWatchlist,
   analyzeHistoricalStatusReasons,
   runCli,
 };

@@ -2037,6 +2037,153 @@ const CLUB_LIFECYCLE_RULES_BY_KEY = new Map(
   CLUB_LIFECYCLE_RULES.map((rule) => [rule.clubKey, rule])
 );
 
+function lineageAuditRule({
+  clubKey,
+  observedNames,
+  allowedSeasonRanges,
+  expectedStatus,
+  note,
+  sourceRefs,
+}) {
+  return Object.freeze({
+    clubKey,
+    observedNames: Object.freeze(observedNames),
+    allowedSeasonRanges: Object.freeze(
+      allowedSeasonRanges.map((range) =>
+        Object.freeze({
+          fromSeason: range.fromSeason,
+          toSeason: range.toSeason ?? null,
+          label: range.label ?? null,
+        })
+      )
+    ),
+    expectedStatus: expectedStatus ? Object.freeze({ ...expectedStatus }) : null,
+    note,
+    sourceRefs,
+  });
+}
+
+export const CLUB_LINEAGE_AUDIT_RULES = Object.freeze([
+  lineageAuditRule({
+    clubKey: 'accrington',
+    observedNames: ['Accrington'],
+    allowedSeasonRanges: [{ fromSeason: 1888, toSeason: 1892 }],
+    expectedStatus: { current: 'defunct', reason: 'folded' },
+    note: 'Original Accrington identity folded after leaving the Football League.',
+    sourceRefs: CLUB_SOURCE_REFS.accrington,
+  }),
+  lineageAuditRule({
+    clubKey: 'accrington stanley 1891',
+    observedNames: ['Accrington Stanley'],
+    allowedSeasonRanges: [
+      { fromSeason: 1921, toSeason: 1961, label: 'original Accrington Stanley' },
+      { fromSeason: 2006, toSeason: null, label: 'modern Accrington Stanley' },
+    ],
+    expectedStatus: { current: 'defunct', reason: 'liquidated' },
+    note: 'The 1891 Accrington Stanley identity is distinct from the modern club formed in 1968.',
+    sourceRefs: CLUB_SOURCE_REFS.accringtonStanley1891,
+  }),
+  lineageAuditRule({
+    clubKey: 'accrington stanley',
+    observedNames: [],
+    allowedSeasonRanges: [],
+    expectedStatus: { current: 'active' },
+    note: 'The modern Accrington Stanley identity should remain separate from the 1891 club.',
+    sourceRefs: CLUB_SOURCE_REFS.accringtonStanley1891,
+  }),
+  lineageAuditRule({
+    clubKey: 'bootle',
+    observedNames: ['Bootle'],
+    allowedSeasonRanges: [{ fromSeason: 1890, toSeason: 1892 }],
+    expectedStatus: { current: 'defunct', reason: 'liquidated' },
+    note: 'Original Bootle resigned from the Football League and went into liquidation in 1893.',
+    sourceRefs: CLUB_SOURCE_REFS.bootle1879,
+  }),
+  lineageAuditRule({
+    clubKey: 'new brighton',
+    observedNames: ['New Brighton'],
+    allowedSeasonRanges: [{ fromSeason: 1923, toSeason: 1950 }],
+    expectedStatus: { current: 'defunct', reason: 'dissolved' },
+    note: 'Original New Brighton left the Football League after 1950-51 and later disbanded.',
+    sourceRefs: CLUB_SOURCE_REFS.newBrighton,
+  }),
+  lineageAuditRule({
+    clubKey: 'aberdare athletic',
+    observedNames: ['Aberdare Athletic'],
+    allowedSeasonRanges: [{ fromSeason: 1921, toSeason: 1926 }],
+    expectedStatus: { current: 'defunct', reason: 'dissolved' },
+    note: 'Aberdare Athletic lost its Football League place and dissolved in 1928.',
+    sourceRefs: CLUB_SOURCE_REFS.aberdareAthletic,
+  }),
+  lineageAuditRule({
+    clubKey: 'middlesbrough ironopolis',
+    observedNames: ['Middlesbrough Ironopolis'],
+    allowedSeasonRanges: [{ fromSeason: 1893, toSeason: 1893 }],
+    expectedStatus: { current: 'defunct', reason: 'dissolved' },
+    note: 'Middlesbrough Ironopolis dissolved after its single Football League season.',
+    sourceRefs: CLUB_SOURCE_REFS.middlesbroughIronopolis,
+  }),
+  lineageAuditRule({
+    clubKey: 'burton united',
+    observedNames: ['Burton United'],
+    allowedSeasonRanges: [{ fromSeason: 1901, toSeason: 1906 }],
+    expectedStatus: { current: 'merged', reason: 'merged' },
+    note: 'Burton United left the Football League and later merged into another Burton club.',
+    sourceRefs: CLUB_SOURCE_REFS.burtonUnited,
+  }),
+  lineageAuditRule({
+    clubKey: 'leeds city',
+    observedNames: ['Leeds City'],
+    allowedSeasonRanges: [{ fromSeason: 1905, toSeason: 1919 }],
+    expectedStatus: { current: 'defunct', reason: 'expelled' },
+    note: 'Leeds City was expelled and dissolved in 1919.',
+    sourceRefs: CLUB_SOURCE_REFS.leedsCity,
+  }),
+  lineageAuditRule({
+    clubKey: 'chester city',
+    observedNames: ['Chester City'],
+    allowedSeasonRanges: [{ fromSeason: 1982, toSeason: 2009 }],
+    expectedStatus: { current: 'defunct', reason: 'folded' },
+    note: 'Chester City was expelled and wound up in 2010; modern Chester is separate.',
+    sourceRefs: CLUB_SOURCE_REFS.chesterCity,
+  }),
+  lineageAuditRule({
+    clubKey: 'hereford united',
+    observedNames: ['Hereford United'],
+    allowedSeasonRanges: [{ fromSeason: 1972, toSeason: 2013 }],
+    expectedStatus: { current: 'defunct', reason: 'folded' },
+    note: 'Hereford United was wound up in 2014; modern Hereford is a phoenix club.',
+    sourceRefs: CLUB_SOURCE_REFS.herefordUnited,
+  }),
+  lineageAuditRule({
+    clubKey: 'macclesfield town',
+    observedNames: ['Macclesfield Town'],
+    allowedSeasonRanges: [{ fromSeason: 1997, toSeason: 2020 }],
+    expectedStatus: { current: 'defunct', reason: 'dissolved' },
+    note: 'Macclesfield Town was wound up in 2020.',
+    sourceRefs: CLUB_SOURCE_REFS.macclesfieldTown,
+  }),
+  lineageAuditRule({
+    clubKey: 'bury',
+    observedNames: ['Bury'],
+    allowedSeasonRanges: [{ fromSeason: 1894, toSeason: 2019 }],
+    expectedStatus: { current: 'historical', reason: 'expelled' },
+    note: 'Bury was expelled from the EFL in 2019; later football continued outside tracked coverage.',
+    sourceRefs: CLUB_SOURCE_REFS.bury,
+  }),
+  lineageAuditRule({
+    clubKey: 'bradford park avenue',
+    observedNames: ['Bradford (Park Avenue)', 'Bradford Park Avenue'],
+    allowedSeasonRanges: [
+      { fromSeason: 1908, toSeason: 1974, label: 'original Football League identity' },
+      { fromSeason: 1987, toSeason: null, label: 'same-name revived/phoenix identity' },
+    ],
+    expectedStatus: { current: 'historical', reason: 'liquidated' },
+    note: 'Bradford (Park Avenue) includes a same-name revival; keep the historical/liquidated context explicit.',
+    sourceRefs: CLUB_SOURCE_REFS.bradfordParkAvenue,
+  }),
+]);
+
 export function getCanonicalClubName(clubKey, fallbackName) {
   return CLUB_IDENTITY_RULES_BY_KEY.get(clubKey)?.canonicalName || CLUB_CANONICAL_NAME_OVERRIDES[clubKey] || fallbackName;
 }
@@ -2052,6 +2199,7 @@ export function getClubLifecycleRule(clubKey) {
 export default {
   CLUB_IDENTITY_RULES,
   CLUB_LIFECYCLE_RULES,
+  CLUB_LINEAGE_AUDIT_RULES,
   CLUB_RELATIONSHIP_RULES,
   TEMPORAL_CLUB_IDENTITY_RULES,
   getCanonicalClubName,

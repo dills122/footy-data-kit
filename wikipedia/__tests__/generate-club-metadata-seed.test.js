@@ -9,6 +9,7 @@ import {
 import {
   analyzeClubContinuity,
   analyzeClubContinuityFiles,
+  analyzeClubLineageWatchlist,
   analyzeHistoricalStatusReasons,
   runCli as runClubContinuityCli,
 } from '../data/verify-club-continuity.js';
@@ -1076,6 +1077,97 @@ describe('analyzeClubContinuity', () => {
         trackedToSeason: 1905,
       }),
     ]);
+  });
+
+  test('reports source-backed lineage rows outside allowed season windows', () => {
+    const dataset = {
+      seasons: {
+        1950: { tier3: { table: [{ team: 'New Brighton' }] } },
+        1951: { tier3: { table: [{ team: 'New Brighton' }] } },
+      },
+    };
+    const clubMetadata = {
+      clubs: {
+        'new brighton': {
+          clubId: 'new-brighton',
+          canonicalName: 'New Brighton',
+          status: {
+            current: 'defunct',
+            reason: 'dissolved',
+          },
+        },
+      },
+    };
+
+    expect(analyzeClubLineageWatchlist(dataset, clubMetadata)).toEqual([
+      expect.objectContaining({
+        type: 'club-lineage-season-range-violation',
+        clubKey: 'new brighton',
+        observedName: 'New Brighton',
+        season: 1951,
+        path: 'seasons.1951.tier3.table.0',
+      }),
+    ]);
+  });
+
+  test('reports source-backed lineage metadata status drift', () => {
+    const dataset = {
+      seasons: {
+        1950: { tier3: { table: [{ team: 'New Brighton' }] } },
+      },
+    };
+    const clubMetadata = {
+      clubs: {
+        'new brighton': {
+          clubId: 'new-brighton',
+          canonicalName: 'New Brighton',
+          status: {
+            current: 'active',
+            reason: 'not-in-tracked-leagues',
+          },
+        },
+      },
+    };
+
+    expect(analyzeClubLineageWatchlist(dataset, clubMetadata)).toEqual([
+      expect.objectContaining({
+        type: 'club-lineage-status-mismatch',
+        clubKey: 'new brighton',
+        field: 'current',
+        expected: 'defunct',
+        actual: 'active',
+      }),
+      expect.objectContaining({
+        type: 'club-lineage-status-mismatch',
+        clubKey: 'new brighton',
+        field: 'reason',
+        expected: 'dissolved',
+        actual: 'not-in-tracked-leagues',
+      }),
+    ]);
+  });
+
+  test('allows documented same-name successor windows without masking metadata expectations', () => {
+    const dataset = {
+      seasons: {
+        1969: { tier4: { table: [{ team: 'Bradford (Park Avenue)' }] } },
+        2022: { tier6: { table: [{ team: 'Bradford (Park Avenue)' }] } },
+      },
+    };
+    const clubMetadata = {
+      clubs: {
+        'bradford park avenue': {
+          clubId: 'bradford-park-avenue',
+          canonicalName: 'Bradford (Park Avenue)',
+          status: {
+            current: 'historical',
+            reason: 'liquidated',
+          },
+        },
+      },
+    };
+
+    expect(analyzeClubLineageWatchlist(dataset, clubMetadata)).toEqual([]);
   });
 });
 
