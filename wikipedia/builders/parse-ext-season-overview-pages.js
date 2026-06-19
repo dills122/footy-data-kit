@@ -6,6 +6,8 @@ import {
   getWikipediaCanonicalLeagueLabel,
   getWikipediaLeagueLevelRule,
   getWikipediaLeagueStructureSpecialCases,
+  getWikipediaLowerTierCompetitionSourceForSlug,
+  getWikipediaLowerTierCompetitionSourceSlugs,
   resolveWikipediaDatasetPath,
   WIKIPEDIA_DATA_SOURCES,
 } from '../config.js';
@@ -400,32 +402,17 @@ function buildParallelOverviewTier({
   });
 }
 
-export function buildSeasonOverviewSeasonRecord({ seasonKey, seasonYear, seasonSlug, tables }) {
+function resolveSafeSeason(seasonKey, seasonYear) {
   const numericSeason = Number.isFinite(seasonYear)
     ? /** @type {number} */ (seasonYear)
     : extractSeasonYearFromSlug(seasonKey);
-  const safeSeason = Number.isFinite(numericSeason) ? numericSeason : 0;
+  return Number.isFinite(numericSeason) ? numericSeason : 0;
+}
+
+export function buildSeasonOverviewTierRecords({ seasonKey, seasonYear, seasonSlug, tables }) {
+  const safeSeason = resolveSafeSeason(seasonKey, seasonYear);
   const normalizedTables = tables.map((table) => ({ ...table, season: safeSeason }));
-  const { topFlightIndex, secondTierIndex } = deriveMajorTierIndexes(normalizedTables);
-  const promotedTeams =
-    secondTierIndex != null
-      ? collectTopFlightPromotions(normalizedTables[secondTierIndex], safeSeason)
-      : [];
-  const relegatedTeams =
-    topFlightIndex != null ? collectTopFlightRelegations(normalizedTables[topFlightIndex]) : [];
-  const leagueStructureSpecialCases = getWikipediaLeagueStructureSpecialCases(safeSeason);
-
-  const seasonInfo = buildSeasonInfo(safeSeason, {
-    promoted: promotedTeams,
-    relegated: relegatedTeams,
-    metadata: {
-      seasonSlug,
-      tableCount: tables.length,
-      ...(leagueStructureSpecialCases.length ? { leagueStructureSpecialCases } : {}),
-    },
-  });
-
-  const record = { seasonInfo };
+  const tierRecords = {};
   const usedTierNumbers = new Set();
   let nextSequentialTier = 1;
   const groupedEntries = [];
@@ -478,7 +465,7 @@ export function buildSeasonOverviewSeasonRecord({ seasonKey, seasonYear, seasonS
     const parallelGroup = entries[0]?.parallelGroup || null;
     const leagueLevel = entries[0]?.leagueLevel;
     if (parallelGroup && entries.length > 1) {
-      record[tierKey] = buildParallelOverviewTier({
+      tierRecords[tierKey] = buildParallelOverviewTier({
         entries,
         safeSeason,
         seasonSlug,
@@ -491,7 +478,7 @@ export function buildSeasonOverviewSeasonRecord({ seasonKey, seasonYear, seasonS
     }
 
     const entry = entries[0];
-    record[tierKey] = buildOverviewTableTier({
+    tierRecords[tierKey] = buildOverviewTableTier({
       table: entry.table,
       safeSeason,
       seasonSlug,
@@ -501,6 +488,67 @@ export function buildSeasonOverviewSeasonRecord({ seasonKey, seasonYear, seasonS
       leagueLevel: entry.leagueLevel,
     });
   }
+
+  return tierRecords;
+}
+
+export async function buildSeasonOverviewTierRecordsForSlug(seasonSlug, options = {}) {
+  const fetchTables =
+    typeof options.fetchSeasonOverviewTables === 'function'
+      ? options.fetchSeasonOverviewTables
+      : fetchSeasonOverviewTables;
+  const tables = await fetchTables(seasonSlug);
+  const seasonKey = extractSeasonKeyFromSlug(seasonSlug) || 'unknown-season';
+  const hasTableData = tables.some((table) => table.rows && table.rows.length);
+  if (!hasTableData) {
+    return { seasonKey, tierRecords: null };
+  }
+
+  const lowerTierSource = getWikipediaLowerTierCompetitionSourceForSlug(seasonSlug);
+  const sourceAwareTables = lowerTierSource
+    ? tables.map((table) => ({
+        ...table,
+        title: isGenericLeagueHeading(table.title) ? lowerTierSource.title : table.title,
+      }))
+    : tables;
+  const seasonYear = extractSeasonYearFromSlug(seasonKey);
+  return {
+    seasonKey,
+    tierRecords: buildSeasonOverviewTierRecords({
+      seasonKey,
+      seasonYear,
+      seasonSlug,
+      tables: sourceAwareTables,
+    }),
+  };
+}
+
+export function buildSeasonOverviewSeasonRecord({ seasonKey, seasonYear, seasonSlug, tables }) {
+  const safeSeason = resolveSafeSeason(seasonKey, seasonYear);
+  const normalizedTables = tables.map((table) => ({ ...table, season: safeSeason }));
+  const { topFlightIndex, secondTierIndex } = deriveMajorTierIndexes(normalizedTables);
+  const promotedTeams =
+    secondTierIndex != null
+      ? collectTopFlightPromotions(normalizedTables[secondTierIndex], safeSeason)
+      : [];
+  const relegatedTeams =
+    topFlightIndex != null ? collectTopFlightRelegations(normalizedTables[topFlightIndex]) : [];
+  const leagueStructureSpecialCases = getWikipediaLeagueStructureSpecialCases(safeSeason);
+
+  const seasonInfo = buildSeasonInfo(safeSeason, {
+    promoted: promotedTeams,
+    relegated: relegatedTeams,
+    metadata: {
+      seasonSlug,
+      tableCount: tables.length,
+      ...(leagueStructureSpecialCases.length ? { leagueStructureSpecialCases } : {}),
+    },
+  });
+
+  const record = {
+    seasonInfo,
+    ...buildSeasonOverviewTierRecords({ seasonKey, seasonYear, seasonSlug, tables }),
+  };
 
   return applyOverviewSeasonOutcomeOverrides(record, seasonKey);
 }
@@ -599,6 +647,81 @@ export async function buildSeasonOverview(startYear, endYear, outputFile, option
   return dataset;
 }
 
+function tierHasContent(tierValue) {
+  if (!tierValue || typeof tierValue !== 'object') return false;
+  return Boolean(
+    (Array.isArray(tierValue.table) && tierValue.table.length) ||
+      (Array.isArray(tierValue.divisions) && tierValue.divisions.length) ||
+      (Array.isArray(tierValue.promoted) && tierValue.promoted.length) ||
+      (Array.isArray(tierValue.relegated) && tierValue.relegated.length)
+  );
+}
+
+export async function buildLowerTierSupplement(startYear, endYear, outputFile, options = {}) {
+  const resolvedOutputFile = resolveOverviewOutputFile(outputFile);
+  const updateOnly = Boolean(options.updateOnly);
+  const forceUpdate = Boolean(options.forceUpdate);
+  const fetchTables =
+    typeof options.fetchSeasonOverviewTables === 'function'
+      ? options.fetchSeasonOverviewTables
+      : fetchSeasonOverviewTables;
+  const getSourceSlugs =
+    typeof options.getLowerTierSourceSlugs === 'function'
+      ? options.getLowerTierSourceSlugs
+      : getWikipediaLowerTierCompetitionSourceSlugs;
+  const store = createDatasetStore(resolvedOutputFile, {
+    generator: WIKIPEDIA_DATA_SOURCES.overview.generator,
+    buildOptions: {
+      startYear,
+      endYear,
+      mode: 'lower-tier-supplement',
+      updateOnly,
+      forceUpdate,
+    },
+  });
+
+  for (let year = startYear; year <= endYear; year++) {
+    const sourceSlugs = getSourceSlugs(year);
+    if (!sourceSlugs.length) {
+      console.log(`⏭️ Skipping ${year} (no lower-tier source configured)`);
+      continue;
+    }
+
+    for (const sourceSlug of sourceSlugs) {
+      console.log(`\n📖 Fetching lower-tier source ${sourceSlug}...`);
+      const { seasonKey, tierRecords } = await buildSeasonOverviewTierRecordsForSlug(sourceSlug, {
+        fetchSeasonOverviewTables: fetchTables,
+      });
+      if (!tierRecords) {
+        console.log(`⏭️ Skipping ${sourceSlug} (no lower-tier tables returned)`);
+        continue;
+      }
+
+      const recordsToWrite = {};
+      const existingSeason = store.dataset.seasons?.[seasonKey] || {};
+      for (const [tierKey, tierValue] of Object.entries(tierRecords)) {
+        if (!/^tier\d+$/.test(tierKey)) continue;
+        if (updateOnly && !forceUpdate && tierHasContent(existingSeason[tierKey])) {
+          console.log(`⏭️ Skipping ${seasonKey}.${tierKey} (existing tier data)`);
+          continue;
+        }
+        recordsToWrite[tierKey] = tierValue;
+      }
+
+      if (Object.keys(recordsToWrite).length) {
+        store.writeTiers(seasonKey, recordsToWrite);
+      }
+    }
+  }
+
+  console.log(
+    `\n✅ Finished building lower-tier supplements for ${
+      Object.keys(store.dataset.seasons).length
+    } seasons.`
+  );
+  return store.dataset;
+}
+
 export async function buildSeasonOverviewForSlug(seasonSlug, outputFile) {
   const resolvedOutputFile = resolveOverviewOutputFile(outputFile);
   const store = createDatasetStore(resolvedOutputFile, {
@@ -632,9 +755,12 @@ export async function buildSeasonOverviewForSlug(seasonSlug, outputFile) {
 
 export default {
   fetchSeasonOverviewTables,
+  buildLowerTierSupplement,
   buildSeasonOverviewSlug,
   buildSeasonOverview,
   buildSeasonOverviewForSlug,
   buildSeasonOverviewSeasonRecord,
+  buildSeasonOverviewTierRecords,
+  buildSeasonOverviewTierRecordsForSlug,
   parseOverviewLeagueTables,
 };

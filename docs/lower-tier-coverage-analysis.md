@@ -212,7 +212,27 @@ Conclusion:
 
 - The existing overview parser and builder can represent tier 5 and level 6 when parsed tables are present.
 - Missing historical tier 5 and level 6 coverage cannot be completed from these representative yearly overview pages alone.
-- The next implementation slice should add alternate source-page support for lower-tier competitions, likely per-competition season pages, then merge those parsed tables into the same `tierN` output contract.
+- The next implementation slice should use per-competition season pages, then merge those parsed tables into the same `tierN` output contract.
+- The branch added source-slug helpers for the likely per-competition pages:
+  - `1979-1985`: `{season}_Alliance_Premier_League`
+  - `1986-2014`: `{season}_Football_Conference`
+  - `2015-present`: `{season}_National_League`
+- Lower-tier competition pages can contain non-table statistics such as top-scorer wikitables; the parser now excludes scorer headings from league-table extraction.
+
+Supplemental source path now available in code:
+
+1. Use `getWikipediaLowerTierCompetitionSourceSlugs(year)` to select candidate lower-tier source pages.
+2. Use `buildSeasonOverviewTierRecordsForSlug(slug)` to build `tierN` records without `seasonInfo`.
+3. Use `createDatasetStore(...).writeTiers(seasonKey, tierRecords)` to merge those tiers without replacing existing upper-tier data.
+4. Use `node wikipedia/cli/index.js lower-tiers` or `pnpm wiki:build:lower-tiers` to run the supplement flow.
+
+Representative lower-tier supplement dry runs:
+
+| Season | Command source                    | Generated supplement                                                 |
+| ------ | --------------------------------- | -------------------------------------------------------------------- |
+| 1979   | `1979–80_Alliance_Premier_League` | `tier5` with 20 Alliance Premier League rows                         |
+| 2004   | `2004–05_Football_Conference`     | `tier5` Conference National plus `tier6.divisions[]` for North/South |
+| 2012   | `2012–13_Football_Conference`     | `tier5` Conference Premier plus `tier6.divisions[]` for North/South  |
 
 ### Overview Dry-Run Commands
 
@@ -243,4 +263,10 @@ Dry-run review checklist:
 - Confirm sibling non-target competitions are not numbered into `tierN`.
 - Compare row counts, `promoted`, `relegated`, source titles, league IDs, and table indexes against representative source pages.
 - Record whether the yearly overview page contains the target lower-tier tables or whether a competition-specific source page is required.
+- Run lower-tier supplement output to a temporary directory before touching checked-in data:
+
+```sh
+node wikipedia/cli/index.js lower-tiers --start 1979 --end 2025 --output /tmp/footy-lower-tier-supplement --force-update
+```
+
 - Regenerate checked-in `data-output/` only after parser/build diffs are understood.

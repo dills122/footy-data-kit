@@ -35,8 +35,11 @@ if (typeof globalThis.DOMException === 'undefined') {
 const overviewModule = await import('../builders/parse-ext-season-overview-pages.js');
 const {
   parseOverviewLeagueTables,
+  buildLowerTierSupplement,
   buildSeasonOverview,
   buildSeasonOverviewSeasonRecord,
+  buildSeasonOverviewTierRecords,
+  buildSeasonOverviewTierRecordsForSlug,
   buildHistoricalSeasonPlaceholderRecord,
 } = overviewModule;
 
@@ -272,6 +275,42 @@ describe('parseOverviewLeagueTables', () => {
       'Conference North FC',
       'Conference South FC',
     ]);
+  });
+
+  test('ignores top-scorer tables on lower-tier competition pages', () => {
+    const html = `
+      <div class="mw-heading mw-heading2"><h2 id="League_table">League table</h2></div>
+      <div class="mw-heading mw-heading3"><h3 id="Conference_National">Conference National</h3></div>
+      ${buildTableHtml('Barnet', 86)}
+      <div class="mw-heading mw-heading3"><h3 id="Topscorers">Topscorers</h3></div>
+      <table class="wikitable">
+        <tr><th>Player</th><th>Club</th><th>Goals</th></tr>
+        <tr><td>Example Forward</td><td>Scoring FC</td><td>20</td></tr>
+      </table>
+      <div class="mw-heading mw-heading3"><h3 id="Conference_North">Conference North</h3></div>
+      ${buildTableHtml('Southport', 80)}
+      <div class="mw-heading mw-heading3"><h3 id="Top_scorers">Top scorers</h3></div>
+      <table class="wikitable">
+        <tr><th>Player</th><th>Club</th><th>Goals</th></tr>
+        <tr><td>Example Striker</td><td>North Scoring FC</td><td>18</td></tr>
+      </table>
+      <div class="mw-heading mw-heading3"><h3 id="Conference_South">Conference South</h3></div>
+      ${buildTableHtml('Grays Athletic', 92)}
+    `;
+
+    const result = parseOverviewLeagueTables(html);
+
+    expect(result.map((entry) => entry.title)).toEqual([
+      'Conference National',
+      'Conference North',
+      'Conference South',
+    ]);
+    expect(result.map((entry) => entry.rows[0].team)).toEqual([
+      'Barnet',
+      'Southport',
+      'Grays Athletic',
+    ]);
+    expect(result.some((entry) => entry.rows.some((row) => row.team === 'Scoring FC'))).toBe(false);
   });
 
   test('parses nested modern National League top division, North, and South sections', () => {
@@ -920,6 +959,48 @@ describe('parseOverviewLeagueTables', () => {
     ]);
   });
 
+  test('builds lower-tier-only records without seasonInfo for supplemental sources', () => {
+    const tierRecords = buildSeasonOverviewTierRecords({
+      seasonKey: '2012',
+      seasonYear: 2012,
+      seasonSlug: '2012–13_Football_Conference',
+      tables: [
+        {
+          title: 'Conference Premier',
+          id: 'Conference_Premier',
+          tableIndex: 0,
+          rows: [{ pos: 1, team: 'Mansfield Town', played: 46, points: 95 }],
+        },
+        {
+          title: 'Conference North',
+          id: 'Conference_North',
+          tableIndex: 1,
+          rows: [{ pos: 1, team: 'Chester', played: 42, points: 107 }],
+        },
+        {
+          title: 'Conference South',
+          id: 'Conference_South',
+          tableIndex: 2,
+          rows: [{ pos: 1, team: 'Welling United', played: 42, points: 86 }],
+        },
+      ],
+    });
+
+    expect(tierRecords.seasonInfo).toBeUndefined();
+    expect(tierRecords.tier5.metadata).toMatchObject({
+      title: 'Conference Premier',
+      leagueLevel: 5,
+      tierKey: 'tier5',
+    });
+    expect(tierRecords.tier6.metadata).toMatchObject({
+      structure: 'parallel-leagues',
+      leagueLevel: 6,
+      parallelGroup: 'conference-north-south',
+      divisionCount: 2,
+      tierKey: 'tier6',
+    });
+  });
+
   test('prepares 2004-2011 backfill for Conference National and regional level six', () => {
     const seasonRecord = buildSeasonOverviewSeasonRecord({
       seasonKey: '2004',
@@ -1486,5 +1567,136 @@ describe('buildSeasonOverview', () => {
 
     const finalData = JSON.parse(fs.readFileSync(outputFile, 'utf8'));
     expect(finalData.seasons['1946']).toBeUndefined();
+  });
+
+  test('builds lower-tier supplements without replacing existing overview season data', async () => {
+    const existingSeason = {
+      seasonInfo: {
+        season: 2012,
+        table: [],
+        promoted: ['Cardiff City'],
+        relegated: ['Wigan Athletic'],
+      },
+      tier1: {
+        season: 2012,
+        table: [{ pos: 1, team: 'Manchester United', played: 38, points: 89 }],
+        promoted: [],
+        relegated: [],
+      },
+    };
+    const outputFile = createTempFile({ seasons: { 2012: existingSeason } });
+
+    await buildLowerTierSupplement(2012, 2012, outputFile, {
+      forceUpdate: true,
+      getLowerTierSourceSlugs: () => ['2012–13_Football_Conference'],
+      fetchSeasonOverviewTables: async () => [
+        {
+          title: 'Conference Premier',
+          id: 'League_table',
+          tableIndex: 0,
+          rows: [{ pos: 1, team: 'Mansfield Town', played: 46, points: 95 }],
+        },
+        {
+          title: 'Conference North',
+          id: 'League_table_2',
+          tableIndex: 1,
+          rows: [{ pos: 1, team: 'Chester', played: 42, points: 107 }],
+        },
+        {
+          title: 'Conference South',
+          id: 'League_table_3',
+          tableIndex: 2,
+          rows: [{ pos: 1, team: 'Welling United', played: 42, points: 86 }],
+        },
+      ],
+    });
+
+    const finalData = JSON.parse(fs.readFileSync(outputFile, 'utf8'));
+
+    expect(finalData.seasons['2012'].seasonInfo.promoted).toEqual(['Cardiff City']);
+    expect(finalData.seasons['2012'].tier1.table[0].team).toBe('Manchester United');
+    expect(finalData.seasons['2012'].tier5.table[0].team).toBe('Mansfield Town');
+    expect(finalData.seasons['2012'].tier6.metadata).toMatchObject({
+      structure: 'parallel-leagues',
+      parallelGroup: 'conference-north-south',
+      divisionCount: 2,
+    });
+  });
+});
+
+describe('buildSeasonOverviewTierRecordsForSlug', () => {
+  test('builds supplemental tier records from a lower-tier source slug', async () => {
+    const result = await buildSeasonOverviewTierRecordsForSlug('2012–13_Football_Conference', {
+      fetchSeasonOverviewTables: async () => [
+        {
+          title: 'Conference Premier',
+          id: 'League_table',
+          tableIndex: 0,
+          rows: [{ pos: 1, team: 'Mansfield Town', played: 46, points: 95 }],
+        },
+        {
+          title: 'Conference North',
+          id: 'League_table_2',
+          tableIndex: 1,
+          rows: [{ pos: 1, team: 'Chester', played: 42, points: 107 }],
+        },
+        {
+          title: 'Conference South',
+          id: 'League_table_3',
+          tableIndex: 2,
+          rows: [{ pos: 1, team: 'Welling United', played: 42, points: 86 }],
+        },
+      ],
+    });
+
+    expect(result.seasonKey).toBe('2012');
+    expect(result.tierRecords.seasonInfo).toBeUndefined();
+    expect(result.tierRecords.tier5.metadata).toMatchObject({
+      sourceUrl: 'https://en.wikipedia.org/wiki/2012–13_Football_Conference',
+      seasonSlug: '2012–13_Football_Conference',
+      title: 'Conference Premier',
+      leagueLevel: 5,
+      tierKey: 'tier5',
+    });
+    expect(result.tierRecords.tier6.metadata).toMatchObject({
+      structure: 'parallel-leagues',
+      parallelGroup: 'conference-north-south',
+      divisionCount: 2,
+      tierKey: 'tier6',
+    });
+  });
+
+  test('returns null tier records when a supplemental source has no tables', async () => {
+    const result = await buildSeasonOverviewTierRecordsForSlug('2012–13_Football_Conference', {
+      fetchSeasonOverviewTables: async () => [],
+    });
+
+    expect(result).toEqual({
+      seasonKey: '2012',
+      tierRecords: null,
+    });
+  });
+
+  test('uses lower-tier source title when a supplemental source table heading is generic', async () => {
+    const result = await buildSeasonOverviewTierRecordsForSlug('1979–80_Alliance_Premier_League', {
+      fetchSeasonOverviewTables: async () => [
+        {
+          title: 'League table',
+          id: 'League_table',
+          tableIndex: 0,
+          rows: [{ pos: 1, team: 'Altrincham', played: 38, points: 60 }],
+        },
+      ],
+    });
+
+    expect(result.seasonKey).toBe('1979');
+    expect(result.tierRecords.tier1).toBeUndefined();
+    expect(result.tierRecords.tier5.metadata).toMatchObject({
+      title: 'Alliance Premier League',
+      leagueId: 'League_table',
+      leagueLevel: 5,
+      tierKey: 'tier5',
+    });
+    expect(result.tierRecords.tier5.table[0].team).toBe('Altrincham');
   });
 });
