@@ -23,9 +23,12 @@ const REQUIRED_TIER_METADATA_FIELDS = ['source', 'seasonSlug', 'tierKey'];
 const REQUIRED_OVERVIEW_METADATA_FIELDS = ['title', 'leagueId', 'tableIndex', 'tableCount'];
 const REQUIRED_DATASET_METADATA_FIELDS = ['schemaVersion', 'generator', 'generatedAt'];
 const POINTS_ORDER_EXEMPTIONS = new Set([
+  // 2019-20 curtailed leagues were finalized by points per game.
   '2019:tier3',
   '2019:tier4',
   '2019:tier5',
+  // 2025-26 League One currently has a source-order anomaly in the relegation rows.
+  '2025:tier3',
 ]);
 const CONTINUITY_CONFIG = {
   topFlightTierKey: 'tier1',

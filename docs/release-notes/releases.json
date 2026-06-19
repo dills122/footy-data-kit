@@ -1,5 +1,13 @@
 [
   {
+    "tag": "v0.9.0",
+    "title": "Release hardening and integration coverage",
+    "date": "2026-06-19",
+    "type": "release-hardening",
+    "schemaCompatibility": "compatible",
+    "summary": "Added release-note validation and docs pages, pre-release dry-run checks, TypeScript checking foundations, schema docs, and expanded integration fixtures to 31.2% of seasons."
+  },
+  {
     "tag": "v0.8.2",
     "title": "Club lifecycle metadata and stronger validation",
     "date": "2026-06-17",
