@@ -483,13 +483,31 @@ describe('parseOverviewLeagueTables', () => {
           title: 'Third Division North',
           id: 'Third_Division_North',
           tableIndex: 2,
-          rows: [{ pos: 1, team: 'Scunthorpe & Lindsey United', played: 46, points: 66 }],
+          rows: [
+            { pos: 1, team: 'Scunthorpe & Lindsey United', played: 46, points: 66 },
+            {
+              pos: 13,
+              team: 'Bradford City',
+              played: 46,
+              points: 48,
+              notes: 'Relegation to the Fourth Division',
+            },
+          ],
         },
         {
           title: 'Third Division South',
           id: 'Third_Division_South',
           tableIndex: 3,
-          rows: [{ pos: 1, team: 'Brighton & Hove Albion', played: 46, points: 60 }],
+          rows: [
+            { pos: 1, team: 'Brighton & Hove Albion', played: 46, points: 60 },
+            {
+              pos: 24,
+              team: 'Southend United',
+              played: 46,
+              points: 32,
+              notes: 'Re-elected to the Fourth Division',
+            },
+          ],
         },
       ],
     });
@@ -503,6 +521,20 @@ describe('parseOverviewLeagueTables', () => {
       'north',
       'south',
     ]);
+    expect(seasonRecord.tier3.relegated).toEqual([]);
+    expect(seasonRecord.tier3.divisions.map((division) => division.relegated)).toEqual([[], []]);
+    expect(
+      seasonRecord.tier3.divisions[0].table.find((row) => row.team === 'Bradford City')
+    ).toMatchObject({
+      notes: 'Relegation to the Fourth Division',
+      wasRelegated: false,
+    });
+    expect(
+      seasonRecord.tier3.divisions[1].table.find((row) => row.team === 'Southend United')
+    ).toMatchObject({
+      notes: 'Re-elected to the Fourth Division',
+      wasRelegated: false,
+    });
     expect(seasonRecord.tier4).toBeUndefined();
     expect(seasonRecord.seasonInfo.leagueStructureSpecialCases).toEqual([
       expect.objectContaining({

@@ -1137,4 +1137,89 @@ describe('verify-football-data', () => {
     const issueTypes = issues.map((issue) => issue.type);
     expect(issueTypes).toContain('league-order-mismatch');
   });
+
+  test('analyzeDataset reports 1957 Fourth Division placement rows labeled as ordinary relegation', () => {
+    const issues = analyzeDataset({
+      metadata: {
+        schemaVersion: 1,
+        generator: 'wikipedia-overview',
+        generatedAt: '2026-06-18T00:00:00.000Z',
+      },
+      seasons: {
+        1957: {
+          seasonInfo: {
+            season: 1957,
+            table: [],
+            promoted: [],
+            relegated: [],
+            leagueStructureSpecialCases: [
+              {
+                type: 'restructure-placement',
+                levels: [3, 4],
+                tierKeys: ['tier3', 'tier4'],
+                notes:
+                  'Final Third Division North/South season; bottom-half clubs moved into the new Fourth Division for 1958-59.',
+              },
+            ],
+          },
+          tier3: {
+            season: 1957,
+            table: [],
+            promoted: [],
+            relegated: ['Placement United'],
+            metadata: {
+              source: 'wikipedia-overview',
+              seasonSlug: '1957-58',
+              tierKey: 'tier3',
+              leagueLevel: 3,
+              structure: 'parallel-leagues',
+              parallelGroup: 'third-division-north-south',
+              divisionCount: 1,
+              tableCount: 1,
+            },
+            divisions: [
+              {
+                season: 1957,
+                table: [
+                  {
+                    pos: 1,
+                    team: 'Regional Champions',
+                    points: 60,
+                    notes: null,
+                    wasRelegated: false,
+                  },
+                  {
+                    pos: 2,
+                    team: 'Placement United',
+                    points: 40,
+                    notes: 'Relegation to the Fourth Division',
+                    wasRelegated: true,
+                  },
+                ],
+                promoted: [],
+                relegated: ['Placement United'],
+                metadata: {
+                  source: 'wikipedia-overview',
+                  seasonSlug: '1957-58',
+                  tierKey: 'tier3',
+                  title: 'Third Division North',
+                  leagueId: 'Third_Division_North',
+                  leagueLevel: 3,
+                  structure: 'single-league',
+                  parallelGroup: 'third-division-north-south',
+                  divisionKey: 'north',
+                  tableIndex: 0,
+                  tableCount: 1,
+                },
+              },
+            ],
+          },
+        },
+      },
+    });
+
+    const issueTypes = issues.map((issue) => issue.type);
+    expect(issueTypes).toContain('restructure-placement-relegation-flag');
+    expect(issueTypes).toContain('restructure-placement-relegated-list');
+  });
 });

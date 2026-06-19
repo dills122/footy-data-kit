@@ -107,12 +107,15 @@ Target seasons:
 
 ### 1957-1958 restructure into true tiers 3 and 4
 
-The 1957-58 North/South season is a special movement case. The generated output marks many bottom-half North/South clubs as relegated because they moved into the new Fourth Division. That is directionally useful, but it is not the same as a normal season's bottom-club relegation pattern.
+The 1957-58 North/South season is a special movement case. Bottom-half North/South clubs moved into the new Fourth Division for 1958-59 by restructure placement, not by ordinary relegation.
 
-Target work:
+Current contract:
 
-- Add tests that distinguish `leagueLevel: 3` parallel divisions from the post-1958 true `tier4`.
-- Decide whether 1957-58 movement should be labeled as normal relegation or as restructure placement metadata.
+- `1957.tier3` remains a parallel level-3 parent with North/South divisions.
+- No true `1957.tier4` table exists.
+- Fourth Division placement rows keep their source notes but set `wasRelegated: false`.
+- `1957.tier3.relegated` and the division-level `relegated` arrays exclude Fourth Division placement rows.
+- `seasonInfo.leagueStructureSpecialCases` carries the `restructure-placement` annotation across the 1957-58 to 1958-59 boundary.
 
 ### 1986-1987 playoff and Conference boundary
 

@@ -241,9 +241,12 @@ Goal:
 
 - separate parser readiness from historical interpretation decisions that could change dataset meaning
 
+Resolved semantic decision:
+
+- 1957-58 bottom-half movement into the new Fourth Division is represented as restructure placement, not ordinary relegation
+
 Open decisions:
 
-- whether 1957-58 bottom-half movement into the new Fourth Division should be represented as normal relegation, restructure placement metadata, or both
 - whether 2019-20 relegation fields should represent table markers, final administrative outcomes, or both
 - whether to add a stable `canonicalLeagueId` or `leagueGroup` metadata field for variant source titles
 - whether generic source titles from pages such as 2012 and 2013 should be normalized in output or preserved with only supplemental metadata
