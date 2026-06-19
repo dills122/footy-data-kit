@@ -11,6 +11,75 @@ import { fileURLToPath } from 'node:url';
 
 const ROOT_DIR = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const DEFAULT_OUTPUT_DIR = path.join(os.tmpdir(), 'footy-data-kit-release-dry-run');
+const DEFAULT_MIN_CLUB_COUNT = 1;
+
+function readJson(filePath) {
+  return JSON.parse(fs.readFileSync(filePath, 'utf8'));
+}
+
+function parseInteger(value) {
+  const normalized = String(value).trim();
+  if (!/^-?\d+$/.test(normalized)) return null;
+  const parsed = Number.parseInt(normalized, 10);
+  return Number.isSafeInteger(parsed) ? parsed : null;
+}
+
+function computeExpectedSeasonCount(start, end) {
+  const startSeason = parseInteger(start);
+  const endSeason = parseInteger(end);
+  if (startSeason == null || endSeason == null || endSeason < startSeason) return 0;
+  return endSeason - startSeason + 1;
+}
+
+function parseNonNegativeInteger(value, fallback) {
+  if (value == null || value === '') return fallback;
+  const parsed = parseInteger(value);
+  if (parsed == null || parsed < 0) {
+    throw new Error(`Expected a non-negative integer, got ${value}`);
+  }
+  return parsed;
+}
+
+export function buildReleaseDryRunCompletenessSummary({
+  allSeasonsFile,
+  clubMetadataFile,
+  minSeasonCount,
+  minClubCount,
+}) {
+  const allSeasons = readJson(allSeasonsFile);
+  const clubMetadata = readJson(clubMetadataFile);
+  const seasonCount = Object.keys(allSeasons?.seasons || {}).length;
+  const clubCount = Object.keys(clubMetadata?.clubs || {}).length;
+  const normalizedMinSeasonCount = parseNonNegativeInteger(minSeasonCount, 0);
+  const normalizedMinClubCount = parseNonNegativeInteger(minClubCount, 0);
+
+  return {
+    seasonCount,
+    clubCount,
+    minSeasonCount: normalizedMinSeasonCount,
+    minClubCount: normalizedMinClubCount,
+    issues: [
+      ...(seasonCount < normalizedMinSeasonCount
+        ? [
+            `expected at least ${normalizedMinSeasonCount} season record(s), generated ${seasonCount}`,
+          ]
+        : []),
+      ...(clubCount < normalizedMinClubCount
+        ? [
+            `expected at least ${normalizedMinClubCount} club metadata record(s), generated ${clubCount}`,
+          ]
+        : []),
+    ],
+  };
+}
+
+export function assertReleaseDryRunCompleteness(options) {
+  const summary = buildReleaseDryRunCompletenessSummary(options);
+  if (summary.issues.length) {
+    throw new Error(`Release dry-run output is incomplete: ${summary.issues.join('; ')}`);
+  }
+  return summary;
+}
 
 function run(command, args, options = {}) {
   const display = [command, ...args].join(' ');
@@ -27,6 +96,8 @@ export function runReleaseDryRun({
   end = '2025',
   output = DEFAULT_OUTPUT_DIR,
   skipClean = false,
+  minSeasonCount = computeExpectedSeasonCount(start, end),
+  minClubCount = DEFAULT_MIN_CLUB_COUNT,
 } = {}) {
   const outputDir = path.resolve(output);
   const overviewFile = path.join(outputDir, 'wiki_overview_tables_by_season.json');
@@ -59,6 +130,15 @@ export function runReleaseDryRun({
     '--output',
     clubMetadataFile,
   ]);
+  const completeness = assertReleaseDryRunCompleteness({
+    allSeasonsFile,
+    clubMetadataFile,
+    minSeasonCount: parseNonNegativeInteger(minSeasonCount, computeExpectedSeasonCount(start, end)),
+    minClubCount: parseNonNegativeInteger(minClubCount, DEFAULT_MIN_CLUB_COUNT),
+  });
+  console.log(
+    `\nRelease dry-run completeness: ${completeness.seasonCount} season(s), ${completeness.clubCount} club metadata record(s)`
+  );
   run('node', ['scripts/minify-json.js', allSeasonsFile]);
   run('node', ['scripts/minify-json.js', overviewFile]);
   run('node', ['wikipedia/data/verify-football-data.js', '--fail-on-issues', outputDir]);
@@ -96,10 +176,26 @@ export function runCli(argv = process.argv) {
     .option('--start <year>', 'First season year', '1888')
     .option('--end <year>', 'Final season year', '2025')
     .option('--output <dir>', 'Temporary output directory', DEFAULT_OUTPUT_DIR)
-    .option('--skip-clean', 'Do not delete the output directory before running', false);
+    .option('--skip-clean', 'Do not delete the output directory before running', false)
+    .option(
+      '--min-season-count <count>',
+      'Fail if the dry-run output contains fewer season records than this count'
+    )
+    .option(
+      '--min-club-count <count>',
+      'Fail if the dry-run output contains fewer club metadata records than this count',
+      String(DEFAULT_MIN_CLUB_COUNT)
+    );
 
   program.parse(argv);
-  runReleaseDryRun(program.opts());
+  const options = program.opts();
+  runReleaseDryRun({
+    ...options,
+    minSeasonCount:
+      options.minSeasonCount == null
+        ? computeExpectedSeasonCount(options.start, options.end)
+        : options.minSeasonCount,
+  });
 }
 
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
@@ -107,6 +203,8 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
 }
 
 export default {
+  assertReleaseDryRunCompleteness,
+  buildReleaseDryRunCompletenessSummary,
   runReleaseDryRun,
   runCli,
 };

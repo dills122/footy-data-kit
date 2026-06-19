@@ -1,7 +1,12 @@
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
-import { analyzeDataset, analyzeFile, expandTargets } from '../data/verify-football-data.js';
+import {
+  analyzeDataset,
+  analyzeFile,
+  expandTargets,
+  isFootballDataJsonFile,
+} from '../data/verify-football-data.js';
 
 describe('verify-football-data', () => {
   const tmpDirs = [];
@@ -25,6 +30,42 @@ describe('verify-football-data', () => {
     const files = expandTargets([tmpDir]);
 
     expect(files).toEqual([path.join(tmpDir, 'root.json'), path.join(nestedDir, 'nested.json')]);
+  });
+
+  test('expandTargets skips non-FootballData json during directory scans', () => {
+    const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'verify-footy-data-'));
+    tmpDirs.push(tmpDir);
+
+    const footballDataFile = path.join(tmpDir, 'all-seasons.json');
+    const clubMetadataFile = path.join(tmpDir, 'club-metadata.json');
+    fs.writeFileSync(footballDataFile, JSON.stringify({ seasons: {} }));
+    fs.writeFileSync(clubMetadataFile, JSON.stringify({ clubs: {} }));
+
+    expect(isFootballDataJsonFile(footballDataFile)).toBe(true);
+    expect(isFootballDataJsonFile(clubMetadataFile)).toBe(false);
+    expect(expandTargets([tmpDir])).toEqual([footballDataFile]);
+  });
+
+  test('analyzeFile reports explicit non-FootballData json targets', () => {
+    const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'verify-footy-data-'));
+    tmpDirs.push(tmpDir);
+
+    const clubMetadataFile = path.join(tmpDir, 'club-metadata.json');
+    fs.writeFileSync(clubMetadataFile, JSON.stringify({ clubs: {} }));
+
+    expect(expandTargets([clubMetadataFile])).toEqual([clubMetadataFile]);
+    expect(analyzeFile(clubMetadataFile)).toEqual({
+      filePath: clubMetadataFile,
+      seasonCount: 0,
+      issues: [
+        {
+          season: 'dataset',
+          tier: undefined,
+          type: 'invalid-football-data-export',
+          message: 'JSON file is missing a top-level seasons object',
+        },
+      ],
+    });
   });
 
   test('analyzeFile reports duplicate rows in nested-compatible football data exports', () => {

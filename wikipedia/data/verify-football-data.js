@@ -55,21 +55,26 @@ export function expandTargets(targets) {
   const files = [];
   const seen = new Set();
 
-  const visit = (resolved, originalTarget) => {
+  const addFile = (resolved, forceInclude = false) => {
+    if (!resolved.toLowerCase().endsWith('.json')) return;
+    if (!forceInclude && !isFootballDataJsonFile(resolved)) return;
+    if (!seen.has(resolved)) {
+      files.push(resolved);
+      seen.add(resolved);
+    }
+  };
+
+  const visitDirectory = (resolved) => {
     const stats = fs.statSync(resolved);
     if (stats.isDirectory()) {
       for (const entry of fs.readdirSync(resolved)) {
-        const child = path.join(resolved, entry);
-        visit(child, originalTarget);
+        visitDirectory(path.join(resolved, entry));
       }
       return;
     }
 
-    if (stats.isFile() && resolved.toLowerCase().endsWith('.json')) {
-      if (!seen.has(resolved)) {
-        files.push(resolved);
-        seen.add(resolved);
-      }
+    if (stats.isFile()) {
+      addFile(resolved);
     }
   };
 
@@ -80,7 +85,12 @@ export function expandTargets(targets) {
       continue;
     }
 
-    visit(resolved, target);
+    const stats = fs.statSync(resolved);
+    if (stats.isDirectory()) {
+      visitDirectory(resolved);
+    } else if (stats.isFile()) {
+      addFile(resolved, true);
+    }
   }
 
   return files.sort();
@@ -90,6 +100,21 @@ export function expandTargets(targets) {
  * @param {string} filePath
  */
 export function analyzeFile(filePath) {
+  const rawDataset = readJson(filePath);
+  if (!isFootballDataExport(rawDataset)) {
+    return {
+      filePath,
+      seasonCount: 0,
+      issues: [
+        createIssue({
+          type: 'invalid-football-data-export',
+          season: 'dataset',
+          message: 'JSON file is missing a top-level seasons object',
+        }),
+      ],
+    };
+  }
+
   const dataset = loadFootballData(filePath);
   const issues = analyzeDataset(dataset, { profile: detectDatasetProfile(dataset) });
   const seasonEntries = Object.entries(dataset.seasons);
@@ -108,6 +133,43 @@ export function analyzeFile(filePath) {
     seasonCount: seasonEntries.length,
     issues,
   };
+}
+
+/**
+ * @param {string} filePath
+ * @returns {unknown}
+ */
+function readJson(filePath) {
+  return JSON.parse(fs.readFileSync(filePath, 'utf8'));
+}
+
+/**
+ * @param {unknown} value
+ * @returns {value is import('../models/output-file.ts').FootballData}
+ */
+export function isFootballDataExport(value) {
+  return Boolean(
+    value &&
+      typeof value === 'object' &&
+      !Array.isArray(value) &&
+      Object.hasOwn(value, 'seasons') &&
+      value.seasons &&
+      typeof value.seasons === 'object' &&
+      !Array.isArray(value.seasons)
+  );
+}
+
+/**
+ * @param {string} filePath
+ */
+export function isFootballDataJsonFile(filePath) {
+  if (!filePath.toLowerCase().endsWith('.json')) return false;
+
+  try {
+    return isFootballDataExport(readJson(filePath));
+  } catch {
+    return false;
+  }
 }
 
 /**
