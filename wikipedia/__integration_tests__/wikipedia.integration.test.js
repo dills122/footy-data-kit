@@ -194,52 +194,94 @@ function assertSavedMetadataIntegrity(page, sourceKey, seasonRecord) {
 
   for (const [tierKey, tierRecord] of tierEntries) {
     const metadata = tierRecord?.metadata || {};
+    assertCommonTierMetadata(page, tierKey, tierKey, metadata, expectedSourceId);
 
-    if (metadata.source !== expectedSourceId) {
-      throw new Error(
-        `Tier metadata source mismatch for ${page.season} ${tierKey}: expected ${expectedSourceId}, got ${metadata.source}`
-      );
+    if (sourceKey !== 'overview') {
+      continue;
     }
 
-    if (
-      metadata.sourceUrl &&
-      normalizeSourceUrl(metadata.sourceUrl) !== normalizeSourceUrl(page.url)
-    ) {
-      throw new Error(
-        `Tier metadata sourceUrl mismatch for ${page.season} ${tierKey}: expected ${page.url}, got ${metadata.sourceUrl}`
-      );
-    }
-
-    if (metadata.seasonSlug !== page.slug) {
-      throw new Error(
-        `Tier metadata seasonSlug mismatch for ${page.season} ${tierKey}: expected ${page.slug}, got ${metadata.seasonSlug}`
-      );
-    }
-
-    if (metadata.tierKey !== tierKey) {
-      throw new Error(
-        `Tier metadata tierKey mismatch for ${page.season} ${tierKey}: tier record is ${tierKey}, metadata is ${metadata.tierKey}`
-      );
-    }
-
-    if (sourceKey === 'overview') {
-      if (typeof getMetadataValue(metadata.title) !== 'string' || !metadata.title.trim()) {
-        throw new Error(`Overview tier metadata missing title for ${page.season} ${tierKey}`);
-      }
-      if (typeof getMetadataValue(metadata.leagueId) !== 'string' || !metadata.leagueId.trim()) {
-        throw new Error(`Overview tier metadata missing leagueId for ${page.season} ${tierKey}`);
-      }
-      if (!Number.isInteger(metadata.tableIndex)) {
+    if (metadata.structure === 'parallel-leagues') {
+      if (typeof getMetadataValue(metadata.parallelGroup) !== 'string') {
         throw new Error(
-          `Overview tier metadata tableIndex must be an integer for ${page.season} ${tierKey}`
+          `Overview parallel tier metadata missing parallelGroup for ${page.season} ${tierKey}`
         );
       }
-      if (!Number.isInteger(metadata.tableCount)) {
+      if (!Number.isInteger(metadata.leagueLevel)) {
         throw new Error(
-          `Overview tier metadata tableCount must be an integer for ${page.season} ${tierKey}`
+          `Overview parallel tier metadata leagueLevel must be an integer for ${page.season} ${tierKey}`
         );
       }
+      if (!Number.isInteger(metadata.divisionCount)) {
+        throw new Error(
+          `Overview parallel tier metadata divisionCount must be an integer for ${page.season} ${tierKey}`
+        );
+      }
+      if (
+        !Array.isArray(tierRecord.divisions) ||
+        tierRecord.divisions.length !== metadata.divisionCount
+      ) {
+        throw new Error(
+          `Overview parallel tier division count mismatch for ${page.season} ${tierKey}`
+        );
+      }
+      for (const [index, division] of tierRecord.divisions.entries()) {
+        const divisionLabel = `${tierKey}:division-${index + 1}`;
+        const divisionMetadata = division?.metadata || {};
+        assertCommonTierMetadata(page, divisionLabel, tierKey, divisionMetadata, expectedSourceId);
+        assertOverviewSingleTierMetadata(page, divisionLabel, divisionMetadata);
+      }
+      continue;
     }
+
+    assertOverviewSingleTierMetadata(page, tierKey, metadata);
+  }
+}
+
+function assertCommonTierMetadata(page, tierLabel, expectedTierKey, metadata, expectedSourceId) {
+  if (metadata.source !== expectedSourceId) {
+    throw new Error(
+      `Tier metadata source mismatch for ${page.season} ${tierLabel}: expected ${expectedSourceId}, got ${metadata.source}`
+    );
+  }
+
+  if (
+    metadata.sourceUrl &&
+    normalizeSourceUrl(metadata.sourceUrl) !== normalizeSourceUrl(page.url)
+  ) {
+    throw new Error(
+      `Tier metadata sourceUrl mismatch for ${page.season} ${tierLabel}: expected ${page.url}, got ${metadata.sourceUrl}`
+    );
+  }
+
+  if (metadata.seasonSlug !== page.slug) {
+    throw new Error(
+      `Tier metadata seasonSlug mismatch for ${page.season} ${tierLabel}: expected ${page.slug}, got ${metadata.seasonSlug}`
+    );
+  }
+
+  if (metadata.tierKey !== expectedTierKey) {
+    throw new Error(
+      `Tier metadata tierKey mismatch for ${page.season} ${tierLabel}: tier record is ${expectedTierKey}, metadata is ${metadata.tierKey}`
+    );
+  }
+}
+
+function assertOverviewSingleTierMetadata(page, tierLabel, metadata) {
+  if (typeof getMetadataValue(metadata.title) !== 'string' || !metadata.title.trim()) {
+    throw new Error(`Overview tier metadata missing title for ${page.season} ${tierLabel}`);
+  }
+  if (typeof getMetadataValue(metadata.leagueId) !== 'string' || !metadata.leagueId.trim()) {
+    throw new Error(`Overview tier metadata missing leagueId for ${page.season} ${tierLabel}`);
+  }
+  if (!Number.isInteger(metadata.tableIndex)) {
+    throw new Error(
+      `Overview tier metadata tableIndex must be an integer for ${page.season} ${tierLabel}`
+    );
+  }
+  if (!Number.isInteger(metadata.tableCount)) {
+    throw new Error(
+      `Overview tier metadata tableCount must be an integer for ${page.season} ${tierLabel}`
+    );
   }
 }
 
@@ -483,29 +525,35 @@ const sourceHandlers = {
 
 function getTierTableFromResults(page, results, tierKey) {
   const tier = results[tierKey];
-  if (!tier || !Array.isArray(tier.table) || !tier.table.length) {
+  const table = getTierTable(tier);
+  if (!table.length) {
     throw new Error(
       `Constructed results missing ${tierKey} table data for season ${page.season} (${page.url})`
     );
   }
-  return tier.table;
+  return table;
 }
 
 function getTierTableFromSavedRecord(page, seasonRecord, tierKey) {
   const tierData = seasonRecord[tierKey];
-  const table = Array.isArray(tierData)
-    ? tierData
-    : Array.isArray(tierData?.table)
-    ? tierData.table
-    : null;
+  const table = getTierTable(tierData);
 
-  if (!table || table.length === 0) {
+  if (!table.length) {
     throw new Error(
       `Saved dataset missing ${tierKey} table data for season ${page.season} (${page.url})`
     );
   }
 
   return table;
+}
+
+function getTierTable(tierData) {
+  if (Array.isArray(tierData)) return tierData;
+  if (Array.isArray(tierData?.table) && tierData.table.length) return tierData.table;
+  if (Array.isArray(tierData?.divisions)) {
+    return tierData.divisions.flatMap((division) => getTierTable(division));
+  }
+  return [];
 }
 
 function verifyTableEntryFromTable(page, tierKey, expectedData, table, sourceLabel) {

@@ -400,7 +400,7 @@ describe('parseOverviewLeagueTables', () => {
     expect(seasonRecord.seasonInfo.relegated).toEqual([]);
   });
 
-  test('stores regional third divisions with shared leagueLevel metadata after 1921', () => {
+  test('stores regional third divisions as parallel level-3 divisions after 1921', () => {
     const seasonRecord = buildSeasonOverviewSeasonRecord({
       seasonKey: '1921',
       seasonYear: 1921,
@@ -434,15 +434,25 @@ describe('parseOverviewLeagueTables', () => {
     });
 
     expect(seasonRecord.tier3.metadata).toMatchObject({
-      title: 'Third Division North',
+      structure: 'parallel-leagues',
       leagueLevel: 3,
+      parallelGroup: 'third-division-north-south',
+      divisionCount: 2,
       tierKey: 'tier3',
     });
-    expect(seasonRecord.tier4.metadata).toMatchObject({
-      title: 'Third Division South',
-      leagueLevel: 3,
-      tierKey: 'tier4',
+    expect(seasonRecord.tier3.table).toEqual([]);
+    expect(seasonRecord.tier3.divisions).toHaveLength(2);
+    expect(seasonRecord.tier3.divisions[0].metadata).toMatchObject({
+      title: 'Third Division North',
+      divisionKey: 'north',
+      tierKey: 'tier3',
     });
+    expect(seasonRecord.tier3.divisions[1].metadata).toMatchObject({
+      title: 'Third Division South',
+      divisionKey: 'south',
+      tierKey: 'tier3',
+    });
+    expect(seasonRecord.tier4).toBeUndefined();
     expect(seasonRecord.seasonInfo.leagueStructureSpecialCases).toEqual([
       expect.objectContaining({
         type: 'parallel-regional-level',
@@ -484,7 +494,16 @@ describe('parseOverviewLeagueTables', () => {
       ],
     });
 
-    expect(seasonRecord.tier4.metadata.leagueLevel).toBe(3);
+    expect(seasonRecord.tier3.metadata).toMatchObject({
+      structure: 'parallel-leagues',
+      leagueLevel: 3,
+      parallelGroup: 'third-division-north-south',
+    });
+    expect(seasonRecord.tier3.divisions.map((division) => division.metadata.divisionKey)).toEqual([
+      'north',
+      'south',
+    ]);
+    expect(seasonRecord.tier4).toBeUndefined();
     expect(seasonRecord.seasonInfo.leagueStructureSpecialCases).toEqual([
       expect.objectContaining({
         type: 'restructure-placement',
@@ -575,32 +594,35 @@ describe('parseOverviewLeagueTables', () => {
         {
           title: 'National League',
           id: 'National_League',
-          tableIndex: 4,
+          tableIndex: 0,
           rows: [{ pos: 1, team: 'Stockport County', played: 44, points: 94 }],
         },
         {
-          title: 'National League North',
-          id: 'National_League_North',
-          tableIndex: 5,
+          title: 'National League',
+          id: 'National_League',
+          tableIndex: 1,
           rows: [{ pos: 1, team: 'Gateshead', played: 42, points: 94 }],
         },
         {
-          title: 'National League South',
-          id: 'National_League_South',
-          tableIndex: 6,
+          title: 'National League',
+          id: 'National_League',
+          tableIndex: 2,
           rows: [{ pos: 1, team: 'Maidstone United', played: 40, points: 87 }],
         },
       ],
     });
 
     expect(seasonRecord.tier6.metadata).toMatchObject({
-      title: 'National League North',
+      structure: 'parallel-leagues',
       leagueLevel: 6,
+      parallelGroup: 'national-league-north-south',
+      divisionCount: 2,
     });
-    expect(seasonRecord.tier7.metadata).toMatchObject({
-      title: 'National League South',
-      leagueLevel: 6,
-    });
+    expect(seasonRecord.tier6.divisions.map((division) => division.metadata.divisionKey)).toEqual([
+      'north',
+      'south',
+    ]);
+    expect(seasonRecord.tier7).toBeUndefined();
   });
 
   test('keeps pre-war four-division seasons aligned with second-tier top-flight movement', () => {
@@ -646,15 +668,15 @@ describe('parseOverviewLeagueTables', () => {
     expect(seasonRecord.seasonInfo.relegated).toEqual(['Manchester United']);
     expect(seasonRecord.tier2.promoted).toEqual(['Leicester City', 'Blackburn Rovers']);
     expect(seasonRecord.tier3.metadata).toMatchObject({
-      title: 'Third Division North',
+      structure: 'parallel-leagues',
       leagueLevel: 3,
       tierKey: 'tier3',
     });
-    expect(seasonRecord.tier4.metadata).toMatchObject({
-      title: 'Third Division South',
-      leagueLevel: 3,
-      tierKey: 'tier4',
-    });
+    expect(seasonRecord.tier3.divisions.map((division) => division.metadata.title)).toEqual([
+      'Third Division North',
+      'Third Division South',
+    ]);
+    expect(seasonRecord.tier4).toBeUndefined();
   });
 
   test('applies config-driven overview outcome overrides for the 1989 Swindon disqualification case', () => {

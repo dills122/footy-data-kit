@@ -547,7 +547,7 @@ export const testPages = /** @type {TestPages} */ ([
           },
         },
         {
-          tier: 'tier4',
+          tier: 'tier3',
           data: {
             team: 'Brighton & Hove Albion',
             wasPromoted: true,
@@ -559,16 +559,9 @@ export const testPages = /** @type {TestPages} */ ([
         {
           tier: 'tier3',
           data: {
-            title: 'Third Division North',
-            leagueId: 'Third_Division_North',
-            leagueLevel: 3,
-          },
-        },
-        {
-          tier: 'tier4',
-          data: {
-            title: 'Third Division South',
-            leagueId: 'Third_Division_South',
+            structure: 'parallel-leagues',
+            parallelGroup: 'third-division-north-south',
+            divisionCount: 2,
             leagueLevel: 3,
           },
         },
@@ -1301,7 +1294,7 @@ export const testPages = /** @type {TestPages} */ ([
           },
         },
         {
-          tier: 'tier4',
+          tier: 'tier3',
           data: {
             team: 'Southampton',
             wasPromoted: true,
@@ -1314,16 +1307,9 @@ export const testPages = /** @type {TestPages} */ ([
         {
           tier: 'tier3',
           data: {
-            title: 'Third Division North',
-            leagueId: 'Third_Division_North',
-            leagueLevel: 3,
-          },
-        },
-        {
-          tier: 'tier4',
-          data: {
-            title: 'Third Division South',
-            leagueId: 'Third_Division_South',
+            structure: 'parallel-leagues',
+            parallelGroup: 'third-division-north-south',
+            divisionCount: 2,
             leagueLevel: 3,
           },
         },
@@ -1360,7 +1346,7 @@ export const testPages = /** @type {TestPages} */ ([
           },
         },
         {
-          tier: 'tier4',
+          tier: 'tier3',
           data: {
             team: 'Portsmouth',
             wasPromoted: true,
@@ -1393,7 +1379,7 @@ export const testPages = /** @type {TestPages} */ ([
           },
         },
         {
-          tier: 'tier4',
+          tier: 'tier3',
           data: {
             team: 'Newport County',
             wasPromoted: false,
@@ -1403,7 +1389,7 @@ export const testPages = /** @type {TestPages} */ ([
           },
         },
         {
-          tier: 'tier4',
+          tier: 'tier3',
           data: {
             team: 'Norwich City',
             wasPromoted: false,
@@ -1445,7 +1431,7 @@ export const testPages = /** @type {TestPages} */ ([
           },
         },
         {
-          tier: 'tier4',
+          tier: 'tier3',
           data: {
             team: 'Plymouth Argyle',
             wasPromoted: true,
@@ -1689,7 +1675,7 @@ export const testPages = /** @type {TestPages} */ ([
           },
         },
         {
-          tier: 'tier7',
+          tier: 'tier6',
           data: {
             team: 'Maidstone United',
             wasPromoted: true,
@@ -1748,7 +1734,7 @@ export const testPages = /** @type {TestPages} */ ([
           },
         },
         {
-          tier: 'tier7',
+          tier: 'tier6',
           data: {
             team: 'Truro City',
             wasPromoted: true,

@@ -171,9 +171,8 @@ Purpose:
 Tier 1-4 data hardening:
 
 - Treat tier 1 through tier 4 as the main supported depth for this release.
-- Confirm historical semantics for tier slots versus pyramid levels.
-- Lock the Third Division North/South model where `tier3` and `tier4` are
-  parallel level-3 leagues before 1958.
+- Confirm `tierN` keys represent actual pyramid levels.
+- Lock the Third Division North/South model under `tier3.divisions[]` before 1958.
 - Confirm true level 4 begins in 1958.
 - Verify 1992 naming shifts and 2004 EFL rebrand behavior.
 - Add explicit handling or documentation for 1957-58 restructure movement.
@@ -198,8 +197,7 @@ TypeScript:
 
 - Tier 1-4 semantics are documented and covered by tests.
 - Boundary fixtures cover at least 1920, 1921, 1957, 1958, 1992, 2004, and 2019.
-- Verifier checks prefer `metadata.leagueLevel` where slot number and pyramid
-  level differ.
+- Verifier checks enforce `tierN` and `metadata.leagueLevel` consistency.
 - Tier 5 readiness notes exist, but tier 5 is not overclaimed.
 - Meaningful TypeScript progress is visible in core data/config/verifier modules.
 - `pnpm typecheck`, `pnpm test`, `pnpm test:integration`, and
@@ -219,8 +217,7 @@ Tier 5/6 data:
 - Vet tier 5 and level 6 coverage, league identity, league levels, source
   metadata, table ordering, and promotion/relegation semantics.
 - Backfill or repair coverage only after verifier rules and fixtures are ready.
-- Distinguish stored `tierN` slots from actual pyramid levels for modern
-  parallel leagues.
+- Keep modern parallel leagues under their actual level with `divisions[]`.
 - Document remaining level 7 limitations if level 7 is still out of stable
   scope.
 
@@ -336,7 +333,7 @@ Automated checks:
 - Table row ordering and points sanity.
 - Duplicate team detection.
 - Promotion/relegation consistency.
-- Tier slot and `metadata.leagueLevel` consistency.
+- `tierN` and `metadata.leagueLevel` consistency.
 - Expected war-year handling.
 - Club continuity and historical absence checks.
 - Source metadata presence.

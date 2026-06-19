@@ -33,6 +33,7 @@ type BuildTierDataOptions = {
   promoted?: unknown;
   relegated?: unknown;
   metadata?: Record<string, unknown>;
+  divisions?: TierData[];
 };
 type BuildSeasonInfoOptions = {
   promoted?: unknown;
@@ -731,7 +732,13 @@ export function buildTierData(
     }
   }
 
-  return tierData;
+  return normaliseTierData(
+    {
+      ...tierData,
+      ...(options.divisions?.length ? { divisions: options.divisions } : {}),
+    },
+    String(season)
+  );
 }
 
 /**
