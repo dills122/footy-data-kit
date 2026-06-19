@@ -565,7 +565,7 @@ const CLUB_SOURCE_REFS = Object.freeze({
   newBrighton: Object.freeze([
     wikipediaClubSource(
       'https://en.wikipedia.org/wiki/New_Brighton_A.F.C.',
-      'Used for current lower-division status and below tracked coverage context.'
+      'Used for original New Brighton dissolution and later same-name club context.'
     ),
   ]),
   gateshead: Object.freeze([
@@ -1519,12 +1519,35 @@ export const CLUB_LIFECYCLE_RULES = Object.freeze([
       'Wikipedia lists the club in the North West Counties League Premier Division, below current tracked coverage.',
     sourceRefs: CLUB_SOURCE_REFS.nelson,
   }),
-  statusOnlyRule({
+  Object.freeze({
     clubKey: 'new brighton',
-    current: 'active',
-    reason: 'not-in-tracked-leagues',
-    reasonLabel: 'Wikipedia lists the club in the West Cheshire League Division Two, below current tracked coverage.',
-    sourceRefs: CLUB_SOURCE_REFS.newBrighton,
+    status: Object.freeze({
+      current: 'defunct',
+      reason: 'dissolved',
+      reasonLabel:
+        'The original Football League club disbanded in 1983; a later same-name club formed in 1993 and folded in 2012.',
+      sourceRefs: CLUB_SOURCE_REFS.newBrighton,
+    }),
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'dissolved',
+        season: 1983,
+        label: 'The original club disbanded in 1983.',
+        sourceRefs: CLUB_SOURCE_REFS.newBrighton,
+      }),
+      lifecycleEvent({
+        type: 'phoenix',
+        season: 1993,
+        label: 'A later club with the same name was formed in 1993.',
+        sourceRefs: CLUB_SOURCE_REFS.newBrighton,
+      }),
+      lifecycleEvent({
+        type: 'dissolved',
+        season: 2012,
+        label: 'The later same-name club folded in 2012.',
+        sourceRefs: CLUB_SOURCE_REFS.newBrighton,
+      }),
+    ]),
   }),
   statusOnlyRule({
     clubKey: 'gateshead 1899',

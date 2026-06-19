@@ -602,6 +602,11 @@ describe('buildClubMetadataSeed', () => {
             table: [{ team: 'Stalybridge Celtic' }],
           },
         },
+        1950: {
+          tier3: {
+            table: [{ team: 'New Brighton' }],
+          },
+        },
         2009: {
           tier4: {
             table: [{ team: 'Darlington' }],
@@ -637,6 +642,26 @@ describe('buildClubMetadataSeed', () => {
       reasonLabel:
         'Wikipedia lists the club in the Northern Premier League Division One West, below current tracked coverage.',
     });
+    expect(seed['new brighton'].status).toMatchObject({
+      current: 'defunct',
+      reason: 'dissolved',
+      reasonLabel:
+        'The original Football League club disbanded in 1983; a later same-name club formed in 1993 and folded in 2012.',
+    });
+    expect(seed['new brighton'].history.lifecycleEvents).toEqual([
+      expect.objectContaining({
+        type: 'dissolved',
+        season: 1983,
+      }),
+      expect.objectContaining({
+        type: 'phoenix',
+        season: 1993,
+      }),
+      expect.objectContaining({
+        type: 'dissolved',
+        season: 2012,
+      }),
+    ]);
     expect(seed['darlington 1883'].status).toMatchObject({
       current: 'historical',
       reason: 'successor-active',

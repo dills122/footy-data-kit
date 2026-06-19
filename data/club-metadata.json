@@ -2,8 +2,8 @@
   "metadata": {
     "schemaVersion": 1,
     "generator": "club-metadata-seed",
-    "generatedAt": "2026-06-19T03:00:49.854Z",
-    "gitSha": "197e521",
+    "generatedAt": "2026-06-19T18:57:38.532Z",
+    "gitSha": "c7a53a3",
     "sourceFiles": [
       "/Users/dsteele/repos/footy-data-kit/data-output/all-seasons.json"
     ],
@@ -1269,7 +1269,7 @@
               {
                 "type": "wikipedia-season-page",
                 "sourceUrl": "https://en.wikipedia.org/wiki/2012–13_in_English_football",
-                "notes": "League tables table in 2012–13_in_English_football"
+                "notes": "Conference Premier table in 2012–13_in_English_football"
               }
             ]
           },
@@ -1321,7 +1321,7 @@
               {
                 "type": "wikipedia-season-page",
                 "sourceUrl": "https://en.wikipedia.org/wiki/2012–13_in_English_football",
-                "notes": "League tables table in 2012–13_in_English_football"
+                "notes": "Conference Premier table in 2012–13_in_English_football"
               }
             ]
           },
@@ -4423,7 +4423,7 @@
               {
                 "type": "wikipedia-season-page",
                 "sourceUrl": "https://en.wikipedia.org/wiki/2012–13_in_English_football",
-                "notes": "League tables table in 2012–13_in_English_football"
+                "notes": "Conference Premier table in 2012–13_in_English_football"
               }
             ]
           }
@@ -4473,7 +4473,7 @@
               {
                 "type": "wikipedia-season-page",
                 "sourceUrl": "https://en.wikipedia.org/wiki/2012–13_in_English_football",
-                "notes": "League tables table in 2012–13_in_English_football"
+                "notes": "Conference Premier table in 2012–13_in_English_football"
               }
             ]
           }
@@ -20449,7 +20449,7 @@
               {
                 "type": "wikipedia-season-page",
                 "sourceUrl": "https://en.wikipedia.org/wiki/2012–13_in_English_football",
-                "notes": "League tables table in 2012–13_in_English_football"
+                "notes": "Conference Premier table in 2012–13_in_English_football"
               }
             ]
           },
@@ -20489,7 +20489,7 @@
               {
                 "type": "wikipedia-season-page",
                 "sourceUrl": "https://en.wikipedia.org/wiki/2012–13_in_English_football",
-                "notes": "League tables table in 2012–13_in_English_football"
+                "notes": "Conference Premier table in 2012–13_in_English_football"
               }
             ]
           },
@@ -35332,23 +35332,60 @@
       "clubId": "new-brighton",
       "canonicalName": "New Brighton",
       "status": {
-        "current": "active",
+        "current": "defunct",
         "trackedFromSeason": 1923,
         "trackedToSeason": 1950,
         "hasUnexplainedGaps": false,
-        "reason": "not-in-tracked-leagues",
-        "reasonLabel": "Wikipedia lists the club in the West Cheshire League Division Two, below current tracked coverage.",
+        "reason": "dissolved",
+        "reasonLabel": "The original Football League club disbanded in 1983; a later same-name club formed in 1993 and folded in 2012.",
         "sourceRefs": [
           {
             "type": "wikipedia-club-page",
             "sourceUrl": "https://en.wikipedia.org/wiki/New_Brighton_A.F.C.",
-            "notes": "Used for current lower-division status and below tracked coverage context."
+            "notes": "Used for original New Brighton dissolution and later same-name club context."
           }
         ]
       },
       "history": {
         "nameHistory": [],
-        "lifecycleEvents": [],
+        "lifecycleEvents": [
+          {
+            "type": "dissolved",
+            "season": 1983,
+            "label": "The original club disbanded in 1983.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/New_Brighton_A.F.C.",
+                "notes": "Used for original New Brighton dissolution and later same-name club context."
+              }
+            ]
+          },
+          {
+            "type": "phoenix",
+            "season": 1993,
+            "label": "A later club with the same name was formed in 1993.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/New_Brighton_A.F.C.",
+                "notes": "Used for original New Brighton dissolution and later same-name club context."
+              }
+            ]
+          },
+          {
+            "type": "dissolved",
+            "season": 2012,
+            "label": "The later same-name club folded in 2012.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/New_Brighton_A.F.C.",
+                "notes": "Used for original New Brighton dissolution and later same-name club context."
+              }
+            ]
+          }
+        ],
         "trackedMembership": [
           {
             "fromSeason": 1923,
@@ -35377,7 +35414,7 @@
           {
             "type": "wikipedia-club-page",
             "sourceUrl": "https://en.wikipedia.org/wiki/New_Brighton_A.F.C.",
-            "notes": "Used for current lower-division status and below tracked coverage context."
+            "notes": "Used for original New Brighton dissolution and later same-name club context."
           }
         ],
         "observedNames": [
@@ -47999,7 +48036,7 @@
               {
                 "type": "wikipedia-season-page",
                 "sourceUrl": "https://en.wikipedia.org/wiki/2012–13_in_English_football",
-                "notes": "League tables table in 2012–13_in_English_football"
+                "notes": "Conference Premier table in 2012–13_in_English_football"
               }
             ]
           }
@@ -48071,7 +48108,7 @@
               {
                 "type": "wikipedia-season-page",
                 "sourceUrl": "https://en.wikipedia.org/wiki/2012–13_in_English_football",
-                "notes": "League tables table in 2012–13_in_English_football"
+                "notes": "Conference Premier table in 2012–13_in_English_football"
               }
             ]
           }
@@ -50587,7 +50624,7 @@
               {
                 "type": "wikipedia-season-page",
                 "sourceUrl": "https://en.wikipedia.org/wiki/2013–14_in_English_football",
-                "notes": "League tables table in 2013–14_in_English_football"
+                "notes": "Conference Premier table in 2013–14_in_English_football"
               }
             ]
           }
@@ -50615,7 +50652,7 @@
               {
                 "type": "wikipedia-season-page",
                 "sourceUrl": "https://en.wikipedia.org/wiki/2013–14_in_English_football",
-                "notes": "League tables table in 2013–14_in_English_football"
+                "notes": "Conference Premier table in 2013–14_in_English_football"
               }
             ]
           }
