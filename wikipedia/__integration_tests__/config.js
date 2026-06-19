@@ -1262,6 +1262,503 @@ export const testPages = /** @type {TestPages} */ ([
       ],
     },
   },
+  {
+    urls: {
+      overview: 'https://en.wikipedia.org/wiki/1921%E2%80%9322_in_English_football',
+    },
+    season: '1921',
+    source: 'overview',
+    coverage: ['split-third-division', 'parallel-level-three'],
+    tests: {
+      promoted: ['Nottingham Forest', 'Stoke'],
+      relegated: ['Bradford City', 'Manchester United'],
+      tableEntries: [
+        {
+          tier: 'tier1',
+          data: {
+            team: 'Liverpool',
+            wasPromoted: false,
+            wasRelegated: false,
+            points: 57,
+          },
+        },
+        {
+          tier: 'tier2',
+          data: {
+            team: 'Nottingham Forest',
+            wasPromoted: true,
+            wasRelegated: false,
+            points: 56,
+          },
+        },
+        {
+          tier: 'tier3',
+          data: {
+            team: 'Stockport County',
+            wasPromoted: true,
+            wasRelegated: false,
+            points: 56,
+          },
+        },
+        {
+          tier: 'tier4',
+          data: {
+            team: 'Southampton',
+            wasPromoted: true,
+            wasRelegated: false,
+            points: 61,
+          },
+        },
+      ],
+      tierMetadataEntries: [
+        {
+          tier: 'tier3',
+          data: {
+            title: 'Third Division North',
+            leagueId: 'Third_Division_North',
+            leagueLevel: 3,
+          },
+        },
+        {
+          tier: 'tier4',
+          data: {
+            title: 'Third Division South',
+            leagueId: 'Third_Division_South',
+            leagueLevel: 3,
+          },
+        },
+      ],
+    },
+  },
+  {
+    urls: {
+      overview: 'https://en.wikipedia.org/wiki/1923%E2%80%9324_in_English_football',
+    },
+    season: '1923',
+    source: 'overview',
+    coverage: ['split-third-division', 'parallel-level-three'],
+    tests: {
+      promoted: ['Bury', 'Leeds United'],
+      relegated: ['Chelsea', 'Middlesbrough'],
+      tableEntries: [
+        {
+          tier: 'tier2',
+          data: {
+            team: 'Leeds United',
+            wasPromoted: true,
+            wasRelegated: false,
+            points: 54,
+          },
+        },
+        {
+          tier: 'tier3',
+          data: {
+            team: 'Wolverhampton Wanderers',
+            wasPromoted: true,
+            wasRelegated: false,
+            points: 63,
+          },
+        },
+        {
+          tier: 'tier4',
+          data: {
+            team: 'Portsmouth',
+            wasPromoted: true,
+            wasRelegated: false,
+            points: 59,
+          },
+        },
+      ],
+    },
+  },
+  {
+    urls: {
+      overview: 'https://en.wikipedia.org/wiki/1930%E2%80%9331_in_English_football',
+    },
+    season: '1930',
+    source: 'overview',
+    coverage: ['split-third-division', 'failed-re-election', 'non-league-demotion'],
+    tests: {
+      promoted: ['Everton', 'West Bromwich Albion'],
+      relegated: ['Leeds United', 'Manchester United'],
+      tableEntries: [
+        {
+          tier: 'tier3',
+          data: {
+            team: 'Nelson',
+            wasPromoted: false,
+            wasRelegated: true,
+            points: 19,
+            notes: 'Failed re-election and demoted',
+          },
+        },
+        {
+          tier: 'tier4',
+          data: {
+            team: 'Newport County',
+            wasPromoted: false,
+            wasRelegated: true,
+            points: 28,
+            notes: 'Failed re-election and demoted to the Southern League',
+          },
+        },
+        {
+          tier: 'tier4',
+          data: {
+            team: 'Norwich City',
+            wasPromoted: false,
+            wasRelegated: false,
+            points: 28,
+            notes: 'Re-elected',
+          },
+        },
+      ],
+    },
+  },
+  {
+    urls: {
+      overview: 'https://en.wikipedia.org/wiki/1951%E2%80%9352_in_English_football',
+    },
+    season: '1951',
+    source: 'overview',
+    coverage: ['split-third-division', 'twenty-four-team-lower-division'],
+    tests: {
+      promoted: ['Cardiff City', 'Sheffield Wednesday'],
+      relegated: ['Huddersfield Town', 'Fulham'],
+      tableEntries: [
+        {
+          tier: 'tier2',
+          data: {
+            team: 'Cardiff City',
+            wasPromoted: true,
+            wasRelegated: false,
+            points: 51,
+          },
+        },
+        {
+          tier: 'tier3',
+          data: {
+            team: 'Lincoln City',
+            wasPromoted: true,
+            wasRelegated: false,
+            points: 69,
+          },
+        },
+        {
+          tier: 'tier4',
+          data: {
+            team: 'Plymouth Argyle',
+            wasPromoted: true,
+            wasRelegated: false,
+            points: 66,
+          },
+        },
+      ],
+    },
+  },
+  {
+    urls: {
+      overview: 'https://en.wikipedia.org/wiki/1991%E2%80%9392_in_English_football',
+    },
+    season: '1991',
+    source: 'overview',
+    coverage: ['pre-premier-league-transition', 'folded-club-row', 'restructure-boundary'],
+    tests: {
+      promoted: ['Blackburn Rovers', 'Ipswich Town', 'Middlesbrough'],
+      relegated: ['Luton Town', 'Notts County', 'West Ham United'],
+      tableEntries: [
+        {
+          tier: 'tier2',
+          data: {
+            team: 'Ipswich Town',
+            wasPromoted: true,
+            wasRelegated: false,
+            points: 84,
+          },
+        },
+        {
+          tier: 'tier4',
+          data: {
+            team: 'Burnley',
+            wasPromoted: true,
+            wasRelegated: false,
+            points: 83,
+          },
+        },
+        {
+          tier: 'tier4',
+          data: {
+            team: 'Aldershot',
+            wasPromoted: false,
+            wasRelegated: false,
+            points: 0,
+            notes: 'Club folded',
+          },
+        },
+      ],
+    },
+  },
+  {
+    urls: {
+      overview: 'https://en.wikipedia.org/wiki/1994%E2%80%9395_in_English_football',
+    },
+    season: '1994',
+    source: 'overview',
+    coverage: ['premier-league-era', 'four-down-top-flight', 'reprieved-relegation'],
+    tests: {
+      promoted: ['Middlesbrough', 'Bolton Wanderers'],
+      relegated: ['Crystal Palace', 'Norwich City', 'Leicester City', 'Ipswich Town'],
+      tableEntries: [
+        {
+          tier: 'tier1',
+          data: {
+            team: 'Ipswich Town',
+            wasPromoted: false,
+            wasRelegated: true,
+            points: 27,
+          },
+        },
+        {
+          tier: 'tier2',
+          data: {
+            team: 'Middlesbrough',
+            wasPromoted: true,
+            wasRelegated: false,
+            points: 82,
+          },
+        },
+        {
+          tier: 'tier4',
+          data: {
+            team: 'Exeter City',
+            wasPromoted: false,
+            wasRelegated: true,
+            points: 34,
+            notes: 'Reprieved from relegation',
+          },
+        },
+      ],
+    },
+  },
+  {
+    urls: {
+      overview: 'https://en.wikipedia.org/wiki/2004%E2%80%9305_in_English_football',
+    },
+    season: '2004',
+    source: 'overview',
+    coverage: ['efl-rebrand', 'championship-league-one-league-two'],
+    tests: {
+      promoted: ['West Ham United', 'Wigan Athletic', 'Sunderland'],
+      relegated: ['Crystal Palace', 'Norwich City', 'Southampton'],
+      tableEntries: [
+        {
+          tier: 'tier2',
+          data: {
+            team: 'Sunderland',
+            wasPromoted: true,
+            wasRelegated: false,
+            points: 94,
+          },
+        },
+        {
+          tier: 'tier3',
+          data: {
+            team: 'Luton Town',
+            wasPromoted: true,
+            wasRelegated: false,
+            points: 98,
+          },
+        },
+        {
+          tier: 'tier4',
+          data: {
+            team: 'Yeovil Town',
+            wasPromoted: true,
+            wasRelegated: false,
+            points: 83,
+          },
+        },
+      ],
+      tierMetadataEntries: [
+        {
+          tier: 'tier2',
+          data: {
+            title: 'Football League Championship',
+            leagueId: 'Football_League_Championship',
+            leagueLevel: 2,
+          },
+        },
+        {
+          tier: 'tier3',
+          data: {
+            title: 'Football League One',
+            leagueId: 'Football_League_One',
+            leagueLevel: 3,
+          },
+        },
+        {
+          tier: 'tier4',
+          data: {
+            title: 'Football League Two',
+            leagueId: 'Football_League_Two',
+            leagueLevel: 4,
+          },
+        },
+      ],
+    },
+  },
+  {
+    urls: {
+      overview: 'https://en.wikipedia.org/wiki/2019%E2%80%9320_in_English_football',
+    },
+    season: '2019',
+    source: 'overview',
+    coverage: ['covid-ppg', 'club-expulsion', 'points-deduction', 'tier5-national-league'],
+    tests: {
+      promoted: ['Leeds United', 'Fulham', 'West Bromwich Albion'],
+      relegated: ['Bournemouth', 'Watford', 'Norwich City'],
+      tableEntries: [
+        {
+          tier: 'tier2',
+          data: {
+            team: 'Leeds United',
+            wasPromoted: true,
+            wasRelegated: false,
+            points: 93,
+          },
+        },
+        {
+          tier: 'tier3',
+          data: {
+            team: 'Bury',
+            wasPromoted: false,
+            wasRelegated: true,
+            points: -12,
+            notes: 'Club expelled',
+          },
+        },
+        {
+          tier: 'tier4',
+          data: {
+            team: 'Macclesfield Town',
+            wasPromoted: false,
+            wasRelegated: true,
+            points: 19,
+            notes: 'Relegation to the National League',
+          },
+        },
+        {
+          tier: 'tier5',
+          data: {
+            team: 'Barrow',
+            wasPromoted: true,
+            wasRelegated: false,
+            points: 70,
+          },
+        },
+      ],
+    },
+  },
+  {
+    urls: {
+      overview: 'https://en.wikipedia.org/wiki/2021%E2%80%9322_in_English_football',
+    },
+    season: '2021',
+    source: 'overview',
+    coverage: ['modern-level-six', 'tier5-national-league', 'parallel-national-league-north-south'],
+    tests: {
+      promoted: ['Fulham', 'Bournemouth', 'Nottingham Forest'],
+      relegated: ['Burnley', 'Watford', 'Norwich City'],
+      tableEntries: [
+        {
+          tier: 'tier5',
+          data: {
+            team: 'Stockport County',
+            wasPromoted: true,
+            wasRelegated: false,
+            points: 94,
+          },
+        },
+        {
+          tier: 'tier6',
+          data: {
+            team: 'Gateshead',
+            wasPromoted: true,
+            wasRelegated: false,
+            points: 94,
+          },
+        },
+        {
+          tier: 'tier7',
+          data: {
+            team: 'Maidstone United',
+            wasPromoted: true,
+            wasRelegated: false,
+            points: 87,
+          },
+        },
+      ],
+    },
+  },
+  {
+    urls: {
+      overview: 'https://en.wikipedia.org/wiki/2024%E2%80%9325_in_English_football',
+    },
+    season: '2024',
+    source: 'overview',
+    coverage: ['latest-complete-season', 'modern-level-six', 'tier5-national-league'],
+    tests: {
+      promoted: ['Sunderland', 'Leeds United', 'Burnley'],
+      relegated: ['Leicester City', 'Ipswich Town', 'Southampton'],
+      tableEntries: [
+        {
+          tier: 'tier2',
+          data: {
+            team: 'Leeds United',
+            wasPromoted: true,
+            wasRelegated: false,
+            points: 100,
+          },
+        },
+        {
+          tier: 'tier3',
+          data: {
+            team: 'Birmingham City',
+            wasPromoted: true,
+            wasRelegated: false,
+            points: 111,
+          },
+        },
+        {
+          tier: 'tier5',
+          data: {
+            team: 'Barnet',
+            wasPromoted: true,
+            wasRelegated: false,
+            points: 102,
+          },
+        },
+        {
+          tier: 'tier6',
+          data: {
+            team: 'Brackley Town',
+            wasPromoted: true,
+            wasRelegated: false,
+            points: 92,
+          },
+        },
+        {
+          tier: 'tier7',
+          data: {
+            team: 'Truro City',
+            wasPromoted: true,
+            wasRelegated: false,
+            points: 89,
+          },
+        },
+      ],
+    },
+  },
 ]);
 
 export default testPages;
