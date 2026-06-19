@@ -574,6 +574,7 @@ export const testPages = /** @type {TestPages} */ ([
     },
     season: '1958',
     source: 'overview',
+    coverage: ['post-north-south-restructure', 'national-fourth-division'],
     tests: {
       promoted: ['Sheffield Wednesday', 'Fulham'],
       relegated: ['Aston Villa', 'Portsmouth'],
@@ -593,6 +594,45 @@ export const testPages = /** @type {TestPages} */ ([
             team: 'Sheffield Wednesday',
             wasPromoted: true,
             points: 62,
+          },
+        },
+        {
+          tier: 'tier4',
+          data: {
+            team: 'Port Vale',
+            wasPromoted: true,
+            wasRelegated: false,
+            points: 64,
+          },
+        },
+        {
+          tier: 'tier4',
+          data: {
+            team: 'Shrewsbury Town',
+            wasPromoted: true,
+            wasRelegated: false,
+            points: 58,
+          },
+        },
+        {
+          tier: 'tier4',
+          data: {
+            team: 'Southport',
+            wasPromoted: false,
+            wasRelegated: false,
+            wasReElected: true,
+            points: 26,
+          },
+        },
+      ],
+      tierMetadataEntries: [
+        {
+          tier: 'tier4',
+          data: {
+            title: 'Fourth Division',
+            leagueId: 'Fourth_Division',
+            leagueLevel: 4,
+            structure: 'single-league',
           },
         },
       ],
@@ -1683,6 +1723,67 @@ export const testPages = /** @type {TestPages} */ ([
             wasPromoted: true,
             wasRelegated: false,
             points: 87,
+          },
+        },
+      ],
+    },
+  },
+  {
+    urls: {
+      overview: 'https://en.wikipedia.org/wiki/2022%E2%80%9323_in_English_football',
+    },
+    season: '2022',
+    source: 'overview',
+    coverage: ['modern-level-six', 'tier5-national-league', 'parallel-national-league-north-south'],
+    tests: {
+      promoted: ['Luton Town', 'Burnley', 'Sheffield United'],
+      relegated: ['Leicester City', 'Leeds United', 'Southampton'],
+      tableEntries: [
+        {
+          tier: 'tier5',
+          data: {
+            team: 'Wrexham',
+            wasPromoted: true,
+            wasRelegated: false,
+            points: 111,
+          },
+        },
+        {
+          tier: 'tier6',
+          data: {
+            team: 'AFC Fylde',
+            wasPromoted: true,
+            wasRelegated: false,
+            points: 95,
+          },
+        },
+        {
+          tier: 'tier6',
+          data: {
+            team: 'Ebbsfleet United',
+            wasPromoted: true,
+            wasRelegated: false,
+            points: 103,
+          },
+        },
+        {
+          tier: 'tier6',
+          data: {
+            team: 'Bradford (Park Avenue)',
+            wasPromoted: false,
+            wasRelegated: true,
+            points: 46,
+          },
+        },
+      ],
+      tierMetadataEntries: [
+        {
+          tier: 'tier6',
+          data: {
+            structure: 'parallel-leagues',
+            parallelGroup: 'national-league-north-south',
+            divisionCount: 2,
+            leagueLevel: 6,
           },
         },
       ],
