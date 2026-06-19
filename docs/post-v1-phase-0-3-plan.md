@@ -28,8 +28,9 @@ the checked-in generated output from source pages.
 
 Checked-in `data-output/` is intentionally refreshed on this branch after the
 parser/config/test gates and lower-tier dry runs proved the backfill path.
-`data/club-metadata.json` remains at the v1 sidecar scope; lower-tier metadata
-expansion needs a separate policy pass for intermittent level-5/6 clubs.
+`data/club-metadata.json` now follows the expanded season scope. Intermittent
+level-5/6 membership is represented as observed stints, and unresolved
+lower-tier status work is tracked in `data/club-metadata-review.json`.
 
 ## Architecture Decisions
 
@@ -183,5 +184,5 @@ validation.
   `season-rules` conversion, or the builder/parser boundary first?
 - Should true level 7 become the next lower-tier target, or should tier 5/6
   metadata cleanup and source-diff review happen first?
-- How should the club metadata generator represent lower-tier clubs that leave
-  and later re-enter tracked level-5/6 coverage?
+- Which `data/club-metadata-review.json` findings should become curated
+  lifecycle/status rules before the next release?

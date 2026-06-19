@@ -4,6 +4,7 @@ import path from 'node:path';
 import { jest } from '@jest/globals';
 import {
   buildClubMetadataSeed,
+  buildClubMetadataReviewReport,
   writeClubMetadataSeedFile,
 } from '../data/generate-club-metadata-seed.js';
 import {
@@ -60,7 +61,7 @@ describe('buildClubMetadataSeed', () => {
         current: 'active',
         trackedFromSeason: 1893,
         trackedToSeason: null,
-        hasUnexplainedGaps: true,
+        hasUnexplainedGaps: false,
       },
       history: {
         nameHistory: [],
@@ -68,8 +69,14 @@ describe('buildClubMetadataSeed', () => {
         trackedMembership: [
           {
             fromSeason: 1893,
+            toSeason: 1894,
+            tiers: ['tier2'],
+            basis: 'observed',
+          },
+          {
+            fromSeason: 1914,
             toSeason: null,
-            tiers: ['tier1', 'tier2'],
+            tiers: ['tier1'],
             basis: 'observed',
           },
         ],
@@ -127,7 +134,7 @@ describe('buildClubMetadataSeed', () => {
     ]);
   });
 
-  test('marks clubs missing from the latest season as historical by default', () => {
+  test('marks unresolved clubs missing from the latest season for manual review', () => {
     const seed = buildClubMetadataSeed({
       seasons: {
         2000: {
@@ -144,10 +151,11 @@ describe('buildClubMetadataSeed', () => {
     });
 
     expect(seed['example historical'].status).toMatchObject({
-      current: 'historical',
+      current: 'unknown',
       trackedFromSeason: 2000,
       trackedToSeason: 2000,
       hasUnexplainedGaps: false,
+      reason: 'manual-review-required',
     });
     expect(seed['example active'].status).toMatchObject({
       current: 'active',
@@ -906,6 +914,115 @@ describe('buildClubMetadataSeed', () => {
     ]);
     expect(seed['example town'].status.hasUnexplainedGaps).toBe(false);
     expect(analyzeClubContinuity(dataset, { clubs: seed })).toEqual([]);
+  });
+
+  test('represents lower-tier clubs as observed stints and active below tracked coverage when notes support it', () => {
+    const dataset = {
+      seasons: {
+        2006: {
+          tier6: {
+            metadata: {
+              sourceUrl: 'https://example.test/2006-07',
+              seasonSlug: '2006-07-example-season',
+              title: 'Conference North',
+            },
+            table: [
+              {
+                team: 'Example Town',
+                notes: 'Relegation to Northern Premier League Premier Division',
+              },
+            ],
+          },
+        },
+        2012: {
+          tier6: {
+            metadata: {
+              sourceUrl: 'https://example.test/2012-13',
+              seasonSlug: '2012-13-example-season',
+              title: 'Conference North',
+            },
+            table: [
+              {
+                team: 'Example Town',
+                notes: 'Relegation to Southern League Premier Division',
+              },
+            ],
+          },
+        },
+        2025: {
+          tier6: {
+            table: [{ team: 'Current Example' }],
+          },
+        },
+      },
+    };
+
+    const seed = buildClubMetadataSeed(dataset);
+
+    expect(seed['example town'].history.trackedMembership).toEqual([
+      {
+        fromSeason: 2006,
+        toSeason: 2006,
+        tiers: ['tier6'],
+        basis: 'observed',
+      },
+      {
+        fromSeason: 2012,
+        toSeason: 2012,
+        tiers: ['tier6'],
+        basis: 'observed',
+      },
+    ]);
+    expect(seed['example town'].history.absenceExplanations).toEqual([
+      expect.objectContaining({
+        fromSeason: 2007,
+        toSeason: 2011,
+        reason: 'outside-tracked-coverage',
+        linkedEventType: 'relegated-outside-tracked-coverage',
+      }),
+    ]);
+    expect(seed['example town'].status).toMatchObject({
+      current: 'active',
+      reason: 'below-tracked-coverage',
+      trackedFromSeason: 2006,
+      trackedToSeason: 2012,
+      hasUnexplainedGaps: false,
+    });
+  });
+
+  test('builds a lower-tier metadata review report for unresolved generated status records', () => {
+    const clubs = buildClubMetadataSeed({
+      seasons: {
+        2024: {
+          tier6: {
+            table: [{ team: 'Review Town' }],
+          },
+        },
+        2025: {
+          tier6: {
+            table: [{ team: 'Current Example' }],
+          },
+        },
+      },
+    });
+
+    const report = buildClubMetadataReviewReport({
+      metadata: { generator: 'test' },
+      clubs,
+    });
+
+    expect(report.clubCount).toBe(2);
+    expect(report.issues).toEqual([
+      expect.objectContaining({
+        type: 'manual-status-review',
+        clubKey: 'review town',
+        clubId: 'review-town',
+        status: 'unknown',
+        reason: 'manual-review-required',
+        seasonsSeen: [2024],
+        tiersSeen: ['tier6'],
+      }),
+    ]);
   });
 });
 

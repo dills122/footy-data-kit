@@ -15,8 +15,8 @@ release plan and source of truth.
    parser-heavy rewrites.
 4. Decide whether the next data expansion target is true level 7, or a cleanup
    pass over tier 5/6 metadata and source-diff review.
-5. Plan the club metadata sidecar expansion for lower-tier-only clubs before
-   regenerating `data/club-metadata.json` from the expanded season dataset.
+5. Work through `data/club-metadata-review.json` to convert lower-tier manual
+   review findings into curated lifecycle/status rules.
 
 ## Reference Notes
 

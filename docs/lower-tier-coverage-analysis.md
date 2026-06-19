@@ -215,10 +215,10 @@ Dry-run and checked-in output checks confirmed no gaps in either range. The
 2014-15 Conference South table has 21 rows in source output; this is treated as
 an observed source shape rather than a parser failure.
 
-Club metadata sidecar expansion is intentionally deferred. Regenerating
-`data/club-metadata.json` from the expanded `all-seasons.json` adds dozens of
-lower-tier-only clubs whose active/defunct status and intermittent level-5/6
-membership need a dedicated metadata policy pass.
+Club metadata sidecar expansion now follows the expanded `all-seasons.json`
+scope. Lower-tier membership is represented as observed stints, and
+`data/club-metadata-review.json` records the clubs that still need manual
+lower-tier status review or confirmation of `below-tracked-coverage` status.
 
 ### Representative Findings
 

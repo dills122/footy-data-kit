@@ -113,7 +113,7 @@
       "properties": {
         "current": {
           "type": "string",
-          "description": "Small status label such as active, historical, defunct, merged, relocated, renamed, phoenix, or unknown."
+          "description": "Small lifecycle/status label such as active, historical, defunct, merged, relocated, renamed, phoenix, or unknown. Use status.reason for coverage context such as below-tracked-coverage."
         },
         "trackedFromSeason": {
           "type": ["integer", "null"]
@@ -122,7 +122,8 @@
           "type": ["integer", "null"]
         },
         "hasUnexplainedGaps": {
-          "type": "boolean"
+          "type": "boolean",
+          "description": "True only when expected tracked membership has unexplained internal absences; ordinary gaps between observed stints are represented separately in derived.coverageGaps."
         },
         "reason": {
           "type": ["string", "null"]
@@ -314,6 +315,7 @@
     },
     "ClubTrackedMembership": {
       "type": "object",
+      "description": "Observed stints inside the supported season dataset, not a claim of continuous real-world club existence.",
       "required": ["fromSeason"],
       "additionalProperties": false,
       "properties": {
@@ -350,7 +352,7 @@
         },
         "reason": {
           "type": "string",
-          "description": "Broad reason code such as official-competition-paused, outside-tracked-coverage, club-inactive, club-dissolved, club-reformed, or unknown."
+          "description": "Broad reason code such as official-competition-paused, outside-tracked-coverage, below-tracked-coverage, club-inactive, club-dissolved, club-reformed, or unknown."
         },
         "linkedEventType": {
           "type": ["string", "null"]

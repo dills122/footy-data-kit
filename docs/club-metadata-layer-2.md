@@ -11,9 +11,13 @@ Layer 1 is intentionally conservative:
 - It is generated from `data-output/all-seasons.json`.
 - It only uses facts already present in scraped table rows and season metadata.
 - It emits `history.lifecycleEvents[]` and `history.absenceExplanations[]`.
+- It emits `history.trackedMembership[]` as observed stints inside supported
+  coverage, not continuous real-world existence.
 - Table-note explanations use `basis: "table-note"`.
 - Official competition pauses use `basis: "season-metadata"`.
 - It explains why a club left our tracked table coverage, not every event that happened during a long absence.
+- It writes `data/club-metadata-review.json` for lower-tier status cases that
+  still need manual confirmation or curated rules.
 
 This should stay reproducible. Do not hand-edit `data/club-metadata.json` to add researched facts.
 
@@ -88,6 +92,8 @@ Recommendation:
 ## Merge Strategy
 
 Layer 2 should be merged during `wiki:club-seed`, not edited into generated JSON manually.
+Use `data/club-metadata-review.json` as the current worklist for lower-tier
+status decisions.
 
 Implementation steps:
 

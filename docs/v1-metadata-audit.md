@@ -20,12 +20,15 @@ Generated observations:
 - `trackedFromSeason` and `trackedToSeason` are observed coverage bounds in the
   generated table data. They are not founded, dissolved, admitted, or expelled
   dates.
-- `history.trackedMembership` is generated from observed appearances in the
-  maintained season dataset.
+- `history.trackedMembership` is generated as observed stints in the maintained
+  season dataset. It is not a claim that the club existed continuously between
+  separate stints.
 - `history.absenceExplanations` is generated from expected pauses, table notes,
   and continuity rules.
-- `hasUnexplainedGaps` means the generated coverage has an internal absence that
-  is not currently explained by known war years, notes, or configured reasons.
+- `hasUnexplainedGaps` means expected tracked membership has an internal absence
+  that is not currently explained by known war years, notes, or configured
+  reasons. Ordinary gaps between observed lower-tier stints remain visible in
+  `derived.coverageGaps`.
 
 Curated or source-backed history:
 
@@ -38,6 +41,8 @@ Derived metadata:
 
 - `status.current` is the current high-level lifecycle/status label for the
   metadata record. It is not a row-level league outcome.
+- `status.reason: "below-tracked-coverage"` means the club is treated as active
+  but currently below the supported generated league coverage.
 - `derived.*` fields are generated aids for consumers and audits. Treat them as
   helpful observations, not as legal-entity proof.
 - `derived.relationships` can express lineage or identity guidance where the
