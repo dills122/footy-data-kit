@@ -1721,6 +1721,92 @@ export const testPages = /** @type {TestPages} */ ([
   },
   {
     urls: {
+      overview: 'https://en.wikipedia.org/wiki/1995%E2%80%9396_in_English_football',
+    },
+    season: '1995',
+    source: 'overview',
+    coverage: [
+      'twenty-team-premier-league',
+      'post-premier-league-renaming',
+      'reprieved-relegation',
+    ],
+    tests: {
+      promoted: ['Sunderland', 'Derby County', 'Leicester City'],
+      relegated: ['Manchester City', 'Queens Park Rangers', 'Bolton Wanderers'],
+      tableEntries: [
+        {
+          tier: 'tier1',
+          data: {
+            team: 'Manchester United',
+            wasPromoted: false,
+            wasRelegated: false,
+            points: 82,
+          },
+        },
+        {
+          tier: 'tier1',
+          data: {
+            team: 'Bolton Wanderers',
+            wasPromoted: false,
+            wasRelegated: true,
+            points: 29,
+          },
+        },
+        {
+          tier: 'tier2',
+          data: {
+            team: 'Sunderland',
+            wasPromoted: true,
+            wasRelegated: false,
+            points: 83,
+          },
+        },
+        {
+          tier: 'tier4',
+          data: {
+            team: 'Preston North End',
+            wasPromoted: true,
+            wasRelegated: false,
+            points: 86,
+          },
+        },
+        {
+          tier: 'tier4',
+          data: {
+            team: 'Torquay United',
+            wasPromoted: false,
+            wasRelegated: true,
+            wasReprieved: true,
+            outcomeStatus: 'reprieved',
+            points: 29,
+            notes: 'Reprived from relegation',
+          },
+        },
+      ],
+      tierMetadataEntries: [
+        {
+          tier: 'tier1',
+          data: {
+            title: 'Premiership',
+            leagueId: 'Premiership_2',
+            leagueLevel: 1,
+            structure: 'single-league',
+          },
+        },
+        {
+          tier: 'tier4',
+          data: {
+            title: 'Division Three',
+            leagueId: 'Division_Three_2',
+            leagueLevel: 4,
+            structure: 'single-league',
+          },
+        },
+      ],
+    },
+  },
+  {
+    urls: {
       overview: 'https://en.wikipedia.org/wiki/2004%E2%80%9305_in_English_football',
     },
     season: '2004',
@@ -2000,6 +2086,94 @@ export const testPages = /** @type {TestPages} */ ([
             wasPromoted: false,
             wasRelegated: true,
             points: 46,
+          },
+        },
+      ],
+      tierMetadataEntries: [
+        {
+          tier: 'tier6',
+          data: {
+            structure: 'parallel-leagues',
+            parallelGroup: 'national-league-north-south',
+            divisionCount: 2,
+            leagueLevel: 6,
+          },
+        },
+      ],
+    },
+  },
+  {
+    urls: {
+      overview: 'https://en.wikipedia.org/wiki/2023%E2%80%9324_in_English_football',
+    },
+    season: '2023',
+    source: 'overview',
+    coverage: ['modern-level-six', 'tier5-national-league', 'parallel-national-league-north-south'],
+    tests: {
+      promoted: ['Leicester City', 'Ipswich Town', 'Southampton'],
+      relegated: ['Luton Town', 'Burnley', 'Sheffield United'],
+      tableEntries: [
+        {
+          tier: 'tier2',
+          data: {
+            team: 'Leicester City',
+            wasPromoted: true,
+            wasRelegated: false,
+            points: 97,
+          },
+        },
+        {
+          tier: 'tier5',
+          data: {
+            team: 'Chesterfield',
+            wasPromoted: true,
+            wasRelegated: false,
+            points: 98,
+          },
+        },
+        {
+          tier: 'tier5',
+          data: {
+            team: 'Oxford City',
+            wasPromoted: false,
+            wasRelegated: true,
+            points: 33,
+          },
+        },
+        {
+          tier: 'tier6',
+          data: {
+            team: 'Tamworth',
+            wasPromoted: true,
+            wasRelegated: false,
+            points: 96,
+          },
+        },
+        {
+          tier: 'tier6',
+          data: {
+            team: 'Boston United',
+            wasPromoted: true,
+            wasRelegated: false,
+            points: 75,
+          },
+        },
+        {
+          tier: 'tier6',
+          data: {
+            team: 'Yeovil Town',
+            wasPromoted: true,
+            wasRelegated: false,
+            points: 95,
+          },
+        },
+        {
+          tier: 'tier6',
+          data: {
+            team: 'Dover Athletic',
+            wasPromoted: false,
+            wasRelegated: true,
+            points: 27,
           },
         },
       ],
