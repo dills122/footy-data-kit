@@ -200,8 +200,8 @@ Tier 1-4 data hardening:
 - Confirm true level 4 begins in 1958.
 - Verify 1992 naming shifts and 2004 EFL rebrand behavior.
 - Preserve explicit 1957-58 restructure-placement semantics: Fourth Division placement rows are not ordinary relegation outcomes.
-- Add explicit handling or documentation for 2019-20 COVID/PPG and
-  Bury/Macclesfield-style administrative cases.
+- Preserve explicit 2019-20 administrative outcome semantics for Bury,
+  Stevenage, and Macclesfield Town with row-level `outcomeStatus`.
 
 Tier 5 discussion:
 
@@ -385,8 +385,6 @@ Future checks to consider:
   30-40% v1 target?
 - Which current metadata fields are v1-stable versus experimental?
 - Is row-level `clubId` a v2 schema change or a v1.x additive field?
-- Should 2019-20 relegation arrays represent table markers, final administrative
-  outcomes, or both?
 - What should the minimum TypeScript conversion threshold be for v1.1 and v1.2?
 - Which files should count toward the 95% maintained-code coverage target?
 

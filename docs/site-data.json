@@ -107,7 +107,7 @@
     {
       "file": "all-seasons.json",
       "description": "Full merged season dataset.",
-      "size": "6.1M",
+      "size": "6.4M",
       "links": [
         {
           "label": "json",
@@ -122,7 +122,7 @@
     {
       "file": "all-seasons.min.json",
       "description": "Minified full merged season dataset.",
-      "size": "3.2M",
+      "size": "3.4M",
       "links": [
         {
           "label": "min",
@@ -137,7 +137,7 @@
     {
       "file": "wiki_overview_tables_by_season.json",
       "description": "Maintained Wikipedia overview export.",
-      "size": "6.1M",
+      "size": "6.4M",
       "links": [
         {
           "label": "json",
@@ -152,7 +152,7 @@
     {
       "file": "wiki_overview_tables_by_season.min.json",
       "description": "Minified Wikipedia overview export.",
-      "size": "3.2M",
+      "size": "3.4M",
       "links": [
         {
           "label": "min",

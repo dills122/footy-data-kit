@@ -1618,7 +1618,8 @@ export const testPages = /** @type {TestPages} */ ([
           data: {
             team: 'Bury',
             wasPromoted: false,
-            wasRelegated: true,
+            wasRelegated: false,
+            outcomeStatus: 'expelled',
             points: -12,
             notes: 'Club expelled',
           },
@@ -1629,6 +1630,7 @@ export const testPages = /** @type {TestPages} */ ([
             team: 'Macclesfield Town',
             wasPromoted: false,
             wasRelegated: true,
+            outcomeStatus: 'relegated-after-points-deduction',
             points: 19,
             notes: 'Relegation to the National League',
           },

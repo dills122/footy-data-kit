@@ -163,13 +163,15 @@ The 2019-20 season is not a normal row/status season.
 
 - League One operated with 23 active teams after Bury was expelled, but overview output still has 24 rows because Bury is represented.
 - League One and League Two were curtailed and final positions were decided on points per game.
-- Current generated `tier4.relegated` includes both Stevenage and Macclesfield Town, but the historical outcome was Macclesfield Town relegated and Stevenage reprieved after Macclesfield's points deductions.
+- Administrative outcomes are represented with row-level `outcomeStatus` values while ordinary `relegated` arrays stay limited to final relegation outcomes.
 
-Target work:
+Current contract:
 
-- Add a specific 2019-20 League Two regression test.
-- Treat Bury as expelled rather than a normal relegated club where status metadata allows.
-- Verify whether the generated `relegated` arrays should represent on-page table markers, final administrative outcome, or both.
+- `2019.tier3.relegated` excludes Bury; Bury is represented with `outcomeStatus: "expelled"` and `wasRelegated: false`.
+- `2019.tier4.relegated` includes Macclesfield Town only.
+- Stevenage is represented with `outcomeStatus: "reprieved"`, `wasReprieved: true`, and `wasRelegated: false`.
+- Macclesfield Town is represented with `outcomeStatus: "relegated-after-points-deduction"` and remains the final League Two relegation outcome.
+- Earlier administrative exits such as failed re-election, resignation, folding, expulsion, and demotion also publish `outcomeStatus` where source notes identify them.
 
 ## Research Sources
 

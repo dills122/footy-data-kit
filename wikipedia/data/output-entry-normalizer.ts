@@ -1,5 +1,11 @@
 import type { LeagueTableEntry } from '../models/output-file.ts';
-import { isExpansionTeam, wasPromoted, wasRelegated, wasReprieved } from '../utils.js';
+import {
+  deriveOutcomeStatus,
+  isExpansionTeam,
+  wasPromoted,
+  wasRelegated,
+  wasReprieved,
+} from '../utils.js';
 
 type LeagueTableEntryInput = Partial<LeagueTableEntry> & Record<string, unknown>;
 type NumberField =
@@ -112,6 +118,7 @@ export function normaliseLeagueTableEntry(raw: LeagueTableEntryInput): LeagueTab
   const derivedExpansion = isExpansionTeam(notes);
   const derivedReElected = notes ? notes.toLowerCase().includes('re-elected') : false;
   const derivedReprieved = wasReprieved(notes);
+  record.outcomeStatus = toStringValue(record.outcomeStatus) ?? deriveOutcomeStatus(notes);
 
   for (const key of BOOLEAN_FIELDS) {
     const value = record[key];
@@ -160,5 +167,6 @@ export function normaliseLeagueTableEntry(raw: LeagueTableEntryInput): LeagueTab
     isExpansionTeam: record.isExpansionTeam as boolean,
     wasReElected: record.wasReElected as boolean,
     wasReprieved: record.wasReprieved as boolean,
+    outcomeStatus: record.outcomeStatus as string | null,
   };
 }

@@ -48,6 +48,7 @@ function buildFootballDataFixture() {
               isExpansionTeam: false,
               wasReElected: false,
               wasReprieved: false,
+              outcomeStatus: null,
             },
           ],
           promoted: [],

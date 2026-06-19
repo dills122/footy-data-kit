@@ -256,7 +256,8 @@
         "wasPromoted",
         "isExpansionTeam",
         "wasReElected",
-        "wasReprieved"
+        "wasReprieved",
+        "outcomeStatus"
       ],
       "additionalProperties": false,
       "properties": {
@@ -315,6 +316,10 @@
         },
         "wasReprieved": {
           "type": "boolean"
+        },
+        "outcomeStatus": {
+          "type": ["string", "null"],
+          "description": "Administrative or exceptional row outcome, such as expelled, folded, resigned, failed-re-election-and-demoted, reprieved, or relegated-after-points-deduction. Null for ordinary rows."
         }
       }
     },

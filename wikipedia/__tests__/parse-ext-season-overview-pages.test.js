@@ -806,6 +806,15 @@ describe('parseOverviewLeagueTables', () => {
       ],
     });
 
+    expect(seasonRecord.tier3.relegated).toEqual([
+      'Tranmere Rovers',
+      'Southend United',
+      'Bolton Wanderers',
+    ]);
+    expect(seasonRecord.tier3.table.find((row) => row.team === 'Bury')).toMatchObject({
+      wasRelegated: false,
+      outcomeStatus: 'expelled',
+    });
     expect(seasonRecord.tier4.relegated).toEqual(['Macclesfield Town']);
     expect(seasonRecord.tier4.table.find((row) => row.team === 'Stevenage')).toMatchObject({
       wasRelegated: false,

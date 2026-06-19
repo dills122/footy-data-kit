@@ -9,7 +9,7 @@ import {
   WIKIPEDIA_DATA_SOURCES,
   WIKIPEDIA_SEASON_RANGES,
 } from '../config.js';
-import { wasReprieved } from '../utils.js';
+import { deriveOutcomeStatus, wasReprieved } from '../utils.js';
 import { canonicalizeTeamName } from './data-quality-config.js';
 import { loadFootballData } from './generate-output-files.ts';
 import {
@@ -151,6 +151,7 @@ export function analyzeDataset(dataset, options = {}) {
     issues.push(...analyzeSeasonTierCoverage(seasonKey, seasonValue, profile));
     issues.push(...analyzeSeasonLeagueOrdering(seasonKey, seasonValue));
     issues.push(...analyzeRestructurePlacementSemantics(seasonKey, seasonValue));
+    issues.push(...analyzeAdministrativeOutcomeSemantics(seasonKey, seasonValue));
     for (const tierAnalysis of tierAnalyses) {
       issues.push(...tierAnalysis.issues);
     }
@@ -354,6 +355,27 @@ function analyzeTier(seasonKey, tierKey, tierValue) {
         message: `Rows with reprieve notes should set wasReprieved: ${missingReprievedFlags.join(
           ', '
         )}`,
+      })
+    );
+  }
+
+  const outcomeStatusMismatches = tierMeta.table
+    .map((row) => ({
+      team: row.team,
+      expected: deriveOutcomeStatus(row.notes),
+      actual: row.outcomeStatus ?? null,
+    }))
+    .filter((row) => row.expected != null && row.actual !== row.expected);
+
+  if (outcomeStatusMismatches.length) {
+    tierIssues.push(
+      createIssue({
+        type: 'outcome-status-mismatch',
+        season: seasonKey,
+        tier: tierKey,
+        message: `Rows with administrative notes should publish matching outcomeStatus: ${outcomeStatusMismatches
+          .map((row) => `${row.team} expected ${row.expected}`)
+          .join(', ')}`,
       })
     );
   }
@@ -628,6 +650,102 @@ function analyzeRestructurePlacementSemantics(seasonKey, seasonValue) {
       })
     );
   }
+
+  return issues;
+}
+
+function getTierRows(tierValue) {
+  return extractTierTableSegments(tierValue).flatMap((segment) => segment.rows);
+}
+
+function findTierRowByTeam(tierValue, teamName) {
+  return getTierRows(tierValue).find((row) => namesMatch(row.team, teamName)) || null;
+}
+
+function expectAdministrativeRow({
+  issues,
+  seasonKey,
+  tierKey,
+  tierValue,
+  team,
+  outcomeStatus,
+  wasRelegated,
+  listedInRelegated,
+}) {
+  if (!tierValue || typeof tierValue !== 'object' || Array.isArray(tierValue)) return;
+
+  const row = findTierRowByTeam(tierValue, team);
+  if (!row) return;
+
+  const mismatches = [];
+  if ((row.outcomeStatus ?? null) !== outcomeStatus) {
+    mismatches.push(`outcomeStatus expected ${outcomeStatus}`);
+  }
+  if (row.wasRelegated !== wasRelegated) {
+    mismatches.push(`wasRelegated expected ${wasRelegated}`);
+  }
+
+  const relegatedList = Array.isArray(tierValue.relegated) ? tierValue.relegated : [];
+  const isListed = relegatedList.some((entry) => namesMatch(entry, team));
+  if (isListed !== listedInRelegated) {
+    mismatches.push(`relegated list membership expected ${listedInRelegated}`);
+  }
+
+  if (mismatches.length) {
+    issues.push(
+      createIssue({
+        type: 'administrative-outcome-mismatch',
+        season: seasonKey,
+        tier: tierKey,
+        message: `${team} administrative outcome mismatch: ${mismatches.join(', ')}`,
+      })
+    );
+  }
+}
+
+/**
+ * @param {string} seasonKey
+ * @param {import('../models/output-file.ts').SeasonData} seasonValue
+ * @returns {Issue[]}
+ */
+function analyzeAdministrativeOutcomeSemantics(seasonKey, seasonValue) {
+  if (parseSeasonNumber(seasonKey) !== 2019) return [];
+  if (!hasLeagueStructureSpecialCase(seasonValue, 'administrative-outcome', ['tier3', 'tier4'])) {
+    return [];
+  }
+
+  /** @type {Issue[]} */
+  const issues = [];
+  expectAdministrativeRow({
+    issues,
+    seasonKey,
+    tierKey: 'tier3',
+    tierValue: seasonValue.tier3,
+    team: 'Bury',
+    outcomeStatus: 'expelled',
+    wasRelegated: false,
+    listedInRelegated: false,
+  });
+  expectAdministrativeRow({
+    issues,
+    seasonKey,
+    tierKey: 'tier4',
+    tierValue: seasonValue.tier4,
+    team: 'Stevenage',
+    outcomeStatus: 'reprieved',
+    wasRelegated: false,
+    listedInRelegated: false,
+  });
+  expectAdministrativeRow({
+    issues,
+    seasonKey,
+    tierKey: 'tier4',
+    tierValue: seasonValue.tier4,
+    team: 'Macclesfield Town',
+    outcomeStatus: 'relegated-after-points-deduction',
+    wasRelegated: true,
+    listedInRelegated: true,
+  });
 
   return issues;
 }
