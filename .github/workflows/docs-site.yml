@@ -1,6 +1,15 @@
 name: Docs Site
 
 on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'docs/**'
+      - 'schemas/**'
+      - 'scripts/build-docs-site.js'
+      - 'package.json'
+      - 'pnpm-lock.yaml'
   workflow_dispatch:
     inputs:
       release_tag:
@@ -56,7 +65,7 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Download generated release data
-        if: ${{ inputs.data_artifact_name != '' }}
+        if: ${{ inputs.data_artifact_name }}
         uses: actions/download-artifact@v4
         with:
           name: ${{ inputs.data_artifact_name }}
