@@ -24,6 +24,7 @@
     "release-notes:check:all": "node scripts/validate-release-notes.js --all",
     "release:check": "pnpm -s release-notes:check && pnpm -s docs:check",
     "release:dry-run-data": "node scripts/release-dry-run-data.js",
+    "integration:coverage": "node scripts/report-integration-coverage.js",
     "build:wikipedia:promotion": "pnpm wiki:build:promotion",
     "build:wikipedia:overview": "pnpm wiki:build:overview",
     "build:wikipedia:combined": "pnpm wiki:build:combined",

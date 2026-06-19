@@ -285,6 +285,12 @@ pnpm test:integration:overview    # primary maintained Wikipedia fixtures
 pnpm test:integration:promotion   # legacy promotion/relegation fixtures
 ```
 
+Estimate integration fixture breadth and tagged scenario coverage without fetching live pages:
+
+```bash
+pnpm integration:coverage
+```
+
 Coverage is available via:
 
 ```bash

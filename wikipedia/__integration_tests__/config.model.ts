@@ -9,6 +9,7 @@ export interface Page {
   season: string; //string year season key to use to find the season in the file
   tests: TestCasesForPage;
   source?: PageSource; // Which Wikipedia parsing flow to validate (default: promotion)
+  coverage?: string[]; // Scenario tags this fixture is intended to exercise
 }
 
 export interface TestCasesForPage {
@@ -20,7 +21,7 @@ export interface TestCasesForPage {
   //We can add more areas & ways to test the page later
 }
 
-export type TierKey = 'tier1' | 'tier2' | 'tier3' | 'tier4' | 'tier5';
+export type TierKey = 'tier1' | 'tier2' | 'tier3' | 'tier4' | 'tier5' | 'tier6' | 'tier7';
 
 export interface TableEntryTest {
   tier: TierKey;
