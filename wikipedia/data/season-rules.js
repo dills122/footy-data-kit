@@ -21,6 +21,7 @@ export const HISTORICAL_PLACEHOLDER_STATUSES = Object.freeze([
 
 const EMPTY_LIST = Object.freeze([]);
 const TIER_RESERVED_KEYS = new Set(['season', 'table', 'promoted', 'relegated', 'divisions']);
+const RESTRUCTURE_PLACEMENT_DESTINATION_PATTERN = /\bfourth division\b/i;
 const HISTORICAL_STATUS_DEFAULTS = Object.freeze({
   'wartime-special': Object.freeze({
     officialCompetitionsSuspended: true,
@@ -64,6 +65,71 @@ const CONTINUITY_CONFIG = {
 
 function isObjectRecord(value) {
   return Boolean(value) && typeof value === 'object' && !Array.isArray(value);
+}
+
+function hasLeagueStructureSpecialCase(seasonRecord, type, tierKeys = []) {
+  const specialCases = seasonRecord?.seasonInfo?.leagueStructureSpecialCases;
+  if (!Array.isArray(specialCases)) return false;
+
+  return specialCases.some((specialCase) => {
+    if (!isObjectRecord(specialCase) || specialCase.type !== type) return false;
+    if (!tierKeys.length) return true;
+    return (
+      Array.isArray(specialCase.tierKeys) &&
+      tierKeys.every((tierKey) => specialCase.tierKeys.includes(tierKey))
+    );
+  });
+}
+
+function isRestructurePlacementRow(row) {
+  return (
+    isObjectRecord(row) &&
+    typeof row.notes === 'string' &&
+    RESTRUCTURE_PLACEMENT_DESTINATION_PATTERN.test(row.notes)
+  );
+}
+
+function recomputeTierRelegatedList(tierRecord) {
+  if (!isObjectRecord(tierRecord)) return [];
+  const divisions = Array.isArray(tierRecord.divisions) ? tierRecord.divisions : [];
+
+  if (divisions.length) {
+    const relegated = [];
+    for (const division of divisions) {
+      if (!isObjectRecord(division)) continue;
+      const divisionTable = getTierTable(division);
+      division.relegated = divisionTable
+        .filter((row) => row.wasRelegated && row.team)
+        .map((row) => row.team);
+      relegated.push(...division.relegated);
+    }
+    return Array.from(new Set(relegated));
+  }
+
+  return getTierTable(tierRecord)
+    .filter((row) => row.wasRelegated && row.team)
+    .map((row) => row.team);
+}
+
+function applyRegionalThirdDivisionFinalSeasonSemantics(seasonRecord, seasonNumber) {
+  if (seasonNumber !== WIKIPEDIA_SEASON_RANGES.regionalThirdDivisionFinalSeason) {
+    return seasonRecord;
+  }
+  if (!hasLeagueStructureSpecialCase(seasonRecord, 'restructure-placement', ['tier3', 'tier4'])) {
+    return seasonRecord;
+  }
+
+  const tierRecord = seasonRecord.tier3;
+  if (!isObjectRecord(tierRecord)) return seasonRecord;
+
+  for (const row of getTierTable(tierRecord)) {
+    if (isRestructurePlacementRow(row)) {
+      row.wasRelegated = false;
+    }
+  }
+
+  tierRecord.relegated = recomputeTierRelegatedList(tierRecord);
+  return seasonRecord;
 }
 
 function getConfiguredHistoricalSeason(seasonKey) {
@@ -449,43 +515,43 @@ export function applyOverviewSeasonOutcomeOverrides(seasonRecord, seasonKey) {
   if (seasonNumber == null || !isObjectRecord(seasonRecord)) return seasonRecord;
 
   const override = WIKIPEDIA_OVERVIEW_SEASON_OUTCOME_OVERRIDES[seasonNumber];
-  if (!override) return seasonRecord;
-
-  if (seasonRecord.seasonInfo && override.seasonInfo) {
-    if (Array.isArray(override.seasonInfo.promoted)) {
-      seasonRecord.seasonInfo.promoted = [...override.seasonInfo.promoted];
+  if (override) {
+    if (seasonRecord.seasonInfo && override.seasonInfo) {
+      if (Array.isArray(override.seasonInfo.promoted)) {
+        seasonRecord.seasonInfo.promoted = [...override.seasonInfo.promoted];
+      }
+      if (Array.isArray(override.seasonInfo.relegated)) {
+        seasonRecord.seasonInfo.relegated = [...override.seasonInfo.relegated];
+      }
     }
-    if (Array.isArray(override.seasonInfo.relegated)) {
-      seasonRecord.seasonInfo.relegated = [...override.seasonInfo.relegated];
+
+    if (override.tiers && typeof override.tiers === 'object') {
+      for (const [tierKey, tierOverride] of Object.entries(override.tiers)) {
+        const tierRecord = seasonRecord[tierKey];
+        if (!tierRecord || typeof tierRecord !== 'object') continue;
+
+        if (Array.isArray(tierOverride.promoted)) {
+          tierRecord.promoted = [...tierOverride.promoted];
+        }
+        if (Array.isArray(tierOverride.relegated)) {
+          tierRecord.relegated = [...tierOverride.relegated];
+        }
+
+        if (isObjectRecord(tierOverride.rowFlagOverrides)) {
+          const rowOverrides = tierOverride.rowFlagOverrides;
+          const table = getTierTable(tierRecord);
+          table.forEach((row) => {
+            if (!isObjectRecord(row) || !row.team) return;
+            const rowOverride = rowOverrides[row.team];
+            if (!isObjectRecord(rowOverride)) return;
+            Object.assign(row, rowOverride);
+          });
+        }
+      }
     }
   }
 
-  if (override.tiers && typeof override.tiers === 'object') {
-    for (const [tierKey, tierOverride] of Object.entries(override.tiers)) {
-      const tierRecord = seasonRecord[tierKey];
-      if (!tierRecord || typeof tierRecord !== 'object') continue;
-
-      if (Array.isArray(tierOverride.promoted)) {
-        tierRecord.promoted = [...tierOverride.promoted];
-      }
-      if (Array.isArray(tierOverride.relegated)) {
-        tierRecord.relegated = [...tierOverride.relegated];
-      }
-
-      if (isObjectRecord(tierOverride.rowFlagOverrides)) {
-        const rowOverrides = tierOverride.rowFlagOverrides;
-        const table = getTierTable(tierRecord);
-        table.forEach((row) => {
-          if (!isObjectRecord(row) || !row.team) return;
-          const rowOverride = rowOverrides[row.team];
-          if (!isObjectRecord(rowOverride)) return;
-          Object.assign(row, rowOverride);
-        });
-      }
-    }
-  }
-
-  return seasonRecord;
+  return applyRegionalThirdDivisionFinalSeasonSemantics(seasonRecord, seasonNumber);
 }
 
 export function inferLeagueTierFromMetadata(metadata, seasonNumber) {

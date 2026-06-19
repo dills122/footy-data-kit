@@ -199,7 +199,7 @@ Tier 1-4 data hardening:
 - Lock the Third Division North/South model under `tier3.divisions[]` before 1958.
 - Confirm true level 4 begins in 1958.
 - Verify 1992 naming shifts and 2004 EFL rebrand behavior.
-- Add explicit handling or documentation for 1957-58 restructure movement.
+- Preserve explicit 1957-58 restructure-placement semantics: Fourth Division placement rows are not ordinary relegation outcomes.
 - Add explicit handling or documentation for 2019-20 COVID/PPG and
   Bury/Macclesfield-style administrative cases.
 
@@ -385,7 +385,6 @@ Future checks to consider:
   30-40% v1 target?
 - Which current metadata fields are v1-stable versus experimental?
 - Is row-level `clubId` a v2 schema change or a v1.x additive field?
-- How should 1957-58 restructure placement be represented?
 - Should 2019-20 relegation arrays represent table markers, final administrative
   outcomes, or both?
 - What should the minimum TypeScript conversion threshold be for v1.1 and v1.2?

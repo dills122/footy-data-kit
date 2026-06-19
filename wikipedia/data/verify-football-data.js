@@ -4,7 +4,11 @@ import { Command } from 'commander';
 import * as fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { getWikipediaLeagueLevelRule, WIKIPEDIA_DATA_SOURCES } from '../config.js';
+import {
+  getWikipediaLeagueLevelRule,
+  WIKIPEDIA_DATA_SOURCES,
+  WIKIPEDIA_SEASON_RANGES,
+} from '../config.js';
 import { wasReprieved } from '../utils.js';
 import { canonicalizeTeamName } from './data-quality-config.js';
 import { loadFootballData } from './generate-output-files.ts';
@@ -146,6 +150,7 @@ export function analyzeDataset(dataset, options = {}) {
     issues.push(...analyzeSeasonContract(seasonKey, seasonValue));
     issues.push(...analyzeSeasonTierCoverage(seasonKey, seasonValue, profile));
     issues.push(...analyzeSeasonLeagueOrdering(seasonKey, seasonValue));
+    issues.push(...analyzeRestructurePlacementSemantics(seasonKey, seasonValue));
     for (const tierAnalysis of tierAnalyses) {
       issues.push(...tierAnalysis.issues);
     }
@@ -540,6 +545,91 @@ function findTableOrderMismatches(table) {
 
 function isPointsOrderExempt(seasonKey, tierKey) {
   return POINTS_ORDER_EXEMPTIONS.has(`${seasonKey}:${tierKey}`);
+}
+
+function hasLeagueStructureSpecialCase(seasonValue, type, tierKeys = []) {
+  const specialCases = seasonValue?.seasonInfo?.leagueStructureSpecialCases;
+  if (!Array.isArray(specialCases)) return false;
+
+  return specialCases.some((specialCase) => {
+    if (!specialCase || typeof specialCase !== 'object' || specialCase.type !== type) return false;
+    if (!tierKeys.length) return true;
+    return (
+      Array.isArray(specialCase.tierKeys) &&
+      tierKeys.every((tierKey) => specialCase.tierKeys.includes(tierKey))
+    );
+  });
+}
+
+function isFourthDivisionPlacementRow(row) {
+  return row && typeof row === 'object' && /\bfourth division\b/i.test(String(row.notes || ''));
+}
+
+/**
+ * @param {string} seasonKey
+ * @param {import('../models/output-file.ts').SeasonData} seasonValue
+ * @returns {Issue[]}
+ */
+function analyzeRestructurePlacementSemantics(seasonKey, seasonValue) {
+  const seasonNumber = parseSeasonNumber(seasonKey);
+  if (seasonNumber !== WIKIPEDIA_SEASON_RANGES.regionalThirdDivisionFinalSeason) return [];
+  if (!hasLeagueStructureSpecialCase(seasonValue, 'restructure-placement', ['tier3', 'tier4'])) {
+    return [];
+  }
+
+  /** @type {Issue[]} */
+  const issues = [];
+  const tier3 = seasonValue.tier3;
+  if (!tier3 || typeof tier3 !== 'object' || Array.isArray(tier3)) return issues;
+
+  const placementRows = extractTierTableSegments(tier3)
+    .flatMap((segment) => segment.rows)
+    .filter(isFourthDivisionPlacementRow);
+  const flaggedPlacementRows = placementRows
+    .filter((row) => row.wasRelegated === true)
+    .map((row) => row.team)
+    .filter(Boolean);
+
+  if (flaggedPlacementRows.length) {
+    issues.push(
+      createIssue({
+        type: 'restructure-placement-relegation-flag',
+        season: seasonKey,
+        tier: 'tier3',
+        message: `Fourth Division restructure placement rows should not be flagged as ordinary relegation: ${flaggedPlacementRows.join(
+          ', '
+        )}`,
+      })
+    );
+  }
+
+  const listedRelegated = new Set([
+    ...(Array.isArray(tier3.relegated) ? tier3.relegated : []),
+    ...(Array.isArray(tier3.divisions)
+      ? tier3.divisions.flatMap((division) =>
+          Array.isArray(division?.relegated) ? division.relegated : []
+        )
+      : []),
+  ]);
+  const listedPlacementRows = placementRows
+    .filter((row) => listedRelegated.has(row.team))
+    .map((row) => row.team)
+    .filter(Boolean);
+
+  if (listedPlacementRows.length) {
+    issues.push(
+      createIssue({
+        type: 'restructure-placement-relegated-list',
+        season: seasonKey,
+        tier: 'tier3',
+        message: `Fourth Division restructure placement rows should not appear in ordinary relegated lists: ${listedPlacementRows.join(
+          ', '
+        )}`,
+      })
+    );
+  }
+
+  return issues;
 }
 
 /**
