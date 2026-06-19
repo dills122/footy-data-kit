@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>v0.8.2 release notes | footy-data-kit</title>
+    <meta
+      name="description"
+      content="Added source-backed club lifecycle metadata and expanded validation around club continuity, metadata contracts, and table ordering."
+    />
+    <link rel="stylesheet" href="../styles.css" />
+  </head>
+  <body>
+    <main class="page-shell">
+      <header class="site-header">
+        <p class="eyebrow">release notes</p>
+        <h1>v0.8.2</h1>
+        <p class="lede">
+          Added source-backed club lifecycle metadata and expanded validation around club
+          continuity, metadata contracts, and table ordering.
+        </p>
+      </header>
+
+      <section class="panel">
+        <h2>Release</h2>
+        <ul class="release-meta">
+          <li>
+            <span>title</span><strong>Club lifecycle metadata and stronger validation</strong>
+          </li>
+          <li><span>date</span><strong>2026-06-17</strong></li>
+          <li><span>type</span><strong>data</strong></li>
+          <li><span>schema</span><strong>compatible</strong></li>
+        </ul>
+      </section>
+
+      <section class="panel release-notes-body">
+        <h2>Summary</h2>
+        <ul>
+          <li>
+            Added source-backed club lifecycle metadata so consumers can distinguish active clubs
+            from historical identities, dissolved clubs, mergers, relocations, phoenix clubs, and
+            clubs that have dropped outside the tracked league coverage.
+          </li>
+          <li>
+            Promoted the historical club review path into the data workflow: reviewed lifecycle
+            facts now live in the curated source config and are regenerated into
+            <code>club-metadata.json</code> instead of being patched into generated output.
+          </li>
+        </ul>
+        <h2>Breaking Changes</h2>
+        <p>None.</p>
+        <h2>Data Changes</h2>
+        <ul>
+          <li>
+            Expanded generated club metadata with source-backed lifecycle facts for active,
+            historical, dissolved, merged, relocated, phoenix, and lower-coverage clubs.
+          </li>
+          <li>
+            Regenerated reviewed lifecycle facts through the curated source config and
+            <code>wiki:club-seed</code> flow instead of patching generated output by hand.
+          </li>
+        </ul>
+        <h2>Bug Fixes</h2>
+        <p>None.</p>
+        <h2>Validation</h2>
+        <ul>
+          <li>
+            Expanded data validation around club continuity, historical-reason coverage, generated
+            metadata contracts, and table ordering.
+          </li>
+          <li>
+            Added a points-order guard for league tables so a regenerated scrape fails when a lower
+            row has more points than the row above it. The 2019-20 curtailed tiers remain explicitly
+            exempt because those standings were finalized by points per game.
+          </li>
+        </ul>
+        <h2>Consumer Notes</h2>
+        <ul>
+          <li>No intentional schema break is included in this release.</li>
+          <li>
+            Season table rows still expose scraped/canonical team names; club metadata remains a
+            sidecar keyed by <code>clubId</code>.
+          </li>
+          <li>
+            <code>derived.coverageGaps</code> describes gaps in this dataset's observed league-table
+            coverage. It should not be read as confirmed club inactivity unless a source-backed
+            lifecycle or absence explanation says so.
+          </li>
+          <li>
+            Clubs that fell below the currently tracked tiers may still be active; use
+            <code>status.current</code>, lifecycle events, and absence explanations together.
+          </li>
+        </ul>
+        <h2>Known Limitations</h2>
+        <ul>
+          <li>
+            Lower-tier historical coverage still needs more explicit vetting before it should be
+            treated as equally mature across every tier.
+          </li>
+          <li>
+            Club metadata is a sidecar; season table rows do not yet embed <code>clubId</code>.
+          </li>
+        </ul>
+      </section>
+
+      <section class="panel">
+        <h2>Links</h2>
+        <nav class="link-grid" aria-label="release links">
+          <a href="./index.html">release history</a>
+          <a href="../index.html">docs home</a>
+          <a href="https://github.com/dills122/footy-data-kit/releases/tag/v0.8.2"
+            >github release</a
+          >
+          <a
+            href="https://github.com/dills122/footy-data-kit/releases/download/v0.8.2/footy-data-kit-v0.8.2-data.zip"
+            >data zip</a
+          >
+        </nav>
+      </section>
+
+      <footer>
+        <span>v0.8.2</span>
+        <a href="./index.html">release history</a>
+      </footer>
+    </main>
+  </body>
+</html>

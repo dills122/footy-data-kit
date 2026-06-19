@@ -220,6 +220,39 @@ a:focus {
   white-space: nowrap;
 }
 
+.release-meta {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px 18px;
+  margin: 14px 0 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--rule);
+}
+
+.release-meta li {
+  display: grid;
+  gap: 2px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+.release-meta span {
+  color: var(--muted);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.release-notes-body h3,
+.release-notes-body h4 {
+  margin: 18px 0 8px;
+}
+
+.release-notes-body ul {
+  padding-left: 22px;
+}
+
 code {
   color: var(--ink);
   font-family: inherit;
@@ -463,6 +496,7 @@ footer {
 @media (max-width: 560px) {
   .release-pin,
   .release-row,
+  .release-meta,
   .download-list li {
     grid-template-columns: 1fr;
     gap: 4px;

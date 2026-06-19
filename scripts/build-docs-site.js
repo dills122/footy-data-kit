@@ -18,6 +18,9 @@ const OUTPUT_PATH = path.join(ROOT_DIR, 'docs/index.html');
 const SITE_DATA_PATH = path.join(ROOT_DIR, 'docs/site-data.json');
 const SCHEMA_SOURCE_DIR = path.join(ROOT_DIR, 'schemas');
 const SCHEMA_OUTPUT_DIR = path.join(ROOT_DIR, 'docs/schema');
+const RELEASE_NOTES_DIR = path.join(ROOT_DIR, 'docs/release-notes');
+const RELEASE_MANIFEST_PATH = path.join(RELEASE_NOTES_DIR, 'releases.json');
+const RELEASE_OUTPUT_DIR = path.join(ROOT_DIR, 'docs/releases');
 const PRETTIER_OPTIONS = prettier.resolveConfig.sync(ROOT_DIR) || {};
 
 function formatGenerated(source, options) {
@@ -55,6 +58,74 @@ function escapeHtml(value) {
     .replaceAll('<', '&lt;')
     .replaceAll('>', '&gt;')
     .replaceAll('"', '&quot;');
+}
+
+function renderInlineMarkdown(value) {
+  return escapeHtml(value)
+    .replaceAll(/`([^`]+)`/g, '<code>$1</code>')
+    .replaceAll(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+    .replaceAll(/\[([^\]]+)\]\(([^)]+)\)/g, (_match, label, url) => {
+      const escapedUrl = escapeHtml(url);
+      return `<a href="${escapedUrl}">${label}</a>`;
+    });
+}
+
+function renderMarkdown(markdown) {
+  const lines = String(markdown || '').split(/\r?\n/);
+  const html = [];
+  let paragraph = [];
+  let listItems = [];
+
+  function flushParagraph() {
+    if (!paragraph.length) return;
+    html.push(`<p>${renderInlineMarkdown(paragraph.join(' '))}</p>`);
+    paragraph = [];
+  }
+
+  function flushList() {
+    if (!listItems.length) return;
+    html.push(
+      `<ul>${listItems.map((item) => `<li>${renderInlineMarkdown(item)}</li>`).join('')}</ul>`
+    );
+    listItems = [];
+  }
+
+  for (const line of lines) {
+    if (!line.trim()) {
+      flushParagraph();
+      flushList();
+      continue;
+    }
+
+    const heading = line.match(/^(#{1,4})\s+(.+?)\s*$/);
+    if (heading) {
+      flushParagraph();
+      flushList();
+      const level = Math.min(heading[1].length, 4);
+      html.push(`<h${level}>${renderInlineMarkdown(heading[2])}</h${level}>`);
+      continue;
+    }
+
+    const bullet = line.match(/^-\s+(.+?)\s*$/);
+    if (bullet) {
+      flushParagraph();
+      listItems.push(bullet[1]);
+      continue;
+    }
+
+    flushList();
+    paragraph.push(line.trim());
+  }
+
+  flushParagraph();
+  flushList();
+  return html.join('\n');
+}
+
+function stripTopMarkdownHeading(markdown) {
+  return String(markdown || '')
+    .replace(/^# .*(?:\r?\n)+/, '')
+    .trim();
 }
 
 function slugify(value) {
@@ -123,6 +194,23 @@ function getSchemaFiles() {
         rawUrl: `${RAW_MAIN_URL}/schemas/${fileName}`,
       };
     });
+}
+
+function getReleaseManifest() {
+  if (!fs.existsSync(RELEASE_MANIFEST_PATH)) return [];
+  return readJson(path.relative(ROOT_DIR, RELEASE_MANIFEST_PATH)).sort((left, right) =>
+    compareTagsDescending(left.tag, right.tag)
+  );
+}
+
+function getReleaseNoteMarkdown(tag) {
+  const releaseNotePath = path.join(RELEASE_NOTES_DIR, `${tag}.md`);
+  if (!fs.existsSync(releaseNotePath)) return '';
+  return fs.readFileSync(releaseNotePath, 'utf8');
+}
+
+function getReleasePageFile(tag) {
+  return `${tag}.html`;
 }
 
 function getSchemaRefLabel(ref) {
@@ -400,6 +488,127 @@ function renderSchemaDocs(schemaDocs) {
   ];
 }
 
+function renderReleasePage(release) {
+  const markdown = getReleaseNoteMarkdown(release.tag);
+  const githubReleaseUrl = `${REPO_URL}/releases/tag/${release.tag}`;
+  const releaseZipUrl = `${REPO_URL}/releases/download/${release.tag}/footy-data-kit-${release.tag}-data.zip`;
+
+  return formatGenerated(
+    `<!DOCTYPE html>
+    <html lang="en">
+      <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>${escapeHtml(release.tag)} release notes | footy-data-kit</title>
+        <meta name="description" content="${escapeHtml(release.summary)}" />
+        <link rel="stylesheet" href="../styles.css" />
+      </head>
+      <body>
+        <main class="page-shell">
+          <header class="site-header">
+            <p class="eyebrow">release notes</p>
+            <h1>${escapeHtml(release.tag)}</h1>
+            <p class="lede">${escapeHtml(release.summary)}</p>
+          </header>
+
+          <section class="panel">
+            <h2>Release</h2>
+            <ul class="release-meta">
+              <li><span>title</span><strong>${escapeHtml(release.title)}</strong></li>
+              <li><span>date</span><strong>${escapeHtml(release.date || 'not dated')}</strong></li>
+              <li><span>type</span><strong>${escapeHtml(release.type || 'release')}</strong></li>
+              <li><span>schema</span><strong>${escapeHtml(
+                release.schemaCompatibility || 'unspecified'
+              )}</strong></li>
+            </ul>
+          </section>
+
+          <section class="panel release-notes-body">
+            ${renderMarkdown(stripTopMarkdownHeading(markdown))}
+          </section>
+
+          <section class="panel">
+            <h2>Links</h2>
+            <nav class="link-grid" aria-label="release links">
+              <a href="./index.html">release history</a>
+              <a href="../index.html">docs home</a>
+              <a href="${escapeHtml(githubReleaseUrl)}">github release</a>
+              <a href="${escapeHtml(releaseZipUrl)}">data zip</a>
+            </nav>
+          </section>
+
+          <footer>
+            <span>${escapeHtml(release.tag)}</span>
+            <a href="./index.html">release history</a>
+          </footer>
+        </main>
+      </body>
+    </html>`,
+    { filepath: path.join(RELEASE_OUTPUT_DIR, getReleasePageFile(release.tag)), parser: 'html' }
+  );
+}
+
+function renderReleaseIndex(releases) {
+  const rows = releases
+    .map(
+      (release) => `<div class="release-row">
+        <span>${escapeHtml(release.tag)}</span>
+        <span>${escapeHtml(release.summary)}</span>
+        <span class="release-actions">
+          <a href="./${escapeHtml(getReleasePageFile(release.tag))}">notes</a>
+          <a href="${escapeHtml(`${REPO_URL}/releases/tag/${release.tag}`)}">github</a>
+        </span>
+      </div>`
+    )
+    .join('');
+
+  return formatGenerated(
+    `<!DOCTYPE html>
+    <html lang="en">
+      <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Release history | footy-data-kit</title>
+        <meta name="description" content="Release notes for footy-data-kit data releases." />
+        <link rel="stylesheet" href="../styles.css" />
+      </head>
+      <body>
+        <main class="page-shell">
+          <header class="site-header">
+            <p class="eyebrow">release history</p>
+            <h1>releases</h1>
+            <p class="lede">Curated release notes for generated data releases.</p>
+          </header>
+
+          <section class="panel">
+            <h2>Release Notes</h2>
+            <div class="release-rows" aria-label="release notes">${rows}</div>
+          </section>
+
+          <footer>
+            <span>generated from docs/release-notes</span>
+            <a href="../index.html">docs home</a>
+          </footer>
+        </main>
+      </body>
+    </html>`,
+    { filepath: path.join(RELEASE_OUTPUT_DIR, 'index.html'), parser: 'html' }
+  );
+}
+
+function renderReleaseDocs(releases) {
+  return [
+    {
+      path: path.join(RELEASE_OUTPUT_DIR, 'index.html'),
+      html: renderReleaseIndex(releases),
+    },
+    ...releases.map((release) => ({
+      path: path.join(RELEASE_OUTPUT_DIR, getReleasePageFile(release.tag)),
+      html: renderReleasePage(release),
+    })),
+  ];
+}
+
 function buildRelease(tag, summary) {
   return {
     tag,
@@ -468,6 +677,8 @@ function buildSiteData() {
     links: [
       { label: 'GitHub repo', url: REPO_URL },
       { label: 'Releases', url: `${REPO_URL}/releases` },
+      { label: 'Release notes', url: './releases/' },
+      { label: 'Roadmap', url: `${REPO_URL}/blob/main/docs/roadmap.md` },
       { label: 'Schema docs', url: './schema/' },
       { label: 'README', url: `${REPO_URL}/blob/main/readme.md` },
       { label: 'Pipeline code', url: `${REPO_URL}/tree/main/wikipedia` },
@@ -537,6 +748,7 @@ function renderSite() {
   const template = fs.readFileSync(TEMPLATE_PATH, 'utf8');
   const siteData = buildSiteData();
   const schemaDocs = renderSchemaDocs(getSchemaFiles());
+  const releaseDocs = renderReleaseDocs(getReleaseManifest());
   return {
     html: formatGenerated(Mustache.render(template, siteData), {
       filepath: OUTPUT_PATH,
@@ -544,12 +756,13 @@ function renderSite() {
     }),
     siteData,
     schemaDocs,
+    releaseDocs,
   };
 }
 
 function run(argv = process.argv) {
   const check = argv.includes('--check');
-  const { html, siteData, schemaDocs } = renderSite();
+  const { html, siteData, schemaDocs, releaseDocs } = renderSite();
   const siteDataJson = formatGenerated(JSON.stringify(siteData), {
     filepath: SITE_DATA_PATH,
     parser: 'json',
@@ -566,7 +779,18 @@ function run(argv = process.argv) {
         : '';
       return currentSchemaHtml !== schemaDoc.html;
     });
-    if (currentHtml !== html || currentSiteData !== siteDataJson || staleSchemaDoc) {
+    const staleReleaseDoc = releaseDocs.find((releaseDoc) => {
+      const currentReleaseHtml = fs.existsSync(releaseDoc.path)
+        ? fs.readFileSync(releaseDoc.path, 'utf8')
+        : '';
+      return currentReleaseHtml !== releaseDoc.html;
+    });
+    if (
+      currentHtml !== html ||
+      currentSiteData !== siteDataJson ||
+      staleSchemaDoc ||
+      staleReleaseDoc
+    ) {
       console.error('Docs site output is stale. Run `pnpm docs:build`.');
       process.exitCode = 1;
     }
@@ -574,11 +798,16 @@ function run(argv = process.argv) {
   }
 
   fs.mkdirSync(SCHEMA_OUTPUT_DIR, { recursive: true });
+  fs.mkdirSync(RELEASE_OUTPUT_DIR, { recursive: true });
   fs.writeFileSync(OUTPUT_PATH, html);
   fs.writeFileSync(SITE_DATA_PATH, siteDataJson);
   for (const schemaDoc of schemaDocs) {
     fs.writeFileSync(schemaDoc.path, schemaDoc.html);
     console.log(`Generated ${path.relative(ROOT_DIR, schemaDoc.path)}`);
+  }
+  for (const releaseDoc of releaseDocs) {
+    fs.writeFileSync(releaseDoc.path, releaseDoc.html);
+    console.log(`Generated ${path.relative(ROOT_DIR, releaseDoc.path)}`);
   }
   console.log(`Generated ${path.relative(ROOT_DIR, OUTPUT_PATH)}`);
   console.log(`Generated ${path.relative(ROOT_DIR, SITE_DATA_PATH)}`);

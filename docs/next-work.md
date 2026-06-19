@@ -1,34 +1,20 @@
 # Next Work
 
-Temporary working note for the next phase after the clean dataset release.
+Use [roadmap.md](/Users/dsteele/repos/footy-data-kit/docs/roadmap.md) as the current
+release plan and source of truth.
 
-## In Scope
+## Active Focus
 
-1. Release diffs
+1. Harden data verification until the release can be treated as source-of-truth worthy.
+2. Improve release notes and release safety around generated-data diffs.
+3. Expand integration coverage toward 30-40% of seasons for v1.
+4. Audit current metadata and identify what should be stable, missing, or deferred.
+5. Start the TypeScript migration with contracts, config, and verification boundaries.
 
-   - Add a tool that compares two FootballData exports and reports what changed.
-   - Focus on season-level additions/removals plus tier table, promotion/relegation, and metadata changes.
-   - Keep the output suitable for release notes and regression review.
+## Reference Notes
 
-2. Team name reconciliation
-
-   - Expand canonical club-name handling beyond the current minimal alias set.
-   - Cover historical rename and spelling variants that affect continuity checks and dataset diffs.
-   - Add tests around canonicalisation so future cleanup work is less manual.
-   - Use [club-metadata-layer-2.md](/Users/dsteele/repos/footy-data-kit/docs/club-metadata-layer-2.md) as the plan for source-backed club history enrichments beyond generated table-note metadata.
-
-3. Regression fixture growth
-
-   - Keep the current Jest + saved-dataset integration approach.
-   - Expand the curated edge-case seasons instead of replacing the existing model.
-   - Prioritise brittle formats: restructures, rename-heavy seasons, and odd table layouts.
-
-4. Historical overview follow-up
-   - Keep [historical-overview-parsing.md](/Users/dsteele/repos/footy-data-kit/docs/historical-overview-parsing.md) as background/reference now that the full overview dataset has been regenerated.
-   - Focus follow-up work on fixture growth, release diffs, and any newly discovered season-specific anomalies rather than broad historical enablement.
-   - Treat the promotion flow as legacy support unless a comparison or targeted regression requires it.
-
-## Notes
-
-- Avoid broad pipeline rewrites while the current flow is stable.
-- Prefer additive tooling that improves release confidence and future cleanup speed.
+- [club-metadata-layer-2.md](/Users/dsteele/repos/footy-data-kit/docs/club-metadata-layer-2.md)
+- [tier3-tier4-parser-readiness-plan.md](/Users/dsteele/repos/footy-data-kit/docs/tier3-tier4-parser-readiness-plan.md)
+- [lower-tier-coverage-analysis.md](/Users/dsteele/repos/footy-data-kit/docs/lower-tier-coverage-analysis.md)
+- [historical-overview-parsing.md](/Users/dsteele/repos/footy-data-kit/docs/historical-overview-parsing.md)
+- [refactor-overview.md](/Users/dsteele/repos/footy-data-kit/docs/refactor-overview.md)

@@ -1,0 +1,58 @@
+[
+  {
+    "tag": "v0.8.2",
+    "title": "Club lifecycle metadata and stronger validation",
+    "date": "2026-06-17",
+    "type": "data",
+    "schemaCompatibility": "compatible",
+    "summary": "Added source-backed club lifecycle metadata and expanded validation around club continuity, metadata contracts, and table ordering."
+  },
+  {
+    "tag": "v0.8.1",
+    "title": "No-diff maintenance data release",
+    "date": "2026-06-13",
+    "type": "maintenance",
+    "schemaCompatibility": "compatible",
+    "summary": "Published a regenerated data package with no season-level differences reported by the release diff."
+  },
+  {
+    "tag": "v0.8.0",
+    "title": "Wartime metadata and season-key cleanup",
+    "date": "2026-06-13",
+    "type": "data",
+    "schemaCompatibility": "compatible",
+    "summary": "Updated wartime metadata, removed season key 1984, and published a generated diff with 13 changed seasons."
+  },
+  {
+    "tag": "v0.7.0",
+    "title": "Wartime metadata data release",
+    "date": "2026-03-14",
+    "type": "data",
+    "schemaCompatibility": "compatible",
+    "summary": "Published wartime and special-season metadata changes across 11 seasons with no added or removed season keys."
+  },
+  {
+    "tag": "v0.6.1",
+    "title": "Historical data package release",
+    "date": "2026-03-11",
+    "type": "data",
+    "schemaCompatibility": "unspecified",
+    "summary": "Published a historical data package release; the original GitHub release body did not include detailed notes."
+  },
+  {
+    "tag": "v0.6.0",
+    "title": "Historical data package release",
+    "date": "2026-03-07",
+    "type": "data",
+    "schemaCompatibility": "unspecified",
+    "summary": "Published a historical data package release; the original GitHub release body did not include detailed notes."
+  },
+  {
+    "tag": "v0.5.0",
+    "title": "Initial release",
+    "date": "2025-11-16",
+    "type": "initial",
+    "schemaCompatibility": "initial",
+    "summary": "Initial public release of cleaned English league-table data covering 1888-2024 with resumable scraping and release automation."
+  }
+]

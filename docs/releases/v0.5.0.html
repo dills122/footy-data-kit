@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>v0.5.0 release notes | footy-data-kit</title>
+    <meta
+      name="description"
+      content="Initial public release of cleaned English league-table data covering 1888-2024 with resumable scraping and release automation."
+    />
+    <link rel="stylesheet" href="../styles.css" />
+  </head>
+  <body>
+    <main class="page-shell">
+      <header class="site-header">
+        <p class="eyebrow">release notes</p>
+        <h1>v0.5.0</h1>
+        <p class="lede">
+          Initial public release of cleaned English league-table data covering 1888-2024 with
+          resumable scraping and release automation.
+        </p>
+      </header>
+
+      <section class="panel">
+        <h2>Release</h2>
+        <ul class="release-meta">
+          <li><span>title</span><strong>Initial release</strong></li>
+          <li><span>date</span><strong>2025-11-16</strong></li>
+          <li><span>type</span><strong>initial</strong></li>
+          <li><span>schema</span><strong>initial</strong></li>
+        </ul>
+      </section>
+
+      <section class="panel release-notes-body">
+        <h2>Summary</h2>
+        <ul>
+          <li>
+            Initial release of cleaned English league-table data covering <code>1888-2024</code>.
+          </li>
+          <li>
+            Added dual-source Wikipedia scraping for pre-Premier League and post-Premier League page
+            formats.
+          </li>
+          <li>
+            Added resumable CLI tooling and release automation for publishing the data package.
+          </li>
+        </ul>
+        <h2>Breaking Changes</h2>
+        <p>None. This was the initial public release.</p>
+        <h2>Data Changes</h2>
+        <ul>
+          <li>
+            Published <code>all-seasons.json</code> and minified data for merged tier 1+ tables
+            across the Football League and Premier League eras.
+          </li>
+          <li>
+            Published <code>wiki_promotion_relegations_by_season</code> outputs for the raw
+            promotion/relegation scraper, described in the original release notes as best for
+            <code>1888-1990</code>.
+          </li>
+          <li>
+            Published <code>wiki_overview_tables_by_season</code> outputs for overview-table
+            scraping, described in the original release notes as reliable from
+            <code>1991</code> onward.
+          </li>
+        </ul>
+        <h2>Bug Fixes</h2>
+        <p>None recorded in the GitHub release notes.</p>
+        <h2>Validation</h2>
+        <ul>
+          <li>Added CI unit and lint checks on every push.</li>
+          <li>Added twice-weekly Wikipedia integration tests.</li>
+          <li>
+            Added a release workflow that rebuilds data and publishes the release zip automatically.
+          </li>
+          <li>
+            The original release notes recommended running
+            <code>node scripts/verify-football-data.js --fail-on-issues ./data-output</code> after
+            generating new data to catch empty seasons, duplicate teams, or stat mismatches.
+          </li>
+        </ul>
+        <h2>Consumer Notes</h2>
+        <ul>
+          <li>This was the first published data package.</li>
+          <li>
+            Later releases changed the maintained workflow and validation surface; prefer the latest
+            release for current use.
+          </li>
+        </ul>
+        <h2>Known Limitations</h2>
+        <ul>
+          <li>The original notes described the data as cleaned but still early.</li>
+          <li>
+            Overview-table scraping was described as reliable from <code>1991</code> onward, while
+            promotion/relegation output was described as best for <code>1888-1990</code>.
+          </li>
+        </ul>
+      </section>
+
+      <section class="panel">
+        <h2>Links</h2>
+        <nav class="link-grid" aria-label="release links">
+          <a href="./index.html">release history</a>
+          <a href="../index.html">docs home</a>
+          <a href="https://github.com/dills122/footy-data-kit/releases/tag/v0.5.0"
+            >github release</a
+          >
+          <a
+            href="https://github.com/dills122/footy-data-kit/releases/download/v0.5.0/footy-data-kit-v0.5.0-data.zip"
+            >data zip</a
+          >
+        </nav>
+      </section>
+
+      <footer>
+        <span>v0.5.0</span>
+        <a href="./index.html">release history</a>
+      </footer>
+    </main>
+  </body>
+</html>
