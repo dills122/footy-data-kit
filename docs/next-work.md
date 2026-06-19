@@ -5,9 +5,9 @@ release plan and source of truth.
 
 ## Active Focus
 
-1. Harden data verification until the release can be treated as source-of-truth worthy.
-2. Improve release notes and release safety around generated-data diffs.
-3. Expand integration coverage toward 30-40% of seasons for v1.
+1. Finish v0.9.1 data-label correctness work for reprieved rows and generic tier titles.
+2. Harden data verification until the release can be treated as source-of-truth worthy.
+3. Keep integration coverage above the 30-40% v1 floor while adding targeted boundary depth.
 4. Audit current metadata and identify what should be stable, missing, or deferred.
 5. Start the TypeScript migration with contracts, config, and verification boundaries.
 

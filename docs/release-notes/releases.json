@@ -1,5 +1,13 @@
 [
   {
+    "tag": "v0.9.1",
+    "title": "Data label correctness for v1 prep",
+    "date": "2026-06-19",
+    "type": "data",
+    "schemaCompatibility": "compatible",
+    "summary": "Fixed reprieved-row flags, replaced generic overview tier titles with canonical league labels, and added verifier coverage for reprieve note/flag consistency."
+  },
+  {
     "tag": "v0.9.0",
     "title": "Release hardening and integration coverage",
     "date": "2026-06-19",

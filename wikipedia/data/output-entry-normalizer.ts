@@ -1,5 +1,5 @@
 import type { LeagueTableEntry } from '../models/output-file.ts';
-import { isExpansionTeam, wasPromoted, wasRelegated } from '../utils.js';
+import { isExpansionTeam, wasPromoted, wasRelegated, wasReprieved } from '../utils.js';
 
 type LeagueTableEntryInput = Partial<LeagueTableEntry> & Record<string, unknown>;
 type NumberField =
@@ -111,9 +111,7 @@ export function normaliseLeagueTableEntry(raw: LeagueTableEntryInput): LeagueTab
   const derivedPromoted = wasPromoted(notes);
   const derivedExpansion = isExpansionTeam(notes);
   const derivedReElected = notes ? notes.toLowerCase().includes('re-elected') : false;
-  const derivedReprieved = notes
-    ? /repriv(?:ed|e)d from re-election/i.test(notes.toLowerCase())
-    : false;
+  const derivedReprieved = wasReprieved(notes);
 
   for (const key of BOOLEAN_FIELDS) {
     const value = record[key];

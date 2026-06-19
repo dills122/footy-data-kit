@@ -186,6 +186,73 @@ describe('verify-football-data', () => {
     );
   });
 
+  test('analyzeDataset reports reprieve notes without reprieved row flags', () => {
+    const issues = analyzeDataset({
+      metadata: {
+        schemaVersion: 1,
+        generator: 'wikipedia-overview',
+        generatedAt: '2026-06-18T00:00:00.000Z',
+      },
+      seasons: {
+        1994: {
+          seasonInfo: {
+            season: 1994,
+            table: [],
+            promoted: [],
+            relegated: [],
+          },
+          tier4: {
+            season: 1994,
+            table: [
+              {
+                pos: 22,
+                team: 'Exeter City',
+                played: 42,
+                won: 8,
+                drawn: 10,
+                lost: 24,
+                goalsFor: 40,
+                goalsAgainst: 72,
+                goalDifference: -32,
+                goalAverage: null,
+                points: 34,
+                notes: 'Reprieved from relegation',
+                wasRelegated: true,
+                wasPromoted: false,
+                isExpansionTeam: false,
+                wasReElected: false,
+                wasReprieved: false,
+              },
+            ],
+            promoted: [],
+            relegated: ['Exeter City'],
+            metadata: {
+              source: 'wikipedia-overview',
+              seasonSlug: '1994-95',
+              sourceUrl: 'https://example.com/1994',
+              tierKey: 'tier4',
+              title: 'Third Division',
+              leagueId: 'Third_Division',
+              leagueLevel: 4,
+              tableIndex: 3,
+              tableCount: 4,
+            },
+          },
+        },
+      },
+    });
+
+    expect(issues).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          type: 'reprieved-flag-mismatch',
+          season: '1994',
+          tier: 'tier4',
+        }),
+      ])
+    );
+  });
+
   test('analyzeDataset allows 2019 curtailed leagues ordered by points per game', () => {
     const issues = analyzeDataset({
       metadata: {

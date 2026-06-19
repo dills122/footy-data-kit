@@ -81,7 +81,9 @@ Static CSV coverage:
 
 Metadata/title cleanup candidates:
 
-- 2012 and 2013 have generic `League tables` titles for `tier3` and `tier4`.
+- v0.9.1 replaces known generic `League tables` overview titles with canonical
+  season/level labels in generated tier metadata while preserving source
+  `leagueId` values.
 - Several 1990s/2000s overview pages use variant IDs such as `Division_Two_2`, `Football_League_Division_Two`, and `Football_League_Second_Division`; these are acceptable source IDs but need canonical comparison helpers if downstream code groups leagues by identity.
 
 ## Tier 3 And Tier 4 Attention Points

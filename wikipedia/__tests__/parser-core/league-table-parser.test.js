@@ -88,4 +88,29 @@ describe('league-table-parser', () => {
       wasRelegated: true,
     });
   });
+
+  test('marks reprieved rows from re-election and relegation notes', () => {
+    const html = `
+      <table class="wikitable">
+        <tr><th>Pos</th><th>Team</th><th>Pld</th><th>Pts</th><th>Notes</th></tr>
+        <tr><td>21</td><th scope="row">Election FC</th><td>42</td><td>30</td><td>Reprieved from re-election</td></tr>
+        <tr><td>22</td><th scope="row">Relegation FC</th><td>42</td><td>28</td><td>Reprieved from relegation</td></tr>
+      </table>
+    `;
+    const $ = cheerio.load(html);
+
+    const rows = parseLeagueTableRows($, $('table.wikitable').first());
+
+    expect(rows).toHaveLength(2);
+    expect(rows[0]).toMatchObject({
+      team: 'Election FC',
+      wasReprieved: true,
+      wasReElected: false,
+    });
+    expect(rows[1]).toMatchObject({
+      team: 'Relegation FC',
+      wasReprieved: true,
+      wasRelegated: true,
+    });
+  });
 });

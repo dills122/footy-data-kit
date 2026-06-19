@@ -34,6 +34,42 @@ describe('normaliseLeagueTableEntry', () => {
     expect(entry.goalDifference).toBe(38);
   });
 
+  test('derives reprieved flags from re-election and relegation notes when omitted', () => {
+    const electionEntry = normaliseLeagueTableEntry({
+      pos: '21',
+      team: 'Election FC',
+      played: '42',
+      won: '10',
+      drawn: '10',
+      lost: '22',
+      goalsFor: '40',
+      goalsAgainst: '70',
+      goalDifference: '',
+      goalAverage: null,
+      points: '30',
+      notes: 'Reprieved from re-election',
+    });
+    const relegationEntry = normaliseLeagueTableEntry({
+      pos: '22',
+      team: 'Relegation FC',
+      played: '42',
+      won: '9',
+      drawn: '9',
+      lost: '24',
+      goalsFor: '36',
+      goalsAgainst: '74',
+      goalDifference: '',
+      goalAverage: null,
+      points: '27',
+      notes: 'Reprieved from relegation',
+    });
+
+    expect(electionEntry.wasReprieved).toBe(true);
+    expect(electionEntry.wasReElected).toBe(false);
+    expect(relegationEntry.wasReprieved).toBe(true);
+    expect(relegationEntry.wasRelegated).toBe(true);
+  });
+
   test('preserves explicit boolean flags and normalises numeric strings', () => {
     const entry = normaliseLeagueTableEntry({
       pos: '22',

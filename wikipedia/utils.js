@@ -96,6 +96,11 @@ export function wasPromoted(note) {
     .includes('promot');
 }
 
+export function wasReprieved(note) {
+  const n = String(note || '').toLowerCase();
+  return /\brepri(?:e)?ved\b/.test(n);
+}
+
 export function isExpansionTeam(note) {
   const n = String(note || '').toLowerCase();
   return (
