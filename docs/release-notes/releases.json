@@ -1,5 +1,13 @@
 [
   {
+    "tag": "v1.0.0",
+    "title": "Source-of-truth readiness",
+    "date": "2026-06-19",
+    "type": "major",
+    "schemaCompatibility": "compatible",
+    "summary": "Marks the Wikipedia overview pipeline as v1-ready with fail-closed release gates, documented metadata semantics, explicit administrative outcomes, and 35.5% integration season coverage."
+  },
+  {
     "tag": "v0.9.1",
     "title": "Data label correctness for v1 prep",
     "date": "2026-06-19",

@@ -48,12 +48,18 @@
     }
   ],
   "latestRelease": {
-    "tag": "v0.9.1",
+    "tag": "v1.0.0",
     "summary": "1888-2025. 138 seasons. 232 club metadata records.",
     "notesUrl": "https://github.com/dills122/footy-data-kit/releases/latest",
-    "zipUrl": "https://github.com/dills122/footy-data-kit/releases/latest/download/footy-data-kit-v0.9.1-data.zip"
+    "zipUrl": "https://github.com/dills122/footy-data-kit/releases/latest/download/footy-data-kit-v1.0.0-data.zip"
   },
   "historicReleases": [
+    {
+      "tag": "v0.9.1",
+      "summary": "previous data release",
+      "notesUrl": "https://github.com/dills122/footy-data-kit/releases/tag/v0.9.1",
+      "zipUrl": "https://github.com/dills122/footy-data-kit/releases/download/v0.9.1/footy-data-kit-v0.9.1-data.zip"
+    },
     {
       "tag": "v0.9.0",
       "summary": "previous data release",
