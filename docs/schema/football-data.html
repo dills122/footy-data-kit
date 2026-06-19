@@ -47,6 +47,9 @@
           ><a href="#dataset-metadata">
             <span>Dataset Metadata</span>
             <code>DatasetMetadata</code> </a
+          ><a href="#league-structure-special-case">
+            <span>League Structure Special Case</span>
+            <code>LeagueStructureSpecialCase</code> </a
           ><a href="#league-table-entry">
             <span>League Table Entry</span>
             <code>LeagueTableEntry</code> </a
@@ -220,6 +223,56 @@
               <td><code>object</code></td>
               <td><span class="schema-requirement is-optional">optional</span></td>
               <td>Selected build options captured as primitive values.</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+      <section class="panel schema-definition" id="league-structure-special-case">
+        <div class="section-heading">
+          <div>
+            <h2>League Structure Special Case</h2>
+            <code class="schema-symbol">LeagueStructureSpecialCase</code>
+          </div>
+          <a href="#league-structure-special-case">anchor</a>
+        </div>
+        <div class="schema-summary">
+          <span>type <code>object</code></span>
+          <span>3 required</span><span>closed object</span>
+        </div>
+        <p>A documented league-structure exception attached to a season summary.</p>
+        <table class="schema-table">
+          <thead>
+            <tr>
+              <th scope="col">Property key</th>
+              <th scope="col">Type</th>
+              <th scope="col">Use</th>
+              <th scope="col">Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row"><code>type</code></th>
+              <td><code>string</code></td>
+              <td><span class="schema-requirement is-required">required</span></td>
+              <td><span class="schema-muted">No description.</span></td>
+            </tr>
+            <tr>
+              <th scope="row"><code>levels</code></th>
+              <td><code>array</code></td>
+              <td><span class="schema-requirement is-required">required</span></td>
+              <td><span class="schema-muted">No description.</span></td>
+            </tr>
+            <tr>
+              <th scope="row"><code>tierKeys</code></th>
+              <td><code>array</code></td>
+              <td><span class="schema-requirement is-required">required</span></td>
+              <td><span class="schema-muted">No description.</span></td>
+            </tr>
+            <tr>
+              <th scope="row"><code>notes</code></th>
+              <td><code>string</code> | <code>null</code></td>
+              <td><span class="schema-requirement is-optional">optional</span></td>
+              <td><span class="schema-muted">No description.</span></td>
             </tr>
           </tbody>
         </table>
@@ -517,6 +570,15 @@
               </td>
               <td><span class="schema-requirement is-optional">optional</span></td>
               <td><span class="schema-muted">No description.</span></td>
+            </tr>
+            <tr>
+              <th scope="row"><code>leagueStructureSpecialCases</code></th>
+              <td><code>array</code></td>
+              <td><span class="schema-requirement is-optional">optional</span></td>
+              <td>
+                Known structural exceptions for a season, such as parallel regional leagues or
+                restructure placement rules.
+              </td>
             </tr>
             <tr>
               <th scope="row"><code>notes</code></th>

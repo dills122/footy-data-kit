@@ -124,6 +124,7 @@ pnpm test:integration:promotion
 
 - `data/` – generated sidecar club metadata, review artifacts, raw reference files, and one-off exports.
 - `data-output/` – canonical Wikipedia JSON outputs grouped by source.
+- `docs/roadmap.md` – current release roadmap, v1 definition of done, and post-v1 feature plan.
 - `schemas/` – JSON Schema Draft-07 contracts for the published season dataset and club metadata sidecar.
 - `scripts/` – helper utilities such as `minify-json.js` plus older one-off generators.
 - `wikipedia/` – the main scraper, parsers, and FootballData models.

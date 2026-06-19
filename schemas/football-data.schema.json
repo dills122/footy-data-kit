@@ -138,6 +138,40 @@
         "specialCompetitions": {
           "$ref": "#/definitions/StringList"
         },
+        "leagueStructureSpecialCases": {
+          "type": "array",
+          "description": "Known structural exceptions for a season, such as parallel regional leagues or restructure placement rules.",
+          "items": {
+            "$ref": "#/definitions/LeagueStructureSpecialCase"
+          }
+        },
+        "notes": {
+          "type": ["string", "null"]
+        }
+      }
+    },
+    "LeagueStructureSpecialCase": {
+      "type": "object",
+      "description": "A documented league-structure exception attached to a season summary.",
+      "required": ["type", "levels", "tierKeys"],
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "levels": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          }
+        },
+        "tierKeys": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^tier\\d+$"
+          }
+        },
         "notes": {
           "type": ["string", "null"]
         }
