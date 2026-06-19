@@ -1,3 +1,11 @@
+import type {
+  DivisionKey,
+  ParallelGroup,
+  TierKey,
+  TierStructure,
+  WikipediaDataSourceId,
+} from './wikipedia.ts';
+
 export interface LeagueTableEntry {
   pos: number;
   team: string;
@@ -20,19 +28,19 @@ export interface LeagueTableEntry {
 }
 
 export interface TierMetadata {
-  source?: 'wikipedia-promotion' | 'wikipedia-overview' | string;
+  source?: WikipediaDataSourceId | string;
   sourceUrl?: string | null;
   seasonSlug?: string | null;
   leagueId?: string | null;
   title?: string | null;
   leagueLevel?: number | null;
-  structure?: 'single-league' | 'parallel-leagues' | string | null;
-  parallelGroup?: string | null;
-  divisionKey?: string | null;
+  structure?: TierStructure | string | null;
+  parallelGroup?: ParallelGroup | string | null;
+  divisionKey?: DivisionKey | string | null;
   divisionCount?: number | null;
   tableIndex?: number | null;
   tableCount?: number | null;
-  tierKey?: string | null;
+  tierKey?: TierKey | string | null;
 }
 
 export interface TierData {

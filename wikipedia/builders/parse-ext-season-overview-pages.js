@@ -33,6 +33,12 @@ import {
   skipSection,
 } from '../parser-core/wiki-overview-parser.js';
 
+/**
+ * @typedef {import('../models/wikipedia.ts').TierKey} TierKey
+ * @typedef {import('../models/wikipedia.ts').WikipediaOverviewParsedTable} WikipediaOverviewParsedTable
+ * @typedef {import('../models/wikipedia.ts').WikipediaOverviewTierProfile} WikipediaOverviewTierProfile
+ */
+
 export function parseOverviewLeagueTables(html) {
   const $ = cheerio.load(html);
   const hasPremierLeagueHeading = Boolean(
@@ -240,10 +246,19 @@ function resolveOverviewOutputFile(outputFile) {
     : resolveWikipediaDatasetPath(WIKIPEDIA_DATA_SOURCES.overview.key);
 }
 
+/**
+ * @param {WikipediaOverviewParsedTable} table
+ * @param {number} seasonNumber
+ */
 function getOverviewTableRule(table, seasonNumber) {
   return getWikipediaLeagueLevelRule(`${table?.title || ''} ${table?.id || ''}`, seasonNumber);
 }
 
+/**
+ * @param {WikipediaOverviewParsedTable} table
+ * @param {number} seasonNumber
+ * @returns {WikipediaOverviewTierProfile}
+ */
 function getOverviewLeagueProfile(table, seasonNumber) {
   const tableIndex = Number(table?.tableIndex);
   const leagueId = String(table?.id || '');

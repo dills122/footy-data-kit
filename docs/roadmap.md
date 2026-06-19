@@ -35,7 +35,7 @@ Operating principles:
 
 Current release:
 
-- `v0.9.1`
+- `v1.0.0`
 
 Current state:
 
@@ -47,8 +47,8 @@ Current state:
   historical club-reason coverage.
 - Release dry-run automation now fails closed when regenerated season or club
   metadata output is incomplete.
-- Integration coverage is at the v1 floor at 43 of 138 season records, or 31.2%,
-  but it still needs targeted boundary depth before v1.
+- Integration coverage reached the v1 floor at 43 of 138 season records, or
+  31.2%, and now needs targeted boundary depth for post-v1 lower-tier work.
 - Row-level administrative outcomes are represented with `outcomeStatus` for
   reviewed expulsion, failed re-election, resignation, liquidation, merger, and
   abandonment cases.
@@ -58,6 +58,10 @@ Current state:
 - Club metadata has a documented v1 contract and audit boundary, including which
   fields are generated observations, curated/source-backed history, derived
   relationships, or intentionally incomplete.
+- The active post-v1 branch focus is phase 0 through phase 3 from
+  [post-v1-phase-0-3-plan.md](./post-v1-phase-0-3-plan.md): reset the planning
+  baseline, advance TypeScript contracts, lock tier 1-4 semantics, and prepare
+  lower-tier backfill slices without hand-editing generated output.
 
 ## V0.9.1: Data Label Correctness And V1 Prep
 

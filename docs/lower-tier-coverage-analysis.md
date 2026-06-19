@@ -34,6 +34,14 @@ Recommended lower-tier slice order from the coverage snapshot:
 4. Backfill tier 5 for 1979-2003.
 5. Defer true level 7 until level 5 and level 6 are stable, because level 7 has multiple parallel feeder leagues.
 
+Post-v1 phase 0-3 branch scope:
+
+- Add tests and typed contracts for the slice order above before regenerating checked-in output.
+- Keep `data-output/` unchanged while parser and builder behavior is being locked.
+- Treat generated output refresh as a separate review step after dry-run diffs are understood.
+- Use the phase plan in [post-v1-phase-0-3-plan.md](./post-v1-phase-0-3-plan.md) as the active branch checklist.
+- Distinguish parser readiness from source availability: representative dry runs show some yearly overview pages do not expose the missing lower-tier tables.
+
 Prep decision:
 
 - Before broad parser changes, patch the known domain facts into shared config and output normalization.
@@ -185,3 +193,54 @@ Current contract:
 - English Football League play-offs: https://en.wikipedia.org/wiki/English_Football_League_play-offs
 - 2019-20 EFL League One: https://en.wikipedia.org/wiki/2019%E2%80%9320_EFL_League_One
 - 2019-20 EFL League Two: https://en.wikipedia.org/wiki/2019%E2%80%9320_EFL_League_Two
+
+## Post-V1 Backfill Dry Runs
+
+Use temporary output directories before any checked-in data refresh.
+
+### Representative Findings
+
+The phase 0-3 branch tested representative yearly overview pages against the live Wikipedia source.
+
+| Season | Source page                   | Tables found | Generated depth | Finding                                                                             |
+| ------ | ----------------------------- | ------------ | --------------- | ----------------------------------------------------------------------------------- |
+| 1979   | `1979–80_in_English_football` | 4            | `tier1`-`tier4` | The yearly overview page does not expose the Alliance Premier League table.         |
+| 2004   | `2004–05_in_English_football` | 4            | `tier1`-`tier4` | The yearly overview page does not expose Conference National/North/South tables.    |
+| 2012   | `2012–13_in_English_football` | 5            | `tier1`-`tier5` | The yearly overview page exposes Conference Premier but not Conference North/South. |
+
+Conclusion:
+
+- The existing overview parser and builder can represent tier 5 and level 6 when parsed tables are present.
+- Missing historical tier 5 and level 6 coverage cannot be completed from these representative yearly overview pages alone.
+- The next implementation slice should add alternate source-page support for lower-tier competitions, likely per-competition season pages, then merge those parsed tables into the same `tierN` output contract.
+
+### Overview Dry-Run Commands
+
+These commands are still useful for checking what a yearly overview page contributes, but they should not be treated as complete backfill commands for missing lower tiers.
+
+Level 6 check where tier 5 already exists in generated data:
+
+```sh
+node wikipedia/cli/index.js overview --start 2012 --end 2020 --output /tmp/footy-lower-tier-phase3 --force-update --include-war-placeholders
+```
+
+Tier 5 plus level 6 source-availability check after the 2004 National League System restructure:
+
+```sh
+node wikipedia/cli/index.js overview --start 2004 --end 2011 --output /tmp/footy-lower-tier-phase3 --force-update --include-war-placeholders
+```
+
+Historical tier 5 source-availability check from the Alliance Premier League / Football Conference era:
+
+```sh
+node wikipedia/cli/index.js overview --start 1979 --end 2003 --output /tmp/footy-lower-tier-phase3 --force-update --include-war-placeholders
+```
+
+Dry-run review checklist:
+
+- Confirm `tier5` and `tier6` metadata uses actual pyramid levels.
+- Confirm `tier6` parent records use `metadata.structure: "parallel-leagues"` and `divisions[]`.
+- Confirm sibling non-target competitions are not numbered into `tierN`.
+- Compare row counts, `promoted`, `relegated`, source titles, league IDs, and table indexes against representative source pages.
+- Record whether the yearly overview page contains the target lower-tier tables or whether a competition-specific source page is required.
+- Regenerate checked-in `data-output/` only after parser/build diffs are understood.

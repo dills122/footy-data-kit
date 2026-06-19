@@ -171,6 +171,9 @@ export const WIKIPEDIA_OVERVIEW_SEASON_OUTCOME_OVERRIDES = Object.freeze({
   }),
 });
 
+/**
+ * @type {readonly import('./models/wikipedia.ts').WikipediaLeagueLevelRule[]}
+ */
 export const WIKIPEDIA_LEAGUE_LEVEL_RULES = Object.freeze([
   Object.freeze({
     level: 1,

@@ -231,6 +231,92 @@ describe('parseOverviewLeagueTables', () => {
     expect(rows[2].wasRelegated).toBe(true);
   });
 
+  test('parses nested Conference Premier, North, and South lower-tier sections', () => {
+    const html = `
+      <div class="mw-heading mw-heading2"><h2 id="League_tables">League tables</h2></div>
+      <div class="mw-heading mw-heading3"><h3 id="Premier_League">Premier League</h3></div>
+      ${buildTableHtml('Premier FC', 89)}
+      <div class="mw-heading mw-heading3"><h3 id="Football_League">Football League</h3></div>
+      <div class="mw-heading mw-heading4"><h4 id="Championship">Championship</h4></div>
+      ${buildTableHtml('Championship FC', 87)}
+      <div class="mw-heading mw-heading4"><h4 id="League_One">League One</h4></div>
+      ${buildTableHtml('League One FC', 84)}
+      <div class="mw-heading mw-heading4"><h4 id="League_Two">League Two</h4></div>
+      ${buildTableHtml('League Two FC', 83)}
+      <div class="mw-heading mw-heading3"><h3 id="National_League_System">National League System</h3></div>
+      <div class="mw-heading mw-heading4"><h4 id="Conference_Premier">Conference Premier</h4></div>
+      ${buildTableHtml('Conference Premier FC', 82)}
+      <div class="mw-heading mw-heading4"><h4 id="Conference_North">Conference North</h4></div>
+      ${buildTableHtml('Conference North FC', 80)}
+      <div class="mw-heading mw-heading4"><h4 id="Conference_South">Conference South</h4></div>
+      ${buildTableHtml('Conference South FC', 78)}
+    `;
+
+    const result = parseOverviewLeagueTables(html);
+
+    expect(result.map((entry) => entry.title)).toEqual([
+      'Premier League',
+      'Championship',
+      'League One',
+      'League Two',
+      'Conference Premier',
+      'Conference North',
+      'Conference South',
+    ]);
+    expect(result.map((entry) => entry.rows[0].team)).toEqual([
+      'Premier FC',
+      'Championship FC',
+      'League One FC',
+      'League Two FC',
+      'Conference Premier FC',
+      'Conference North FC',
+      'Conference South FC',
+    ]);
+  });
+
+  test('parses nested modern National League top division, North, and South sections', () => {
+    const html = `
+      <div class="mw-heading mw-heading2"><h2 id="League_tables">League tables</h2></div>
+      <div class="mw-heading mw-heading3"><h3 id="Premier_League">Premier League</h3></div>
+      ${buildTableHtml('Premier FC', 91)}
+      <div class="mw-heading mw-heading3"><h3 id="English_Football_League">English Football League</h3></div>
+      <div class="mw-heading mw-heading4"><h4 id="Championship">Championship</h4></div>
+      ${buildTableHtml('Championship FC', 90)}
+      <div class="mw-heading mw-heading4"><h4 id="League_One">League One</h4></div>
+      ${buildTableHtml('League One FC', 88)}
+      <div class="mw-heading mw-heading4"><h4 id="League_Two">League Two</h4></div>
+      ${buildTableHtml('League Two FC', 86)}
+      <div class="mw-heading mw-heading3"><h3 id="National_League">National League</h3></div>
+      <div class="mw-heading mw-heading4"><h4 id="National_League">National League</h4></div>
+      ${buildTableHtml('National League FC', 85)}
+      <div class="mw-heading mw-heading4"><h4 id="North">North</h4></div>
+      ${buildTableHtml('National League North FC', 83)}
+      <div class="mw-heading mw-heading4"><h4 id="South">South</h4></div>
+      ${buildTableHtml('National League South FC', 81)}
+    `;
+
+    const result = parseOverviewLeagueTables(html);
+
+    expect(result.map((entry) => entry.title)).toEqual([
+      'Premier League',
+      'Championship',
+      'League One',
+      'League Two',
+      'National League',
+      'North',
+      'South',
+    ]);
+    expect(result.map((entry) => entry.rows[0].team)).toEqual([
+      'Premier FC',
+      'Championship FC',
+      'League One FC',
+      'League Two FC',
+      'National League FC',
+      'National League North FC',
+      'National League South FC',
+    ]);
+  });
+
   test('does not suppress promotion flags for second-tier First Division when Premier League is present', () => {
     const html = `
       <div class="mw-heading mw-heading2"><h2 id="League_tables">League tables</h2></div>
@@ -544,6 +630,114 @@ describe('parseOverviewLeagueTables', () => {
     ]);
   });
 
+  test('starts true fourth-tier output with the 1958 national Fourth Division', () => {
+    const seasonRecord = buildSeasonOverviewSeasonRecord({
+      seasonKey: '1958',
+      seasonYear: 1958,
+      seasonSlug: '1958–59_in_English_football',
+      tables: [
+        {
+          title: 'First Division',
+          id: 'First_Division',
+          tableIndex: 0,
+          rows: [{ pos: 1, team: 'Wolverhampton Wanderers', played: 42, points: 61 }],
+        },
+        {
+          title: 'Second Division',
+          id: 'Second_Division',
+          tableIndex: 1,
+          rows: [{ pos: 1, team: 'Sheffield Wednesday', played: 42, points: 59 }],
+        },
+        {
+          title: 'Third Division',
+          id: 'Third_Division',
+          tableIndex: 2,
+          rows: [{ pos: 1, team: 'Plymouth Argyle', played: 46, points: 60 }],
+        },
+        {
+          title: 'Fourth Division',
+          id: 'Fourth_Division',
+          tableIndex: 3,
+          rows: [{ pos: 1, team: 'Port Vale', played: 46, points: 64 }],
+        },
+      ],
+    });
+
+    expect(seasonRecord.tier3.metadata).toMatchObject({
+      title: 'Third Division',
+      structure: 'single-league',
+      leagueLevel: 3,
+      tierKey: 'tier3',
+    });
+    expect(seasonRecord.tier3.divisions).toBeUndefined();
+    expect(seasonRecord.tier4.metadata).toMatchObject({
+      title: 'Fourth Division',
+      structure: 'single-league',
+      leagueLevel: 4,
+      tierKey: 'tier4',
+    });
+    expect(seasonRecord.seasonInfo.leagueStructureSpecialCases).toEqual([
+      expect.objectContaining({
+        type: 'new-national-fourth-tier',
+        levels: [3, 4],
+      }),
+    ]);
+  });
+
+  test('keeps 1992 Premier League renumbering aligned to actual pyramid levels', () => {
+    const seasonRecord = buildSeasonOverviewSeasonRecord({
+      seasonKey: '1992',
+      seasonYear: 1992,
+      seasonSlug: '1992–93_in_English_football',
+      tables: [
+        {
+          title: 'FA Premier League',
+          id: 'FA_Premier_League',
+          tableIndex: 0,
+          rows: [{ pos: 1, team: 'Manchester United', played: 42, points: 84 }],
+        },
+        {
+          title: 'Football League First Division',
+          id: 'Football_League_First_Division',
+          tableIndex: 1,
+          rows: [{ pos: 1, team: 'Newcastle United', played: 46, points: 96 }],
+        },
+        {
+          title: 'Football League Second Division',
+          id: 'Football_League_Second_Division',
+          tableIndex: 2,
+          rows: [{ pos: 1, team: 'Stoke City', played: 46, points: 93 }],
+        },
+        {
+          title: 'Football League Third Division',
+          id: 'Football_League_Third_Division',
+          tableIndex: 3,
+          rows: [{ pos: 1, team: 'Cardiff City', played: 42, points: 83 }],
+        },
+      ],
+    });
+
+    expect(seasonRecord.tier1.metadata).toMatchObject({
+      title: 'FA Premier League',
+      leagueLevel: 1,
+    });
+    expect(seasonRecord.tier2.metadata).toMatchObject({
+      title: 'Football League First Division',
+      leagueLevel: 2,
+    });
+    expect(seasonRecord.tier3.metadata).toMatchObject({
+      title: 'Football League Second Division',
+      leagueLevel: 3,
+    });
+    expect(seasonRecord.tier4.metadata).toMatchObject({
+      title: 'Football League Third Division',
+      leagueLevel: 4,
+    });
+    expect(seasonRecord.seasonInfo.leagueStructureSpecialCases).toEqual(
+      expect.arrayContaining([expect.objectContaining({ type: 'football-league-renumbering' })])
+    );
+  });
+
   test('annotates the 2004 League One and League Two rebrand boundary', () => {
     const seasonRecord = buildSeasonOverviewSeasonRecord({
       seasonKey: '2004',
@@ -655,6 +849,229 @@ describe('parseOverviewLeagueTables', () => {
       'south',
     ]);
     expect(seasonRecord.tier7).toBeUndefined();
+  });
+
+  test('prepares 2012-2020 level-six backfill as parallel Conference North and South', () => {
+    const seasonRecord = buildSeasonOverviewSeasonRecord({
+      seasonKey: '2012',
+      seasonYear: 2012,
+      seasonSlug: '2012–13_in_English_football',
+      tables: [
+        {
+          title: 'Premier League',
+          id: 'Premier_League',
+          tableIndex: 0,
+          rows: [{ pos: 1, team: 'Manchester United', played: 38, points: 89 }],
+        },
+        {
+          title: 'Championship',
+          id: 'Championship',
+          tableIndex: 1,
+          rows: [{ pos: 1, team: 'Cardiff City', played: 46, points: 87 }],
+        },
+        {
+          title: 'League One',
+          id: 'League_One',
+          tableIndex: 2,
+          rows: [{ pos: 1, team: 'Doncaster Rovers', played: 46, points: 84 }],
+        },
+        {
+          title: 'League Two',
+          id: 'League_Two',
+          tableIndex: 3,
+          rows: [{ pos: 1, team: 'Gillingham', played: 46, points: 83 }],
+        },
+        {
+          title: 'Conference Premier',
+          id: 'Conference_Premier',
+          tableIndex: 4,
+          rows: [{ pos: 1, team: 'Mansfield Town', played: 46, points: 95 }],
+        },
+        {
+          title: 'Conference North',
+          id: 'Conference_North',
+          tableIndex: 5,
+          rows: [{ pos: 1, team: 'Chester', played: 42, points: 107 }],
+        },
+        {
+          title: 'Conference South',
+          id: 'Conference_South',
+          tableIndex: 6,
+          rows: [{ pos: 1, team: 'Welling United', played: 42, points: 86 }],
+        },
+      ],
+    });
+
+    expect(seasonRecord.tier5.metadata).toMatchObject({
+      title: 'Conference Premier',
+      leagueLevel: 5,
+      tierKey: 'tier5',
+    });
+    expect(seasonRecord.tier6.metadata).toMatchObject({
+      structure: 'parallel-leagues',
+      leagueLevel: 6,
+      parallelGroup: 'conference-north-south',
+      divisionCount: 2,
+      tierKey: 'tier6',
+    });
+    expect(seasonRecord.tier6.divisions.map((division) => division.metadata.divisionKey)).toEqual([
+      'north',
+      'south',
+    ]);
+  });
+
+  test('prepares 2004-2011 backfill for Conference National and regional level six', () => {
+    const seasonRecord = buildSeasonOverviewSeasonRecord({
+      seasonKey: '2004',
+      seasonYear: 2004,
+      seasonSlug: '2004–05_in_English_football',
+      tables: [
+        {
+          title: 'FA Premier League',
+          id: 'FA_Premier_League',
+          tableIndex: 0,
+          rows: [{ pos: 1, team: 'Chelsea', played: 38, points: 95 }],
+        },
+        {
+          title: 'Football League Championship',
+          id: 'Football_League_Championship',
+          tableIndex: 1,
+          rows: [{ pos: 1, team: 'Sunderland', played: 46, points: 94 }],
+        },
+        {
+          title: 'Football League One',
+          id: 'Football_League_One',
+          tableIndex: 2,
+          rows: [{ pos: 1, team: 'Luton Town', played: 46, points: 98 }],
+        },
+        {
+          title: 'Football League Two',
+          id: 'Football_League_Two',
+          tableIndex: 3,
+          rows: [{ pos: 1, team: 'Yeovil Town', played: 46, points: 83 }],
+        },
+        {
+          title: 'Conference National',
+          id: 'Conference_National',
+          tableIndex: 4,
+          rows: [{ pos: 1, team: 'Barnet', played: 42, points: 86 }],
+        },
+        {
+          title: 'Conference North',
+          id: 'Conference_North',
+          tableIndex: 5,
+          rows: [{ pos: 1, team: 'Southport', played: 42, points: 80 }],
+        },
+        {
+          title: 'Conference South',
+          id: 'Conference_South',
+          tableIndex: 6,
+          rows: [{ pos: 1, team: 'Grays Athletic', played: 42, points: 92 }],
+        },
+      ],
+    });
+
+    expect(seasonRecord.tier5.metadata).toMatchObject({
+      title: 'Conference National',
+      leagueLevel: 5,
+      tierKey: 'tier5',
+    });
+    expect(seasonRecord.tier6.metadata).toMatchObject({
+      structure: 'parallel-leagues',
+      leagueLevel: 6,
+      parallelGroup: 'conference-north-south',
+      divisionCount: 2,
+    });
+  });
+
+  test('prepares 1979-2003 tier-five backfill for Alliance and Conference eras', () => {
+    const allianceSeason = buildSeasonOverviewSeasonRecord({
+      seasonKey: '1979',
+      seasonYear: 1979,
+      seasonSlug: '1979–80_in_English_football',
+      tables: [
+        {
+          title: 'First Division',
+          id: 'First_Division',
+          tableIndex: 0,
+          rows: [{ pos: 1, team: 'Liverpool', played: 42, points: 60 }],
+        },
+        {
+          title: 'Second Division',
+          id: 'Second_Division',
+          tableIndex: 1,
+          rows: [{ pos: 1, team: 'Leicester City', played: 42, points: 55 }],
+        },
+        {
+          title: 'Third Division',
+          id: 'Third_Division',
+          tableIndex: 2,
+          rows: [{ pos: 1, team: 'Grimsby Town', played: 46, points: 62 }],
+        },
+        {
+          title: 'Fourth Division',
+          id: 'Fourth_Division',
+          tableIndex: 3,
+          rows: [{ pos: 1, team: 'Huddersfield Town', played: 46, points: 58 }],
+        },
+        {
+          title: 'Alliance Premier League',
+          id: 'Alliance_Premier_League',
+          tableIndex: 4,
+          rows: [{ pos: 1, team: 'Altrincham', played: 38, points: 60 }],
+        },
+      ],
+    });
+    const conferenceSeason = buildSeasonOverviewSeasonRecord({
+      seasonKey: '2003',
+      seasonYear: 2003,
+      seasonSlug: '2003–04_in_English_football',
+      tables: [
+        {
+          title: 'FA Premier League',
+          id: 'FA_Premier_League',
+          tableIndex: 0,
+          rows: [{ pos: 1, team: 'Arsenal', played: 38, points: 90 }],
+        },
+        {
+          title: 'Football League First Division',
+          id: 'Football_League_First_Division',
+          tableIndex: 1,
+          rows: [{ pos: 1, team: 'Norwich City', played: 46, points: 94 }],
+        },
+        {
+          title: 'Football League Second Division',
+          id: 'Football_League_Second_Division',
+          tableIndex: 2,
+          rows: [{ pos: 1, team: 'Plymouth Argyle', played: 46, points: 90 }],
+        },
+        {
+          title: 'Football League Third Division',
+          id: 'Football_League_Third_Division',
+          tableIndex: 3,
+          rows: [{ pos: 1, team: 'Doncaster Rovers', played: 46, points: 92 }],
+        },
+        {
+          title: 'Football Conference',
+          id: 'Football_Conference',
+          tableIndex: 4,
+          rows: [{ pos: 1, team: 'Chester City', played: 42, points: 91 }],
+        },
+      ],
+    });
+
+    expect(allianceSeason.tier5.metadata).toMatchObject({
+      title: 'Alliance Premier League',
+      leagueLevel: 5,
+      tierKey: 'tier5',
+    });
+    expect(conferenceSeason.tier5.metadata).toMatchObject({
+      title: 'Football Conference',
+      leagueLevel: 5,
+      tierKey: 'tier5',
+    });
+    expect(allianceSeason.tier6).toBeUndefined();
+    expect(conferenceSeason.tier6).toBeUndefined();
   });
 
   test('keeps pre-war four-division seasons aligned with second-tier top-flight movement', () => {
