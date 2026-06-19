@@ -144,6 +144,79 @@ export const testPages = /** @type {TestPages} */ ([
   },
   {
     urls: {
+      overview: 'https://en.wikipedia.org/wiki/1892%E2%80%9393_in_English_football',
+    },
+    season: '1892',
+    source: 'overview',
+    coverage: ['early-second-division', 'test-match-era', 'early-club-resignation'],
+    tests: {
+      promoted: ['Sheffield United', 'Darwen'],
+      relegated: [],
+      tableEntries: [
+        {
+          tier: 'tier1',
+          data: {
+            team: 'Sunderland',
+            wasPromoted: false,
+            wasRelegated: false,
+            points: 48,
+          },
+        },
+        {
+          tier: 'tier1',
+          data: {
+            team: 'Accrington',
+            wasPromoted: false,
+            wasRelegated: false,
+            outcomeStatus: 'resigned',
+            points: 23,
+            notes: 'Resigned from league after test matches',
+          },
+        },
+        {
+          tier: 'tier2',
+          data: {
+            team: 'Sheffield United',
+            wasPromoted: true,
+            wasRelegated: false,
+            points: 35,
+          },
+        },
+        {
+          tier: 'tier2',
+          data: {
+            team: 'Darwen',
+            wasPromoted: true,
+            wasRelegated: false,
+            points: 30,
+          },
+        },
+        {
+          tier: 'tier2',
+          data: {
+            team: 'Walsall Town Swifts',
+            wasPromoted: false,
+            wasRelegated: false,
+            wasReElected: true,
+            points: 13,
+          },
+        },
+      ],
+      tierMetadataEntries: [
+        {
+          tier: 'tier2',
+          data: {
+            title: 'Second Division',
+            leagueId: 'Second_Division',
+            leagueLevel: 2,
+            structure: 'single-league',
+          },
+        },
+      ],
+    },
+  },
+  {
+    urls: {
       promotion: 'https://en.wikipedia.org/wiki/1898-99_Football_League',
       overview: 'https://en.wikipedia.org/wiki/1898%E2%80%9399_in_English_football',
     },
@@ -250,6 +323,86 @@ export const testPages = /** @type {TestPages} */ ([
             team: 'Birmingham',
             wasPromoted: false,
             points: 56,
+          },
+        },
+      ],
+    },
+  },
+  {
+    urls: {
+      overview: 'https://en.wikipedia.org/wiki/1920%E2%80%9321_in_English_football',
+    },
+    season: '1920',
+    source: 'overview',
+    coverage: ['first-third-division', 'single-national-third-division'],
+    tests: {
+      promoted: ['Birmingham', 'Cardiff City'],
+      relegated: ['Derby County', 'Bradford (Park Avenue)'],
+      tableEntries: [
+        {
+          tier: 'tier1',
+          data: {
+            team: 'Burnley',
+            wasPromoted: false,
+            wasRelegated: false,
+            points: 59,
+          },
+        },
+        {
+          tier: 'tier1',
+          data: {
+            team: 'Bradford (Park Avenue)',
+            wasPromoted: false,
+            wasRelegated: true,
+            points: 24,
+          },
+        },
+        {
+          tier: 'tier2',
+          data: {
+            team: 'Birmingham',
+            wasPromoted: true,
+            wasRelegated: false,
+            points: 58,
+          },
+        },
+        {
+          tier: 'tier2',
+          data: {
+            team: 'Stockport County',
+            wasPromoted: false,
+            wasRelegated: true,
+            points: 30,
+          },
+        },
+        {
+          tier: 'tier3',
+          data: {
+            team: 'Crystal Palace',
+            wasPromoted: true,
+            wasRelegated: false,
+            points: 59,
+          },
+        },
+        {
+          tier: 'tier3',
+          data: {
+            team: 'Gillingham',
+            wasPromoted: false,
+            wasRelegated: false,
+            wasReElected: true,
+            points: 28,
+          },
+        },
+      ],
+      tierMetadataEntries: [
+        {
+          tier: 'tier3',
+          data: {
+            title: 'Third Division',
+            leagueId: 'Third_Division',
+            leagueLevel: 3,
+            structure: 'single-league',
           },
         },
       ],
@@ -1568,6 +1721,92 @@ export const testPages = /** @type {TestPages} */ ([
   },
   {
     urls: {
+      overview: 'https://en.wikipedia.org/wiki/1995%E2%80%9396_in_English_football',
+    },
+    season: '1995',
+    source: 'overview',
+    coverage: [
+      'twenty-team-premier-league',
+      'post-premier-league-renaming',
+      'reprieved-relegation',
+    ],
+    tests: {
+      promoted: ['Sunderland', 'Derby County', 'Leicester City'],
+      relegated: ['Manchester City', 'Queens Park Rangers', 'Bolton Wanderers'],
+      tableEntries: [
+        {
+          tier: 'tier1',
+          data: {
+            team: 'Manchester United',
+            wasPromoted: false,
+            wasRelegated: false,
+            points: 82,
+          },
+        },
+        {
+          tier: 'tier1',
+          data: {
+            team: 'Bolton Wanderers',
+            wasPromoted: false,
+            wasRelegated: true,
+            points: 29,
+          },
+        },
+        {
+          tier: 'tier2',
+          data: {
+            team: 'Sunderland',
+            wasPromoted: true,
+            wasRelegated: false,
+            points: 83,
+          },
+        },
+        {
+          tier: 'tier4',
+          data: {
+            team: 'Preston North End',
+            wasPromoted: true,
+            wasRelegated: false,
+            points: 86,
+          },
+        },
+        {
+          tier: 'tier4',
+          data: {
+            team: 'Torquay United',
+            wasPromoted: false,
+            wasRelegated: true,
+            wasReprieved: true,
+            outcomeStatus: 'reprieved',
+            points: 29,
+            notes: 'Reprived from relegation',
+          },
+        },
+      ],
+      tierMetadataEntries: [
+        {
+          tier: 'tier1',
+          data: {
+            title: 'Premiership',
+            leagueId: 'Premiership_2',
+            leagueLevel: 1,
+            structure: 'single-league',
+          },
+        },
+        {
+          tier: 'tier4',
+          data: {
+            title: 'Division Three',
+            leagueId: 'Division_Three_2',
+            leagueLevel: 4,
+            structure: 'single-league',
+          },
+        },
+      ],
+    },
+  },
+  {
+    urls: {
       overview: 'https://en.wikipedia.org/wiki/2004%E2%80%9305_in_English_football',
     },
     season: '2004',
@@ -1689,6 +1928,80 @@ export const testPages = /** @type {TestPages} */ ([
   },
   {
     urls: {
+      overview: 'https://en.wikipedia.org/wiki/2020%E2%80%9321_in_English_football',
+    },
+    season: '2020',
+    source: 'overview',
+    coverage: ['pandemic-era', 'tier5-national-league', 'reprieved-relegation', 'folded-club-row'],
+    tests: {
+      promoted: ['Norwich City', 'Watford', 'Brentford'],
+      relegated: ['Fulham', 'West Bromwich Albion', 'Sheffield United'],
+      tableEntries: [
+        {
+          tier: 'tier1',
+          data: {
+            team: 'Manchester City',
+            wasPromoted: false,
+            wasRelegated: false,
+            points: 86,
+          },
+        },
+        {
+          tier: 'tier2',
+          data: {
+            team: 'Norwich City',
+            wasPromoted: true,
+            wasRelegated: false,
+            points: 97,
+          },
+        },
+        {
+          tier: 'tier5',
+          data: {
+            team: 'Sutton United',
+            wasPromoted: true,
+            wasRelegated: false,
+            points: 84,
+          },
+        },
+        {
+          tier: 'tier5',
+          data: {
+            team: 'Barnet',
+            wasPromoted: false,
+            wasRelegated: true,
+            wasReprieved: true,
+            outcomeStatus: 'reprieved',
+            points: 31,
+            notes: 'Reprieved from relegation',
+          },
+        },
+        {
+          tier: 'tier5',
+          data: {
+            team: 'Dover Athletic',
+            wasPromoted: false,
+            wasRelegated: false,
+            points: 0,
+            notes: 'Results expunged',
+          },
+        },
+        {
+          tier: 'tier5',
+          data: {
+            team: 'Macclesfield Town',
+            wasPromoted: false,
+            wasRelegated: false,
+            outcomeStatus: 'expelled-and-folded',
+            points: 0,
+            notes: 'Club expelled and folded',
+          },
+        },
+      ],
+    },
+  },
+  {
+    urls: {
       overview: 'https://en.wikipedia.org/wiki/2021%E2%80%9322_in_English_football',
     },
     season: '2021',
@@ -1773,6 +2086,94 @@ export const testPages = /** @type {TestPages} */ ([
             wasPromoted: false,
             wasRelegated: true,
             points: 46,
+          },
+        },
+      ],
+      tierMetadataEntries: [
+        {
+          tier: 'tier6',
+          data: {
+            structure: 'parallel-leagues',
+            parallelGroup: 'national-league-north-south',
+            divisionCount: 2,
+            leagueLevel: 6,
+          },
+        },
+      ],
+    },
+  },
+  {
+    urls: {
+      overview: 'https://en.wikipedia.org/wiki/2023%E2%80%9324_in_English_football',
+    },
+    season: '2023',
+    source: 'overview',
+    coverage: ['modern-level-six', 'tier5-national-league', 'parallel-national-league-north-south'],
+    tests: {
+      promoted: ['Leicester City', 'Ipswich Town', 'Southampton'],
+      relegated: ['Luton Town', 'Burnley', 'Sheffield United'],
+      tableEntries: [
+        {
+          tier: 'tier2',
+          data: {
+            team: 'Leicester City',
+            wasPromoted: true,
+            wasRelegated: false,
+            points: 97,
+          },
+        },
+        {
+          tier: 'tier5',
+          data: {
+            team: 'Chesterfield',
+            wasPromoted: true,
+            wasRelegated: false,
+            points: 98,
+          },
+        },
+        {
+          tier: 'tier5',
+          data: {
+            team: 'Oxford City',
+            wasPromoted: false,
+            wasRelegated: true,
+            points: 33,
+          },
+        },
+        {
+          tier: 'tier6',
+          data: {
+            team: 'Tamworth',
+            wasPromoted: true,
+            wasRelegated: false,
+            points: 96,
+          },
+        },
+        {
+          tier: 'tier6',
+          data: {
+            team: 'Boston United',
+            wasPromoted: true,
+            wasRelegated: false,
+            points: 75,
+          },
+        },
+        {
+          tier: 'tier6',
+          data: {
+            team: 'Yeovil Town',
+            wasPromoted: true,
+            wasRelegated: false,
+            points: 95,
+          },
+        },
+        {
+          tier: 'tier6',
+          data: {
+            team: 'Dover Athletic',
+            wasPromoted: false,
+            wasRelegated: true,
+            points: 27,
           },
         },
       ],
