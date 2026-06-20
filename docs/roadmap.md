@@ -62,8 +62,8 @@ Current state:
   [post-v1-phase-0-3-plan.md](./post-v1-phase-0-3-plan.md): reset the planning
   baseline, advance TypeScript contracts, lock tier 1-4 semantics, and backfill
   generated tier 5 and level 6 output from per-competition source pages.
-- Lower-tier generated coverage now includes tier 5 from 1979-2025 and level 6
-  from 2004-2025, with level 6 represented as `tier6.divisions[]`.
+- Lower-tier generated coverage now includes tier 5 and level 6 from 1979-2025,
+  with level 6 represented as `tier6.divisions[]`.
 - Club metadata now regenerates across the expanded season scope, using observed
   membership stints and `data/club-metadata-review.json` for lower-tier status
   findings that need curated rules.

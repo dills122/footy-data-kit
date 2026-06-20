@@ -47,6 +47,39 @@ const CONTINUITY_CONFIG = {
   seasonPromotedPath: 'promoted',
   seasonRelegatedPath: 'relegated',
 };
+const LOWER_TIER_CONTRACT_START_SEASON = 1979;
+const LOWER_TIER_FULL_EXPORT_MIN_SEASONS = 100;
+const LOWER_TIER_MIN_TABLE_ROWS = 18;
+const LOWER_TIER_CONTRACTS = Object.freeze([
+  Object.freeze({
+    startSeason: 1979,
+    endSeason: 1981,
+    parallelGroup: 'pre-2004-conference-feeders',
+    divisionKeys: Object.freeze([
+      'northern-premier',
+      'southern-midland',
+      'southern-southern',
+      'isthmian-premier',
+    ]),
+  }),
+  Object.freeze({
+    startSeason: 1982,
+    endSeason: 2003,
+    parallelGroup: 'pre-2004-conference-feeders',
+    divisionKeys: Object.freeze(['northern-premier', 'southern-premier', 'isthmian-premier']),
+  }),
+  Object.freeze({
+    startSeason: 2004,
+    endSeason: 2014,
+    parallelGroup: 'conference-north-south',
+    divisionKeys: Object.freeze(['north', 'south']),
+  }),
+  Object.freeze({
+    startSeason: 2015,
+    parallelGroup: 'national-league-north-south',
+    divisionKeys: Object.freeze(['north', 'south']),
+  }),
+]);
 
 /**
  * @param {string[]} targets
@@ -218,6 +251,10 @@ export function analyzeDataset(dataset, options = {}) {
     for (const tierAnalysis of tierAnalyses) {
       issues.push(...tierAnalysis.issues);
     }
+  }
+
+  if (shouldAnalyzeLowerTierCoverageContract(seasonEntries, profile, options)) {
+    issues.push(...analyzeLowerTierCoverageContract(dataset, seasonEntries));
   }
 
   issues.push(...analyzeSeasonContinuity(dataset, profile));
@@ -1085,6 +1122,243 @@ function isKnownParallelLeagueSlot(metadata, seasonNumber, inferredTier, tierNum
   const tableIndex = Number(metadata?.tableIndex);
   const leagueId = String(metadata?.leagueId || '');
   return seasonNumber >= 2021 && leagueId === 'National_League' && tableIndex > 0;
+}
+
+/**
+ * @param {Array<[string, import('../models/output-file.ts').SeasonData]>} seasonEntries
+ * @param {DatasetProfile} profile
+ * @param {{ enforceLowerTierCoverage?: boolean }} options
+ */
+function shouldAnalyzeLowerTierCoverageContract(seasonEntries, profile, options) {
+  if (profile.kind === 'promotion-only') return false;
+  if (options.enforceLowerTierCoverage === true) return true;
+  if (options.enforceLowerTierCoverage === false) return false;
+
+  const seasonNumbers = seasonEntries
+    .map(([seasonKey]) => parseSeasonNumber(seasonKey))
+    .filter((seasonNumber) => seasonNumber != null);
+
+  return (
+    seasonEntries.length >= LOWER_TIER_FULL_EXPORT_MIN_SEASONS &&
+    seasonNumbers.includes(LOWER_TIER_CONTRACT_START_SEASON)
+  );
+}
+
+/**
+ * @param {import('../models/output-file.ts').FootballData} dataset
+ * @param {Array<[string, import('../models/output-file.ts').SeasonData]>} seasonEntries
+ * @returns {Issue[]}
+ */
+function analyzeLowerTierCoverageContract(_dataset, seasonEntries) {
+  /** @type {Issue[]} */
+  const issues = [];
+
+  for (const [seasonKey, seasonValue] of seasonEntries) {
+    if (isHistoricalPlaceholderSeason(seasonValue, seasonKey)) continue;
+
+    const seasonNumber = parseSeasonNumber(seasonKey);
+    if (seasonNumber == null || seasonNumber < LOWER_TIER_CONTRACT_START_SEASON) continue;
+
+    issues.push(...analyzeTierFiveContract(seasonKey, seasonValue.tier5));
+    issues.push(...analyzeTierSixContract(seasonKey, seasonNumber, seasonValue.tier6));
+  }
+
+  return issues;
+}
+
+function analyzeTierFiveContract(seasonKey, tierValue) {
+  /** @type {Issue[]} */
+  const issues = [];
+  if (!tierValue || typeof tierValue !== 'object' || Array.isArray(tierValue)) {
+    return [
+      createIssue({
+        type: 'missing-lower-tier-coverage',
+        season: seasonKey,
+        tier: 'tier5',
+        message: 'Expected tier5 National League System coverage for this season',
+      }),
+    ];
+  }
+
+  const rows = getTierRows(tierValue);
+  if (rows.length < LOWER_TIER_MIN_TABLE_ROWS) {
+    issues.push(
+      createIssue({
+        type: 'lower-tier-row-count-mismatch',
+        season: seasonKey,
+        tier: 'tier5',
+        message: `Expected tier5 to contain a full league table, found ${rows.length} rows`,
+      })
+    );
+  }
+
+  issues.push(...analyzeLowerTierMetadataContract(seasonKey, 'tier5', tierValue.metadata, 5));
+  return issues;
+}
+
+function analyzeTierSixContract(seasonKey, seasonNumber, tierValue) {
+  /** @type {Issue[]} */
+  const issues = [];
+  const contract = getTierSixContract(seasonNumber);
+
+  if (!tierValue || typeof tierValue !== 'object' || Array.isArray(tierValue)) {
+    return [
+      createIssue({
+        type: 'missing-lower-tier-coverage',
+        season: seasonKey,
+        tier: 'tier6',
+        message: 'Expected tier6 parallel lower-tier coverage for this season',
+      }),
+    ];
+  }
+
+  issues.push(...analyzeLowerTierMetadataContract(seasonKey, 'tier6', tierValue.metadata, 6));
+
+  const metadata = tierValue.metadata || {};
+  if (metadata.structure !== 'parallel-leagues') {
+    issues.push(
+      createIssue({
+        type: 'lower-tier-structure-mismatch',
+        season: seasonKey,
+        tier: 'tier6',
+        message: 'Expected tier6 to use metadata.structure "parallel-leagues"',
+      })
+    );
+  }
+
+  if (contract && metadata.parallelGroup !== contract.parallelGroup) {
+    issues.push(
+      createIssue({
+        type: 'lower-tier-parallel-group-mismatch',
+        season: seasonKey,
+        tier: 'tier6',
+        message: `Expected tier6 parallelGroup ${contract.parallelGroup}, found ${
+          metadata.parallelGroup || 'missing'
+        }`,
+      })
+    );
+  }
+
+  const divisions = Array.isArray(tierValue.divisions) ? tierValue.divisions : [];
+  if (!divisions.length) {
+    issues.push(
+      createIssue({
+        type: 'missing-lower-tier-divisions',
+        season: seasonKey,
+        tier: 'tier6',
+        message: 'Expected tier6.divisions[] to contain parallel league tables',
+      })
+    );
+    return issues;
+  }
+
+  if (metadata.divisionCount != null && Number(metadata.divisionCount) !== divisions.length) {
+    issues.push(
+      createIssue({
+        type: 'lower-tier-division-count-mismatch',
+        season: seasonKey,
+        tier: 'tier6',
+        message: `metadata.divisionCount (${metadata.divisionCount}) does not match divisions length (${divisions.length})`,
+      })
+    );
+  }
+
+  if (contract) {
+    const actualDivisionKeys = divisions.map((division) => division?.metadata?.divisionKey);
+    const missingDivisionKeys = contract.divisionKeys.filter(
+      (divisionKey) => !actualDivisionKeys.includes(divisionKey)
+    );
+    const unexpectedDivisionKeys = actualDivisionKeys.filter(
+      (divisionKey) => divisionKey && !contract.divisionKeys.includes(divisionKey)
+    );
+
+    if (missingDivisionKeys.length || unexpectedDivisionKeys.length) {
+      issues.push(
+        createIssue({
+          type: 'lower-tier-division-key-mismatch',
+          season: seasonKey,
+          tier: 'tier6',
+          message: `Expected tier6 divisions ${contract.divisionKeys.join(', ')}; missing ${
+            missingDivisionKeys.join(', ') || 'none'
+          }; unexpected ${unexpectedDivisionKeys.join(', ') || 'none'}`,
+        })
+      );
+    }
+  }
+
+  divisions.forEach((division, index) => {
+    const divisionKey = division?.metadata?.divisionKey || `division-${index + 1}`;
+    const tierLabel = `tier6:${divisionKey}`;
+    issues.push(...analyzeLowerTierMetadataContract(seasonKey, tierLabel, division?.metadata, 6));
+
+    const rows = getTierRows(division);
+    if (rows.length < LOWER_TIER_MIN_TABLE_ROWS) {
+      issues.push(
+        createIssue({
+          type: 'lower-tier-row-count-mismatch',
+          season: seasonKey,
+          tier: tierLabel,
+          message: `Expected ${tierLabel} to contain a full league table, found ${rows.length} rows`,
+        })
+      );
+    }
+  });
+
+  return issues;
+}
+
+function getTierSixContract(seasonNumber) {
+  return (
+    LOWER_TIER_CONTRACTS.find((contract) => {
+      if (seasonNumber < contract.startSeason) return false;
+      return contract.endSeason == null || seasonNumber <= contract.endSeason;
+    }) || null
+  );
+}
+
+function analyzeLowerTierMetadataContract(seasonKey, tierLabel, metadata, expectedLeagueLevel) {
+  /** @type {Issue[]} */
+  const issues = [];
+
+  if (!metadata || typeof metadata !== 'object' || Array.isArray(metadata)) {
+    return [
+      createIssue({
+        type: 'missing-lower-tier-metadata',
+        season: seasonKey,
+        tier: tierLabel,
+        message: 'Expected lower-tier metadata to describe source, tier key, and league level',
+      }),
+    ];
+  }
+
+  const expectedTierKey = tierLabel.startsWith('tier5') ? 'tier5' : 'tier6';
+  if (metadata.tierKey !== expectedTierKey) {
+    issues.push(
+      createIssue({
+        type: 'lower-tier-metadata-mismatch',
+        season: seasonKey,
+        tier: tierLabel,
+        message: `Expected metadata.tierKey ${expectedTierKey}, found ${
+          metadata.tierKey || 'missing'
+        }`,
+      })
+    );
+  }
+
+  if (Number(metadata.leagueLevel) !== expectedLeagueLevel) {
+    issues.push(
+      createIssue({
+        type: 'lower-tier-level-mismatch',
+        season: seasonKey,
+        tier: tierLabel,
+        message: `Expected leagueLevel ${expectedLeagueLevel}, found ${
+          metadata.leagueLevel || 'missing'
+        }`,
+      })
+    );
+  }
+
+  return issues;
 }
 
 /**

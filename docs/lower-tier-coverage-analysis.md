@@ -17,13 +17,15 @@ Current coverage by level area:
 | Tier 3       | 1920-2025, excluding WWII gap | Good coverage; 1921-1957 uses `tier3.divisions[]` for North/South |
 | Tier 4       | 1958-2025, excluding WWII gap | True level 4 starts with the 1958 Fourth Division                 |
 | Tier 5       | 1979-2025                     | Backfilled from Alliance/Conference/National League season pages  |
-| Level 6      | 2004-2025                     | Backfilled as `tier6.divisions[]` from North/South season pages   |
+| Level 6      | 1979-2025                     | Backfilled as `tier6.divisions[]` from feeder/North/South pages   |
 | True level 7 | Not really parsed             | Configured but not currently emitted as a v1 coverage target      |
 
 Important modeling rule:
 
 - `tierN` represents the actual pyramid level.
 - From 1921-1957, Third Division North and Third Division South are stored under `tier3.divisions[]`.
+- From 1979-1981, Northern Premier, Southern Midland, Southern Southern, and Isthmian Premier are stored under `tier6.divisions[]`.
+- From 1982-2003, Northern Premier, Southern Premier, and Isthmian Premier are stored under `tier6.divisions[]`.
 - From 2004-2025, Conference/National League North and South are stored under `tier6.divisions[]`.
 
 Recommended lower-tier slice order from the original coverage snapshot:
@@ -209,11 +211,13 @@ Final generated coverage:
 | Area   | Coverage  | Shape                                                                                                                   |
 | ------ | --------- | ----------------------------------------------------------------------------------------------------------------------- |
 | Tier 5 | 1979-2025 | Single `tier5.table` for Alliance Premier League, Football Conference, Conference National/Premier, and National League |
-| Tier 6 | 2004-2025 | Parallel `tier6.divisions[]` for Conference/National League North and South                                             |
+| Tier 6 | 1979-2025 | Parallel `tier6.divisions[]` for pre-2004 feeder leagues, then Conference/National League North and South               |
 
 Dry-run and checked-in output checks confirmed no gaps in either range. The
-2014-15 Conference South table has 21 rows in source output; this is treated as
-an observed source shape rather than a parser failure.
+1979-1981 Southern League split emits separate Midland and Southern divisions;
+1982-2003 emits the Southern Premier division. The 2014-15 Conference South
+table has 21 rows in source output; this is treated as an observed source shape
+rather than a parser failure.
 
 Club metadata sidecar expansion now follows the expanded `all-seasons.json`
 scope. Lower-tier membership is represented as observed stints, and
