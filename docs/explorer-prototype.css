@@ -81,7 +81,8 @@ select:focus {
 }
 
 .explorer-handoff p,
-.action-note {
+.action-note,
+.preview-note {
   max-width: 82ch;
 }
 
@@ -92,6 +93,24 @@ select:focus {
 .action-note {
   margin: 12px 0 0;
   font-size: 0.92rem;
+}
+
+.preview-note {
+  margin-bottom: 14px;
+  color: var(--muted);
+}
+
+.preview-json-heading {
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid var(--rule);
+}
+
+.preview-json-heading h3 {
+  margin: 0;
+  font-size: 0.92rem;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
 }
 
 .footer-links {

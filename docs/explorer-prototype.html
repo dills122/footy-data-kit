@@ -165,11 +165,16 @@
         </dl>
       </section>
 
-      <section class="panel" aria-labelledby="preview-heading">
+      <section class="panel selected-preview" aria-labelledby="preview-heading">
         <div class="section-heading">
-          <h2 id="preview-heading">Focused Preview</h2>
+          <h2 id="preview-heading">Selected Data Preview</h2>
           <span id="preview-count" class="muted-label">-</span>
         </div>
+        <p class="preview-note">
+          This section mirrors the current controls. The table shows every row in the selected
+          league table; the JSON block below shows the exact selected payload used by
+          <strong>Open selected in JSON Hero</strong>.
+        </p>
 
         <div class="preview-table-wrap">
           <table class="preview-table">
@@ -194,6 +199,10 @@
           </table>
         </div>
 
+        <div class="section-heading preview-json-heading">
+          <h3>Selected JSON payload</h3>
+          <span class="muted-label">sent to JSON Hero</span>
+        </div>
         <pre><code id="json-preview">{}</code></pre>
       </section>
 

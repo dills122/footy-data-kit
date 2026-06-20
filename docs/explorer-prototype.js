@@ -275,7 +275,7 @@ function renderStats() {
 }
 
 function renderTablePreview() {
-  const rows = getSelectedRows().slice(0, 12);
+  const rows = getSelectedRows();
 
   if (!rows.length) {
     elements.previewTableBody.innerHTML =
