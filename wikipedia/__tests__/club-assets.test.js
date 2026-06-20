@@ -70,6 +70,7 @@ describe('club asset helpers', () => {
 
     expect(candidate.status).toBe('restricted');
     expect(candidate.verification.reviewReasons).toContain('license-restricted');
+    expect(candidate.verification.reviewReasons).not.toContain('non-crest-filename');
   });
 
   test('ranks usable candidates before restricted and review candidates', () => {
@@ -115,6 +116,25 @@ describe('club asset helpers', () => {
       }),
     ]);
 
+    const singleCandidateIssues = buildClubAssetReviewIssues('example fc', exampleClub, {
+      status: 'restricted',
+      candidates: [
+        {
+          assetId: 'candidate',
+          kind: 'crest',
+          status: 'restricted',
+          source: 'wikipedia-pageimage-any',
+          verification: {
+            reviewReasons: ['license-restricted'],
+          },
+        },
+      ],
+    });
+
+    expect(singleCandidateIssues.map((issue) => issue.type)).toEqual([
+      'club-asset-license-restricted',
+    ]);
+
     const issues = buildClubAssetReviewIssues('example fc', exampleClub, {
       status: 'restricted',
       candidates: [
@@ -127,6 +147,15 @@ describe('club asset helpers', () => {
             reviewReasons: ['license-restricted', 'identity-uncertain', 'non-crest-filename'],
           },
         },
+        {
+          assetId: 'candidate-2',
+          kind: 'crest',
+          status: 'needs-review',
+          source: 'wikipedia-pageimage-free',
+          verification: {
+            reviewReasons: ['non-crest-filename'],
+          },
+        },
       ],
     });
 
@@ -134,6 +163,7 @@ describe('club asset helpers', () => {
       'club-asset-identity-uncertain',
       'club-asset-license-restricted',
       'club-asset-multiple-review-candidates',
+      'club-asset-non-crest-candidate',
       'club-asset-non-crest-candidate',
     ]);
   });

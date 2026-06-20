@@ -18,6 +18,12 @@ const DEFAULT_REVIEW_OUTPUT_FILE = './data/club-assets-review.json';
 const GENERATOR_ID = 'club-assets';
 const REVIEW_GENERATOR_ID = 'club-assets-review';
 
+function sleep(ms) {
+  return new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
+}
+
 function readJson(filePath) {
   return JSON.parse(fs.readFileSync(filePath, 'utf8'));
 }
@@ -30,6 +36,28 @@ function writeJson(filePath, value, spacing) {
 function unwrapClubMetadata(value) {
   if (value?.clubs && typeof value.clubs === 'object') return value.clubs;
   return value;
+}
+
+function readAssetCache(cachePath) {
+  if (!cachePath || !fs.existsSync(cachePath)) return {};
+  const cache = readJson(cachePath);
+  return cache?.clubs && typeof cache.clubs === 'object' ? cache.clubs : {};
+}
+
+function writeAssetCache(cachePath, clubs, spacing) {
+  if (!cachePath) return;
+  writeJson(
+    cachePath,
+    {
+      metadata: buildDatasetMetadata({
+        generator: `${GENERATOR_ID}-cache`,
+        sourceFiles: [],
+        buildOptions: {},
+      }),
+      clubs,
+    },
+    spacing
+  );
 }
 
 function buildReviewReport(clubs, { sourceFiles, input, output }) {
@@ -66,19 +94,26 @@ export async function generateClubAssets({
   compact = false,
   limit = 5,
   clubLimit = null,
+  cache = null,
+  refreshAssets = false,
+  requestDelayMs = 100,
   cwd = ROOT_DIR,
 } = {}) {
   const inputPath = path.resolve(cwd, input);
   const outputPath = path.resolve(cwd, output);
   const reviewOutputPath = reviewOutput ? path.resolve(cwd, reviewOutput) : null;
+  const cachePath = cache ? path.resolve(cwd, cache) : null;
   const inputData = readJson(inputPath);
   const sourceClubs = normaliseClubsMap(unwrapClubMetadata(inputData)) || {};
   const entries = Object.entries(sourceClubs);
   const selectedEntries = Number.isInteger(clubLimit) ? entries.slice(0, clubLimit) : entries;
   const enrichedClubs = { ...sourceClubs };
+  const cachedAssets = readAssetCache(cachePath);
 
-  for (const [clubKey, club] of selectedEntries) {
-    const crest = await discoverClubCrestBundle(club, { limit });
+  for (const [index, [clubKey, club]] of selectedEntries.entries()) {
+    const cachedCrest = cachedAssets[clubKey]?.crest;
+    const crest =
+      cachedCrest && !refreshAssets ? cachedCrest : await discoverClubCrestBundle(club, { limit });
     enrichedClubs[clubKey] = {
       ...club,
       assets: {
@@ -86,6 +121,14 @@ export async function generateClubAssets({
         crest,
       },
     };
+    cachedAssets[clubKey] = {
+      ...(cachedAssets[clubKey] || {}),
+      crest,
+    };
+    writeAssetCache(cachePath, cachedAssets, compact ? 0 : 2);
+    if (requestDelayMs > 0 && index < selectedEntries.length - 1) {
+      await sleep(requestDelayMs);
+    }
   }
 
   const spacing = compact ? 0 : 2;
@@ -93,7 +136,7 @@ export async function generateClubAssets({
     metadata: buildDatasetMetadata({
       generator: GENERATOR_ID,
       sourceFiles: [inputPath],
-      buildOptions: { input, limit, clubLimit },
+      buildOptions: { input, limit, clubLimit, cache, refreshAssets, requestDelayMs },
     }),
     clubs: enrichedClubs,
   };
@@ -138,6 +181,14 @@ export async function runCli(argv = process.argv) {
       (value) => Number.parseInt(value, 10),
       null
     )
+    .option('--cache <file>', 'Path to a resumable asset discovery cache')
+    .option('--refresh-assets', 'Ignore cached asset bundles and refresh source lookups', false)
+    .option(
+      '--request-delay-ms <count>',
+      'Delay between club lookups to avoid source rate limits',
+      (value) => Number.parseInt(value, 10),
+      100
+    )
     .option('--compact', 'Write compact JSON', false);
 
   program.parse(argv);
@@ -148,6 +199,9 @@ export async function runCli(argv = process.argv) {
     reviewOutput: options.reviewOutput,
     limit: options.limit,
     clubLimit: Number.isInteger(options.clubLimit) ? options.clubLimit : null,
+    cache: options.cache || null,
+    refreshAssets: options.refreshAssets,
+    requestDelayMs: Number.isInteger(options.requestDelayMs) ? options.requestDelayMs : 100,
     compact: options.compact,
   });
 

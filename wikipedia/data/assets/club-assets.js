@@ -27,6 +27,12 @@ const RESTRICTED_LICENSE_TOKENS = Object.freeze([
   'logo rationale',
 ]);
 
+function sleep(ms) {
+  return new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
+}
+
 function compactObject(value) {
   return Object.fromEntries(
     Object.entries(value).filter(([, entry]) => {
@@ -80,9 +86,25 @@ function fileNameFromTitle(fileTitle) {
     .replace(/[_-]+/g, ' ');
 }
 
+function normalizedFileTitleKey(fileTitle) {
+  const title = String(fileTitle || '').startsWith('File:')
+    ? String(fileTitle || '')
+    : `File:${fileTitle || ''}`;
+  return title.replace(/_/g, ' ').trim().toLowerCase();
+}
+
 function hasCrestFileToken(fileTitle) {
   const normalized = normalizeTokenText(fileNameFromTitle(fileTitle));
   return CREST_FILE_TOKENS.some((token) => normalized.includes(token));
+}
+
+function normalizedCompactText(value) {
+  return normalizeTokenText(value).replace(/\s+/g, '');
+}
+
+function fileExtension(fileTitle) {
+  const match = String(fileTitle || '').match(/\.([a-z0-9]+)$/i);
+  return match ? match[1].toLowerCase() : '';
 }
 
 function buildAssetId(source, fileTitle, fallbackUrl) {
@@ -121,6 +143,14 @@ export function classifyAssetIdentity(candidate, club) {
   const clubTokens = significantTokens(club?.canonicalName || club?.clubId || '');
   const aliasTokens = (club?.derived?.aliases || []).flatMap(significantTokens);
   const expectedTokens = new Set([...clubTokens, ...aliasTokens]);
+  const compactFile = normalizedCompactText(candidate.fileTitle || candidate.imageUrl || '');
+  const compactNames = [club?.canonicalName, club?.clubId, ...(club?.derived?.aliases || [])]
+    .map(normalizedCompactText)
+    .filter(Boolean);
+
+  if (compactNames.some((name) => name.length > 2 && compactFile.includes(name))) {
+    return hasCrestFileToken(candidate.fileTitle) ? 'strong' : 'possible';
+  }
 
   if (!fileTokens.length || !expectedTokens.size) return 'weak';
 
@@ -128,20 +158,32 @@ export function classifyAssetIdentity(candidate, club) {
   if (matches.length >= Math.min(2, clubTokens.length || 2) && hasCrestFileToken(candidate.fileTitle)) {
     return 'strong';
   }
+  if (matches.length >= Math.min(2, clubTokens.length || 2)) return 'possible';
   if (matches.length > 0 && hasCrestFileToken(candidate.fileTitle)) return 'possible';
   if (matches.length > 0) return 'weak';
   return 'none';
 }
 
+function isLikelyCrestCandidate(candidate, identityMatch) {
+  if (hasCrestFileToken(candidate.fileTitle)) return true;
+  const extension = fileExtension(candidate.fileTitle || candidate.imageUrl);
+  return (
+    candidate.source === CLUB_ASSET_SOURCE_IDS.wikipediaPageImageAny &&
+    ['possible', 'strong'].includes(identityMatch) &&
+    ['svg', 'png'].includes(extension)
+  );
+}
+
 export function classifyClubAssetCandidate(candidate, club, { checkedAt = null } = {}) {
   const licenseCheck = classifyAssetLicense(candidate.license || {});
   const identityMatch = classifyAssetIdentity(candidate, club);
+  const likelyCrestCandidate = isLikelyCrestCandidate(candidate, identityMatch);
   const reviewReasons = [];
 
   if (licenseCheck === 'restricted') reviewReasons.push('license-restricted');
   if (licenseCheck === 'unknown') reviewReasons.push('license-unknown');
   if (!['strong', 'possible'].includes(identityMatch)) reviewReasons.push('identity-uncertain');
-  if (!hasCrestFileToken(candidate.fileTitle)) reviewReasons.push('non-crest-filename');
+  if (!likelyCrestCandidate) reviewReasons.push('non-crest-filename');
   if (!candidate.imageUrl) reviewReasons.push('image-url-missing');
 
   let status = 'needs-review';
@@ -280,7 +322,11 @@ export function buildClubAssetReviewIssues(clubKey, club, bundle) {
     }
   }
 
-  if (!bundle?.preferred && candidates.some((candidate) => candidate.status !== 'failed')) {
+  if (
+    !bundle?.preferred &&
+    candidates.length > 1 &&
+    candidates.some((candidate) => candidate.status !== 'failed')
+  ) {
     issues.push({
       type: 'club-asset-multiple-review-candidates',
       ...baseIssue,
@@ -292,28 +338,42 @@ export function buildClubAssetReviewIssues(clubKey, club, bundle) {
   return issues;
 }
 
-async function fetchJson(url) {
-  return new Promise((resolve, reject) => {
-    https
-      .get(url, { headers: { 'user-agent': USER_AGENT } }, (response) => {
-        let body = '';
-        response.on('data', (chunk) => {
-          body += chunk;
-        });
-        response.on('end', () => {
-          if ((response.statusCode || 0) < 200 || (response.statusCode || 0) >= 300) {
-            reject(new Error(`Request failed ${response.statusCode}: ${body.slice(0, 200)}`));
-            return;
-          }
-          try {
-            resolve(JSON.parse(body));
-          } catch (error) {
-            reject(error);
-          }
-        });
-      })
-      .on('error', reject);
-  });
+async function fetchJson(url, { retries = 2, retryDelayMs = 1000 } = {}) {
+  for (let attempt = 0; attempt <= retries; attempt += 1) {
+    try {
+      return await new Promise((resolve, reject) => {
+        https
+          .get(url, { headers: { 'user-agent': USER_AGENT } }, (response) => {
+            let body = '';
+            response.on('data', (chunk) => {
+              body += chunk;
+            });
+            response.on('end', () => {
+              if ((response.statusCode || 0) < 200 || (response.statusCode || 0) >= 300) {
+                const error = new Error(
+                  `Request failed ${response.statusCode}: ${body.slice(0, 200)}`
+                );
+                error.statusCode = response.statusCode;
+                reject(error);
+                return;
+              }
+              try {
+                resolve(JSON.parse(body));
+              } catch (error) {
+                reject(error);
+              }
+            });
+          })
+          .on('error', reject);
+      });
+    } catch (error) {
+      const retryableStatus = [429, 500, 502, 503, 504].includes(Number(error.statusCode));
+      if (attempt >= retries || !retryableStatus) throw error;
+      await sleep(retryDelayMs * (attempt + 1));
+    }
+  }
+
+  throw new Error('Unreachable fetch retry state');
 }
 
 function wikipediaArticleTitle(club) {
@@ -426,13 +486,10 @@ async function enrichCandidatesWithImageInfo(candidates) {
   if (!fileTitles.length) return candidates;
   const response = await fetchJson(imageInfoApiUrl(fileTitles));
   const pages = Object.values(response?.query?.pages || {});
-  const byTitle = new Map(pages.map((page) => [String(page.title || ''), page]));
+  const byTitle = new Map(pages.map((page) => [normalizedFileTitleKey(page.title), page]));
 
   return candidates.map((candidate) => {
-    const title = candidate.fileTitle?.startsWith('File:')
-      ? candidate.fileTitle
-      : `File:${candidate.fileTitle}`;
-    return mergeImageInfo(candidate, byTitle.get(title));
+    return mergeImageInfo(candidate, byTitle.get(normalizedFileTitleKey(candidate.fileTitle)));
   });
 }
 
@@ -492,7 +549,12 @@ export async function discoverClubCrestBundle(club, options = {}) {
     }
   }
 
-  const enrichedCandidates = await enrichCandidatesWithImageInfo(rawCandidates);
+  let enrichedCandidates = rawCandidates;
+  try {
+    enrichedCandidates = await enrichCandidatesWithImageInfo(rawCandidates);
+  } catch (error) {
+    if (options.throwOnSourceError) throw error;
+  }
   const classifiedCandidates = enrichedCandidates.map((candidate) =>
     classifyClubAssetCandidate(candidate, club, { checkedAt })
   );
