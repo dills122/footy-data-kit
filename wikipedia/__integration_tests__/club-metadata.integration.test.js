@@ -119,14 +119,11 @@ describe('Club metadata integration', () => {
   test('generated review artifact tracks unresolved lower-tier clubs and historical audit stays clean', () => {
     expect(clubMetadataReview.issueCount).toBe(clubMetadataReview.issues.length);
     expect(clubMetadataReview.issueCounts).toEqual({
-      'below-tracked-coverage-review': 2,
-      'manual-status-review': 100,
+      'manual-status-review': 89,
     });
-    expect(
-      clubMetadataReview.issues.every((issue) =>
-        ['below-tracked-coverage-review', 'manual-status-review'].includes(issue.type)
-      )
-    ).toBe(true);
+    expect(clubMetadataReview.issues.every((issue) => issue.type === 'manual-status-review')).toBe(
+      true
+    );
     expect(clubHistoricalAudit.issueCount).toBe(0);
     expect(clubHistoricalAudit.issues).toEqual([]);
   });

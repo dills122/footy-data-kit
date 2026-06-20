@@ -1,5 +1,19 @@
 export const CLUB_IDENTITY_RULES = Object.freeze([
   Object.freeze({
+    clubKey: 'addlestone and weybridge town',
+    canonicalName: 'Addlestone & Weybridge Town',
+    aliases: Object.freeze(['Addlestone', 'Addlestone & Weybridge', 'Addlestone & Weybridge Town']),
+    relationship: 'rename',
+    sourceRefs: Object.freeze([
+      Object.freeze({
+        type: 'wikipedia-club-page',
+        sourceUrl: 'https://en.wikipedia.org/wiki/Addlestone_%26_Weybridge_Town_F.C.',
+        notes:
+          'Club history records Addlestone adopting the Addlestone & Weybridge Town name in 1980.',
+      }),
+    ]),
+  }),
+  Object.freeze({
     clubKey: 'afc bournemouth',
     canonicalName: 'AFC Bournemouth',
     aliases: Object.freeze(['AFC Bournemouth', 'Bournemouth', 'Bournemouth & Boscombe Athletic']),
@@ -26,6 +40,34 @@ export const CLUB_IDENTITY_RULES = Object.freeze([
     ]),
   }),
   Object.freeze({
+    clubKey: 'ashford united',
+    canonicalName: 'Ashford United',
+    aliases: Object.freeze(['Ashford Town (Kent)', 'Ashford United']),
+    relationship: 'phoenix',
+    sourceRefs: Object.freeze([
+      Object.freeze({
+        type: 'wikipedia-club-page',
+        sourceUrl: 'https://en.wikipedia.org/wiki/Ashford_United_F.C.',
+        notes:
+          'Club history records Ashford Town through 2010 and Ashford United as a 2011 phoenix club.',
+      }),
+    ]),
+  }),
+  Object.freeze({
+    clubKey: 'atherstone town',
+    canonicalName: 'Atherstone Town',
+    aliases: Object.freeze(['Atherstone United', 'Atherstone Town', 'Atherstone Town Community']),
+    relationship: 'phoenix',
+    sourceRefs: Object.freeze([
+      Object.freeze({
+        type: 'wikipedia-club-page',
+        sourceUrl: 'https://en.wikipedia.org/wiki/Atherstone_Town_F.C.',
+        notes:
+          'Club history records Atherstone United folding in 2003-04 and reforming as Atherstone Town.',
+      }),
+    ]),
+  }),
+  Object.freeze({
     clubKey: 'birmingham city',
     canonicalName: 'Birmingham City',
     aliases: Object.freeze(['Birmingham City', 'Birmingham', 'Small Heath', 'Small Heath Alliance']),
@@ -34,6 +76,19 @@ export const CLUB_IDENTITY_RULES = Object.freeze([
       Object.freeze({
         type: 'wikipedia-club-page',
         sourceUrl: 'https://en.wikipedia.org/wiki/Birmingham_City_F.C.',
+      }),
+    ]),
+  }),
+  Object.freeze({
+    clubKey: 'grantham town',
+    canonicalName: 'Grantham Town',
+    aliases: Object.freeze(['Grantham', 'Grantham Town']),
+    relationship: 'rename',
+    sourceRefs: Object.freeze([
+      Object.freeze({
+        type: 'wikipedia-club-page',
+        sourceUrl: 'https://en.wikipedia.org/wiki/Grantham_Town_F.C.',
+        notes: 'Club history records Grantham being renamed Grantham Town in 1987.',
       }),
     ]),
   }),
@@ -523,6 +578,54 @@ const CLUB_SOURCE_REFS = Object.freeze({
       'Used for Aldershot Town foundation after Aldershot folded.'
     ),
   ]),
+  addlestoneAndWeybridgeTown: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Addlestone_%26_Weybridge_Town_F.C.',
+      'Used for Addlestone rename and 1985 dissolution context.'
+    ),
+  ]),
+  alvechurch: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Alvechurch_F.C.',
+      'Used for Alvechurch fold/re-establishment/name-return and current lower-division status context.'
+    ),
+  ]),
+  andover: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Andover_F.C.',
+      'Used for Andover 2011 dissolution and Andover Lions successor context.'
+    ),
+  ]),
+  ashfordUnited: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Ashford_United_F.C.',
+      'Used for Ashford Town predecessor and Ashford United phoenix club context.'
+    ),
+  ]),
+  atherstoneTown: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Atherstone_Town_F.C.',
+      'Used for Atherstone United fold/reformation and current lower-division status context.'
+    ),
+  ]),
+  baldockTown: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Baldock_Town_F.C.',
+      'Used for Baldock Town original club folding, reformation, and current lower-division status context.'
+    ),
+  ]),
+  bamberBridge: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Bamber_Bridge_F.C.',
+      'Used for current lower-division status and below tracked coverage context.'
+    ),
+  ]),
+  barking: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Barking_F.C.',
+      'Used for Barking merger, re-establishment, and current lower-division status context.'
+    ),
+  ]),
   chesterCity: Object.freeze([
     wikipediaClubSource(
       'https://en.wikipedia.org/wiki/Chester_City_F.C.',
@@ -533,6 +636,12 @@ const CLUB_SOURCE_REFS = Object.freeze({
     wikipediaClubSource(
       'https://en.wikipedia.org/wiki/Chester_F.C.',
       'Used for Chester reformation after Chester City liquidation.'
+    ),
+  ]),
+  granthamTown: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Grantham_Town_F.C.',
+      'Used for Grantham rename and current lower-division status context.'
     ),
   ]),
   newportCounty: Object.freeze([
@@ -644,6 +753,12 @@ const CLUB_SOURCE_REFS = Object.freeze({
     wikipediaClubSource(
       'https://en.wikipedia.org/wiki/Salisbury_City_F.C.',
       'Used for Salisbury City dissolution context.'
+    ),
+  ]),
+  southLiverpool: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/South_Liverpool_F.C.',
+      'Used for South Liverpool fold/re-establishment and current lower-division status context.'
     ),
   ]),
   northFerribyUnited: Object.freeze([
@@ -2164,6 +2279,229 @@ export const CLUB_LIFECYCLE_RULES = Object.freeze([
         date: '2025-12-18',
         label: 'Dissolved in December 2025.',
         sourceRefs: CLUB_SOURCE_REFS.farsleyCeltic,
+      }),
+    ]),
+  }),
+  Object.freeze({
+    clubKey: 'addlestone and weybridge town',
+    status: Object.freeze({
+      current: 'defunct',
+      reason: 'dissolved',
+      reasonLabel: 'Founded as Addlestone, renamed in 1980, and dissolved in 1985.',
+      sourceRefs: CLUB_SOURCE_REFS.addlestoneAndWeybridgeTown,
+    }),
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'renamed',
+        season: 1980,
+        label: 'Adopted the Addlestone & Weybridge Town name in 1980.',
+        sourceRefs: CLUB_SOURCE_REFS.addlestoneAndWeybridgeTown,
+      }),
+      lifecycleEvent({
+        type: 'dissolved',
+        season: 1984,
+        date: '1985-04-27',
+        label: 'Ceased after the 1984-85 season, playing its last match in April 1985.',
+        sourceRefs: CLUB_SOURCE_REFS.addlestoneAndWeybridgeTown,
+      }),
+    ]),
+  }),
+  Object.freeze({
+    clubKey: 'alvechurch',
+    status: Object.freeze({
+      current: 'active',
+      reason: 'successor-active',
+      reasonLabel:
+        'Folded in 1993, re-established as Alvechurch Villa in 1994, and returned to the Alvechurch name in 1996.',
+      sourceRefs: CLUB_SOURCE_REFS.alvechurch,
+    }),
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'folded',
+        season: 1993,
+        label: 'Folded in 1993.',
+        sourceRefs: CLUB_SOURCE_REFS.alvechurch,
+      }),
+      lifecycleEvent({
+        type: 'reformed',
+        season: 1994,
+        label: 'Re-established as Alvechurch Villa in 1994.',
+        sourceRefs: CLUB_SOURCE_REFS.alvechurch,
+      }),
+      lifecycleEvent({
+        type: 'renamed',
+        season: 1996,
+        label: 'Returned to the Alvechurch name in 1996.',
+        sourceRefs: CLUB_SOURCE_REFS.alvechurch,
+      }),
+    ]),
+  }),
+  Object.freeze({
+    clubKey: 'andover',
+    status: Object.freeze({
+      current: 'defunct',
+      reason: 'dissolved',
+      reasonLabel: 'Wound up and resigned from the Southern League in July 2011.',
+      sourceRefs: CLUB_SOURCE_REFS.andover,
+    }),
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'dissolved',
+        season: 2011,
+        label: 'Formally wound up and resigned from the Southern League in July 2011.',
+        sourceRefs: CLUB_SOURCE_REFS.andover,
+      }),
+      lifecycleEvent({
+        type: 'phoenixFormed',
+        season: 2011,
+        label: 'Andover Lions was formed after Andover folded.',
+        sourceRefs: CLUB_SOURCE_REFS.andover,
+      }),
+    ]),
+  }),
+  Object.freeze({
+    clubKey: 'ashford united',
+    status: Object.freeze({
+      current: 'active',
+      reason: 'phoenix-club-active',
+      reasonLabel:
+        'Ashford United was formed in 2011 as a phoenix club after Ashford Town entered financial ruin.',
+      sourceRefs: CLUB_SOURCE_REFS.ashfordUnited,
+    }),
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'folded',
+        season: 2010,
+        label: 'Ashford Town ended after financial ruin.',
+        sourceRefs: CLUB_SOURCE_REFS.ashfordUnited,
+      }),
+      lifecycleEvent({
+        type: 'phoenixFormed',
+        season: 2011,
+        label: 'Ashford United was formed as a phoenix club.',
+        sourceRefs: CLUB_SOURCE_REFS.ashfordUnited,
+      }),
+    ]),
+  }),
+  Object.freeze({
+    clubKey: 'atherstone town',
+    status: Object.freeze({
+      current: 'active',
+      reason: 'successor-active',
+      reasonLabel:
+        'Atherstone United folded during the 2003-04 season and was reformed as Atherstone Town.',
+      sourceRefs: CLUB_SOURCE_REFS.atherstoneTown,
+    }),
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'folded',
+        season: 2003,
+        label: 'Atherstone United folded midway through the 2003-04 season.',
+        sourceRefs: CLUB_SOURCE_REFS.atherstoneTown,
+      }),
+      lifecycleEvent({
+        type: 'reformed',
+        season: 2004,
+        label: 'The club was reformed under the Atherstone Town name.',
+        sourceRefs: CLUB_SOURCE_REFS.atherstoneTown,
+      }),
+    ]),
+  }),
+  Object.freeze({
+    clubKey: 'baldock town',
+    status: Object.freeze({
+      current: 'active',
+      reason: 'successor-active',
+      reasonLabel:
+        'The original club folded in 2001 and the current Baldock Town was established in 2003.',
+      sourceRefs: CLUB_SOURCE_REFS.baldockTown,
+    }),
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'folded',
+        season: 2001,
+        label: 'The original Baldock Town left the league and folded after the 2000-01 season.',
+        sourceRefs: CLUB_SOURCE_REFS.baldockTown,
+      }),
+      lifecycleEvent({
+        type: 'reformed',
+        season: 2003,
+        label: 'The current club was established in 2003.',
+        sourceRefs: CLUB_SOURCE_REFS.baldockTown,
+      }),
+    ]),
+  }),
+  statusOnlyRule({
+    clubKey: 'bamber bridge',
+    current: 'active',
+    reason: 'not-in-tracked-leagues',
+    reasonLabel:
+      'Wikipedia lists the club in the Northern Premier League Premier Division, below current tracked coverage.',
+    sourceRefs: CLUB_SOURCE_REFS.bamberBridge,
+  }),
+  Object.freeze({
+    clubKey: 'barking',
+    status: Object.freeze({
+      current: 'active',
+      reason: 'successor-active',
+      reasonLabel:
+        'Merged into Barking & East Ham United in 2001, then Barking was re-established in 2006.',
+      sourceRefs: CLUB_SOURCE_REFS.barking,
+    }),
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'merged',
+        season: 2001,
+        label: 'Merged with East Ham United to form Barking & East Ham United.',
+        sourceRefs: CLUB_SOURCE_REFS.barking,
+      }),
+      lifecycleEvent({
+        type: 'reformed',
+        season: 2006,
+        label: 'Barking was re-established after Barking & East Ham United folded.',
+        sourceRefs: CLUB_SOURCE_REFS.barking,
+      }),
+    ]),
+  }),
+  Object.freeze({
+    clubKey: 'grantham town',
+    status: Object.freeze({
+      current: 'active',
+      reason: 'not-in-tracked-leagues',
+      reasonLabel:
+        'Renamed from Grantham in 1987 and currently active below current tracked coverage.',
+      sourceRefs: CLUB_SOURCE_REFS.granthamTown,
+    }),
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'renamed',
+        season: 1987,
+        label: 'Renamed from Grantham to Grantham Town in 1987.',
+        sourceRefs: CLUB_SOURCE_REFS.granthamTown,
+      }),
+    ]),
+  }),
+  Object.freeze({
+    clubKey: 'south liverpool',
+    status: Object.freeze({
+      current: 'active',
+      reason: 'phoenix-club-active',
+      reasonLabel:
+        'The limited company folded after the 1990-91 season and South Liverpool later continued under its own name.',
+      sourceRefs: CLUB_SOURCE_REFS.southLiverpool,
+    }),
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'folded',
+        season: 1990,
+        label: 'The limited company folded after the 1990-91 season.',
+        sourceRefs: CLUB_SOURCE_REFS.southLiverpool,
+      }),
+      lifecycleEvent({
+        type: 'reformed',
+        season: 1991,
+        label: 'A committee took over the South Liverpool name after the limited company folded.',
+        sourceRefs: CLUB_SOURCE_REFS.southLiverpool,
       }),
     ]),
   }),
