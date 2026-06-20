@@ -40,6 +40,10 @@ function unwrapClubMetadata(value) {
   return value;
 }
 
+function buildSourceFiles(inputData, inputPath) {
+  return Array.from(new Set([...(inputData?.metadata?.sourceFiles || []), inputPath]));
+}
+
 function readAssetCache(cachePath) {
   if (!cachePath || !fs.existsSync(cachePath)) return {};
   const cache = readJson(cachePath);
@@ -149,8 +153,16 @@ export async function generateClubAssets({
   const outputData = {
     metadata: buildDatasetMetadata({
       generator: GENERATOR_ID,
-      sourceFiles: [inputPath],
-      buildOptions: { input, limit, clubLimit, cache, refreshAssets, requestDelayMs },
+      sourceFiles: buildSourceFiles(inputData, inputPath),
+      buildOptions: {
+        input,
+        limit,
+        clubLimit,
+        cache: Boolean(cache),
+        refreshAssets,
+        requestDelayMs,
+        inputGenerator: inputData?.metadata?.generator || null,
+      },
     }),
     clubs: enrichedClubs,
   };
