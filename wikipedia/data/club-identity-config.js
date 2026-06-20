@@ -720,6 +720,84 @@ const CLUB_SOURCE_REFS = Object.freeze({
       'Used for current lower-division status and below tracked coverage context.'
     ),
   ]),
+  carshaltonAthletic: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Carshalton_Athletic_F.C.',
+      'Used for current lower-division status and tracked coverage context.'
+    ),
+  ]),
+  colwynBay: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Colwyn_Bay_F.C.',
+      'Used for current Welsh pyramid status and outside tracked English coverage context.'
+    ),
+  ]),
+  corbyTown: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Corby_Town_F.C.',
+      'Used for current lower-division status and below tracked coverage context.'
+    ),
+  ]),
+  dagenham: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Dagenham_F.C.',
+      'Used for Dagenham merger into Dagenham & Redbridge.'
+    ),
+  ]),
+  dorchesterTown: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Dorchester_Town_F.C.',
+      'Used for current lower-division status and below tracked coverage context.'
+    ),
+  ]),
+  droylsden: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Droylsden_F.C.',
+      'Used for pandemic withdrawal, return to the pyramid, and current lower-division status context.'
+    ),
+  ]),
+  eastThurrockUnited: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/East_Thurrock_United_F.C.',
+      'Used for East Thurrock United liquidation and phoenix club context.'
+    ),
+  ]),
+  eastThurrockCommunity: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/East_Thurrock_United_F.C.',
+      'Used for East Thurrock Community phoenix club context.'
+    ),
+  ]),
+  eastwoodTown: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Eastwood_Town_F.C.',
+      'Used for Eastwood Town resignation, dissolution, and successor club context.'
+    ),
+  ]),
+  eastwoodCfc: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Eastwood_C.F.C.',
+      'Used for Eastwood Community formation after Eastwood Town folded.'
+    ),
+  ]),
+  enfield: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Enfield_F.C.',
+      'Used for Enfield liquidation, reformation as Enfield 1893, and current lower-division status context.'
+    ),
+  ]),
+  enfieldTown: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Enfield_Town_F.C.',
+      'Used for supporter breakaway from Enfield context.'
+    ),
+  ]),
+  fcUnitedOfManchester: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/F.C._United_of_Manchester',
+      'Used for current lower-division status and tracked coverage context.'
+    ),
+  ]),
   gainsboroughTrinity: Object.freeze([
     wikipediaClubSource(
       'https://en.wikipedia.org/wiki/Gainsborough_Trinity_F.C.',
@@ -2060,6 +2138,187 @@ export const CLUB_LIFECYCLE_RULES = Object.freeze([
     sourceRefs: CLUB_SOURCE_REFS.cambridgeCity,
   }),
   statusOnlyRule({
+    clubKey: 'carshalton athletic',
+    current: 'active',
+    reason: 'possibly-missing-from-current-data',
+    reasonLabel:
+      'Wikipedia lists the club in the Isthmian League Premier Division, a level 7 league inside tracked but sparse coverage.',
+    sourceRefs: CLUB_SOURCE_REFS.carshaltonAthletic,
+  }),
+  statusOnlyRule({
+    clubKey: 'colwyn bay',
+    current: 'active',
+    reason: 'not-in-tracked-leagues',
+    reasonLabel:
+      'Wikipedia lists the club in the Cymru Premier, outside current tracked English league coverage.',
+    sourceRefs: CLUB_SOURCE_REFS.colwynBay,
+  }),
+  statusOnlyRule({
+    clubKey: 'corby town',
+    current: 'active',
+    reason: 'not-in-tracked-leagues',
+    reasonLabel:
+      'Wikipedia lists the club in the Northern Premier League Division One Midlands, below current tracked coverage.',
+    sourceRefs: CLUB_SOURCE_REFS.corbyTown,
+  }),
+  Object.freeze({
+    clubKey: 'dagenham',
+    status: Object.freeze({
+      current: 'merged',
+      reason: 'merged',
+      reasonLabel: 'Merged with Redbridge Forest in 1992 to form Dagenham & Redbridge.',
+      sourceRefs: CLUB_SOURCE_REFS.dagenham,
+    }),
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'merged',
+        season: 1992,
+        label: 'Merged with Redbridge Forest to form Dagenham & Redbridge.',
+        sourceRefs: CLUB_SOURCE_REFS.dagenham,
+      }),
+    ]),
+  }),
+  statusOnlyRule({
+    clubKey: 'dorchester town',
+    current: 'active',
+    reason: 'not-in-tracked-leagues',
+    reasonLabel:
+      'Wikipedia records relegation to Southern League Division One South after 2025-26, below current tracked coverage.',
+    sourceRefs: CLUB_SOURCE_REFS.dorchesterTown,
+  }),
+  Object.freeze({
+    clubKey: 'droylsden',
+    status: Object.freeze({
+      current: 'active',
+      reason: 'not-in-tracked-leagues',
+      reasonLabel:
+        'Wikipedia records Droylsden returning to the pyramid and reaching the North West Counties League Premier Division, below current tracked coverage.',
+      sourceRefs: CLUB_SOURCE_REFS.droylsden,
+    }),
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'withdrew',
+        season: 2020,
+        date: '2020-08-06',
+        label: 'Withdrew from the Northern Premier League citing the impact of the COVID-19 pandemic.',
+        sourceRefs: CLUB_SOURCE_REFS.droylsden,
+      }),
+      lifecycleEvent({
+        type: 'inactive',
+        season: 2021,
+        date: '2021-05-26',
+        label: 'Announced it would not field a team for the 2021-22 season.',
+        sourceRefs: CLUB_SOURCE_REFS.droylsden,
+      }),
+      lifecycleEvent({
+        type: 'reactivated',
+        season: 2023,
+        label: 'Returned to the football pyramid for the 2023-24 season.',
+        sourceRefs: CLUB_SOURCE_REFS.droylsden,
+      }),
+    ]),
+  }),
+  Object.freeze({
+    clubKey: 'east thurrock united',
+    status: Object.freeze({
+      current: 'defunct',
+      reason: 'liquidated',
+      reasonLabel:
+        'Placed into liquidation on 1 September 2023; East Thurrock Community was formed as a phoenix club.',
+      sourceRefs: CLUB_SOURCE_REFS.eastThurrockUnited,
+    }),
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'liquidated',
+        season: 2023,
+        date: '2023-09-01',
+        label: 'Placed into liquidation because of historic debts.',
+        sourceRefs: CLUB_SOURCE_REFS.eastThurrockUnited,
+      }),
+      lifecycleEvent({
+        type: 'phoenixFormed',
+        season: 2023,
+        label: 'East Thurrock Community was formed as a phoenix club.',
+        sourceRefs: CLUB_SOURCE_REFS.eastThurrockCommunity,
+      }),
+    ]),
+  }),
+  Object.freeze({
+    clubKey: 'eastwood town',
+    status: Object.freeze({
+      current: 'defunct',
+      reason: 'dissolved',
+      reasonLabel:
+        'Resigned from the Northern Premier League in February 2014 after financial and ground problems; Eastwood C.F.C. was formed after the club folded.',
+      sourceRefs: CLUB_SOURCE_REFS.eastwoodTown,
+    }),
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'resigned',
+        season: 2013,
+        date: '2014-02-24',
+        label: 'Resigned from the Northern Premier League after postponing five consecutive home games.',
+        sourceRefs: CLUB_SOURCE_REFS.eastwoodTown,
+      }),
+      lifecycleEvent({
+        type: 'dissolved',
+        season: 2014,
+        label: 'Folded after financial and ground problems.',
+        sourceRefs: CLUB_SOURCE_REFS.eastwoodTown,
+      }),
+      lifecycleEvent({
+        type: 'successorFormed',
+        season: 2014,
+        label: 'Eastwood C.F.C. was formed following the demise of Eastwood Town.',
+        sourceRefs: CLUB_SOURCE_REFS.eastwoodCfc,
+      }),
+    ]),
+  }),
+  Object.freeze({
+    clubKey: 'enfield',
+    status: Object.freeze({
+      current: 'active',
+      reason: 'not-in-tracked-leagues',
+      reasonLabel:
+        'The original club liquidated in 2007 and reformed as Enfield 1893, later dropping the suffix; the current club plays below tracked coverage.',
+      sourceRefs: CLUB_SOURCE_REFS.enfield,
+    }),
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'supporterPhoenixFormed',
+        season: 2001,
+        label: 'Enfield Town was founded by Enfield Supporters Trust members as a fan-led breakaway.',
+        sourceRefs: CLUB_SOURCE_REFS.enfieldTown,
+      }),
+      lifecycleEvent({
+        type: 'liquidated',
+        season: 2007,
+        label: 'Liquidated due to debts owed to HMRC.',
+        sourceRefs: CLUB_SOURCE_REFS.enfield,
+      }),
+      lifecycleEvent({
+        type: 'reformed',
+        season: 2007,
+        label: 'Reformed as Enfield 1893 after the liquidation.',
+        sourceRefs: CLUB_SOURCE_REFS.enfield,
+      }),
+      lifecycleEvent({
+        type: 'renamed',
+        season: 2019,
+        label: 'Dropped the 1893 suffix and reverted to the Enfield name.',
+        sourceRefs: CLUB_SOURCE_REFS.enfield,
+      }),
+    ]),
+  }),
+  statusOnlyRule({
+    clubKey: 'fc united of manchester',
+    current: 'active',
+    reason: 'possibly-missing-from-current-data',
+    reasonLabel:
+      'Wikipedia lists the club in the Northern Premier League Premier Division, a level 7 league inside tracked but sparse coverage.',
+    sourceRefs: CLUB_SOURCE_REFS.fcUnitedOfManchester,
+  }),
+  statusOnlyRule({
     clubKey: 'gainsborough trinity',
     current: 'active',
     reason: 'possibly-missing-from-current-data',
@@ -2779,6 +3038,41 @@ export const CLUB_RELATIONSHIP_RULES = Object.freeze([
     label:
       'Bromsgrove Sporting was formed by a supporters consortium after Bromsgrove Rovers went into administration.',
     sourceRefs: CLUB_SOURCE_REFS.bromsgroveSporting,
+  }),
+  Object.freeze({
+    fromClubKey: 'dagenham',
+    toClubKey: 'dagenham and redbridge',
+    relationship: 'merger',
+    season: 1992,
+    label: 'Dagenham merged with Redbridge Forest to form Dagenham & Redbridge.',
+    sourceRefs: Object.freeze([
+      ...CLUB_SOURCE_REFS.dagenham,
+      ...CLUB_SOURCE_REFS.dagenhamAndRedbridge,
+    ]),
+  }),
+  Object.freeze({
+    fromClubKey: 'east thurrock united',
+    toClubKey: 'east thurrock community',
+    relationship: 'phoenix',
+    season: 2023,
+    label: 'East Thurrock Community was formed as a phoenix club after East Thurrock United was liquidated.',
+    sourceRefs: CLUB_SOURCE_REFS.eastThurrockCommunity,
+  }),
+  Object.freeze({
+    fromClubKey: 'eastwood town',
+    toClubKey: 'eastwood cfc',
+    relationship: 'successor',
+    season: 2014,
+    label: 'Eastwood C.F.C. was formed following the demise of Eastwood Town.',
+    sourceRefs: CLUB_SOURCE_REFS.eastwoodCfc,
+  }),
+  Object.freeze({
+    fromClubKey: 'enfield',
+    toClubKey: 'enfield town',
+    relationship: 'supporterPhoenix',
+    season: 2001,
+    label: 'Enfield Town was founded by supporters as a fan-led breakaway from Enfield.',
+    sourceRefs: CLUB_SOURCE_REFS.enfieldTown,
   }),
   Object.freeze({
     fromClubKey: 'burton swifts',

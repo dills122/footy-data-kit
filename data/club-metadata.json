@@ -2,8 +2,8 @@
   "metadata": {
     "schemaVersion": 1,
     "generator": "club-metadata-seed",
-    "generatedAt": "2026-06-20T00:25:49.179Z",
-    "gitSha": "a3efbad",
+    "generatedAt": "2026-06-20T00:29:54.949Z",
+    "gitSha": "fd188c8",
     "sourceFiles": [
       "/Users/dsteele/repos/footy-data-kit/data-output/all-seasons.json"
     ],
@@ -15942,13 +15942,13 @@
         "trackedFromSeason": 2004,
         "trackedToSeason": 2005,
         "hasUnexplainedGaps": false,
-        "reason": "below-tracked-coverage",
-        "reasonLabel": "Last observed leaving supported league coverage after 2005.",
+        "reason": "possibly-missing-from-current-data",
+        "reasonLabel": "Wikipedia lists the club in the Isthmian League Premier Division, a level 7 league inside tracked but sparse coverage.",
         "sourceRefs": [
           {
-            "type": "wikipedia-season-page",
-            "sourceUrl": "https://en.wikipedia.org/wiki/2005–06_Football_Conference",
-            "notes": "tier6 table in 2005–06_Football_Conference"
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Carshalton_Athletic_F.C.",
+            "notes": "Used for current lower-division status and tracked coverage context."
           }
         ]
       },
@@ -15971,6 +15971,13 @@
         "source": "football-data-output",
         "aliases": [
           "Carshalton Athletic"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Carshalton_Athletic_F.C.",
+            "notes": "Used for current lower-division status and tracked coverage context."
+          }
         ],
         "observedNames": [
           {
@@ -19108,13 +19115,13 @@
         "trackedFromSeason": 2011,
         "trackedToSeason": 2014,
         "hasUnexplainedGaps": false,
-        "reason": "below-tracked-coverage",
-        "reasonLabel": "Last observed leaving supported league coverage after 2014.",
+        "reason": "not-in-tracked-leagues",
+        "reasonLabel": "Wikipedia lists the club in the Cymru Premier, outside current tracked English league coverage.",
         "sourceRefs": [
           {
-            "type": "wikipedia-season-page",
-            "sourceUrl": "https://en.wikipedia.org/wiki/2014–15_Football_Conference",
-            "notes": "tier6 table in 2014–15_Football_Conference"
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Colwyn_Bay_F.C.",
+            "notes": "Used for current Welsh pyramid status and outside tracked English coverage context."
           }
         ]
       },
@@ -19137,6 +19144,13 @@
         "source": "football-data-output",
         "aliases": [
           "Colwyn Bay"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Colwyn_Bay_F.C.",
+            "notes": "Used for current Welsh pyramid status and outside tracked English coverage context."
+          }
         ],
         "observedNames": [
           {
@@ -19307,13 +19321,13 @@
         "trackedFromSeason": 2009,
         "trackedToSeason": 2015,
         "hasUnexplainedGaps": false,
-        "reason": "below-tracked-coverage",
-        "reasonLabel": "Last observed leaving supported league coverage after 2015.",
+        "reason": "not-in-tracked-leagues",
+        "reasonLabel": "Wikipedia lists the club in the Northern Premier League Division One Midlands, below current tracked coverage.",
         "sourceRefs": [
           {
-            "type": "wikipedia-season-page",
-            "sourceUrl": "https://en.wikipedia.org/wiki/2015–16_National_League",
-            "notes": "tier6 table in 2015–16_National_League"
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Corby_Town_F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
           }
         ]
       },
@@ -19373,6 +19387,13 @@
         "source": "football-data-output",
         "aliases": [
           "Corby Town"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Corby_Town_F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
+          }
         ],
         "observedNames": [
           {
@@ -20989,23 +21010,36 @@
       "clubId": "dagenham",
       "canonicalName": "Dagenham",
       "status": {
-        "current": "active",
+        "current": "merged",
         "trackedFromSeason": 1981,
         "trackedToSeason": 1987,
         "hasUnexplainedGaps": false,
-        "reason": "below-tracked-coverage",
-        "reasonLabel": "Last observed leaving supported league coverage after 1987.",
+        "reason": "merged",
+        "reasonLabel": "Merged with Redbridge Forest in 1992 to form Dagenham & Redbridge.",
         "sourceRefs": [
           {
-            "type": "wikipedia-season-page",
-            "sourceUrl": "https://en.wikipedia.org/wiki/1987–88_Football_Conference",
-            "notes": "Football Conference table in 1987–88_Football_Conference"
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Dagenham_F.C.",
+            "notes": "Used for Dagenham merger into Dagenham & Redbridge."
           }
         ]
       },
       "history": {
         "nameHistory": [],
-        "lifecycleEvents": [],
+        "lifecycleEvents": [
+          {
+            "type": "merged",
+            "season": 1992,
+            "label": "Merged with Redbridge Forest to form Dagenham & Redbridge.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Dagenham_F.C.",
+                "notes": "Used for Dagenham merger into Dagenham & Redbridge."
+              }
+            ]
+          }
+        ],
         "trackedMembership": [
           {
             "fromSeason": 1981,
@@ -21022,6 +21056,34 @@
         "source": "football-data-output",
         "aliases": [
           "Dagenham"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Dagenham_F.C.",
+            "notes": "Used for Dagenham merger into Dagenham & Redbridge."
+          }
+        ],
+        "relationships": [
+          {
+            "clubKey": "dagenham and redbridge",
+            "relationship": "merger",
+            "direction": "mergedInto",
+            "season": 1992,
+            "label": "Dagenham merged with Redbridge Forest to form Dagenham & Redbridge.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Dagenham_%26_Redbridge_F.C.",
+                "notes": "Used for Dagenham & Redbridge formation from Dagenham and Redbridge Forest."
+              },
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Dagenham_F.C.",
+                "notes": "Used for Dagenham merger into Dagenham & Redbridge."
+              }
+            ]
+          }
         ],
         "observedNames": [
           {
@@ -21151,6 +21213,25 @@
           "Dagenham & Redbridge"
         ],
         "relationships": [
+          {
+            "clubKey": "dagenham",
+            "relationship": "merger",
+            "direction": "formedFrom",
+            "season": 1992,
+            "label": "Dagenham merged with Redbridge Forest to form Dagenham & Redbridge.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Dagenham_%26_Redbridge_F.C.",
+                "notes": "Used for Dagenham & Redbridge formation from Dagenham and Redbridge Forest."
+              },
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Dagenham_F.C.",
+                "notes": "Used for Dagenham merger into Dagenham & Redbridge."
+              }
+            ]
+          },
           {
             "clubKey": "redbridge forest",
             "relationship": "merger",
@@ -23306,13 +23387,13 @@
         "trackedFromSeason": 2004,
         "trackedToSeason": 2013,
         "hasUnexplainedGaps": false,
-        "reason": "below-tracked-coverage",
-        "reasonLabel": "Last observed leaving supported league coverage after 2013.",
+        "reason": "not-in-tracked-leagues",
+        "reasonLabel": "Wikipedia records relegation to Southern League Division One South after 2025-26, below current tracked coverage.",
         "sourceRefs": [
           {
-            "type": "wikipedia-season-page",
-            "sourceUrl": "https://en.wikipedia.org/wiki/2013–14_Football_Conference",
-            "notes": "tier6 table in 2013–14_Football_Conference"
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Dorchester_Town_F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
           }
         ]
       },
@@ -23335,6 +23416,13 @@
         "source": "football-data-output",
         "aliases": [
           "Dorchester Town"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Dorchester_Town_F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
+          }
         ],
         "observedNames": [
           {
@@ -23749,19 +23837,58 @@
         "trackedFromSeason": 2004,
         "trackedToSeason": 2012,
         "hasUnexplainedGaps": false,
-        "reason": "below-tracked-coverage",
-        "reasonLabel": "Last observed leaving supported league coverage after 2012.",
+        "reason": "not-in-tracked-leagues",
+        "reasonLabel": "Wikipedia records Droylsden returning to the pyramid and reaching the North West Counties League Premier Division, below current tracked coverage.",
         "sourceRefs": [
           {
-            "type": "wikipedia-season-page",
-            "sourceUrl": "https://en.wikipedia.org/wiki/2012–13_Football_Conference",
-            "notes": "tier6 table in 2012–13_Football_Conference"
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Droylsden_F.C.",
+            "notes": "Used for pandemic withdrawal, return to the pyramid, and current lower-division status context."
           }
         ]
       },
       "history": {
         "nameHistory": [],
-        "lifecycleEvents": [],
+        "lifecycleEvents": [
+          {
+            "type": "withdrew",
+            "season": 2020,
+            "date": "2020-08-06",
+            "label": "Withdrew from the Northern Premier League citing the impact of the COVID-19 pandemic.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Droylsden_F.C.",
+                "notes": "Used for pandemic withdrawal, return to the pyramid, and current lower-division status context."
+              }
+            ]
+          },
+          {
+            "type": "inactive",
+            "season": 2021,
+            "date": "2021-05-26",
+            "label": "Announced it would not field a team for the 2021-22 season.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Droylsden_F.C.",
+                "notes": "Used for pandemic withdrawal, return to the pyramid, and current lower-division status context."
+              }
+            ]
+          },
+          {
+            "type": "reactivated",
+            "season": 2023,
+            "label": "Returned to the football pyramid for the 2023-24 season.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Droylsden_F.C.",
+                "notes": "Used for pandemic withdrawal, return to the pyramid, and current lower-division status context."
+              }
+            ]
+          }
+        ],
         "trackedMembership": [
           {
             "fromSeason": 2004,
@@ -23779,6 +23906,13 @@
         "source": "football-data-output",
         "aliases": [
           "Droylsden"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Droylsden_F.C.",
+            "notes": "Used for pandemic withdrawal, return to the pyramid, and current lower-division status context."
+          }
         ],
         "observedNames": [
           {
@@ -24055,23 +24189,49 @@
       "clubId": "east-thurrock-united",
       "canonicalName": "East Thurrock United",
       "status": {
-        "current": "active",
+        "current": "defunct",
         "trackedFromSeason": 2016,
         "trackedToSeason": 2018,
         "hasUnexplainedGaps": false,
-        "reason": "below-tracked-coverage",
-        "reasonLabel": "Last observed leaving supported league coverage after 2018.",
+        "reason": "liquidated",
+        "reasonLabel": "Placed into liquidation on 1 September 2023; East Thurrock Community was formed as a phoenix club.",
         "sourceRefs": [
           {
-            "type": "wikipedia-season-page",
-            "sourceUrl": "https://en.wikipedia.org/wiki/2018–19_National_League",
-            "notes": "tier6 table in 2018–19_National_League"
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/East_Thurrock_United_F.C.",
+            "notes": "Used for East Thurrock United liquidation and phoenix club context."
           }
         ]
       },
       "history": {
         "nameHistory": [],
-        "lifecycleEvents": [],
+        "lifecycleEvents": [
+          {
+            "type": "liquidated",
+            "season": 2023,
+            "date": "2023-09-01",
+            "label": "Placed into liquidation because of historic debts.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/East_Thurrock_United_F.C.",
+                "notes": "Used for East Thurrock United liquidation and phoenix club context."
+              }
+            ]
+          },
+          {
+            "type": "phoenixFormed",
+            "season": 2023,
+            "label": "East Thurrock Community was formed as a phoenix club.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/East_Thurrock_United_F.C.",
+                "notes": "Used for East Thurrock Community phoenix club context."
+              }
+            ]
+          }
+        ],
         "trackedMembership": [
           {
             "fromSeason": 2016,
@@ -24088,6 +24248,29 @@
         "source": "football-data-output",
         "aliases": [
           "East Thurrock United"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/East_Thurrock_United_F.C.",
+            "notes": "Used for East Thurrock Community phoenix club context."
+          }
+        ],
+        "relationships": [
+          {
+            "clubKey": "east thurrock community",
+            "relationship": "phoenix",
+            "direction": "successor",
+            "season": 2023,
+            "label": "East Thurrock Community was formed as a phoenix club after East Thurrock United was liquidated.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/East_Thurrock_United_F.C.",
+                "notes": "Used for East Thurrock Community phoenix club context."
+              }
+            ]
+          }
         ],
         "observedNames": [
           {
@@ -24416,23 +24599,61 @@
       "clubId": "eastwood-town",
       "canonicalName": "Eastwood Town",
       "status": {
-        "current": "active",
+        "current": "defunct",
         "trackedFromSeason": 2009,
         "trackedToSeason": 2011,
         "hasUnexplainedGaps": false,
-        "reason": "below-tracked-coverage",
-        "reasonLabel": "Last observed leaving supported league coverage after 2011.",
+        "reason": "dissolved",
+        "reasonLabel": "Resigned from the Northern Premier League in February 2014 after financial and ground problems; Eastwood C.F.C. was formed after the club folded.",
         "sourceRefs": [
           {
-            "type": "wikipedia-season-page",
-            "sourceUrl": "https://en.wikipedia.org/wiki/2011–12_Football_Conference",
-            "notes": "tier6 table in 2011–12_Football_Conference"
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Eastwood_Town_F.C.",
+            "notes": "Used for Eastwood Town resignation, dissolution, and successor club context."
           }
         ]
       },
       "history": {
         "nameHistory": [],
-        "lifecycleEvents": [],
+        "lifecycleEvents": [
+          {
+            "type": "resigned",
+            "season": 2013,
+            "date": "2014-02-24",
+            "label": "Resigned from the Northern Premier League after postponing five consecutive home games.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Eastwood_Town_F.C.",
+                "notes": "Used for Eastwood Town resignation, dissolution, and successor club context."
+              }
+            ]
+          },
+          {
+            "type": "dissolved",
+            "season": 2014,
+            "label": "Folded after financial and ground problems.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Eastwood_Town_F.C.",
+                "notes": "Used for Eastwood Town resignation, dissolution, and successor club context."
+              }
+            ]
+          },
+          {
+            "type": "successorFormed",
+            "season": 2014,
+            "label": "Eastwood C.F.C. was formed following the demise of Eastwood Town.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Eastwood_C.F.C.",
+                "notes": "Used for Eastwood Community formation after Eastwood Town folded."
+              }
+            ]
+          }
+        ],
         "trackedMembership": [
           {
             "fromSeason": 2009,
@@ -24449,6 +24670,34 @@
         "source": "football-data-output",
         "aliases": [
           "Eastwood Town"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Eastwood_C.F.C.",
+            "notes": "Used for Eastwood Community formation after Eastwood Town folded."
+          },
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Eastwood_Town_F.C.",
+            "notes": "Used for Eastwood Town resignation, dissolution, and successor club context."
+          }
+        ],
+        "relationships": [
+          {
+            "clubKey": "eastwood cfc",
+            "relationship": "successor",
+            "direction": "successor",
+            "season": 2014,
+            "label": "Eastwood C.F.C. was formed following the demise of Eastwood Town.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Eastwood_C.F.C.",
+                "notes": "Used for Eastwood Community formation after Eastwood Town folded."
+              }
+            ]
+          }
         ],
         "observedNames": [
           {
@@ -24744,19 +24993,68 @@
         "trackedFromSeason": 1981,
         "trackedToSeason": 1989,
         "hasUnexplainedGaps": false,
-        "reason": "below-tracked-coverage",
-        "reasonLabel": "Last observed leaving supported league coverage after 1989.",
+        "reason": "not-in-tracked-leagues",
+        "reasonLabel": "The original club liquidated in 2007 and reformed as Enfield 1893, later dropping the suffix; the current club plays below tracked coverage.",
         "sourceRefs": [
           {
-            "type": "wikipedia-season-page",
-            "sourceUrl": "https://en.wikipedia.org/wiki/1989–90_Football_Conference",
-            "notes": "Football Conference table in 1989–90_Football_Conference"
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Enfield_F.C.",
+            "notes": "Used for Enfield liquidation, reformation as Enfield 1893, and current lower-division status context."
           }
         ]
       },
       "history": {
         "nameHistory": [],
-        "lifecycleEvents": [],
+        "lifecycleEvents": [
+          {
+            "type": "supporterPhoenixFormed",
+            "season": 2001,
+            "label": "Enfield Town was founded by Enfield Supporters Trust members as a fan-led breakaway.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Enfield_Town_F.C.",
+                "notes": "Used for supporter breakaway from Enfield context."
+              }
+            ]
+          },
+          {
+            "type": "liquidated",
+            "season": 2007,
+            "label": "Liquidated due to debts owed to HMRC.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Enfield_F.C.",
+                "notes": "Used for Enfield liquidation, reformation as Enfield 1893, and current lower-division status context."
+              }
+            ]
+          },
+          {
+            "type": "reformed",
+            "season": 2007,
+            "label": "Reformed as Enfield 1893 after the liquidation.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Enfield_F.C.",
+                "notes": "Used for Enfield liquidation, reformation as Enfield 1893, and current lower-division status context."
+              }
+            ]
+          },
+          {
+            "type": "renamed",
+            "season": 2019,
+            "label": "Dropped the 1893 suffix and reverted to the Enfield name.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Enfield_F.C.",
+                "notes": "Used for Enfield liquidation, reformation as Enfield 1893, and current lower-division status context."
+              }
+            ]
+          }
+        ],
         "trackedMembership": [
           {
             "fromSeason": 1981,
@@ -24773,6 +25071,34 @@
         "source": "football-data-output",
         "aliases": [
           "Enfield"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Enfield_F.C.",
+            "notes": "Used for Enfield liquidation, reformation as Enfield 1893, and current lower-division status context."
+          },
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Enfield_Town_F.C.",
+            "notes": "Used for supporter breakaway from Enfield context."
+          }
+        ],
+        "relationships": [
+          {
+            "clubKey": "enfield town",
+            "relationship": "supporterPhoenix",
+            "direction": "supporterFounded",
+            "season": 2001,
+            "label": "Enfield Town was founded by supporters as a fan-led breakaway from Enfield.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Enfield_Town_F.C.",
+                "notes": "Used for supporter breakaway from Enfield context."
+              }
+            ]
+          }
         ],
         "observedNames": [
           {
@@ -24866,6 +25192,22 @@
         "source": "football-data-output",
         "aliases": [
           "Enfield Town"
+        ],
+        "relationships": [
+          {
+            "clubKey": "enfield",
+            "relationship": "supporterPhoenix",
+            "direction": "formedBySupportersOf",
+            "season": 2001,
+            "label": "Enfield Town was founded by supporters as a fan-led breakaway from Enfield.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Enfield_Town_F.C.",
+                "notes": "Used for supporter breakaway from Enfield context."
+              }
+            ]
+          }
         ],
         "observedNames": [
           {
@@ -26648,13 +26990,13 @@
         "trackedFromSeason": 2015,
         "trackedToSeason": 2018,
         "hasUnexplainedGaps": false,
-        "reason": "below-tracked-coverage",
-        "reasonLabel": "Last observed leaving supported league coverage after 2018.",
+        "reason": "possibly-missing-from-current-data",
+        "reasonLabel": "Wikipedia lists the club in the Northern Premier League Premier Division, a level 7 league inside tracked but sparse coverage.",
         "sourceRefs": [
           {
-            "type": "wikipedia-season-page",
-            "sourceUrl": "https://en.wikipedia.org/wiki/2018–19_National_League",
-            "notes": "tier6 table in 2018–19_National_League"
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/F.C._United_of_Manchester",
+            "notes": "Used for current lower-division status and tracked coverage context."
           }
         ]
       },
@@ -26677,6 +27019,13 @@
         "source": "football-data-output",
         "aliases": [
           "FC United of Manchester"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/F.C._United_of_Manchester",
+            "notes": "Used for current lower-division status and tracked coverage context."
+          }
         ],
         "observedNames": [
           {
