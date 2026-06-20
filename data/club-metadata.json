@@ -2,8 +2,8 @@
   "metadata": {
     "schemaVersion": 1,
     "generator": "club-metadata-seed",
-    "generatedAt": "2026-06-20T00:29:54.949Z",
-    "gitSha": "fd188c8",
+    "generatedAt": "2026-06-20T00:32:45.690Z",
+    "gitSha": "e8eb73d",
     "sourceFiles": [
       "/Users/dsteele/repos/footy-data-kit/data-output/all-seasons.json"
     ],
@@ -27600,13 +27600,13 @@
         "trackedFromSeason": 1980,
         "trackedToSeason": 1986,
         "hasUnexplainedGaps": false,
-        "reason": "below-tracked-coverage",
-        "reasonLabel": "Last observed leaving supported league coverage after 1986.",
+        "reason": "not-in-tracked-leagues",
+        "reasonLabel": "Wikipedia lists the club in the Northern Counties East League Premier Division, below current tracked coverage.",
         "sourceRefs": [
           {
-            "type": "wikipedia-season-page",
-            "sourceUrl": "https://en.wikipedia.org/wiki/1986–87_Football_Conference",
-            "notes": "Football Conference table in 1986–87_Football_Conference"
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Frickley_Athletic_F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
           }
         ]
       },
@@ -27629,6 +27629,13 @@
         "source": "football-data-output",
         "aliases": [
           "Frickley Athletic"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Frickley_Athletic_F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
+          }
         ],
         "observedNames": [
           {
@@ -29686,13 +29693,13 @@
         "trackedFromSeason": 2013,
         "trackedToSeason": 2016,
         "hasUnexplainedGaps": false,
-        "reason": "below-tracked-coverage",
-        "reasonLabel": "Last observed leaving supported league coverage after 2016.",
+        "reason": "possibly-missing-from-current-data",
+        "reasonLabel": "Wikipedia lists the club in the Southern League Premier Division South, a level 7 league inside tracked but sparse coverage.",
         "sourceRefs": [
           {
-            "type": "wikipedia-season-page",
-            "sourceUrl": "https://en.wikipedia.org/wiki/2016–17_National_League",
-            "notes": "tier6 table in 2016–17_National_League"
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Gosport_Borough_F.C.",
+            "notes": "Used for current lower-division status and tracked coverage context."
           }
         ]
       },
@@ -29715,6 +29722,13 @@
         "source": "football-data-output",
         "aliases": [
           "Gosport Borough"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Gosport_Borough_F.C.",
+            "notes": "Used for current lower-division status and tracked coverage context."
+          }
         ],
         "observedNames": [
           {
@@ -29773,13 +29787,13 @@
         "trackedFromSeason": 2004,
         "trackedToSeason": 2009,
         "hasUnexplainedGaps": false,
-        "reason": "below-tracked-coverage",
-        "reasonLabel": "Last observed leaving supported league coverage after 2009.",
+        "reason": "not-in-tracked-leagues",
+        "reasonLabel": "Wikipedia lists the club in the Isthmian League North Division, below current tracked coverage.",
         "sourceRefs": [
           {
-            "type": "wikipedia-season-page",
-            "sourceUrl": "https://en.wikipedia.org/wiki/2009–10_Football_Conference",
-            "notes": "Conference Premier table in 2009–10_Football_Conference"
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Grays_Athletic_F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
           }
         ]
       },
@@ -29803,6 +29817,13 @@
         "source": "football-data-output",
         "aliases": [
           "Grays Athletic"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Grays_Athletic_F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
+          }
         ],
         "observedNames": [
           {
@@ -32103,13 +32124,13 @@
         "trackedFromSeason": 2007,
         "trackedToSeason": 2015,
         "hasUnexplainedGaps": false,
-        "reason": "below-tracked-coverage",
-        "reasonLabel": "Last observed leaving supported league coverage after 2015.",
+        "reason": "not-in-tracked-leagues",
+        "reasonLabel": "Wikipedia lists the club in the Isthmian League South Central Division, below current tracked coverage.",
         "sourceRefs": [
           {
-            "type": "wikipedia-season-page",
-            "sourceUrl": "https://en.wikipedia.org/wiki/2015–16_National_League",
-            "notes": "tier6 table in 2015–16_National_League"
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Hayes_%26_Yeading_United_F.C.",
+            "notes": "Used for Hayes and Yeading merger into Hayes & Yeading United."
           }
         ]
       },
@@ -32133,6 +32154,13 @@
         "source": "football-data-output",
         "aliases": [
           "Hayes & Yeading United"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Hayes_%26_Yeading_United_F.C.",
+            "notes": "Used for Hayes and Yeading merger into Hayes & Yeading United."
+          }
         ],
         "relationships": [
           {
@@ -32243,13 +32271,13 @@
         "trackedFromSeason": 1995,
         "trackedToSeason": 2015,
         "hasUnexplainedGaps": false,
-        "reason": "below-tracked-coverage",
-        "reasonLabel": "Last observed leaving supported league coverage after 2015.",
+        "reason": "possibly-missing-from-current-data",
+        "reasonLabel": "Wikipedia records promotion to National League North after the 2025-26 season, a level 6 league inside tracked but sparse coverage.",
         "sourceRefs": [
           {
-            "type": "wikipedia-season-page",
-            "sourceUrl": "https://en.wikipedia.org/wiki/2015–16_National_League",
-            "notes": "tier6 table in 2015–16_National_League"
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Hednesford_Town_F.C.",
+            "notes": "Used for current lower-division status and tracked coverage context."
           }
         ]
       },
@@ -32344,6 +32372,13 @@
         "source": "football-data-output",
         "aliases": [
           "Hednesford Town"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Hednesford_Town_F.C.",
+            "notes": "Used for current lower-division status and tracked coverage context."
+          }
         ],
         "observedNames": [
           {
@@ -32936,23 +32971,49 @@
       "clubId": "hinckley-united",
       "canonicalName": "Hinckley United",
       "status": {
-        "current": "active",
+        "current": "defunct",
         "trackedFromSeason": 2004,
         "trackedToSeason": 2012,
         "hasUnexplainedGaps": false,
-        "reason": "below-tracked-coverage",
-        "reasonLabel": "Last observed leaving supported league coverage after 2012.",
+        "reason": "folded",
+        "reasonLabel": "Wound up in the High Court on 7 October 2013; Hinckley AFC was formed as a supporter-owned phoenix club.",
         "sourceRefs": [
           {
-            "type": "wikipedia-season-page",
-            "sourceUrl": "https://en.wikipedia.org/wiki/2012–13_Football_Conference",
-            "notes": "tier6 table in 2012–13_Football_Conference"
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Hinckley_United_F.C.",
+            "notes": "Used for Hinckley United winding-up and successor club context."
           }
         ]
       },
       "history": {
         "nameHistory": [],
-        "lifecycleEvents": [],
+        "lifecycleEvents": [
+          {
+            "type": "folded",
+            "season": 2013,
+            "date": "2013-10-07",
+            "label": "Wound up in the High Court.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Hinckley_United_F.C.",
+                "notes": "Used for Hinckley United winding-up and successor club context."
+              }
+            ]
+          },
+          {
+            "type": "supporterPhoenixFormed",
+            "season": 2014,
+            "label": "Hinckley AFC was formed by supporters of the dissolved club.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Hinckley_A.F.C.",
+                "notes": "Used for Hinckley AFC supporter-owned phoenix club context."
+              }
+            ]
+          }
+        ],
         "trackedMembership": [
           {
             "fromSeason": 2004,
@@ -32969,6 +33030,34 @@
         "source": "football-data-output",
         "aliases": [
           "Hinckley United"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Hinckley_A.F.C.",
+            "notes": "Used for Hinckley AFC supporter-owned phoenix club context."
+          },
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Hinckley_United_F.C.",
+            "notes": "Used for Hinckley United winding-up and successor club context."
+          }
+        ],
+        "relationships": [
+          {
+            "clubKey": "hinckley afc",
+            "relationship": "supporterPhoenix",
+            "direction": "supporterFounded",
+            "season": 2014,
+            "label": "Hinckley AFC was formed by supporters after Hinckley United was wound up.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Hinckley_A.F.C.",
+                "notes": "Used for Hinckley AFC supporter-owned phoenix club context."
+              }
+            ]
+          }
         ],
         "observedNames": [
           {
@@ -33042,13 +33131,13 @@
         "trackedFromSeason": 2005,
         "trackedToSeason": 2013,
         "hasUnexplainedGaps": false,
-        "reason": "below-tracked-coverage",
-        "reasonLabel": "Last observed leaving supported league coverage after 2013.",
+        "reason": "not-in-tracked-leagues",
+        "reasonLabel": "Wikipedia lists the club in the United Counties League Premier Division South, below current tracked coverage.",
         "sourceRefs": [
           {
-            "type": "wikipedia-season-page",
-            "sourceUrl": "https://en.wikipedia.org/wiki/2013–14_Football_Conference",
-            "notes": "tier6 table in 2013–14_Football_Conference"
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Histon_F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
           }
         ]
       },
@@ -33072,6 +33161,13 @@
         "source": "football-data-output",
         "aliases": [
           "Histon"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Histon_F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
+          }
         ],
         "observedNames": [
           {
@@ -33430,13 +33526,13 @@
         "trackedFromSeason": 2004,
         "trackedToSeason": 2008,
         "hasUnexplainedGaps": false,
-        "reason": "below-tracked-coverage",
-        "reasonLabel": "Last observed leaving supported league coverage after 2008.",
+        "reason": "not-in-tracked-leagues",
+        "reasonLabel": "Wikipedia lists the club in the United Counties League, below current tracked coverage.",
         "sourceRefs": [
           {
-            "type": "wikipedia-season-page",
-            "sourceUrl": "https://en.wikipedia.org/wiki/2008–09_Football_Conference",
-            "notes": "tier6 table in 2008–09_Football_Conference"
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Hucknall_Town_F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
           }
         ]
       },
@@ -33459,6 +33555,13 @@
         "source": "football-data-output",
         "aliases": [
           "Hucknall Town"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Hucknall_Town_F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
+          }
         ],
         "observedNames": [
           {
@@ -35773,23 +35876,49 @@
       "clubId": "kings-lynn",
       "canonicalName": "King's Lynn",
       "status": {
-        "current": "active",
+        "current": "defunct",
         "trackedFromSeason": 2008,
         "trackedToSeason": 2008,
         "hasUnexplainedGaps": false,
-        "reason": "below-tracked-coverage",
-        "reasonLabel": "Last observed leaving supported league coverage after 2008.",
+        "reason": "folded",
+        "reasonLabel": "Wound up in the High Court in November 2009 and re-formed as Lynn FC, later King's Lynn Town.",
         "sourceRefs": [
           {
-            "type": "wikipedia-season-page",
-            "sourceUrl": "https://en.wikipedia.org/wiki/2008–09_Football_Conference",
-            "notes": "tier6 table in 2008–09_Football_Conference"
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/King's_Lynn_F.C.",
+            "notes": "Used for King's Lynn winding-up and phoenix club context."
           }
         ]
       },
       "history": {
         "nameHistory": [],
-        "lifecycleEvents": [],
+        "lifecycleEvents": [
+          {
+            "type": "folded",
+            "season": 2009,
+            "date": "2009-11-25",
+            "label": "Wound up at the High Court with debts of GBP77,000.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/King's_Lynn_F.C.",
+                "notes": "Used for King's Lynn winding-up and phoenix club context."
+              }
+            ]
+          },
+          {
+            "type": "phoenixFormed",
+            "season": 2010,
+            "label": "Re-formed as Lynn FC and later renamed King's Lynn Town.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/King's_Lynn_Town_F.C.",
+                "notes": "Used for King's Lynn Town phoenix club context."
+              }
+            ]
+          }
+        ],
         "trackedMembership": [
           {
             "fromSeason": 2008,
@@ -35806,6 +35935,34 @@
         "source": "football-data-output",
         "aliases": [
           "King's Lynn"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/King's_Lynn_F.C.",
+            "notes": "Used for King's Lynn winding-up and phoenix club context."
+          },
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/King's_Lynn_Town_F.C.",
+            "notes": "Used for King's Lynn Town phoenix club context."
+          }
+        ],
+        "relationships": [
+          {
+            "clubKey": "kings lynn town",
+            "relationship": "phoenix",
+            "direction": "successor",
+            "season": 2010,
+            "label": "King's Lynn Town was founded as a phoenix club after King's Lynn F.C. was wound up.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/King's_Lynn_Town_F.C.",
+                "notes": "Used for King's Lynn Town phoenix club context."
+              }
+            ]
+          }
         ],
         "observedNames": [
           {
@@ -35876,6 +36033,22 @@
         "source": "football-data-output",
         "aliases": [
           "King's Lynn Town"
+        ],
+        "relationships": [
+          {
+            "clubKey": "kings lynn",
+            "relationship": "phoenix",
+            "direction": "predecessor",
+            "season": 2010,
+            "label": "King's Lynn Town was founded as a phoenix club after King's Lynn F.C. was wound up.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/King's_Lynn_Town_F.C.",
+                "notes": "Used for King's Lynn Town phoenix club context."
+              }
+            ]
+          }
         ],
         "observedNames": [
           {
@@ -35950,13 +36123,13 @@
         "trackedFromSeason": 1998,
         "trackedToSeason": 2000,
         "hasUnexplainedGaps": false,
-        "reason": "below-tracked-coverage",
-        "reasonLabel": "Last observed leaving supported league coverage after 2000.",
+        "reason": "not-in-tracked-leagues",
+        "reasonLabel": "Wikipedia lists the club in the Isthmian League South Central Division, below current tracked coverage.",
         "sourceRefs": [
           {
-            "type": "wikipedia-season-page",
-            "sourceUrl": "https://en.wikipedia.org/wiki/2000–01_Football_Conference",
-            "notes": "Football Conference table in 2000–01_Football_Conference"
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Kingstonian_F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
           }
         ]
       },
@@ -35979,6 +36152,13 @@
         "source": "football-data-output",
         "aliases": [
           "Kingstonian"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Kingstonian_F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
+          }
         ],
         "observedNames": [
           {

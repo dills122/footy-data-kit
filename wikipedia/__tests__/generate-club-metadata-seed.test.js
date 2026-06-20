@@ -1273,6 +1273,147 @@ describe('buildClubMetadataSeed', () => {
     ]);
   });
 
+  test('applies reviewed lower-tier coverage batch three decisions', () => {
+    const seed = buildClubMetadataSeed({
+      seasons: {
+        1980: {
+          tier5: {
+            table: [{ team: 'Frickley Athletic' }],
+          },
+        },
+        1995: {
+          tier5: {
+            table: [{ team: 'Hednesford Town' }],
+          },
+        },
+        1998: {
+          tier5: {
+            table: [{ team: 'Kingstonian' }],
+          },
+        },
+        2004: {
+          tier5: {
+            table: [{ team: 'Grays Athletic' }],
+          },
+          tier6: {
+            table: [{ team: 'Hucknall Town' }, { team: 'Hinckley United' }],
+          },
+        },
+        2005: {
+          tier6: {
+            table: [{ team: 'Histon' }],
+          },
+        },
+        2007: {
+          tier5: {
+            table: [{ team: 'Hayes & Yeading United' }],
+          },
+        },
+        2008: {
+          tier6: {
+            table: [{ team: "King's Lynn" }],
+          },
+        },
+        2013: {
+          tier6: {
+            table: [{ team: 'Gosport Borough' }],
+          },
+        },
+        2025: {
+          tier5: {
+            table: [{ team: "King's Lynn Town" }],
+          },
+        },
+      },
+    });
+
+    const review = buildClubMetadataReviewReport({ clubs: seed });
+    const reviewedClubKeys = new Set([
+      'frickley athletic',
+      'gosport borough',
+      'grays athletic',
+      'hayes and yeading united',
+      'hednesford town',
+      'hinckley united',
+      'histon',
+      'hucknall town',
+      'kings lynn',
+      'kingstonian',
+    ]);
+    expect(
+      review.issues.filter(
+        (issue) => reviewedClubKeys.has(issue.clubKey) && issue.type.endsWith('-review')
+      )
+    ).toEqual([]);
+
+    expect(seed['frickley athletic'].status).toMatchObject({
+      current: 'active',
+      reason: 'not-in-tracked-leagues',
+    });
+    expect(seed['gosport borough'].status).toMatchObject({
+      current: 'active',
+      reason: 'possibly-missing-from-current-data',
+    });
+    expect(seed['grays athletic'].status).toMatchObject({
+      current: 'active',
+      reason: 'not-in-tracked-leagues',
+    });
+    expect(seed['hayes and yeading united'].status).toMatchObject({
+      current: 'active',
+      reason: 'not-in-tracked-leagues',
+    });
+    expect(seed['hednesford town'].status).toMatchObject({
+      current: 'active',
+      reason: 'possibly-missing-from-current-data',
+    });
+    expect(seed.histon.status).toMatchObject({
+      current: 'active',
+      reason: 'not-in-tracked-leagues',
+    });
+    expect(seed['hucknall town'].status).toMatchObject({
+      current: 'active',
+      reason: 'not-in-tracked-leagues',
+    });
+    expect(seed.kingstonian.status).toMatchObject({
+      current: 'active',
+      reason: 'not-in-tracked-leagues',
+    });
+
+    expect(seed['hinckley united'].status).toMatchObject({
+      current: 'defunct',
+      reason: 'folded',
+    });
+    expect(seed['hinckley united'].history.lifecycleEvents).toEqual([
+      expect.objectContaining({ type: 'folded', season: 2013 }),
+      expect.objectContaining({ type: 'supporterPhoenixFormed', season: 2014 }),
+    ]);
+    expect(seed['hinckley united'].derived.relationships).toEqual([
+      expect.objectContaining({
+        clubKey: 'hinckley afc',
+        relationship: 'supporterPhoenix',
+        direction: 'supporterFounded',
+        season: 2014,
+      }),
+    ]);
+
+    expect(seed['kings lynn'].status).toMatchObject({
+      current: 'defunct',
+      reason: 'folded',
+    });
+    expect(seed['kings lynn'].history.lifecycleEvents).toEqual([
+      expect.objectContaining({ type: 'folded', season: 2009 }),
+      expect.objectContaining({ type: 'phoenixFormed', season: 2010 }),
+    ]);
+    expect(seed['kings lynn'].derived.relationships).toEqual([
+      expect.objectContaining({
+        clubKey: 'kings lynn town',
+        relationship: 'phoenix',
+        direction: 'successor',
+        season: 2010,
+      }),
+    ]);
+  });
+
   test('adds official pause explanations for wartime observed coverage gaps', () => {
     const seed = buildClubMetadataSeed({
       seasons: {

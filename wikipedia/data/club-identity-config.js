@@ -798,6 +798,72 @@ const CLUB_SOURCE_REFS = Object.freeze({
       'Used for current lower-division status and tracked coverage context.'
     ),
   ]),
+  frickleyAthletic: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Frickley_Athletic_F.C.',
+      'Used for current lower-division status and below tracked coverage context.'
+    ),
+  ]),
+  gosportBorough: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Gosport_Borough_F.C.',
+      'Used for current lower-division status and tracked coverage context.'
+    ),
+  ]),
+  graysAthletic: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Grays_Athletic_F.C.',
+      'Used for current lower-division status and below tracked coverage context.'
+    ),
+  ]),
+  hednesfordTown: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Hednesford_Town_F.C.',
+      'Used for current lower-division status and tracked coverage context.'
+    ),
+  ]),
+  hinckleyUnited: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Hinckley_United_F.C.',
+      'Used for Hinckley United winding-up and successor club context.'
+    ),
+  ]),
+  hinckleyAfc: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Hinckley_A.F.C.',
+      'Used for Hinckley AFC supporter-owned phoenix club context.'
+    ),
+  ]),
+  histon: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Histon_F.C.',
+      'Used for current lower-division status and below tracked coverage context.'
+    ),
+  ]),
+  hucknallTown: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Hucknall_Town_F.C.',
+      'Used for current lower-division status and below tracked coverage context.'
+    ),
+  ]),
+  kingsLynn: Object.freeze([
+    wikipediaClubSource(
+      "https://en.wikipedia.org/wiki/King's_Lynn_F.C.",
+      "Used for King's Lynn winding-up and phoenix club context."
+    ),
+  ]),
+  kingsLynnTown: Object.freeze([
+    wikipediaClubSource(
+      "https://en.wikipedia.org/wiki/King's_Lynn_Town_F.C.",
+      "Used for King's Lynn Town phoenix club context."
+    ),
+  ]),
+  kingstonian: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Kingstonian_F.C.',
+      'Used for current lower-division status and below tracked coverage context.'
+    ),
+  ]),
   gainsboroughTrinity: Object.freeze([
     wikipediaClubSource(
       'https://en.wikipedia.org/wiki/Gainsborough_Trinity_F.C.',
@@ -2319,6 +2385,120 @@ export const CLUB_LIFECYCLE_RULES = Object.freeze([
     sourceRefs: CLUB_SOURCE_REFS.fcUnitedOfManchester,
   }),
   statusOnlyRule({
+    clubKey: 'frickley athletic',
+    current: 'active',
+    reason: 'not-in-tracked-leagues',
+    reasonLabel:
+      'Wikipedia lists the club in the Northern Counties East League Premier Division, below current tracked coverage.',
+    sourceRefs: CLUB_SOURCE_REFS.frickleyAthletic,
+  }),
+  statusOnlyRule({
+    clubKey: 'gosport borough',
+    current: 'active',
+    reason: 'possibly-missing-from-current-data',
+    reasonLabel:
+      'Wikipedia lists the club in the Southern League Premier Division South, a level 7 league inside tracked but sparse coverage.',
+    sourceRefs: CLUB_SOURCE_REFS.gosportBorough,
+  }),
+  statusOnlyRule({
+    clubKey: 'grays athletic',
+    current: 'active',
+    reason: 'not-in-tracked-leagues',
+    reasonLabel:
+      'Wikipedia lists the club in the Isthmian League North Division, below current tracked coverage.',
+    sourceRefs: CLUB_SOURCE_REFS.graysAthletic,
+  }),
+  statusOnlyRule({
+    clubKey: 'hayes and yeading united',
+    current: 'active',
+    reason: 'not-in-tracked-leagues',
+    reasonLabel:
+      'Wikipedia lists the club in the Isthmian League South Central Division, below current tracked coverage.',
+    sourceRefs: CLUB_SOURCE_REFS.hayesAndYeadingUnited,
+  }),
+  statusOnlyRule({
+    clubKey: 'hednesford town',
+    current: 'active',
+    reason: 'possibly-missing-from-current-data',
+    reasonLabel:
+      'Wikipedia records promotion to National League North after the 2025-26 season, a level 6 league inside tracked but sparse coverage.',
+    sourceRefs: CLUB_SOURCE_REFS.hednesfordTown,
+  }),
+  Object.freeze({
+    clubKey: 'hinckley united',
+    status: Object.freeze({
+      current: 'defunct',
+      reason: 'folded',
+      reasonLabel:
+        'Wound up in the High Court on 7 October 2013; Hinckley AFC was formed as a supporter-owned phoenix club.',
+      sourceRefs: CLUB_SOURCE_REFS.hinckleyUnited,
+    }),
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'folded',
+        season: 2013,
+        date: '2013-10-07',
+        label: 'Wound up in the High Court.',
+        sourceRefs: CLUB_SOURCE_REFS.hinckleyUnited,
+      }),
+      lifecycleEvent({
+        type: 'supporterPhoenixFormed',
+        season: 2014,
+        label: 'Hinckley AFC was formed by supporters of the dissolved club.',
+        sourceRefs: CLUB_SOURCE_REFS.hinckleyAfc,
+      }),
+    ]),
+  }),
+  statusOnlyRule({
+    clubKey: 'histon',
+    current: 'active',
+    reason: 'not-in-tracked-leagues',
+    reasonLabel:
+      'Wikipedia lists the club in the United Counties League Premier Division South, below current tracked coverage.',
+    sourceRefs: CLUB_SOURCE_REFS.histon,
+  }),
+  statusOnlyRule({
+    clubKey: 'hucknall town',
+    current: 'active',
+    reason: 'not-in-tracked-leagues',
+    reasonLabel:
+      'Wikipedia lists the club in the United Counties League, below current tracked coverage.',
+    sourceRefs: CLUB_SOURCE_REFS.hucknallTown,
+  }),
+  Object.freeze({
+    clubKey: 'kings lynn',
+    status: Object.freeze({
+      current: 'defunct',
+      reason: 'folded',
+      reasonLabel:
+        "Wound up in the High Court in November 2009 and re-formed as Lynn FC, later King's Lynn Town.",
+      sourceRefs: CLUB_SOURCE_REFS.kingsLynn,
+    }),
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'folded',
+        season: 2009,
+        date: '2009-11-25',
+        label: 'Wound up at the High Court with debts of GBP77,000.',
+        sourceRefs: CLUB_SOURCE_REFS.kingsLynn,
+      }),
+      lifecycleEvent({
+        type: 'phoenixFormed',
+        season: 2010,
+        label: "Re-formed as Lynn FC and later renamed King's Lynn Town.",
+        sourceRefs: CLUB_SOURCE_REFS.kingsLynnTown,
+      }),
+    ]),
+  }),
+  statusOnlyRule({
+    clubKey: 'kingstonian',
+    current: 'active',
+    reason: 'not-in-tracked-leagues',
+    reasonLabel:
+      'Wikipedia lists the club in the Isthmian League South Central Division, below current tracked coverage.',
+    sourceRefs: CLUB_SOURCE_REFS.kingstonian,
+  }),
+  statusOnlyRule({
     clubKey: 'gainsborough trinity',
     current: 'active',
     reason: 'possibly-missing-from-current-data',
@@ -3146,6 +3326,14 @@ export const CLUB_RELATIONSHIP_RULES = Object.freeze([
     sourceRefs: CLUB_SOURCE_REFS.hayesAndYeadingUnited,
   }),
   Object.freeze({
+    fromClubKey: 'hinckley united',
+    toClubKey: 'hinckley afc',
+    relationship: 'supporterPhoenix',
+    season: 2014,
+    label: 'Hinckley AFC was formed by supporters after Hinckley United was wound up.',
+    sourceRefs: CLUB_SOURCE_REFS.hinckleyAfc,
+  }),
+  Object.freeze({
     fromClubKey: 'halifax town',
     toClubKey: 'fc halifax town',
     relationship: 'phoenix',
@@ -3184,6 +3372,14 @@ export const CLUB_RELATIONSHIP_RULES = Object.freeze([
     season: 2017,
     label: 'The current Ilkeston Town was formed after Ilkeston F.C. folded.',
     sourceRefs: CLUB_SOURCE_REFS.ilkestonTown2017,
+  }),
+  Object.freeze({
+    fromClubKey: 'kings lynn',
+    toClubKey: 'kings lynn town',
+    relationship: 'phoenix',
+    season: 2010,
+    label: "King's Lynn Town was founded as a phoenix club after King's Lynn F.C. was wound up.",
+    sourceRefs: CLUB_SOURCE_REFS.kingsLynnTown,
   }),
   Object.freeze({
     fromClubKey: 'leeds city',
