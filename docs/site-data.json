@@ -20,6 +20,7 @@
     { "label": "GitHub repo", "url": "https://github.com/dills122/footy-data-kit" },
     { "label": "Releases", "url": "https://github.com/dills122/footy-data-kit/releases" },
     { "label": "Release notes", "url": "./releases/" },
+    { "label": "Data explorer prototype", "url": "./explorer-prototype.html" },
     {
       "label": "Roadmap",
       "url": "https://github.com/dills122/footy-data-kit/blob/main/docs/roadmap.md"

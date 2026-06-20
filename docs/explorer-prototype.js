@@ -6,10 +6,12 @@ const JSON_HERO_CREATE_URL = 'https://jsonhero.io/actions/createFromUrl';
 const GITHUB_RELEASE_BASE_URL = `https://github.com/${REPO_OWNER}/${REPO_NAME}/releases`;
 const LOCAL_DATA_URL = '../data-output/all-seasons.min.json';
 const LOCAL_RELEASES_URL = './release-notes/releases.json';
+const LOCAL_EXPLORER_LINKS_URL = './explorer-links.json';
 const dataCache = new Map();
 
 const state = {
   releases: [],
+  explorerLinks: null,
   data: null,
   selectedSource: 'local',
   selectedSeason: null,
@@ -93,6 +95,19 @@ function buildJsonHeroUrlForJson(value) {
     href: url.toString(),
     byteLength: new TextEncoder().encode(json).byteLength,
   };
+}
+
+function getStoredJsonHeroUrl(sourceUrl) {
+  const jsonHero = state.explorerLinks?.explorer?.jsonHero;
+  if (!jsonHero?.url) return null;
+  if (jsonHero.sourceUrl === sourceUrl) return jsonHero.url;
+
+  const generatedTag = state.explorerLinks?.tag;
+  const usesGeneratedRelease =
+    state.selectedSource === generatedTag ||
+    (state.selectedSource === 'local' && generatedTag === getLatestReleaseTag());
+
+  return usesGeneratedRelease ? jsonHero.url : null;
 }
 
 function base64EncodeUtf8(value) {
@@ -298,11 +313,13 @@ function escapeHtml(value) {
 function renderLinks() {
   const rawUrl = getSelectedRawUrl();
   const jsonHeroSourceUrl = getSelectedJsonHeroSourceUrl();
+  const storedJsonHeroUrl = getStoredJsonHeroUrl(jsonHeroSourceUrl);
   const path = getJsonHeroPath();
   const preview = getPreviewValue();
   const selectedJsonHero = buildJsonHeroUrlForJson(preview);
 
-  elements.jsonHeroFullLink.href = buildJsonHeroUrlForRawUrl(jsonHeroSourceUrl);
+  elements.jsonHeroFullLink.href =
+    storedJsonHeroUrl || buildJsonHeroUrlForRawUrl(jsonHeroSourceUrl);
   elements.rawLink.href = rawUrl;
   elements.rawUrlOutput.textContent = rawUrl;
   elements.pathOutput.textContent = path;
@@ -399,6 +416,13 @@ async function loadReleases() {
   state.releases = await response.json();
 }
 
+async function loadExplorerLinks() {
+  const response = await fetch(LOCAL_EXPLORER_LINKS_URL);
+  if (!response.ok) return;
+
+  state.explorerLinks = await response.json();
+}
+
 function bindEvents() {
   elements.sourceSelect.addEventListener('change', () => {
     setSource(elements.sourceSelect.value).catch((error) => {
@@ -434,6 +458,7 @@ async function init() {
 
   try {
     await loadReleases();
+    await loadExplorerLinks();
     renderSourceOptions();
     await setSource('local');
   } catch (error) {

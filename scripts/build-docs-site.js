@@ -678,6 +678,7 @@ function buildSiteData() {
       { label: 'GitHub repo', url: REPO_URL },
       { label: 'Releases', url: `${REPO_URL}/releases` },
       { label: 'Release notes', url: './releases/' },
+      { label: 'Data explorer prototype', url: './explorer-prototype.html' },
       { label: 'Roadmap', url: `${REPO_URL}/blob/main/docs/roadmap.md` },
       { label: 'Schema docs', url: './schema/' },
       { label: 'README', url: `${REPO_URL}/blob/main/readme.md` },
