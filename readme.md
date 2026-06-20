@@ -162,6 +162,7 @@ Each run saves season-by-season progress immediately, so reruns are fast. The `c
 
 - `wikipedia/data/combine-output-files.js` – merge multiple FootballData JSON files, drop war-year placeholders, prefer the richest tier record for each season, and show a grouped “missing seasons” summary. Use `--include-empty` to keep placeholder entries, `--compact` for minified JSON, and repeat `--club-metadata <file>` to merge sidecar club metadata.
 - `wikipedia/data/generate-club-metadata-seed.js` – derive the club metadata sidecar from an existing FootballData JSON file plus curated source-backed lifecycle rules.
+- `wikipedia/data/generate-club-assets.js` – discover and verify club crest candidates for the club metadata sidecar. Use `pnpm -s wiki:club-assets` for the default command; see `docs/club-assets.md` for cache, review, and licensing workflow.
 - `wikipedia/data/verify-club-continuity.js` – verify club metadata continuity and historical status reasons. Use `pnpm -s wiki:club-historical-audit` to write the repo review artifact at `data/club-historical-reason-audit.json`; use `pnpm -s wiki:club-historical-audit:check` or `pnpm -s verify:data` for fail-on-issues checks.
 - `wikipedia/data/compare-football-data.js` – compare two FootballData JSON files and report season, tier, table, outcome-list, and metadata changes between releases. Pass `--json` for machine-readable output.
   Pass `--markdown` for a release-note-friendly summary.
@@ -204,8 +205,10 @@ Each run saves season-by-season progress immediately, so reruns are fast. The `c
   - `derived.tiersSeen`
   - `derived.tierSeasons`
   - `derived.coverageGaps`
+  - `assets.crest` with optional crest image candidates, license metadata, verification flags, and a preferred usable candidate when one is available
 - `derived.coverageGaps` means gaps in this dataset's observed league-table coverage, not confirmed inactivity or a financial interruption.
 - `history` is reserved for source-backed facts and explanations. Generated observations should stay under `derived`.
+- `assets` stores image URLs and provenance only. It does not embed or download image binaries. See `docs/club-assets.md` for candidate statuses and manual review rules.
 - `clubId` is additive; season table rows still expose the scraped/canonical `team` text and do not yet embed `clubId`.
 - Each season contains a `seasonInfo` summary object plus one or more `tierN` objects.
 - `seasonInfo` is not a league table. It is a season-level summary that currently stores:
@@ -234,6 +237,9 @@ pnpm -s wiki:build:combined
 
 # Build sidecar club metadata
 pnpm -s wiki:club-seed
+
+# Discover club crest asset candidates
+pnpm -s wiki:club-assets
 
 # Run the data lint pass and historical club-reason check
 pnpm -s verify:data
