@@ -36,4 +36,5 @@ release plan and source of truth.
 - [historical-overview-parsing.md](/Users/dsteele/repos/footy-data-kit/docs/historical-overview-parsing.md)
 - [refactor-overview.md](/Users/dsteele/repos/footy-data-kit/docs/refactor-overview.md)
 - [cloudflare-r2-release-archive-plan.md](/Users/dsteele/repos/footy-data-kit/docs/cloudflare-r2-release-archive-plan.md)
+- [jsonhero-release-links.md](/Users/dsteele/repos/footy-data-kit/docs/jsonhero-release-links.md)
 - [post-v1-phase-0-3-plan.md](/Users/dsteele/repos/footy-data-kit/docs/post-v1-phase-0-3-plan.md)

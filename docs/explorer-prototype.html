@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Data explorer prototype | footy-data-kit</title>
+    <meta
+      name="description"
+      content="Prototype for opening footy-data-kit JSON releases in JSON Hero and testing season-level JSON paths."
+    />
+    <link rel="stylesheet" href="./styles.css" />
+    <link rel="stylesheet" href="./explorer-prototype.css" />
+  </head>
+  <body>
+    <main class="page-shell explorer-shell">
+      <header class="site-header">
+        <p class="eyebrow">prototype</p>
+        <h1>data explorer</h1>
+        <p class="lede">
+          Test hosted JSON Hero handoff URLs against release data, current repo data, and focused
+          season/tier paths.
+        </p>
+      </header>
+
+      <section class="panel explorer-controls" aria-labelledby="source-heading">
+        <div class="section-heading">
+          <h2 id="source-heading">Source</h2>
+          <a href="./index.html">docs home</a>
+        </div>
+
+        <div class="control-grid">
+          <label>
+            <span>Dataset source</span>
+            <select id="source-select"></select>
+          </label>
+
+          <label>
+            <span>Season</span>
+            <select id="season-select"></select>
+          </label>
+
+          <label>
+            <span>Tier</span>
+            <select id="tier-select"></select>
+          </label>
+
+          <label>
+            <span>Target</span>
+            <select id="target-select">
+              <option value="dataset">full dataset</option>
+              <option value="seasons">seasons map</option>
+              <option value="season">selected season</option>
+              <option value="seasonInfo">season summary</option>
+              <option value="tier">selected tier</option>
+              <option value="table" selected>selected tier table</option>
+              <option value="firstRow">first row in selected table</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="action-row" aria-label="explorer actions">
+          <a
+            id="jsonhero-selected-link"
+            class="button-link"
+            href="https://jsonhero.io/"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Open selected JSON
+          </a>
+          <a id="jsonhero-full-link" href="https://jsonhero.io/" target="_blank" rel="noreferrer">
+            full dataset
+          </a>
+          <a id="raw-link" href="#" target="_blank" rel="noreferrer">raw json</a>
+          <button id="copy-path-button" type="button">copy path</button>
+        </div>
+
+        <p id="status-message" class="status-message" role="status">Loading local dataset...</p>
+      </section>
+
+      <section class="panel stats explorer-stats" aria-label="selected dataset summary">
+        <div>
+          <strong id="stat-seasons">-</strong>
+          <span>seasons</span>
+        </div>
+        <div>
+          <strong id="stat-total-rows">-</strong>
+          <span>league rows</span>
+        </div>
+        <div>
+          <strong id="stat-season-tiers">-</strong>
+          <span>selected tiers</span>
+        </div>
+        <div>
+          <strong id="stat-selected-rows">-</strong>
+          <span>selected rows</span>
+        </div>
+      </section>
+
+      <section class="panel" aria-labelledby="path-heading">
+        <div class="section-heading">
+          <h2 id="path-heading">JSON Hero Target</h2>
+          <span id="source-kind" class="muted-label">local preview</span>
+        </div>
+
+        <dl class="path-list">
+          <div>
+            <dt>Raw URL</dt>
+            <dd><code id="raw-url-output">-</code></dd>
+          </div>
+          <div>
+            <dt>JSON Hero path</dt>
+            <dd><code id="path-output">$</code></dd>
+          </div>
+          <div>
+            <dt>Important limit</dt>
+            <dd>
+              <span>
+                Full-dataset handoff can be slow in hosted JSON Hero. Use selected JSON for
+                season/tier/table checks.
+              </span>
+            </dd>
+          </div>
+        </dl>
+      </section>
+
+      <section class="panel" aria-labelledby="preview-heading">
+        <div class="section-heading">
+          <h2 id="preview-heading">Focused Preview</h2>
+          <span id="preview-count" class="muted-label">-</span>
+        </div>
+
+        <div class="preview-table-wrap">
+          <table class="preview-table">
+            <thead>
+              <tr>
+                <th scope="col">Pos</th>
+                <th scope="col">Team</th>
+                <th scope="col">P</th>
+                <th scope="col">W</th>
+                <th scope="col">D</th>
+                <th scope="col">L</th>
+                <th scope="col">GD</th>
+                <th scope="col">Pts</th>
+                <th scope="col">Notes</th>
+              </tr>
+            </thead>
+            <tbody id="preview-table-body">
+              <tr>
+                <td colspan="9">Loading preview...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <pre><code id="json-preview">{}</code></pre>
+      </section>
+
+      <footer>
+        <span>prototype only</span>
+        <a href="https://jsonhero.io/" target="_blank" rel="noreferrer">JSON Hero</a>
+      </footer>
+    </main>
+
+    <script type="module" src="./explorer-prototype.js"></script>
+  </body>
+</html>
