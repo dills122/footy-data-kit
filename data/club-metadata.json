@@ -2,8 +2,8 @@
   "metadata": {
     "schemaVersion": 1,
     "generator": "club-assets",
-    "generatedAt": "2026-06-20T19:31:27.723Z",
-    "gitSha": "e0edd04",
+    "generatedAt": "2026-06-20T19:54:09.010Z",
+    "gitSha": "798511e",
     "sourceFiles": [
       "/Users/dsteele/repos/footy-data-kit/data-output/all-seasons.json",
       "/Users/dsteele/repos/footy-data-kit-club-assets/data/club-metadata.json"
@@ -134,7 +134,38 @@
       },
       "assets": {
         "crest": {
-          "status": "missing"
+          "preferred": "wikidata-coat-of-arms:AberdareAthletic.jpg",
+          "status": "usable",
+          "candidates": [
+            {
+              "assetId": "wikidata-coat-of-arms:AberdareAthletic.jpg",
+              "kind": "crest",
+              "status": "usable",
+              "source": "wikidata-coat-of-arms",
+              "sourceUrl": "https://www.wikidata.org/wiki/Q2045510",
+              "pageUrl": "https://commons.wikimedia.org/wiki/File:AberdareAthletic.jpg",
+              "fileTitle": "File:AberdareAthletic.jpg",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/0/0e/AberdareAthletic.jpg",
+              "mimeType": "image/jpeg",
+              "width": 384,
+              "height": 310,
+              "license": {
+                "shortName": "Public domain",
+                "usageTerms": "Public domain",
+                "copyrighted": false,
+                "credit": "Image taken from the Rhondda Cynon Taf Library Service archive , where it is explicitly stated that the identity of the photographer is unknown. In conjunction with its age (70+ years) this renders it PD in the UK.",
+                "artist": "Unknown author Unknown author"
+              },
+              "verification": {
+                "identityMatch": "possible",
+                "licenseCheck": "pass",
+                "httpCheck": "pass",
+                "needsManualReview": false,
+                "checkedAt": "2026-06-20T19:50:15.033Z"
+              },
+              "priority": 1
+            }
+          ]
         }
       }
     },
@@ -3797,7 +3828,41 @@
       },
       "assets": {
         "crest": {
-          "status": "missing"
+          "status": "needs-review",
+          "candidates": [
+            {
+              "assetId": "wikidata-image:Andover-2008-Squad.jpg",
+              "kind": "crest",
+              "status": "needs-review",
+              "source": "wikidata-image",
+              "sourceUrl": "https://www.wikidata.org/wiki/Q4754611",
+              "pageUrl": "https://commons.wikimedia.org/wiki/File:Andover-2008-Squad.jpg",
+              "fileTitle": "File:Andover-2008-Squad.jpg",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/8/88/Andover-2008-Squad.jpg",
+              "mimeType": "image/jpeg",
+              "width": 500,
+              "height": 208,
+              "license": {
+                "shortName": "CC BY 3.0",
+                "usageTerms": "Creative Commons Attribution 3.0",
+                "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+                "copyrighted": true,
+                "credit": "Len Abrahams (webmaster of www.andover-fc.co.uk)",
+                "artist": "Len Abrahams (webmaster of www.andover-fc.co.uk)"
+              },
+              "verification": {
+                "identityMatch": "possible",
+                "licenseCheck": "pass",
+                "httpCheck": "pass",
+                "needsManualReview": true,
+                "reviewReasons": [
+                  "non-crest-filename"
+                ],
+                "checkedAt": "2026-06-20T19:50:16.147Z"
+              },
+              "priority": 1
+            }
+          ]
         }
       }
     },
@@ -34441,7 +34506,40 @@
       },
       "assets": {
         "crest": {
-          "status": "missing"
+          "status": "restricted",
+          "candidates": [
+            {
+              "assetId": "wikipedia-pageimage-any:Eastwood_Town_FC.png",
+              "kind": "crest",
+              "status": "restricted",
+              "source": "wikipedia-pageimage-any",
+              "sourceUrl": "https://en.wikipedia.org/wiki/Eastwood_Town_F.C.",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/en/0/0d/Eastwood_Town_FC.png",
+              "pageUrl": "https://en.wikipedia.org/wiki/File:Eastwood_Town_FC.png",
+              "fileTitle": "File:Eastwood Town FC.png",
+              "mimeType": "image/png",
+              "width": 200,
+              "height": 200,
+              "license": {
+                "shortName": "Fair use",
+                "usageTerms": "Fair use of copyrighted material in the context of Eastwood Town F.C.",
+                "licenseUrl": "https://en.wikipedia.org/wiki/File:Eastwood_Town_FC.png",
+                "copyrighted": true,
+                "credit": "http://www.eastwoodtownfc.co.uk/"
+              },
+              "verification": {
+                "identityMatch": "possible",
+                "licenseCheck": "restricted",
+                "httpCheck": "pass",
+                "needsManualReview": true,
+                "reviewReasons": [
+                  "license-restricted"
+                ],
+                "checkedAt": "2026-06-20T19:50:20.886Z"
+              },
+              "priority": 1
+            }
+          ]
         }
       }
     },
@@ -47270,10 +47368,10 @@
                 "licenseCheck": "pass",
                 "httpCheck": "pass",
                 "needsManualReview": true,
+                "checkedAt": "2026-06-20T19:31:03.304Z",
                 "reviewReasons": [
                   "non-crest-filename"
-                ],
-                "checkedAt": "2026-06-20T19:31:03.304Z"
+                ]
               },
               "priority": 2
             },
@@ -62860,10 +62958,10 @@
                 "licenseCheck": "pass",
                 "httpCheck": "pass",
                 "needsManualReview": true,
+                "checkedAt": "2026-06-20T19:31:09.938Z",
                 "reviewReasons": [
                   "non-crest-filename"
-                ],
-                "checkedAt": "2026-06-20T19:31:09.938Z"
+                ]
               },
               "priority": 2
             },
@@ -80925,7 +81023,41 @@
       },
       "assets": {
         "crest": {
-          "status": "missing"
+          "status": "needs-review",
+          "candidates": [
+            {
+              "assetId": "wikidata-image:Shepshed Ground 001 Small.jpg",
+              "kind": "crest",
+              "status": "needs-review",
+              "source": "wikidata-image",
+              "sourceUrl": "https://www.wikidata.org/wiki/Q5330596",
+              "pageUrl": "https://commons.wikimedia.org/wiki/File:Shepshed_Ground_001_Small.jpg",
+              "fileTitle": "File:Shepshed Ground 001 Small.jpg",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/7/71/Shepshed_Ground_001_Small.jpg",
+              "mimeType": "image/jpeg",
+              "width": 314,
+              "height": 235,
+              "license": {
+                "shortName": "Public domain",
+                "usageTerms": "Public domain",
+                "copyrighted": false,
+                "credit": "Own work",
+                "artist": "Andymac1967 ( talk )"
+              },
+              "verification": {
+                "identityMatch": "weak",
+                "licenseCheck": "pass",
+                "httpCheck": "pass",
+                "needsManualReview": true,
+                "reviewReasons": [
+                  "identity-uncertain",
+                  "non-crest-filename"
+                ],
+                "checkedAt": "2026-06-20T19:50:40.960Z"
+              },
+              "priority": 1
+            }
+          ]
         }
       }
     },
@@ -84993,7 +85125,41 @@
       },
       "assets": {
         "crest": {
-          "status": "missing"
+          "status": "needs-review",
+          "candidates": [
+            {
+              "assetId": "wikidata-image:DovervStaines.jpg",
+              "kind": "crest",
+              "status": "needs-review",
+              "source": "wikidata-image",
+              "sourceUrl": "https://www.wikidata.org/wiki/Q2511419",
+              "pageUrl": "https://commons.wikimedia.org/wiki/File:DovervStaines.jpg",
+              "fileTitle": "File:DovervStaines.jpg",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/c/cc/DovervStaines.jpg",
+              "mimeType": "image/jpeg",
+              "width": 640,
+              "height": 359,
+              "license": {
+                "shortName": "Public domain",
+                "usageTerms": "Public domain",
+                "copyrighted": false,
+                "credit": "Transferred from en.wikipedia to Commons by Kafuffle using CommonsHelper .",
+                "artist": "ChrisTheDude at English Wikipedia"
+              },
+              "verification": {
+                "identityMatch": "none",
+                "licenseCheck": "pass",
+                "httpCheck": "pass",
+                "needsManualReview": true,
+                "reviewReasons": [
+                  "identity-uncertain",
+                  "non-crest-filename"
+                ],
+                "checkedAt": "2026-06-20T19:51:00.651Z"
+              },
+              "priority": 1
+            }
+          ]
         }
       }
     },
@@ -92311,7 +92477,41 @@
       },
       "assets": {
         "crest": {
-          "status": "missing"
+          "status": "needs-review",
+          "candidates": [
+            {
+              "assetId": "wikidata-image:Trowbridge Town F.C..jpg",
+              "kind": "crest",
+              "status": "needs-review",
+              "source": "wikidata-image",
+              "sourceUrl": "https://www.wikidata.org/wiki/Q7846685",
+              "pageUrl": "https://commons.wikimedia.org/wiki/File:Trowbridge_Town_F.C..jpg",
+              "fileTitle": "File:Trowbridge Town F.C..jpg",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/8/84/Trowbridge_Town_F.C..jpg",
+              "mimeType": "image/jpeg",
+              "width": 4032,
+              "height": 3024,
+              "license": {
+                "shortName": "CC BY-SA 4.0",
+                "usageTerms": "Creative Commons Attribution-Share Alike 4.0",
+                "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+                "copyrighted": true,
+                "credit": "Own work",
+                "artist": "chris_debian"
+              },
+              "verification": {
+                "identityMatch": "possible",
+                "licenseCheck": "pass",
+                "httpCheck": "pass",
+                "needsManualReview": true,
+                "reviewReasons": [
+                  "non-crest-filename"
+                ],
+                "checkedAt": "2026-06-20T19:51:03.322Z"
+              },
+              "priority": 1
+            }
+          ]
         }
       }
     },

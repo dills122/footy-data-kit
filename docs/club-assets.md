@@ -43,11 +43,18 @@ object with review reasons.
 The current discovery order is:
 
 1. Wikipedia PageImages with `pilicense=free`.
-2. Wikidata `P154` logo image, resolved through Wikimedia image metadata.
+2. Wikidata media properties, resolved through Wikimedia image metadata:
+   - `P154` logo image
+   - `P94` coat of arms image
+   - `P18` image
 3. Wikipedia PageImages with `pilicense=any`.
 
 Restricted candidates are preserved as backups but should not be selected as
 `preferred` while a usable candidate exists.
+
+Wikidata `P154` and `P94` candidates are treated as crest-like when they match
+the club identity. Generic `P18` image candidates still need filename or other
+crest evidence, because they often point to squads, grounds, or match photos.
 
 ## Running Discovery
 
@@ -109,6 +116,9 @@ Expected high-volume findings:
 - Some historical clubs have no discoverable page image.
 - Some free page images are photos, charts, or grounds. These should stay
   `needs-review` unless they clearly represent a crest/badge/logo.
+- Some Victorian or folded clubs may need a future curated
+  `no-known-crest`/historical status. Do not infer that automatically from a
+  missing automated result.
 
 Reviewers should promote a candidate only when both identity and license are
 clear. Do not hand-edit generated output without moving the rule into generator

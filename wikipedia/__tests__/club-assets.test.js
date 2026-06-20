@@ -112,6 +112,78 @@ describe('club asset helpers', () => {
     expect(candidate.verification.reviewReasons).not.toContain('non-crest-filename');
   });
 
+  test('accepts matching Wikidata coat-of-arms media as a historical crest candidate', () => {
+    const candidate = classifyClubAssetCandidate(
+      {
+        assetId: 'wikidata-coat-of-arms:AberdareAthletic.jpg',
+        kind: 'crest',
+        status: 'needs-review',
+        source: 'wikidata-coat-of-arms',
+        imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/example.jpg',
+        fileTitle: 'File:AberdareAthletic.jpg',
+        license: {
+          shortName: 'PD',
+          usageTerms: 'Public domain',
+          copyrighted: false,
+        },
+      },
+      {
+        clubId: 'aberdare-athletic',
+        canonicalName: 'Aberdare Athletic',
+        derived: {
+          aliases: ['Aberdare Athletic F.C.'],
+        },
+      }
+    );
+
+    expect(candidate.status).toBe('usable');
+    expect(candidate.verification.reviewReasons || []).not.toContain('non-crest-filename');
+  });
+
+  test('does not trust generic Wikidata images without crest signals', () => {
+    const candidate = classifyClubAssetCandidate(
+      {
+        assetId: 'wikidata-image:Example_FC_ground.jpg',
+        kind: 'crest',
+        status: 'needs-review',
+        source: 'wikidata-image',
+        imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/example.jpg',
+        fileTitle: 'File:Example FC ground.jpg',
+        license: {
+          shortName: 'CC BY-SA 4.0',
+          usageTerms: 'Creative Commons Attribution-Share Alike 4.0',
+          copyrighted: true,
+        },
+      },
+      exampleClub
+    );
+
+    expect(candidate.status).toBe('needs-review');
+    expect(candidate.verification.reviewReasons).toContain('non-crest-filename');
+  });
+
+  test('does not trust Wikidata logo properties without crest filename evidence', () => {
+    const candidate = classifyClubAssetCandidate(
+      {
+        assetId: 'wikidata-logo:Example_FC_ground.jpg',
+        kind: 'crest',
+        status: 'needs-review',
+        source: 'wikidata-logo',
+        imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/example.jpg',
+        fileTitle: 'File:Example FC ground.jpg',
+        license: {
+          shortName: 'CC BY-SA 4.0',
+          usageTerms: 'Creative Commons Attribution-Share Alike 4.0',
+          copyrighted: true,
+        },
+      },
+      exampleClub
+    );
+
+    expect(candidate.status).toBe('needs-review');
+    expect(candidate.verification.reviewReasons).toContain('non-crest-filename');
+  });
+
   test('ranks usable candidates before restricted and review candidates', () => {
     const bundle = buildClubAssetBundle([
       {

@@ -4,6 +4,8 @@ import https from 'node:https';
 
 export const CLUB_ASSET_SOURCE_IDS = Object.freeze({
   wikidataLogo: 'wikidata-logo',
+  wikidataCoatOfArms: 'wikidata-coat-of-arms',
+  wikidataImage: 'wikidata-image',
   wikipediaPageImageFree: 'wikipedia-pageimage-free',
   wikipediaPageImageAny: 'wikipedia-pageimage-any',
 });
@@ -26,6 +28,12 @@ const RESTRICTED_LICENSE_TOKENS = Object.freeze([
   'trademark',
   'logo rationale',
 ]);
+const WIKIDATA_MEDIA_PROPERTIES = Object.freeze([
+  { property: 'P154', source: CLUB_ASSET_SOURCE_IDS.wikidataLogo },
+  { property: 'P94', source: CLUB_ASSET_SOURCE_IDS.wikidataCoatOfArms },
+  { property: 'P18', source: CLUB_ASSET_SOURCE_IDS.wikidataImage },
+]);
+const TRUSTED_WIKIDATA_CREST_SOURCES = Object.freeze([CLUB_ASSET_SOURCE_IDS.wikidataCoatOfArms]);
 
 function sleep(ms) {
   return new Promise((resolve) => {
@@ -166,6 +174,12 @@ export function classifyAssetIdentity(candidate, club) {
 
 function isLikelyCrestCandidate(candidate, identityMatch) {
   if (hasCrestFileToken(candidate.fileTitle)) return true;
+  if (
+    TRUSTED_WIKIDATA_CREST_SOURCES.includes(candidate.source) &&
+    ['possible', 'strong'].includes(identityMatch)
+  ) {
+    return true;
+  }
   const extension = fileExtension(candidate.fileTitle || candidate.imageUrl);
   return (
     candidate.source === CLUB_ASSET_SOURCE_IDS.wikipediaPageImageAny &&
@@ -224,9 +238,11 @@ function statusRank(status) {
 
 function sourceRank(source) {
   if (source === CLUB_ASSET_SOURCE_IDS.wikidataLogo) return 0;
-  if (source === CLUB_ASSET_SOURCE_IDS.wikipediaPageImageFree) return 1;
-  if (source === CLUB_ASSET_SOURCE_IDS.wikipediaPageImageAny) return 2;
-  return 3;
+  if (source === CLUB_ASSET_SOURCE_IDS.wikidataCoatOfArms) return 1;
+  if (source === CLUB_ASSET_SOURCE_IDS.wikipediaPageImageFree) return 2;
+  if (source === CLUB_ASSET_SOURCE_IDS.wikidataImage) return 3;
+  if (source === CLUB_ASSET_SOURCE_IDS.wikipediaPageImageAny) return 4;
+  return 5;
 }
 
 export function rankClubAssetCandidates(candidates, limit = 5) {
@@ -553,7 +569,7 @@ async function discoverWikipediaPageImageCandidate(articleTitle, license) {
   return candidate ? [candidate] : [];
 }
 
-async function discoverWikidataLogoCandidates(articleTitle) {
+async function discoverWikidataMediaCandidates(articleTitle) {
   const pageResponse = await fetchJson(pageImagesApiUrl(articleTitle, 'any'));
   const page = Object.values(pageResponse?.query?.pages || {})[0];
   const wikibaseItem = page?.pageprops?.wikibase_item;
@@ -561,21 +577,25 @@ async function discoverWikidataLogoCandidates(articleTitle) {
 
   const entityResponse = await fetchJson(wikidataEntitiesApiUrl([wikibaseItem]));
   const entity = entityResponse?.entities?.[wikibaseItem];
-  const logos = entity?.claims?.P154 || [];
-  return logos
-    .map((claim) => claim?.mainsnak?.datavalue?.value)
-    .filter(Boolean)
-    .map((fileName) =>
-      compactObject({
-        assetId: buildAssetId(CLUB_ASSET_SOURCE_IDS.wikidataLogo, `File:${fileName}`, null),
-        kind: 'crest',
-        status: 'needs-review',
-        source: CLUB_ASSET_SOURCE_IDS.wikidataLogo,
-        sourceUrl: `https://www.wikidata.org/wiki/${wikibaseItem}`,
-        pageUrl: imagePageUrl(`File:${fileName}`),
-        fileTitle: `File:${fileName}`,
-      })
-    );
+  const candidates = [];
+  for (const mediaProperty of WIKIDATA_MEDIA_PROPERTIES) {
+    for (const claim of entity?.claims?.[mediaProperty.property] || []) {
+      const fileName = claim?.mainsnak?.datavalue?.value;
+      if (!fileName) continue;
+      candidates.push(
+        compactObject({
+          assetId: buildAssetId(mediaProperty.source, `File:${fileName}`, null),
+          kind: 'crest',
+          status: 'needs-review',
+          source: mediaProperty.source,
+          sourceUrl: `https://www.wikidata.org/wiki/${wikibaseItem}`,
+          pageUrl: imagePageUrl(`File:${fileName}`),
+          fileTitle: `File:${fileName}`,
+        })
+      );
+    }
+  }
+  return candidates;
 }
 
 export async function discoverClubCrestBundle(club, options = {}) {
@@ -587,7 +607,7 @@ export async function discoverClubCrestBundle(club, options = {}) {
   for (const articleTitle of articleTitles) {
     const discoverySteps = [
       () => discoverWikipediaPageImageCandidate(articleTitle, 'free'),
-      () => discoverWikidataLogoCandidates(articleTitle),
+      () => discoverWikidataMediaCandidates(articleTitle),
       () => discoverWikipediaPageImageCandidate(articleTitle, 'any'),
     ];
 
