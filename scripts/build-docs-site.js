@@ -687,15 +687,25 @@ function buildSiteData() {
       { value: String(clubCount), label: 'club metadata records' },
       { value: `${latestTierCount} tiers`, label: 'latest season depth' },
     ],
-    links: [
-      { label: 'GitHub repo', url: REPO_URL },
-      { label: 'Releases', url: `${REPO_URL}/releases` },
-      { label: 'Release notes', url: './releases/' },
-      { label: 'Data explorer prototype', url: './explorer-prototype.html' },
-      { label: 'Roadmap', url: `${REPO_URL}/blob/main/docs/roadmap.md` },
-      { label: 'Schema docs', url: './schema/' },
-      { label: 'README', url: `${REPO_URL}/blob/main/readme.md` },
-      { label: 'Pipeline code', url: `${REPO_URL}/tree/main/wikipedia` },
+    linkGroups: [
+      {
+        label: 'Site',
+        links: [
+          { label: 'Data explorer', url: './explorer-prototype.html' },
+          { label: 'Release notes', url: './releases/' },
+          { label: 'Schema docs', url: './schema/' },
+        ],
+      },
+      {
+        label: 'GitHub',
+        links: [
+          { label: 'Repo', url: REPO_URL },
+          { label: 'Releases', url: `${REPO_URL}/releases` },
+          { label: 'Roadmap', url: `${REPO_URL}/blob/main/docs/roadmap.md` },
+          { label: 'README', url: `${REPO_URL}/blob/main/readme.md` },
+          { label: 'Pipeline code', url: `${REPO_URL}/tree/main/wikipedia` },
+        ],
+      },
     ],
     primaryActions: [
       {
@@ -704,17 +714,17 @@ function buildSiteData() {
         className: 'button-link--primary',
       },
       {
-        label: 'Download latest JSON',
+        label: 'Download JSON',
         url: `${releaseDownloadBase}/all-seasons.min.json`,
         className: 'button-link--secondary',
       },
       {
-        label: 'View schemas',
+        label: 'Schemas',
         url: './schema/',
         className: 'button-link--secondary',
       },
       {
-        label: 'Read release notes',
+        label: 'Release notes',
         url: './releases/',
         className: 'button-link--secondary',
       },

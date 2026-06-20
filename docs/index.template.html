@@ -18,7 +18,6 @@
       <section class="panel action-panel" aria-labelledby="start-heading">
         <div class="section-heading">
           <h2 id="start-heading">Start here</h2>
-          <span class="muted-label">common paths</span>
         </div>
         <nav class="button-row" aria-label="primary actions">
           {{#primaryActions}}
@@ -44,12 +43,19 @@
       </section>
 
       <section class="panel">
-        <h2>Links</h2>
-        <nav class="link-grid" aria-label="project links">
-          {{#links}}
-          <a href="{{{url}}}">{{label}}</a>
-          {{/links}}
-        </nav>
+        <h2>Navigation</h2>
+        <div class="link-groups">
+          {{#linkGroups}}
+          <nav class="link-group" aria-label="{{label}}">
+            <span class="link-group-label">{{label}}</span>
+            <div class="link-grid">
+              {{#links}}
+              <a href="{{{url}}}">{{label}}</a>
+              {{/links}}
+            </div>
+          </nav>
+          {{/linkGroups}}
+        </div>
       </section>
 
       <section class="panel">

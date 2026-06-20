@@ -205,7 +205,44 @@ a:focus {
 .button-row {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 8px;
+}
+
+.action-panel {
+  padding-top: 14px;
+  margin-bottom: 24px;
+}
+
+.action-panel .section-heading {
+  margin-bottom: 8px;
+}
+
+.action-panel .button-link {
+  min-height: 36px;
+  padding: 8px 10px;
+  font-size: 0.9rem;
+}
+
+.link-groups {
+  display: grid;
+  gap: 14px;
+}
+
+.link-group {
+  display: grid;
+  grid-template-columns: 10ch 1fr;
+  gap: 10px 16px;
+  align-items: start;
+  padding-top: 10px;
+  border-top: 1px solid var(--rule);
+}
+
+.link-group-label {
+  color: var(--muted);
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  line-height: 34px;
+  text-transform: uppercase;
 }
 
 .button-link,
@@ -591,6 +628,7 @@ footer {
 @media (max-width: 560px) {
   .release-pin,
   .release-row,
+  .link-group,
   .release-meta,
   .download-list li {
     grid-template-columns: 1fr;
