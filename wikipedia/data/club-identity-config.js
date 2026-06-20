@@ -228,6 +228,47 @@ export const CLUB_IDENTITY_RULES = Object.freeze([
     ]),
   }),
   Object.freeze({
+    clubKey: 'hillingdon borough',
+    canonicalName: 'Hillingdon Borough',
+    aliases: Object.freeze(['Yiewsley', 'Hillingdon Borough']),
+    relationship: 'rename',
+    sourceRefs: Object.freeze([
+      Object.freeze({
+        type: 'wikipedia-club-page',
+        sourceUrl: 'https://en.wikipedia.org/wiki/Hillingdon_Borough_F.C.',
+        notes:
+          'Club history records Yiewsley adopting the Hillingdon Borough name after local government reorganisation.',
+      }),
+    ]),
+  }),
+  Object.freeze({
+    clubKey: 'hounslow',
+    canonicalName: 'Hounslow',
+    aliases: Object.freeze(['Hounslow Town', 'Hounslow']),
+    relationship: 'rename',
+    sourceRefs: Object.freeze([
+      Object.freeze({
+        type: 'wikipedia-club-page',
+        sourceUrl: 'https://en.wikipedia.org/wiki/Hounslow_F.C.',
+        notes: 'Club history records Hounslow Town being renamed Hounslow in 1966.',
+      }),
+    ]),
+  }),
+  Object.freeze({
+    clubKey: 'knowsley united',
+    canonicalName: 'Knowsley United',
+    aliases: Object.freeze(['Kirkby Town', 'Knowsley United']),
+    relationship: 'rename',
+    sourceRefs: Object.freeze([
+      Object.freeze({
+        type: 'wikipedia-club-page',
+        sourceUrl: 'https://en.wikipedia.org/wiki/Knowsley_United_F.C.',
+        notes:
+          'Club history records Kirkby Town moving to Huyton and taking the Knowsley United name in 1988.',
+      }),
+    ]),
+  }),
+  Object.freeze({
     clubKey: 'hastings united',
     canonicalName: 'Hastings United',
     aliases: Object.freeze(['Hastings Town', 'Hastings United']),
@@ -331,6 +372,20 @@ export const CLUB_IDENTITY_RULES = Object.freeze([
     ]),
   }),
   Object.freeze({
+    clubKey: 'leyton',
+    canonicalName: 'Leyton',
+    aliases: Object.freeze(['Leyton', 'Leyton-Wingate', 'Leyton Wingate']),
+    relationship: 'rename',
+    sourceRefs: Object.freeze([
+      Object.freeze({
+        type: 'wikipedia-club-page',
+        sourceUrl: 'https://en.wikipedia.org/wiki/Leyton_F.C.',
+        notes:
+          'Club history records the 1975 Leyton-Wingate merger identity, 1992 split, and later Leyton continuation.',
+      }),
+    ]),
+  }),
+  Object.freeze({
     clubKey: 'manchester city',
     canonicalName: 'Manchester City',
     aliases: Object.freeze(['Manchester City', 'Ardwick']),
@@ -356,6 +411,20 @@ export const CLUB_IDENTITY_RULES = Object.freeze([
     ]),
   }),
   Object.freeze({
+    clubKey: 'milton keynes city',
+    canonicalName: 'Milton Keynes City',
+    aliases: Object.freeze(['Bletchley Town', 'Milton Keynes City']),
+    relationship: 'rename',
+    sourceRefs: Object.freeze([
+      Object.freeze({
+        type: 'wikipedia-club-page',
+        sourceUrl: 'https://en.wikipedia.org/wiki/Milton_Keynes_City_F.C.',
+        notes:
+          'Tracked rows refer to the first Milton Keynes City incarnation, formerly Bletchley Town, which wound up in 1985.',
+      }),
+    ]),
+  }),
+  Object.freeze({
     clubKey: 'port vale',
     canonicalName: 'Port Vale',
     aliases: Object.freeze(['Port Vale', 'Burslem Port Vale']),
@@ -364,6 +433,20 @@ export const CLUB_IDENTITY_RULES = Object.freeze([
       Object.freeze({
         type: 'wikipedia-club-page',
         sourceUrl: 'https://en.wikipedia.org/wiki/Port_Vale_F.C.',
+      }),
+    ]),
+  }),
+  Object.freeze({
+    clubKey: 'redbridge forest',
+    canonicalName: 'Redbridge Forest',
+    aliases: Object.freeze(['Leytonstone & Ilford', 'Leytonstone/Ilford', 'Redbridge Forest']),
+    relationship: 'rename',
+    sourceRefs: Object.freeze([
+      Object.freeze({
+        type: 'wikipedia-club-page',
+        sourceUrl: 'https://en.wikipedia.org/wiki/Redbridge_Forest_F.C.',
+        notes:
+          'Club history records Leytonstone & Ilford adopting the Redbridge Forest name before the Dagenham merger.',
       }),
     ]),
   }),
@@ -1246,6 +1329,24 @@ const CLUB_SOURCE_REFS = Object.freeze({
       'Used for current lower-division status and below tracked coverage context.'
     ),
   ]),
+  hillingdonBorough: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Hillingdon_Borough_F.C.',
+      'Used for Yiewsley/Hillingdon Borough rename, winding-up, merger, reformation, and 2026 dissolution context.'
+    ),
+  ]),
+  hitchinTown: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Hitchin_Town_F.C.',
+      'Used for current lower-division status and tracked sparse coverage context.'
+    ),
+  ]),
+  hounslow: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Hounslow_F.C.',
+      'Used for Hounslow Town rename and merger with Feltham context.'
+    ),
+  ]),
   leicesterUnited: Object.freeze([
     wikipediaClubSource(
       'https://en.wikipedia.org/wiki/Leicester_United_F.C.',
@@ -1360,6 +1461,12 @@ const CLUB_SOURCE_REFS = Object.freeze({
       "Used for King's Lynn Town phoenix club context."
     ),
   ]),
+  knowsleyUnited: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Knowsley_United_F.C.',
+      'Used for Kirkby Town rename and Knowsley United dissolution context.'
+    ),
+  ]),
   kingstonian: Object.freeze([
     wikipediaClubSource(
       'https://en.wikipedia.org/wiki/Kingstonian_F.C.',
@@ -1384,6 +1491,18 @@ const CLUB_SOURCE_REFS = Object.freeze({
       'Used for Leigh RMI name change, senior side fold, and current lower-division status context.'
     ),
   ]),
+  leatherhead: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Leatherhead_F.C.',
+      'Used for current lower-division status and tracked sparse coverage context.'
+    ),
+  ]),
+  leyton: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Leyton_F.C.',
+      'Used for Leyton-Wingate merger identity, Leyton continuation, and 2011 dissolution context.'
+    ),
+  ]),
   lewes: Object.freeze([
     wikipediaClubSource(
       'https://en.wikipedia.org/wiki/Lewes_F.C.',
@@ -1402,10 +1521,28 @@ const CLUB_SOURCE_REFS = Object.freeze({
       'Used for current lower-division status and below tracked coverage context.'
     ),
   ]),
+  marlow: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Marlow_F.C.',
+      'Used for current lower-division status and below tracked coverage context.'
+    ),
+  ]),
+  matlockTown: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Matlock_Town_F.C.',
+      'Used for current lower-division status and below tracked coverage context.'
+    ),
+  ]),
   merthyrTydfil: Object.freeze([
     wikipediaClubSource(
       'https://en.wikipedia.org/wiki/Merthyr_Tydfil_F.C.',
       'Used for Merthyr Tydfil liquidation and Merthyr Town successor context.'
+    ),
+  ]),
+  miltonKeynesCity: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Milton_Keynes_City_F.C.',
+      'Used for Bletchley Town rename, first Milton Keynes City dissolution, and separate later same-name club context.'
     ),
   ]),
   nuneatonBorough: Object.freeze([
@@ -3452,6 +3589,79 @@ export const CLUB_LIFECYCLE_RULES = Object.freeze([
     sourceRefs: CLUB_SOURCE_REFS.heybridgeSwifts,
   }),
   Object.freeze({
+    clubKey: 'hillingdon borough',
+    status: Object.freeze({
+      current: 'defunct',
+      reason: 'dissolved',
+      reasonLabel:
+        'Founded as Yiewsley, renamed Hillingdon Borough, wound up in 1983, reformed in 1990, and dissolved in 2026.',
+      sourceRefs: CLUB_SOURCE_REFS.hillingdonBorough,
+    }),
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'renamed',
+        season: 1965,
+        label: 'Yiewsley changed name to Hillingdon Borough.',
+        sourceRefs: CLUB_SOURCE_REFS.hillingdonBorough,
+      }),
+      lifecycleEvent({
+        type: 'folded',
+        season: 1983,
+        label: 'The original club was wound up and Leas Stadium was sold.',
+        sourceRefs: CLUB_SOURCE_REFS.hillingdonBorough,
+      }),
+      lifecycleEvent({
+        type: 'merged',
+        season: 1985,
+        label: 'Hillingdon merged with Burnham to form Burnham & Hillingdon.',
+        sourceRefs: CLUB_SOURCE_REFS.hillingdonBorough,
+      }),
+      lifecycleEvent({
+        type: 'reformed',
+        season: 1990,
+        label: 'Hillingdon Borough was reformed and joined the Spartan League.',
+        sourceRefs: CLUB_SOURCE_REFS.hillingdonBorough,
+      }),
+      lifecycleEvent({
+        type: 'dissolved',
+        season: 2025,
+        label: 'The reformed Hillingdon Borough folded in 2026.',
+        sourceRefs: CLUB_SOURCE_REFS.hillingdonBorough,
+      }),
+    ]),
+  }),
+  statusOnlyRule({
+    clubKey: 'hitchin town',
+    current: 'active',
+    reason: 'possibly-missing-from-current-data',
+    reasonLabel:
+      'Wikipedia lists the club in the Southern League Premier Division Central, a level 7 league inside tracked but sparse coverage.',
+    sourceRefs: CLUB_SOURCE_REFS.hitchinTown,
+  }),
+  Object.freeze({
+    clubKey: 'hounslow',
+    status: Object.freeze({
+      current: 'merged',
+      reason: 'merged',
+      reasonLabel: 'Renamed from Hounslow Town in 1966 and merged with Feltham in 1991.',
+      sourceRefs: CLUB_SOURCE_REFS.hounslow,
+    }),
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'renamed',
+        season: 1966,
+        label: 'Hounslow Town was renamed Hounslow.',
+        sourceRefs: CLUB_SOURCE_REFS.hounslow,
+      }),
+      lifecycleEvent({
+        type: 'merged',
+        season: 1991,
+        label: 'Merged with Feltham to form Feltham & Hounslow Borough.',
+        sourceRefs: CLUB_SOURCE_REFS.hounslow,
+      }),
+    ]),
+  }),
+  Object.freeze({
     clubKey: 'hornchurch',
     status: Object.freeze({
       current: 'active',
@@ -3922,6 +4132,29 @@ export const CLUB_LIFECYCLE_RULES = Object.freeze([
       'Wikipedia lists the club in the Isthmian League South Central Division, below current tracked coverage.',
     sourceRefs: CLUB_SOURCE_REFS.kingstonian,
   }),
+  Object.freeze({
+    clubKey: 'knowsley united',
+    status: Object.freeze({
+      current: 'defunct',
+      reason: 'dissolved',
+      reasonLabel: 'Founded as Kirkby Town, renamed Knowsley United in 1988, and dissolved in 1997.',
+      sourceRefs: CLUB_SOURCE_REFS.knowsleyUnited,
+    }),
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'renamed',
+        season: 1988,
+        label: 'Kirkby Town moved to Huyton and took the Knowsley United name.',
+        sourceRefs: CLUB_SOURCE_REFS.knowsleyUnited,
+      }),
+      lifecycleEvent({
+        type: 'dissolved',
+        season: 1997,
+        label: 'Knowsley United dissolved after the 1996-97 season.',
+        sourceRefs: CLUB_SOURCE_REFS.knowsleyUnited,
+      }),
+    ]),
+  }),
   statusOnlyRule({
     clubKey: 'lancaster city',
     current: 'active',
@@ -3969,6 +4202,56 @@ export const CLUB_LIFECYCLE_RULES = Object.freeze([
     ]),
   }),
   statusOnlyRule({
+    clubKey: 'leatherhead',
+    current: 'active',
+    reason: 'possibly-missing-from-current-data',
+    reasonLabel:
+      'Wikipedia lists the club in the Isthmian League Premier Division, a level 7 league inside tracked but sparse coverage.',
+    sourceRefs: CLUB_SOURCE_REFS.leatherhead,
+  }),
+  Object.freeze({
+    clubKey: 'leyton',
+    status: Object.freeze({
+      current: 'defunct',
+      reason: 'dissolved',
+      reasonLabel:
+        'Leyton-Wingate was a Leyton merger identity from 1975 to 1992; the Leyton continuation disbanded in 2011.',
+      sourceRefs: CLUB_SOURCE_REFS.leyton,
+    }),
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'merged',
+        season: 1975,
+        label: 'Leyton merged with Wingate to become Leyton-Wingate.',
+        sourceRefs: CLUB_SOURCE_REFS.leyton,
+      }),
+      lifecycleEvent({
+        type: 'split',
+        season: 1992,
+        label: 'Leyton and Wingate parted company and the club name reverted to Leyton.',
+        sourceRefs: CLUB_SOURCE_REFS.leyton,
+      }),
+      lifecycleEvent({
+        type: 'merged',
+        season: 1995,
+        label: 'Leyton merged with Walthamstow Pennant to become Leyton Pennant.',
+        sourceRefs: CLUB_SOURCE_REFS.leyton,
+      }),
+      lifecycleEvent({
+        type: 'reformed',
+        season: 1997,
+        label: 'The final Leyton incarnation began playing in 1997.',
+        sourceRefs: CLUB_SOURCE_REFS.leyton,
+      }),
+      lifecycleEvent({
+        type: 'dissolved',
+        season: 2010,
+        label: 'Withdrew from the Isthmian League in January 2011 and disbanded.',
+        sourceRefs: CLUB_SOURCE_REFS.leyton,
+      }),
+    ]),
+  }),
+  statusOnlyRule({
     clubKey: 'lewes',
     current: 'active',
     reason: 'possibly-missing-from-current-data',
@@ -3992,6 +4275,22 @@ export const CLUB_LIFECYCLE_RULES = Object.freeze([
       'Wikipedia lists the club in the Isthmian League South East Division, below current tracked coverage.',
     sourceRefs: CLUB_SOURCE_REFS.margate,
   }),
+  statusOnlyRule({
+    clubKey: 'marlow',
+    current: 'active',
+    reason: 'not-in-tracked-leagues',
+    reasonLabel:
+      'Wikipedia lists the club in the Southern League Division One Central, below current tracked coverage.',
+    sourceRefs: CLUB_SOURCE_REFS.marlow,
+  }),
+  statusOnlyRule({
+    clubKey: 'matlock town',
+    current: 'active',
+    reason: 'not-in-tracked-leagues',
+    reasonLabel:
+      'Wikipedia lists the club in the Northern Premier League Division One East, below current tracked coverage.',
+    sourceRefs: CLUB_SOURCE_REFS.matlockTown,
+  }),
   Object.freeze({
     clubKey: 'merthyr tydfil',
     status: Object.freeze({
@@ -4012,6 +4311,36 @@ export const CLUB_LIFECYCLE_RULES = Object.freeze([
         season: 2010,
         label: 'Reformed under the Merthyr Town name.',
         sourceRefs: CLUB_SOURCE_REFS.merthyrTown,
+      }),
+    ]),
+  }),
+  Object.freeze({
+    clubKey: 'milton keynes city',
+    status: Object.freeze({
+      current: 'defunct',
+      reason: 'dissolved',
+      reasonLabel:
+        'Tracked rows refer to the first Milton Keynes City incarnation, formerly Bletchley Town, which wound up in 1985; a separate later same-name club folded in 2003.',
+      sourceRefs: CLUB_SOURCE_REFS.miltonKeynesCity,
+    }),
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'renamed',
+        season: 1974,
+        label: 'Bletchley Town changed name to Milton Keynes City.',
+        sourceRefs: CLUB_SOURCE_REFS.miltonKeynesCity,
+      }),
+      lifecycleEvent({
+        type: 'dissolved',
+        season: 1984,
+        label: 'The first Milton Keynes City incarnation was wound up after the 1984-85 season.',
+        sourceRefs: CLUB_SOURCE_REFS.miltonKeynesCity,
+      }),
+      lifecycleEvent({
+        type: 'sameNameClubFolded',
+        season: 2003,
+        label: 'A separate later Milton Keynes City club folded in July 2003.',
+        sourceRefs: CLUB_SOURCE_REFS.miltonKeynesCity,
       }),
     ]),
   }),
@@ -4790,6 +5119,18 @@ export const CLUB_LIFECYCLE_RULES = Object.freeze([
       sourceRefs: CLUB_SOURCE_REFS.redbridgeForest,
     }),
     lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'merged',
+        season: 1979,
+        label: 'Leytonstone and Ilford merged to form Leytonstone & Ilford.',
+        sourceRefs: CLUB_SOURCE_REFS.redbridgeForest,
+      }),
+      lifecycleEvent({
+        type: 'renamed',
+        season: 1989,
+        label: 'Leytonstone & Ilford adopted the Redbridge Forest name after incorporating Walthamstow Avenue.',
+        sourceRefs: CLUB_SOURCE_REFS.redbridgeForest,
+      }),
       lifecycleEvent({
         type: 'merged',
         season: 1992,

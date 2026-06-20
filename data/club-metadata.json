@@ -2,8 +2,8 @@
   "metadata": {
     "schemaVersion": 1,
     "generator": "club-metadata-seed",
-    "generatedAt": "2026-06-20T02:36:11.997Z",
-    "gitSha": "aa37b79",
+    "generatedAt": "2026-06-20T02:53:41.229Z",
+    "gitSha": "bfbeb90",
     "sourceFiles": [
       "/Users/dsteele/repos/footy-data-kit/data-output/all-seasons.json"
     ],
@@ -40255,16 +40255,84 @@
       "clubId": "hillingdon-borough",
       "canonicalName": "Hillingdon Borough",
       "status": {
-        "current": "unknown",
+        "current": "defunct",
         "trackedFromSeason": 1979,
         "trackedToSeason": 1981,
         "hasUnexplainedGaps": false,
-        "reason": "manual-review-required",
-        "reasonLabel": "Last observed before the latest supported season with no reviewed lifecycle or below-coverage status rule."
+        "reason": "dissolved",
+        "reasonLabel": "Founded as Yiewsley, renamed Hillingdon Borough, wound up in 1983, reformed in 1990, and dissolved in 2026.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Hillingdon_Borough_F.C.",
+            "notes": "Used for Yiewsley/Hillingdon Borough rename, winding-up, merger, reformation, and 2026 dissolution context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
-        "lifecycleEvents": [],
+        "lifecycleEvents": [
+          {
+            "type": "renamed",
+            "season": 1965,
+            "label": "Yiewsley changed name to Hillingdon Borough.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Hillingdon_Borough_F.C.",
+                "notes": "Used for Yiewsley/Hillingdon Borough rename, winding-up, merger, reformation, and 2026 dissolution context."
+              }
+            ]
+          },
+          {
+            "type": "folded",
+            "season": 1983,
+            "label": "The original club was wound up and Leas Stadium was sold.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Hillingdon_Borough_F.C.",
+                "notes": "Used for Yiewsley/Hillingdon Borough rename, winding-up, merger, reformation, and 2026 dissolution context."
+              }
+            ]
+          },
+          {
+            "type": "merged",
+            "season": 1985,
+            "label": "Hillingdon merged with Burnham to form Burnham & Hillingdon.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Hillingdon_Borough_F.C.",
+                "notes": "Used for Yiewsley/Hillingdon Borough rename, winding-up, merger, reformation, and 2026 dissolution context."
+              }
+            ]
+          },
+          {
+            "type": "reformed",
+            "season": 1990,
+            "label": "Hillingdon Borough was reformed and joined the Spartan League.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Hillingdon_Borough_F.C.",
+                "notes": "Used for Yiewsley/Hillingdon Borough rename, winding-up, merger, reformation, and 2026 dissolution context."
+              }
+            ]
+          },
+          {
+            "type": "dissolved",
+            "season": 2025,
+            "label": "The reformed Hillingdon Borough folded in 2026.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Hillingdon_Borough_F.C.",
+                "notes": "Used for Yiewsley/Hillingdon Borough rename, winding-up, merger, reformation, and 2026 dissolution context."
+              }
+            ]
+          }
+        ],
         "trackedMembership": [
           {
             "fromSeason": 1979,
@@ -40281,6 +40349,13 @@
         "source": "football-data-output",
         "aliases": [
           "Hillingdon Borough"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Hillingdon_Borough_F.C.",
+            "notes": "Used for Yiewsley/Hillingdon Borough rename, winding-up, merger, reformation, and 2026 dissolution context."
+          }
         ],
         "observedNames": [
           {
@@ -40614,12 +40689,19 @@
       "clubId": "hitchin-town",
       "canonicalName": "Hitchin Town",
       "status": {
-        "current": "unknown",
+        "current": "active",
         "trackedFromSeason": 1979,
         "trackedToSeason": 2003,
         "hasUnexplainedGaps": false,
-        "reason": "manual-review-required",
-        "reasonLabel": "Last observed before the latest supported season with no reviewed lifecycle or below-coverage status rule."
+        "reason": "possibly-missing-from-current-data",
+        "reasonLabel": "Wikipedia lists the club in the Southern League Premier Division Central, a level 7 league inside tracked but sparse coverage.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Hitchin_Town_F.C.",
+            "notes": "Used for current lower-division status and tracked sparse coverage context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
@@ -40656,6 +40738,13 @@
         "source": "football-data-output",
         "aliases": [
           "Hitchin Town"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Hitchin_Town_F.C.",
+            "notes": "Used for current lower-division status and tracked sparse coverage context."
+          }
         ],
         "observedNames": [
           {
@@ -41058,16 +41147,48 @@
       "clubId": "hounslow",
       "canonicalName": "Hounslow",
       "status": {
-        "current": "unknown",
+        "current": "merged",
         "trackedFromSeason": 1979,
         "trackedToSeason": 1981,
         "hasUnexplainedGaps": false,
-        "reason": "manual-review-required",
-        "reasonLabel": "Last observed before the latest supported season with no reviewed lifecycle or below-coverage status rule."
+        "reason": "merged",
+        "reasonLabel": "Renamed from Hounslow Town in 1966 and merged with Feltham in 1991.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Hounslow_F.C.",
+            "notes": "Used for Hounslow Town rename and merger with Feltham context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
-        "lifecycleEvents": [],
+        "lifecycleEvents": [
+          {
+            "type": "renamed",
+            "season": 1966,
+            "label": "Hounslow Town was renamed Hounslow.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Hounslow_F.C.",
+                "notes": "Used for Hounslow Town rename and merger with Feltham context."
+              }
+            ]
+          },
+          {
+            "type": "merged",
+            "season": 1991,
+            "label": "Merged with Feltham to form Feltham & Hounslow Borough.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Hounslow_F.C.",
+                "notes": "Used for Hounslow Town rename and merger with Feltham context."
+              }
+            ]
+          }
+        ],
         "trackedMembership": [
           {
             "fromSeason": 1979,
@@ -41084,6 +41205,13 @@
         "source": "football-data-output",
         "aliases": [
           "Hounslow"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Hounslow_F.C.",
+            "notes": "Used for Hounslow Town rename and merger with Feltham context."
+          }
         ],
         "observedNames": [
           {
@@ -44041,16 +44169,48 @@
       "clubId": "knowsley-united",
       "canonicalName": "Knowsley United",
       "status": {
-        "current": "unknown",
+        "current": "defunct",
         "trackedFromSeason": 1993,
         "trackedToSeason": 1996,
         "hasUnexplainedGaps": false,
-        "reason": "manual-review-required",
-        "reasonLabel": "Last observed before the latest supported season with no reviewed lifecycle or below-coverage status rule."
+        "reason": "dissolved",
+        "reasonLabel": "Founded as Kirkby Town, renamed Knowsley United in 1988, and dissolved in 1997.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Knowsley_United_F.C.",
+            "notes": "Used for Kirkby Town rename and Knowsley United dissolution context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
-        "lifecycleEvents": [],
+        "lifecycleEvents": [
+          {
+            "type": "renamed",
+            "season": 1988,
+            "label": "Kirkby Town moved to Huyton and took the Knowsley United name.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Knowsley_United_F.C.",
+                "notes": "Used for Kirkby Town rename and Knowsley United dissolution context."
+              }
+            ]
+          },
+          {
+            "type": "dissolved",
+            "season": 1997,
+            "label": "Knowsley United dissolved after the 1996-97 season.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Knowsley_United_F.C.",
+                "notes": "Used for Kirkby Town rename and Knowsley United dissolution context."
+              }
+            ]
+          }
+        ],
         "trackedMembership": [
           {
             "fromSeason": 1993,
@@ -44067,6 +44227,13 @@
         "source": "football-data-output",
         "aliases": [
           "Knowsley United"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Knowsley_United_F.C.",
+            "notes": "Used for Kirkby Town rename and Knowsley United dissolution context."
+          }
         ],
         "observedNames": [
           {
@@ -44563,12 +44730,19 @@
       "clubId": "leatherhead",
       "canonicalName": "Leatherhead",
       "status": {
-        "current": "unknown",
+        "current": "active",
         "trackedFromSeason": 1979,
         "trackedToSeason": 1982,
         "hasUnexplainedGaps": false,
-        "reason": "manual-review-required",
-        "reasonLabel": "Last observed before the latest supported season with no reviewed lifecycle or below-coverage status rule."
+        "reason": "possibly-missing-from-current-data",
+        "reasonLabel": "Wikipedia lists the club in the Isthmian League Premier Division, a level 7 league inside tracked but sparse coverage.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Leatherhead_F.C.",
+            "notes": "Used for current lower-division status and tracked sparse coverage context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
@@ -44589,6 +44763,13 @@
         "source": "football-data-output",
         "aliases": [
           "Leatherhead"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Leatherhead_F.C.",
+            "notes": "Used for current lower-division status and tracked sparse coverage context."
+          }
         ],
         "observedNames": [
           {
@@ -46363,6 +46544,161 @@
         ]
       }
     },
+    "leyton": {
+      "clubId": "leyton",
+      "canonicalName": "Leyton",
+      "status": {
+        "current": "defunct",
+        "trackedFromSeason": 1987,
+        "trackedToSeason": 1990,
+        "hasUnexplainedGaps": false,
+        "reason": "dissolved",
+        "reasonLabel": "Leyton-Wingate was a Leyton merger identity from 1975 to 1992; the Leyton continuation disbanded in 2011.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Leyton_F.C.",
+            "notes": "Used for Leyton-Wingate merger identity, Leyton continuation, and 2011 dissolution context."
+          }
+        ]
+      },
+      "history": {
+        "nameHistory": [],
+        "lifecycleEvents": [
+          {
+            "type": "merged",
+            "season": 1975,
+            "label": "Leyton merged with Wingate to become Leyton-Wingate.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Leyton_F.C.",
+                "notes": "Used for Leyton-Wingate merger identity, Leyton continuation, and 2011 dissolution context."
+              }
+            ]
+          },
+          {
+            "type": "split",
+            "season": 1992,
+            "label": "Leyton and Wingate parted company and the club name reverted to Leyton.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Leyton_F.C.",
+                "notes": "Used for Leyton-Wingate merger identity, Leyton continuation, and 2011 dissolution context."
+              }
+            ]
+          },
+          {
+            "type": "merged",
+            "season": 1995,
+            "label": "Leyton merged with Walthamstow Pennant to become Leyton Pennant.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Leyton_F.C.",
+                "notes": "Used for Leyton-Wingate merger identity, Leyton continuation, and 2011 dissolution context."
+              }
+            ]
+          },
+          {
+            "type": "reformed",
+            "season": 1997,
+            "label": "The final Leyton incarnation began playing in 1997.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Leyton_F.C.",
+                "notes": "Used for Leyton-Wingate merger identity, Leyton continuation, and 2011 dissolution context."
+              }
+            ]
+          },
+          {
+            "type": "dissolved",
+            "season": 2010,
+            "label": "Withdrew from the Isthmian League in January 2011 and disbanded.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Leyton_F.C.",
+                "notes": "Used for Leyton-Wingate merger identity, Leyton continuation, and 2011 dissolution context."
+              }
+            ]
+          }
+        ],
+        "trackedMembership": [
+          {
+            "fromSeason": 1987,
+            "toSeason": 1990,
+            "tiers": [
+              "tier6"
+            ],
+            "basis": "observed"
+          }
+        ],
+        "absenceExplanations": []
+      },
+      "derived": {
+        "source": "football-data-output",
+        "aliases": [
+          "Leyton-Wingate"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Leyton_F.C.",
+            "notes": "Used for Leyton-Wingate merger identity, Leyton continuation, and 2011 dissolution context."
+          }
+        ],
+        "observedNames": [
+          {
+            "rawName": "Leyton-Wingate",
+            "normalizedName": "leyton-wingate",
+            "firstSeenSeason": 1987,
+            "lastSeenSeason": 1990,
+            "seasonsSeen": [
+              1987,
+              1988,
+              1989,
+              1990
+            ],
+            "tiersSeen": [
+              "tier6"
+            ]
+          }
+        ],
+        "observedNamePeriods": [
+          {
+            "name": "Leyton-Wingate",
+            "startSeason": 1987,
+            "endSeason": 1990
+          }
+        ],
+        "firstSeenSeason": 1987,
+        "lastSeenSeason": 1990,
+        "seasonsSeen": [
+          1987,
+          1988,
+          1989,
+          1990
+        ],
+        "totalSeasonsSeen": 4,
+        "tiersSeen": [
+          "tier6"
+        ],
+        "tierSeasons": [
+          {
+            "tierKey": "tier6",
+            "seasons": [
+              1987,
+              1988,
+              1989,
+              1990
+            ]
+          }
+        ]
+      }
+    },
     "leyton orient": {
       "clubId": "leyton-orient",
       "canonicalName": "Leyton Orient",
@@ -46882,212 +47218,6 @@
             "startSeason": 1939,
             "endSeason": 1945,
             "length": 7
-          }
-        ]
-      }
-    },
-    "leyton-wingate": {
-      "clubId": "leyton-wingate",
-      "canonicalName": "Leyton-Wingate",
-      "status": {
-        "current": "unknown",
-        "trackedFromSeason": 1987,
-        "trackedToSeason": 1990,
-        "hasUnexplainedGaps": false,
-        "reason": "manual-review-required",
-        "reasonLabel": "Last observed before the latest supported season with no reviewed lifecycle or below-coverage status rule."
-      },
-      "history": {
-        "nameHistory": [],
-        "lifecycleEvents": [],
-        "trackedMembership": [
-          {
-            "fromSeason": 1987,
-            "toSeason": 1990,
-            "tiers": [
-              "tier6"
-            ],
-            "basis": "observed"
-          }
-        ],
-        "absenceExplanations": []
-      },
-      "derived": {
-        "source": "football-data-output",
-        "aliases": [
-          "Leyton-Wingate"
-        ],
-        "observedNames": [
-          {
-            "rawName": "Leyton-Wingate",
-            "normalizedName": "leyton-wingate",
-            "firstSeenSeason": 1987,
-            "lastSeenSeason": 1990,
-            "seasonsSeen": [
-              1987,
-              1988,
-              1989,
-              1990
-            ],
-            "tiersSeen": [
-              "tier6"
-            ]
-          }
-        ],
-        "observedNamePeriods": [
-          {
-            "name": "Leyton-Wingate",
-            "startSeason": 1987,
-            "endSeason": 1990
-          }
-        ],
-        "firstSeenSeason": 1987,
-        "lastSeenSeason": 1990,
-        "seasonsSeen": [
-          1987,
-          1988,
-          1989,
-          1990
-        ],
-        "totalSeasonsSeen": 4,
-        "tiersSeen": [
-          "tier6"
-        ],
-        "tierSeasons": [
-          {
-            "tierKey": "tier6",
-            "seasons": [
-              1987,
-              1988,
-              1989,
-              1990
-            ]
-          }
-        ]
-      }
-    },
-    "leytonstone and ilford": {
-      "clubId": "leytonstone-and-ilford",
-      "canonicalName": "Leytonstone/Ilford",
-      "status": {
-        "current": "unknown",
-        "trackedFromSeason": 1980,
-        "trackedToSeason": 1988,
-        "hasUnexplainedGaps": false,
-        "reason": "manual-review-required",
-        "reasonLabel": "Last observed before the latest supported season with no reviewed lifecycle or below-coverage status rule."
-      },
-      "history": {
-        "nameHistory": [],
-        "lifecycleEvents": [],
-        "trackedMembership": [
-          {
-            "fromSeason": 1980,
-            "toSeason": 1984,
-            "tiers": [
-              "tier6"
-            ],
-            "basis": "observed"
-          },
-          {
-            "fromSeason": 1987,
-            "toSeason": 1988,
-            "tiers": [
-              "tier6"
-            ],
-            "basis": "observed"
-          }
-        ],
-        "absenceExplanations": []
-      },
-      "derived": {
-        "source": "football-data-output",
-        "aliases": [
-          "Leytonstone & Ilford",
-          "Leytonstone/Ilford"
-        ],
-        "observedNames": [
-          {
-            "rawName": "Leytonstone & Ilford",
-            "normalizedName": "leytonstone and ilford",
-            "firstSeenSeason": 1980,
-            "lastSeenSeason": 1982,
-            "seasonsSeen": [
-              1980,
-              1981,
-              1982
-            ],
-            "tiersSeen": [
-              "tier6"
-            ]
-          },
-          {
-            "rawName": "Leytonstone/Ilford",
-            "normalizedName": "leytonstone and ilford",
-            "firstSeenSeason": 1983,
-            "lastSeenSeason": 1988,
-            "seasonsSeen": [
-              1983,
-              1984,
-              1987,
-              1988
-            ],
-            "tiersSeen": [
-              "tier6"
-            ]
-          }
-        ],
-        "observedNamePeriods": [
-          {
-            "name": "Leytonstone & Ilford",
-            "startSeason": 1980,
-            "endSeason": 1982
-          },
-          {
-            "name": "Leytonstone/Ilford",
-            "startSeason": 1983,
-            "endSeason": 1984
-          },
-          {
-            "name": "Leytonstone/Ilford",
-            "startSeason": 1987,
-            "endSeason": 1988
-          }
-        ],
-        "firstSeenSeason": 1980,
-        "lastSeenSeason": 1988,
-        "seasonsSeen": [
-          1980,
-          1981,
-          1982,
-          1983,
-          1984,
-          1987,
-          1988
-        ],
-        "totalSeasonsSeen": 7,
-        "tiersSeen": [
-          "tier6"
-        ],
-        "tierSeasons": [
-          {
-            "tierKey": "tier6",
-            "seasons": [
-              1980,
-              1981,
-              1982,
-              1983,
-              1984,
-              1987,
-              1988
-            ]
-          }
-        ],
-        "coverageGaps": [
-          {
-            "startSeason": 1985,
-            "endSeason": 1986,
-            "length": 2
           }
         ]
       }
@@ -51512,12 +51642,19 @@
       "clubId": "marlow",
       "canonicalName": "Marlow",
       "status": {
-        "current": "unknown",
+        "current": "active",
         "trackedFromSeason": 1988,
         "trackedToSeason": 1994,
         "hasUnexplainedGaps": false,
-        "reason": "manual-review-required",
-        "reasonLabel": "Last observed before the latest supported season with no reviewed lifecycle or below-coverage status rule."
+        "reason": "not-in-tracked-leagues",
+        "reasonLabel": "Wikipedia lists the club in the Southern League Division One Central, below current tracked coverage.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Marlow_F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
@@ -51538,6 +51675,13 @@
         "source": "football-data-output",
         "aliases": [
           "Marlow"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Marlow_F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
+          }
         ],
         "observedNames": [
           {
@@ -51601,12 +51745,19 @@
       "clubId": "matlock-town",
       "canonicalName": "Matlock Town",
       "status": {
-        "current": "unknown",
+        "current": "active",
         "trackedFromSeason": 1979,
         "trackedToSeason": 1995,
         "hasUnexplainedGaps": false,
-        "reason": "manual-review-required",
-        "reasonLabel": "Last observed before the latest supported season with no reviewed lifecycle or below-coverage status rule."
+        "reason": "not-in-tracked-leagues",
+        "reasonLabel": "Wikipedia lists the club in the Northern Premier League Division One East, below current tracked coverage.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Matlock_Town_F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
@@ -51627,6 +51778,13 @@
         "source": "football-data-output",
         "aliases": [
           "Matlock Town"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Matlock_Town_F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
+          }
         ],
         "observedNames": [
           {
@@ -53224,16 +53382,60 @@
       "clubId": "milton-keynes-city",
       "canonicalName": "Milton Keynes City",
       "status": {
-        "current": "unknown",
+        "current": "defunct",
         "trackedFromSeason": 1979,
         "trackedToSeason": 1981,
         "hasUnexplainedGaps": false,
-        "reason": "manual-review-required",
-        "reasonLabel": "Last observed before the latest supported season with no reviewed lifecycle or below-coverage status rule."
+        "reason": "dissolved",
+        "reasonLabel": "Tracked rows refer to the first Milton Keynes City incarnation, formerly Bletchley Town, which wound up in 1985; a separate later same-name club folded in 2003.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Milton_Keynes_City_F.C.",
+            "notes": "Used for Bletchley Town rename, first Milton Keynes City dissolution, and separate later same-name club context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
-        "lifecycleEvents": [],
+        "lifecycleEvents": [
+          {
+            "type": "renamed",
+            "season": 1974,
+            "label": "Bletchley Town changed name to Milton Keynes City.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Milton_Keynes_City_F.C.",
+                "notes": "Used for Bletchley Town rename, first Milton Keynes City dissolution, and separate later same-name club context."
+              }
+            ]
+          },
+          {
+            "type": "dissolved",
+            "season": 1984,
+            "label": "The first Milton Keynes City incarnation was wound up after the 1984-85 season.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Milton_Keynes_City_F.C.",
+                "notes": "Used for Bletchley Town rename, first Milton Keynes City dissolution, and separate later same-name club context."
+              }
+            ]
+          },
+          {
+            "type": "sameNameClubFolded",
+            "season": 2003,
+            "label": "A separate later Milton Keynes City club folded in July 2003.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Milton_Keynes_City_F.C.",
+                "notes": "Used for Bletchley Town rename, first Milton Keynes City dissolution, and separate later same-name club context."
+              }
+            ]
+          }
+        ],
         "trackedMembership": [
           {
             "fromSeason": 1979,
@@ -53250,6 +53452,13 @@
         "source": "football-data-output",
         "aliases": [
           "Milton Keynes City"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Milton_Keynes_City_F.C.",
+            "notes": "Used for Bletchley Town rename, first Milton Keynes City dissolution, and separate later same-name club context."
+          }
         ],
         "observedNames": [
           {
@@ -63382,7 +63591,7 @@
       "canonicalName": "Redbridge Forest",
       "status": {
         "current": "merged",
-        "trackedFromSeason": 1989,
+        "trackedFromSeason": 1980,
         "trackedToSeason": 1991,
         "hasUnexplainedGaps": false,
         "reason": "merged",
@@ -63400,6 +63609,30 @@
         "lifecycleEvents": [
           {
             "type": "merged",
+            "season": 1979,
+            "label": "Leytonstone and Ilford merged to form Leytonstone & Ilford.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Redbridge_Forest_F.C.",
+                "notes": "Used for Redbridge Forest merger into Dagenham & Redbridge."
+              }
+            ]
+          },
+          {
+            "type": "renamed",
+            "season": 1989,
+            "label": "Leytonstone & Ilford adopted the Redbridge Forest name after incorporating Walthamstow Avenue.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Redbridge_Forest_F.C.",
+                "notes": "Used for Redbridge Forest merger into Dagenham & Redbridge."
+              }
+            ]
+          },
+          {
+            "type": "merged",
             "season": 1992,
             "label": "Merged with Dagenham to form Dagenham & Redbridge.",
             "sourceRefs": [
@@ -63413,7 +63646,15 @@
         ],
         "trackedMembership": [
           {
-            "fromSeason": 1989,
+            "fromSeason": 1980,
+            "toSeason": 1984,
+            "tiers": [
+              "tier6"
+            ],
+            "basis": "observed"
+          },
+          {
+            "fromSeason": 1987,
             "toSeason": 1991,
             "tiers": [
               "tier5",
@@ -63427,6 +63668,8 @@
       "derived": {
         "source": "football-data-output",
         "aliases": [
+          "Leytonstone & Ilford",
+          "Leytonstone/Ilford",
           "Redbridge Forest"
         ],
         "identitySources": [
@@ -63459,6 +63702,35 @@
         ],
         "observedNames": [
           {
+            "rawName": "Leytonstone & Ilford",
+            "normalizedName": "leytonstone and ilford",
+            "firstSeenSeason": 1980,
+            "lastSeenSeason": 1982,
+            "seasonsSeen": [
+              1980,
+              1981,
+              1982
+            ],
+            "tiersSeen": [
+              "tier6"
+            ]
+          },
+          {
+            "rawName": "Leytonstone/Ilford",
+            "normalizedName": "leytonstone and ilford",
+            "firstSeenSeason": 1983,
+            "lastSeenSeason": 1988,
+            "seasonsSeen": [
+              1983,
+              1984,
+              1987,
+              1988
+            ],
+            "tiersSeen": [
+              "tier6"
+            ]
+          },
+          {
             "rawName": "Redbridge Forest",
             "normalizedName": "redbridge forest",
             "firstSeenSeason": 1989,
@@ -63476,19 +63748,41 @@
         ],
         "observedNamePeriods": [
           {
+            "name": "Leytonstone & Ilford",
+            "startSeason": 1980,
+            "endSeason": 1982
+          },
+          {
+            "name": "Leytonstone/Ilford",
+            "startSeason": 1983,
+            "endSeason": 1984
+          },
+          {
+            "name": "Leytonstone/Ilford",
+            "startSeason": 1987,
+            "endSeason": 1988
+          },
+          {
             "name": "Redbridge Forest",
             "startSeason": 1989,
             "endSeason": 1991
           }
         ],
-        "firstSeenSeason": 1989,
+        "firstSeenSeason": 1980,
         "lastSeenSeason": 1991,
         "seasonsSeen": [
+          1980,
+          1981,
+          1982,
+          1983,
+          1984,
+          1987,
+          1988,
           1989,
           1990,
           1991
         ],
-        "totalSeasonsSeen": 3,
+        "totalSeasonsSeen": 10,
         "tiersSeen": [
           "tier5",
           "tier6"
@@ -63503,9 +63797,23 @@
           {
             "tierKey": "tier6",
             "seasons": [
+              1980,
+              1981,
+              1982,
+              1983,
+              1984,
+              1987,
+              1988,
               1989,
               1990
             ]
+          }
+        ],
+        "coverageGaps": [
+          {
+            "startSeason": 1985,
+            "endSeason": 1986,
+            "length": 2
           }
         ]
       }

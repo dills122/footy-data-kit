@@ -232,7 +232,7 @@ describe('compare-football-data', () => {
     expect(canonicalizeTeamName('Bournemouth & Boscombe Athletic')).toBe('afc bournemouth');
     expect(canonicalizeTeamName('Burslem Port Vale')).toBe('port vale');
     expect(canonicalizeTeamName('Gravesend & Northfleet')).toBe('ebbsfleet united');
-    expect(canonicalizeTeamName('Leytonstone/Ilford')).toBe('leytonstone and ilford');
+    expect(canonicalizeTeamName('Leytonstone/Ilford')).toBe('redbridge forest');
     expect(canonicalizeTeamName('Hyde')).toBe('hyde united');
     expect(canonicalizeTeamName('Stevenage Borough')).toBe('stevenage');
     expect(canonicalizeTeamName('Swansea Town')).toBe('swansea city');
