@@ -89,6 +89,60 @@ describe('generateClubAssets', () => {
     expect(review.issueCount).toBe(0);
   });
 
+  test('can target selected club keys from cache', async () => {
+    const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'club-assets-test-'));
+    tmpDirs.push(tmpDir);
+    const inputFile = path.join(tmpDir, 'club-metadata.json');
+    const outputFile = path.join(tmpDir, 'club-metadata-output.json');
+    const reviewOutputFile = path.join(tmpDir, 'club-assets-review.json');
+    const cacheFile = path.join(tmpDir, 'club-assets-cache.json');
+
+    fs.writeFileSync(
+      inputFile,
+      JSON.stringify({
+        clubs: {
+          'example fc': {
+            clubId: 'example-fc',
+            canonicalName: 'Example FC',
+          },
+          'other fc': {
+            clubId: 'other-fc',
+            canonicalName: 'Other FC',
+          },
+        },
+      })
+    );
+    fs.writeFileSync(
+      cacheFile,
+      JSON.stringify({
+        clubs: {
+          'example fc': {
+            crest: {
+              status: 'missing',
+            },
+          },
+        },
+      })
+    );
+
+    const result = await generateClubAssets({
+      input: inputFile,
+      output: outputFile,
+      reviewOutput: reviewOutputFile,
+      cache: cacheFile,
+      clubKeys: ['example fc'],
+      requestDelayMs: 0,
+      cwd: process.cwd(),
+    });
+    const output = JSON.parse(fs.readFileSync(outputFile, 'utf8'));
+    const review = JSON.parse(fs.readFileSync(reviewOutputFile, 'utf8'));
+
+    expect(result.processedClubCount).toBe(1);
+    expect(output.clubs['example fc'].assets.crest.status).toBe('missing');
+    expect(output.clubs['other fc'].assets).toBeUndefined();
+    expect(review.clubCount).toBe(1);
+  });
+
   test('reclassifies cached crest bundles with current verification rules', async () => {
     const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'club-assets-test-'));
     tmpDirs.push(tmpDir);

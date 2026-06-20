@@ -110,6 +110,7 @@ export async function generateClubAssets({
   compact = false,
   limit = 5,
   clubLimit = null,
+  clubKeys = [],
   cache = null,
   refreshAssets = false,
   requestDelayMs = 100,
@@ -122,7 +123,13 @@ export async function generateClubAssets({
   const inputData = readJson(inputPath);
   const sourceClubs = normaliseClubsMap(unwrapClubMetadata(inputData)) || {};
   const entries = Object.entries(sourceClubs);
-  const selectedEntries = Number.isInteger(clubLimit) ? entries.slice(0, clubLimit) : entries;
+  const clubKeyFilter = new Set((clubKeys || []).filter(Boolean));
+  const candidateEntries = clubKeyFilter.size
+    ? entries.filter(([clubKey]) => clubKeyFilter.has(clubKey))
+    : entries;
+  const selectedEntries = Number.isInteger(clubLimit)
+    ? candidateEntries.slice(0, clubLimit)
+    : candidateEntries;
   const enrichedClubs = { ...sourceClubs };
   const cachedAssets = readAssetCache(cachePath);
 
@@ -158,6 +165,7 @@ export async function generateClubAssets({
         input,
         limit,
         clubLimit,
+        clubKeys: clubKeys?.length || null,
         cache: Boolean(cache),
         refreshAssets,
         requestDelayMs,
@@ -168,7 +176,7 @@ export async function generateClubAssets({
   };
   writeJson(outputPath, outputData, spacing);
 
-  const reviewClubs = Number.isInteger(clubLimit)
+  const reviewClubs = Number.isInteger(clubLimit) || clubKeyFilter.size
     ? Object.fromEntries(selectedEntries.map(([clubKey]) => [clubKey, enrichedClubs[clubKey]]))
     : enrichedClubs;
   const reviewReport = reviewOutputPath
@@ -207,6 +215,12 @@ export async function runCli(argv = process.argv) {
       (value) => Number.parseInt(value, 10),
       null
     )
+    .option(
+      '--club-key <key>',
+      'Process only the selected club key. Repeatable.',
+      (value, previous) => [...previous, value],
+      []
+    )
     .option('--cache <file>', 'Path to a resumable asset discovery cache')
     .option('--refresh-assets', 'Ignore cached asset bundles and refresh source lookups', false)
     .option(
@@ -225,6 +239,7 @@ export async function runCli(argv = process.argv) {
     reviewOutput: options.reviewOutput,
     limit: options.limit,
     clubLimit: Number.isInteger(options.clubLimit) ? options.clubLimit : null,
+    clubKeys: options.clubKey,
     cache: options.cache || null,
     refreshAssets: options.refreshAssets,
     requestDelayMs: Number.isInteger(options.requestDelayMs) ? options.requestDelayMs : 100,

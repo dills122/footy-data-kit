@@ -1,6 +1,7 @@
 import {
   buildClubAssetBundle,
   buildClubAssetReviewIssues,
+  buildWikipediaArticleTitles,
   classifyAssetLicense,
   classifyClubAssetCandidate,
 } from '../data/assets/club-assets.js';
@@ -14,6 +15,44 @@ const exampleClub = {
 };
 
 describe('club asset helpers', () => {
+  test('prefers specific club page titles before generic source pages', () => {
+    const titles = buildWikipediaArticleTitles({
+      canonicalName: 'Chester City',
+      derived: {
+        aliases: ['Chester City'],
+        identitySources: [
+          {
+            type: 'former-efl-clubs-list',
+            sourceUrl: 'https://en.wikipedia.org/wiki/List_of_former_English_Football_League_clubs',
+          },
+          {
+            type: 'wikipedia-club-page',
+            sourceUrl: 'https://en.wikipedia.org/wiki/Chester_City_F.C.',
+          },
+        ],
+      },
+    });
+
+    expect(titles[0]).toBe('Chester City F.C.');
+    expect(titles).toContain('List of former English Football League clubs');
+  });
+
+  test('builds common English club article title fallbacks', () => {
+    expect(
+      buildWikipediaArticleTitles({
+        canonicalName: 'AFC Totton',
+        derived: { aliases: ['AFC Totton'] },
+      }).slice(0, 4)
+    ).toEqual(['AFC Totton', 'A.F.C. Totton', 'AFC Totton F.C.', 'AFC Totton A.F.C.']);
+
+    expect(
+      buildWikipediaArticleTitles({
+        canonicalName: 'Tranmere Rovers',
+        derived: { aliases: ['Tranmere Rovers'] },
+      })
+    ).toContain('Tranmere Rovers F.C.');
+  });
+
   test('classifies public-domain crest candidates as usable', () => {
     const candidate = classifyClubAssetCandidate(
       {

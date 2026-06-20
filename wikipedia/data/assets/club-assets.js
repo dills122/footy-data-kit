@@ -383,22 +383,64 @@ async function fetchJson(url, { retries = 2, retryDelayMs = 1000 } = {}) {
   throw new Error('Unreachable fetch retry state');
 }
 
-function wikipediaArticleTitle(club) {
-  const sourceUrl =
-    club?.derived?.identitySources?.find((source) =>
-      String(source.sourceUrl || '').startsWith('https://en.wikipedia.org/wiki/')
-    )?.sourceUrl ||
-    club?.status?.sourceRefs?.find((source) =>
-      String(source.sourceUrl || '').startsWith('https://en.wikipedia.org/wiki/')
-    )?.sourceUrl;
-  if (sourceUrl) {
-    const pageTitle = decodeURIComponent(sourceUrl.split('/wiki/')[1] || '').replace(/_/g, ' ');
-    if (pageTitle) return pageTitle;
+function wikipediaPageTitleFromUrl(sourceUrl) {
+  const url = String(sourceUrl || '');
+  if (!url.startsWith('https://en.wikipedia.org/wiki/')) return null;
+  const pageTitle = decodeURIComponent(url.split('/wiki/')[1] || '').replace(/_/g, ' ');
+  return toText(pageTitle);
+}
+
+function pushUniqueTitle(titles, title) {
+  const normalizedTitle = toText(title);
+  if (!normalizedTitle) return;
+  const dedupeKey = normalizedTitle.toLowerCase();
+  if (titles.some((entry) => entry.toLowerCase() === dedupeKey)) return;
+  titles.push(normalizedTitle);
+}
+
+function buildTitleGuesses(name) {
+  const title = toText(name);
+  if (!title) return [];
+  const guesses = [title];
+  if (/^AFC\s+/i.test(title)) {
+    guesses.push(title.replace(/^AFC\s+/i, 'A.F.C. '));
+  }
+  if (/^FC\s+/i.test(title)) {
+    guesses.push(title.replace(/^FC\s+/i, 'F.C. '));
+  }
+  if (!/\b(A\.?F\.?C\.?|F\.?C\.?)$/i.test(title)) {
+    guesses.push(`${title} F.C.`);
+    guesses.push(`${title} A.F.C.`);
+  }
+  return guesses;
+}
+
+export function buildWikipediaArticleTitles(club) {
+  const titles = [];
+  const identitySources = [
+    ...(club?.derived?.identitySources || []),
+    ...(club?.status?.sourceRefs || []),
+  ];
+  const clubPageSources = identitySources.filter(
+    (source) => source.type === 'wikipedia-club-page'
+  );
+  const otherWikiSources = identitySources.filter(
+    (source) => source.type !== 'wikipedia-club-page'
+  );
+
+  for (const source of clubPageSources) {
+    pushUniqueTitle(titles, wikipediaPageTitleFromUrl(source.sourceUrl));
+  }
+  for (const name of [club?.canonicalName, ...(club?.derived?.aliases || [])]) {
+    for (const guess of buildTitleGuesses(name)) {
+      pushUniqueTitle(titles, guess);
+    }
+  }
+  for (const source of otherWikiSources) {
+    pushUniqueTitle(titles, wikipediaPageTitleFromUrl(source.sourceUrl));
   }
 
-  const canonicalName = toText(club?.canonicalName);
-  if (!canonicalName) return null;
-  return /\bF\.?C\.?$/i.test(canonicalName) ? canonicalName : `${canonicalName} F.C.`;
+  return titles.slice(0, 8);
 }
 
 function pageImagesApiUrl(articleTitle, license) {
@@ -537,22 +579,24 @@ async function discoverWikidataLogoCandidates(articleTitle) {
 }
 
 export async function discoverClubCrestBundle(club, options = {}) {
-  const articleTitle = wikipediaArticleTitle(club);
-  if (!articleTitle) return buildClubAssetBundle([]);
+  const articleTitles = buildWikipediaArticleTitles(club);
+  if (!articleTitles.length) return buildClubAssetBundle([]);
 
   const checkedAt = options.checkedAt || new Date().toISOString();
   const rawCandidates = [];
-  const discoverySteps = [
-    () => discoverWikipediaPageImageCandidate(articleTitle, 'free'),
-    () => discoverWikidataLogoCandidates(articleTitle),
-    () => discoverWikipediaPageImageCandidate(articleTitle, 'any'),
-  ];
+  for (const articleTitle of articleTitles) {
+    const discoverySteps = [
+      () => discoverWikipediaPageImageCandidate(articleTitle, 'free'),
+      () => discoverWikidataLogoCandidates(articleTitle),
+      () => discoverWikipediaPageImageCandidate(articleTitle, 'any'),
+    ];
 
-  for (const step of discoverySteps) {
-    try {
-      rawCandidates.push(...(await step()));
-    } catch (error) {
-      if (options.throwOnSourceError) throw error;
+    for (const step of discoverySteps) {
+      try {
+        rawCandidates.push(...(await step()));
+      } catch (error) {
+        if (options.throwOnSourceError) throw error;
+      }
     }
   }
 
