@@ -77,6 +77,9 @@
         "derived": {
           "$ref": "#/definitions/ClubDerivedMetadata"
         },
+        "assets": {
+          "$ref": "#/definitions/MetadataAssets"
+        },
         "founded": {
           "type": ["string", "null"]
         },
@@ -228,6 +231,176 @@
           "items": {
             "$ref": "#/definitions/ClubCoverageGap"
           }
+        }
+      }
+    },
+    "MetadataAssets": {
+      "type": "object",
+      "description": "Visual and media asset candidates for this metadata identity. v1 populates club crest candidates only.",
+      "additionalProperties": {
+        "$ref": "#/definitions/MetadataAssetBundle"
+      },
+      "properties": {
+        "crest": {
+          "$ref": "#/definitions/MetadataAssetBundle"
+        }
+      }
+    },
+    "MetadataAssetBundle": {
+      "type": "object",
+      "required": ["status"],
+      "additionalProperties": false,
+      "properties": {
+        "preferred": {
+          "type": ["string", "null"],
+          "description": "assetId for the preferred candidate, or null when no candidate is safe to prefer."
+        },
+        "status": {
+          "type": "string",
+          "description": "Overall bundle status such as usable, placeholder, restricted, needs-review, needs-more-research, or failed."
+        },
+        "candidates": {
+          "type": "array",
+          "maxItems": 5,
+          "items": {
+            "$ref": "#/definitions/MetadataAssetCandidate"
+          }
+        }
+      }
+    },
+    "MetadataAssetCandidate": {
+      "type": "object",
+      "required": ["assetId", "kind", "status", "source"],
+      "additionalProperties": false,
+      "properties": {
+        "assetId": {
+          "type": "string"
+        },
+        "kind": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "priority": {
+          "type": ["integer", "null"],
+          "minimum": 1
+        },
+        "source": {
+          "type": "string"
+        },
+        "sourceUrl": {
+          "type": ["string", "null"],
+          "format": "uri"
+        },
+        "imageUrl": {
+          "type": ["string", "null"],
+          "format": "uri"
+        },
+        "pageUrl": {
+          "type": ["string", "null"],
+          "format": "uri"
+        },
+        "fileTitle": {
+          "type": ["string", "null"]
+        },
+        "mimeType": {
+          "type": ["string", "null"]
+        },
+        "width": {
+          "type": ["integer", "null"],
+          "minimum": 0
+        },
+        "height": {
+          "type": ["integer", "null"],
+          "minimum": 0
+        },
+        "license": {
+          "$ref": "#/definitions/MetadataAssetLicense"
+        },
+        "colors": {
+          "type": "array",
+          "description": "Structured color hints used by generated placeholders or asset consumers.",
+          "items": {
+            "$ref": "#/definitions/MetadataAssetColor"
+          }
+        },
+        "placeholder": {
+          "type": "boolean",
+          "description": "True when the candidate is a generated placeholder rather than an official or source-discovered asset."
+        },
+        "verification": {
+          "$ref": "#/definitions/MetadataAssetVerification"
+        },
+        "notes": {
+          "type": ["string", "null"]
+        }
+      }
+    },
+    "MetadataAssetColor": {
+      "type": "object",
+      "required": ["role", "hex"],
+      "additionalProperties": false,
+      "properties": {
+        "role": {
+          "type": "string"
+        },
+        "hex": {
+          "type": "string",
+          "pattern": "^#[0-9A-Fa-f]{6}$"
+        }
+      }
+    },
+    "MetadataAssetLicense": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "shortName": {
+          "type": ["string", "null"]
+        },
+        "usageTerms": {
+          "type": ["string", "null"]
+        },
+        "licenseUrl": {
+          "type": ["string", "null"],
+          "format": "uri"
+        },
+        "copyrighted": {
+          "type": ["boolean", "null"]
+        },
+        "attribution": {
+          "type": ["string", "null"]
+        },
+        "credit": {
+          "type": ["string", "null"]
+        },
+        "artist": {
+          "type": ["string", "null"]
+        }
+      }
+    },
+    "MetadataAssetVerification": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "identityMatch": {
+          "type": ["string", "null"]
+        },
+        "licenseCheck": {
+          "type": ["string", "null"]
+        },
+        "httpCheck": {
+          "type": ["string", "null"]
+        },
+        "needsManualReview": {
+          "type": "boolean"
+        },
+        "reviewReasons": {
+          "$ref": "#/definitions/StringList"
+        },
+        "checkedAt": {
+          "type": ["string", "null"],
+          "format": "date-time"
         }
       }
     },

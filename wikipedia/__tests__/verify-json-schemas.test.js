@@ -106,6 +106,40 @@ function buildClubMetadataFixture() {
           tierSeasons: [{ tierKey: 'tier1', seasons: [1900] }],
           coverageGaps: [],
         },
+        assets: {
+          crest: {
+            preferred: 'wikipedia-pageimage-free:Example_FC_crest.svg',
+            status: 'usable',
+            candidates: [
+              {
+                assetId: 'wikipedia-pageimage-free:Example_FC_crest.svg',
+                kind: 'crest',
+                status: 'usable',
+                priority: 1,
+                source: 'wikipedia-pageimage-free',
+                sourceUrl: 'https://en.wikipedia.org/wiki/Example_F.C.',
+                imageUrl: 'https://upload.wikimedia.org/example.svg',
+                fileTitle: 'File:Example_FC_crest.svg',
+                mimeType: 'image/svg+xml',
+                width: 512,
+                height: 512,
+                license: {
+                  shortName: 'PD',
+                  usageTerms: 'Public domain',
+                  copyrighted: false,
+                  attribution: 'Example FC',
+                },
+                verification: {
+                  identityMatch: 'strong',
+                  licenseCheck: 'pass',
+                  httpCheck: 'pass',
+                  needsManualReview: false,
+                  checkedAt: '2026-06-20T00:00:00.000Z',
+                },
+              },
+            ],
+          },
+        },
       },
     },
   };

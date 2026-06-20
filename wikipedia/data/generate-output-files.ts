@@ -532,6 +532,137 @@ function normaliseClubDerivedMetadata(value: any): AnyRecord | undefined {
   return Object.keys(cleaned).length ? cleaned : undefined;
 }
 
+function toIntegerOrNull(value: unknown): number | null {
+  if (value == null || value === '') return null;
+  const parsed = Number.parseInt(String(value), 10);
+  return Number.isFinite(parsed) ? parsed : null;
+}
+
+function toBooleanOrNull(value: unknown): boolean | null {
+  if (typeof value === 'boolean') return value;
+  return null;
+}
+
+function normaliseAssetLicense(value: any): AnyRecord | undefined {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return undefined;
+  const license = {
+    shortName: toStringValue(value.shortName),
+    usageTerms: toStringValue(value.usageTerms),
+    licenseUrl: toStringValue(value.licenseUrl),
+    copyrighted: toBooleanOrNull(value.copyrighted),
+    attribution: toStringValue(value.attribution),
+    credit: toStringValue(value.credit),
+    artist: toStringValue(value.artist),
+  };
+  const cleaned = Object.fromEntries(Object.entries(license).filter(([, entry]) => entry != null));
+  return Object.keys(cleaned).length ? cleaned : undefined;
+}
+
+function normaliseAssetVerification(value: any): AnyRecord | undefined {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return undefined;
+  const verification = {
+    identityMatch: toStringValue(value.identityMatch),
+    licenseCheck: toStringValue(value.licenseCheck),
+    httpCheck: toStringValue(value.httpCheck),
+    needsManualReview: toBooleanOrNull(value.needsManualReview),
+    reviewReasons: normalizeStringArray(value.reviewReasons).sort(),
+    checkedAt: toStringValue(value.checkedAt),
+  };
+  const cleaned = Object.fromEntries(
+    Object.entries(verification).filter(([, entry]) => {
+      if (entry == null) return false;
+      if (Array.isArray(entry)) return entry.length > 0;
+      return true;
+    })
+  );
+  return Object.keys(cleaned).length ? cleaned : undefined;
+}
+
+function normaliseAssetCandidates(value: any, kind: string): AnyRecord[] {
+  if (!Array.isArray(value)) return [];
+  const candidates: AnyRecord[] = [];
+  const seen = new Set();
+
+  for (const item of value) {
+    if (!item || typeof item !== 'object') continue;
+    const assetId = toStringValue(item.assetId);
+    const source = toStringValue(item.source);
+    const status = toStringValue(item.status);
+    if (!assetId || !source || !status) continue;
+
+    const normalizedItem = {
+      assetId,
+      kind: toStringValue(item.kind) || kind,
+      status,
+      priority: toIntegerOrNull(item.priority),
+      source,
+      sourceUrl: toStringValue(item.sourceUrl),
+      imageUrl: toStringValue(item.imageUrl),
+      pageUrl: toStringValue(item.pageUrl),
+      fileTitle: toStringValue(item.fileTitle),
+      mimeType: toStringValue(item.mimeType),
+      width: toIntegerOrNull(item.width),
+      height: toIntegerOrNull(item.height),
+      license: normaliseAssetLicense(item.license),
+      verification: normaliseAssetVerification(item.verification),
+      notes: toStringValue(item.notes),
+    };
+    const cleaned = Object.fromEntries(
+      Object.entries(normalizedItem).filter(([, entry]) => {
+        if (entry == null) return false;
+        if (typeof entry === 'object' && !Array.isArray(entry)) return Object.keys(entry).length > 0;
+        return true;
+      })
+    );
+    const dedupeKey = JSON.stringify(cleaned);
+    if (seen.has(dedupeKey)) continue;
+    seen.add(dedupeKey);
+    candidates.push(cleaned);
+  }
+
+  return candidates
+    .sort((a, b) => {
+      const leftPriority = a.priority ?? Number.MAX_SAFE_INTEGER;
+      const rightPriority = b.priority ?? Number.MAX_SAFE_INTEGER;
+      if (leftPriority !== rightPriority) return leftPriority - rightPriority;
+      return String(a.assetId).localeCompare(String(b.assetId));
+    })
+    .slice(0, 5);
+}
+
+function normaliseAssetBundle(value: any, kind: string): AnyRecord | undefined {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return undefined;
+  const candidates = normaliseAssetCandidates(value.candidates, kind);
+  const bundle = {
+    preferred: toStringValue(value.preferred),
+    status:
+      toStringValue(value.status) || (candidates.length ? 'needs-review' : 'needs-more-research'),
+    candidates,
+  };
+  const cleaned = Object.fromEntries(
+    Object.entries(bundle).filter(([key, entry]) => {
+      if (key === 'preferred') return entry != null || bundle.status === 'needs-more-research';
+      if (Array.isArray(entry)) return entry.length > 0;
+      return entry != null;
+    })
+  );
+  return Object.keys(cleaned).length ? cleaned : undefined;
+}
+
+function normaliseMetadataAssets(value: any): AnyRecord | undefined {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return undefined;
+  const assets: AnyRecord = {};
+
+  for (const [kind, bundle] of Object.entries(value)) {
+    const assetKind = toStringValue(kind);
+    if (!assetKind) continue;
+    const normalizedBundle = normaliseAssetBundle(bundle, assetKind);
+    if (normalizedBundle) assets[assetKind] = normalizedBundle;
+  }
+
+  return Object.keys(assets).length ? assets : undefined;
+}
+
 /**
  * @param {unknown} value
  * @param {string} fallbackKey
@@ -565,6 +696,7 @@ function normaliseClubRecord(value: any, fallbackKey: string): ClubMetadata | nu
     status: normaliseClubStatus(value.status),
     history,
     derived: normaliseClubDerivedMetadata(value.derived),
+    assets: normaliseMetadataAssets(value.assets),
     founded: toStringValue(value.founded),
     dissolved: toStringValue(value.dissolved),
     nameHistory: normaliseClubNameHistory(value.nameHistory),
@@ -645,6 +777,7 @@ export function mergeClubsMap(
     merged[clubKey] = /** @type {ClubMetadata} */ ({
       canonicalName: incomingClub.canonicalName || existingClub.canonicalName || clubKey,
       derived: incomingClub.derived ?? existingClub.derived,
+      assets: incomingClub.assets ?? existingClub.assets,
       founded: incomingClub.founded ?? existingClub.founded ?? null,
       dissolved: incomingClub.dissolved ?? existingClub.dissolved ?? null,
       notes: incomingClub.notes ?? existingClub.notes ?? null,

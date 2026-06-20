@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Club asset review | footy-data-kit</title>
+    <meta
+      name="description"
+      content="Review club crest candidates, generated placeholders, license flags, and missing club asset records."
+    />
+    <link rel="stylesheet" href="./styles.css" />
+    <link rel="stylesheet" href="./club-assets-review.css" />
+  </head>
+  <body>
+    <main class="page-shell asset-review-shell">
+      <header class="site-header">
+        <p class="eyebrow">asset review</p>
+        <h1>club crest review</h1>
+        <p class="lede">
+          Inspect club crest candidates, generated placeholders, license warnings, and missing
+          records from the checked-in metadata.
+        </p>
+      </header>
+
+      <section class="panel" aria-labelledby="controls-heading">
+        <div class="section-heading">
+          <h2 id="controls-heading">Controls</h2>
+          <a href="./index.html">docs home</a>
+        </div>
+
+        <div class="review-toolbar">
+          <label>
+            <span>Search</span>
+            <input
+              id="search-input"
+              type="search"
+              autocomplete="off"
+              placeholder="club, source, file, reason"
+            />
+          </label>
+
+          <label>
+            <span>Issue</span>
+            <select id="issue-select"></select>
+          </label>
+
+          <label>
+            <span>Source</span>
+            <select id="source-select"></select>
+          </label>
+
+          <button id="reset-button" type="button">Reset</button>
+        </div>
+
+        <div id="view-tabs" class="view-tabs" aria-label="review view">
+          <button type="button" data-view="review" aria-pressed="true">Review queue</button>
+          <button type="button" data-view="audit" aria-pressed="false">All crest audit</button>
+        </div>
+
+        <div class="flag-toolbar" aria-label="flagged candidate tools">
+          <span id="flag-count" class="flag-count">0 flagged</span>
+          <label class="flag-filter">
+            <input id="flagged-only-input" type="checkbox" />
+            <span>Flagged only</span>
+          </label>
+          <button id="export-flags-button" type="button" disabled>Export flags JSON</button>
+          <button id="clear-flags-button" type="button" disabled>Clear flags</button>
+        </div>
+
+        <div id="status-tabs" class="status-tabs" aria-label="status filters"></div>
+        <p id="load-status" class="asset-muted" role="status">Loading club assets...</p>
+      </section>
+
+      <section class="panel stats" aria-label="asset status summary">
+        <div>
+          <strong id="stat-total">-</strong>
+          <span>clubs</span>
+        </div>
+        <div>
+          <strong id="stat-visible">-</strong>
+          <span>visible</span>
+        </div>
+        <div>
+          <strong id="stat-review">-</strong>
+          <span>review issues</span>
+        </div>
+        <div>
+          <strong id="stat-candidates">-</strong>
+          <span>candidates</span>
+        </div>
+      </section>
+
+      <section id="review-workspace" class="review-layout" aria-label="club asset review workspace">
+        <section class="panel club-list-panel" aria-labelledby="club-list-heading">
+          <div class="section-heading">
+            <h2 id="club-list-heading">Clubs</h2>
+            <span id="club-list-count" class="muted-label">-</span>
+          </div>
+          <div id="club-list" class="club-list"></div>
+        </section>
+
+        <section class="panel club-detail-panel" aria-labelledby="club-detail-heading">
+          <div id="club-detail" class="club-detail">
+            <div class="detail-heading">
+              <div class="detail-title-row">
+                <h2 id="club-detail-heading">Select a club</h2>
+              </div>
+              <p class="asset-muted">
+                Choose a record from the club list to inspect candidate images.
+              </p>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <section
+        id="audit-workspace"
+        class="panel audit-panel"
+        aria-labelledby="audit-heading"
+        hidden
+      >
+        <div class="section-heading">
+          <h2 id="audit-heading">Crest Audit</h2>
+          <span id="audit-count" class="muted-label">-</span>
+        </div>
+        <div id="audit-list" class="audit-list"></div>
+      </section>
+
+      <section id="issue-workspace" class="panel" aria-labelledby="issue-table-heading">
+        <div class="section-heading">
+          <h2 id="issue-table-heading">Visible Issues</h2>
+          <span id="issue-count" class="muted-label">-</span>
+        </div>
+        <div class="review-table-wrap">
+          <table class="review-table">
+            <thead>
+              <tr>
+                <th scope="col">Club</th>
+                <th scope="col">Issue</th>
+                <th scope="col">Asset</th>
+                <th scope="col">Message</th>
+              </tr>
+            </thead>
+            <tbody id="issue-table-body">
+              <tr>
+                <td colspan="4">Loading issues...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <footer>
+        <span>local review tool</span>
+        <a href="./club-assets.md">workflow notes</a>
+      </footer>
+    </main>
+
+    <script type="module" src="./club-assets-review.js"></script>
+  </body>
+</html>
