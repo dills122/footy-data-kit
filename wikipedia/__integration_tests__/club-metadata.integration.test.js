@@ -119,7 +119,7 @@ describe('Club metadata integration', () => {
   test('generated review artifact tracks unresolved lower-tier clubs and historical audit stays clean', () => {
     expect(clubMetadataReview.issueCount).toBe(clubMetadataReview.issues.length);
     expect(clubMetadataReview.issueCounts).toEqual({
-      'manual-status-review': 32,
+      'manual-status-review': 22,
     });
     expect(clubMetadataReview.issues.every((issue) => issue.type === 'manual-status-review')).toBe(
       true

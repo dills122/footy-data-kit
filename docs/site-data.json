@@ -13,7 +13,7 @@
   "stats": [
     { "value": "1888-2025", "label": "season coverage" },
     { "value": "138", "label": "seasons" },
-    { "value": "379", "label": "club metadata records" },
+    { "value": "378", "label": "club metadata records" },
     { "value": "6 tiers", "label": "latest season depth" }
   ],
   "links": [
@@ -49,7 +49,7 @@
   ],
   "latestRelease": {
     "tag": "v1.0.0",
-    "summary": "1888-2025. 138 seasons. 379 club metadata records.",
+    "summary": "1888-2025. 138 seasons. 378 club metadata records.",
     "notesUrl": "https://github.com/dills122/footy-data-kit/releases/latest",
     "zipUrl": "https://github.com/dills122/footy-data-kit/releases/latest/download/footy-data-kit-v1.0.0-data.zip"
   },

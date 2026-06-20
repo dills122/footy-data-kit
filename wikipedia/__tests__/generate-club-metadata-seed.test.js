@@ -459,21 +459,18 @@ describe('buildClubMetadataSeed', () => {
       },
     ]);
     expect(seed['rushden and diamonds'].derived.relationships).toEqual([
-      {
+      expect.objectContaining({
         clubKey: 'afc rushden and diamonds',
         relationship: 'supporterPhoenix',
         direction: 'supporterFounded',
         season: 2011,
-        label:
-          'AFC Rushden & Diamonds was formed by supporters after Rushden & Diamonds was expelled and dissolved.',
-        sourceRefs: [
-          {
-            type: 'wikipedia-club-page',
-            sourceUrl: 'https://en.wikipedia.org/wiki/AFC_Rushden_%26_Diamonds',
-            notes: 'Used for supporter phoenix formation context.',
-          },
-        ],
-      },
+      }),
+      expect.objectContaining({
+        clubKey: 'rushden town',
+        relationship: 'merger',
+        direction: 'formedFrom',
+        season: 1992,
+      }),
     ]);
   });
 
@@ -1683,6 +1680,156 @@ describe('buildClubMetadataSeed', () => {
       expect.objectContaining({ type: 'renamed', season: 2003 }),
       expect.objectContaining({ type: 'resigned', season: 2017 }),
       expect.objectContaining({ type: 'dissolved', season: 2018 }),
+    ]);
+  });
+
+  test('applies reviewed lower-tier sixth batch lineage decisions', () => {
+    const seed = buildClubMetadataSeed({
+      seasons: {
+        1983: {
+          tier6: {
+            table: [{ team: 'Rhyl' }, { team: 'Shepshed Charterhouse' }],
+          },
+        },
+        1984: {
+          tier6: {
+            table: [{ team: 'Road-Sea Southampton' }],
+          },
+        },
+        1985: {
+          tier6: {
+            table: [{ team: 'RS Southampton' }],
+          },
+        },
+        1990: {
+          tier6: {
+            table: [{ team: 'Rushden Town' }],
+          },
+        },
+        1992: {
+          tier6: {
+            table: [{ team: 'Solihull Borough' }],
+          },
+        },
+        1994: {
+          tier6: {
+            table: [{ team: 'Rushden & Diamonds' }, { team: 'Spennymoor United' }],
+          },
+        },
+        1997: {
+          tier6: {
+            table: [
+              { team: 'Rothwell Town' },
+              { team: 'Sittingbourne' },
+              { team: 'St. Leonards Stamcroft' },
+            ],
+          },
+        },
+        2007: {
+          tier6: {
+            table: [{ team: 'Solihull Moors' }],
+          },
+        },
+        2017: {
+          tier6: {
+            table: [{ team: 'Spennymoor Town' }],
+          },
+        },
+        2025: {
+          tier5: {
+            table: [{ team: 'Current Example' }],
+          },
+        },
+      },
+    });
+
+    const review = buildClubMetadataReviewReport({ clubs: seed });
+    const reviewedClubKeys = new Set([
+      'rhyl',
+      'road-sea southampton',
+      'rothwell town',
+      'rushden town',
+      'shepshed dynamo',
+      'sittingbourne',
+      'solihull borough',
+      'spennymoor united',
+      'st leonards',
+    ]);
+    expect(
+      review.issues.filter(
+        (issue) => reviewedClubKeys.has(issue.clubKey) && issue.type.endsWith('-review')
+      )
+    ).toEqual([]);
+
+    expect(seed['road-sea southampton']).toBeDefined();
+    expect(seed['rs southampton']).toBeUndefined();
+    expect(seed['road-sea southampton'].derived.aliases).toEqual([
+      'Road-Sea Southampton',
+      'RS Southampton',
+    ]);
+    expect(seed['road-sea southampton'].status).toMatchObject({
+      current: 'defunct',
+      reason: 'dissolved',
+    });
+
+    expect(seed['shepshed dynamo']).toBeDefined();
+    expect(seed['shepshed charterhouse']).toBeUndefined();
+    expect(seed['shepshed dynamo'].status).toMatchObject({
+      current: 'active',
+      reason: 'not-in-tracked-leagues',
+    });
+    expect(seed['shepshed dynamo'].history.lifecycleEvents).toEqual([
+      expect.objectContaining({ type: 'renamed', season: 1975 }),
+      expect.objectContaining({ type: 'renamed', season: 1992 }),
+      expect.objectContaining({ type: 'phoenixFormed', season: 1994 }),
+    ]);
+
+    expect(seed.rhyl.status).toMatchObject({
+      current: 'defunct',
+      reason: 'dissolved',
+    });
+    expect(seed['rothwell town'].status).toMatchObject({
+      current: 'defunct',
+      reason: 'dissolved',
+    });
+    expect(seed.sittingbourne.status).toMatchObject({
+      current: 'active',
+      reason: 'not-in-tracked-leagues',
+    });
+    expect(seed['st leonards']).toBeDefined();
+    expect(seed['st leonards stamcroft']).toBeUndefined();
+    expect(seed['st leonards'].status).toMatchObject({
+      current: 'defunct',
+      reason: 'folded',
+    });
+
+    expect(seed['rushden town'].status).toMatchObject({
+      current: 'merged',
+      reason: 'merged',
+    });
+    expect(seed['rushden town'].derived.relationships).toEqual([
+      expect.objectContaining({
+        clubKey: 'rushden and diamonds',
+        relationship: 'merger',
+        direction: 'mergedInto',
+        season: 1992,
+      }),
+    ]);
+    expect(seed['solihull borough'].derived.relationships).toEqual([
+      expect.objectContaining({
+        clubKey: 'solihull moors',
+        relationship: 'merger',
+        direction: 'mergedInto',
+        season: 2007,
+      }),
+    ]);
+    expect(seed['spennymoor united'].derived.relationships).toEqual([
+      expect.objectContaining({
+        clubKey: 'spennymoor town',
+        relationship: 'merger',
+        direction: 'mergedInto',
+        season: 2005,
+      }),
     ]);
   });
 

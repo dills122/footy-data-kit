@@ -2,8 +2,8 @@
   "metadata": {
     "schemaVersion": 1,
     "generator": "club-metadata-seed",
-    "generatedAt": "2026-06-20T03:00:20.689Z",
-    "gitSha": "8bc7b30",
+    "generatedAt": "2026-06-20T03:06:49.278Z",
+    "gitSha": "63e9906",
     "sourceFiles": [
       "/Users/dsteele/repos/footy-data-kit/data-output/all-seasons.json"
     ],
@@ -64019,16 +64019,61 @@
       "clubId": "rhyl",
       "canonicalName": "Rhyl",
       "status": {
-        "current": "unknown",
+        "current": "defunct",
         "trackedFromSeason": 1983,
         "trackedToSeason": 1989,
         "hasUnexplainedGaps": false,
-        "reason": "manual-review-required",
-        "reasonLabel": "Last observed before the latest supported season with no reviewed lifecycle or below-coverage status rule."
+        "reason": "dissolved",
+        "reasonLabel": "Withdrew from footballing activity in April 2020, was replaced by a phoenix club, and was formally dissolved in October 2021.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Rhyl_F.C.",
+            "notes": "Used for Rhyl withdrawal, dissolution, and phoenix club context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
-        "lifecycleEvents": [],
+        "lifecycleEvents": [
+          {
+            "type": "folded",
+            "season": 2019,
+            "label": "Withdrew from footballing activity during the 2019-20 season.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Rhyl_F.C.",
+                "notes": "Used for Rhyl withdrawal, dissolution, and phoenix club context."
+              }
+            ]
+          },
+          {
+            "type": "phoenixFormed",
+            "season": 2020,
+            "label": "CPD Y Rhyl 1879 was formed as a phoenix club.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Rhyl_F.C.",
+                "notes": "Used for Rhyl withdrawal, dissolution, and phoenix club context."
+              }
+            ]
+          },
+          {
+            "type": "dissolved",
+            "season": 2021,
+            "date": "2021-10-05",
+            "label": "The former Rhyl Football Club entity was formally dissolved.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Rhyl_F.C.",
+                "notes": "Used for Rhyl withdrawal, dissolution, and phoenix club context."
+              }
+            ]
+          }
+        ],
         "trackedMembership": [
           {
             "fromSeason": 1983,
@@ -64045,6 +64090,13 @@
         "source": "football-data-output",
         "aliases": [
           "Rhyl"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Rhyl_F.C.",
+            "notes": "Used for Rhyl withdrawal, dissolution, and phoenix club context."
+          }
         ],
         "observedNames": [
           {
@@ -64108,20 +64160,52 @@
       "clubId": "road-sea-southampton",
       "canonicalName": "Road-Sea Southampton",
       "status": {
-        "current": "unknown",
+        "current": "defunct",
         "trackedFromSeason": 1984,
-        "trackedToSeason": 1984,
+        "trackedToSeason": 1985,
         "hasUnexplainedGaps": false,
-        "reason": "manual-review-required",
-        "reasonLabel": "Last observed before the latest supported season with no reviewed lifecycle or below-coverage status rule."
+        "reason": "dissolved",
+        "reasonLabel": "Road-Sea/R.S. Southampton was disbanded in June 1987 after leaving the Wessex League.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Road-Sea_Southampton_F.C.",
+            "notes": "Used for Road-Sea/R.S. Southampton naming and 1987 disbanding context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
-        "lifecycleEvents": [],
+        "lifecycleEvents": [
+          {
+            "type": "renamed",
+            "season": 1982,
+            "label": "Road-Sea became known as R.S. Southampton after joining the Southern League.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Road-Sea_Southampton_F.C.",
+                "notes": "Used for Road-Sea/R.S. Southampton naming and 1987 disbanding context."
+              }
+            ]
+          },
+          {
+            "type": "dissolved",
+            "season": 1987,
+            "label": "The club was disbanded after the 1986-87 season.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Road-Sea_Southampton_F.C.",
+                "notes": "Used for Road-Sea/R.S. Southampton naming and 1987 disbanding context."
+              }
+            ]
+          }
+        ],
         "trackedMembership": [
           {
             "fromSeason": 1984,
-            "toSeason": 1984,
+            "toSeason": 1985,
             "tiers": [
               "tier6"
             ],
@@ -64133,7 +64217,15 @@
       "derived": {
         "source": "football-data-output",
         "aliases": [
-          "Road-Sea Southampton"
+          "Road-Sea Southampton",
+          "RS Southampton"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Road-Sea_Southampton_F.C.",
+            "notes": "Used for Road-Sea/R.S. Southampton naming and 1987 disbanding context."
+          }
         ],
         "observedNames": [
           {
@@ -64147,6 +64239,18 @@
             "tiersSeen": [
               "tier6"
             ]
+          },
+          {
+            "rawName": "RS Southampton",
+            "normalizedName": "rs southampton",
+            "firstSeenSeason": 1985,
+            "lastSeenSeason": 1985,
+            "seasonsSeen": [
+              1985
+            ],
+            "tiersSeen": [
+              "tier6"
+            ]
           }
         ],
         "observedNamePeriods": [
@@ -64154,14 +64258,20 @@
             "name": "Road-Sea Southampton",
             "startSeason": 1984,
             "endSeason": 1984
+          },
+          {
+            "name": "RS Southampton",
+            "startSeason": 1985,
+            "endSeason": 1985
           }
         ],
         "firstSeenSeason": 1984,
-        "lastSeenSeason": 1984,
+        "lastSeenSeason": 1985,
         "seasonsSeen": [
-          1984
+          1984,
+          1985
         ],
-        "totalSeasonsSeen": 1,
+        "totalSeasonsSeen": 2,
         "tiersSeen": [
           "tier6"
         ],
@@ -64169,7 +64279,8 @@
           {
             "tierKey": "tier6",
             "seasons": [
-              1984
+              1984,
+              1985
             ]
           }
         ]
@@ -65255,16 +65366,36 @@
       "clubId": "rothwell-town",
       "canonicalName": "Rothwell Town",
       "status": {
-        "current": "unknown",
+        "current": "defunct",
         "trackedFromSeason": 1997,
         "trackedToSeason": 1999,
         "hasUnexplainedGaps": false,
-        "reason": "manual-review-required",
-        "reasonLabel": "Last observed before the latest supported season with no reviewed lifecycle or below-coverage status rule."
+        "reason": "dissolved",
+        "reasonLabel": "Dissolved after the 2011-12 United Counties League season.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Rothwell_Town_F.C.",
+            "notes": "Used for Rothwell Town dissolution context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
-        "lifecycleEvents": [],
+        "lifecycleEvents": [
+          {
+            "type": "dissolved",
+            "season": 2012,
+            "label": "The club dissolved after the 2011-12 season.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Rothwell_Town_F.C.",
+                "notes": "Used for Rothwell Town dissolution context."
+              }
+            ]
+          }
+        ],
         "trackedMembership": [
           {
             "fromSeason": 1997,
@@ -65281,6 +65412,13 @@
         "source": "football-data-output",
         "aliases": [
           "Rothwell Town"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Rothwell_Town_F.C.",
+            "notes": "Used for Rothwell Town dissolution context."
+          }
         ],
         "observedNames": [
           {
@@ -65323,77 +65461,6 @@
               1997,
               1998,
               1999
-            ]
-          }
-        ]
-      }
-    },
-    "rs southampton": {
-      "clubId": "rs-southampton",
-      "canonicalName": "RS Southampton",
-      "status": {
-        "current": "unknown",
-        "trackedFromSeason": 1985,
-        "trackedToSeason": 1985,
-        "hasUnexplainedGaps": false,
-        "reason": "manual-review-required",
-        "reasonLabel": "Last observed before the latest supported season with no reviewed lifecycle or below-coverage status rule."
-      },
-      "history": {
-        "nameHistory": [],
-        "lifecycleEvents": [],
-        "trackedMembership": [
-          {
-            "fromSeason": 1985,
-            "toSeason": 1985,
-            "tiers": [
-              "tier6"
-            ],
-            "basis": "observed"
-          }
-        ],
-        "absenceExplanations": []
-      },
-      "derived": {
-        "source": "football-data-output",
-        "aliases": [
-          "RS Southampton"
-        ],
-        "observedNames": [
-          {
-            "rawName": "RS Southampton",
-            "normalizedName": "rs southampton",
-            "firstSeenSeason": 1985,
-            "lastSeenSeason": 1985,
-            "seasonsSeen": [
-              1985
-            ],
-            "tiersSeen": [
-              "tier6"
-            ]
-          }
-        ],
-        "observedNamePeriods": [
-          {
-            "name": "RS Southampton",
-            "startSeason": 1985,
-            "endSeason": 1985
-          }
-        ],
-        "firstSeenSeason": 1985,
-        "lastSeenSeason": 1985,
-        "seasonsSeen": [
-          1985
-        ],
-        "totalSeasonsSeen": 1,
-        "tiersSeen": [
-          "tier6"
-        ],
-        "tierSeasons": [
-          {
-            "tierKey": "tier6",
-            "seasons": [
-              1985
             ]
           }
         ]
@@ -65835,6 +65902,25 @@
                 "notes": "Used for supporter phoenix formation context."
               }
             ]
+          },
+          {
+            "clubKey": "rushden town",
+            "relationship": "merger",
+            "direction": "formedFrom",
+            "season": 1992,
+            "label": "Rushden Town merged with Irthlingborough Diamonds to form Rushden & Diamonds.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Rushden_%26_Diamonds_F.C.",
+                "notes": "Used for Conference expulsion and dissolution context."
+              },
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Rushden_Town_F.C.",
+                "notes": "Used for Rushden Town merger into Rushden & Diamonds context."
+              }
+            ]
           }
         ],
         "observedNames": [
@@ -65950,16 +66036,36 @@
       "clubId": "rushden-town",
       "canonicalName": "Rushden Town",
       "status": {
-        "current": "unknown",
+        "current": "merged",
         "trackedFromSeason": 1990,
         "trackedToSeason": 1990,
         "hasUnexplainedGaps": false,
-        "reason": "manual-review-required",
-        "reasonLabel": "Last observed before the latest supported season with no reviewed lifecycle or below-coverage status rule."
+        "reason": "merged",
+        "reasonLabel": "Merged with Irthlingborough Diamonds in 1992 to form Rushden & Diamonds.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Rushden_Town_F.C.",
+            "notes": "Used for Rushden Town merger into Rushden & Diamonds context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
-        "lifecycleEvents": [],
+        "lifecycleEvents": [
+          {
+            "type": "merged",
+            "season": 1992,
+            "label": "Merged with Irthlingborough Diamonds to form Rushden & Diamonds.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Rushden_Town_F.C.",
+                "notes": "Used for Rushden Town merger into Rushden & Diamonds context."
+              }
+            ]
+          }
+        ],
         "trackedMembership": [
           {
             "fromSeason": 1990,
@@ -65976,6 +66082,34 @@
         "source": "football-data-output",
         "aliases": [
           "Rushden Town"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Rushden_Town_F.C.",
+            "notes": "Used for Rushden Town merger into Rushden & Diamonds context."
+          }
+        ],
+        "relationships": [
+          {
+            "clubKey": "rushden and diamonds",
+            "relationship": "merger",
+            "direction": "mergedInto",
+            "season": 1992,
+            "label": "Rushden Town merged with Irthlingborough Diamonds to form Rushden & Diamonds.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Rushden_%26_Diamonds_F.C.",
+                "notes": "Used for Conference expulsion and dissolution context."
+              },
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Rushden_Town_F.C.",
+                "notes": "Used for Rushden Town merger into Rushden & Diamonds context."
+              }
+            ]
+          }
         ],
         "observedNames": [
           {
@@ -68203,20 +68337,64 @@
         ]
       }
     },
-    "shepshed charterhouse": {
-      "clubId": "shepshed-charterhouse",
-      "canonicalName": "Shepshed Charterhouse",
+    "shepshed dynamo": {
+      "clubId": "shepshed-dynamo",
+      "canonicalName": "Shepshed Dynamo",
       "status": {
-        "current": "unknown",
+        "current": "active",
         "trackedFromSeason": 1984,
         "trackedToSeason": 1991,
         "hasUnexplainedGaps": false,
-        "reason": "manual-review-required",
-        "reasonLabel": "Last observed before the latest supported season with no reviewed lifecycle or below-coverage status rule."
+        "reason": "not-in-tracked-leagues",
+        "reasonLabel": "Formerly Shepshed Charterhouse, restructured as Shepshed Dynamo in 1994, and currently active below tracked coverage.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Shepshed_Dynamo_F.C.",
+            "notes": "Used for Shepshed Charterhouse, Shepshed Albion, and Shepshed Dynamo lineage context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
-        "lifecycleEvents": [],
+        "lifecycleEvents": [
+          {
+            "type": "renamed",
+            "season": 1975,
+            "label": "Shepshed Albion became Shepshed Charterhouse.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Shepshed_Dynamo_F.C.",
+                "notes": "Used for Shepshed Charterhouse, Shepshed Albion, and Shepshed Dynamo lineage context."
+              }
+            ]
+          },
+          {
+            "type": "renamed",
+            "season": 1992,
+            "label": "Shepshed Charterhouse changed name back to Shepshed Albion.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Shepshed_Dynamo_F.C.",
+                "notes": "Used for Shepshed Charterhouse, Shepshed Albion, and Shepshed Dynamo lineage context."
+              }
+            ]
+          },
+          {
+            "type": "phoenixFormed",
+            "season": 1994,
+            "label": "The club restructured with help from Loughborough Dynamo and adopted the Shepshed Dynamo name.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Shepshed_Dynamo_F.C.",
+                "notes": "Used for Shepshed Charterhouse, Shepshed Albion, and Shepshed Dynamo lineage context."
+              }
+            ]
+          }
+        ],
         "trackedMembership": [
           {
             "fromSeason": 1984,
@@ -68233,6 +68411,13 @@
         "source": "football-data-output",
         "aliases": [
           "Shepshed Charterhouse"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Shepshed_Dynamo_F.C.",
+            "notes": "Used for Shepshed Charterhouse, Shepshed Albion, and Shepshed Dynamo lineage context."
+          }
         ],
         "observedNames": [
           {
@@ -68617,12 +68802,19 @@
       "clubId": "sittingbourne",
       "canonicalName": "Sittingbourne",
       "status": {
-        "current": "unknown",
+        "current": "active",
         "trackedFromSeason": 1993,
         "trackedToSeason": 1997,
         "hasUnexplainedGaps": false,
-        "reason": "manual-review-required",
-        "reasonLabel": "Last observed before the latest supported season with no reviewed lifecycle or below-coverage status rule."
+        "reason": "not-in-tracked-leagues",
+        "reasonLabel": "Wikipedia lists the club in the Isthmian League Division One South-East, below current tracked coverage.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Sittingbourne_F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
@@ -68651,6 +68843,13 @@
         "source": "football-data-output",
         "aliases": [
           "Sittingbourne"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Sittingbourne_F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
+          }
         ],
         "observedNames": [
           {
@@ -68901,16 +69100,37 @@
       "clubId": "solihull-borough",
       "canonicalName": "Solihull Borough",
       "status": {
-        "current": "unknown",
+        "current": "merged",
         "trackedFromSeason": 1992,
         "trackedToSeason": 1994,
         "hasUnexplainedGaps": false,
-        "reason": "manual-review-required",
-        "reasonLabel": "Last observed before the latest supported season with no reviewed lifecycle or below-coverage status rule."
+        "reason": "merged",
+        "reasonLabel": "Merged with Moor Green in 2007 to form Solihull Moors.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Solihull_Borough_F.C.",
+            "notes": "Used for Solihull Borough merger into Solihull Moors."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
-        "lifecycleEvents": [],
+        "lifecycleEvents": [
+          {
+            "type": "merged",
+            "season": 2007,
+            "date": "2007-06-01",
+            "label": "Merged with Moor Green to form Solihull Moors.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Solihull_Borough_F.C.",
+                "notes": "Used for Solihull Borough merger into Solihull Moors."
+              }
+            ]
+          }
+        ],
         "trackedMembership": [
           {
             "fromSeason": 1992,
@@ -68927,6 +69147,34 @@
         "source": "football-data-output",
         "aliases": [
           "Solihull Borough"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Solihull_Borough_F.C.",
+            "notes": "Used for Solihull Borough merger into Solihull Moors."
+          }
+        ],
+        "relationships": [
+          {
+            "clubKey": "solihull moors",
+            "relationship": "merger",
+            "direction": "mergedInto",
+            "season": 2007,
+            "label": "Solihull Borough merged with Moor Green to form Solihull Moors.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Solihull_Borough_F.C.",
+                "notes": "Used for Solihull Borough merger into Solihull Moors."
+              },
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Solihull_Moors_F.C.",
+                "notes": "Used for Solihull Moors formation from Moor Green and Solihull Borough."
+              }
+            ]
+          }
         ],
         "observedNames": [
           {
@@ -69016,6 +69264,25 @@
                 "type": "wikipedia-club-page",
                 "sourceUrl": "https://en.wikipedia.org/wiki/Moor_Green_F.C.",
                 "notes": "Used for Moor Green merger into Solihull Moors."
+              },
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Solihull_Moors_F.C.",
+                "notes": "Used for Solihull Moors formation from Moor Green and Solihull Borough."
+              }
+            ]
+          },
+          {
+            "clubKey": "solihull borough",
+            "relationship": "merger",
+            "direction": "formedFrom",
+            "season": 2007,
+            "label": "Solihull Borough merged with Moor Green to form Solihull Moors.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Solihull_Borough_F.C.",
+                "notes": "Used for Solihull Borough merger into Solihull Moors."
               },
               {
                 "type": "wikipedia-club-page",
@@ -70647,6 +70914,27 @@
         "aliases": [
           "Spennymoor Town"
         ],
+        "relationships": [
+          {
+            "clubKey": "spennymoor united",
+            "relationship": "merger",
+            "direction": "formedFrom",
+            "season": 2005,
+            "label": "Spennymoor United and Evenwood Town formed the basis of Spennymoor Town.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Spennymoor_Town_F.C.",
+                "notes": "Used for Spennymoor Town formation after the Spennymoor United and Evenwood Town merger/rebuild."
+              },
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Spennymoor_United_A.F.C.",
+                "notes": "Used for Spennymoor United resignation, folding, and Spennymoor Town lineage context."
+              }
+            ]
+          }
+        ],
         "observedNames": [
           {
             "rawName": "Spennymoor Town",
@@ -70715,16 +71003,65 @@
       "clubId": "spennymoor-united",
       "canonicalName": "Spennymoor United",
       "status": {
-        "current": "unknown",
+        "current": "merged",
         "trackedFromSeason": 1994,
         "trackedToSeason": 2003,
         "hasUnexplainedGaps": false,
-        "reason": "manual-review-required",
-        "reasonLabel": "Last observed before the latest supported season with no reviewed lifecycle or below-coverage status rule."
+        "reason": "merged",
+        "reasonLabel": "Resigned during the 2004-05 season, folded, and was part of the 2005 Spennymoor Town merger/rebuild.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Spennymoor_United_A.F.C.",
+            "notes": "Used for Spennymoor United resignation, folding, and Spennymoor Town lineage context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
-        "lifecycleEvents": [],
+        "lifecycleEvents": [
+          {
+            "type": "resigned",
+            "season": 2004,
+            "label": "Resigned from the league after 33 games during the 2004-05 season.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Spennymoor_United_A.F.C.",
+                "notes": "Used for Spennymoor United resignation, folding, and Spennymoor Town lineage context."
+              }
+            ]
+          },
+          {
+            "type": "folded",
+            "season": 2005,
+            "label": "The club folded in 2005.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Spennymoor_United_A.F.C.",
+                "notes": "Used for Spennymoor United resignation, folding, and Spennymoor Town lineage context."
+              }
+            ]
+          },
+          {
+            "type": "merged",
+            "season": 2005,
+            "label": "Spennymoor Town emerged from the Spennymoor United and Evenwood Town merger/rebuild.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Spennymoor_Town_F.C.",
+                "notes": "Used for Spennymoor Town formation after the Spennymoor United and Evenwood Town merger/rebuild."
+              },
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Spennymoor_United_A.F.C.",
+                "notes": "Used for Spennymoor United resignation, folding, and Spennymoor Town lineage context."
+              }
+            ]
+          }
+        ],
         "trackedMembership": [
           {
             "fromSeason": 1994,
@@ -70749,6 +71086,39 @@
         "source": "football-data-output",
         "aliases": [
           "Spennymoor United"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Spennymoor_Town_F.C.",
+            "notes": "Used for Spennymoor Town formation after the Spennymoor United and Evenwood Town merger/rebuild."
+          },
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Spennymoor_United_A.F.C.",
+            "notes": "Used for Spennymoor United resignation, folding, and Spennymoor Town lineage context."
+          }
+        ],
+        "relationships": [
+          {
+            "clubKey": "spennymoor town",
+            "relationship": "merger",
+            "direction": "mergedInto",
+            "season": 2005,
+            "label": "Spennymoor United and Evenwood Town formed the basis of Spennymoor Town.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Spennymoor_Town_F.C.",
+                "notes": "Used for Spennymoor Town formation after the Spennymoor United and Evenwood Town merger/rebuild."
+              },
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Spennymoor_United_A.F.C.",
+                "notes": "Used for Spennymoor United resignation, folding, and Spennymoor Town lineage context."
+              }
+            ]
+          }
         ],
         "observedNames": [
           {
@@ -71070,20 +71440,64 @@
         ]
       }
     },
-    "st leonards stamcroft": {
-      "clubId": "st-leonards-stamcroft",
-      "canonicalName": "St. Leonards Stamcroft",
+    "st leonards": {
+      "clubId": "st-leonards",
+      "canonicalName": "St. Leonards",
       "status": {
-        "current": "unknown",
+        "current": "defunct",
         "trackedFromSeason": 1997,
         "trackedToSeason": 1997,
         "hasUnexplainedGaps": false,
-        "reason": "manual-review-required",
-        "reasonLabel": "Last observed before the latest supported season with no reviewed lifecycle or below-coverage status rule."
+        "reason": "folded",
+        "reasonLabel": "Founded as STAMCO, later known as St. Leonards/St. Leonards Stamcroft, and folded during the 2003-04 season.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/St._Leonards_F.C.",
+            "notes": "Used for STAMCO/St. Leonards Stamcroft naming and folding context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
-        "lifecycleEvents": [],
+        "lifecycleEvents": [
+          {
+            "type": "renamed",
+            "season": 1986,
+            "label": "STAMCO adopted the St. Leonards Stamcroft name before later becoming St. Leonards.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/St._Leonards_F.C.",
+                "notes": "Used for STAMCO/St. Leonards Stamcroft naming and folding context."
+              }
+            ]
+          },
+          {
+            "type": "folded",
+            "season": 2003,
+            "label": "Folded during the 2003-04 season after returning to the Sussex County League.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/St._Leonards_F.C.",
+                "notes": "Used for STAMCO/St. Leonards Stamcroft naming and folding context."
+              }
+            ]
+          },
+          {
+            "type": "resigned",
+            "season": 2003,
+            "label": "Resigned from the Southern League during the 2002-03 season.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/St._Leonards_F.C.",
+                "notes": "Used for STAMCO/St. Leonards Stamcroft naming and folding context."
+              }
+            ]
+          }
+        ],
         "trackedMembership": [
           {
             "fromSeason": 1997,
@@ -71100,6 +71514,13 @@
         "source": "football-data-output",
         "aliases": [
           "St. Leonards Stamcroft"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/St._Leonards_F.C.",
+            "notes": "Used for STAMCO/St. Leonards Stamcroft naming and folding context."
+          }
         ],
         "observedNames": [
           {

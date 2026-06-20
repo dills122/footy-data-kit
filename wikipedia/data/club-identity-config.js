@@ -491,6 +491,20 @@ export const CLUB_IDENTITY_RULES = Object.freeze([
     ]),
   }),
   Object.freeze({
+    clubKey: 'road-sea southampton',
+    canonicalName: 'Road-Sea Southampton',
+    aliases: Object.freeze(['Road-Sea Southampton', 'R.S. Southampton', 'RS Southampton']),
+    relationship: 'rename',
+    sourceRefs: Object.freeze([
+      Object.freeze({
+        type: 'wikipedia-club-page',
+        sourceUrl: 'https://en.wikipedia.org/wiki/Road-Sea_Southampton_F.C.',
+        notes:
+          'Club history records Road-Sea becoming known as R.S. Southampton after joining the Southern League.',
+      }),
+    ]),
+  }),
+  Object.freeze({
     clubKey: 'runcorn fc halton',
     canonicalName: 'Runcorn FC Halton',
     aliases: Object.freeze(['Runcorn FC Halton', 'Runcorn']),
@@ -524,6 +538,34 @@ export const CLUB_IDENTITY_RULES = Object.freeze([
       Object.freeze({
         type: 'wikipedia-club-page',
         sourceUrl: 'https://en.wikipedia.org/wiki/Sheffield_Wednesday_F.C.',
+      }),
+    ]),
+  }),
+  Object.freeze({
+    clubKey: 'shepshed dynamo',
+    canonicalName: 'Shepshed Dynamo',
+    aliases: Object.freeze(['Shepshed Albion', 'Shepshed Charterhouse', 'Shepshed Dynamo']),
+    relationship: 'phoenix',
+    sourceRefs: Object.freeze([
+      Object.freeze({
+        type: 'wikipedia-club-page',
+        sourceUrl: 'https://en.wikipedia.org/wiki/Shepshed_Dynamo_F.C.',
+        notes:
+          'Club history records Shepshed Charterhouse reverting to Shepshed Albion before restructuring as Shepshed Dynamo in 1994.',
+      }),
+    ]),
+  }),
+  Object.freeze({
+    clubKey: 'st leonards',
+    canonicalName: 'St. Leonards',
+    aliases: Object.freeze(['STAMCO', 'St. Leonards Stamcroft', 'St. Leonards']),
+    relationship: 'rename',
+    sourceRefs: Object.freeze([
+      Object.freeze({
+        type: 'wikipedia-club-page',
+        sourceUrl: 'https://en.wikipedia.org/wiki/St._Leonards_F.C.',
+        notes:
+          'Club history records STAMCO, St. Leonards Stamcroft, and St. Leonards names before the club folded.',
       }),
     ]),
   }),
@@ -1636,6 +1678,60 @@ const CLUB_SOURCE_REFS = Object.freeze({
       'Used for current lower-division status and below tracked coverage context.'
     ),
   ]),
+  rhyl: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Rhyl_F.C.',
+      'Used for Rhyl withdrawal, dissolution, and phoenix club context.'
+    ),
+  ]),
+  roadSeaSouthampton: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Road-Sea_Southampton_F.C.',
+      'Used for Road-Sea/R.S. Southampton naming and 1987 disbanding context.'
+    ),
+  ]),
+  rothwellTown: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Rothwell_Town_F.C.',
+      'Used for Rothwell Town dissolution context.'
+    ),
+  ]),
+  rushdenTown: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Rushden_Town_F.C.',
+      'Used for Rushden Town merger into Rushden & Diamonds context.'
+    ),
+  ]),
+  shepshedDynamo: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Shepshed_Dynamo_F.C.',
+      'Used for Shepshed Charterhouse, Shepshed Albion, and Shepshed Dynamo lineage context.'
+    ),
+  ]),
+  sittingbourne: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Sittingbourne_F.C.',
+      'Used for current lower-division status and below tracked coverage context.'
+    ),
+  ]),
+  spennymoorUnited: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Spennymoor_United_A.F.C.',
+      'Used for Spennymoor United resignation, folding, and Spennymoor Town lineage context.'
+    ),
+  ]),
+  spennymoorTown: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Spennymoor_Town_F.C.',
+      'Used for Spennymoor Town formation after the Spennymoor United and Evenwood Town merger/rebuild.'
+    ),
+  ]),
+  stLeonards: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/St._Leonards_F.C.',
+      'Used for STAMCO/St. Leonards Stamcroft naming and folding context.'
+    ),
+  ]),
   nuneatonBorough: Object.freeze([
     wikipediaClubSource(
       'https://en.wikipedia.org/wiki/Nuneaton_Town_F.C.',
@@ -2053,6 +2149,12 @@ const CLUB_SOURCE_REFS = Object.freeze({
     wikipediaClubSource(
       'https://en.wikipedia.org/wiki/Solihull_Moors_F.C.',
       'Used for Solihull Moors formation from Moor Green and Solihull Borough.'
+    ),
+  ]),
+  solihullBorough: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Solihull_Borough_F.C.',
+      'Used for Solihull Borough merger into Solihull Moors.'
     ),
   ]),
   redbridgeForest: Object.freeze([
@@ -4512,6 +4614,214 @@ export const CLUB_LIFECYCLE_RULES = Object.freeze([
     sourceRefs: CLUB_SOURCE_REFS.northwood,
   }),
   Object.freeze({
+    clubKey: 'rhyl',
+    status: Object.freeze({
+      current: 'defunct',
+      reason: 'dissolved',
+      reasonLabel:
+        'Withdrew from footballing activity in April 2020, was replaced by a phoenix club, and was formally dissolved in October 2021.',
+      sourceRefs: CLUB_SOURCE_REFS.rhyl,
+    }),
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'folded',
+        season: 2019,
+        label: 'Withdrew from footballing activity during the 2019-20 season.',
+        sourceRefs: CLUB_SOURCE_REFS.rhyl,
+      }),
+      lifecycleEvent({
+        type: 'phoenixFormed',
+        season: 2020,
+        label: 'CPD Y Rhyl 1879 was formed as a phoenix club.',
+        sourceRefs: CLUB_SOURCE_REFS.rhyl,
+      }),
+      lifecycleEvent({
+        type: 'dissolved',
+        season: 2021,
+        date: '2021-10-05',
+        label: 'The former Rhyl Football Club entity was formally dissolved.',
+        sourceRefs: CLUB_SOURCE_REFS.rhyl,
+      }),
+    ]),
+  }),
+  Object.freeze({
+    clubKey: 'road-sea southampton',
+    status: Object.freeze({
+      current: 'defunct',
+      reason: 'dissolved',
+      reasonLabel:
+        'Road-Sea/R.S. Southampton was disbanded in June 1987 after leaving the Wessex League.',
+      sourceRefs: CLUB_SOURCE_REFS.roadSeaSouthampton,
+    }),
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'renamed',
+        season: 1982,
+        label: 'Road-Sea became known as R.S. Southampton after joining the Southern League.',
+        sourceRefs: CLUB_SOURCE_REFS.roadSeaSouthampton,
+      }),
+      lifecycleEvent({
+        type: 'dissolved',
+        season: 1987,
+        label: 'The club was disbanded after the 1986-87 season.',
+        sourceRefs: CLUB_SOURCE_REFS.roadSeaSouthampton,
+      }),
+    ]),
+  }),
+  Object.freeze({
+    clubKey: 'rothwell town',
+    status: Object.freeze({
+      current: 'defunct',
+      reason: 'dissolved',
+      reasonLabel: 'Dissolved after the 2011-12 United Counties League season.',
+      sourceRefs: CLUB_SOURCE_REFS.rothwellTown,
+    }),
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'dissolved',
+        season: 2012,
+        label: 'The club dissolved after the 2011-12 season.',
+        sourceRefs: CLUB_SOURCE_REFS.rothwellTown,
+      }),
+    ]),
+  }),
+  Object.freeze({
+    clubKey: 'rushden town',
+    status: Object.freeze({
+      current: 'merged',
+      reason: 'merged',
+      reasonLabel: 'Merged with Irthlingborough Diamonds in 1992 to form Rushden & Diamonds.',
+      sourceRefs: CLUB_SOURCE_REFS.rushdenTown,
+    }),
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'merged',
+        season: 1992,
+        label: 'Merged with Irthlingborough Diamonds to form Rushden & Diamonds.',
+        sourceRefs: CLUB_SOURCE_REFS.rushdenTown,
+      }),
+    ]),
+  }),
+  Object.freeze({
+    clubKey: 'shepshed dynamo',
+    status: Object.freeze({
+      current: 'active',
+      reason: 'not-in-tracked-leagues',
+      reasonLabel:
+        'Formerly Shepshed Charterhouse, restructured as Shepshed Dynamo in 1994, and currently active below tracked coverage.',
+      sourceRefs: CLUB_SOURCE_REFS.shepshedDynamo,
+    }),
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'renamed',
+        season: 1975,
+        label: 'Shepshed Albion became Shepshed Charterhouse.',
+        sourceRefs: CLUB_SOURCE_REFS.shepshedDynamo,
+      }),
+      lifecycleEvent({
+        type: 'renamed',
+        season: 1992,
+        label: 'Shepshed Charterhouse changed name back to Shepshed Albion.',
+        sourceRefs: CLUB_SOURCE_REFS.shepshedDynamo,
+      }),
+      lifecycleEvent({
+        type: 'phoenixFormed',
+        season: 1994,
+        label: 'The club restructured with help from Loughborough Dynamo and adopted the Shepshed Dynamo name.',
+        sourceRefs: CLUB_SOURCE_REFS.shepshedDynamo,
+      }),
+    ]),
+  }),
+  statusOnlyRule({
+    clubKey: 'sittingbourne',
+    current: 'active',
+    reason: 'not-in-tracked-leagues',
+    reasonLabel:
+      'Wikipedia lists the club in the Isthmian League Division One South-East, below current tracked coverage.',
+    sourceRefs: CLUB_SOURCE_REFS.sittingbourne,
+  }),
+  Object.freeze({
+    clubKey: 'solihull borough',
+    status: Object.freeze({
+      current: 'merged',
+      reason: 'merged',
+      reasonLabel: 'Merged with Moor Green in 2007 to form Solihull Moors.',
+      sourceRefs: CLUB_SOURCE_REFS.solihullBorough,
+    }),
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'merged',
+        season: 2007,
+        date: '2007-06-01',
+        label: 'Merged with Moor Green to form Solihull Moors.',
+        sourceRefs: CLUB_SOURCE_REFS.solihullBorough,
+      }),
+    ]),
+  }),
+  Object.freeze({
+    clubKey: 'spennymoor united',
+    status: Object.freeze({
+      current: 'merged',
+      reason: 'merged',
+      reasonLabel:
+        'Resigned during the 2004-05 season, folded, and was part of the 2005 Spennymoor Town merger/rebuild.',
+      sourceRefs: CLUB_SOURCE_REFS.spennymoorUnited,
+    }),
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'resigned',
+        season: 2004,
+        label: 'Resigned from the league after 33 games during the 2004-05 season.',
+        sourceRefs: CLUB_SOURCE_REFS.spennymoorUnited,
+      }),
+      lifecycleEvent({
+        type: 'folded',
+        season: 2005,
+        label: 'The club folded in 2005.',
+        sourceRefs: CLUB_SOURCE_REFS.spennymoorUnited,
+      }),
+      lifecycleEvent({
+        type: 'merged',
+        season: 2005,
+        label: 'Spennymoor Town emerged from the Spennymoor United and Evenwood Town merger/rebuild.',
+        sourceRefs: Object.freeze([
+          ...CLUB_SOURCE_REFS.spennymoorUnited,
+          ...CLUB_SOURCE_REFS.spennymoorTown,
+        ]),
+      }),
+    ]),
+  }),
+  Object.freeze({
+    clubKey: 'st leonards',
+    status: Object.freeze({
+      current: 'defunct',
+      reason: 'folded',
+      reasonLabel:
+        'Founded as STAMCO, later known as St. Leonards/St. Leonards Stamcroft, and folded during the 2003-04 season.',
+      sourceRefs: CLUB_SOURCE_REFS.stLeonards,
+    }),
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'renamed',
+        season: 1986,
+        label: 'STAMCO adopted the St. Leonards Stamcroft name before later becoming St. Leonards.',
+        sourceRefs: CLUB_SOURCE_REFS.stLeonards,
+      }),
+      lifecycleEvent({
+        type: 'resigned',
+        season: 2003,
+        label: 'Resigned from the Southern League during the 2002-03 season.',
+        sourceRefs: CLUB_SOURCE_REFS.stLeonards,
+      }),
+      lifecycleEvent({
+        type: 'folded',
+        season: 2003,
+        label: 'Folded during the 2003-04 season after returning to the Sussex County League.',
+        sourceRefs: CLUB_SOURCE_REFS.stLeonards,
+      }),
+    ]),
+  }),
+  Object.freeze({
     clubKey: 'nuneaton borough',
     status: Object.freeze({
       current: 'defunct',
@@ -5722,6 +6032,17 @@ export const CLUB_RELATIONSHIP_RULES = Object.freeze([
     sourceRefs: CLUB_SOURCE_REFS.runcornLinnets,
   }),
   Object.freeze({
+    fromClubKey: 'rushden town',
+    toClubKey: 'rushden and diamonds',
+    relationship: 'merger',
+    season: 1992,
+    label: 'Rushden Town merged with Irthlingborough Diamonds to form Rushden & Diamonds.',
+    sourceRefs: Object.freeze([
+      ...CLUB_SOURCE_REFS.rushdenTown,
+      ...CLUB_SOURCE_REFS.rushdenAndDiamonds,
+    ]),
+  }),
+  Object.freeze({
     fromClubKey: 'redbridge forest',
     toClubKey: 'dagenham and redbridge',
     relationship: 'merger',
@@ -5730,6 +6051,28 @@ export const CLUB_RELATIONSHIP_RULES = Object.freeze([
     sourceRefs: Object.freeze([
       ...CLUB_SOURCE_REFS.redbridgeForest,
       ...CLUB_SOURCE_REFS.dagenhamAndRedbridge,
+    ]),
+  }),
+  Object.freeze({
+    fromClubKey: 'solihull borough',
+    toClubKey: 'solihull moors',
+    relationship: 'merger',
+    season: 2007,
+    label: 'Solihull Borough merged with Moor Green to form Solihull Moors.',
+    sourceRefs: Object.freeze([
+      ...CLUB_SOURCE_REFS.solihullBorough,
+      ...CLUB_SOURCE_REFS.solihullMoors,
+    ]),
+  }),
+  Object.freeze({
+    fromClubKey: 'spennymoor united',
+    toClubKey: 'spennymoor town',
+    relationship: 'merger',
+    season: 2005,
+    label: 'Spennymoor United and Evenwood Town formed the basis of Spennymoor Town.',
+    sourceRefs: Object.freeze([
+      ...CLUB_SOURCE_REFS.spennymoorUnited,
+      ...CLUB_SOURCE_REFS.spennymoorTown,
     ]),
   }),
   Object.freeze({
