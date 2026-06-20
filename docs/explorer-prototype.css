@@ -33,8 +33,7 @@
 }
 
 select,
-button,
-.button-link {
+button {
   min-height: 40px;
   border: 1px solid var(--rule-strong);
   border-radius: 4px;
@@ -49,7 +48,7 @@ select {
 }
 
 button,
-.button-link {
+button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -57,11 +56,9 @@ button,
   cursor: pointer;
 }
 
-.button-link {
-  text-decoration: none;
-}
-
 .button-link[aria-disabled='true'] {
+  border-color: var(--rule-strong);
+  background: var(--bg);
   color: var(--muted);
   cursor: not-allowed;
   text-decoration: none;
@@ -69,8 +66,6 @@ button,
 
 button:hover,
 button:focus,
-.button-link:hover,
-.button-link:focus,
 select:focus {
   border-color: var(--accent);
   outline: 2px solid transparent;

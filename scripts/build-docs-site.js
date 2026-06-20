@@ -370,7 +370,12 @@ function renderSchemaPage(schemaDoc, schemaDocs) {
     .join('');
   const peerLinks = schemaDocs
     .filter((entry) => entry.baseName !== schemaDoc.baseName)
-    .map((entry) => `<a href="./${escapeHtml(entry.docFile)}">${escapeHtml(entry.title)}</a>`)
+    .map(
+      (entry) =>
+        `<a class="button-link button-link--secondary" href="./${escapeHtml(
+          entry.docFile
+        )}">${escapeHtml(entry.title)}</a>`
+    )
     .join('');
 
   return formatGenerated(
@@ -395,9 +400,11 @@ function renderSchemaPage(schemaDoc, schemaDocs) {
           <section class="panel">
             <h2>Schema Links</h2>
             <nav class="link-grid" aria-label="schema links">
-              <a href="../index.html">docs home</a>
-              <a href="./index.html">schema index</a>
-              <a href="${escapeHtml(schemaDoc.rawUrl)}">raw schema</a>
+              <a class="button-link button-link--secondary" href="../index.html">docs home</a>
+              <a class="button-link button-link--secondary" href="./index.html">schema index</a>
+              <a class="button-link button-link--primary" href="${escapeHtml(
+                schemaDoc.rawUrl
+              )}">raw schema</a>
               ${peerLinks}
             </nav>
           </section>
@@ -428,8 +435,8 @@ function renderSchemaIndex(schemaDocs) {
       (schemaDoc) => `<li>
         <code>${escapeHtml(schemaDoc.fileName)}</code>
         <span>${escapeHtml(schemaDoc.description)}</span>
-        <a href="./${escapeHtml(schemaDoc.docFile)}">view</a>
-        <a href="${escapeHtml(schemaDoc.rawUrl)}">raw</a>
+        <a class="compact-link" href="./${escapeHtml(schemaDoc.docFile)}">view</a>
+        <a class="compact-link" href="${escapeHtml(schemaDoc.rawUrl)}">raw</a>
       </li>`
     )
     .join('');
@@ -530,10 +537,14 @@ function renderReleasePage(release) {
           <section class="panel">
             <h2>Links</h2>
             <nav class="link-grid" aria-label="release links">
-              <a href="./index.html">release history</a>
-              <a href="../index.html">docs home</a>
-              <a href="${escapeHtml(githubReleaseUrl)}">github release</a>
-              <a href="${escapeHtml(releaseZipUrl)}">data zip</a>
+              <a class="button-link button-link--secondary" href="./index.html">release history</a>
+              <a class="button-link button-link--secondary" href="../index.html">docs home</a>
+              <a class="button-link button-link--secondary" href="${escapeHtml(
+                githubReleaseUrl
+              )}">github release</a>
+              <a class="button-link button-link--primary" href="${escapeHtml(
+                releaseZipUrl
+              )}">data zip</a>
             </nav>
           </section>
 
@@ -555,8 +566,10 @@ function renderReleaseIndex(releases) {
         <span>${escapeHtml(release.tag)}</span>
         <span>${escapeHtml(release.summary)}</span>
         <span class="release-actions">
-          <a href="./${escapeHtml(getReleasePageFile(release.tag))}">notes</a>
-          <a href="${escapeHtml(`${REPO_URL}/releases/tag/${release.tag}`)}">github</a>
+          <a class="compact-link" href="./${escapeHtml(getReleasePageFile(release.tag))}">notes</a>
+          <a class="compact-link" href="${escapeHtml(
+            `${REPO_URL}/releases/tag/${release.tag}`
+          )}">github</a>
         </span>
       </div>`
     )
@@ -683,6 +696,28 @@ function buildSiteData() {
       { label: 'Schema docs', url: './schema/' },
       { label: 'README', url: `${REPO_URL}/blob/main/readme.md` },
       { label: 'Pipeline code', url: `${REPO_URL}/tree/main/wikipedia` },
+    ],
+    primaryActions: [
+      {
+        label: 'Explore data',
+        url: './explorer-prototype.html',
+        className: 'button-link--primary',
+      },
+      {
+        label: 'Download latest JSON',
+        url: `${releaseDownloadBase}/all-seasons.min.json`,
+        className: 'button-link--secondary',
+      },
+      {
+        label: 'View schemas',
+        url: './schema/',
+        className: 'button-link--secondary',
+      },
+      {
+        label: 'Read release notes',
+        url: './releases/',
+        className: 'button-link--secondary',
+      },
     ],
     schemaDocs,
     latestRelease,

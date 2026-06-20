@@ -15,6 +15,18 @@
         <p class="lede">{{site.lede}}</p>
       </header>
 
+      <section class="panel action-panel" aria-labelledby="start-heading">
+        <div class="section-heading">
+          <h2 id="start-heading">Start here</h2>
+          <span class="muted-label">common paths</span>
+        </div>
+        <nav class="button-row" aria-label="primary actions">
+          {{#primaryActions}}
+          <a class="button-link {{className}}" href="{{{url}}}">{{label}}</a>
+          {{/primaryActions}}
+        </nav>
+      </section>
+
       <section class="panel stats" aria-label="dataset summary">
         {{#stats}}
         <div>
@@ -48,8 +60,8 @@
           <strong>{{latestRelease.tag}}</strong>
           <span>{{latestRelease.summary}}</span>
           <span class="release-actions">
-            <a href="{{{latestRelease.notesUrl}}}">notes</a>
-            <a href="{{{latestRelease.zipUrl}}}">data zip</a>
+            <a class="compact-link" href="{{{latestRelease.notesUrl}}}">notes</a>
+            <a class="compact-link" href="{{{latestRelease.zipUrl}}}">data zip</a>
           </span>
         </div>
 
@@ -59,8 +71,8 @@
             <span>{{tag}}</span>
             <span>{{summary}}</span>
             <span class="release-actions">
-              <a href="{{{notesUrl}}}">notes</a>
-              <a href="{{{zipUrl}}}">data zip</a>
+              <a class="compact-link" href="{{{notesUrl}}}">notes</a>
+              <a class="compact-link" href="{{{zipUrl}}}">data zip</a>
             </span>
           </div>
           {{/historicReleases}} {{^historicReleases}}
@@ -86,7 +98,7 @@
             <code>{{file}}</code>
             <span>{{description}} {{size}}.</span>
             {{#links}}
-            <a href="{{{url}}}">{{label}}</a>
+            <a class="compact-link" href="{{{url}}}">{{label}}</a>
             {{/links}}
           </li>
           {{/downloads}}
@@ -105,8 +117,8 @@
           <li>
             <code>{{fileName}}</code>
             <span>{{description}}</span>
-            <a href="{{{docUrl}}}">view</a>
-            <a href="{{{rawUrl}}}">raw</a>
+            <a class="compact-link" href="{{{docUrl}}}">view</a>
+            <a class="compact-link" href="{{{rawUrl}}}">raw</a>
           </li>
           {{/schemaDocs}}
         </ul>

@@ -6,6 +6,8 @@
   --rule-strong: #626b73;
   --accent: #d8c27a;
   --accent-hover: #f0df9b;
+  --accent-ink: #14171a;
+  --accent-soft: rgba(216, 194, 122, 0.12);
   --selection: #32383d;
 }
 
@@ -140,7 +142,34 @@ pre {
 .link-grid {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px 18px;
+  gap: 10px;
+}
+
+.link-grid > a:not(.button-link),
+.release-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  min-height: 34px;
+  padding: 6px 10px;
+  border: 1px solid var(--rule-strong);
+  border-radius: 4px;
+  background: var(--accent-soft);
+  color: var(--ink);
+  font-size: 0.9rem;
+  font-weight: 700;
+  line-height: 1.2;
+  text-decoration: none;
+}
+
+.link-grid > a:not(.button-link):hover,
+.link-grid > a:not(.button-link):focus,
+.release-link:hover,
+.release-link:focus {
+  border-color: var(--accent-hover);
+  background: var(--accent-hover);
+  color: var(--accent-ink);
 }
 
 .section-heading {
@@ -155,6 +184,13 @@ pre {
   margin-bottom: 0;
 }
 
+.muted-label {
+  color: var(--muted);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
 a {
   color: var(--accent);
   text-decoration-thickness: 1px;
@@ -164,6 +200,65 @@ a {
 a:hover,
 a:focus {
   color: var(--accent-hover);
+}
+
+.button-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.button-link,
+.compact-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  border: 1px solid var(--rule-strong);
+  border-radius: 4px;
+  color: var(--ink);
+  font-weight: 700;
+  line-height: 1.2;
+  text-decoration: none;
+}
+
+.button-link {
+  min-height: 42px;
+  padding: 10px 14px;
+}
+
+.compact-link {
+  min-height: 32px;
+  padding: 6px 10px;
+  font-size: 0.84rem;
+  text-transform: lowercase;
+}
+
+.button-link--primary {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
+.button-link--secondary,
+.compact-link {
+  background: var(--accent-soft);
+}
+
+.button-link:hover,
+.button-link:focus,
+.compact-link:hover,
+.compact-link:focus {
+  border-color: var(--accent-hover);
+  background: var(--accent-hover);
+  color: var(--accent-ink);
+}
+
+a:focus-visible,
+button:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--accent-hover);
+  outline-offset: 3px;
 }
 
 .release-pin {
@@ -194,7 +289,7 @@ a:focus {
 
 .release-actions {
   display: flex;
-  gap: 12px;
+  gap: 8px;
   white-space: nowrap;
 }
 

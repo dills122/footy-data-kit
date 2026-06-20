@@ -32,6 +32,20 @@
       "url": "https://github.com/dills122/footy-data-kit/tree/main/wikipedia"
     }
   ],
+  "primaryActions": [
+    {
+      "label": "Explore data",
+      "url": "./explorer-prototype.html",
+      "className": "button-link--primary"
+    },
+    {
+      "label": "Download latest JSON",
+      "url": "https://github.com/dills122/footy-data-kit/releases/latest/download/all-seasons.min.json",
+      "className": "button-link--secondary"
+    },
+    { "label": "View schemas", "url": "./schema/", "className": "button-link--secondary" },
+    { "label": "Read release notes", "url": "./releases/", "className": "button-link--secondary" }
+  ],
   "schemaDocs": [
     {
       "title": "ClubMetadataExport",

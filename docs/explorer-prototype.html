@@ -61,18 +61,26 @@
         <div class="action-row" aria-label="explorer actions">
           <a
             id="jsonhero-selected-link"
-            class="button-link"
+            class="button-link button-link--primary"
             href="https://jsonhero.io/"
             target="_blank"
             rel="noreferrer"
           >
             Open selected JSON
           </a>
-          <a id="jsonhero-full-link" href="https://jsonhero.io/" target="_blank" rel="noreferrer">
+          <a
+            id="jsonhero-full-link"
+            class="button-link button-link--secondary"
+            href="https://jsonhero.io/"
+            target="_blank"
+            rel="noreferrer"
+          >
             full dataset
           </a>
-          <a id="raw-link" href="#" target="_blank" rel="noreferrer">raw json</a>
-          <button id="copy-path-button" type="button">copy path</button>
+          <a id="raw-link" class="compact-link" href="#" target="_blank" rel="noreferrer"
+            >raw json</a
+          >
+          <button id="copy-path-button" class="compact-link" type="button">copy path</button>
         </div>
 
         <p id="status-message" class="status-message" role="status">Loading local dataset...</p>
