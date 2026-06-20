@@ -958,6 +958,154 @@ describe('buildClubMetadataSeed', () => {
     ]);
   });
 
+  test('applies reviewed lower-tier coverage batch decisions', () => {
+    const seed = buildClubMetadataSeed({
+      seasons: {
+        1979: {
+          tier5: {
+            table: [{ team: 'AP Leamington' }, { team: 'Bangor City' }],
+          },
+        },
+        1988: {
+          tier5: {
+            table: [{ team: 'Aylesbury United' }],
+          },
+        },
+        1992: {
+          tier5: {
+            table: [{ team: 'Bromsgrove Rovers' }],
+          },
+        },
+        2004: {
+          tier6: {
+            table: [
+              { team: 'Ashton United' },
+              { team: 'Basingstoke Town' },
+              { team: 'Bognor Regis Town' },
+              { team: 'Cambridge City' },
+            ],
+          },
+        },
+        2007: {
+          tier6: {
+            table: [{ team: 'Burscough' }],
+          },
+        },
+        2012: {
+          tier6: {
+            table: [{ team: 'AFC Hornchurch' }],
+          },
+        },
+        2025: {
+          tier5: {
+            table: [{ team: 'Current Example' }],
+          },
+        },
+      },
+    });
+
+    const review = buildClubMetadataReviewReport({ clubs: seed });
+    const reviewedClubKeys = new Set([
+      'hornchurch',
+      'leamington',
+      'ashton united',
+      'aylesbury united',
+      'bangor city',
+      'basingstoke town',
+      'bognor regis town',
+      'bromsgrove rovers',
+      'burscough',
+      'cambridge city',
+    ]);
+    expect(
+      review.issues.filter(
+        (issue) => reviewedClubKeys.has(issue.clubKey) && issue.type.endsWith('-review')
+      )
+    ).toEqual([]);
+
+    expect(seed.hornchurch.derived.aliases).toEqual(['AFC Hornchurch']);
+    expect(seed.hornchurch.status).toMatchObject({
+      current: 'active',
+      reason: 'possibly-missing-from-current-data',
+    });
+    expect(seed.hornchurch.history.lifecycleEvents).toEqual([
+      expect.objectContaining({ type: 'folded', season: 2004 }),
+      expect.objectContaining({ type: 'reformed', season: 2005 }),
+      expect.objectContaining({ type: 'renamed', season: 2019 }),
+    ]);
+
+    expect(seed.leamington.derived.aliases).toEqual(['AP Leamington']);
+    expect(seed.leamington.status).toMatchObject({
+      current: 'active',
+      reason: 'possibly-missing-from-current-data',
+    });
+    expect(seed.leamington.history.lifecycleEvents).toEqual([
+      expect.objectContaining({ type: 'renamed', season: 1984 }),
+      expect.objectContaining({ type: 'abeyance', season: 1987 }),
+      expect.objectContaining({ type: 'reactivated', season: 2000 }),
+    ]);
+
+    expect(seed['ashton united'].status).toMatchObject({
+      current: 'active',
+      reason: 'possibly-missing-from-current-data',
+    });
+    expect(seed['aylesbury united'].status).toMatchObject({
+      current: 'active',
+      reason: 'not-in-tracked-leagues',
+    });
+    expect(seed['basingstoke town'].status).toMatchObject({
+      current: 'active',
+      reason: 'possibly-missing-from-current-data',
+    });
+    expect(seed['bognor regis town'].status).toMatchObject({
+      current: 'active',
+      reason: 'not-in-tracked-leagues',
+    });
+    expect(seed.burscough.status).toMatchObject({
+      current: 'active',
+      reason: 'not-in-tracked-leagues',
+    });
+    expect(seed['cambridge city'].status).toMatchObject({
+      current: 'active',
+      reason: 'not-in-tracked-leagues',
+    });
+
+    expect(seed['bangor city'].status).toMatchObject({
+      current: 'defunct',
+      reason: 'dissolved',
+    });
+    expect(seed['bangor city'].history.lifecycleEvents).toEqual([
+      expect.objectContaining({ type: 'withdrew', season: 2021 }),
+      expect.objectContaining({ type: 'dissolved', season: 2025 }),
+    ]);
+    expect(seed['bangor city'].derived.relationships).toEqual([
+      expect.objectContaining({
+        clubKey: 'bangor city 1876',
+        relationship: 'supporterPhoenix',
+        direction: 'supporterFounded',
+        season: 2019,
+      }),
+    ]);
+
+    expect(seed['bromsgrove rovers'].status).toMatchObject({
+      current: 'defunct',
+      reason: 'dissolved',
+    });
+    expect(seed['bromsgrove rovers'].history.lifecycleEvents).toEqual([
+      expect.objectContaining({ type: 'administration', season: 2009 }),
+      expect.objectContaining({ type: 'expelled', season: 2010 }),
+      expect.objectContaining({ type: 'dissolved', season: 2010 }),
+    ]);
+    expect(seed['bromsgrove rovers'].derived.relationships).toEqual([
+      expect.objectContaining({
+        clubKey: 'bromsgrove sporting',
+        relationship: 'phoenix',
+        direction: 'successor',
+        season: 2009,
+      }),
+    ]);
+  });
+
   test('adds official pause explanations for wartime observed coverage gaps', () => {
     const seed = buildClubMetadataSeed({
       seasons: {

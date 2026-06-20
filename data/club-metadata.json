@@ -2,8 +2,8 @@
   "metadata": {
     "schemaVersion": 1,
     "generator": "club-metadata-seed",
-    "generatedAt": "2026-06-20T00:15:18.533Z",
-    "gitSha": "1fbdd24",
+    "generatedAt": "2026-06-20T00:25:49.179Z",
+    "gitSha": "a3efbad",
     "sourceFiles": [
       "/Users/dsteele/repos/footy-data-kit/data-output/all-seasons.json"
     ],
@@ -1248,84 +1248,6 @@
               2021,
               2022,
               2025
-            ]
-          }
-        ]
-      }
-    },
-    "afc hornchurch": {
-      "clubId": "afc-hornchurch",
-      "canonicalName": "AFC Hornchurch",
-      "status": {
-        "current": "active",
-        "trackedFromSeason": 2012,
-        "trackedToSeason": 2012,
-        "hasUnexplainedGaps": false,
-        "reason": "below-tracked-coverage",
-        "reasonLabel": "Last observed leaving supported league coverage after 2012.",
-        "sourceRefs": [
-          {
-            "type": "wikipedia-season-page",
-            "sourceUrl": "https://en.wikipedia.org/wiki/2012–13_Football_Conference",
-            "notes": "tier6 table in 2012–13_Football_Conference"
-          }
-        ]
-      },
-      "history": {
-        "nameHistory": [],
-        "lifecycleEvents": [],
-        "trackedMembership": [
-          {
-            "fromSeason": 2012,
-            "toSeason": 2012,
-            "tiers": [
-              "tier6"
-            ],
-            "basis": "observed"
-          }
-        ],
-        "absenceExplanations": []
-      },
-      "derived": {
-        "source": "football-data-output",
-        "aliases": [
-          "AFC Hornchurch"
-        ],
-        "observedNames": [
-          {
-            "rawName": "AFC Hornchurch",
-            "normalizedName": "afc hornchurch",
-            "firstSeenSeason": 2012,
-            "lastSeenSeason": 2012,
-            "seasonsSeen": [
-              2012
-            ],
-            "tiersSeen": [
-              "tier6"
-            ]
-          }
-        ],
-        "observedNamePeriods": [
-          {
-            "name": "AFC Hornchurch",
-            "startSeason": 2012,
-            "endSeason": 2012
-          }
-        ],
-        "firstSeenSeason": 2012,
-        "lastSeenSeason": 2012,
-        "seasonsSeen": [
-          2012
-        ],
-        "totalSeasonsSeen": 1,
-        "tiersSeen": [
-          "tier6"
-        ],
-        "tierSeasons": [
-          {
-            "tierKey": "tier6",
-            "seasons": [
-              2012
             ]
           }
         ]
@@ -2760,90 +2682,6 @@
         ]
       }
     },
-    "ap leamington": {
-      "clubId": "ap-leamington",
-      "canonicalName": "AP Leamington",
-      "status": {
-        "current": "active",
-        "trackedFromSeason": 1979,
-        "trackedToSeason": 1981,
-        "hasUnexplainedGaps": false,
-        "reason": "below-tracked-coverage",
-        "reasonLabel": "Last observed leaving supported league coverage after 1981.",
-        "sourceRefs": [
-          {
-            "type": "wikipedia-season-page",
-            "sourceUrl": "https://en.wikipedia.org/wiki/1981–82_Alliance_Premier_League",
-            "notes": "Alliance Premier League table in 1981–82_Alliance_Premier_League"
-          }
-        ]
-      },
-      "history": {
-        "nameHistory": [],
-        "lifecycleEvents": [],
-        "trackedMembership": [
-          {
-            "fromSeason": 1979,
-            "toSeason": 1981,
-            "tiers": [
-              "tier5"
-            ],
-            "basis": "observed"
-          }
-        ],
-        "absenceExplanations": []
-      },
-      "derived": {
-        "source": "football-data-output",
-        "aliases": [
-          "AP Leamington"
-        ],
-        "observedNames": [
-          {
-            "rawName": "AP Leamington",
-            "normalizedName": "ap leamington",
-            "firstSeenSeason": 1979,
-            "lastSeenSeason": 1981,
-            "seasonsSeen": [
-              1979,
-              1980,
-              1981
-            ],
-            "tiersSeen": [
-              "tier5"
-            ]
-          }
-        ],
-        "observedNamePeriods": [
-          {
-            "name": "AP Leamington",
-            "startSeason": 1979,
-            "endSeason": 1981
-          }
-        ],
-        "firstSeenSeason": 1979,
-        "lastSeenSeason": 1981,
-        "seasonsSeen": [
-          1979,
-          1980,
-          1981
-        ],
-        "totalSeasonsSeen": 3,
-        "tiersSeen": [
-          "tier5"
-        ],
-        "tierSeasons": [
-          {
-            "tierKey": "tier5",
-            "seasons": [
-              1979,
-              1980,
-              1981
-            ]
-          }
-        ]
-      }
-    },
     "arsenal": {
       "clubId": "arsenal",
       "canonicalName": "Arsenal",
@@ -3473,13 +3311,13 @@
         "trackedFromSeason": 2004,
         "trackedToSeason": 2018,
         "hasUnexplainedGaps": false,
-        "reason": "below-tracked-coverage",
-        "reasonLabel": "Last observed leaving supported league coverage after 2018.",
+        "reason": "possibly-missing-from-current-data",
+        "reasonLabel": "Wikipedia lists the club in the Northern Premier League Premier Division, a level 7 league inside tracked but sparse coverage.",
         "sourceRefs": [
           {
-            "type": "wikipedia-season-page",
-            "sourceUrl": "https://en.wikipedia.org/wiki/2018–19_National_League",
-            "notes": "tier6 table in 2018–19_National_League"
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Ashton_United_F.C.",
+            "notes": "Used for current lower-division status and tracked coverage context."
           }
         ]
       },
@@ -3539,6 +3377,13 @@
         "source": "football-data-output",
         "aliases": [
           "Ashton United"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Ashton_United_F.C.",
+            "notes": "Used for current lower-division status and tracked coverage context."
+          }
         ],
         "observedNames": [
           {
@@ -4206,13 +4051,13 @@
         "trackedFromSeason": 1988,
         "trackedToSeason": 1988,
         "hasUnexplainedGaps": false,
-        "reason": "below-tracked-coverage",
-        "reasonLabel": "Last observed leaving supported league coverage after 1988.",
+        "reason": "not-in-tracked-leagues",
+        "reasonLabel": "Wikipedia lists the club in the Southern League Division One Central, below current tracked coverage.",
         "sourceRefs": [
           {
-            "type": "wikipedia-season-page",
-            "sourceUrl": "https://en.wikipedia.org/wiki/1988–89_Football_Conference",
-            "notes": "Football Conference table in 1988–89_Football_Conference"
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Aylesbury_United_F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
           }
         ]
       },
@@ -4235,6 +4080,13 @@
         "source": "football-data-output",
         "aliases": [
           "Aylesbury United"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Aylesbury_United_F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
+          }
         ],
         "observedNames": [
           {
@@ -4368,17 +4220,17 @@
       "clubId": "bangor-city",
       "canonicalName": "Bangor City",
       "status": {
-        "current": "active",
+        "current": "defunct",
         "trackedFromSeason": 1979,
         "trackedToSeason": 1983,
         "hasUnexplainedGaps": false,
-        "reason": "below-tracked-coverage",
-        "reasonLabel": "Last observed leaving supported league coverage after 1983.",
+        "reason": "dissolved",
+        "reasonLabel": "The original Bangor City club withdrew from Cymru North in 2021-22 and was dissolved by compulsory strike-off in January 2025.",
         "sourceRefs": [
           {
-            "type": "wikipedia-season-page",
-            "sourceUrl": "https://en.wikipedia.org/wiki/1983–84_Alliance_Premier_League",
-            "notes": "Alliance Premier League table in 1983–84_Alliance_Premier_League"
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Bangor_City_F.C.",
+            "notes": "Used for Cymru North withdrawal and compulsory strike-off dissolution context."
           }
         ]
       },
@@ -4394,6 +4246,32 @@
                 "type": "wikipedia-season-page",
                 "sourceUrl": "https://en.wikipedia.org/wiki/1980–81_Alliance_Premier_League",
                 "notes": "Alliance Premier League table in 1980–81_Alliance_Premier_League"
+              }
+            ]
+          },
+          {
+            "type": "withdrew",
+            "season": 2021,
+            "date": "2022-02-18",
+            "label": "Withdrew from Cymru North and had its 2021-22 results expunged.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Bangor_City_F.C.",
+                "notes": "Used for Cymru North withdrawal and compulsory strike-off dissolution context."
+              }
+            ]
+          },
+          {
+            "type": "dissolved",
+            "season": 2025,
+            "date": "2025-01-05",
+            "label": "Dissolved following compulsory strike-off.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Bangor_City_F.C.",
+                "notes": "Used for Cymru North withdrawal and compulsory strike-off dissolution context."
               }
             ]
           }
@@ -4438,6 +4316,29 @@
         "source": "football-data-output",
         "aliases": [
           "Bangor City"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Bangor_City_F.C.",
+            "notes": "Used for Cymru North withdrawal and compulsory strike-off dissolution context."
+          }
+        ],
+        "relationships": [
+          {
+            "clubKey": "bangor city 1876",
+            "relationship": "supporterPhoenix",
+            "direction": "supporterFounded",
+            "season": 2019,
+            "label": "Bangor City 1876 was formed by Bangor City supporters before the original club withdrew and was dissolved.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Bangor_1876_F.C.",
+                "notes": "Used for Bangor City 1876 supporter breakaway/successor context."
+              }
+            ]
+          }
         ],
         "observedNames": [
           {
@@ -5795,13 +5696,13 @@
         "trackedFromSeason": 2004,
         "trackedToSeason": 2015,
         "hasUnexplainedGaps": false,
-        "reason": "below-tracked-coverage",
-        "reasonLabel": "Last observed leaving supported league coverage after 2015.",
+        "reason": "possibly-missing-from-current-data",
+        "reasonLabel": "Wikipedia lists the club in the Southern League Premier Division South, a level 7 league inside tracked but sparse coverage.",
         "sourceRefs": [
           {
-            "type": "wikipedia-season-page",
-            "sourceUrl": "https://en.wikipedia.org/wiki/2015–16_National_League",
-            "notes": "tier6 table in 2015–16_National_League"
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Basingstoke_Town_F.C.",
+            "notes": "Used for current lower-division status and tracked coverage context."
           }
         ]
       },
@@ -5824,6 +5725,13 @@
         "source": "football-data-output",
         "aliases": [
           "Basingstoke Town"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Basingstoke_Town_F.C.",
+            "notes": "Used for current lower-division status and tracked coverage context."
+          }
         ],
         "observedNames": [
           {
@@ -8494,13 +8402,13 @@
         "trackedFromSeason": 2004,
         "trackedToSeason": 2017,
         "hasUnexplainedGaps": false,
-        "reason": "below-tracked-coverage",
-        "reasonLabel": "Last observed leaving supported league coverage after 2017.",
+        "reason": "not-in-tracked-leagues",
+        "reasonLabel": "Wikipedia lists the club in the Isthmian League South Central Division, below current tracked coverage.",
         "sourceRefs": [
           {
-            "type": "wikipedia-season-page",
-            "sourceUrl": "https://en.wikipedia.org/wiki/2017–18_National_League",
-            "notes": "tier6 table in 2017–18_National_League"
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Bognor_Regis_Town_F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
           }
         ]
       },
@@ -8560,6 +8468,13 @@
         "source": "football-data-output",
         "aliases": [
           "Bognor Regis Town"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Bognor_Regis_Town_F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
+          }
         ],
         "observedNames": [
           {
@@ -12779,23 +12694,61 @@
       "clubId": "bromsgrove-rovers",
       "canonicalName": "Bromsgrove Rovers",
       "status": {
-        "current": "active",
+        "current": "defunct",
         "trackedFromSeason": 1992,
         "trackedToSeason": 1996,
         "hasUnexplainedGaps": false,
-        "reason": "below-tracked-coverage",
-        "reasonLabel": "Last observed leaving supported league coverage after 1996.",
+        "reason": "dissolved",
+        "reasonLabel": "Went into administration during 2009-10, was expelled from the Southern League in August 2010, and subsequently dissolved.",
         "sourceRefs": [
           {
-            "type": "wikipedia-season-page",
-            "sourceUrl": "https://en.wikipedia.org/wiki/1996–97_Football_Conference",
-            "notes": "Football Conference table in 1996–97_Football_Conference"
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Bromsgrove_Rovers_F.C.",
+            "notes": "Used for administration, Southern League expulsion, and dissolution context."
           }
         ]
       },
       "history": {
         "nameHistory": [],
-        "lifecycleEvents": [],
+        "lifecycleEvents": [
+          {
+            "type": "administration",
+            "season": 2009,
+            "label": "Went into administration during the 2009-10 season.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Bromsgrove_Rovers_F.C.",
+                "notes": "Used for administration, Southern League expulsion, and dissolution context."
+              }
+            ]
+          },
+          {
+            "type": "expelled",
+            "season": 2010,
+            "date": "2010-08-11",
+            "label": "Expelled from the Southern League after being unable to show a ground to play at.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Bromsgrove_Rovers_F.C.",
+                "notes": "Used for administration, Southern League expulsion, and dissolution context."
+              }
+            ]
+          },
+          {
+            "type": "dissolved",
+            "season": 2010,
+            "label": "Dissolved after expulsion from the Southern League.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Bromsgrove_Rovers_F.C.",
+                "notes": "Used for administration, Southern League expulsion, and dissolution context."
+              }
+            ]
+          }
+        ],
         "trackedMembership": [
           {
             "fromSeason": 1992,
@@ -12812,6 +12765,29 @@
         "source": "football-data-output",
         "aliases": [
           "Bromsgrove Rovers"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Bromsgrove_Rovers_F.C.",
+            "notes": "Used for administration, Southern League expulsion, and dissolution context."
+          }
+        ],
+        "relationships": [
+          {
+            "clubKey": "bromsgrove sporting",
+            "relationship": "phoenix",
+            "direction": "successor",
+            "season": 2009,
+            "label": "Bromsgrove Sporting was formed by a supporters consortium after Bromsgrove Rovers went into administration.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Bromsgrove_Sporting_F.C.",
+                "notes": "Used for supporter consortium formation and Bromsgrove Sporting successor context."
+              }
+            ]
+          }
         ],
         "observedNames": [
           {
@@ -13397,13 +13373,13 @@
         "trackedFromSeason": 2007,
         "trackedToSeason": 2008,
         "hasUnexplainedGaps": false,
-        "reason": "below-tracked-coverage",
-        "reasonLabel": "Last observed leaving supported league coverage after 2008.",
+        "reason": "not-in-tracked-leagues",
+        "reasonLabel": "Wikipedia lists the club in the North West Counties League Premier Division, below current tracked coverage.",
         "sourceRefs": [
           {
-            "type": "wikipedia-season-page",
-            "sourceUrl": "https://en.wikipedia.org/wiki/2008–09_Football_Conference",
-            "notes": "tier6 table in 2008–09_Football_Conference"
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Burscough_F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
           }
         ]
       },
@@ -13426,6 +13402,13 @@
         "source": "football-data-output",
         "aliases": [
           "Burscough"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Burscough_F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
+          }
         ],
         "observedNames": [
           {
@@ -14705,13 +14688,13 @@
         "trackedFromSeason": 2004,
         "trackedToSeason": 2007,
         "hasUnexplainedGaps": false,
-        "reason": "below-tracked-coverage",
-        "reasonLabel": "Last observed leaving supported league coverage after 2007.",
+        "reason": "not-in-tracked-leagues",
+        "reasonLabel": "Wikipedia lists the club in the Isthmian League North Division, below current tracked coverage.",
         "sourceRefs": [
           {
-            "type": "wikipedia-season-page",
-            "sourceUrl": "https://en.wikipedia.org/wiki/2007–08_Football_Conference",
-            "notes": "tier6 table in 2007–08_Football_Conference"
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Cambridge_City_F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
           }
         ]
       },
@@ -14734,6 +14717,13 @@
         "source": "football-data-output",
         "aliases": [
           "Cambridge City"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Cambridge_City_F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
+          }
         ],
         "observedNames": [
           {
@@ -32812,15 +32802,81 @@
         "current": "active",
         "trackedFromSeason": 2004,
         "trackedToSeason": null,
-        "hasUnexplainedGaps": false
+        "hasUnexplainedGaps": false,
+        "reason": "possibly-missing-from-current-data",
+        "reasonLabel": "Wikipedia lists the club in the National League, a level 5 league inside tracked but sparse coverage.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Hornchurch_F.C.",
+            "notes": "Used for AFC Hornchurch reformation, Hornchurch name return, and current lower-division status context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
-        "lifecycleEvents": [],
+        "lifecycleEvents": [
+          {
+            "type": "folded",
+            "season": 2004,
+            "label": "The previous Hornchurch club folded at the end of the 2004-05 season.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Hornchurch_F.C.",
+                "notes": "Used for AFC Hornchurch reformation, Hornchurch name return, and current lower-division status context."
+              }
+            ]
+          },
+          {
+            "type": "reformed",
+            "season": 2005,
+            "label": "The club was quickly reformed as AFC Hornchurch.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Hornchurch_F.C.",
+                "notes": "Used for AFC Hornchurch reformation, Hornchurch name return, and current lower-division status context."
+              }
+            ]
+          },
+          {
+            "type": "relegated-outside-tracked-coverage",
+            "season": 2012,
+            "description": "Relegation to the Isthmian League Premier Division",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-season-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/2012–13_Football_Conference",
+                "notes": "tier6 table in 2012–13_Football_Conference"
+              }
+            ]
+          },
+          {
+            "type": "renamed",
+            "season": 2019,
+            "label": "AFC Hornchurch returned to the Hornchurch name after the 2018-19 season.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Hornchurch_F.C.",
+                "notes": "Used for AFC Hornchurch reformation, Hornchurch name return, and current lower-division status context."
+              }
+            ]
+          }
+        ],
         "trackedMembership": [
           {
             "fromSeason": 2004,
             "toSeason": 2004,
+            "tiers": [
+              "tier6"
+            ],
+            "basis": "observed"
+          },
+          {
+            "fromSeason": 2012,
+            "toSeason": 2012,
             "tiers": [
               "tier6"
             ],
@@ -32835,12 +32891,36 @@
             "basis": "observed"
           }
         ],
-        "absenceExplanations": []
+        "absenceExplanations": [
+          {
+            "fromSeason": 2013,
+            "toSeason": 2023,
+            "reason": "outside-tracked-coverage",
+            "linkedEventType": "relegated-outside-tracked-coverage",
+            "basis": "table-note",
+            "notes": "Relegation to the Isthmian League Premier Division",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-season-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/2012–13_Football_Conference",
+                "notes": "tier6 table in 2012–13_Football_Conference"
+              }
+            ]
+          }
+        ]
       },
       "derived": {
         "source": "football-data-output",
         "aliases": [
+          "AFC Hornchurch",
           "Hornchurch"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Hornchurch_F.C.",
+            "notes": "Used for AFC Hornchurch reformation, Hornchurch name return, and current lower-division status context."
+          }
         ],
         "observedNames": [
           {
@@ -32856,6 +32936,18 @@
             "tiersSeen": [
               "tier6"
             ]
+          },
+          {
+            "rawName": "AFC Hornchurch",
+            "normalizedName": "afc hornchurch",
+            "firstSeenSeason": 2012,
+            "lastSeenSeason": 2012,
+            "seasonsSeen": [
+              2012
+            ],
+            "tiersSeen": [
+              "tier6"
+            ]
           }
         ],
         "observedNamePeriods": [
@@ -32863,6 +32955,11 @@
             "name": "Hornchurch",
             "startSeason": 2004,
             "endSeason": 2004
+          },
+          {
+            "name": "AFC Hornchurch",
+            "startSeason": 2012,
+            "endSeason": 2012
           },
           {
             "name": "Hornchurch",
@@ -32874,10 +32971,11 @@
         "lastSeenSeason": 2025,
         "seasonsSeen": [
           2004,
+          2012,
           2024,
           2025
         ],
-        "totalSeasonsSeen": 3,
+        "totalSeasonsSeen": 4,
         "tiersSeen": [
           "tier6"
         ],
@@ -32886,6 +32984,7 @@
             "tierKey": "tier6",
             "seasons": [
               2004,
+              2012,
               2024,
               2025
             ]
@@ -32894,8 +32993,13 @@
         "coverageGaps": [
           {
             "startSeason": 2005,
+            "endSeason": 2011,
+            "length": 7
+          },
+          {
+            "startSeason": 2013,
             "endSeason": 2023,
-            "length": 19
+            "length": 11
           }
         ]
       }
@@ -35662,13 +35766,70 @@
       "canonicalName": "Leamington",
       "status": {
         "current": "active",
-        "trackedFromSeason": 2013,
+        "trackedFromSeason": 1979,
         "trackedToSeason": null,
-        "hasUnexplainedGaps": false
+        "hasUnexplainedGaps": false,
+        "reason": "possibly-missing-from-current-data",
+        "reasonLabel": "Wikipedia lists the club in the Southern League Premier Division Central, a level 7 league inside tracked but sparse coverage.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Leamington_F.C.",
+            "notes": "Used for AP Leamington name change, dormant period, reactivation, and current lower-division status context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
         "lifecycleEvents": [
+          {
+            "type": "relegated-outside-tracked-coverage",
+            "season": 1981,
+            "description": "Relegation to the Southern League Premier Division",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-season-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/1981–82_Alliance_Premier_League",
+                "notes": "Alliance Premier League table in 1981–82_Alliance_Premier_League"
+              }
+            ]
+          },
+          {
+            "type": "renamed",
+            "season": 1984,
+            "label": "AP Leamington dropped the AP prefix during the 1984-85 season.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Leamington_F.C.",
+                "notes": "Used for AP Leamington name change, dormant period, reactivation, and current lower-division status context."
+              }
+            ]
+          },
+          {
+            "type": "abeyance",
+            "season": 1987,
+            "label": "The club went into abeyance at the end of the 1987-88 season.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Leamington_F.C.",
+                "notes": "Used for AP Leamington name change, dormant period, reactivation, and current lower-division status context."
+              }
+            ]
+          },
+          {
+            "type": "reactivated",
+            "season": 2000,
+            "label": "The club was reactivated in 2000.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Leamington_F.C.",
+                "notes": "Used for AP Leamington name change, dormant period, reactivation, and current lower-division status context."
+              }
+            ]
+          },
           {
             "type": "relegated-outside-tracked-coverage",
             "season": 2014,
@@ -35696,6 +35857,14 @@
         ],
         "trackedMembership": [
           {
+            "fromSeason": 1979,
+            "toSeason": 1981,
+            "tiers": [
+              "tier5"
+            ],
+            "basis": "observed"
+          },
+          {
             "fromSeason": 2013,
             "toSeason": 2014,
             "tiers": [
@@ -35721,6 +35890,21 @@
           }
         ],
         "absenceExplanations": [
+          {
+            "fromSeason": 1982,
+            "toSeason": 2012,
+            "reason": "outside-tracked-coverage",
+            "linkedEventType": "relegated-outside-tracked-coverage",
+            "basis": "table-note",
+            "notes": "Relegation to the Southern League Premier Division",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-season-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/1981–82_Alliance_Premier_League",
+                "notes": "Alliance Premier League table in 1981–82_Alliance_Premier_League"
+              }
+            ]
+          },
           {
             "fromSeason": 2015,
             "toSeason": 2016,
@@ -35756,9 +35940,31 @@
       "derived": {
         "source": "football-data-output",
         "aliases": [
+          "AP Leamington",
           "Leamington"
         ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Leamington_F.C.",
+            "notes": "Used for AP Leamington name change, dormant period, reactivation, and current lower-division status context."
+          }
+        ],
         "observedNames": [
+          {
+            "rawName": "AP Leamington",
+            "normalizedName": "ap leamington",
+            "firstSeenSeason": 1979,
+            "lastSeenSeason": 1981,
+            "seasonsSeen": [
+              1979,
+              1980,
+              1981
+            ],
+            "tiersSeen": [
+              "tier5"
+            ]
+          },
           {
             "rawName": "Leamington",
             "normalizedName": "leamington",
@@ -35783,6 +35989,11 @@
         ],
         "observedNamePeriods": [
           {
+            "name": "AP Leamington",
+            "startSeason": 1979,
+            "endSeason": 1981
+          },
+          {
             "name": "Leamington",
             "startSeason": 2013,
             "endSeason": 2014
@@ -35798,9 +36009,12 @@
             "endSeason": 2025
           }
         ],
-        "firstSeenSeason": 2013,
+        "firstSeenSeason": 1979,
         "lastSeenSeason": 2025,
         "seasonsSeen": [
+          1979,
+          1980,
+          1981,
           2013,
           2014,
           2017,
@@ -35812,11 +36026,20 @@
           2024,
           2025
         ],
-        "totalSeasonsSeen": 10,
+        "totalSeasonsSeen": 13,
         "tiersSeen": [
+          "tier5",
           "tier6"
         ],
         "tierSeasons": [
+          {
+            "tierKey": "tier5",
+            "seasons": [
+              1979,
+              1980,
+              1981
+            ]
+          },
           {
             "tierKey": "tier6",
             "seasons": [
@@ -35834,6 +36057,11 @@
           }
         ],
         "coverageGaps": [
+          {
+            "startSeason": 1982,
+            "endSeason": 2012,
+            "length": 31
+          },
           {
             "startSeason": 2015,
             "endSeason": 2016,

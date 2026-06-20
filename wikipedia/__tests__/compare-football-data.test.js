@@ -216,6 +216,8 @@ describe('compare-football-data', () => {
   test('canonicalizeTeamName collapses historical aliases and punctuation variants', () => {
     expect(canonicalizeTeamName('The Wednesday')).toBe('sheffield wednesday');
     expect(canonicalizeTeamName('Glossop North End')).toBe('glossop');
+    expect(canonicalizeTeamName('AFC Hornchurch')).toBe('hornchurch');
+    expect(canonicalizeTeamName('AP Leamington')).toBe('leamington');
     expect(canonicalizeTeamName('Harrogate Town A.F.C.')).toBe('harrogate town');
     expect(canonicalizeTeamName('Dagenham & Redbridge')).toBe('dagenham and redbridge');
     expect(canonicalizeTeamName('Bradford (Park Avenue)')).toBe('bradford park avenue');
