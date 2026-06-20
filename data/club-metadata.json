@@ -2,8 +2,8 @@
   "metadata": {
     "schemaVersion": 1,
     "generator": "club-assets",
-    "generatedAt": "2026-06-20T19:11:05.502Z",
-    "gitSha": "afe2785",
+    "generatedAt": "2026-06-20T19:31:27.723Z",
+    "gitSha": "e0edd04",
     "sourceFiles": [
       "/Users/dsteele/repos/footy-data-kit/data-output/all-seasons.json",
       "/Users/dsteele/repos/footy-data-kit-club-assets/data/club-metadata.json"
@@ -12,10 +12,11 @@
       "input": "./data/club-metadata.json",
       "limit": 5,
       "clubLimit": null,
+      "clubKeys": null,
       "cache": true,
       "refreshAssets": false,
       "requestDelayMs": 0,
-      "inputGenerator": "club-metadata-seed"
+      "inputGenerator": "club-assets"
     }
   },
   "clubs": {
@@ -261,7 +262,43 @@
       },
       "assets": {
         "crest": {
-          "status": "missing"
+          "status": "needs-review",
+          "candidates": [
+            {
+              "assetId": "wikipedia-pageimage-free:Crown_Ground_sign-geograph-1761360.jpg",
+              "kind": "crest",
+              "status": "needs-review",
+              "source": "wikipedia-pageimage-free",
+              "sourceUrl": "https://en.wikipedia.org/wiki/Accrington",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/9/9a/Crown_Ground_sign-geograph-1761360.jpg",
+              "pageUrl": "https://commons.wikimedia.org/wiki/File:Crown_Ground_sign-geograph-1761360.jpg",
+              "fileTitle": "File:Crown Ground sign-geograph-1761360.jpg",
+              "mimeType": "image/jpeg",
+              "width": 1632,
+              "height": 1224,
+              "license": {
+                "shortName": "CC BY-SA 2.0",
+                "usageTerms": "Creative Commons Attribution-Share Alike 2.0",
+                "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+                "copyrighted": true,
+                "attribution": "robert wade",
+                "credit": "From geograph.org.uk",
+                "artist": "robert wade"
+              },
+              "verification": {
+                "identityMatch": "none",
+                "licenseCheck": "pass",
+                "httpCheck": "pass",
+                "needsManualReview": true,
+                "reviewReasons": [
+                  "identity-uncertain",
+                  "non-crest-filename"
+                ],
+                "checkedAt": "2026-06-20T19:30:53.942Z"
+              },
+              "priority": 1
+            }
+          ]
         }
       }
     },
@@ -798,8 +835,39 @@
       },
       "assets": {
         "crest": {
-          "status": "needs-review",
+          "status": "restricted",
           "candidates": [
+            {
+              "assetId": "wikipedia-pageimage-any:Accrington_Stanley_F.C._logo.svg",
+              "kind": "crest",
+              "status": "restricted",
+              "source": "wikipedia-pageimage-any",
+              "sourceUrl": "https://en.wikipedia.org/wiki/Accrington_Stanley_F.C.",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/en/b/ba/Accrington_Stanley_F.C._logo.svg",
+              "pageUrl": "https://en.wikipedia.org/wiki/File:Accrington_Stanley_F.C._logo.svg",
+              "fileTitle": "File:Accrington Stanley F.C. logo.svg",
+              "mimeType": "image/svg+xml",
+              "width": 200,
+              "height": 200,
+              "license": {
+                "shortName": "Fair use",
+                "usageTerms": "Fair use of copyrighted material in the context of Accrington Stanley F.C.",
+                "licenseUrl": "https://en.wikipedia.org/wiki/File:Accrington_Stanley_F.C._logo.svg",
+                "copyrighted": true,
+                "credit": "The logo may be obtained from Accrington Stanley F.C.."
+              },
+              "verification": {
+                "identityMatch": "strong",
+                "licenseCheck": "restricted",
+                "httpCheck": "pass",
+                "needsManualReview": true,
+                "reviewReasons": [
+                  "license-restricted"
+                ],
+                "checkedAt": "2026-06-20T19:24:44.226Z"
+              },
+              "priority": 1
+            },
             {
               "assetId": "wikipedia-pageimage-free:Ryan_Valentine_scores.jpg",
               "kind": "crest",
@@ -829,9 +897,9 @@
                   "identity-uncertain",
                   "non-crest-filename"
                 ],
-                "checkedAt": "2026-06-20T18:52:16.522Z"
+                "checkedAt": "2026-06-20T19:24:44.226Z"
               },
-              "priority": 1
+              "priority": 2
             }
           ]
         }
@@ -997,7 +1065,42 @@
       },
       "assets": {
         "crest": {
-          "status": "missing"
+          "status": "needs-review",
+          "candidates": [
+            {
+              "assetId": "wikipedia-pageimage-free:St_Paul,_Addlestone_-_geograph.org.uk_-_1517212.jpg",
+              "kind": "crest",
+              "status": "needs-review",
+              "source": "wikipedia-pageimage-free",
+              "sourceUrl": "https://en.wikipedia.org/wiki/Addlestone",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/f/fc/St_Paul%2C_Addlestone_-_geograph.org.uk_-_1517212.jpg",
+              "pageUrl": "https://commons.wikimedia.org/wiki/File:St_Paul,_Addlestone_-_geograph.org.uk_-_1517212.jpg",
+              "fileTitle": "File:St Paul, Addlestone - geograph.org.uk - 1517212.jpg",
+              "mimeType": "image/jpeg",
+              "width": 640,
+              "height": 414,
+              "license": {
+                "shortName": "CC BY-SA 2.0",
+                "usageTerms": "Creative Commons Attribution-Share Alike 2.0",
+                "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+                "copyrighted": true,
+                "attribution": "Michael FORD",
+                "credit": "From geograph.org.uk",
+                "artist": "Michael FORD"
+              },
+              "verification": {
+                "identityMatch": "possible",
+                "licenseCheck": "pass",
+                "httpCheck": "pass",
+                "needsManualReview": true,
+                "reviewReasons": [
+                  "non-crest-filename"
+                ],
+                "checkedAt": "2026-06-20T19:30:55.586Z"
+              },
+              "priority": 1
+            }
+          ]
         }
       }
     },
@@ -1612,7 +1715,40 @@
       },
       "assets": {
         "crest": {
-          "status": "missing"
+          "status": "restricted",
+          "candidates": [
+            {
+              "assetId": "wikipedia-pageimage-any:AFC_Fylde_(2014).svg",
+              "kind": "crest",
+              "status": "restricted",
+              "source": "wikipedia-pageimage-any",
+              "sourceUrl": "https://en.wikipedia.org/wiki/AFC_Fylde",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/en/a/ab/AFC_Fylde_%282014%29.svg",
+              "pageUrl": "https://en.wikipedia.org/wiki/File:AFC_Fylde_(2014).svg",
+              "fileTitle": "File:AFC Fylde (2014).svg",
+              "mimeType": "image/svg+xml",
+              "width": 333,
+              "height": 300,
+              "license": {
+                "shortName": "Fair use",
+                "usageTerms": "Fair use of copyrighted material in the context of A.F.C. Fylde",
+                "licenseUrl": "https://en.wikipedia.org/wiki/File:AFC_Fylde_(2014).svg",
+                "copyrighted": true,
+                "credit": "The logo is from the following website: http://www.afcfylde.co.uk http://www.afcfylde.co.uk/fixtures/Fixtures.pdf"
+              },
+              "verification": {
+                "identityMatch": "possible",
+                "licenseCheck": "restricted",
+                "httpCheck": "pass",
+                "needsManualReview": true,
+                "reviewReasons": [
+                  "license-restricted"
+                ],
+                "checkedAt": "2026-06-20T19:24:49.940Z"
+              },
+              "priority": 1
+            }
+          ]
         }
       }
     },
@@ -1934,7 +2070,40 @@
       },
       "assets": {
         "crest": {
-          "status": "missing"
+          "status": "restricted",
+          "candidates": [
+            {
+              "assetId": "wikipedia-pageimage-any:AFC_Totton_2024_crest.svg",
+              "kind": "crest",
+              "status": "restricted",
+              "source": "wikipedia-pageimage-any",
+              "sourceUrl": "https://en.wikipedia.org/wiki/A.F.C._Totton",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/en/8/81/AFC_Totton_2024_crest.svg",
+              "pageUrl": "https://en.wikipedia.org/wiki/File:AFC_Totton_2024_crest.svg",
+              "fileTitle": "File:AFC Totton 2024 crest.svg",
+              "mimeType": "image/svg+xml",
+              "width": 274,
+              "height": 366,
+              "license": {
+                "shortName": "Fair use",
+                "usageTerms": "Fair use of copyrighted material in the context of A.F.C. Totton",
+                "licenseUrl": "https://en.wikipedia.org/wiki/File:AFC_Totton_2024_crest.svg",
+                "copyrighted": true,
+                "credit": "https://www.afctotton.com/"
+              },
+              "verification": {
+                "identityMatch": "strong",
+                "licenseCheck": "restricted",
+                "httpCheck": "pass",
+                "needsManualReview": true,
+                "reviewReasons": [
+                  "license-restricted"
+                ],
+                "checkedAt": "2026-06-20T19:24:51.683Z"
+              },
+              "priority": 1
+            }
+          ]
         }
       }
     },
@@ -3250,9 +3419,41 @@
                 "reviewReasons": [
                   "license-restricted"
                 ],
-                "checkedAt": "2026-06-20T18:52:27.246Z"
+                "checkedAt": "2026-06-20T19:24:53.566Z"
               },
               "priority": 1
+            },
+            {
+              "assetId": "wikipedia-pageimage-free:Altrincham_Town_Square_-_2024.jpg",
+              "kind": "crest",
+              "status": "needs-review",
+              "source": "wikipedia-pageimage-free",
+              "sourceUrl": "https://en.wikipedia.org/wiki/Altrincham",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/1/10/Altrincham_Town_Square_-_2024.jpg",
+              "pageUrl": "https://commons.wikimedia.org/wiki/File:Altrincham_Town_Square_-_2024.jpg",
+              "fileTitle": "File:Altrincham Town Square - 2024.jpg",
+              "mimeType": "image/jpeg",
+              "width": 4032,
+              "height": 3024,
+              "license": {
+                "shortName": "CC0",
+                "usageTerms": "Creative Commons Zero, Public Domain Dedication",
+                "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+                "copyrighted": true,
+                "credit": "Own work",
+                "artist": "Doomdorm64"
+              },
+              "verification": {
+                "identityMatch": "possible",
+                "licenseCheck": "pass",
+                "httpCheck": "pass",
+                "needsManualReview": true,
+                "reviewReasons": [
+                  "non-crest-filename"
+                ],
+                "checkedAt": "2026-06-20T19:24:53.566Z"
+              },
+              "priority": 2
             },
             {
               "assetId": "wikipedia-pageimage-free:Exeter_City_match.JPG",
@@ -3281,9 +3482,9 @@
                   "identity-uncertain",
                   "non-crest-filename"
                 ],
-                "checkedAt": "2026-06-20T18:52:27.246Z"
+                "checkedAt": "2026-06-20T19:24:53.566Z"
               },
-              "priority": 2
+              "priority": 3
             }
           ]
         }
@@ -5408,7 +5609,7 @@
                 "reviewReasons": [
                   "license-restricted"
                 ],
-                "checkedAt": "2026-06-20T18:52:36.150Z"
+                "checkedAt": "2026-06-20T19:24:56.690Z"
               },
               "priority": 1
             },
@@ -5441,7 +5642,7 @@
                 "reviewReasons": [
                   "non-crest-filename"
                 ],
-                "checkedAt": "2026-06-20T18:52:36.150Z"
+                "checkedAt": "2026-06-20T19:24:56.690Z"
               },
               "priority": 2
             }
@@ -10148,7 +10349,41 @@
       },
       "assets": {
         "crest": {
-          "status": "missing"
+          "status": "needs-review",
+          "candidates": [
+            {
+              "assetId": "wikipedia-pageimage-free:Bishop_Auckland_Town_Hall.jpg",
+              "kind": "crest",
+              "status": "needs-review",
+              "source": "wikipedia-pageimage-free",
+              "sourceUrl": "https://en.wikipedia.org/wiki/Bishop_Auckland",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/2/29/Bishop_Auckland_Town_Hall.jpg",
+              "pageUrl": "https://commons.wikimedia.org/wiki/File:Bishop_Auckland_Town_Hall.jpg",
+              "fileTitle": "File:Bishop Auckland Town Hall.jpg",
+              "mimeType": "image/jpeg",
+              "width": 1600,
+              "height": 1200,
+              "license": {
+                "shortName": "CC BY-SA 3.0",
+                "usageTerms": "Creative Commons Attribution-Share Alike 3.0",
+                "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+                "copyrighted": true,
+                "credit": "Own work",
+                "artist": "Pit-yacker"
+              },
+              "verification": {
+                "identityMatch": "possible",
+                "licenseCheck": "pass",
+                "httpCheck": "pass",
+                "needsManualReview": true,
+                "reviewReasons": [
+                  "non-crest-filename"
+                ],
+                "checkedAt": "2026-06-20T19:30:58.291Z"
+              },
+              "priority": 1
+            }
+          ]
         }
       }
     },
@@ -12784,7 +13019,73 @@
       },
       "assets": {
         "crest": {
-          "status": "missing"
+          "status": "restricted",
+          "candidates": [
+            {
+              "assetId": "wikipedia-pageimage-any:Bootle_FC_logo.png",
+              "kind": "crest",
+              "status": "restricted",
+              "source": "wikipedia-pageimage-any",
+              "sourceUrl": "https://en.wikipedia.org/wiki/Bootle_F.C.",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/en/6/6c/Bootle_FC_logo.png",
+              "pageUrl": "https://en.wikipedia.org/wiki/File:Bootle_FC_logo.png",
+              "fileTitle": "File:Bootle FC logo.png",
+              "mimeType": "image/png",
+              "width": 180,
+              "height": 180,
+              "license": {
+                "shortName": "Fair use",
+                "usageTerms": "Fair use of copyrighted material in the context of Bootle F.C.",
+                "licenseUrl": "https://en.wikipedia.org/wiki/File:Bootle_FC_logo.png",
+                "copyrighted": true,
+                "credit": "The logo is from the following website: http://www.bootlefc.co.uk/index.php http://www.bootlefc.co.uk/news/details.php?news_id=3637"
+              },
+              "verification": {
+                "identityMatch": "strong",
+                "licenseCheck": "restricted",
+                "httpCheck": "pass",
+                "needsManualReview": true,
+                "reviewReasons": [
+                  "license-restricted"
+                ],
+                "checkedAt": "2026-06-20T19:25:02.484Z"
+              },
+              "priority": 1
+            },
+            {
+              "assetId": "wikipedia-pageimage-free:Bootle_Town_Hall_2020-1.jpg",
+              "kind": "crest",
+              "status": "needs-review",
+              "source": "wikipedia-pageimage-free",
+              "sourceUrl": "https://en.wikipedia.org/wiki/Bootle",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/d/dd/Bootle_Town_Hall_2020-1.jpg",
+              "pageUrl": "https://commons.wikimedia.org/wiki/File:Bootle_Town_Hall_2020-1.jpg",
+              "fileTitle": "File:Bootle Town Hall 2020-1.jpg",
+              "mimeType": "image/jpeg",
+              "width": 3188,
+              "height": 4830,
+              "license": {
+                "shortName": "CC BY-SA 4.0",
+                "usageTerms": "Creative Commons Attribution-Share Alike 4.0",
+                "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+                "copyrighted": true,
+                "attribution": "By Phil Nash from Wikimedia Commons CC BY-SA 4.0 & GFDL Views",
+                "credit": "Own work",
+                "artist": "Rodhullandemu"
+              },
+              "verification": {
+                "identityMatch": "possible",
+                "licenseCheck": "pass",
+                "httpCheck": "pass",
+                "needsManualReview": true,
+                "reviewReasons": [
+                  "non-crest-filename"
+                ],
+                "checkedAt": "2026-06-20T19:25:02.484Z"
+              },
+              "priority": 2
+            }
+          ]
         }
       }
     },
@@ -17187,9 +17488,42 @@
                 "reviewReasons": [
                   "license-restricted"
                 ],
-                "checkedAt": "2026-06-20T18:53:22.179Z"
+                "checkedAt": "2026-06-20T19:25:04.399Z"
               },
               "priority": 1
+            },
+            {
+              "assetId": "wikipedia-pageimage-free:Bromley_-_geograph.org.uk_-_4623007.jpg",
+              "kind": "crest",
+              "status": "needs-review",
+              "source": "wikipedia-pageimage-free",
+              "sourceUrl": "https://en.wikipedia.org/wiki/Bromley",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/c/c7/Bromley_-_geograph.org.uk_-_4623007.jpg",
+              "pageUrl": "https://commons.wikimedia.org/wiki/File:Bromley_-_geograph.org.uk_-_4623007.jpg",
+              "fileTitle": "File:Bromley - geograph.org.uk - 4623007.jpg",
+              "mimeType": "image/jpeg",
+              "width": 4000,
+              "height": 2666,
+              "license": {
+                "shortName": "CC BY-SA 2.0",
+                "usageTerms": "Creative Commons Attribution-Share Alike 2.0",
+                "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+                "copyrighted": true,
+                "attribution": "Bromley by Peter Trimming",
+                "credit": "Geograph Britain and Ireland",
+                "artist": "Peter Trimming"
+              },
+              "verification": {
+                "identityMatch": "possible",
+                "licenseCheck": "pass",
+                "httpCheck": "pass",
+                "needsManualReview": true,
+                "reviewReasons": [
+                  "non-crest-filename"
+                ],
+                "checkedAt": "2026-06-20T19:25:04.399Z"
+              },
+              "priority": 2
             },
             {
               "assetId": "wikipedia-pageimage-free:Bromley_FC_League_Performance.svg",
@@ -17219,9 +17553,9 @@
                 "reviewReasons": [
                   "non-crest-filename"
                 ],
-                "checkedAt": "2026-06-20T18:53:22.179Z"
+                "checkedAt": "2026-06-20T19:25:04.399Z"
               },
-              "priority": 2
+              "priority": 3
             }
           ]
         }
@@ -23217,26 +23551,36 @@
       },
       "assets": {
         "crest": {
-          "status": "needs-review",
+          "status": "restricted",
           "candidates": [
             {
               "assetId": "wikipedia-pageimage-any:Cheltenham_Town_F.C._logo.svg",
               "kind": "crest",
-              "status": "needs-review",
+              "status": "restricted",
               "source": "wikipedia-pageimage-any",
               "sourceUrl": "https://en.wikipedia.org/wiki/Cheltenham_Town_F.C.",
               "imageUrl": "https://upload.wikimedia.org/wikipedia/en/c/c3/Cheltenham_Town_F.C._logo.svg",
-              "pageUrl": "https://en.wikipedia.org/wiki/File%3ACheltenham_Town_F.C._logo.svg",
-              "fileTitle": "File:Cheltenham_Town_F.C._logo.svg",
+              "pageUrl": "https://en.wikipedia.org/wiki/File:Cheltenham_Town_F.C._logo.svg",
+              "fileTitle": "File:Cheltenham Town F.C. logo.svg",
+              "mimeType": "image/svg+xml",
+              "width": 296,
+              "height": 337,
+              "license": {
+                "shortName": "Fair use",
+                "usageTerms": "Fair use of copyrighted material in the context of Cheltenham Town F.C.",
+                "licenseUrl": "https://en.wikipedia.org/wiki/File:Cheltenham_Town_F.C._logo.svg",
+                "copyrighted": true,
+                "credit": "http://logos.wikia.com/wiki/File:Cheltenham_Town_FC_logo.svg"
+              },
               "verification": {
                 "identityMatch": "strong",
-                "licenseCheck": "unknown",
+                "licenseCheck": "restricted",
                 "httpCheck": "pass",
                 "needsManualReview": true,
                 "reviewReasons": [
-                  "license-unknown"
+                  "license-restricted"
                 ],
-                "checkedAt": "2026-06-20T18:53:45.521Z"
+                "checkedAt": "2026-06-20T19:30:59.985Z"
               },
               "priority": 1
             }
@@ -23333,7 +23677,40 @@
       },
       "assets": {
         "crest": {
-          "status": "missing"
+          "status": "restricted",
+          "candidates": [
+            {
+              "assetId": "wikipedia-pageimage-any:Chertsey_Town_FC_logo.png",
+              "kind": "crest",
+              "status": "restricted",
+              "source": "wikipedia-pageimage-any",
+              "sourceUrl": "https://en.wikipedia.org/wiki/Chertsey_Town_F.C.",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/en/d/d3/Chertsey_Town_FC_logo.png",
+              "pageUrl": "https://en.wikipedia.org/wiki/File:Chertsey_Town_FC_logo.png",
+              "fileTitle": "File:Chertsey Town FC logo.png",
+              "mimeType": "image/png",
+              "width": 293,
+              "height": 340,
+              "license": {
+                "shortName": "Fair use",
+                "usageTerms": "Fair use of copyrighted material in the context of Chertsey Town F.C.",
+                "licenseUrl": "https://en.wikipedia.org/wiki/File:Chertsey_Town_FC_logo.png",
+                "copyrighted": true,
+                "credit": "https://chertseytownfc.co.uk/"
+              },
+              "verification": {
+                "identityMatch": "strong",
+                "licenseCheck": "restricted",
+                "httpCheck": "pass",
+                "needsManualReview": true,
+                "reviewReasons": [
+                  "license-restricted"
+                ],
+                "checkedAt": "2026-06-20T19:25:20.892Z"
+              },
+              "priority": 1
+            }
+          ]
         }
       }
     },
@@ -24235,8 +24612,102 @@
       },
       "assets": {
         "crest": {
-          "status": "needs-review",
+          "status": "restricted",
           "candidates": [
+            {
+              "assetId": "wikipedia-pageimage-any:Chester_City_FC.svg",
+              "kind": "crest",
+              "status": "restricted",
+              "source": "wikipedia-pageimage-any",
+              "sourceUrl": "https://en.wikipedia.org/wiki/Chester_City_F.C.",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/en/4/4b/Chester_City_FC.svg",
+              "pageUrl": "https://en.wikipedia.org/wiki/File:Chester_City_FC.svg",
+              "fileTitle": "File:Chester City FC.svg",
+              "mimeType": "image/svg+xml",
+              "width": 318,
+              "height": 314,
+              "license": {
+                "shortName": "Fair use",
+                "usageTerms": "Fair use of copyrighted material in the context of Chester City F.C.",
+                "licenseUrl": "https://en.wikipedia.org/wiki/File:Chester_City_FC.svg",
+                "copyrighted": true,
+                "credit": "The logo is from the following website: Chester City F.C. Official Website Converted to AI format by Vflnet.com and then converted to SVG by Arteyu using Adobe Illustrator . Then cropped the SVG by using Inkscape ."
+              },
+              "verification": {
+                "identityMatch": "possible",
+                "licenseCheck": "restricted",
+                "httpCheck": "pass",
+                "needsManualReview": true,
+                "reviewReasons": [
+                  "license-restricted"
+                ],
+                "checkedAt": "2026-06-20T19:25:22.881Z"
+              },
+              "priority": 1
+            },
+            {
+              "assetId": "wikipedia-pageimage-any:Chester-fc.svg",
+              "kind": "crest",
+              "status": "restricted",
+              "source": "wikipedia-pageimage-any",
+              "sourceUrl": "https://en.wikipedia.org/wiki/Chester_F.C.",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/en/c/cb/Chester-fc.svg",
+              "pageUrl": "https://en.wikipedia.org/wiki/File:Chester-fc.svg",
+              "fileTitle": "File:Chester-fc.svg",
+              "mimeType": "image/svg+xml",
+              "width": 317,
+              "height": 316,
+              "license": {
+                "shortName": "Fair use",
+                "usageTerms": "Fair use of copyrighted material in the context of Chester F.C.",
+                "licenseUrl": "https://en.wikipedia.org/wiki/File:Chester-fc.svg",
+                "copyrighted": true,
+                "credit": "The logo is from the following website: http://www.chesterfc.com"
+              },
+              "verification": {
+                "identityMatch": "possible",
+                "licenseCheck": "restricted",
+                "httpCheck": "pass",
+                "needsManualReview": true,
+                "reviewReasons": [
+                  "license-restricted"
+                ],
+                "checkedAt": "2026-06-20T19:25:22.881Z"
+              },
+              "priority": 2
+            },
+            {
+              "assetId": "wikipedia-pageimage-free:Chester_-_Shops_in_city_centre_-_2005-10-09.jpg",
+              "kind": "crest",
+              "status": "needs-review",
+              "source": "wikipedia-pageimage-free",
+              "sourceUrl": "https://en.wikipedia.org/wiki/Chester",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b9/Chester_-_Shops_in_city_centre_-_2005-10-09.jpg",
+              "pageUrl": "https://commons.wikimedia.org/wiki/File:Chester_-_Shops_in_city_centre_-_2005-10-09.jpg",
+              "fileTitle": "File:Chester - Shops in city centre - 2005-10-09.jpg",
+              "mimeType": "image/jpeg",
+              "width": 2016,
+              "height": 1512,
+              "license": {
+                "shortName": "CC BY-SA 3.0",
+                "usageTerms": "Creative Commons Attribution-Share Alike 3.0",
+                "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+                "copyrighted": true,
+                "credit": "No machine-readable source provided. Own work assumed (based on copyright claims).",
+                "artist": "No machine-readable author provided. Tagishsimon assumed (based on copyright claims)."
+              },
+              "verification": {
+                "identityMatch": "possible",
+                "licenseCheck": "pass",
+                "httpCheck": "pass",
+                "needsManualReview": true,
+                "reviewReasons": [
+                  "non-crest-filename"
+                ],
+                "checkedAt": "2026-06-20T19:25:22.881Z"
+              },
+              "priority": 3
+            },
             {
               "assetId": "wikipedia-pageimage-free:Ryan_Valentine_scores.jpg",
               "kind": "crest",
@@ -24266,9 +24737,9 @@
                   "identity-uncertain",
                   "non-crest-filename"
                 ],
-                "checkedAt": "2026-06-20T18:54:03.877Z"
+                "checkedAt": "2026-06-20T19:25:22.881Z"
               },
-              "priority": 1
+              "priority": 4
             }
           ]
         }
@@ -25418,7 +25889,7 @@
                 "reviewReasons": [
                   "license-restricted"
                 ],
-                "checkedAt": "2026-06-20T18:54:09.451Z"
+                "checkedAt": "2026-06-20T19:25:25.494Z"
               },
               "priority": 1
             },
@@ -25450,7 +25921,7 @@
                 "reviewReasons": [
                   "non-crest-filename"
                 ],
-                "checkedAt": "2026-06-20T18:54:09.451Z"
+                "checkedAt": "2026-06-20T19:25:25.494Z"
               },
               "priority": 2
             }
@@ -28739,7 +29210,41 @@
       },
       "assets": {
         "crest": {
-          "status": "missing"
+          "status": "needs-review",
+          "candidates": [
+            {
+              "assetId": "wikipedia-pageimage-free:Beam_valley_park_and_turbine_1.jpg",
+              "kind": "crest",
+              "status": "needs-review",
+              "source": "wikipedia-pageimage-free",
+              "sourceUrl": "https://en.wikipedia.org/wiki/Dagenham",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/c/c3/Beam_valley_park_and_turbine_1.jpg",
+              "pageUrl": "https://commons.wikimedia.org/wiki/File:Beam_valley_park_and_turbine_1.jpg",
+              "fileTitle": "File:Beam valley park and turbine 1.jpg",
+              "mimeType": "image/jpeg",
+              "width": 1024,
+              "height": 768,
+              "license": {
+                "shortName": "Public domain",
+                "usageTerms": "Public domain",
+                "copyrighted": false,
+                "credit": "Transferred from en.wikipedia to Commons by Teratornis using CommonsHelper .",
+                "artist": "MRSC at English Wikipedia"
+              },
+              "verification": {
+                "identityMatch": "none",
+                "licenseCheck": "pass",
+                "httpCheck": "pass",
+                "needsManualReview": true,
+                "reviewReasons": [
+                  "identity-uncertain",
+                  "non-crest-filename"
+                ],
+                "checkedAt": "2026-06-20T19:31:01.700Z"
+              },
+              "priority": 1
+            }
+          ]
         }
       }
     },
@@ -29619,8 +30124,72 @@
       },
       "assets": {
         "crest": {
-          "status": "needs-review",
+          "status": "restricted",
           "candidates": [
+            {
+              "assetId": "wikipedia-pageimage-any:Darlington_FC_crest.svg",
+              "kind": "crest",
+              "status": "restricted",
+              "source": "wikipedia-pageimage-any",
+              "sourceUrl": "https://en.wikipedia.org/wiki/Darlington_F.C.",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/en/a/ad/Darlington_FC_crest.svg",
+              "pageUrl": "https://en.wikipedia.org/wiki/File:Darlington_FC_crest.svg",
+              "fileTitle": "File:Darlington FC crest.svg",
+              "mimeType": "image/svg+xml",
+              "width": 277,
+              "height": 361,
+              "license": {
+                "shortName": "Fair use",
+                "usageTerms": "Fair use of copyrighted material in the context of Darlington F.C.",
+                "licenseUrl": "https://en.wikipedia.org/wiki/File:Darlington_FC_crest.svg",
+                "copyrighted": true,
+                "credit": "https://fr.wikipedia.org/wiki/Fichier:Logo_Darlington_FC_1883.svg"
+              },
+              "verification": {
+                "identityMatch": "strong",
+                "licenseCheck": "restricted",
+                "httpCheck": "pass",
+                "needsManualReview": true,
+                "reviewReasons": [
+                  "license-restricted"
+                ],
+                "checkedAt": "2026-06-20T19:25:28.812Z"
+              },
+              "priority": 1
+            },
+            {
+              "assetId": "wikipedia-pageimage-free:Darlington_clock_tower_and_market_hall_(geograph_6299652).jpg",
+              "kind": "crest",
+              "status": "needs-review",
+              "source": "wikipedia-pageimage-free",
+              "sourceUrl": "https://en.wikipedia.org/wiki/Darlington",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/c/c1/Darlington_clock_tower_and_market_hall_%28geograph_6299652%29.jpg",
+              "pageUrl": "https://commons.wikimedia.org/wiki/File:Darlington_clock_tower_and_market_hall_(geograph_6299652).jpg",
+              "fileTitle": "File:Darlington clock tower and market hall (geograph 6299652).jpg",
+              "mimeType": "image/jpeg",
+              "width": 640,
+              "height": 480,
+              "license": {
+                "shortName": "CC BY-SA 2.0",
+                "usageTerms": "Creative Commons Attribution-Share Alike 2.0",
+                "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+                "copyrighted": true,
+                "attribution": "Graham Hogg",
+                "credit": "From geograph.org.uk",
+                "artist": "Graham Hogg"
+              },
+              "verification": {
+                "identityMatch": "possible",
+                "licenseCheck": "pass",
+                "httpCheck": "pass",
+                "needsManualReview": true,
+                "reviewReasons": [
+                  "non-crest-filename"
+                ],
+                "checkedAt": "2026-06-20T19:25:28.812Z"
+              },
+              "priority": 2
+            },
             {
               "assetId": "wikipedia-pageimage-free:Ryan_Valentine_scores.jpg",
               "kind": "crest",
@@ -29650,9 +30219,9 @@
                   "identity-uncertain",
                   "non-crest-filename"
                 ],
-                "checkedAt": "2026-06-20T18:54:26.648Z"
+                "checkedAt": "2026-06-20T19:25:28.812Z"
               },
-              "priority": 1
+              "priority": 3
             }
           ]
         }
@@ -32949,9 +33518,73 @@
                   "license-restricted",
                   "identity-uncertain"
                 ],
-                "checkedAt": "2026-06-20T18:54:41.545Z"
+                "checkedAt": "2026-06-20T19:25:31.633Z"
               },
               "priority": 1
+            },
+            {
+              "assetId": "wikipedia-pageimage-any:Dunstable_FC.png",
+              "kind": "crest",
+              "status": "restricted",
+              "source": "wikipedia-pageimage-any",
+              "sourceUrl": "https://en.wikipedia.org/wiki/Dunstable_F.C.",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/en/5/5c/Dunstable_FC.png",
+              "pageUrl": "https://en.wikipedia.org/wiki/File:Dunstable_FC.png",
+              "fileTitle": "File:Dunstable FC.png",
+              "mimeType": "image/png",
+              "width": 316,
+              "height": 316,
+              "license": {
+                "shortName": "Fair use",
+                "usageTerms": "Fair use of copyrighted material in the context of Dunstable F.C.",
+                "licenseUrl": "https://en.wikipedia.org/wiki/File:Dunstable_FC.png",
+                "copyrighted": true,
+                "credit": "Club X account"
+              },
+              "verification": {
+                "identityMatch": "possible",
+                "licenseCheck": "restricted",
+                "httpCheck": "pass",
+                "needsManualReview": true,
+                "reviewReasons": [
+                  "license-restricted"
+                ],
+                "checkedAt": "2026-06-20T19:25:31.633Z"
+              },
+              "priority": 2
+            },
+            {
+              "assetId": "wikipedia-pageimage-free:High_Street_Dunstable_-_geograph.org.uk_-_6524692.jpg",
+              "kind": "crest",
+              "status": "needs-review",
+              "source": "wikipedia-pageimage-free",
+              "sourceUrl": "https://en.wikipedia.org/wiki/Dunstable",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/f/fa/High_Street_Dunstable_-_geograph.org.uk_-_6524692.jpg",
+              "pageUrl": "https://commons.wikimedia.org/wiki/File:High_Street_Dunstable_-_geograph.org.uk_-_6524692.jpg",
+              "fileTitle": "File:High Street Dunstable - geograph.org.uk - 6524692.jpg",
+              "mimeType": "image/jpeg",
+              "width": 1884,
+              "height": 1224,
+              "license": {
+                "shortName": "CC BY-SA 2.0",
+                "usageTerms": "Creative Commons Attribution-Share Alike 2.0",
+                "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+                "copyrighted": true,
+                "attribution": "High Street Dunstable by David Howard",
+                "credit": "Geograph Britain and Ireland",
+                "artist": "David Howard"
+              },
+              "verification": {
+                "identityMatch": "possible",
+                "licenseCheck": "pass",
+                "httpCheck": "pass",
+                "needsManualReview": true,
+                "reviewReasons": [
+                  "non-crest-filename"
+                ],
+                "checkedAt": "2026-06-20T19:25:31.633Z"
+              },
+              "priority": 3
             }
           ]
         }
@@ -33588,7 +34221,72 @@
       },
       "assets": {
         "crest": {
-          "status": "missing"
+          "status": "restricted",
+          "candidates": [
+            {
+              "assetId": "wikipedia-pageimage-any:Eastleigh_FC_crest.svg",
+              "kind": "crest",
+              "status": "restricted",
+              "source": "wikipedia-pageimage-any",
+              "sourceUrl": "https://en.wikipedia.org/wiki/Eastleigh_F.C.",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/en/5/5c/Eastleigh_FC_crest.svg",
+              "pageUrl": "https://en.wikipedia.org/wiki/File:Eastleigh_FC_crest.svg",
+              "fileTitle": "File:Eastleigh FC crest.svg",
+              "mimeType": "image/svg+xml",
+              "width": 333,
+              "height": 300,
+              "license": {
+                "shortName": "Fair use",
+                "usageTerms": "Fair use of copyrighted material in the context of Eastleigh F.C.",
+                "licenseUrl": "https://en.wikipedia.org/wiki/File:Eastleigh_FC_crest.svg",
+                "copyrighted": true,
+                "credit": "https://www.bbc.com/sport/football/national-league/table"
+              },
+              "verification": {
+                "identityMatch": "strong",
+                "licenseCheck": "restricted",
+                "httpCheck": "pass",
+                "needsManualReview": true,
+                "reviewReasons": [
+                  "license-restricted"
+                ],
+                "checkedAt": "2026-06-20T19:25:34.240Z"
+              },
+              "priority": 1
+            },
+            {
+              "assetId": "wikipedia-pageimage-free:Old_Town_Hall_Eastleigh.JPG",
+              "kind": "crest",
+              "status": "needs-review",
+              "source": "wikipedia-pageimage-free",
+              "sourceUrl": "https://en.wikipedia.org/wiki/Eastleigh",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/2/27/Old_Town_Hall_Eastleigh.JPG",
+              "pageUrl": "https://commons.wikimedia.org/wiki/File:Old_Town_Hall_Eastleigh.JPG",
+              "fileTitle": "File:Old Town Hall Eastleigh.JPG",
+              "mimeType": "image/jpeg",
+              "width": 2822,
+              "height": 2090,
+              "license": {
+                "shortName": "CC BY-SA 3.0",
+                "usageTerms": "Creative Commons Attribution-Share Alike 3.0",
+                "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+                "copyrighted": true,
+                "credit": "Own work",
+                "artist": "Marek69"
+              },
+              "verification": {
+                "identityMatch": "possible",
+                "licenseCheck": "pass",
+                "httpCheck": "pass",
+                "needsManualReview": true,
+                "reviewReasons": [
+                  "non-crest-filename"
+                ],
+                "checkedAt": "2026-06-20T19:25:34.240Z"
+              },
+              "priority": 2
+            }
+          ]
         }
       }
     },
@@ -34784,8 +35482,39 @@
       },
       "assets": {
         "crest": {
-          "status": "restricted",
+          "preferred": "wikipedia-pageimage-any:Epsom_and_Ewell_UK_locator_map.svg",
+          "status": "usable",
           "candidates": [
+            {
+              "assetId": "wikipedia-pageimage-any:Epsom_and_Ewell_UK_locator_map.svg",
+              "kind": "crest",
+              "status": "usable",
+              "source": "wikipedia-pageimage-any",
+              "sourceUrl": "https://en.wikipedia.org/wiki/Epsom_and_Ewell",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/6/63/Epsom_and_Ewell_UK_locator_map.svg",
+              "pageUrl": "https://commons.wikimedia.org/wiki/File:Epsom_and_Ewell_UK_locator_map.svg",
+              "fileTitle": "File:Epsom and Ewell UK locator map.svg",
+              "mimeType": "image/svg+xml",
+              "width": 1425,
+              "height": 1081,
+              "license": {
+                "shortName": "CC BY-SA 3.0",
+                "usageTerms": "Creative Commons Attribution-Share Alike 3.0",
+                "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+                "copyrighted": true,
+                "attribution": "Contains Ordnance Survey data © Crown copyright and database right",
+                "credit": "Ordnance Survey OpenData Coastline and administrative boundary data from Boundary-Line product. Lake data from Meridian 2 product. Inset derived from England location map.svg by Spischot .",
+                "artist": "Nilfanion , created using Ordnance Survey data"
+              },
+              "verification": {
+                "identityMatch": "possible",
+                "licenseCheck": "pass",
+                "httpCheck": "pass",
+                "needsManualReview": false,
+                "checkedAt": "2026-06-20T19:25:58.717Z"
+              },
+              "priority": 1
+            },
             {
               "assetId": "wikipedia-pageimage-any:EpsomEwellBadge.png",
               "kind": "crest",
@@ -34814,9 +35543,9 @@
                   "license-restricted",
                   "identity-uncertain"
                 ],
-                "checkedAt": "2026-06-20T18:55:05.651Z"
+                "checkedAt": "2026-06-20T19:25:58.717Z"
               },
-              "priority": 1
+              "priority": 2
             }
           ]
         }
@@ -36635,7 +37364,7 @@
                 "reviewReasons": [
                   "license-restricted"
                 ],
-                "checkedAt": "2026-06-20T18:55:12.454Z"
+                "checkedAt": "2026-06-20T19:26:03.489Z"
               },
               "priority": 1
             },
@@ -36668,7 +37397,7 @@
                   "identity-uncertain",
                   "non-crest-filename"
                 ],
-                "checkedAt": "2026-06-20T18:55:12.454Z"
+                "checkedAt": "2026-06-20T19:26:03.489Z"
               },
               "priority": 2
             }
@@ -36811,7 +37540,40 @@
       },
       "assets": {
         "crest": {
-          "status": "missing"
+          "status": "restricted",
+          "candidates": [
+            {
+              "assetId": "wikipedia-pageimage-any:FC_Halifax_Town_crest.svg",
+              "kind": "crest",
+              "status": "restricted",
+              "source": "wikipedia-pageimage-any",
+              "sourceUrl": "https://en.wikipedia.org/wiki/FC_Halifax_Town",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/en/e/e5/FC_Halifax_Town_crest.svg",
+              "pageUrl": "https://en.wikipedia.org/wiki/File:FC_Halifax_Town_crest.svg",
+              "fileTitle": "File:FC Halifax Town crest.svg",
+              "mimeType": "image/svg+xml",
+              "width": 300,
+              "height": 300,
+              "license": {
+                "shortName": "Fair use",
+                "usageTerms": "Fair use of copyrighted material in the context of FC Halifax Town",
+                "licenseUrl": "https://en.wikipedia.org/wiki/File:FC_Halifax_Town_crest.svg",
+                "copyrighted": true,
+                "credit": "https://www.bbc.com/sport/football/national-league/table"
+              },
+              "verification": {
+                "identityMatch": "strong",
+                "licenseCheck": "restricted",
+                "httpCheck": "pass",
+                "needsManualReview": true,
+                "reviewReasons": [
+                  "license-restricted"
+                ],
+                "checkedAt": "2026-06-20T19:26:05.394Z"
+              },
+              "priority": 1
+            }
+          ]
         }
       }
     },
@@ -37714,7 +38476,70 @@
       },
       "assets": {
         "crest": {
-          "status": "missing"
+          "preferred": "wikipedia-pageimage-any:Folkestone_Harbour_with_Viaduct_and_Swing_Bridge.png",
+          "status": "usable",
+          "candidates": [
+            {
+              "assetId": "wikipedia-pageimage-any:Folkestone_Harbour_with_Viaduct_and_Swing_Bridge.png",
+              "kind": "crest",
+              "status": "usable",
+              "source": "wikipedia-pageimage-any",
+              "sourceUrl": "https://en.wikipedia.org/wiki/Folkestone",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/4/4c/Folkestone_Harbour_with_Viaduct_and_Swing_Bridge.png",
+              "pageUrl": "https://commons.wikimedia.org/wiki/File:Folkestone_Harbour_with_Viaduct_and_Swing_Bridge.png",
+              "fileTitle": "File:Folkestone Harbour with Viaduct and Swing Bridge.png",
+              "mimeType": "image/png",
+              "width": 6000,
+              "height": 4000,
+              "license": {
+                "shortName": "CC BY-SA 4.0",
+                "usageTerms": "Creative Commons Attribution-Share Alike 4.0",
+                "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+                "copyrighted": true,
+                "credit": "Own work",
+                "artist": "Claire Noble"
+              },
+              "verification": {
+                "identityMatch": "possible",
+                "licenseCheck": "pass",
+                "httpCheck": "pass",
+                "needsManualReview": false,
+                "checkedAt": "2026-06-20T19:26:07.298Z"
+              },
+              "priority": 1
+            },
+            {
+              "assetId": "wikipedia-pageimage-any:Folkestone_Invicta_FC_crest.svg",
+              "kind": "crest",
+              "status": "restricted",
+              "source": "wikipedia-pageimage-any",
+              "sourceUrl": "https://en.wikipedia.org/wiki/Folkestone_Invicta_F.C.",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/en/2/2a/Folkestone_Invicta_FC_crest.svg",
+              "pageUrl": "https://en.wikipedia.org/wiki/File:Folkestone_Invicta_FC_crest.svg",
+              "fileTitle": "File:Folkestone Invicta FC crest.svg",
+              "mimeType": "image/svg+xml",
+              "width": 316,
+              "height": 316,
+              "license": {
+                "shortName": "Fair use",
+                "usageTerms": "Fair use of copyrighted material in the context of Folkestone Invicta F.C.",
+                "licenseUrl": "https://en.wikipedia.org/wiki/File:Folkestone_Invicta_FC_crest.svg",
+                "copyrighted": true,
+                "credit": "https://folkestoneinvictafc.co.uk/"
+              },
+              "verification": {
+                "identityMatch": "strong",
+                "licenseCheck": "restricted",
+                "httpCheck": "pass",
+                "needsManualReview": true,
+                "reviewReasons": [
+                  "license-restricted"
+                ],
+                "checkedAt": "2026-06-20T19:26:07.298Z"
+              },
+              "priority": 2
+            }
+          ]
         }
       }
     },
@@ -39100,7 +39925,7 @@
                 "reviewReasons": [
                   "license-restricted"
                 ],
-                "checkedAt": "2026-06-20T18:55:23.235Z"
+                "checkedAt": "2026-06-20T19:26:09.958Z"
               },
               "priority": 1
             },
@@ -39132,7 +39957,7 @@
                 "reviewReasons": [
                   "non-crest-filename"
                 ],
-                "checkedAt": "2026-06-20T18:55:23.235Z"
+                "checkedAt": "2026-06-20T19:26:09.958Z"
               },
               "priority": 2
             }
@@ -39684,40 +40509,133 @@
       },
       "assets": {
         "crest": {
-          "status": "needs-review",
+          "status": "restricted",
           "candidates": [
             {
-              "assetId": "wikipedia-pageimage-free:Ryan_Valentine_scores.jpg",
+              "assetId": "wikipedia-pageimage-any:South_Shields_FC_crest.svg",
+              "kind": "crest",
+              "status": "restricted",
+              "source": "wikipedia-pageimage-any",
+              "sourceUrl": "https://en.wikipedia.org/wiki/South_Shields_F.C.",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/en/e/e5/South_Shields_FC_crest.svg",
+              "pageUrl": "https://en.wikipedia.org/wiki/File:South_Shields_FC_crest.svg",
+              "fileTitle": "File:South Shields FC crest.svg",
+              "mimeType": "image/svg+xml",
+              "width": 281,
+              "height": 356,
+              "license": {
+                "shortName": "Fair use",
+                "usageTerms": "Fair use of copyrighted material in the context of South Shields F.C.",
+                "licenseUrl": "https://en.wikipedia.org/wiki/File:South_Shields_FC_crest.svg",
+                "copyrighted": true,
+                "credit": "https://www.bbc.com/sport/football/fa-cup/scores-fixtures/2025-11"
+              },
+              "verification": {
+                "identityMatch": "strong",
+                "licenseCheck": "restricted",
+                "httpCheck": "pass",
+                "needsManualReview": true,
+                "reviewReasons": [
+                  "license-restricted"
+                ],
+                "checkedAt": "2026-06-20T19:26:11.554Z"
+              },
+              "priority": 1
+            },
+            {
+              "assetId": "wikipedia-pageimage-any:Gateshead_FC.svg",
+              "kind": "crest",
+              "status": "restricted",
+              "source": "wikipedia-pageimage-any",
+              "sourceUrl": "https://en.wikipedia.org/wiki/Gateshead_F.C.",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/en/b/b3/Gateshead_FC.svg",
+              "pageUrl": "https://en.wikipedia.org/wiki/File:Gateshead_FC.svg",
+              "fileTitle": "File:Gateshead FC.svg",
+              "mimeType": "image/svg+xml",
+              "width": 316,
+              "height": 316,
+              "license": {
+                "shortName": "Fair use",
+                "usageTerms": "Fair use of copyrighted material in the context of Gateshead F.C.",
+                "licenseUrl": "https://en.wikipedia.org/wiki/File:Gateshead_FC.svg",
+                "copyrighted": true,
+                "credit": "The logo is from the following website: Gateshead F.C. Official Website Converted to AI format by Johnny Beaufays (johnny.beaufays@vflnet.com) and then converted to SVG by Arteyu using Adobe Illustrator . Then cropped the SVG by using Inkscape ."
+              },
+              "verification": {
+                "identityMatch": "possible",
+                "licenseCheck": "restricted",
+                "httpCheck": "pass",
+                "needsManualReview": true,
+                "reviewReasons": [
+                  "license-restricted"
+                ],
+                "checkedAt": "2026-06-20T19:26:11.554Z"
+              },
+              "priority": 2
+            },
+            {
+              "assetId": "wikipedia-pageimage-free:Angel_of_the_North,_Gateshead,_United_Kingdom.jpg",
               "kind": "crest",
               "status": "needs-review",
               "source": "wikipedia-pageimage-free",
-              "sourceUrl": "https://en.wikipedia.org/wiki/List_of_former_English_Football_League_clubs",
-              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/0/0c/Ryan_Valentine_scores.jpg",
-              "pageUrl": "https://commons.wikimedia.org/wiki/File:Ryan_Valentine_scores.jpg",
-              "fileTitle": "File:Ryan Valentine scores.jpg",
+              "sourceUrl": "https://en.wikipedia.org/wiki/Gateshead",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/d/d2/Angel_of_the_North%2C_Gateshead%2C_United_Kingdom.jpg",
+              "pageUrl": "https://commons.wikimedia.org/wiki/File:Angel_of_the_North,_Gateshead,_United_Kingdom.jpg",
+              "fileTitle": "File:Angel of the North, Gateshead, United Kingdom.jpg",
               "mimeType": "image/jpeg",
-              "width": 3456,
-              "height": 2304,
+              "width": 3968,
+              "height": 2232,
               "license": {
-                "shortName": "CC BY 2.5",
-                "usageTerms": "Creative Commons Attribution 2.5",
-                "licenseUrl": "https://creativecommons.org/licenses/by/2.5",
+                "shortName": "CC BY-SA 2.0",
+                "usageTerms": "Creative Commons Attribution-Share Alike 2.0",
+                "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
                 "copyrighted": true,
-                "credit": "Own work",
-                "artist": "Markbarnes"
+                "credit": "https://www.flickr.com/photos/leonghongrui/11654459084/",
+                "artist": "Alvin Leong"
               },
               "verification": {
-                "identityMatch": "none",
+                "identityMatch": "possible",
                 "licenseCheck": "pass",
                 "httpCheck": "pass",
                 "needsManualReview": true,
                 "reviewReasons": [
-                  "identity-uncertain",
                   "non-crest-filename"
                 ],
-                "checkedAt": "2026-06-20T18:55:25.483Z"
+                "checkedAt": "2026-06-20T19:26:11.554Z"
               },
-              "priority": 1
+              "priority": 3
+            },
+            {
+              "assetId": "wikipedia-pageimage-free:Hôtel_ville_South_Shields_South_Tyneside_28.jpg",
+              "kind": "crest",
+              "status": "needs-review",
+              "source": "wikipedia-pageimage-free",
+              "sourceUrl": "https://en.wikipedia.org/wiki/South_Shields",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/5/55/H%C3%B4tel_ville_South_Shields_South_Tyneside_28.jpg",
+              "pageUrl": "https://commons.wikimedia.org/wiki/File:H%C3%B4tel_ville_South_Shields_South_Tyneside_28.jpg",
+              "fileTitle": "File:Hôtel ville South Shields South Tyneside 28.jpg",
+              "mimeType": "image/jpeg",
+              "width": 10581,
+              "height": 6866,
+              "license": {
+                "shortName": "CC BY-SA 4.0",
+                "usageTerms": "Creative Commons Attribution-Share Alike 4.0",
+                "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+                "copyrighted": true,
+                "credit": "Own work",
+                "artist": "Chabe01"
+              },
+              "verification": {
+                "identityMatch": "possible",
+                "licenseCheck": "pass",
+                "httpCheck": "pass",
+                "needsManualReview": true,
+                "reviewReasons": [
+                  "non-crest-filename"
+                ],
+                "checkedAt": "2026-06-20T19:26:11.554Z"
+              },
+              "priority": 4
             }
           ]
         }
@@ -40347,8 +41265,104 @@
       },
       "assets": {
         "crest": {
-          "status": "needs-review",
+          "status": "restricted",
           "candidates": [
+            {
+              "assetId": "wikipedia-pageimage-any:GNE_afc_badge.png",
+              "kind": "crest",
+              "status": "restricted",
+              "source": "wikipedia-pageimage-any",
+              "sourceUrl": "https://en.wikipedia.org/wiki/Glossop_North_End_A.F.C.",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/en/5/5e/GNE_afc_badge.png",
+              "pageUrl": "https://en.wikipedia.org/wiki/File:GNE_afc_badge.png",
+              "fileTitle": "File:GNE afc badge.png",
+              "mimeType": "image/png",
+              "width": 276,
+              "height": 361,
+              "license": {
+                "shortName": "Fair use",
+                "usageTerms": "Fair use of copyrighted material in the context of Glossop North End A.F.C.",
+                "licenseUrl": "https://en.wikipedia.org/wiki/File:GNE_afc_badge.png",
+                "copyrighted": true,
+                "credit": "The logo is from the following website: http://www.glossopnorthendafc.co.uk http://www.glossopnorthendafc.co.uk"
+              },
+              "verification": {
+                "identityMatch": "none",
+                "licenseCheck": "restricted",
+                "httpCheck": "pass",
+                "needsManualReview": true,
+                "reviewReasons": [
+                  "license-restricted",
+                  "identity-uncertain"
+                ],
+                "checkedAt": "2026-06-20T19:26:14.645Z"
+              },
+              "priority": 1
+            },
+            {
+              "assetId": "wikipedia-pageimage-any:North_West_Counties_Football_League_logo.png",
+              "kind": "crest",
+              "status": "restricted",
+              "source": "wikipedia-pageimage-any",
+              "sourceUrl": "https://en.wikipedia.org/wiki/North_West_Counties_Football_League",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/en/8/83/North_West_Counties_Football_League_logo.png",
+              "pageUrl": "https://en.wikipedia.org/wiki/File:North_West_Counties_Football_League_logo.png",
+              "fileTitle": "File:North West Counties Football League logo.png",
+              "mimeType": "image/png",
+              "width": 316,
+              "height": 316,
+              "license": {
+                "shortName": "Fair use",
+                "usageTerms": "Fair use of copyrighted material in the context of North West Counties Football League",
+                "licenseUrl": "https://en.wikipedia.org/wiki/File:North_West_Counties_Football_League_logo.png",
+                "copyrighted": true,
+                "credit": "The logo is from the following website: www.nwcfl.com www.nwcfl.com"
+              },
+              "verification": {
+                "identityMatch": "strong",
+                "licenseCheck": "restricted",
+                "httpCheck": "pass",
+                "needsManualReview": true,
+                "reviewReasons": [
+                  "license-restricted"
+                ],
+                "checkedAt": "2026-06-20T19:26:14.645Z"
+              },
+              "priority": 2
+            },
+            {
+              "assetId": "wikipedia-pageimage-free:Glossop_-_geograph.org.uk_-_7292918.jpg",
+              "kind": "crest",
+              "status": "needs-review",
+              "source": "wikipedia-pageimage-free",
+              "sourceUrl": "https://en.wikipedia.org/wiki/Glossop",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/6/68/Glossop_-_geograph.org.uk_-_7292918.jpg",
+              "pageUrl": "https://commons.wikimedia.org/wiki/File:Glossop_-_geograph.org.uk_-_7292918.jpg",
+              "fileTitle": "File:Glossop - geograph.org.uk - 7292918.jpg",
+              "mimeType": "image/jpeg",
+              "width": 4032,
+              "height": 2268,
+              "license": {
+                "shortName": "CC BY-SA 2.0",
+                "usageTerms": "Creative Commons Attribution-Share Alike 2.0",
+                "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+                "copyrighted": true,
+                "attribution": "Glossop by Peter McDermott",
+                "credit": "Geograph Britain and Ireland",
+                "artist": "Peter McDermott"
+              },
+              "verification": {
+                "identityMatch": "possible",
+                "licenseCheck": "pass",
+                "httpCheck": "pass",
+                "needsManualReview": true,
+                "reviewReasons": [
+                  "non-crest-filename"
+                ],
+                "checkedAt": "2026-06-20T19:26:14.645Z"
+              },
+              "priority": 3
+            },
             {
               "assetId": "wikipedia-pageimage-free:Ryan_Valentine_scores.jpg",
               "kind": "crest",
@@ -40378,9 +41392,9 @@
                   "identity-uncertain",
                   "non-crest-filename"
                 ],
-                "checkedAt": "2026-06-20T18:55:27.756Z"
+                "checkedAt": "2026-06-20T19:26:14.645Z"
               },
-              "priority": 1
+              "priority": 4
             }
           ]
         }
@@ -44543,7 +45557,40 @@
       },
       "assets": {
         "crest": {
-          "status": "missing"
+          "status": "restricted",
+          "candidates": [
+            {
+              "assetId": "wikipedia-pageimage-any:Hastings_United_F.C._2020_logo.png",
+              "kind": "crest",
+              "status": "restricted",
+              "source": "wikipedia-pageimage-any",
+              "sourceUrl": "https://en.wikipedia.org/wiki/Hastings_United_F.C.",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/en/0/03/Hastings_United_F.C._2020_logo.png",
+              "pageUrl": "https://en.wikipedia.org/wiki/File:Hastings_United_F.C._2020_logo.png",
+              "fileTitle": "File:Hastings United F.C. 2020 logo.png",
+              "mimeType": "image/png",
+              "width": 170,
+              "height": 240,
+              "license": {
+                "shortName": "Fair use",
+                "usageTerms": "Fair use of copyrighted material in the context of Hastings United F.C.",
+                "licenseUrl": "https://en.wikipedia.org/wiki/File:Hastings_United_F.C._2020_logo.png",
+                "copyrighted": true,
+                "credit": "https://www.hastingsunited.com/"
+              },
+              "verification": {
+                "identityMatch": "strong",
+                "licenseCheck": "restricted",
+                "httpCheck": "pass",
+                "needsManualReview": true,
+                "reviewReasons": [
+                  "license-restricted"
+                ],
+                "checkedAt": "2026-06-20T19:26:17.945Z"
+              },
+              "priority": 1
+            }
+          ]
         }
       }
     },
@@ -44661,7 +45708,40 @@
       },
       "assets": {
         "crest": {
-          "status": "missing"
+          "status": "restricted",
+          "candidates": [
+            {
+              "assetId": "wikipedia-pageimage-any:Hastings_United_F.C._2020_logo.png",
+              "kind": "crest",
+              "status": "restricted",
+              "source": "wikipedia-pageimage-any",
+              "sourceUrl": "https://en.wikipedia.org/wiki/Hastings_United_F.C.",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/en/0/03/Hastings_United_F.C._2020_logo.png",
+              "pageUrl": "https://en.wikipedia.org/wiki/File:Hastings_United_F.C._2020_logo.png",
+              "fileTitle": "File:Hastings United F.C. 2020 logo.png",
+              "mimeType": "image/png",
+              "width": 170,
+              "height": 240,
+              "license": {
+                "shortName": "Fair use",
+                "usageTerms": "Fair use of copyrighted material in the context of Hastings United F.C.",
+                "licenseUrl": "https://en.wikipedia.org/wiki/File:Hastings_United_F.C._2020_logo.png",
+                "copyrighted": true,
+                "credit": "https://www.hastingsunited.com/"
+              },
+              "verification": {
+                "identityMatch": "strong",
+                "licenseCheck": "restricted",
+                "httpCheck": "pass",
+                "needsManualReview": true,
+                "reviewReasons": [
+                  "license-restricted"
+                ],
+                "checkedAt": "2026-06-20T19:26:20.210Z"
+              },
+              "priority": 1
+            }
+          ]
         }
       }
     },
@@ -45931,7 +47011,7 @@
                 "reviewReasons": [
                   "license-restricted"
                 ],
-                "checkedAt": "2026-06-20T18:56:08.401Z"
+                "checkedAt": "2026-06-20T19:26:32.611Z"
               },
               "priority": 1
             },
@@ -45963,9 +47043,41 @@
                   "identity-uncertain",
                   "non-crest-filename"
                 ],
-                "checkedAt": "2026-06-20T18:56:08.401Z"
+                "checkedAt": "2026-06-20T19:26:32.611Z"
               },
               "priority": 2
+            },
+            {
+              "assetId": "wikipedia-pageimage-free:Hendon_Town_Hall_in_December_2011.JPG",
+              "kind": "crest",
+              "status": "needs-review",
+              "source": "wikipedia-pageimage-free",
+              "sourceUrl": "https://en.wikipedia.org/wiki/Hendon",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/2/2e/Hendon_Town_Hall_in_December_2011.JPG",
+              "pageUrl": "https://commons.wikimedia.org/wiki/File:Hendon_Town_Hall_in_December_2011.JPG",
+              "fileTitle": "File:Hendon Town Hall in December 2011.JPG",
+              "mimeType": "image/jpeg",
+              "width": 4000,
+              "height": 3000,
+              "license": {
+                "shortName": "CC BY 3.0",
+                "usageTerms": "Creative Commons Attribution 3.0",
+                "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+                "copyrighted": true,
+                "credit": "Own work",
+                "artist": "Editor5807"
+              },
+              "verification": {
+                "identityMatch": "possible",
+                "licenseCheck": "pass",
+                "httpCheck": "pass",
+                "needsManualReview": true,
+                "reviewReasons": [
+                  "non-crest-filename"
+                ],
+                "checkedAt": "2026-06-20T19:26:32.611Z"
+              },
+              "priority": 3
             }
           ]
         }
@@ -46128,7 +47240,7 @@
                 "reviewReasons": [
                   "license-restricted"
                 ],
-                "checkedAt": "2026-06-20T18:56:09.571Z"
+                "checkedAt": "2026-06-20T19:31:03.304Z"
               },
               "priority": 1
             },
@@ -46161,9 +47273,42 @@
                 "reviewReasons": [
                   "non-crest-filename"
                 ],
-                "checkedAt": "2026-06-20T18:56:09.571Z"
+                "checkedAt": "2026-06-20T19:31:03.304Z"
               },
               "priority": 2
+            },
+            {
+              "assetId": "wikipedia-pageimage-free:Centre_of_Hereford_-_geograph.org.uk_-_4306743.jpg",
+              "kind": "crest",
+              "status": "needs-review",
+              "source": "wikipedia-pageimage-free",
+              "sourceUrl": "https://en.wikipedia.org/wiki/Hereford",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/b/be/Centre_of_Hereford_-_geograph.org.uk_-_4306743.jpg",
+              "pageUrl": "https://commons.wikimedia.org/wiki/File:Centre_of_Hereford_-_geograph.org.uk_-_4306743.jpg",
+              "fileTitle": "File:Centre of Hereford - geograph.org.uk - 4306743.jpg",
+              "mimeType": "image/jpeg",
+              "width": 800,
+              "height": 507,
+              "license": {
+                "shortName": "CC BY-SA 2.0",
+                "usageTerms": "Creative Commons Attribution-Share Alike 2.0",
+                "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+                "copyrighted": true,
+                "attribution": "Centre of Hereford by Clint Mann",
+                "credit": "Geograph Britain and Ireland",
+                "artist": "Clint Mann"
+              },
+              "verification": {
+                "identityMatch": "possible",
+                "licenseCheck": "pass",
+                "httpCheck": "pass",
+                "needsManualReview": true,
+                "reviewReasons": [
+                  "non-crest-filename"
+                ],
+                "checkedAt": "2026-06-20T19:31:03.304Z"
+              },
+              "priority": 3
             }
           ]
         }
@@ -46461,7 +47606,7 @@
                 "reviewReasons": [
                   "license-restricted"
                 ],
-                "checkedAt": "2026-06-20T18:56:11.029Z"
+                "checkedAt": "2026-06-20T19:26:59.679Z"
               },
               "priority": 1
             },
@@ -46493,7 +47638,7 @@
                 "reviewReasons": [
                   "non-crest-filename"
                 ],
-                "checkedAt": "2026-06-20T18:56:11.029Z"
+                "checkedAt": "2026-06-20T19:26:59.679Z"
               },
               "priority": 2
             }
@@ -47882,7 +49027,41 @@
       },
       "assets": {
         "crest": {
-          "status": "missing"
+          "status": "needs-review",
+          "candidates": [
+            {
+              "assetId": "wikipedia-pageimage-free:Hounslow_High_Street.1.JPG",
+              "kind": "crest",
+              "status": "needs-review",
+              "source": "wikipedia-pageimage-free",
+              "sourceUrl": "https://en.wikipedia.org/wiki/Hounslow",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/d/d1/Hounslow_High_Street.1.JPG",
+              "pageUrl": "https://commons.wikimedia.org/wiki/File:Hounslow_High_Street.1.JPG",
+              "fileTitle": "File:Hounslow High Street.1.JPG",
+              "mimeType": "image/jpeg",
+              "width": 2304,
+              "height": 1728,
+              "license": {
+                "shortName": "CC BY-SA 3.0",
+                "usageTerms": "Creative Commons Attribution-Share Alike 3.0",
+                "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+                "copyrighted": true,
+                "credit": "Own work",
+                "artist": "KTo288"
+              },
+              "verification": {
+                "identityMatch": "possible",
+                "licenseCheck": "pass",
+                "httpCheck": "pass",
+                "needsManualReview": true,
+                "reviewReasons": [
+                  "non-crest-filename"
+                ],
+                "checkedAt": "2026-06-20T19:31:04.917Z"
+              },
+              "priority": 1
+            }
+          ]
         }
       }
     },
@@ -51555,7 +52734,7 @@
                   "license-restricted",
                   "non-crest-filename"
                 ],
-                "checkedAt": "2026-06-20T18:56:35.935Z"
+                "checkedAt": "2026-06-20T19:27:04.474Z"
               },
               "priority": 1
             }
@@ -52073,7 +53252,7 @@
                 "reviewReasons": [
                   "license-restricted"
                 ],
-                "checkedAt": "2026-06-20T18:56:38.159Z"
+                "checkedAt": "2026-06-20T19:27:06.034Z"
               },
               "priority": 1
             },
@@ -52106,7 +53285,7 @@
                   "identity-uncertain",
                   "non-crest-filename"
                 ],
-                "checkedAt": "2026-06-20T18:56:38.159Z"
+                "checkedAt": "2026-06-20T19:27:06.034Z"
               },
               "priority": 2
             }
@@ -52428,7 +53607,7 @@
                   "identity-uncertain",
                   "non-crest-filename"
                 ],
-                "checkedAt": "2026-06-20T18:56:40.381Z"
+                "checkedAt": "2026-06-20T19:31:06.558Z"
               },
               "priority": 1
             }
@@ -54194,7 +55373,7 @@
                 "reviewReasons": [
                   "license-restricted"
                 ],
-                "checkedAt": "2026-06-20T18:56:47.226Z"
+                "checkedAt": "2026-06-20T19:27:12.463Z"
               },
               "priority": 1
             },
@@ -54228,9 +55407,40 @@
                   "identity-uncertain",
                   "non-crest-filename"
                 ],
-                "checkedAt": "2026-06-20T18:56:47.226Z"
+                "checkedAt": "2026-06-20T19:27:12.463Z"
               },
               "priority": 2
+            },
+            {
+              "assetId": "wikipedia-pageimage-free:Lewes-udsigt.jpg",
+              "kind": "crest",
+              "status": "needs-review",
+              "source": "wikipedia-pageimage-free",
+              "sourceUrl": "https://en.wikipedia.org/wiki/Lewes",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/7/73/Lewes-udsigt.jpg",
+              "pageUrl": "https://commons.wikimedia.org/wiki/File:Lewes-udsigt.jpg",
+              "fileTitle": "File:Lewes-udsigt.jpg",
+              "mimeType": "image/jpeg",
+              "width": 1600,
+              "height": 1200,
+              "license": {
+                "shortName": "Public domain",
+                "usageTerms": "Public domain",
+                "copyrighted": false,
+                "credit": "Own work",
+                "artist": "Missjensen at da.wikipedia"
+              },
+              "verification": {
+                "identityMatch": "possible",
+                "licenseCheck": "pass",
+                "httpCheck": "pass",
+                "needsManualReview": true,
+                "reviewReasons": [
+                  "non-crest-filename"
+                ],
+                "checkedAt": "2026-06-20T19:27:12.463Z"
+              },
+              "priority": 3
             }
           ]
         }
@@ -54392,7 +55602,72 @@
       },
       "assets": {
         "crest": {
-          "status": "missing"
+          "status": "restricted",
+          "candidates": [
+            {
+              "assetId": "wikipedia-pageimage-any:LeytonFC.png",
+              "kind": "crest",
+              "status": "restricted",
+              "source": "wikipedia-pageimage-any",
+              "sourceUrl": "https://en.wikipedia.org/wiki/Leyton_F.C.",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/en/2/2d/LeytonFC.png",
+              "pageUrl": "https://en.wikipedia.org/wiki/File:LeytonFC.png",
+              "fileTitle": "File:LeytonFC.png",
+              "mimeType": "image/png",
+              "width": 136,
+              "height": 178,
+              "license": {
+                "shortName": "Fair use",
+                "usageTerms": "Fair use of copyrighted material in the context of Leyton F.C.",
+                "licenseUrl": "https://en.wikipedia.org/wiki/File:LeytonFC.png",
+                "copyrighted": true,
+                "credit": "The logo may be obtained from Leyton F.C.."
+              },
+              "verification": {
+                "identityMatch": "possible",
+                "licenseCheck": "restricted",
+                "httpCheck": "pass",
+                "needsManualReview": true,
+                "reviewReasons": [
+                  "license-restricted"
+                ],
+                "checkedAt": "2026-06-20T19:27:14.346Z"
+              },
+              "priority": 1
+            },
+            {
+              "assetId": "wikipedia-pageimage-free:LeytonCentre.JPG",
+              "kind": "crest",
+              "status": "needs-review",
+              "source": "wikipedia-pageimage-free",
+              "sourceUrl": "https://en.wikipedia.org/wiki/Leyton",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b6/LeytonCentre.JPG",
+              "pageUrl": "https://commons.wikimedia.org/wiki/File:LeytonCentre.JPG",
+              "fileTitle": "File:LeytonCentre.JPG",
+              "mimeType": "image/jpeg",
+              "width": 3872,
+              "height": 2592,
+              "license": {
+                "shortName": "CC BY-SA 3.0",
+                "usageTerms": "Creative Commons Attribution-Share Alike 3.0",
+                "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+                "copyrighted": true,
+                "credit": "Own work",
+                "artist": "Leyton59"
+              },
+              "verification": {
+                "identityMatch": "possible",
+                "licenseCheck": "pass",
+                "httpCheck": "pass",
+                "needsManualReview": true,
+                "reviewReasons": [
+                  "non-crest-filename"
+                ],
+                "checkedAt": "2026-06-20T19:27:14.346Z"
+              },
+              "priority": 2
+            }
+          ]
         }
       }
     },
@@ -56306,7 +57581,43 @@
       },
       "assets": {
         "crest": {
-          "status": "missing"
+          "status": "needs-review",
+          "candidates": [
+            {
+              "assetId": "wikipedia-pageimage-free:Town_Hall_-_Market_Place_(geograph_2938168).jpg",
+              "kind": "crest",
+              "status": "needs-review",
+              "source": "wikipedia-pageimage-free",
+              "sourceUrl": "https://en.wikipedia.org/wiki/Loughborough",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b7/Town_Hall_-_Market_Place_%28geograph_2938168%29.jpg",
+              "pageUrl": "https://commons.wikimedia.org/wiki/File:Town_Hall_-_Market_Place_(geograph_2938168).jpg",
+              "fileTitle": "File:Town Hall - Market Place (geograph 2938168).jpg",
+              "mimeType": "image/jpeg",
+              "width": 640,
+              "height": 533,
+              "license": {
+                "shortName": "CC BY-SA 2.0",
+                "usageTerms": "Creative Commons Attribution-Share Alike 2.0",
+                "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+                "copyrighted": true,
+                "attribution": "Betty Longbottom",
+                "credit": "From geograph.org.uk",
+                "artist": "Betty Longbottom"
+              },
+              "verification": {
+                "identityMatch": "none",
+                "licenseCheck": "pass",
+                "httpCheck": "pass",
+                "needsManualReview": true,
+                "reviewReasons": [
+                  "identity-uncertain",
+                  "non-crest-filename"
+                ],
+                "checkedAt": "2026-06-20T19:31:08.179Z"
+              },
+              "priority": 1
+            }
+          ]
         }
       }
     },
@@ -57571,7 +58882,7 @@
                 "reviewReasons": [
                   "license-restricted"
                 ],
-                "checkedAt": "2026-06-20T18:57:10.598Z"
+                "checkedAt": "2026-06-20T19:27:18.534Z"
               },
               "priority": 1
             },
@@ -57604,7 +58915,7 @@
                   "identity-uncertain",
                   "non-crest-filename"
                 ],
-                "checkedAt": "2026-06-20T18:57:10.598Z"
+                "checkedAt": "2026-06-20T19:27:18.534Z"
               },
               "priority": 2
             }
@@ -57953,8 +59264,70 @@
       },
       "assets": {
         "crest": {
-          "status": "needs-review",
+          "status": "restricted",
           "candidates": [
+            {
+              "assetId": "wikipedia-pageimage-any:Maidstone_United_FC_crest.svg",
+              "kind": "crest",
+              "status": "restricted",
+              "source": "wikipedia-pageimage-any",
+              "sourceUrl": "https://en.wikipedia.org/wiki/Maidstone_United_F.C.",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/en/b/b8/Maidstone_United_FC_crest.svg",
+              "pageUrl": "https://en.wikipedia.org/wiki/File:Maidstone_United_FC_crest.svg",
+              "fileTitle": "File:Maidstone United FC crest.svg",
+              "mimeType": "image/svg+xml",
+              "width": 295,
+              "height": 339,
+              "license": {
+                "shortName": "Fair use",
+                "usageTerms": "Fair use of copyrighted material in the context of Maidstone United F.C.",
+                "licenseUrl": "https://en.wikipedia.org/wiki/File:Maidstone_United_FC_crest.svg",
+                "copyrighted": true,
+                "credit": "https://iconape.com/maidstone-united-fc-logo-logo-icon-svg-png.html"
+              },
+              "verification": {
+                "identityMatch": "strong",
+                "licenseCheck": "restricted",
+                "httpCheck": "pass",
+                "needsManualReview": true,
+                "reviewReasons": [
+                  "license-restricted"
+                ],
+                "checkedAt": "2026-06-20T19:27:20.144Z"
+              },
+              "priority": 1
+            },
+            {
+              "assetId": "wikipedia-pageimage-any:Maidstone-utd-logo.jpg",
+              "kind": "crest",
+              "status": "restricted",
+              "source": "wikipedia-pageimage-any",
+              "sourceUrl": "https://en.wikipedia.org/wiki/Maidstone_United_F.C._(1897)",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/en/0/0e/Maidstone-utd-logo.jpg",
+              "pageUrl": "https://en.wikipedia.org/wiki/File:Maidstone-utd-logo.jpg",
+              "fileTitle": "File:Maidstone-utd-logo.jpg",
+              "mimeType": "image/jpeg",
+              "width": 203,
+              "height": 152,
+              "license": {
+                "shortName": "Fair use",
+                "usageTerms": "Fair use of copyrighted material in the context of Maidstone United F.C. (1897)",
+                "licenseUrl": "https://en.wikipedia.org/wiki/File:Maidstone-utd-logo.jpg",
+                "copyrighted": true,
+                "credit": "The logo is from the following website: http://www.maidstoneunited.co.uk"
+              },
+              "verification": {
+                "identityMatch": "possible",
+                "licenseCheck": "restricted",
+                "httpCheck": "pass",
+                "needsManualReview": true,
+                "reviewReasons": [
+                  "license-restricted"
+                ],
+                "checkedAt": "2026-06-20T19:27:20.144Z"
+              },
+              "priority": 2
+            },
             {
               "assetId": "wikipedia-pageimage-free:Ryan_Valentine_scores.jpg",
               "kind": "crest",
@@ -57984,9 +59357,9 @@
                   "identity-uncertain",
                   "non-crest-filename"
                 ],
-                "checkedAt": "2026-06-20T18:57:12.873Z"
+                "checkedAt": "2026-06-20T19:27:20.144Z"
               },
-              "priority": 1
+              "priority": 3
             }
           ]
         }
@@ -60151,7 +61524,7 @@
                 "reviewReasons": [
                   "license-restricted"
                 ],
-                "checkedAt": "2026-06-20T18:57:19.543Z"
+                "checkedAt": "2026-06-20T19:27:23.031Z"
               },
               "priority": 1
             },
@@ -60182,7 +61555,7 @@
                 "reviewReasons": [
                   "non-crest-filename"
                 ],
-                "checkedAt": "2026-06-20T18:57:19.543Z"
+                "checkedAt": "2026-06-20T19:27:23.031Z"
               },
               "priority": 2
             }
@@ -61458,7 +62831,7 @@
                 "reviewReasons": [
                   "license-restricted"
                 ],
-                "checkedAt": "2026-06-20T18:57:24.020Z"
+                "checkedAt": "2026-06-20T19:31:09.938Z"
               },
               "priority": 1
             },
@@ -61490,9 +62863,42 @@
                 "reviewReasons": [
                   "non-crest-filename"
                 ],
-                "checkedAt": "2026-06-20T18:57:24.020Z"
+                "checkedAt": "2026-06-20T19:31:09.938Z"
               },
               "priority": 2
+            },
+            {
+              "assetId": "wikipedia-pageimage-free:Middlesborough_Town_Hall_image_by_Robert_Eva.jpg",
+              "kind": "crest",
+              "status": "needs-review",
+              "source": "wikipedia-pageimage-free",
+              "sourceUrl": "https://en.wikipedia.org/wiki/Middlesbrough",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/a/a3/Middlesborough_Town_Hall_image_by_Robert_Eva.jpg",
+              "pageUrl": "https://commons.wikimedia.org/wiki/File:Middlesborough_Town_Hall_image_by_Robert_Eva.jpg",
+              "fileTitle": "File:Middlesborough Town Hall image by Robert Eva.jpg",
+              "mimeType": "image/jpeg",
+              "width": 755,
+              "height": 460,
+              "license": {
+                "shortName": "CC BY 2.5",
+                "usageTerms": "Creative Commons Attribution 2.5",
+                "licenseUrl": "https://creativecommons.org/licenses/by/2.5",
+                "copyrighted": true,
+                "credit": "https://commons.wikimedia.org/wiki/File:Middlesbrough_town_hall_and_fountains_-_geograph.org.uk_-_5469169.jpg Wiki images",
+                "artist": "Robert Eva"
+              },
+              "verification": {
+                "identityMatch": "none",
+                "licenseCheck": "pass",
+                "httpCheck": "pass",
+                "needsManualReview": true,
+                "reviewReasons": [
+                  "identity-uncertain",
+                  "non-crest-filename"
+                ],
+                "checkedAt": "2026-06-20T19:31:09.938Z"
+              },
+              "priority": 3
             }
           ]
         }
@@ -63943,7 +65349,40 @@
       },
       "assets": {
         "crest": {
-          "status": "missing"
+          "status": "needs-review",
+          "candidates": [
+            {
+              "assetId": "wikipedia-pageimage-free:New_Brighton_Tower.jpg",
+              "kind": "crest",
+              "status": "needs-review",
+              "source": "wikipedia-pageimage-free",
+              "sourceUrl": "https://en.wikipedia.org/wiki/New_Brighton_Tower",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/e/e0/New_Brighton_Tower.jpg",
+              "pageUrl": "https://commons.wikimedia.org/wiki/File:New_Brighton_Tower.jpg",
+              "fileTitle": "File:New Brighton Tower.jpg",
+              "mimeType": "image/jpeg",
+              "width": 248,
+              "height": 314,
+              "license": {
+                "shortName": "Public domain",
+                "usageTerms": "Public domain",
+                "copyrighted": false,
+                "credit": "postcard",
+                "artist": "Unknown author Unknown author"
+              },
+              "verification": {
+                "identityMatch": "possible",
+                "licenseCheck": "pass",
+                "httpCheck": "pass",
+                "needsManualReview": true,
+                "reviewReasons": [
+                  "non-crest-filename"
+                ],
+                "checkedAt": "2026-06-20T19:31:11.666Z"
+              },
+              "priority": 1
+            }
+          ]
         }
       }
     },
@@ -65171,8 +66610,39 @@
       },
       "assets": {
         "crest": {
-          "status": "needs-review",
+          "status": "restricted",
           "candidates": [
+            {
+              "assetId": "wikipedia-pageimage-any:Newport_County_AFC_crest.svg",
+              "kind": "crest",
+              "status": "restricted",
+              "source": "wikipedia-pageimage-any",
+              "sourceUrl": "https://en.wikipedia.org/wiki/Newport_County_A.F.C.",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/en/4/44/Newport_County_AFC_crest.svg",
+              "pageUrl": "https://en.wikipedia.org/wiki/File:Newport_County_AFC_crest.svg",
+              "fileTitle": "File:Newport County AFC crest.svg",
+              "mimeType": "image/svg+xml",
+              "width": 317,
+              "height": 316,
+              "license": {
+                "shortName": "Fair use",
+                "usageTerms": "Fair use of copyrighted material in the context of Newport County A.F.C.",
+                "licenseUrl": "https://en.wikipedia.org/wiki/File:Newport_County_AFC_crest.svg",
+                "copyrighted": true,
+                "credit": "https://www.newport-county.co.uk/"
+              },
+              "verification": {
+                "identityMatch": "strong",
+                "licenseCheck": "restricted",
+                "httpCheck": "pass",
+                "needsManualReview": true,
+                "reviewReasons": [
+                  "license-restricted"
+                ],
+                "checkedAt": "2026-06-20T19:28:04.956Z"
+              },
+              "priority": 1
+            },
             {
               "assetId": "wikipedia-pageimage-free:Ryan_Valentine_scores.jpg",
               "kind": "crest",
@@ -65202,9 +66672,9 @@
                   "identity-uncertain",
                   "non-crest-filename"
                 ],
-                "checkedAt": "2026-06-20T18:57:42.191Z"
+                "checkedAt": "2026-06-20T19:28:04.956Z"
               },
-              "priority": 1
+              "priority": 2
             }
           ]
         }
@@ -66310,7 +67780,40 @@
       },
       "assets": {
         "crest": {
-          "status": "missing"
+          "status": "restricted",
+          "candidates": [
+            {
+              "assetId": "wikipedia-pageimage-any:Northwood.png",
+              "kind": "crest",
+              "status": "restricted",
+              "source": "wikipedia-pageimage-any",
+              "sourceUrl": "https://en.wikipedia.org/wiki/Northwood_F.C.",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/en/6/60/Northwood.png",
+              "pageUrl": "https://en.wikipedia.org/wiki/File:Northwood.png",
+              "fileTitle": "File:Northwood.png",
+              "mimeType": "image/png",
+              "width": 181,
+              "height": 216,
+              "license": {
+                "shortName": "Fair use",
+                "usageTerms": "Fair use of copyrighted material in the context of Northwood F.C.",
+                "licenseUrl": "https://en.wikipedia.org/wiki/File:Northwood.png",
+                "copyrighted": true,
+                "credit": "The logo may be obtained from Northwood F.C.."
+              },
+              "verification": {
+                "identityMatch": "possible",
+                "licenseCheck": "restricted",
+                "httpCheck": "pass",
+                "needsManualReview": true,
+                "reviewReasons": [
+                  "license-restricted"
+                ],
+                "checkedAt": "2026-06-20T19:28:07.531Z"
+              },
+              "priority": 1
+            }
+          ]
         }
       }
     },
@@ -69251,7 +70754,7 @@
                 "reviewReasons": [
                   "license-restricted"
                 ],
-                "checkedAt": "2026-06-20T18:58:09.840Z"
+                "checkedAt": "2026-06-20T19:28:10.885Z"
               },
               "priority": 1
             },
@@ -69285,7 +70788,7 @@
                   "identity-uncertain",
                   "non-crest-filename"
                 ],
-                "checkedAt": "2026-06-20T18:58:09.840Z"
+                "checkedAt": "2026-06-20T19:28:10.885Z"
               },
               "priority": 2
             }
@@ -69729,7 +71232,7 @@
                 "reviewReasons": [
                   "license-restricted"
                 ],
-                "checkedAt": "2026-06-20T18:58:12.064Z"
+                "checkedAt": "2026-06-20T19:28:12.436Z"
               },
               "priority": 1
             },
@@ -69761,7 +71264,7 @@
                 "reviewReasons": [
                   "non-crest-filename"
                 ],
-                "checkedAt": "2026-06-20T18:58:12.064Z"
+                "checkedAt": "2026-06-20T19:28:12.436Z"
               },
               "priority": 2
             }
@@ -72757,7 +74260,7 @@
                 "licenseCheck": "pass",
                 "httpCheck": "pass",
                 "needsManualReview": false,
-                "checkedAt": "2026-06-20T18:58:20.266Z"
+                "checkedAt": "2026-06-20T19:28:13.920Z"
               },
               "priority": 1
             },
@@ -72790,7 +74293,7 @@
                   "identity-uncertain",
                   "non-crest-filename"
                 ],
-                "checkedAt": "2026-06-20T18:58:20.266Z"
+                "checkedAt": "2026-06-20T19:28:13.920Z"
               },
               "priority": 2
             }
@@ -74419,7 +75922,7 @@
                   "license-restricted",
                   "non-crest-filename"
                 ],
-                "checkedAt": "2026-06-20T18:58:28.184Z"
+                "checkedAt": "2026-06-20T19:28:18.244Z"
               },
               "priority": 1
             }
@@ -76181,7 +77684,72 @@
       },
       "assets": {
         "crest": {
-          "status": "missing"
+          "status": "restricted",
+          "candidates": [
+            {
+              "assetId": "wikipedia-pageimage-any:RuncornLinnetsCrest.png",
+              "kind": "crest",
+              "status": "restricted",
+              "source": "wikipedia-pageimage-any",
+              "sourceUrl": "https://en.wikipedia.org/wiki/Runcorn_Linnets_F.C.",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/en/b/b6/RuncornLinnetsCrest.png",
+              "pageUrl": "https://en.wikipedia.org/wiki/File:RuncornLinnetsCrest.png",
+              "fileTitle": "File:RuncornLinnetsCrest.png",
+              "mimeType": "image/png",
+              "width": 315,
+              "height": 315,
+              "license": {
+                "shortName": "Fair use",
+                "usageTerms": "Fair use of copyrighted material in the context of Runcorn Linnets F.C.",
+                "licenseUrl": "https://en.wikipedia.org/wiki/File:RuncornLinnetsCrest.png",
+                "copyrighted": true,
+                "credit": "http://www.runcornlinnetsfc.co.uk/"
+              },
+              "verification": {
+                "identityMatch": "strong",
+                "licenseCheck": "restricted",
+                "httpCheck": "pass",
+                "needsManualReview": true,
+                "reviewReasons": [
+                  "license-restricted"
+                ],
+                "checkedAt": "2026-06-20T19:31:13.306Z"
+              },
+              "priority": 1
+            },
+            {
+              "assetId": "wikipedia-pageimage-free:Silver_Jubilee_Bridge,_Runcorn,_night,_2024.jpg",
+              "kind": "crest",
+              "status": "needs-review",
+              "source": "wikipedia-pageimage-free",
+              "sourceUrl": "https://en.wikipedia.org/wiki/Runcorn",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/e/e8/Silver_Jubilee_Bridge%2C_Runcorn%2C_night%2C_2024.jpg",
+              "pageUrl": "https://commons.wikimedia.org/wiki/File:Silver_Jubilee_Bridge,_Runcorn,_night,_2024.jpg",
+              "fileTitle": "File:Silver Jubilee Bridge, Runcorn, night, 2024.jpg",
+              "mimeType": "image/jpeg",
+              "width": 3836,
+              "height": 2268,
+              "license": {
+                "shortName": "CC0",
+                "usageTerms": "Creative Commons Zero, Public Domain Dedication",
+                "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+                "copyrighted": true,
+                "credit": "Own work",
+                "artist": "Dgp4004"
+              },
+              "verification": {
+                "identityMatch": "possible",
+                "licenseCheck": "pass",
+                "httpCheck": "pass",
+                "needsManualReview": true,
+                "reviewReasons": [
+                  "non-crest-filename"
+                ],
+                "checkedAt": "2026-06-20T19:31:13.306Z"
+              },
+              "priority": 2
+            }
+          ]
         }
       }
     },
@@ -79176,7 +80744,40 @@
       },
       "assets": {
         "crest": {
-          "status": "missing"
+          "status": "restricted",
+          "candidates": [
+            {
+              "assetId": "wikipedia-pageimage-any:Sheffield_Wednesday_FC_2026_crest.svg",
+              "kind": "crest",
+              "status": "restricted",
+              "source": "wikipedia-pageimage-any",
+              "sourceUrl": "https://en.wikipedia.org/wiki/Sheffield_Wednesday_F.C.",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/en/b/b8/Sheffield_Wednesday_FC_2026_crest.svg",
+              "pageUrl": "https://en.wikipedia.org/wiki/File:Sheffield_Wednesday_FC_2026_crest.svg",
+              "fileTitle": "File:Sheffield Wednesday FC 2026 crest.svg",
+              "mimeType": "image/svg+xml",
+              "width": 293,
+              "height": 342,
+              "license": {
+                "shortName": "Fair use",
+                "usageTerms": "Fair use of copyrighted material in the context of Sheffield Wednesday F.C.",
+                "licenseUrl": "https://en.wikipedia.org/wiki/File:Sheffield_Wednesday_FC_2026_crest.svg",
+                "copyrighted": true,
+                "credit": "https://football-logos.cc/england/sheffield-wednesday/"
+              },
+              "verification": {
+                "identityMatch": "strong",
+                "licenseCheck": "restricted",
+                "httpCheck": "pass",
+                "needsManualReview": true,
+                "reviewReasons": [
+                  "license-restricted"
+                ],
+                "checkedAt": "2026-06-20T19:28:59.560Z"
+              },
+              "priority": 1
+            }
+          ]
         }
       }
     },
@@ -80216,7 +81817,7 @@
                   "license-restricted",
                   "non-crest-filename"
                 ],
-                "checkedAt": "2026-06-20T18:59:05.984Z"
+                "checkedAt": "2026-06-20T19:29:05.394Z"
               },
               "priority": 1
             }
@@ -83171,7 +84772,7 @@
                   "identity-uncertain",
                   "non-crest-filename"
                 ],
-                "checkedAt": "2026-06-20T18:59:18.281Z"
+                "checkedAt": "2026-06-20T19:29:07.051Z"
               },
               "priority": 1
             }
@@ -88277,7 +89878,41 @@
       },
       "assets": {
         "crest": {
-          "status": "missing"
+          "status": "needs-review",
+          "candidates": [
+            {
+              "assetId": "wikipedia-pageimage-free:London_Thames_Sunset_panorama_-_Feb_2008.jpg",
+              "kind": "crest",
+              "status": "needs-review",
+              "source": "wikipedia-pageimage-free",
+              "sourceUrl": "https://en.wikipedia.org/wiki/River_Thames",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/6/6e/London_Thames_Sunset_panorama_-_Feb_2008.jpg",
+              "pageUrl": "https://commons.wikimedia.org/wiki/File:London_Thames_Sunset_panorama_-_Feb_2008.jpg",
+              "fileTitle": "File:London Thames Sunset panorama - Feb 2008.jpg",
+              "mimeType": "image/jpeg",
+              "width": 13126,
+              "height": 4876,
+              "license": {
+                "shortName": "CC BY 3.0",
+                "usageTerms": "Creative Commons Attribution 3.0",
+                "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+                "copyrighted": true,
+                "credit": "Own work",
+                "artist": "Diliff"
+              },
+              "verification": {
+                "identityMatch": "possible",
+                "licenseCheck": "pass",
+                "httpCheck": "pass",
+                "needsManualReview": true,
+                "reviewReasons": [
+                  "non-crest-filename"
+                ],
+                "checkedAt": "2026-06-20T19:31:16.121Z"
+              },
+              "priority": 1
+            }
+          ]
         }
       }
     },
@@ -90498,7 +92133,40 @@
       },
       "assets": {
         "crest": {
-          "status": "missing"
+          "status": "restricted",
+          "candidates": [
+            {
+              "assetId": "wikipedia-pageimage-any:Tranmere_Rovers_FC_crest.svg",
+              "kind": "crest",
+              "status": "restricted",
+              "source": "wikipedia-pageimage-any",
+              "sourceUrl": "https://en.wikipedia.org/wiki/Tranmere_Rovers_F.C.",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/en/5/55/Tranmere_Rovers_FC_crest.svg",
+              "pageUrl": "https://en.wikipedia.org/wiki/File:Tranmere_Rovers_FC_crest.svg",
+              "fileTitle": "File:Tranmere Rovers FC crest.svg",
+              "mimeType": "image/svg+xml",
+              "width": 280,
+              "height": 357,
+              "license": {
+                "shortName": "Fair use",
+                "usageTerms": "Fair use of copyrighted material in the context of Tranmere Rovers F.C.",
+                "licenseUrl": "https://en.wikipedia.org/wiki/File:Tranmere_Rovers_FC_crest.svg",
+                "copyrighted": true,
+                "credit": "https://seeklogo.com/vector-logo/441960/tranmere-rovers-f"
+              },
+              "verification": {
+                "identityMatch": "strong",
+                "licenseCheck": "restricted",
+                "httpCheck": "pass",
+                "needsManualReview": true,
+                "reviewReasons": [
+                  "license-restricted"
+                ],
+                "checkedAt": "2026-06-20T19:29:14.960Z"
+              },
+              "priority": 1
+            }
+          ]
         }
       }
     },
@@ -96280,6 +97948,37 @@
           "status": "restricted",
           "candidates": [
             {
+              "assetId": "wikipedia-pageimage-any:Windsor_&_Eton_F.C._(2023)_Logo.png",
+              "kind": "crest",
+              "status": "restricted",
+              "source": "wikipedia-pageimage-any",
+              "sourceUrl": "https://en.wikipedia.org/wiki/Windsor_%26_Eton_F.C._(2023)",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/en/9/94/Windsor_%26_Eton_F.C._%282023%29_Logo.png",
+              "pageUrl": "https://en.wikipedia.org/wiki/File:Windsor_%26_Eton_F.C._(2023)_Logo.png",
+              "fileTitle": "File:Windsor & Eton F.C. (2023) Logo.png",
+              "mimeType": "image/png",
+              "width": 316,
+              "height": 316,
+              "license": {
+                "shortName": "Fair use",
+                "usageTerms": "Fair use of copyrighted material in the context of Windsor & Eton F.C. (2023)",
+                "licenseUrl": "https://en.wikipedia.org/wiki/File:Windsor_%26_Eton_F.C._(2023)_Logo.png",
+                "copyrighted": true,
+                "credit": "https://wefc.co.uk/"
+              },
+              "verification": {
+                "identityMatch": "strong",
+                "licenseCheck": "restricted",
+                "httpCheck": "pass",
+                "needsManualReview": true,
+                "reviewReasons": [
+                  "license-restricted"
+                ],
+                "checkedAt": "2026-06-20T19:29:21.411Z"
+              },
+              "priority": 1
+            },
+            {
               "assetId": "wikipedia-pageimage-any:Windsorandetonfc.jpg",
               "kind": "crest",
               "status": "restricted",
@@ -96307,9 +98006,9 @@
                   "license-restricted",
                   "non-crest-filename"
                 ],
-                "checkedAt": "2026-06-20T19:00:26.977Z"
+                "checkedAt": "2026-06-20T19:29:21.411Z"
               },
-              "priority": 1
+              "priority": 2
             }
           ]
         }
@@ -96940,7 +98639,7 @@
                 "reviewReasons": [
                   "license-restricted"
                 ],
-                "checkedAt": "2026-06-20T19:00:31.440Z"
+                "checkedAt": "2026-06-20T19:29:24.968Z"
               },
               "priority": 1
             },
@@ -96973,7 +98672,7 @@
                 "reviewReasons": [
                   "non-crest-filename"
                 ],
-                "checkedAt": "2026-06-20T19:00:31.440Z"
+                "checkedAt": "2026-06-20T19:29:24.968Z"
               },
               "priority": 2
             }
