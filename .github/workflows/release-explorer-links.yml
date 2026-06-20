@@ -1,0 +1,76 @@
+name: Release Explorer Links
+
+on:
+  workflow_dispatch:
+    inputs:
+      release_tag:
+        description: Existing release tag to backfill, for example v1.0.0.
+        required: true
+        default: v1.0.0
+        type: string
+      asset_name:
+        description: Release asset to open in JSON Hero.
+        required: true
+        default: all-seasons.min.json
+        type: choice
+        options:
+          - all-seasons.min.json
+          - all-seasons.json
+      deploy_docs:
+        description: Dispatch docs-site.yml on main after uploading explorer metadata.
+        required: true
+        default: true
+        type: boolean
+
+permissions:
+  actions: write
+  contents: write
+
+jobs:
+  backfill:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+
+      - name: Verify release exists
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RELEASE_TAG: ${{ inputs.release_tag }}
+        run: gh release view "${RELEASE_TAG}" --repo "${GITHUB_REPOSITORY}"
+
+      - name: Create JSON Hero release metadata
+        env:
+          ASSET_NAME: ${{ inputs.asset_name }}
+          RELEASE_TAG: ${{ inputs.release_tag }}
+        run: |
+          node scripts/create-jsonhero-release-links.js \
+            --tag "${RELEASE_TAG}" \
+            --asset "${ASSET_NAME}" \
+            --output release-assets/explorer-links.json \
+            --allow-fallback
+
+      - name: Upload explorer links to GitHub release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ inputs.release_tag }}
+          files: release-assets/explorer-links.json
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Dispatch docs deployment from main
+        if: ${{ inputs.deploy_docs }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RELEASE_TAG: ${{ inputs.release_tag }}
+        run: |
+          gh workflow run docs-site.yml \
+            --repo "${GITHUB_REPOSITORY}" \
+            --ref main \
+            --field release_tag="${RELEASE_TAG}"

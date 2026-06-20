@@ -130,3 +130,21 @@ against the selected release tag.
 unavailable, the release workflow writes fallback metadata with the
 create-from-URL link instead of failing the release. Docs can prefer the stored `/j/<id>` URL
 when present and fall back to the create route when it is missing.
+
+## One-Off Backfill Workflow
+
+Use the `Release Explorer Links` GitHub Actions workflow to backfill an existing
+release such as `v1.0.0`.
+
+Inputs:
+
+- `release_tag`: existing GitHub release tag, for example `v1.0.0`.
+- `asset_name`: release JSON asset to open in JSON Hero. Default to
+  `all-seasons.min.json` unless there is a reason to prefer the larger readable
+  file.
+- `deploy_docs`: when enabled, dispatches `docs-site.yml` on `main` after
+  uploading `explorer-links.json`.
+
+The workflow verifies the release exists, generates `release-assets/explorer-links.json`,
+uploads it to the existing GitHub release with overwrite semantics, then kicks
+the docs workflow so the static site can publish `docs/explorer-links.json`.
