@@ -4,6 +4,8 @@ import https from 'node:https';
 
 export const CLUB_ASSET_SOURCE_IDS = Object.freeze({
   generatedPlaceholder: 'generated-placeholder',
+  theSportsDbBadge: 'thesportsdb-badge',
+  theSportsDbLogo: 'thesportsdb-logo',
   wikidataLogo: 'wikidata-logo',
   wikidataCoatOfArms: 'wikidata-coat-of-arms',
   wikidataImage: 'wikidata-image',
@@ -12,6 +14,7 @@ export const CLUB_ASSET_SOURCE_IDS = Object.freeze({
 });
 
 const USER_AGENT = 'footy-data-kit/club-assets (https://github.com/dills122/footy-data-kit)';
+const THESPORTSDB_API_BASE_URL = 'https://www.thesportsdb.com/api/v1/json/3';
 const CREST_FILE_TOKENS = Object.freeze(['badge', 'crest', 'logo', 'emblem', 'seal']);
 const FREE_LICENSE_TOKENS = Object.freeze([
   'cc by',
@@ -35,14 +38,34 @@ const WIKIDATA_MEDIA_PROPERTIES = Object.freeze([
   { property: 'P18', source: CLUB_ASSET_SOURCE_IDS.wikidataImage },
 ]);
 const TRUSTED_WIKIDATA_CREST_SOURCES = Object.freeze([CLUB_ASSET_SOURCE_IDS.wikidataCoatOfArms]);
+const QUALITY_REVIEW_NOTES =
+  'Manual audit flagged this crest candidate for poor readability, image quality, or transparent-background visibility.';
 const REJECTED_ASSET_IDS = Object.freeze(
   new Set([
     'wikidata-image:Andover-2008-Squad.jpg',
+    'wikidata-image:Bishop Auckland Town Hall.jpg',
+    'wikidata-image:Bromsgrove Rovers 2003-04 1.jpg',
+    'wikidata-image:Dagenham village.jpg',
     'wikidata-image:DovervStaines.jpg',
+    'wikidata-image:Hounslow High Street.1.JPG',
+    'wikidata-image:Loughborough Town Hall - geograph.org.uk - 3932.jpg',
+    'wikidata-image:Man united vs derby.jpg',
+    'wikidata-image:Marine F.C..jpg',
+    'wikidata-image:New Brighton Tower RHE.jpg',
+    'wikidata-image:PPS-EastStand01.JPG',
+    'wikidata-image:River thames oxford.jpg',
     'wikidata-image:Shepshed Ground 001 Small.jpg',
+    'wikidata-image:St Paul, Addlestone - geograph.org.uk - 1517212.jpg',
+    'wikidata-image:Swansea City AFC Championship Play Off Winners 2011.jpg',
+    'wikidata-image:Town Hall. - geograph.org.uk - 525051.jpg',
     'wikidata-image:Trowbridge Town F.C..jpg',
+    'wikipedia-pageimage-any:Beam_valley_park_and_turbine_1.jpg',
+    'wikipedia-pageimage-any:Crown_Ground_sign-geograph-1761360.jpg',
     'wikipedia-pageimage-any:Epsom_and_Ewell_UK_locator_map.svg',
     'wikipedia-pageimage-any:Folkestone_Harbour_with_Viaduct_and_Swing_Bridge.png',
+    'wikipedia-pageimage-any:London_Thames_Sunset_panorama_-_Feb_2008.jpg',
+    'wikipedia-pageimage-any:New_Brighton_Tower.jpg',
+    'wikipedia-pageimage-any:Town_Hall_-_Market_Place_(geograph_2938168).jpg',
     'wikipedia-pageimage-free:Altrincham_Town_Square_-_2024.jpg',
     'wikipedia-pageimage-free:Angel_of_the_North,_Gateshead,_United_Kingdom.jpg',
     'wikipedia-pageimage-free:Atherstone_Town_FC_2009.jpg',
@@ -90,12 +113,67 @@ const CURATED_ASSET_DECISIONS = Object.freeze({
     notes: 'Curated as an acceptable Leeds City historical crest/arms candidate.',
   },
 });
+const QUALITY_REVIEW_ASSET_DECISIONS = Object.freeze({
+  'wikipedia-pageimage-any:AFC_Telford_United_logo.svg': {
+    clubIds: ['afc-telford-united', 'telford-united'],
+    reviewReasons: ['image-quality-review'],
+    notes: QUALITY_REVIEW_NOTES,
+  },
+  'wikipedia-pageimage-any:Bridgendtown.png': {
+    clubIds: ['bridgend-town'],
+    reviewReasons: ['image-quality-review'],
+    notes: QUALITY_REVIEW_NOTES,
+  },
+  'wikipedia-pageimage-any:Bromsgrove_Rovers_Badge.jpg': {
+    clubIds: ['bromsgrove-rovers'],
+    reviewReasons: ['image-quality-review'],
+    notes: QUALITY_REVIEW_NOTES,
+  },
+  'wikipedia-pageimage-any:Derby_County_crest.svg': {
+    clubIds: ['derby-county'],
+    reviewReasons: ['image-quality-review'],
+    notes: QUALITY_REVIEW_NOTES,
+  },
+  'wikipedia-pageimage-any:Marine_AFC_crest.svg': {
+    clubIds: ['marine'],
+    reviewReasons: ['image-quality-review'],
+    notes: QUALITY_REVIEW_NOTES,
+  },
+  'wikipedia-pageimage-any:Solihullboroughafc.jpg': {
+    clubIds: ['solihull-borough'],
+    reviewReasons: ['image-quality-review'],
+    notes: QUALITY_REVIEW_NOTES,
+  },
+  'wikipedia-pageimage-any:Swansea_City_AFC_logo.svg': {
+    clubIds: ['swansea-city'],
+    reviewReasons: ['image-quality-review'],
+    notes: QUALITY_REVIEW_NOTES,
+  },
+  'wikipedia-pageimage-any:Tottenham_Hotspur.svg': {
+    clubIds: ['tottenham-hotspur'],
+    reviewReasons: ['image-quality-review'],
+    notes: QUALITY_REVIEW_NOTES,
+  },
+  'wikipedia-pageimage-any:Wittonalbionfc.png': {
+    clubIds: ['witton-albion'],
+    reviewReasons: ['image-quality-review'],
+    notes: QUALITY_REVIEW_NOTES,
+  },
+});
 const GENERATED_PLACEHOLDER_LICENSE = Object.freeze({
   shortName: 'CC0-1.0',
   usageTerms: 'Creative Commons Zero v1.0 Universal',
   licenseUrl: 'https://creativecommons.org/publicdomain/zero/1.0/',
   copyrighted: false,
   attribution: 'footy-data-kit generated placeholder',
+});
+const THESPORTSDB_ARTWORK_LICENSE = Object.freeze({
+  shortName: 'TheSportsDB API artwork',
+  usageTerms:
+    'Artwork URL returned by TheSportsDB API; club marks may be trademarked or copyright restricted.',
+  licenseUrl: 'https://www.thesportsdb.com/docs_terms_of_use.php',
+  copyrighted: true,
+  attribution: 'TheSportsDB',
 });
 const HISTORICAL_PLACEHOLDER_CRESTS = Object.freeze({
   'birmingham-st-georges': {
@@ -256,6 +334,13 @@ function normalizeHexColor(value, fallback) {
   return /^#[0-9a-f]{6}$/i.test(normalized) ? normalized.toUpperCase() : fallback;
 }
 
+function normalizeOptionalHexColor(value) {
+  const text = String(value || '').trim();
+  if (!text) return null;
+  const normalized = text.startsWith('#') ? text : `#${text}`;
+  return /^#[0-9a-f]{6}$/i.test(normalized) ? normalized.toUpperCase() : null;
+}
+
 function hexColorChannels(value) {
   const normalized = normalizeHexColor(value, '#000000').slice(1);
   return {
@@ -324,6 +409,34 @@ function imagePageUrl(fileTitle) {
   return `https://en.wikipedia.org/wiki/${encodeURIComponent(normalizedTitle).replace(/%20/g, '_')}`;
 }
 
+function isTheSportsDbSource(source) {
+  return (
+    source === CLUB_ASSET_SOURCE_IDS.theSportsDbBadge ||
+    source === CLUB_ASSET_SOURCE_IDS.theSportsDbLogo
+  );
+}
+
+function theSportsDbTeamNameFromCandidate(candidate) {
+  const text = String(candidate?.fileTitle || '').replace(/^TheSportsDB:/, '');
+  return text.replace(/\s+(badge|logo)$/i, '').trim();
+}
+
+function theSportsDbTeamNamesFromCandidate(candidate) {
+  return [theSportsDbTeamNameFromCandidate(candidate)].map(toText).filter(Boolean);
+}
+
+function classifyTheSportsDbAssetIdentity(candidate, club) {
+  const candidateNames = theSportsDbTeamNamesFromCandidate(candidate)
+    .map(normalizedCompactText)
+    .filter(Boolean);
+  const clubNames = [club?.canonicalName, club?.clubId, ...(club?.derived?.aliases || [])]
+    .map(normalizedCompactText)
+    .filter(Boolean);
+
+  if (candidateNames.some((candidateName) => clubNames.includes(candidateName))) return 'strong';
+  return candidateNames.length && clubNames.length ? 'none' : 'weak';
+}
+
 export function classifyAssetLicense(license = {}) {
   const shortName = normalizeTokenText(license.shortName);
   const usageTerms = normalizeTokenText(license.usageTerms);
@@ -337,6 +450,10 @@ export function classifyAssetLicense(license = {}) {
 }
 
 export function classifyAssetIdentity(candidate, club) {
+  if (isTheSportsDbSource(candidate.source)) {
+    return classifyTheSportsDbAssetIdentity(candidate, club);
+  }
+
   const fileTokens = significantTokens(candidate.fileTitle || candidate.imageUrl || '');
   const clubTokens = significantTokens(club?.canonicalName || club?.clubId || '');
   const aliasTokens = (club?.derived?.aliases || []).flatMap(significantTokens);
@@ -381,7 +498,15 @@ function isLikelyCrestCandidate(candidate, identityMatch) {
 function curatedAssetDecision(candidate, club) {
   const decision = CURATED_ASSET_DECISIONS[candidate.assetId];
   if (!decision) return null;
-  const clubId = slugify(club?.clubId || club?.canonicalName || '');
+  const clubId = club?.clubId || slugify(club?.canonicalName || '');
+  if (decision.clubIds && !decision.clubIds.includes(clubId)) return null;
+  return decision;
+}
+
+function qualityReviewAssetDecision(candidate, club) {
+  const decision = QUALITY_REVIEW_ASSET_DECISIONS[candidate.assetId];
+  if (!decision) return null;
+  const clubId = club?.clubId || slugify(club?.canonicalName || '');
   if (decision.clubIds && !decision.clubIds.includes(clubId)) return null;
   return decision;
 }
@@ -415,6 +540,7 @@ export function classifyClubAssetCandidate(candidate, club, { checkedAt = null }
   const identityMatch = classifyAssetIdentity(candidate, club);
   const likelyCrestCandidate = isLikelyCrestCandidate(candidate, identityMatch);
   const curatedDecision = curatedAssetDecision(candidate, club);
+  const qualityReviewDecision = qualityReviewAssetDecision(candidate, club);
   const reviewReasons = [];
 
   if (licenseCheck === 'restricted') reviewReasons.push('license-restricted');
@@ -439,17 +565,20 @@ export function classifyClubAssetCandidate(candidate, club, { checkedAt = null }
     status = 'usable';
     reviewReasons.length = 0;
   }
+  if (qualityReviewDecision) {
+    reviewReasons.push(...qualityReviewDecision.reviewReasons);
+  }
 
   return {
     ...candidate,
     status,
-    notes: candidate.notes || curatedDecision?.notes,
+    notes: candidate.notes || curatedDecision?.notes || qualityReviewDecision?.notes,
     verification: compactObject({
       ...(candidate.verification || {}),
       identityMatch: curatedDecision?.identityMatch || identityMatch,
       licenseCheck,
       httpCheck: candidate.imageUrl ? 'pass' : 'fail',
-      needsManualReview: status !== 'usable',
+      needsManualReview: status !== 'usable' || reviewReasons.length > 0,
       reviewReasons,
       checkedAt,
     }),
@@ -470,9 +599,11 @@ function sourceRank(source) {
   if (source === CLUB_ASSET_SOURCE_IDS.wikidataLogo) return 0;
   if (source === CLUB_ASSET_SOURCE_IDS.wikidataCoatOfArms) return 1;
   if (source === CLUB_ASSET_SOURCE_IDS.wikipediaPageImageFree) return 2;
-  if (source === CLUB_ASSET_SOURCE_IDS.wikidataImage) return 3;
-  if (source === CLUB_ASSET_SOURCE_IDS.wikipediaPageImageAny) return 4;
-  return 5;
+  if (source === CLUB_ASSET_SOURCE_IDS.theSportsDbBadge) return 3;
+  if (source === CLUB_ASSET_SOURCE_IDS.theSportsDbLogo) return 4;
+  if (source === CLUB_ASSET_SOURCE_IDS.wikidataImage) return 5;
+  if (source === CLUB_ASSET_SOURCE_IDS.wikipediaPageImageAny) return 6;
+  return 7;
 }
 
 export function rankClubAssetCandidates(candidates, limit = 5) {
@@ -616,6 +747,15 @@ export function buildClubAssetReviewIssues(clubKey, club, bundle) {
         assetId: candidate.assetId,
         source: candidate.source,
         message: `${baseIssue.canonicalName} crest candidate does not look like a crest/logo filename`,
+      });
+    }
+    if (candidate.verification?.reviewReasons?.includes('image-quality-review')) {
+      issues.push({
+        type: 'club-asset-quality-review',
+        ...baseIssue,
+        assetId: candidate.assetId,
+        source: candidate.source,
+        message: `${baseIssue.canonicalName} crest candidate needs a better quality or more readable image`,
       });
     }
   }
@@ -771,6 +911,81 @@ function wikidataEntitiesApiUrl(ids) {
   return `https://www.wikidata.org/w/api.php?${params.toString()}`;
 }
 
+function theSportsDbSearchApiUrl(teamName) {
+  const params = new URLSearchParams({ t: teamName });
+  return `${THESPORTSDB_API_BASE_URL}/searchteams.php?${params.toString()}`;
+}
+
+function theSportsDbLookupApiUrl(teamId) {
+  const params = new URLSearchParams({ id: teamId });
+  return `${THESPORTSDB_API_BASE_URL}/lookupteam.php?${params.toString()}`;
+}
+
+function theSportsDbColorHints(team) {
+  return [
+    { role: 'primary', hex: normalizeOptionalHexColor(team?.strColour1) },
+    { role: 'secondary', hex: normalizeOptionalHexColor(team?.strColour2) },
+    { role: 'accent', hex: normalizeOptionalHexColor(team?.strColour3) },
+  ].filter((color) => color.hex);
+}
+
+function theSportsDbCandidateNotes(team) {
+  const alternateNames = String(team?.strTeamAlternate || '')
+    .split(/[;,/]/)
+    .map(toText)
+    .filter(Boolean);
+  const notes = [`TheSportsDB team: ${team?.strTeam || 'unknown'}.`];
+  if (alternateNames.length) notes.push(`Also known as ${alternateNames.join(', ')}.`);
+  return notes.join(' ');
+}
+
+function theSportsDbCandidateFromTeam(team, { source, imageUrl, label }) {
+  const teamId = toText(team?.idTeam);
+  const teamName = toText(team?.strTeam);
+  if (!teamId || !teamName || !imageUrl) return null;
+
+  return compactObject({
+    assetId: `${source}:${teamId}`,
+    kind: 'crest',
+    status: 'needs-review',
+    source,
+    sourceUrl: theSportsDbLookupApiUrl(teamId),
+    imageUrl: normalizeUrl(imageUrl),
+    pageUrl: `https://www.thesportsdb.com/team/${teamId}`,
+    fileTitle: `TheSportsDB:${teamName} ${label}`,
+    colors: theSportsDbColorHints(team),
+    license: THESPORTSDB_ARTWORK_LICENSE,
+    notes: theSportsDbCandidateNotes(team),
+  });
+}
+
+export function buildTheSportsDbSearchNames(club) {
+  const names = [];
+  for (const name of [club?.canonicalName, ...(club?.derived?.aliases || [])]) {
+    const normalizedName = toText(name);
+    if (!normalizedName) continue;
+    const dedupeKey = normalizedName.toLowerCase();
+    if (!names.some((entry) => entry.toLowerCase() === dedupeKey)) names.push(normalizedName);
+  }
+  return names.slice(0, 6);
+}
+
+export function buildTheSportsDbAssetCandidates(team) {
+  if (String(team?.strSport || '').toLowerCase() !== 'soccer') return [];
+  return [
+    theSportsDbCandidateFromTeam(team, {
+      source: CLUB_ASSET_SOURCE_IDS.theSportsDbBadge,
+      imageUrl: team?.strBadge,
+      label: 'badge',
+    }),
+    theSportsDbCandidateFromTeam(team, {
+      source: CLUB_ASSET_SOURCE_IDS.theSportsDbLogo,
+      imageUrl: team?.strLogo,
+      label: 'logo',
+    }),
+  ].filter(Boolean);
+}
+
 function candidateFromPageImage(page, source) {
   if (!page?.pageimage && !page?.original?.source) return null;
   const fileTitle = page.pageimage ? `File:${page.pageimage}` : null;
@@ -822,13 +1037,16 @@ function mergeImageInfo(candidate, imageInfoPage) {
 }
 
 async function enrichCandidatesWithImageInfo(candidates) {
-  const fileTitles = candidates.map((candidate) => candidate.fileTitle).filter(Boolean);
+  const fileTitles = candidates
+    .map((candidate) => candidate.fileTitle)
+    .filter((fileTitle) => String(fileTitle || '').startsWith('File:'));
   if (!fileTitles.length) return candidates;
   const response = await fetchJson(imageInfoApiUrl(fileTitles));
   const pages = Object.values(response?.query?.pages || {});
   const byTitle = new Map(pages.map((page) => [normalizedFileTitleKey(page.title), page]));
 
   return candidates.map((candidate) => {
+    if (!String(candidate.fileTitle || '').startsWith('File:')) return candidate;
     return mergeImageInfo(candidate, byTitle.get(normalizedFileTitleKey(candidate.fileTitle)));
   });
 }
@@ -873,10 +1091,22 @@ async function discoverWikidataMediaCandidates(articleTitle) {
   return candidates;
 }
 
+async function discoverTheSportsDbCandidates(club) {
+  const teamsById = new Map();
+  for (const searchName of buildTheSportsDbSearchNames(club)) {
+    const response = await fetchJson(theSportsDbSearchApiUrl(searchName));
+    for (const team of response?.teams || []) {
+      if (!team?.idTeam || String(team.strSport || '').toLowerCase() !== 'soccer') continue;
+      if (teamsById.has(team.idTeam)) continue;
+      teamsById.set(team.idTeam, team);
+    }
+  }
+
+  return [...teamsById.values()].flatMap((team) => buildTheSportsDbAssetCandidates(team));
+}
+
 export async function discoverClubCrestBundle(club, options = {}) {
   const articleTitles = buildWikipediaArticleTitles(club);
-  if (!articleTitles.length) return buildClubAssetBundle([]);
-
   const checkedAt = options.checkedAt || new Date().toISOString();
   const rawCandidates = [];
   for (const articleTitle of articleTitles) {
@@ -893,6 +1123,11 @@ export async function discoverClubCrestBundle(club, options = {}) {
         if (options.throwOnSourceError) throw error;
       }
     }
+  }
+  try {
+    rawCandidates.push(...(await discoverTheSportsDbCandidates(club)));
+  } catch (error) {
+    if (options.throwOnSourceError) throw error;
   }
 
   let enrichedCandidates = rawCandidates;

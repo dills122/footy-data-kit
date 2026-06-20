@@ -59,6 +59,13 @@
 
         <div class="flag-toolbar" aria-label="flagged candidate tools">
           <span id="flag-count" class="flag-count">0 flagged</span>
+          <label class="flag-reason">
+            <span>Flag reason</span>
+            <select id="flag-reason-select">
+              <option value="bad-quality">Bad quality / hard to read</option>
+              <option value="transparent-background">Transparent / hard to see</option>
+            </select>
+          </label>
           <label class="flag-filter">
             <input id="flagged-only-input" type="checkbox" />
             <span>Flagged only</span>
@@ -96,7 +103,13 @@
             <h2 id="club-list-heading">Clubs</h2>
             <span id="club-list-count" class="muted-label">-</span>
           </div>
-          <div id="club-list" class="club-list"></div>
+          <div
+            id="club-list"
+            class="club-list"
+            role="listbox"
+            tabindex="0"
+            aria-label="Clubs. Use up and down arrow keys to move, F to flag the selected crest."
+          ></div>
         </section>
 
         <section class="panel club-detail-panel" aria-labelledby="club-detail-heading">

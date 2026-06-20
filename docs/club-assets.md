@@ -52,8 +52,12 @@ The current discovery order is:
    - `P154` logo image
    - `P94` coat of arms image
    - `P18` image
-3. Wikipedia PageImages with `pilicense=any`.
-4. Generated placeholder shields for curated historical missing clubs with
+3. TheSportsDB team artwork from the public API:
+   - `strBadge`
+   - `strLogo`
+   - `strColour1`/`strColour2`/`strColour3` when valid hex values are present
+4. Wikipedia PageImages with `pilicense=any`.
+5. Generated placeholder shields for curated historical missing clubs with
    source-backed colours.
 
 Restricted candidates are preserved as backups but should not be selected as
@@ -62,6 +66,11 @@ Restricted candidates are preserved as backups but should not be selected as
 Wikidata `P154` and `P94` candidates are treated as crest-like when they match
 the club identity. Generic `P18` image candidates still need filename or other
 crest evidence, because they often point to squads, grounds, or match photos.
+
+TheSportsDB candidates are kept as restricted backup artwork because club marks
+may be copyrighted or trademarked. Matching is intentionally strict: exact
+team-name/alias matches can become crest candidates, while successor or
+current-club partial matches remain under identity review.
 
 Generated placeholders are SVG data URLs. They use `source: generated-placeholder`, `status: placeholder`, `placeholder: true`, and CC0
 license metadata so consumers can render or filter them independently from
@@ -117,6 +126,7 @@ The review output reports issue types:
 - `club-asset-license-restricted`
 - `club-asset-identity-uncertain`
 - `club-asset-non-crest-candidate`
+- `club-asset-quality-review`
 - `club-asset-url-failed`
 - `club-asset-multiple-review-candidates`
 
@@ -127,6 +137,10 @@ Expected high-volume findings:
 - Some historical clubs have no discoverable page image.
 - Some free page images are photos, charts, or grounds. These should stay
   `needs-review` unless they clearly represent a crest/badge/logo.
+- Some crest-like candidates are correct but hard to read because of low image
+  quality or transparent-background visibility. These stay available as
+  candidates, but receive `club-asset-quality-review` so a better source can be
+  found.
 - Some Victorian or folded clubs may need a future curated
   `no-known-crest`/historical status. Do not infer that automatically from a
   `needs-more-research` automated result.
