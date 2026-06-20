@@ -17,9 +17,20 @@ export type ParallelGroup =
   | 'third-division-north-south'
   | 'conference-north-south'
   | 'national-league-north-south'
+  | 'pre-2004-conference-feeders'
   | 'step-three-premier-divisions';
 
-export type DivisionKey = 'north' | 'south' | 'central' | 'isthmian' | 'northern';
+export type DivisionKey =
+  | 'north'
+  | 'south'
+  | 'central'
+  | 'isthmian'
+  | 'northern'
+  | 'northern-premier'
+  | 'southern-midland'
+  | 'southern-southern'
+  | 'southern-premier'
+  | 'isthmian-premier';
 
 export interface WikipediaLeagueLevelRule {
   level: TierNumber;

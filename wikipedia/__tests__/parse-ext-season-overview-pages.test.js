@@ -1649,6 +1649,101 @@ describe('buildSeasonOverview', () => {
       divisionCount: 2,
     });
   });
+
+  test('merges pre-2004 feeder pages into one tier-six parallel record', async () => {
+    const outputFile = createTempFile({
+      seasons: {
+        1979: {
+          seasonInfo: {
+            season: 1979,
+            table: [],
+            promoted: [],
+            relegated: [],
+          },
+        },
+      },
+    });
+    const tablesBySlug = {
+      '1979–80_Northern_Premier_League': [
+        {
+          title: 'League table',
+          id: 'League_table',
+          tableIndex: 0,
+          rows: [{ pos: 1, team: 'Mossley', played: 42, points: 65 }],
+        },
+      ],
+      '1979–80_Southern_Football_League': [
+        {
+          title: 'Midland Division',
+          id: 'League_table',
+          tableIndex: 0,
+          rows: [{ pos: 1, team: 'Bridgend Town', played: 42, points: 61 }],
+        },
+        {
+          title: 'Southern Division',
+          id: 'League_table_2',
+          tableIndex: 1,
+          rows: [{ pos: 1, team: 'Dorchester Town', played: 46, points: 68 }],
+        },
+        {
+          title: 'Lower Division',
+          id: 'League_table_3',
+          tableIndex: 2,
+          rows: [{ pos: 1, team: 'Ignored FC', played: 38, points: 60 }],
+        },
+      ],
+      '1979–80_Isthmian_League': [
+        {
+          title: 'Premier Division',
+          id: 'League_table',
+          tableIndex: 0,
+          rows: [{ pos: 1, team: 'Enfield', played: 42, points: 62 }],
+        },
+        {
+          title: 'Division One',
+          id: 'League_table_2',
+          tableIndex: 1,
+          rows: [{ pos: 1, team: 'Ignored Borough', played: 42, points: 58 }],
+        },
+      ],
+    };
+
+    await buildLowerTierSupplement(1979, 1979, outputFile, {
+      forceUpdate: true,
+      getLowerTierSourceSlugs: () => Object.keys(tablesBySlug),
+      fetchSeasonOverviewTables: async (slug) => tablesBySlug[slug] || [],
+    });
+
+    const finalData = JSON.parse(fs.readFileSync(outputFile, 'utf8'));
+    const tier6 = finalData.seasons['1979'].tier6;
+
+    expect(tier6.metadata).toMatchObject({
+      title: 'Pre-2004 Conference feeder leagues',
+      structure: 'parallel-leagues',
+      parallelGroup: 'pre-2004-conference-feeders',
+      leagueLevel: 6,
+      divisionCount: 4,
+      tierKey: 'tier6',
+    });
+    expect(tier6.divisions.map((division) => division.metadata.divisionKey)).toEqual([
+      'northern-premier',
+      'southern-midland',
+      'southern-southern',
+      'isthmian-premier',
+    ]);
+    expect(tier6.divisions.map((division) => division.table[0].team)).toEqual([
+      'Mossley',
+      'Bridgend Town',
+      'Dorchester Town',
+      'Enfield',
+    ]);
+    expect(tier6.divisions.map((division) => division.metadata.title)).toEqual([
+      'Northern Premier League',
+      'Southern Football League Midland Division',
+      'Southern Football League Southern Division',
+      'Isthmian League Premier Division',
+    ]);
+  });
 });
 
 describe('buildSeasonOverviewTierRecordsForSlug', () => {
@@ -1748,5 +1843,34 @@ describe('buildSeasonOverviewTierRecordsForSlug', () => {
       tierKey: 'tier5',
     });
     expect(result.tierRecords.tier5.table[0].team).toBe('Scarborough');
+  });
+
+  test('builds only target tables from a pre-2004 feeder source slug', async () => {
+    const result = await buildSeasonOverviewTierRecordsForSlug('1982–83_Southern_Football_League', {
+      fetchSeasonOverviewTables: async () => [
+        {
+          title: 'Premier Division',
+          id: 'League_table',
+          tableIndex: 0,
+          rows: [{ pos: 1, team: 'AP Leamington', played: 38, points: 60 }],
+        },
+        {
+          title: 'Midland Division',
+          id: 'League_table_2',
+          tableIndex: 1,
+          rows: [{ pos: 1, team: 'Cheltenham Town', played: 32, points: 50 }],
+        },
+      ],
+    });
+
+    expect(result.seasonKey).toBe('1982');
+    expect(Object.keys(result.tierRecords)).toEqual(['tier6']);
+    expect(result.tierRecords.tier6.metadata).toMatchObject({
+      title: 'Southern Football League Premier Division',
+      leagueLevel: 6,
+      parallelGroup: 'pre-2004-conference-feeders',
+      tierKey: 'tier6',
+    });
+    expect(result.tierRecords.tier6.table[0].team).toBe('AP Leamington');
   });
 });

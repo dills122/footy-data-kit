@@ -3976,7 +3976,7 @@ export const CLUB_LINEAGE_AUDIT_RULES = Object.freeze([
     observedNames: ['Accrington Stanley'],
     allowedSeasonRanges: [
       { fromSeason: 1921, toSeason: 1961, label: 'original Accrington Stanley' },
-      { fromSeason: 2003, toSeason: null, label: 'modern Accrington Stanley' },
+      { fromSeason: 1991, toSeason: null, label: 'modern Accrington Stanley' },
     ],
     expectedStatus: { current: 'defunct', reason: 'liquidated' },
     note: 'The 1891 Accrington Stanley identity is distinct from the modern club formed in 1968.',
@@ -4049,7 +4049,7 @@ export const CLUB_LINEAGE_AUDIT_RULES = Object.freeze([
   lineageAuditRule({
     clubKey: 'macclesfield town',
     observedNames: ['Macclesfield Town'],
-    allowedSeasonRanges: [{ fromSeason: 1987, toSeason: 2020 }],
+    allowedSeasonRanges: [{ fromSeason: 1979, toSeason: 2020 }],
     expectedStatus: { current: 'defunct', reason: 'dissolved' },
     note: 'Macclesfield Town was wound up in 2020.',
     sourceRefs: CLUB_SOURCE_REFS.macclesfieldTown,
@@ -4108,7 +4108,7 @@ export const CLUB_LINEAGE_AUDIT_RULES = Object.freeze([
     observedNames: ['South Shields', 'Gateshead'],
     allowedSeasonRanges: [
       { fromSeason: 1919, toSeason: 1959, label: 'South Shields/Gateshead Football League identity' },
-      { fromSeason: 1983, toSeason: 1998, label: 'same-name lower-tier Gateshead identity' },
+      { fromSeason: 1979, toSeason: 2002, label: 'same-name lower-tier Gateshead identity' },
       { fromSeason: 2008, toSeason: null, label: 'current Gateshead or later South Shields tracked identity' },
     ],
     expectedStatus: { current: 'historical', reason: 'successor-active' },
@@ -4214,7 +4214,7 @@ export const CLUB_LINEAGE_AUDIT_RULES = Object.freeze([
     observedNames: ['Newport County'],
     allowedSeasonRanges: [
       { fromSeason: 1920, toSeason: 1988, label: 'original Newport County Football League/Conference identity' },
-      { fromSeason: 2004, toSeason: null, label: 'modern Newport County tracked identity' },
+      { fromSeason: 1989, toSeason: null, label: 'modern Newport County tracked identity' },
     ],
     expectedStatus: { current: 'defunct', reason: 'folded' },
     note: 'Original Newport County and modern Newport County share a name but are separate identities.',

@@ -3,6 +3,7 @@ import * as path from 'node:path';
 import {
   buildOverviewSeasonSlug as buildOverviewSeasonSlugFromConfig,
   buildWikipediaArticleUrl,
+  filterWikipediaLowerTierSourceTables,
   getWikipediaCanonicalLeagueLabel,
   getWikipediaLeagueLevelRule,
   getWikipediaLeagueStructureSpecialCases,
@@ -279,6 +280,7 @@ function getOverviewLeagueProfile(table, seasonNumber) {
 }
 
 function resolveDivisionKey(table) {
+  if (table?.lowerTierSourceProfile?.divisionKey) return table.lowerTierSourceProfile.divisionKey;
   const text = `${table?.title || ''} ${table?.id || ''}`.toLowerCase();
   if (text.includes('north')) return 'north';
   if (text.includes('south')) return 'south';
@@ -309,8 +311,9 @@ function buildOverviewTierMetadata({
   tableCount,
   leagueLevel,
 }) {
-  const profile = getOverviewLeagueProfile(table, safeSeason);
+  const profile = table?.lowerTierSourceProfile || getOverviewLeagueProfile(table, safeSeason);
   const parallelGroup = profile.parallelGroup || null;
+  const divisionKey = profile.divisionKey || null;
 
   return {
     source: WIKIPEDIA_DATA_SOURCES.overview.sourceId,
@@ -323,6 +326,7 @@ function buildOverviewTierMetadata({
     tableCount,
     tierKey,
     ...(parallelGroup ? { parallelGroup } : {}),
+    ...(divisionKey ? { divisionKey } : {}),
   };
 }
 
@@ -505,13 +509,19 @@ export async function buildSeasonOverviewTierRecordsForSlug(seasonSlug, options 
   }
 
   const lowerTierSource = getWikipediaLowerTierCompetitionSourceForSlug(seasonSlug);
+  const seasonYear = extractSeasonYearFromSlug(seasonKey);
+  const lowerTierTables = lowerTierSource
+    ? filterWikipediaLowerTierSourceTables(lowerTierSource, tables, seasonYear)
+    : tables;
   const sourceAwareTables = lowerTierSource
-    ? tables.map((table) => ({
+    ? lowerTierTables.map((table) => ({
         ...table,
         title: isGenericLeagueHeading(table.title) ? lowerTierSource.title : table.title,
       }))
     : tables;
-  const seasonYear = extractSeasonYearFromSlug(seasonKey);
+  if (!sourceAwareTables.length) {
+    return { seasonKey, tierRecords: null };
+  }
   return {
     seasonKey,
     tierRecords: buildSeasonOverviewTierRecords({
@@ -657,6 +667,83 @@ function tierHasContent(tierValue) {
   );
 }
 
+function getTierParallelGroup(tierValue) {
+  return tierValue?.metadata?.parallelGroup || null;
+}
+
+function getMergedParallelSeasonSlug(divisions, parallelGroup) {
+  const firstSeasonSlug = divisions[0]?.metadata?.seasonSlug;
+  const seasonPrefix = String(firstSeasonSlug || '').split('_')[0];
+  return seasonPrefix ? `${seasonPrefix}_${parallelGroup}` : parallelGroup;
+}
+
+function getMergedParallelTitle(parallelGroup) {
+  if (parallelGroup === 'pre-2004-conference-feeders') {
+    return 'Pre-2004 Conference feeder leagues';
+  }
+  return parallelGroup || null;
+}
+
+function asParallelDivisions(tierValue) {
+  if (!tierValue) return [];
+  if (Array.isArray(tierValue.divisions) && tierValue.divisions.length) {
+    return tierValue.divisions;
+  }
+  if (!Array.isArray(tierValue.table) || !tierValue.table.length) return [];
+  return [
+    {
+      ...tierValue,
+      metadata: {
+        ...tierValue.metadata,
+        structure: 'single-league',
+      },
+    },
+  ];
+}
+
+function mergeParallelTierRecords(existingTier, incomingTier, tierKey) {
+  const existingParallelGroup = getTierParallelGroup(existingTier);
+  const incomingParallelGroup = getTierParallelGroup(incomingTier);
+  const parallelGroup = existingParallelGroup || incomingParallelGroup;
+
+  if (!existingTier) return incomingTier;
+  if (!parallelGroup || existingParallelGroup !== incomingParallelGroup) return incomingTier;
+
+  const divisions = [...asParallelDivisions(existingTier), ...asParallelDivisions(incomingTier)];
+  const season = existingTier.season ?? incomingTier.season;
+  const leagueLevel =
+    existingTier.metadata?.leagueLevel ?? incomingTier.metadata?.leagueLevel ?? null;
+  const promoted = Array.from(new Set(divisions.flatMap((division) => division.promoted || [])));
+  const relegated = Array.from(new Set(divisions.flatMap((division) => division.relegated || [])));
+
+  return buildTierData(season, [], {
+    promoted,
+    relegated,
+    metadata: {
+      source: WIKIPEDIA_DATA_SOURCES.overview.sourceId,
+      sourceUrl: divisions[0]?.metadata?.sourceUrl || null,
+      seasonSlug: getMergedParallelSeasonSlug(divisions, parallelGroup),
+      title: getMergedParallelTitle(parallelGroup),
+      leagueLevel,
+      structure: 'parallel-leagues',
+      parallelGroup,
+      divisionCount: divisions.length,
+      tableCount: divisions.length,
+      tierKey,
+    },
+    divisions,
+  });
+}
+
+function mergeTierRecordsForWrite(recordsToWrite, tierKey, tierValue) {
+  if (!recordsToWrite[tierKey]) {
+    recordsToWrite[tierKey] = tierValue;
+    return;
+  }
+
+  recordsToWrite[tierKey] = mergeParallelTierRecords(recordsToWrite[tierKey], tierValue, tierKey);
+}
+
 export async function buildLowerTierSupplement(startYear, endYear, outputFile, options = {}) {
   const resolvedOutputFile = resolveOverviewOutputFile(outputFile);
   const updateOnly = Boolean(options.updateOnly);
@@ -687,6 +774,9 @@ export async function buildLowerTierSupplement(startYear, endYear, outputFile, o
       continue;
     }
 
+    const recordsToWrite = {};
+    const existingSeason = store.dataset.seasons?.[String(year)] || {};
+
     for (const sourceSlug of sourceSlugs) {
       console.log(`\n📖 Fetching lower-tier source ${sourceSlug}...`);
       const { seasonKey, tierRecords } = await buildSeasonOverviewTierRecordsForSlug(sourceSlug, {
@@ -697,20 +787,18 @@ export async function buildLowerTierSupplement(startYear, endYear, outputFile, o
         continue;
       }
 
-      const recordsToWrite = {};
-      const existingSeason = store.dataset.seasons?.[seasonKey] || {};
       for (const [tierKey, tierValue] of Object.entries(tierRecords)) {
         if (!/^tier\d+$/.test(tierKey)) continue;
         if (updateOnly && !forceUpdate && tierHasContent(existingSeason[tierKey])) {
           console.log(`⏭️ Skipping ${seasonKey}.${tierKey} (existing tier data)`);
           continue;
         }
-        recordsToWrite[tierKey] = tierValue;
+        mergeTierRecordsForWrite(recordsToWrite, tierKey, tierValue);
       }
+    }
 
-      if (Object.keys(recordsToWrite).length) {
-        store.writeTiers(seasonKey, recordsToWrite);
-      }
+    if (Object.keys(recordsToWrite).length) {
+      store.writeTiers(String(year), recordsToWrite);
     }
   }
 

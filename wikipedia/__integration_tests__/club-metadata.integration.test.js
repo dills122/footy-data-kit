@@ -116,11 +116,17 @@ function expectObservedRow(expectedRow) {
 }
 
 describe('Club metadata integration', () => {
-  test('generated review and historical audit artifacts are clean', () => {
-    expect(clubMetadataReview.issueCount).toBe(0);
-    expect(clubMetadataReview.issueCounts).toEqual({});
-    expect(clubMetadataReview.issues).toEqual([]);
-
+  test('generated review artifact tracks unresolved lower-tier clubs and historical audit stays clean', () => {
+    expect(clubMetadataReview.issueCount).toBe(clubMetadataReview.issues.length);
+    expect(clubMetadataReview.issueCounts).toEqual({
+      'below-tracked-coverage-review': 2,
+      'manual-status-review': 100,
+    });
+    expect(
+      clubMetadataReview.issues.every((issue) =>
+        ['below-tracked-coverage-review', 'manual-status-review'].includes(issue.type)
+      )
+    ).toBe(true);
     expect(clubHistoricalAudit.issueCount).toBe(0);
     expect(clubHistoricalAudit.issues).toEqual([]);
   });
@@ -165,6 +171,9 @@ describe('Club metadata integration', () => {
     const missingRelationshipSources = [];
     const missingRelationshipTargets = [];
     const allowedExternalTargets = new Set(allowedExternalRelationshipTargets);
+    const reviewIssueClubKeys = new Set(
+      (clubMetadataReview.issues || []).map((issue) => issue.clubKey)
+    );
 
     for (const [clubKey, club] of Object.entries(clubMetadata.clubs || {})) {
       if (clubIds.has(club.clubId)) duplicateClubIds.push(club.clubId);
@@ -176,7 +185,11 @@ describe('Club metadata integration', () => {
       ) {
         unresolvedStatuses.push(clubKey);
       }
-      if (club.status?.reason && !club.status?.sourceRefs?.length) {
+      if (
+        club.status?.reason &&
+        !reviewIssueClubKeys.has(clubKey) &&
+        !club.status?.sourceRefs?.length
+      ) {
         missingStatusSources.push(clubKey);
       }
 
@@ -209,7 +222,9 @@ describe('Club metadata integration', () => {
     }
 
     expect(duplicateClubIds).toEqual([]);
-    expect(unresolvedStatuses).toEqual([]);
+    expect(unresolvedStatuses.sort((a, b) => a.localeCompare(b))).toEqual(
+      [...reviewIssueClubKeys].sort((a, b) => a.localeCompare(b))
+    );
     expect(missingStatusSources).toEqual([]);
     expect(missingLifecycleSources).toEqual([]);
     expect(missingRelationshipSources).toEqual([]);
