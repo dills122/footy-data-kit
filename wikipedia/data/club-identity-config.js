@@ -126,6 +126,19 @@ export const CLUB_IDENTITY_RULES = Object.freeze([
     ]),
   }),
   Object.freeze({
+    clubKey: 'leigh genesis',
+    canonicalName: 'Leigh Genesis',
+    aliases: Object.freeze(['Leigh Genesis', 'Leigh RMI', 'Horwich RMI']),
+    relationship: 'rename',
+    sourceRefs: Object.freeze([
+      Object.freeze({
+        type: 'wikipedia-club-page',
+        sourceUrl: 'https://en.wikipedia.org/wiki/Leigh_Genesis_F.C.',
+        notes: 'Club history records Horwich RMI relocating as Leigh RMI and later changing name to Leigh Genesis.',
+      }),
+    ]),
+  }),
+  Object.freeze({
     clubKey: 'leyton orient',
     canonicalName: 'Leyton Orient',
     aliases: Object.freeze(['Leyton Orient', 'Orient', 'Clapton Orient']),
@@ -862,6 +875,66 @@ const CLUB_SOURCE_REFS = Object.freeze({
     wikipediaClubSource(
       'https://en.wikipedia.org/wiki/Kingstonian_F.C.',
       'Used for current lower-division status and below tracked coverage context.'
+    ),
+  ]),
+  lancasterCity: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Lancaster_City_F.C.',
+      'Used for current lower-division status and tracked coverage context.'
+    ),
+  ]),
+  leekTown: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Leek_Town_F.C.',
+      'Used for current lower-division status and tracked coverage context.'
+    ),
+  ]),
+  leighGenesis: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Leigh_Genesis_F.C.',
+      'Used for Leigh RMI name change, senior side fold, and current lower-division status context.'
+    ),
+  ]),
+  lewes: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Lewes_F.C.',
+      'Used for current lower-division status and tracked coverage context.'
+    ),
+  ]),
+  lowestoftTown: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Lowestoft_Town_F.C.',
+      'Used for current lower-division status and below tracked coverage context.'
+    ),
+  ]),
+  margate: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Margate_F.C.',
+      'Used for current lower-division status and below tracked coverage context.'
+    ),
+  ]),
+  merthyrTydfil: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Merthyr_Tydfil_F.C.',
+      'Used for Merthyr Tydfil liquidation and Merthyr Town successor context.'
+    ),
+  ]),
+  nuneatonBorough: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Nuneaton_Town_F.C.',
+      'Used for Nuneaton Borough liquidation and current Nuneaton Town successor context.'
+    ),
+  ]),
+  pooleTown: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Poole_Town_F.C.',
+      'Used for current lower-division status and tracked coverage context.'
+    ),
+  ]),
+  redbridge: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Redbridge_F.C.',
+      'Used for Ford United name change and current lower-division status context.'
     ),
   ]),
   gainsboroughTrinity: Object.freeze([
@@ -2499,6 +2572,161 @@ export const CLUB_LIFECYCLE_RULES = Object.freeze([
     sourceRefs: CLUB_SOURCE_REFS.kingstonian,
   }),
   statusOnlyRule({
+    clubKey: 'lancaster city',
+    current: 'active',
+    reason: 'possibly-missing-from-current-data',
+    reasonLabel:
+      'Wikipedia lists the club in the Northern Premier League Premier Division, a level 7 league inside tracked but sparse coverage.',
+    sourceRefs: CLUB_SOURCE_REFS.lancasterCity,
+  }),
+  statusOnlyRule({
+    clubKey: 'leek town',
+    current: 'active',
+    reason: 'possibly-missing-from-current-data',
+    reasonLabel:
+      'Wikipedia lists the club in the Northern Premier League Premier Division, a level 7 league inside tracked but sparse coverage.',
+    sourceRefs: CLUB_SOURCE_REFS.leekTown,
+  }),
+  Object.freeze({
+    clubKey: 'leigh genesis',
+    status: Object.freeze({
+      current: 'active',
+      reason: 'not-in-tracked-leagues',
+      reasonLabel:
+        'Wikipedia records Leigh Genesis in the South Lancashire Counties Football League after the senior side folded and was later reintroduced, below current tracked coverage.',
+      sourceRefs: CLUB_SOURCE_REFS.leighGenesis,
+    }),
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'renamed',
+        season: 2008,
+        label: 'Leigh RMI changed name to Leigh Genesis in June 2008.',
+        sourceRefs: CLUB_SOURCE_REFS.leighGenesis,
+      }),
+      lifecycleEvent({
+        type: 'folded',
+        season: 2011,
+        label: 'The semi-professional senior side folded following relegation from the Northern Premier League.',
+        sourceRefs: CLUB_SOURCE_REFS.leighGenesis,
+      }),
+      lifecycleEvent({
+        type: 'reactivated',
+        season: 2012,
+        label: 'The senior team was reintroduced for the 2012-13 season.',
+        sourceRefs: CLUB_SOURCE_REFS.leighGenesis,
+      }),
+    ]),
+  }),
+  statusOnlyRule({
+    clubKey: 'lewes',
+    current: 'active',
+    reason: 'possibly-missing-from-current-data',
+    reasonLabel:
+      'Wikipedia lists the club in the Isthmian League Premier Division, a level 7 league inside tracked but sparse coverage.',
+    sourceRefs: CLUB_SOURCE_REFS.lewes,
+  }),
+  statusOnlyRule({
+    clubKey: 'lowestoft town',
+    current: 'active',
+    reason: 'not-in-tracked-leagues',
+    reasonLabel:
+      'Wikipedia lists the club in the Isthmian League North Division, below current tracked coverage.',
+    sourceRefs: CLUB_SOURCE_REFS.lowestoftTown,
+  }),
+  statusOnlyRule({
+    clubKey: 'margate',
+    current: 'active',
+    reason: 'not-in-tracked-leagues',
+    reasonLabel:
+      'Wikipedia lists the club in the Isthmian League South East Division, below current tracked coverage.',
+    sourceRefs: CLUB_SOURCE_REFS.margate,
+  }),
+  Object.freeze({
+    clubKey: 'merthyr tydfil',
+    status: Object.freeze({
+      current: 'defunct',
+      reason: 'liquidated',
+      reasonLabel: 'Liquidated in 2010 and reformed under the Merthyr Town name.',
+      sourceRefs: CLUB_SOURCE_REFS.merthyrTydfil,
+    }),
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'liquidated',
+        season: 2010,
+        label: 'Liquidated in 2010.',
+        sourceRefs: CLUB_SOURCE_REFS.merthyrTydfil,
+      }),
+      lifecycleEvent({
+        type: 'successorFormed',
+        season: 2010,
+        label: 'Reformed under the Merthyr Town name.',
+        sourceRefs: CLUB_SOURCE_REFS.merthyrTown,
+      }),
+    ]),
+  }),
+  Object.freeze({
+    clubKey: 'nuneaton borough',
+    status: Object.freeze({
+      current: 'defunct',
+      reason: 'liquidated',
+      reasonLabel:
+        'The Nuneaton Borough identity resigned from the Southern League in January 2024 and entered liquidation before a new Nuneaton Town club formed.',
+      sourceRefs: CLUB_SOURCE_REFS.nuneatonBorough,
+    }),
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'renamed',
+        season: 2018,
+        label: 'Nuneaton Town reverted to the Nuneaton Borough name in 2018.',
+        sourceRefs: CLUB_SOURCE_REFS.nuneatonBorough,
+      }),
+      lifecycleEvent({
+        type: 'resigned',
+        season: 2023,
+        label: 'Resigned from the Southern League during the 2023-24 season.',
+        sourceRefs: CLUB_SOURCE_REFS.nuneatonBorough,
+      }),
+      lifecycleEvent({
+        type: 'liquidated',
+        season: 2024,
+        label: 'Entered liquidation as part of the 2024 reformation.',
+        sourceRefs: CLUB_SOURCE_REFS.nuneatonBorough,
+      }),
+      lifecycleEvent({
+        type: 'phoenixFormed',
+        season: 2024,
+        label: 'A new Nuneaton Town club was formed for the 2024-25 season.',
+        sourceRefs: CLUB_SOURCE_REFS.nuneatonTown,
+      }),
+    ]),
+  }),
+  statusOnlyRule({
+    clubKey: 'poole town',
+    current: 'active',
+    reason: 'possibly-missing-from-current-data',
+    reasonLabel:
+      'Wikipedia lists the club in Southern League Premier Division South, a level 7 league inside tracked but sparse coverage.',
+    sourceRefs: CLUB_SOURCE_REFS.pooleTown,
+  }),
+  Object.freeze({
+    clubKey: 'redbridge',
+    status: Object.freeze({
+      current: 'active',
+      reason: 'not-in-tracked-leagues',
+      reasonLabel:
+        'Wikipedia lists the club below current tracked coverage after the Ford United name change to Redbridge in 2004.',
+      sourceRefs: CLUB_SOURCE_REFS.redbridge,
+    }),
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'renamed',
+        season: 2004,
+        label: 'Ford United changed name to Redbridge in July 2004.',
+        sourceRefs: CLUB_SOURCE_REFS.redbridge,
+      }),
+    ]),
+  }),
+  statusOnlyRule({
     clubKey: 'gainsborough trinity',
     current: 'active',
     reason: 'possibly-missing-from-current-data',
@@ -3398,6 +3626,14 @@ export const CLUB_RELATIONSHIP_RULES = Object.freeze([
     sourceRefs: CLUB_SOURCE_REFS.maidstoneUnited1897,
   }),
   Object.freeze({
+    fromClubKey: 'merthyr tydfil',
+    toClubKey: 'merthyr town',
+    relationship: 'successor',
+    season: 2010,
+    label: 'Merthyr Tydfil liquidated and reformed under the Merthyr Town name in 2010.',
+    sourceRefs: Object.freeze([...CLUB_SOURCE_REFS.merthyrTydfil, ...CLUB_SOURCE_REFS.merthyrTown]),
+  }),
+  Object.freeze({
     fromClubKey: 'moor green',
     toClubKey: 'solihull moors',
     relationship: 'merger',
@@ -3412,6 +3648,14 @@ export const CLUB_RELATIONSHIP_RULES = Object.freeze([
     season: 1989,
     label: 'Newport County was reformed by supporters after the original club folded.',
     sourceRefs: CLUB_SOURCE_REFS.newportCounty,
+  }),
+  Object.freeze({
+    fromClubKey: 'nuneaton borough',
+    toClubKey: 'nuneaton town',
+    relationship: 'phoenix',
+    season: 2024,
+    label: 'A new Nuneaton Town club was formed after Nuneaton Borough resigned and entered liquidation.',
+    sourceRefs: CLUB_SOURCE_REFS.nuneatonBorough,
   }),
   Object.freeze({
     fromClubKey: 'rotherham county',

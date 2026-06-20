@@ -2,8 +2,8 @@
   "metadata": {
     "schemaVersion": 1,
     "generator": "club-metadata-seed",
-    "generatedAt": "2026-06-20T00:32:45.690Z",
-    "gitSha": "e8eb73d",
+    "generatedAt": "2026-06-20T00:36:10.844Z",
+    "gitSha": "d1b4642",
     "sourceFiles": [
       "/Users/dsteele/repos/footy-data-kit/data-output/all-seasons.json"
     ],
@@ -36214,13 +36214,13 @@
         "trackedFromSeason": 2004,
         "trackedToSeason": 2006,
         "hasUnexplainedGaps": false,
-        "reason": "below-tracked-coverage",
-        "reasonLabel": "Last observed leaving supported league coverage after 2006.",
+        "reason": "possibly-missing-from-current-data",
+        "reasonLabel": "Wikipedia lists the club in the Northern Premier League Premier Division, a level 7 league inside tracked but sparse coverage.",
         "sourceRefs": [
           {
-            "type": "wikipedia-season-page",
-            "sourceUrl": "https://en.wikipedia.org/wiki/2006–07_Football_Conference",
-            "notes": "tier6 table in 2006–07_Football_Conference"
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Lancaster_City_F.C.",
+            "notes": "Used for current lower-division status and tracked coverage context."
           }
         ]
       },
@@ -36243,6 +36243,13 @@
         "source": "football-data-output",
         "aliases": [
           "Lancaster City"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Lancaster_City_F.C.",
+            "notes": "Used for current lower-division status and tracked coverage context."
+          }
         ],
         "observedNames": [
           {
@@ -37188,13 +37195,13 @@
         "trackedFromSeason": 1997,
         "trackedToSeason": 1998,
         "hasUnexplainedGaps": false,
-        "reason": "below-tracked-coverage",
-        "reasonLabel": "Last observed leaving supported league coverage after 1998.",
+        "reason": "possibly-missing-from-current-data",
+        "reasonLabel": "Wikipedia lists the club in the Northern Premier League Premier Division, a level 7 league inside tracked but sparse coverage.",
         "sourceRefs": [
           {
-            "type": "wikipedia-season-page",
-            "sourceUrl": "https://en.wikipedia.org/wiki/1998–99_Football_Conference",
-            "notes": "Football Conference table in 1998–99_Football_Conference"
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Leek_Town_F.C.",
+            "notes": "Used for current lower-division status and tracked coverage context."
           }
         ]
       },
@@ -37217,6 +37224,13 @@
         "source": "football-data-output",
         "aliases": [
           "Leek Town"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Leek_Town_F.C.",
+            "notes": "Used for current lower-division status and tracked coverage context."
+          }
         ],
         "observedNames": [
           {
@@ -37778,27 +37792,64 @@
         ]
       }
     },
-    "leigh rmi": {
-      "clubId": "leigh-rmi",
-      "canonicalName": "Leigh RMI",
+    "leigh genesis": {
+      "clubId": "leigh-genesis",
+      "canonicalName": "Leigh Genesis",
       "status": {
         "current": "active",
         "trackedFromSeason": 2000,
         "trackedToSeason": 2007,
         "hasUnexplainedGaps": false,
-        "reason": "below-tracked-coverage",
-        "reasonLabel": "Last observed leaving supported league coverage after 2007.",
+        "reason": "not-in-tracked-leagues",
+        "reasonLabel": "Wikipedia records Leigh Genesis in the South Lancashire Counties Football League after the senior side folded and was later reintroduced, below current tracked coverage.",
         "sourceRefs": [
           {
-            "type": "wikipedia-season-page",
-            "sourceUrl": "https://en.wikipedia.org/wiki/2007–08_Football_Conference",
-            "notes": "tier6 table in 2007–08_Football_Conference"
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Leigh_Genesis_F.C.",
+            "notes": "Used for Leigh RMI name change, senior side fold, and current lower-division status context."
           }
         ]
       },
       "history": {
         "nameHistory": [],
-        "lifecycleEvents": [],
+        "lifecycleEvents": [
+          {
+            "type": "renamed",
+            "season": 2008,
+            "label": "Leigh RMI changed name to Leigh Genesis in June 2008.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Leigh_Genesis_F.C.",
+                "notes": "Used for Leigh RMI name change, senior side fold, and current lower-division status context."
+              }
+            ]
+          },
+          {
+            "type": "folded",
+            "season": 2011,
+            "label": "The semi-professional senior side folded following relegation from the Northern Premier League.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Leigh_Genesis_F.C.",
+                "notes": "Used for Leigh RMI name change, senior side fold, and current lower-division status context."
+              }
+            ]
+          },
+          {
+            "type": "reactivated",
+            "season": 2012,
+            "label": "The senior team was reintroduced for the 2012-13 season.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Leigh_Genesis_F.C.",
+                "notes": "Used for Leigh RMI name change, senior side fold, and current lower-division status context."
+              }
+            ]
+          }
+        ],
         "trackedMembership": [
           {
             "fromSeason": 2000,
@@ -37816,6 +37867,13 @@
         "source": "football-data-output",
         "aliases": [
           "Leigh RMI"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Leigh_Genesis_F.C.",
+            "notes": "Used for Leigh RMI name change, senior side fold, and current lower-division status context."
+          }
         ],
         "observedNames": [
           {
@@ -37893,13 +37951,13 @@
         "trackedFromSeason": 2004,
         "trackedToSeason": 2010,
         "hasUnexplainedGaps": false,
-        "reason": "below-tracked-coverage",
-        "reasonLabel": "Last observed leaving supported league coverage after 2010.",
+        "reason": "possibly-missing-from-current-data",
+        "reasonLabel": "Wikipedia lists the club in the Isthmian League Premier Division, a level 7 league inside tracked but sparse coverage.",
         "sourceRefs": [
           {
-            "type": "wikipedia-season-page",
-            "sourceUrl": "https://en.wikipedia.org/wiki/2010–11_Football_Conference",
-            "notes": "tier6 table in 2010–11_Football_Conference"
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Lewes_F.C.",
+            "notes": "Used for current lower-division status and tracked coverage context."
           }
         ]
       },
@@ -37923,6 +37981,13 @@
         "source": "football-data-output",
         "aliases": [
           "Lewes"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Lewes_F.C.",
+            "notes": "Used for current lower-division status and tracked coverage context."
+          }
         ],
         "observedNames": [
           {
@@ -39763,13 +39828,13 @@
         "trackedFromSeason": 2014,
         "trackedToSeason": 2015,
         "hasUnexplainedGaps": false,
-        "reason": "below-tracked-coverage",
-        "reasonLabel": "Last observed leaving supported league coverage after 2015.",
+        "reason": "not-in-tracked-leagues",
+        "reasonLabel": "Wikipedia lists the club in the Isthmian League North Division, below current tracked coverage.",
         "sourceRefs": [
           {
-            "type": "wikipedia-season-page",
-            "sourceUrl": "https://en.wikipedia.org/wiki/2015–16_National_League",
-            "notes": "tier6 table in 2015–16_National_League"
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Lowestoft_Town_F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
           }
         ]
       },
@@ -39792,6 +39857,13 @@
         "source": "football-data-output",
         "aliases": [
           "Lowestoft Town"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Lowestoft_Town_F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
+          }
         ],
         "observedNames": [
           {
@@ -42531,13 +42603,13 @@
         "trackedFromSeason": 2001,
         "trackedToSeason": 2016,
         "hasUnexplainedGaps": false,
-        "reason": "below-tracked-coverage",
-        "reasonLabel": "Last observed leaving supported league coverage after 2016.",
+        "reason": "not-in-tracked-leagues",
+        "reasonLabel": "Wikipedia lists the club in the Isthmian League South East Division, below current tracked coverage.",
         "sourceRefs": [
           {
-            "type": "wikipedia-season-page",
-            "sourceUrl": "https://en.wikipedia.org/wiki/2016–17_National_League",
-            "notes": "tier6 table in 2016–17_National_League"
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Margate_F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
           }
         ]
       },
@@ -42598,6 +42670,13 @@
         "source": "football-data-output",
         "aliases": [
           "Margate"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Margate_F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
+          }
         ],
         "observedNames": [
           {
@@ -42905,6 +42984,27 @@
             "notes": "Used for Merthyr Tydfil liquidation and successor Merthyr Town context."
           }
         ],
+        "relationships": [
+          {
+            "clubKey": "merthyr tydfil",
+            "relationship": "successor",
+            "direction": "predecessor",
+            "season": 2010,
+            "label": "Merthyr Tydfil liquidated and reformed under the Merthyr Town name in 2010.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Merthyr_Town_F.C.",
+                "notes": "Used for Merthyr Town, Merthyr Tydfil, liquidation, and reformed Merthyr Town context."
+              },
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Merthyr_Tydfil_F.C.",
+                "notes": "Used for Merthyr Tydfil liquidation and Merthyr Town successor context."
+              }
+            ]
+          }
+        ],
         "observedNames": [
           {
             "rawName": "Merthyr Town",
@@ -42998,23 +43098,53 @@
       "clubId": "merthyr-tydfil",
       "canonicalName": "Merthyr Tydfil",
       "status": {
-        "current": "active",
+        "current": "defunct",
         "trackedFromSeason": 1989,
         "trackedToSeason": 1994,
         "hasUnexplainedGaps": false,
-        "reason": "below-tracked-coverage",
-        "reasonLabel": "Last observed leaving supported league coverage after 1994.",
+        "reason": "liquidated",
+        "reasonLabel": "Liquidated in 2010 and reformed under the Merthyr Town name.",
         "sourceRefs": [
           {
-            "type": "wikipedia-season-page",
-            "sourceUrl": "https://en.wikipedia.org/wiki/1994–95_Football_Conference",
-            "notes": "Football Conference table in 1994–95_Football_Conference"
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Merthyr_Tydfil_F.C.",
+            "notes": "Used for Merthyr Tydfil liquidation and Merthyr Town successor context."
           }
         ]
       },
       "history": {
         "nameHistory": [],
-        "lifecycleEvents": [],
+        "lifecycleEvents": [
+          {
+            "type": "liquidated",
+            "season": 2010,
+            "label": "Liquidated in 2010.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Merthyr_Tydfil_F.C.",
+                "notes": "Used for Merthyr Tydfil liquidation and Merthyr Town successor context."
+              }
+            ]
+          },
+          {
+            "type": "successorFormed",
+            "season": 2010,
+            "label": "Reformed under the Merthyr Town name.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Merthyr_Town_F.C.",
+                "notes": "Used for Merthyr Town, Merthyr Tydfil, liquidation, and reformed Merthyr Town context."
+              },
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Merthyr_Tydfil_F.C.",
+                "notes": "Used for Merthyr Tydfil liquidation and successor Merthyr Town context."
+              }
+            ]
+          }
+        ],
         "trackedMembership": [
           {
             "fromSeason": 1989,
@@ -43031,6 +43161,39 @@
         "source": "football-data-output",
         "aliases": [
           "Merthyr Tydfil"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Merthyr_Town_F.C.",
+            "notes": "Used for Merthyr Town, Merthyr Tydfil, liquidation, and reformed Merthyr Town context."
+          },
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Merthyr_Tydfil_F.C.",
+            "notes": "Used for Merthyr Tydfil liquidation and successor Merthyr Town context."
+          }
+        ],
+        "relationships": [
+          {
+            "clubKey": "merthyr town",
+            "relationship": "successor",
+            "direction": "successor",
+            "season": 2010,
+            "label": "Merthyr Tydfil liquidated and reformed under the Merthyr Town name in 2010.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Merthyr_Town_F.C.",
+                "notes": "Used for Merthyr Town, Merthyr Tydfil, liquidation, and reformed Merthyr Town context."
+              },
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Merthyr_Tydfil_F.C.",
+                "notes": "Used for Merthyr Tydfil liquidation and Merthyr Town successor context."
+              }
+            ]
+          }
         ],
         "observedNames": [
           {
@@ -48413,17 +48576,17 @@
       "clubId": "nuneaton-borough",
       "canonicalName": "Nuneaton Borough",
       "status": {
-        "current": "active",
+        "current": "defunct",
         "trackedFromSeason": 1979,
         "trackedToSeason": 2018,
         "hasUnexplainedGaps": false,
-        "reason": "below-tracked-coverage",
-        "reasonLabel": "Last observed leaving supported league coverage after 2018.",
+        "reason": "liquidated",
+        "reasonLabel": "The Nuneaton Borough identity resigned from the Southern League in January 2024 and entered liquidation before a new Nuneaton Town club formed.",
         "sourceRefs": [
           {
-            "type": "wikipedia-season-page",
-            "sourceUrl": "https://en.wikipedia.org/wiki/2018–19_National_League",
-            "notes": "tier6 table in 2018–19_National_League"
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Nuneaton_Town_F.C.",
+            "notes": "Used for Nuneaton Borough liquidation and current Nuneaton Town successor context."
           }
         ]
       },
@@ -48475,6 +48638,54 @@
                 "type": "wikipedia-season-page",
                 "sourceUrl": "https://en.wikipedia.org/wiki/2007–08_Football_Conference",
                 "notes": "tier6 table in 2007–08_Football_Conference"
+              }
+            ]
+          },
+          {
+            "type": "renamed",
+            "season": 2018,
+            "label": "Nuneaton Town reverted to the Nuneaton Borough name in 2018.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Nuneaton_Town_F.C.",
+                "notes": "Used for Nuneaton Borough liquidation and current Nuneaton Town successor context."
+              }
+            ]
+          },
+          {
+            "type": "resigned",
+            "season": 2023,
+            "label": "Resigned from the Southern League during the 2023-24 season.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Nuneaton_Town_F.C.",
+                "notes": "Used for Nuneaton Borough liquidation and current Nuneaton Town successor context."
+              }
+            ]
+          },
+          {
+            "type": "liquidated",
+            "season": 2024,
+            "label": "Entered liquidation as part of the 2024 reformation.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Nuneaton_Town_F.C.",
+                "notes": "Used for Nuneaton Borough liquidation and current Nuneaton Town successor context."
+              }
+            ]
+          },
+          {
+            "type": "phoenixFormed",
+            "season": 2024,
+            "label": "A new Nuneaton Town club was formed for the 2024-25 season.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Nuneaton_Town_F.C.",
+                "notes": "Used for current lower-division status and below tracked coverage context."
               }
             ]
           }
@@ -48588,6 +48799,29 @@
         "source": "football-data-output",
         "aliases": [
           "Nuneaton Borough"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Nuneaton_Town_F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
+          }
+        ],
+        "relationships": [
+          {
+            "clubKey": "nuneaton town",
+            "relationship": "phoenix",
+            "direction": "successor",
+            "season": 2024,
+            "label": "A new Nuneaton Town club was formed after Nuneaton Borough resigned and entered liquidation.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Nuneaton_Town_F.C.",
+                "notes": "Used for Nuneaton Borough liquidation and current Nuneaton Town successor context."
+              }
+            ]
+          }
         ],
         "observedNames": [
           {
@@ -48767,6 +49001,22 @@
             "type": "wikipedia-club-page",
             "sourceUrl": "https://en.wikipedia.org/wiki/Nuneaton_Town_F.C.",
             "notes": "Used for current lower-division status and below tracked coverage context."
+          }
+        ],
+        "relationships": [
+          {
+            "clubKey": "nuneaton borough",
+            "relationship": "phoenix",
+            "direction": "predecessor",
+            "season": 2024,
+            "label": "A new Nuneaton Town club was formed after Nuneaton Borough resigned and entered liquidation.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Nuneaton_Town_F.C.",
+                "notes": "Used for Nuneaton Borough liquidation and current Nuneaton Town successor context."
+              }
+            ]
           }
         ],
         "observedNames": [
@@ -50492,13 +50742,13 @@
         "trackedFromSeason": 2016,
         "trackedToSeason": 2017,
         "hasUnexplainedGaps": false,
-        "reason": "below-tracked-coverage",
-        "reasonLabel": "Last observed leaving supported league coverage after 2017.",
+        "reason": "possibly-missing-from-current-data",
+        "reasonLabel": "Wikipedia lists the club in Southern League Premier Division South, a level 7 league inside tracked but sparse coverage.",
         "sourceRefs": [
           {
-            "type": "wikipedia-season-page",
-            "sourceUrl": "https://en.wikipedia.org/wiki/2017–18_National_League",
-            "notes": "tier6 table in 2017–18_National_League"
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Poole_Town_F.C.",
+            "notes": "Used for current lower-division status and tracked coverage context."
           }
         ]
       },
@@ -50521,6 +50771,13 @@
         "source": "football-data-output",
         "aliases": [
           "Poole Town"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Poole_Town_F.C.",
+            "notes": "Used for current lower-division status and tracked coverage context."
+          }
         ],
         "observedNames": [
           {
@@ -52964,19 +53221,32 @@
         "trackedFromSeason": 2004,
         "trackedToSeason": 2004,
         "hasUnexplainedGaps": false,
-        "reason": "below-tracked-coverage",
-        "reasonLabel": "Last observed leaving supported league coverage after 2004.",
+        "reason": "not-in-tracked-leagues",
+        "reasonLabel": "Wikipedia lists the club below current tracked coverage after the Ford United name change to Redbridge in 2004.",
         "sourceRefs": [
           {
-            "type": "wikipedia-season-page",
-            "sourceUrl": "https://en.wikipedia.org/wiki/2004–05_Football_Conference",
-            "notes": "tier6 table in 2004–05_Football_Conference"
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Redbridge_F.C.",
+            "notes": "Used for Ford United name change and current lower-division status context."
           }
         ]
       },
       "history": {
         "nameHistory": [],
-        "lifecycleEvents": [],
+        "lifecycleEvents": [
+          {
+            "type": "renamed",
+            "season": 2004,
+            "label": "Ford United changed name to Redbridge in July 2004.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Redbridge_F.C.",
+                "notes": "Used for Ford United name change and current lower-division status context."
+              }
+            ]
+          }
+        ],
         "trackedMembership": [
           {
             "fromSeason": 2004,
@@ -52993,6 +53263,13 @@
         "source": "football-data-output",
         "aliases": [
           "Redbridge"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Redbridge_F.C.",
+            "notes": "Used for Ford United name change and current lower-division status context."
+          }
         ],
         "observedNames": [
           {

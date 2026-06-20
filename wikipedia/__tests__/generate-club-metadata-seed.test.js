@@ -1414,6 +1414,157 @@ describe('buildClubMetadataSeed', () => {
     ]);
   });
 
+  test('applies reviewed lower-tier coverage batch four decisions', () => {
+    const seed = buildClubMetadataSeed({
+      seasons: {
+        1979: {
+          tier5: {
+            table: [{ team: 'Nuneaton Borough' }],
+          },
+        },
+        1989: {
+          tier5: {
+            table: [{ team: 'Merthyr Tydfil' }],
+          },
+        },
+        1997: {
+          tier5: {
+            table: [{ team: 'Leek Town' }],
+          },
+        },
+        2000: {
+          tier5: {
+            table: [{ team: 'Leigh RMI' }],
+          },
+        },
+        2001: {
+          tier5: {
+            table: [{ team: 'Margate' }],
+          },
+        },
+        2004: {
+          tier6: {
+            table: [{ team: 'Lancaster City' }, { team: 'Lewes' }, { team: 'Redbridge' }],
+          },
+        },
+        2014: {
+          tier6: {
+            table: [{ team: 'Lowestoft Town' }],
+          },
+        },
+        2016: {
+          tier6: {
+            table: [{ team: 'Poole Town' }],
+          },
+        },
+        2025: {
+          tier6: {
+            table: [{ team: 'Merthyr Town' }, { team: 'Nuneaton Town' }],
+          },
+        },
+      },
+    });
+
+    const review = buildClubMetadataReviewReport({ clubs: seed });
+    const reviewedClubKeys = new Set([
+      'lancaster city',
+      'leek town',
+      'leigh genesis',
+      'lewes',
+      'lowestoft town',
+      'margate',
+      'merthyr tydfil',
+      'nuneaton borough',
+      'poole town',
+      'redbridge',
+    ]);
+    expect(
+      review.issues.filter(
+        (issue) => reviewedClubKeys.has(issue.clubKey) && issue.type.endsWith('-review')
+      )
+    ).toEqual([]);
+
+    expect(seed['lancaster city'].status).toMatchObject({
+      current: 'active',
+      reason: 'possibly-missing-from-current-data',
+    });
+    expect(seed['leek town'].status).toMatchObject({
+      current: 'active',
+      reason: 'possibly-missing-from-current-data',
+    });
+    expect(seed['leigh genesis']).toBeDefined();
+    expect(seed['leigh rmi']).toBeUndefined();
+    expect(seed['leigh genesis'].derived.aliases).toEqual(['Leigh RMI']);
+    expect(seed['leigh genesis'].status).toMatchObject({
+      current: 'active',
+      reason: 'not-in-tracked-leagues',
+    });
+    expect(seed['leigh genesis'].history.lifecycleEvents).toEqual([
+      expect.objectContaining({ type: 'renamed', season: 2008 }),
+      expect.objectContaining({ type: 'folded', season: 2011 }),
+      expect.objectContaining({ type: 'reactivated', season: 2012 }),
+    ]);
+    expect(seed.lewes.status).toMatchObject({
+      current: 'active',
+      reason: 'possibly-missing-from-current-data',
+    });
+    expect(seed['lowestoft town'].status).toMatchObject({
+      current: 'active',
+      reason: 'not-in-tracked-leagues',
+    });
+    expect(seed.margate.status).toMatchObject({
+      current: 'active',
+      reason: 'not-in-tracked-leagues',
+    });
+    expect(seed['poole town'].status).toMatchObject({
+      current: 'active',
+      reason: 'possibly-missing-from-current-data',
+    });
+    expect(seed.redbridge.status).toMatchObject({
+      current: 'active',
+      reason: 'not-in-tracked-leagues',
+    });
+    expect(seed.redbridge.history.lifecycleEvents).toEqual([
+      expect.objectContaining({ type: 'renamed', season: 2004 }),
+    ]);
+
+    expect(seed['merthyr tydfil'].status).toMatchObject({
+      current: 'defunct',
+      reason: 'liquidated',
+    });
+    expect(seed['merthyr tydfil'].history.lifecycleEvents).toEqual([
+      expect.objectContaining({ type: 'liquidated', season: 2010 }),
+      expect.objectContaining({ type: 'successorFormed', season: 2010 }),
+    ]);
+    expect(seed['merthyr tydfil'].derived.relationships).toEqual([
+      expect.objectContaining({
+        clubKey: 'merthyr town',
+        relationship: 'successor',
+        direction: 'successor',
+        season: 2010,
+      }),
+    ]);
+
+    expect(seed['nuneaton borough'].status).toMatchObject({
+      current: 'defunct',
+      reason: 'liquidated',
+    });
+    expect(seed['nuneaton borough'].history.lifecycleEvents).toEqual([
+      expect.objectContaining({ type: 'renamed', season: 2018 }),
+      expect.objectContaining({ type: 'resigned', season: 2023 }),
+      expect.objectContaining({ type: 'liquidated', season: 2024 }),
+      expect.objectContaining({ type: 'phoenixFormed', season: 2024 }),
+    ]);
+    expect(seed['nuneaton borough'].derived.relationships).toEqual([
+      expect.objectContaining({
+        clubKey: 'nuneaton town',
+        relationship: 'phoenix',
+        direction: 'successor',
+        season: 2024,
+      }),
+    ]);
+  });
+
   test('adds official pause explanations for wartime observed coverage gaps', () => {
     const seed = buildClubMetadataSeed({
       seasons: {
