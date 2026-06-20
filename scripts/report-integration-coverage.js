@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { clubMetadataFixtures } from '../wikipedia/__integration_tests__/club-metadata.config.js';
 import testPages from '../wikipedia/__integration_tests__/config.js';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -78,6 +79,8 @@ export function buildIntegrationCoverageReport({ pages, dataset }) {
       .map(([tag, seasons]) => [tag, sortNumericStrings(seasons)])
   );
 
+  const metadataCoverage = buildClubMetadataCoverageReport(clubMetadataFixtures);
+
   return {
     totalSeasonCount,
     coveredSeasonCount,
@@ -91,6 +94,52 @@ export function buildIntegrationCoverageReport({ pages, dataset }) {
       tableRows: rowAssertionCount,
       tierMetadata: metadataAssertionCount,
       seasonInfoFields: seasonInfoAssertionCount,
+    },
+    coverageTags,
+    clubMetadata: metadataCoverage,
+  };
+}
+
+function buildClubMetadataCoverageReport(fixtures = []) {
+  const tagClubMap = new Map();
+  const statusReasonCounts = new Map();
+  const relationshipCounts = new Map();
+  let lifecycleAssertionCount = 0;
+  let relationshipAssertionCount = 0;
+  let observedRowAssertionCount = 0;
+
+  for (const fixture of fixtures) {
+    for (const tag of fixture.coverage || []) {
+      if (!tagClubMap.has(tag)) tagClubMap.set(tag, new Set());
+      tagClubMap.get(tag).add(fixture.clubKey);
+    }
+
+    const statusReason = fixture.expected?.status?.reason;
+    if (statusReason) increment(statusReasonCounts, statusReason);
+
+    lifecycleAssertionCount += fixture.expected?.lifecycleEvents?.length || 0;
+    relationshipAssertionCount += fixture.expected?.relationships?.length || 0;
+    observedRowAssertionCount += fixture.expected?.observedRows?.length || 0;
+
+    for (const relationship of fixture.expected?.relationships || []) {
+      increment(relationshipCounts, relationship.relationship);
+    }
+  }
+
+  const coverageTags = Object.fromEntries(
+    [...tagClubMap.entries()]
+      .sort(([left], [right]) => left.localeCompare(right))
+      .map(([tag, clubs]) => [tag, [...clubs].sort((left, right) => left.localeCompare(right))])
+  );
+
+  return {
+    fixtureClubCount: fixtures.length,
+    statusReasonCounts: mapToSortedObject(statusReasonCounts),
+    relationshipCounts: mapToSortedObject(relationshipCounts),
+    assertionCounts: {
+      lifecycleEvents: lifecycleAssertionCount,
+      relationships: relationshipAssertionCount,
+      observedRows: observedRowAssertionCount,
     },
     coverageTags,
   };
@@ -109,6 +158,19 @@ export function formatIntegrationCoverageReport(report) {
   const tagLines = Object.entries(report.coverageTags).map(
     ([tag, seasons]) => `- ${tag}: ${seasons.length} season(s) (${seasons.join(', ')})`
   );
+  const metadata = report.clubMetadata;
+  const metadataStatusSummary = Object.entries(metadata?.statusReasonCounts || {})
+    .map(([reason, count]) => `${reason}: ${count}`)
+    .join(', ');
+  const metadataRelationshipSummary = Object.entries(metadata?.relationshipCounts || {})
+    .map(([relationship, count]) => `${relationship}: ${count}`)
+    .join(', ');
+  const metadataAssertionSummary = Object.entries(metadata?.assertionCounts || {})
+    .map(([type, count]) => `${type}: ${count}`)
+    .join(', ');
+  const metadataTagLines = Object.entries(metadata?.coverageTags || {}).map(
+    ([tag, clubs]) => `- ${tag}: ${clubs.length} club(s) (${clubs.join(', ')})`
+  );
 
   return [
     'Integration Coverage',
@@ -120,6 +182,15 @@ export function formatIntegrationCoverageReport(report) {
     '',
     'Scenario Tags',
     ...(tagLines.length ? tagLines : ['- none']),
+    '',
+    'Club Metadata Coverage',
+    `- Fixture clubs: ${metadata?.fixtureClubCount ?? 0}`,
+    `- Status reasons: ${metadataStatusSummary || 'none'}`,
+    `- Relationship types: ${metadataRelationshipSummary || 'none'}`,
+    `- Assertion counts: ${metadataAssertionSummary || 'none'}`,
+    '',
+    'Club Metadata Scenario Tags',
+    ...(metadataTagLines.length ? metadataTagLines : ['- none']),
   ].join('\n');
 }
 
