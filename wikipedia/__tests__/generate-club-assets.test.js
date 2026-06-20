@@ -143,6 +143,67 @@ describe('generateClubAssets', () => {
     expect(review.clubCount).toBe(1);
   });
 
+  test('adds generated placeholders for curated historical missing crests', async () => {
+    const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'club-assets-test-'));
+    tmpDirs.push(tmpDir);
+    const inputFile = path.join(tmpDir, 'club-metadata.json');
+    const outputFile = path.join(tmpDir, 'club-metadata-output.json');
+    const reviewOutputFile = path.join(tmpDir, 'club-assets-review.json');
+    const cacheFile = path.join(tmpDir, 'club-assets-cache.json');
+
+    fs.writeFileSync(
+      inputFile,
+      JSON.stringify({
+        clubs: {
+          'sunderland albion': {
+            clubId: 'sunderland-albion',
+            canonicalName: 'Sunderland Albion',
+          },
+        },
+      })
+    );
+    fs.writeFileSync(
+      cacheFile,
+      JSON.stringify({
+        clubs: {
+          'sunderland albion': {
+            crest: {
+              status: 'missing',
+            },
+          },
+        },
+      })
+    );
+
+    await generateClubAssets({
+      input: inputFile,
+      output: outputFile,
+      reviewOutput: reviewOutputFile,
+      cache: cacheFile,
+      requestDelayMs: 0,
+      cwd: process.cwd(),
+    });
+
+    const output = JSON.parse(fs.readFileSync(outputFile, 'utf8'));
+    const review = JSON.parse(fs.readFileSync(reviewOutputFile, 'utf8'));
+    const crest = output.clubs['sunderland albion'].assets.crest;
+
+    expect(crest).toMatchObject({
+      preferred: 'generated-placeholder:Generated:sunderland-albion-placeholder-crest.svg',
+      status: 'placeholder',
+    });
+    expect(crest.candidates[0]).toMatchObject({
+      status: 'placeholder',
+      source: 'generated-placeholder',
+      placeholder: true,
+      colors: [
+        { role: 'primary', hex: '#000066' },
+        { role: 'secondary', hex: '#FFFFFF' },
+      ],
+    });
+    expect(review.issueCount).toBe(0);
+  });
+
   test('reclassifies cached crest bundles with current verification rules', async () => {
     const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'club-assets-test-'));
     tmpDirs.push(tmpDir);

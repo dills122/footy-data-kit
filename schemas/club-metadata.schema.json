@@ -318,11 +318,36 @@
         "license": {
           "$ref": "#/definitions/MetadataAssetLicense"
         },
+        "colors": {
+          "type": "array",
+          "description": "Structured color hints used by generated placeholders or asset consumers.",
+          "items": {
+            "$ref": "#/definitions/MetadataAssetColor"
+          }
+        },
+        "placeholder": {
+          "type": "boolean",
+          "description": "True when the candidate is a generated placeholder rather than an official or source-discovered asset."
+        },
         "verification": {
           "$ref": "#/definitions/MetadataAssetVerification"
         },
         "notes": {
           "type": ["string", "null"]
+        }
+      }
+    },
+    "MetadataAssetColor": {
+      "type": "object",
+      "required": ["role", "hex"],
+      "additionalProperties": false,
+      "properties": {
+        "role": {
+          "type": "string"
+        },
+        "hex": {
+          "type": "string",
+          "pattern": "^#[0-9A-Fa-f]{6}$"
         }
       }
     },

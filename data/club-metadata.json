@@ -2,8 +2,8 @@
   "metadata": {
     "schemaVersion": 1,
     "generator": "club-assets",
-    "generatedAt": "2026-06-20T19:54:09.010Z",
-    "gitSha": "798511e",
+    "generatedAt": "2026-06-20T20:01:39.471Z",
+    "gitSha": "b94ecf2",
     "sourceFiles": [
       "/Users/dsteele/repos/footy-data-kit/data-output/all-seasons.json",
       "/Users/dsteele/repos/footy-data-kit-club-assets/data/club-metadata.json"
@@ -10288,7 +10288,48 @@
       },
       "assets": {
         "crest": {
-          "status": "missing"
+          "preferred": "generated-placeholder:Generated:birmingham-st-georges-placeholder-crest.svg",
+          "status": "placeholder",
+          "candidates": [
+            {
+              "assetId": "generated-placeholder:Generated:birmingham-st-georges-placeholder-crest.svg",
+              "kind": "crest",
+              "status": "placeholder",
+              "source": "generated-placeholder",
+              "placeholder": true,
+              "sourceUrl": "https://en.wikipedia.org/wiki/Birmingham_St_George's_F.C.",
+              "imageUrl": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20256%20256%22%20role%3D%22img%22%3E%3Ctitle%3EBirmingham%20St%20George%26apos%3Bs%20generated%20placeholder%20crest%3C%2Ftitle%3E%3Cpath%20d%3D%22M128%2014%20220%2048v68c0%2058-36%20103-92%20126-56-23-92-68-92-126V48l92-34Z%22%20fill%3D%22%23FFFFFF%22%20stroke%3D%22%23000000%22%20stroke-width%3D%2210%22%2F%3E%3Cpath%20d%3D%22M128%2026%20210%2056v58c0%2049-30%2088-82%20110V26Z%22%20fill%3D%22%23000000%22%20opacity%3D%220.92%22%2F%3E%3Cpath%20d%3D%22M50%2084h156v30H50z%22%20fill%3D%22%23000000%22%20opacity%3D%220.9%22%2F%3E%3Ctext%20x%3D%22128%22%20y%3D%22154%22%20text-anchor%3D%22middle%22%20font-family%3D%22Arial%2C%20Helvetica%2C%20sans-serif%22%20font-size%3D%2258%22%20font-weight%3D%22700%22%20fill%3D%22%23111111%22%20stroke%3D%22%23FFFFFF%22%20stroke-width%3D%223%22%20paint-order%3D%22stroke%22%3EBG%3C%2Ftext%3E%3C%2Fsvg%3E",
+              "fileTitle": "Generated:birmingham-st-georges-placeholder-crest.svg",
+              "mimeType": "image/svg+xml",
+              "width": 256,
+              "height": 256,
+              "colors": [
+                {
+                  "role": "primary",
+                  "hex": "#FFFFFF"
+                },
+                {
+                  "role": "secondary",
+                  "hex": "#000000"
+                }
+              ],
+              "license": {
+                "shortName": "CC0-1.0",
+                "usageTerms": "Creative Commons Zero v1.0 Universal",
+                "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+                "copyrighted": false,
+                "attribution": "footy-data-kit generated placeholder"
+              },
+              "verification": {
+                "identityMatch": "generated-placeholder",
+                "licenseCheck": "pass",
+                "httpCheck": "pass",
+                "needsManualReview": false
+              },
+              "notes": "Generated placeholder shield from source-backed club colours; not an official or historical club crest.",
+              "priority": 1
+            }
+          ]
         }
       }
     },
@@ -19031,7 +19072,52 @@
       },
       "assets": {
         "crest": {
-          "status": "missing"
+          "preferred": "generated-placeholder:Generated:burton-swifts-placeholder-crest.svg",
+          "status": "placeholder",
+          "candidates": [
+            {
+              "assetId": "generated-placeholder:Generated:burton-swifts-placeholder-crest.svg",
+              "kind": "crest",
+              "status": "placeholder",
+              "source": "generated-placeholder",
+              "placeholder": true,
+              "sourceUrl": "https://en.wikipedia.org/wiki/Burton_Swifts_F.C.",
+              "imageUrl": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20256%20256%22%20role%3D%22img%22%3E%3Ctitle%3EBurton%20Swifts%20generated%20placeholder%20crest%3C%2Ftitle%3E%3Cpath%20d%3D%22M128%2014%20220%2048v68c0%2058-36%20103-92%20126-56-23-92-68-92-126V48l92-34Z%22%20fill%3D%22%23FF0000%22%20stroke%3D%22%23000099%22%20stroke-width%3D%2210%22%2F%3E%3Cpath%20d%3D%22M128%2026%20210%2056v58c0%2049-30%2088-82%20110V26Z%22%20fill%3D%22%23FFFFFF%22%20opacity%3D%220.92%22%2F%3E%3Cpath%20d%3D%22M50%2084h156v30H50z%22%20fill%3D%22%23000099%22%20opacity%3D%220.9%22%2F%3E%3Ctext%20x%3D%22128%22%20y%3D%22154%22%20text-anchor%3D%22middle%22%20font-family%3D%22Arial%2C%20Helvetica%2C%20sans-serif%22%20font-size%3D%2258%22%20font-weight%3D%22700%22%20fill%3D%22%23FFFFFF%22%20stroke%3D%22%23111111%22%20stroke-width%3D%223%22%20paint-order%3D%22stroke%22%3EBS%3C%2Ftext%3E%3C%2Fsvg%3E",
+              "fileTitle": "Generated:burton-swifts-placeholder-crest.svg",
+              "mimeType": "image/svg+xml",
+              "width": 256,
+              "height": 256,
+              "colors": [
+                {
+                  "role": "primary",
+                  "hex": "#FF0000"
+                },
+                {
+                  "role": "secondary",
+                  "hex": "#FFFFFF"
+                },
+                {
+                  "role": "accent",
+                  "hex": "#000099"
+                }
+              ],
+              "license": {
+                "shortName": "CC0-1.0",
+                "usageTerms": "Creative Commons Zero v1.0 Universal",
+                "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+                "copyrighted": false,
+                "attribution": "footy-data-kit generated placeholder"
+              },
+              "verification": {
+                "identityMatch": "generated-placeholder",
+                "licenseCheck": "pass",
+                "httpCheck": "pass",
+                "needsManualReview": false
+              },
+              "notes": "Generated placeholder shield from source-backed club colours; not an official or historical club crest.",
+              "priority": 1
+            }
+          ]
         }
       }
     },
@@ -19229,7 +19315,52 @@
       },
       "assets": {
         "crest": {
-          "status": "missing"
+          "preferred": "generated-placeholder:Generated:burton-united-placeholder-crest.svg",
+          "status": "placeholder",
+          "candidates": [
+            {
+              "assetId": "generated-placeholder:Generated:burton-united-placeholder-crest.svg",
+              "kind": "crest",
+              "status": "placeholder",
+              "source": "generated-placeholder",
+              "placeholder": true,
+              "sourceUrl": "https://en.wikipedia.org/wiki/Burton_United_F.C.",
+              "imageUrl": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20256%20256%22%20role%3D%22img%22%3E%3Ctitle%3EBurton%20United%20generated%20placeholder%20crest%3C%2Ftitle%3E%3Cpath%20d%3D%22M128%2014%20220%2048v68c0%2058-36%20103-92%20126-56-23-92-68-92-126V48l92-34Z%22%20fill%3D%22%23663300%22%20stroke%3D%22%23FFFFFF%22%20stroke-width%3D%2210%22%2F%3E%3Cpath%20d%3D%22M128%2026%20210%2056v58c0%2049-30%2088-82%20110V26Z%22%20fill%3D%22%2387CEEB%22%20opacity%3D%220.92%22%2F%3E%3Cpath%20d%3D%22M50%2084h156v30H50z%22%20fill%3D%22%23FFFFFF%22%20opacity%3D%220.9%22%2F%3E%3Ctext%20x%3D%22128%22%20y%3D%22154%22%20text-anchor%3D%22middle%22%20font-family%3D%22Arial%2C%20Helvetica%2C%20sans-serif%22%20font-size%3D%2258%22%20font-weight%3D%22700%22%20fill%3D%22%23FFFFFF%22%20stroke%3D%22%23111111%22%20stroke-width%3D%223%22%20paint-order%3D%22stroke%22%3EBU%3C%2Ftext%3E%3C%2Fsvg%3E",
+              "fileTitle": "Generated:burton-united-placeholder-crest.svg",
+              "mimeType": "image/svg+xml",
+              "width": 256,
+              "height": 256,
+              "colors": [
+                {
+                  "role": "primary",
+                  "hex": "#663300"
+                },
+                {
+                  "role": "secondary",
+                  "hex": "#87CEEB"
+                },
+                {
+                  "role": "accent",
+                  "hex": "#FFFFFF"
+                }
+              ],
+              "license": {
+                "shortName": "CC0-1.0",
+                "usageTerms": "Creative Commons Zero v1.0 Universal",
+                "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+                "copyrighted": false,
+                "attribution": "footy-data-kit generated placeholder"
+              },
+              "verification": {
+                "identityMatch": "generated-placeholder",
+                "licenseCheck": "pass",
+                "httpCheck": "pass",
+                "needsManualReview": false
+              },
+              "notes": "Generated placeholder shield from source-backed club colours; not an official or historical club crest.",
+              "priority": 1
+            }
+          ]
         }
       }
     },
@@ -19354,7 +19485,52 @@
       },
       "assets": {
         "crest": {
-          "status": "missing"
+          "preferred": "generated-placeholder:Generated:burton-wanderers-placeholder-crest.svg",
+          "status": "placeholder",
+          "candidates": [
+            {
+              "assetId": "generated-placeholder:Generated:burton-wanderers-placeholder-crest.svg",
+              "kind": "crest",
+              "status": "placeholder",
+              "source": "generated-placeholder",
+              "placeholder": true,
+              "sourceUrl": "https://en.wikipedia.org/wiki/Burton_Wanderers_F.C.",
+              "imageUrl": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20256%20256%22%20role%3D%22img%22%3E%3Ctitle%3EBurton%20Wanderers%20generated%20placeholder%20crest%3C%2Ftitle%3E%3Cpath%20d%3D%22M128%2014%20220%2048v68c0%2058-36%20103-92%20126-56-23-92-68-92-126V48l92-34Z%22%20fill%3D%22%23FFFFFF%22%20stroke%3D%22%23333333%22%20stroke-width%3D%2210%22%2F%3E%3Cpath%20d%3D%22M128%2026%20210%2056v58c0%2049-30%2088-82%20110V26Z%22%20fill%3D%22%230057B8%22%20opacity%3D%220.92%22%2F%3E%3Cpath%20d%3D%22M50%2084h156v30H50z%22%20fill%3D%22%23333333%22%20opacity%3D%220.9%22%2F%3E%3Ctext%20x%3D%22128%22%20y%3D%22154%22%20text-anchor%3D%22middle%22%20font-family%3D%22Arial%2C%20Helvetica%2C%20sans-serif%22%20font-size%3D%2258%22%20font-weight%3D%22700%22%20fill%3D%22%23111111%22%20stroke%3D%22%23FFFFFF%22%20stroke-width%3D%223%22%20paint-order%3D%22stroke%22%3EBW%3C%2Ftext%3E%3C%2Fsvg%3E",
+              "fileTitle": "Generated:burton-wanderers-placeholder-crest.svg",
+              "mimeType": "image/svg+xml",
+              "width": 256,
+              "height": 256,
+              "colors": [
+                {
+                  "role": "primary",
+                  "hex": "#FFFFFF"
+                },
+                {
+                  "role": "secondary",
+                  "hex": "#0057B8"
+                },
+                {
+                  "role": "accent",
+                  "hex": "#333333"
+                }
+              ],
+              "license": {
+                "shortName": "CC0-1.0",
+                "usageTerms": "Creative Commons Zero v1.0 Universal",
+                "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+                "copyrighted": false,
+                "attribution": "footy-data-kit generated placeholder"
+              },
+              "verification": {
+                "identityMatch": "generated-placeholder",
+                "licenseCheck": "pass",
+                "httpCheck": "pass",
+                "needsManualReview": false
+              },
+              "notes": "Generated placeholder shield from source-backed club colours; not an official or historical club crest.",
+              "priority": 1
+            }
+          ]
         }
       }
     },
@@ -63101,7 +63277,52 @@
       },
       "assets": {
         "crest": {
-          "status": "missing"
+          "preferred": "generated-placeholder:Generated:middlesbrough-ironopolis-placeholder-crest.svg",
+          "status": "placeholder",
+          "candidates": [
+            {
+              "assetId": "generated-placeholder:Generated:middlesbrough-ironopolis-placeholder-crest.svg",
+              "kind": "crest",
+              "status": "placeholder",
+              "source": "generated-placeholder",
+              "placeholder": true,
+              "sourceUrl": "https://en.wikipedia.org/wiki/Middlesbrough_Ironopolis",
+              "imageUrl": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20256%20256%22%20role%3D%22img%22%3E%3Ctitle%3EMiddlesbrough%20Ironopolis%20generated%20placeholder%20crest%3C%2Ftitle%3E%3Cpath%20d%3D%22M128%2014%20220%2048v68c0%2058-36%20103-92%20126-56-23-92-68-92-126V48l92-34Z%22%20fill%3D%22%23CC0033%22%20stroke%3D%22%23FFFFFF%22%20stroke-width%3D%2210%22%2F%3E%3Cpath%20d%3D%22M128%2026%20210%2056v58c0%2049-30%2088-82%20110V26Z%22%20fill%3D%22%23000000%22%20opacity%3D%220.92%22%2F%3E%3Cpath%20d%3D%22M50%2084h156v30H50z%22%20fill%3D%22%23FFFFFF%22%20opacity%3D%220.9%22%2F%3E%3Ctext%20x%3D%22128%22%20y%3D%22154%22%20text-anchor%3D%22middle%22%20font-family%3D%22Arial%2C%20Helvetica%2C%20sans-serif%22%20font-size%3D%2258%22%20font-weight%3D%22700%22%20fill%3D%22%23FFFFFF%22%20stroke%3D%22%23111111%22%20stroke-width%3D%223%22%20paint-order%3D%22stroke%22%3EMI%3C%2Ftext%3E%3C%2Fsvg%3E",
+              "fileTitle": "Generated:middlesbrough-ironopolis-placeholder-crest.svg",
+              "mimeType": "image/svg+xml",
+              "width": 256,
+              "height": 256,
+              "colors": [
+                {
+                  "role": "primary",
+                  "hex": "#CC0033"
+                },
+                {
+                  "role": "secondary",
+                  "hex": "#000000"
+                },
+                {
+                  "role": "accent",
+                  "hex": "#FFFFFF"
+                }
+              ],
+              "license": {
+                "shortName": "CC0-1.0",
+                "usageTerms": "Creative Commons Zero v1.0 Universal",
+                "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+                "copyrighted": false,
+                "attribution": "footy-data-kit generated placeholder"
+              },
+              "verification": {
+                "identityMatch": "generated-placeholder",
+                "licenseCheck": "pass",
+                "httpCheck": "pass",
+                "needsManualReview": false
+              },
+              "notes": "Generated placeholder shield from source-backed club colours; not an official or historical club crest.",
+              "priority": 1
+            }
+          ]
         }
       }
     },
@@ -70655,7 +70876,48 @@
       },
       "assets": {
         "crest": {
-          "status": "missing"
+          "preferred": "generated-placeholder:Generated:oswestry-town-placeholder-crest.svg",
+          "status": "placeholder",
+          "candidates": [
+            {
+              "assetId": "generated-placeholder:Generated:oswestry-town-placeholder-crest.svg",
+              "kind": "crest",
+              "status": "placeholder",
+              "source": "generated-placeholder",
+              "placeholder": true,
+              "sourceUrl": "https://en.wikipedia.org/wiki/Oswestry_Town_F.C.",
+              "imageUrl": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20256%20256%22%20role%3D%22img%22%3E%3Ctitle%3EOswestry%20Town%20generated%20placeholder%20crest%3C%2Ftitle%3E%3Cpath%20d%3D%22M128%2014%20220%2048v68c0%2058-36%20103-92%20126-56-23-92-68-92-126V48l92-34Z%22%20fill%3D%22%230000FF%22%20stroke%3D%22%23FFFFFF%22%20stroke-width%3D%2210%22%2F%3E%3Cpath%20d%3D%22M128%2026%20210%2056v58c0%2049-30%2088-82%20110V26Z%22%20fill%3D%22%23FFFFFF%22%20opacity%3D%220.92%22%2F%3E%3Cpath%20d%3D%22M50%2084h156v30H50z%22%20fill%3D%22%23FFFFFF%22%20opacity%3D%220.9%22%2F%3E%3Ctext%20x%3D%22128%22%20y%3D%22154%22%20text-anchor%3D%22middle%22%20font-family%3D%22Arial%2C%20Helvetica%2C%20sans-serif%22%20font-size%3D%2258%22%20font-weight%3D%22700%22%20fill%3D%22%23FFFFFF%22%20stroke%3D%22%23111111%22%20stroke-width%3D%223%22%20paint-order%3D%22stroke%22%3EOT%3C%2Ftext%3E%3C%2Fsvg%3E",
+              "fileTitle": "Generated:oswestry-town-placeholder-crest.svg",
+              "mimeType": "image/svg+xml",
+              "width": 256,
+              "height": 256,
+              "colors": [
+                {
+                  "role": "primary",
+                  "hex": "#0000FF"
+                },
+                {
+                  "role": "secondary",
+                  "hex": "#FFFFFF"
+                }
+              ],
+              "license": {
+                "shortName": "CC0-1.0",
+                "usageTerms": "Creative Commons Zero v1.0 Universal",
+                "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+                "copyrighted": false,
+                "attribution": "footy-data-kit generated placeholder"
+              },
+              "verification": {
+                "identityMatch": "generated-placeholder",
+                "licenseCheck": "pass",
+                "httpCheck": "pass",
+                "needsManualReview": false
+              },
+              "notes": "Generated placeholder shield from source-backed club colours; not an official or historical club crest.",
+              "priority": 1
+            }
+          ]
         }
       }
     },
@@ -75470,7 +75732,52 @@
       },
       "assets": {
         "crest": {
-          "status": "missing"
+          "preferred": "generated-placeholder:Generated:redbridge-forest-placeholder-crest.svg",
+          "status": "placeholder",
+          "candidates": [
+            {
+              "assetId": "generated-placeholder:Generated:redbridge-forest-placeholder-crest.svg",
+              "kind": "crest",
+              "status": "placeholder",
+              "source": "generated-placeholder",
+              "placeholder": true,
+              "sourceUrl": "https://en.wikipedia.org/wiki/Redbridge_Forest_F.C.",
+              "imageUrl": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20256%20256%22%20role%3D%22img%22%3E%3Ctitle%3ERedbridge%20Forest%20generated%20placeholder%20crest%3C%2Ftitle%3E%3Cpath%20d%3D%22M128%2014%20220%2048v68c0%2058-36%20103-92%20126-56-23-92-68-92-126V48l92-34Z%22%20fill%3D%22%23FF0000%22%20stroke%3D%22%23FFFFFF%22%20stroke-width%3D%2210%22%2F%3E%3Cpath%20d%3D%22M128%2026%20210%2056v58c0%2049-30%2088-82%20110V26Z%22%20fill%3D%22%230000FF%22%20opacity%3D%220.92%22%2F%3E%3Cpath%20d%3D%22M50%2084h156v30H50z%22%20fill%3D%22%23FFFFFF%22%20opacity%3D%220.9%22%2F%3E%3Ctext%20x%3D%22128%22%20y%3D%22154%22%20text-anchor%3D%22middle%22%20font-family%3D%22Arial%2C%20Helvetica%2C%20sans-serif%22%20font-size%3D%2258%22%20font-weight%3D%22700%22%20fill%3D%22%23FFFFFF%22%20stroke%3D%22%23111111%22%20stroke-width%3D%223%22%20paint-order%3D%22stroke%22%3ERF%3C%2Ftext%3E%3C%2Fsvg%3E",
+              "fileTitle": "Generated:redbridge-forest-placeholder-crest.svg",
+              "mimeType": "image/svg+xml",
+              "width": 256,
+              "height": 256,
+              "colors": [
+                {
+                  "role": "primary",
+                  "hex": "#FF0000"
+                },
+                {
+                  "role": "secondary",
+                  "hex": "#0000FF"
+                },
+                {
+                  "role": "accent",
+                  "hex": "#FFFFFF"
+                }
+              ],
+              "license": {
+                "shortName": "CC0-1.0",
+                "usageTerms": "Creative Commons Zero v1.0 Universal",
+                "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+                "copyrighted": false,
+                "attribution": "footy-data-kit generated placeholder"
+              },
+              "verification": {
+                "identityMatch": "generated-placeholder",
+                "licenseCheck": "pass",
+                "httpCheck": "pass",
+                "needsManualReview": false
+              },
+              "notes": "Generated placeholder shield from source-backed club colours; not an official or historical club crest.",
+              "priority": 1
+            }
+          ]
         }
       }
     },
@@ -76769,7 +77076,48 @@
       },
       "assets": {
         "crest": {
-          "status": "missing"
+          "preferred": "generated-placeholder:Generated:rotherham-town-placeholder-crest.svg",
+          "status": "placeholder",
+          "candidates": [
+            {
+              "assetId": "generated-placeholder:Generated:rotherham-town-placeholder-crest.svg",
+              "kind": "crest",
+              "status": "placeholder",
+              "source": "generated-placeholder",
+              "placeholder": true,
+              "sourceUrl": "https://en.wikipedia.org/wiki/Rotherham_Town_F.C._(1878)",
+              "imageUrl": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20256%20256%22%20role%3D%22img%22%3E%3Ctitle%3ERotherham%20Town%20generated%20placeholder%20crest%3C%2Ftitle%3E%3Cpath%20d%3D%22M128%2014%20220%2048v68c0%2058-36%20103-92%20126-56-23-92-68-92-126V48l92-34Z%22%20fill%3D%22%23FF0000%22%20stroke%3D%22%231C1271%22%20stroke-width%3D%2210%22%2F%3E%3Cpath%20d%3D%22M128%2026%20210%2056v58c0%2049-30%2088-82%20110V26Z%22%20fill%3D%22%231C1271%22%20opacity%3D%220.92%22%2F%3E%3Cpath%20d%3D%22M50%2084h156v30H50z%22%20fill%3D%22%231C1271%22%20opacity%3D%220.9%22%2F%3E%3Ctext%20x%3D%22128%22%20y%3D%22154%22%20text-anchor%3D%22middle%22%20font-family%3D%22Arial%2C%20Helvetica%2C%20sans-serif%22%20font-size%3D%2258%22%20font-weight%3D%22700%22%20fill%3D%22%23FFFFFF%22%20stroke%3D%22%23111111%22%20stroke-width%3D%223%22%20paint-order%3D%22stroke%22%3ERT%3C%2Ftext%3E%3C%2Fsvg%3E",
+              "fileTitle": "Generated:rotherham-town-placeholder-crest.svg",
+              "mimeType": "image/svg+xml",
+              "width": 256,
+              "height": 256,
+              "colors": [
+                {
+                  "role": "primary",
+                  "hex": "#FF0000"
+                },
+                {
+                  "role": "secondary",
+                  "hex": "#1C1271"
+                }
+              ],
+              "license": {
+                "shortName": "CC0-1.0",
+                "usageTerms": "Creative Commons Zero v1.0 Universal",
+                "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+                "copyrighted": false,
+                "attribution": "footy-data-kit generated placeholder"
+              },
+              "verification": {
+                "identityMatch": "generated-placeholder",
+                "licenseCheck": "pass",
+                "httpCheck": "pass",
+                "needsManualReview": false
+              },
+              "notes": "Generated placeholder shield from source-backed club colours; not an official or historical club crest.",
+              "priority": 1
+            }
+          ]
         }
       }
     },
@@ -87791,7 +88139,48 @@
       },
       "assets": {
         "crest": {
-          "status": "missing"
+          "preferred": "generated-placeholder:Generated:sunderland-albion-placeholder-crest.svg",
+          "status": "placeholder",
+          "candidates": [
+            {
+              "assetId": "generated-placeholder:Generated:sunderland-albion-placeholder-crest.svg",
+              "kind": "crest",
+              "status": "placeholder",
+              "source": "generated-placeholder",
+              "placeholder": true,
+              "sourceUrl": "https://en.wikipedia.org/wiki/Sunderland_Albion_F.C.",
+              "imageUrl": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20256%20256%22%20role%3D%22img%22%3E%3Ctitle%3ESunderland%20Albion%20generated%20placeholder%20crest%3C%2Ftitle%3E%3Cpath%20d%3D%22M128%2014%20220%2048v68c0%2058-36%20103-92%20126-56-23-92-68-92-126V48l92-34Z%22%20fill%3D%22%23000066%22%20stroke%3D%22%23FFFFFF%22%20stroke-width%3D%2210%22%2F%3E%3Cpath%20d%3D%22M128%2026%20210%2056v58c0%2049-30%2088-82%20110V26Z%22%20fill%3D%22%23FFFFFF%22%20opacity%3D%220.92%22%2F%3E%3Cpath%20d%3D%22M50%2084h156v30H50z%22%20fill%3D%22%23FFFFFF%22%20opacity%3D%220.9%22%2F%3E%3Ctext%20x%3D%22128%22%20y%3D%22154%22%20text-anchor%3D%22middle%22%20font-family%3D%22Arial%2C%20Helvetica%2C%20sans-serif%22%20font-size%3D%2258%22%20font-weight%3D%22700%22%20fill%3D%22%23FFFFFF%22%20stroke%3D%22%23111111%22%20stroke-width%3D%223%22%20paint-order%3D%22stroke%22%3ESA%3C%2Ftext%3E%3C%2Fsvg%3E",
+              "fileTitle": "Generated:sunderland-albion-placeholder-crest.svg",
+              "mimeType": "image/svg+xml",
+              "width": 256,
+              "height": 256,
+              "colors": [
+                {
+                  "role": "primary",
+                  "hex": "#000066"
+                },
+                {
+                  "role": "secondary",
+                  "hex": "#FFFFFF"
+                }
+              ],
+              "license": {
+                "shortName": "CC0-1.0",
+                "usageTerms": "Creative Commons Zero v1.0 Universal",
+                "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+                "copyrighted": false,
+                "attribution": "footy-data-kit generated placeholder"
+              },
+              "verification": {
+                "identityMatch": "generated-placeholder",
+                "licenseCheck": "pass",
+                "httpCheck": "pass",
+                "needsManualReview": false
+              },
+              "notes": "Generated placeholder shield from source-backed club colours; not an official or historical club crest.",
+              "priority": 1
+            }
+          ]
         }
       }
     },

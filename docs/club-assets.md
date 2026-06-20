@@ -27,6 +27,9 @@ Each club can expose:
 
 - `usable` means at least one preferred candidate has an acceptable license and
   looks like a crest, badge, logo, shield, or emblem.
+- `placeholder` means the preferred candidate is a generated shield based on
+  curated/source-backed club colours. It is safe to render, but is not an
+  official or historical club crest.
 - `restricted` means candidates exist but the best available candidate is
   restricted, commonly Wikipedia fair use.
 - `needs-review` means candidates exist but identity, license, or crest
@@ -35,7 +38,8 @@ Each club can expose:
 - `failed` means a candidate could not be resolved.
 
 Each candidate includes source fields such as `source`, `sourceUrl`, `imageUrl`,
-`fileTitle`, `mimeType`, dimensions, license metadata, and a `verification`
+`fileTitle`, `mimeType`, dimensions, license metadata, optional structured
+`colors`, a `placeholder` flag for generated shields, and a `verification`
 object with review reasons.
 
 ## Sources
@@ -48,6 +52,8 @@ The current discovery order is:
    - `P94` coat of arms image
    - `P18` image
 3. Wikipedia PageImages with `pilicense=any`.
+4. Generated placeholder shields for curated historical missing clubs with
+   source-backed colours.
 
 Restricted candidates are preserved as backups but should not be selected as
 `preferred` while a usable candidate exists.
@@ -55,6 +61,11 @@ Restricted candidates are preserved as backups but should not be selected as
 Wikidata `P154` and `P94` candidates are treated as crest-like when they match
 the club identity. Generic `P18` image candidates still need filename or other
 crest evidence, because they often point to squads, grounds, or match photos.
+
+Generated placeholders are SVG data URLs. They use `source:
+generated-placeholder`, `status: placeholder`, `placeholder: true`, and CC0
+license metadata so consumers can render or filter them independently from
+official/source-discovered crest candidates.
 
 ## Running Discovery
 
@@ -119,6 +130,9 @@ Expected high-volume findings:
 - Some Victorian or folded clubs may need a future curated
   `no-known-crest`/historical status. Do not infer that automatically from a
   missing automated result.
+- Generated placeholders should only be added from curated colors and should
+  remain visibly simple. They are a fallback for consumers, not evidence that an
+  official crest existed.
 
 Reviewers should promote a candidate only when both identity and license are
 clear. Do not hand-edit generated output without moving the rule into generator

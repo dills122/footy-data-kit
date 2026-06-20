@@ -3,6 +3,7 @@
 import https from 'node:https';
 
 export const CLUB_ASSET_SOURCE_IDS = Object.freeze({
+  generatedPlaceholder: 'generated-placeholder',
   wikidataLogo: 'wikidata-logo',
   wikidataCoatOfArms: 'wikidata-coat-of-arms',
   wikidataImage: 'wikidata-image',
@@ -34,6 +35,74 @@ const WIKIDATA_MEDIA_PROPERTIES = Object.freeze([
   { property: 'P18', source: CLUB_ASSET_SOURCE_IDS.wikidataImage },
 ]);
 const TRUSTED_WIKIDATA_CREST_SOURCES = Object.freeze([CLUB_ASSET_SOURCE_IDS.wikidataCoatOfArms]);
+const GENERATED_PLACEHOLDER_LICENSE = Object.freeze({
+  shortName: 'CC0-1.0',
+  usageTerms: 'Creative Commons Zero v1.0 Universal',
+  licenseUrl: 'https://creativecommons.org/publicdomain/zero/1.0/',
+  copyrighted: false,
+  attribution: 'footy-data-kit generated placeholder',
+});
+const HISTORICAL_PLACEHOLDER_CRESTS = Object.freeze({
+  'birmingham-st-georges': {
+    colors: [
+      { role: 'primary', hex: '#FFFFFF' },
+      { role: 'secondary', hex: '#000000' },
+    ],
+  },
+  'burton-swifts': {
+    colors: [
+      { role: 'primary', hex: '#FF0000' },
+      { role: 'secondary', hex: '#FFFFFF' },
+      { role: 'accent', hex: '#000099' },
+    ],
+  },
+  'burton-united': {
+    colors: [
+      { role: 'primary', hex: '#663300' },
+      { role: 'secondary', hex: '#87CEEB' },
+      { role: 'accent', hex: '#FFFFFF' },
+    ],
+  },
+  'burton-wanderers': {
+    colors: [
+      { role: 'primary', hex: '#FFFFFF' },
+      { role: 'secondary', hex: '#0057B8' },
+      { role: 'accent', hex: '#333333' },
+    ],
+  },
+  'middlesbrough-ironopolis': {
+    colors: [
+      { role: 'primary', hex: '#CC0033' },
+      { role: 'secondary', hex: '#000000' },
+      { role: 'accent', hex: '#FFFFFF' },
+    ],
+  },
+  'oswestry-town': {
+    colors: [
+      { role: 'primary', hex: '#0000FF' },
+      { role: 'secondary', hex: '#FFFFFF' },
+    ],
+  },
+  'redbridge-forest': {
+    colors: [
+      { role: 'primary', hex: '#FF0000' },
+      { role: 'secondary', hex: '#0000FF' },
+      { role: 'accent', hex: '#FFFFFF' },
+    ],
+  },
+  'rotherham-town': {
+    colors: [
+      { role: 'primary', hex: '#FF0000' },
+      { role: 'secondary', hex: '#1C1271' },
+    ],
+  },
+  'sunderland-albion': {
+    colors: [
+      { role: 'primary', hex: '#000066' },
+      { role: 'secondary', hex: '#FFFFFF' },
+    ],
+  },
+});
 
 function sleep(ms) {
   return new Promise((resolve) => {
@@ -118,6 +187,79 @@ function fileExtension(fileTitle) {
 function buildAssetId(source, fileTitle, fallbackUrl) {
   const idPart = toText(fileTitle) || toText(fallbackUrl) || 'unknown';
   return `${source}:${idPart.replace(/^File:/i, '')}`;
+}
+
+function slugify(value) {
+  return normalizeTokenText(value).replace(/\s+/g, '-');
+}
+
+function escapeXml(value) {
+  return String(value || '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&apos;');
+}
+
+function normalizeHexColor(value, fallback) {
+  const text = String(value || '').trim();
+  const normalized = text.startsWith('#') ? text : `#${text}`;
+  return /^#[0-9a-f]{6}$/i.test(normalized) ? normalized.toUpperCase() : fallback;
+}
+
+function hexColorChannels(value) {
+  const normalized = normalizeHexColor(value, '#000000').slice(1);
+  return {
+    red: Number.parseInt(normalized.slice(0, 2), 16),
+    green: Number.parseInt(normalized.slice(2, 4), 16),
+    blue: Number.parseInt(normalized.slice(4, 6), 16),
+  };
+}
+
+function contrastTextColor(backgroundColor) {
+  const { red, green, blue } = hexColorChannels(backgroundColor);
+  const brightness = (red * 299 + green * 587 + blue * 114) / 1000;
+  return brightness > 155 ? '#111111' : '#FFFFFF';
+}
+
+function clubInitials(club) {
+  const tokens = significantTokens(club?.canonicalName || club?.clubId || '');
+  return tokens
+    .slice(0, 3)
+    .map((token) => token[0]?.toUpperCase())
+    .join('');
+}
+
+function firstWikipediaClubPageUrl(club) {
+  return [
+    ...(club?.derived?.identitySources || []),
+    ...(club?.status?.sourceRefs || []),
+  ].find((source) => source.type === 'wikipedia-club-page')?.sourceUrl;
+}
+
+function svgDataUrl(svg) {
+  return `data:image/svg+xml,${encodeURIComponent(svg)}`;
+}
+
+function buildPlaceholderSvg(club, colors) {
+  const primary = normalizeHexColor(colors[0]?.hex, '#555555');
+  const secondary = normalizeHexColor(colors[1]?.hex, '#EEEEEE');
+  const accent = normalizeHexColor(colors[2]?.hex, secondary);
+  const textFill = contrastTextColor(primary);
+  const textStroke = textFill === '#FFFFFF' ? '#111111' : '#FFFFFF';
+  const title = `${club?.canonicalName || 'Club'} generated placeholder crest`;
+  const initials = clubInitials(club) || 'FC';
+
+  return [
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img">',
+    `<title>${escapeXml(title)}</title>`,
+    `<path d="M128 14 220 48v68c0 58-36 103-92 126-56-23-92-68-92-126V48l92-34Z" fill="${primary}" stroke="${accent}" stroke-width="10"/>`,
+    `<path d="M128 26 210 56v58c0 49-30 88-82 110V26Z" fill="${secondary}" opacity="0.92"/>`,
+    `<path d="M50 84h156v30H50z" fill="${accent}" opacity="0.9"/>`,
+    `<text x="128" y="154" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="58" font-weight="700" fill="${textFill}" stroke="${textStroke}" stroke-width="3" paint-order="stroke">${escapeXml(initials)}</text>`,
+    '</svg>',
+  ].join('');
 }
 
 function normalizeUrl(value) {
@@ -230,6 +372,7 @@ export function classifyClubAssetCandidate(candidate, club, { checkedAt = null }
 
 function statusRank(status) {
   if (status === 'usable') return 0;
+  if (status === 'placeholder') return 1;
   if (status === 'restricted') return 1;
   if (status === 'needs-review') return 2;
   if (status === 'failed') return 4;
@@ -237,6 +380,7 @@ function statusRank(status) {
 }
 
 function sourceRank(source) {
+  if (source === CLUB_ASSET_SOURCE_IDS.generatedPlaceholder) return 0;
   if (source === CLUB_ASSET_SOURCE_IDS.wikidataLogo) return 0;
   if (source === CLUB_ASSET_SOURCE_IDS.wikidataCoatOfArms) return 1;
   if (source === CLUB_ASSET_SOURCE_IDS.wikipediaPageImageFree) return 2;
@@ -275,16 +419,61 @@ export function rankClubAssetCandidates(candidates, limit = 5) {
 
 export function buildClubAssetBundle(candidates, { limit = 5 } = {}) {
   const rankedCandidates = rankClubAssetCandidates(candidates, limit);
-  const preferredCandidate = rankedCandidates.find((candidate) => candidate.status === 'usable');
-  const status = preferredCandidate
-    ? 'usable'
-    : rankedCandidates[0]?.status || 'missing';
+  const preferredCandidate =
+    rankedCandidates.find((candidate) => candidate.status === 'usable') ||
+    rankedCandidates.find((candidate) => candidate.status === 'placeholder');
+  const status = preferredCandidate?.status || rankedCandidates[0]?.status || 'missing';
 
   return compactObject({
     preferred: preferredCandidate?.assetId || null,
     status,
     candidates: rankedCandidates,
   });
+}
+
+export function buildGeneratedPlaceholderCrestCandidate(club, { checkedAt = null } = {}) {
+  const placeholderConfig = HISTORICAL_PLACEHOLDER_CRESTS[club?.clubId];
+  if (!placeholderConfig) return null;
+
+  const slug = slugify(club?.clubId || club?.canonicalName || 'club');
+  const fileTitle = `Generated:${slug}-placeholder-crest.svg`;
+  const colors = placeholderConfig.colors.map((color) => ({
+    role: color.role,
+    hex: normalizeHexColor(color.hex, '#555555'),
+  }));
+  const imageUrl = svgDataUrl(buildPlaceholderSvg(club, colors));
+
+  return compactObject({
+    assetId: buildAssetId(CLUB_ASSET_SOURCE_IDS.generatedPlaceholder, fileTitle, null),
+    kind: 'crest',
+    status: 'placeholder',
+    source: CLUB_ASSET_SOURCE_IDS.generatedPlaceholder,
+    placeholder: true,
+    sourceUrl: firstWikipediaClubPageUrl(club) || null,
+    imageUrl,
+    fileTitle,
+    mimeType: 'image/svg+xml',
+    width: 256,
+    height: 256,
+    colors,
+    license: GENERATED_PLACEHOLDER_LICENSE,
+    verification: compactObject({
+      identityMatch: 'generated-placeholder',
+      licenseCheck: 'pass',
+      httpCheck: 'pass',
+      needsManualReview: false,
+      checkedAt,
+    }),
+    notes:
+      'Generated placeholder shield from source-backed club colours; not an official or historical club crest.',
+  });
+}
+
+export function addGeneratedPlaceholderFallback(club, bundle, { checkedAt = null, limit = 5 } = {}) {
+  if (bundle?.candidates?.length) return bundle;
+  const placeholderCandidate = buildGeneratedPlaceholderCrestCandidate(club, { checkedAt });
+  if (!placeholderCandidate) return bundle;
+  return buildClubAssetBundle([placeholderCandidate], { limit });
 }
 
 export function buildClubAssetReviewIssues(clubKey, club, bundle) {

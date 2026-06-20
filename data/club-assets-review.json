@@ -2,8 +2,8 @@
   "metadata": {
     "schemaVersion": 1,
     "generator": "club-assets-review",
-    "generatedAt": "2026-06-20T19:54:09.020Z",
-    "gitSha": "798511e",
+    "generatedAt": "2026-06-20T20:01:39.482Z",
+    "gitSha": "b94ecf2",
     "sourceFiles": [
       "/Users/dsteele/repos/footy-data-kit-club-assets/data/club-metadata.json"
     ],
@@ -13,11 +13,11 @@
     }
   },
   "clubCount": 375,
-  "issueCount": 467,
+  "issueCount": 458,
   "issueCounts": {
     "club-asset-identity-uncertain": 25,
     "club-asset-license-restricted": 338,
-    "club-asset-missing": 16,
+    "club-asset-missing": 7,
     "club-asset-multiple-review-candidates": 30,
     "club-asset-non-crest-candidate": 58
   },
@@ -3654,51 +3654,11 @@
     },
     {
       "type": "club-asset-missing",
-      "clubKey": "birmingham st georges",
-      "clubId": "birmingham-st-georges",
-      "canonicalName": "Birmingham St George's",
-      "assetKind": "crest",
-      "message": "Birmingham St George's has no crest asset candidates"
-    },
-    {
-      "type": "club-asset-missing",
-      "clubKey": "burton swifts",
-      "clubId": "burton-swifts",
-      "canonicalName": "Burton Swifts",
-      "assetKind": "crest",
-      "message": "Burton Swifts has no crest asset candidates"
-    },
-    {
-      "type": "club-asset-missing",
-      "clubKey": "burton united",
-      "clubId": "burton-united",
-      "canonicalName": "Burton United",
-      "assetKind": "crest",
-      "message": "Burton United has no crest asset candidates"
-    },
-    {
-      "type": "club-asset-missing",
-      "clubKey": "burton wanderers",
-      "clubId": "burton-wanderers",
-      "canonicalName": "Burton Wanderers",
-      "assetKind": "crest",
-      "message": "Burton Wanderers has no crest asset candidates"
-    },
-    {
-      "type": "club-asset-missing",
       "clubKey": "leicester united",
       "clubId": "leicester-united",
       "canonicalName": "Leicester United",
       "assetKind": "crest",
       "message": "Leicester United has no crest asset candidates"
-    },
-    {
-      "type": "club-asset-missing",
-      "clubKey": "middlesbrough ironopolis",
-      "clubId": "middlesbrough-ironopolis",
-      "canonicalName": "Middlesbrough Ironopolis",
-      "assetKind": "crest",
-      "message": "Middlesbrough Ironopolis has no crest asset candidates"
     },
     {
       "type": "club-asset-missing",
@@ -3710,43 +3670,11 @@
     },
     {
       "type": "club-asset-missing",
-      "clubKey": "oswestry town",
-      "clubId": "oswestry-town",
-      "canonicalName": "Oswestry Town",
-      "assetKind": "crest",
-      "message": "Oswestry Town has no crest asset candidates"
-    },
-    {
-      "type": "club-asset-missing",
-      "clubKey": "redbridge forest",
-      "clubId": "redbridge-forest",
-      "canonicalName": "Redbridge Forest",
-      "assetKind": "crest",
-      "message": "Redbridge Forest has no crest asset candidates"
-    },
-    {
-      "type": "club-asset-missing",
-      "clubKey": "rotherham town",
-      "clubId": "rotherham-town",
-      "canonicalName": "Rotherham Town",
-      "assetKind": "crest",
-      "message": "Rotherham Town has no crest asset candidates"
-    },
-    {
-      "type": "club-asset-missing",
       "clubKey": "rothwell town",
       "clubId": "rothwell-town",
       "canonicalName": "Rothwell Town",
       "assetKind": "crest",
       "message": "Rothwell Town has no crest asset candidates"
-    },
-    {
-      "type": "club-asset-missing",
-      "clubKey": "sunderland albion",
-      "clubId": "sunderland-albion",
-      "canonicalName": "Sunderland Albion",
-      "assetKind": "crest",
-      "message": "Sunderland Albion has no crest asset candidates"
     },
     {
       "type": "club-asset-missing",

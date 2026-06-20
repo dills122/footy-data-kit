@@ -6,6 +6,7 @@ import * as fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import {
+  addGeneratedPlaceholderFallback,
   buildClubAssetBundle,
   buildClubAssetReviewIssues,
   classifyClubAssetCandidate,
@@ -135,10 +136,11 @@ export async function generateClubAssets({
 
   for (const [index, [clubKey, club]] of selectedEntries.entries()) {
     const cachedCrest = cachedAssets[clubKey]?.crest;
-    const crest =
+    const discoveredCrest =
       cachedCrest && !refreshAssets
         ? reclassifyCachedCrestBundle(club, cachedCrest, limit)
         : await discoverClubCrestBundle(club, { limit });
+    const crest = addGeneratedPlaceholderFallback(club, discoveredCrest, { limit });
     enrichedClubs[clubKey] = {
       ...club,
       assets: {

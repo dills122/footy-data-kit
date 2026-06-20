@@ -1,5 +1,7 @@
 import {
+  addGeneratedPlaceholderFallback,
   buildClubAssetBundle,
+  buildGeneratedPlaceholderCrestCandidate,
   buildClubAssetReviewIssues,
   buildWikipediaArticleTitles,
   classifyAssetLicense,
@@ -182,6 +184,87 @@ describe('club asset helpers', () => {
 
     expect(candidate.status).toBe('needs-review');
     expect(candidate.verification.reviewReasons).toContain('non-crest-filename');
+  });
+
+  test('builds generated placeholder crest candidates for curated historical clubs', () => {
+    const candidate = buildGeneratedPlaceholderCrestCandidate(
+      {
+        clubId: 'sunderland-albion',
+        canonicalName: 'Sunderland Albion',
+        status: {
+          sourceRefs: [
+            {
+              type: 'wikipedia-club-page',
+              sourceUrl: 'https://en.wikipedia.org/wiki/Sunderland_Albion_F.C.',
+            },
+          ],
+        },
+      },
+      { checkedAt: '2026-06-20T00:00:00.000Z' }
+    );
+
+    expect(candidate).toMatchObject({
+      assetId: 'generated-placeholder:Generated:sunderland-albion-placeholder-crest.svg',
+      kind: 'crest',
+      status: 'placeholder',
+      source: 'generated-placeholder',
+      placeholder: true,
+      mimeType: 'image/svg+xml',
+      width: 256,
+      height: 256,
+      colors: [
+        { role: 'primary', hex: '#000066' },
+        { role: 'secondary', hex: '#FFFFFF' },
+      ],
+      license: {
+        shortName: 'CC0-1.0',
+        copyrighted: false,
+      },
+      verification: {
+        identityMatch: 'generated-placeholder',
+        licenseCheck: 'pass',
+        httpCheck: 'pass',
+        needsManualReview: false,
+      },
+    });
+    expect(candidate.imageUrl).toMatch(/^data:image\/svg\+xml,/);
+  });
+
+  test('uses generated placeholders only when no discovered candidates exist', () => {
+    const placeholderBundle = addGeneratedPlaceholderFallback(
+      {
+        clubId: 'sunderland-albion',
+        canonicalName: 'Sunderland Albion',
+      },
+      { status: 'missing' }
+    );
+
+    expect(placeholderBundle).toMatchObject({
+      preferred: 'generated-placeholder:Generated:sunderland-albion-placeholder-crest.svg',
+      status: 'placeholder',
+    });
+    expect(placeholderBundle.candidates[0].placeholder).toBe(true);
+
+    const existingBundle = {
+      status: 'restricted',
+      candidates: [
+        {
+          assetId: 'existing',
+          kind: 'crest',
+          status: 'restricted',
+          source: 'wikipedia-pageimage-any',
+        },
+      ],
+    };
+    expect(
+      addGeneratedPlaceholderFallback(
+        {
+          clubId: 'sunderland-albion',
+          canonicalName: 'Sunderland Albion',
+        },
+        existingBundle
+      )
+    ).toBe(existingBundle);
   });
 
   test('ranks usable candidates before restricted and review candidates', () => {
