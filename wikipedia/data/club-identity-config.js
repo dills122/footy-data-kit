@@ -269,6 +269,20 @@ export const CLUB_IDENTITY_RULES = Object.freeze([
     ]),
   }),
   Object.freeze({
+    clubKey: 'kendal town',
+    canonicalName: 'Kendal Town',
+    aliases: Object.freeze(['Netherfield', 'Netherfield Kendal', 'Kendal Town']),
+    relationship: 'rename',
+    sourceRefs: Object.freeze([
+      Object.freeze({
+        type: 'wikipedia-club-page',
+        sourceUrl: 'https://en.wikipedia.org/wiki/Kendal_Town_F.C.',
+        notes:
+          'Club history records Netherfield being renamed Netherfield Kendal in 1998 and Kendal Town two years later.',
+      }),
+    ]),
+  }),
+  Object.freeze({
     clubKey: 'hastings united',
     canonicalName: 'Hastings United',
     aliases: Object.freeze(['Hastings Town', 'Hastings United']),
@@ -451,6 +465,19 @@ export const CLUB_IDENTITY_RULES = Object.freeze([
     ]),
   }),
   Object.freeze({
+    clubKey: 'radcliffe',
+    canonicalName: 'Radcliffe',
+    aliases: Object.freeze(['Radcliffe Borough', 'Radcliffe']),
+    relationship: 'rename',
+    sourceRefs: Object.freeze([
+      Object.freeze({
+        type: 'wikipedia-club-page',
+        sourceUrl: 'https://en.wikipedia.org/wiki/Radcliffe_F.C.',
+        notes: 'Club history records Radcliffe Borough officially dropping Borough in 2018.',
+      }),
+    ]),
+  }),
+  Object.freeze({
     clubKey: 'redbridge',
     canonicalName: 'Redbridge',
     aliases: Object.freeze(['Ford United', 'Redbridge']),
@@ -534,6 +561,19 @@ export const CLUB_IDENTITY_RULES = Object.freeze([
       Object.freeze({
         type: 'wikipedia-club-page',
         sourceUrl: 'https://en.wikipedia.org/wiki/Swansea_City_A.F.C.',
+      }),
+    ]),
+  }),
+  Object.freeze({
+    clubKey: 'thurrock',
+    canonicalName: 'Thurrock',
+    aliases: Object.freeze(['Purfleet', 'Thurrock']),
+    relationship: 'rename',
+    sourceRefs: Object.freeze([
+      Object.freeze({
+        type: 'wikipedia-club-page',
+        sourceUrl: 'https://en.wikipedia.org/wiki/Thurrock_F.C.',
+        notes: 'Club history records Purfleet as the previous name before the Thurrock identity.',
       }),
     ]),
   }),
@@ -675,6 +715,21 @@ export const TEMPORAL_CLUB_IDENTITY_RULES = Object.freeze([
         sourceUrl: 'https://en.wikipedia.org/wiki/List_of_former_English_Football_League_clubs',
         notes:
           'Former EFL list describes Newport County as defunct with a revived version later playing.',
+      }),
+    ]),
+  }),
+  Object.freeze({
+    name: 'Newport',
+    startSeason: 1995,
+    endSeason: 1996,
+    clubKey: 'newport county',
+    relationship: 'rename',
+    sourceRefs: Object.freeze([
+      Object.freeze({
+        type: 'wikipedia-club-page',
+        sourceUrl: 'https://en.wikipedia.org/wiki/Newport_County_A.F.C.',
+        notes:
+          'Newport County won Southern League Midland Division promotion in 1994-95 and played Southern League Premier Division until relegation in 1997.',
       }),
     ]),
   }),
@@ -1539,10 +1594,46 @@ const CLUB_SOURCE_REFS = Object.freeze({
       'Used for Merthyr Tydfil liquidation and Merthyr Town successor context.'
     ),
   ]),
+  minehead: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Minehead_A.F.C.',
+      'Used for current lower-division status and below tracked coverage context.'
+    ),
+  ]),
   miltonKeynesCity: Object.freeze([
     wikipediaClubSource(
       'https://en.wikipedia.org/wiki/Milton_Keynes_City_F.C.',
       'Used for Bletchley Town rename, first Milton Keynes City dissolution, and separate later same-name club context.'
+    ),
+  ]),
+  molesey: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Molesey_F.C.',
+      'Used for current lower-division status and below tracked coverage context.'
+    ),
+  ]),
+  mossley: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Mossley_A.F.C.',
+      'Used for current lower-division status and below tracked coverage context.'
+    ),
+  ]),
+  kendalTown: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Kendal_Town_F.C.',
+      'Used for Netherfield rename and current lower-division status context.'
+    ),
+  ]),
+  newportIsleOfWight: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Newport_(IOW)_F.C.',
+      'Used for Newport Isle of Wight Southern League history and current lower-division status context.'
+    ),
+  ]),
+  northwood: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Northwood_F.C.',
+      'Used for current lower-division status and below tracked coverage context.'
     ),
   ]),
   nuneatonBorough: Object.freeze([
@@ -1551,10 +1642,22 @@ const CLUB_SOURCE_REFS = Object.freeze({
       'Used for Nuneaton Borough liquidation and current Nuneaton Town successor context.'
     ),
   ]),
+  oswestryTown: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Oswestry_Town_F.C.',
+      'Used for Oswestry Town abeyance and merger into Total Network Solutions context.'
+    ),
+  ]),
   pooleTown: Object.freeze([
     wikipediaClubSource(
       'https://en.wikipedia.org/wiki/Poole_Town_F.C.',
       'Used for current lower-division status and tracked coverage context.'
+    ),
+  ]),
+  radcliffe: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Radcliffe_F.C.',
+      'Used for Radcliffe Borough rename and current National League North status context.'
     ),
   ]),
   redbridge: Object.freeze([
@@ -4291,6 +4394,14 @@ export const CLUB_LIFECYCLE_RULES = Object.freeze([
       'Wikipedia lists the club in the Northern Premier League Division One East, below current tracked coverage.',
     sourceRefs: CLUB_SOURCE_REFS.matlockTown,
   }),
+  statusOnlyRule({
+    clubKey: 'minehead',
+    current: 'active',
+    reason: 'not-in-tracked-leagues',
+    reasonLabel:
+      'Wikipedia lists the club in Somerset County League Division One, below current tracked coverage.',
+    sourceRefs: CLUB_SOURCE_REFS.minehead,
+  }),
   Object.freeze({
     clubKey: 'merthyr tydfil',
     status: Object.freeze({
@@ -4311,6 +4422,46 @@ export const CLUB_LIFECYCLE_RULES = Object.freeze([
         season: 2010,
         label: 'Reformed under the Merthyr Town name.',
         sourceRefs: CLUB_SOURCE_REFS.merthyrTown,
+      }),
+    ]),
+  }),
+  statusOnlyRule({
+    clubKey: 'molesey',
+    current: 'active',
+    reason: 'not-in-tracked-leagues',
+    reasonLabel:
+      'Wikipedia lists the club in Combined Counties League Division One, below current tracked coverage.',
+    sourceRefs: CLUB_SOURCE_REFS.molesey,
+  }),
+  statusOnlyRule({
+    clubKey: 'mossley',
+    current: 'active',
+    reason: 'not-in-tracked-leagues',
+    reasonLabel:
+      'Wikipedia lists the club in the Northern Premier League Division One West, below current tracked coverage.',
+    sourceRefs: CLUB_SOURCE_REFS.mossley,
+  }),
+  Object.freeze({
+    clubKey: 'kendal town',
+    status: Object.freeze({
+      current: 'active',
+      reason: 'not-in-tracked-leagues',
+      reasonLabel:
+        'Founded as Netherfield, renamed Kendal Town in 2000, and currently active below tracked coverage.',
+      sourceRefs: CLUB_SOURCE_REFS.kendalTown,
+    }),
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'renamed',
+        season: 1998,
+        label: 'Netherfield was renamed Netherfield Kendal.',
+        sourceRefs: CLUB_SOURCE_REFS.kendalTown,
+      }),
+      lifecycleEvent({
+        type: 'renamed',
+        season: 2000,
+        label: 'Netherfield Kendal adopted the Kendal Town name.',
+        sourceRefs: CLUB_SOURCE_REFS.kendalTown,
       }),
     ]),
   }),
@@ -4343,6 +4494,22 @@ export const CLUB_LIFECYCLE_RULES = Object.freeze([
         sourceRefs: CLUB_SOURCE_REFS.miltonKeynesCity,
       }),
     ]),
+  }),
+  statusOnlyRule({
+    clubKey: 'newport isle of wight',
+    current: 'active',
+    reason: 'not-in-tracked-leagues',
+    reasonLabel:
+      'Wikipedia lists Newport (Isle of Wight) in Wessex League Division One, below current tracked coverage.',
+    sourceRefs: CLUB_SOURCE_REFS.newportIsleOfWight,
+  }),
+  statusOnlyRule({
+    clubKey: 'northwood',
+    current: 'active',
+    reason: 'not-in-tracked-leagues',
+    reasonLabel:
+      'Wikipedia lists the club in Combined Counties League Premier Division North, below current tracked coverage.',
+    sourceRefs: CLUB_SOURCE_REFS.northwood,
   }),
   Object.freeze({
     clubKey: 'nuneaton borough',
@@ -4380,6 +4547,36 @@ export const CLUB_LIFECYCLE_RULES = Object.freeze([
       }),
     ]),
   }),
+  Object.freeze({
+    clubKey: 'oswestry town',
+    status: Object.freeze({
+      current: 'merged',
+      reason: 'merged',
+      reasonLabel:
+        'Mothballed in 1988, reactivated in 1993, and merged with Total Network Solutions in 2003.',
+      sourceRefs: CLUB_SOURCE_REFS.oswestryTown,
+    }),
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'abeyance',
+        season: 1988,
+        label: 'The club was mothballed after the Victoria Road ground was sold.',
+        sourceRefs: CLUB_SOURCE_REFS.oswestryTown,
+      }),
+      lifecycleEvent({
+        type: 'reactivated',
+        season: 1993,
+        label: 'Oswestry Town started playing again in the Welsh National League.',
+        sourceRefs: CLUB_SOURCE_REFS.oswestryTown,
+      }),
+      lifecycleEvent({
+        type: 'merged',
+        season: 2003,
+        label: 'Merged with Total Network Solutions, later renamed The New Saints.',
+        sourceRefs: CLUB_SOURCE_REFS.oswestryTown,
+      }),
+    ]),
+  }),
   statusOnlyRule({
     clubKey: 'poole town',
     current: 'active',
@@ -4413,6 +4610,30 @@ export const CLUB_LIFECYCLE_RULES = Object.freeze([
     reasonLabel:
       'Wikipedia lists the club in the Southern League Premier Division Central, a level 7 league inside tracked but sparse coverage.',
     sourceRefs: CLUB_SOURCE_REFS.redditchUnited,
+  }),
+  Object.freeze({
+    clubKey: 'radcliffe',
+    status: Object.freeze({
+      current: 'active',
+      reason: 'possibly-missing-from-current-data',
+      reasonLabel:
+        'Wikipedia lists the club in National League North, a level 6 league inside tracked but sparse coverage.',
+      sourceRefs: CLUB_SOURCE_REFS.radcliffe,
+    }),
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'renamed',
+        season: 2018,
+        label: 'Radcliffe Borough officially dropped Borough from the club name.',
+        sourceRefs: CLUB_SOURCE_REFS.radcliffe,
+      }),
+      lifecycleEvent({
+        type: 'promoted',
+        season: 2024,
+        label: 'Won the Northern Premier League Premier Division and earned promotion to National League North.',
+        sourceRefs: CLUB_SOURCE_REFS.radcliffe,
+      }),
+    ]),
   }),
   Object.freeze({
     clubKey: 'runcorn fc halton',
@@ -4485,6 +4706,18 @@ export const CLUB_LIFECYCLE_RULES = Object.freeze([
       sourceRefs: CLUB_SOURCE_REFS.thurrock,
     }),
     lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'renamed',
+        season: 1985,
+        label: 'Essex Sports was renamed Purfleet before entering senior football.',
+        sourceRefs: CLUB_SOURCE_REFS.thurrock,
+      }),
+      lifecycleEvent({
+        type: 'renamed',
+        season: 2003,
+        label: 'Purfleet adopted the Thurrock name.',
+        sourceRefs: CLUB_SOURCE_REFS.thurrock,
+      }),
       lifecycleEvent({
         type: 'resigned',
         season: 2017,

@@ -2,8 +2,8 @@
   "metadata": {
     "schemaVersion": 1,
     "generator": "club-metadata-seed",
-    "generatedAt": "2026-06-20T02:53:41.229Z",
-    "gitSha": "bfbeb90",
+    "generatedAt": "2026-06-20T03:00:20.689Z",
+    "gitSha": "8bc7b30",
     "sourceFiles": [
       "/Users/dsteele/repos/footy-data-kit/data-output/all-seasons.json"
     ],
@@ -43222,6 +43222,125 @@
         ]
       }
     },
+    "kendal town": {
+      "clubId": "kendal-town",
+      "canonicalName": "Kendal Town",
+      "status": {
+        "current": "active",
+        "trackedFromSeason": 1979,
+        "trackedToSeason": 1982,
+        "hasUnexplainedGaps": false,
+        "reason": "not-in-tracked-leagues",
+        "reasonLabel": "Founded as Netherfield, renamed Kendal Town in 2000, and currently active below tracked coverage.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Kendal_Town_F.C.",
+            "notes": "Used for Netherfield rename and current lower-division status context."
+          }
+        ]
+      },
+      "history": {
+        "nameHistory": [],
+        "lifecycleEvents": [
+          {
+            "type": "renamed",
+            "season": 1998,
+            "label": "Netherfield was renamed Netherfield Kendal.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Kendal_Town_F.C.",
+                "notes": "Used for Netherfield rename and current lower-division status context."
+              }
+            ]
+          },
+          {
+            "type": "renamed",
+            "season": 2000,
+            "label": "Netherfield Kendal adopted the Kendal Town name.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Kendal_Town_F.C.",
+                "notes": "Used for Netherfield rename and current lower-division status context."
+              }
+            ]
+          }
+        ],
+        "trackedMembership": [
+          {
+            "fromSeason": 1979,
+            "toSeason": 1982,
+            "tiers": [
+              "tier6"
+            ],
+            "basis": "observed"
+          }
+        ],
+        "absenceExplanations": []
+      },
+      "derived": {
+        "source": "football-data-output",
+        "aliases": [
+          "Netherfield"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Kendal_Town_F.C.",
+            "notes": "Used for Netherfield rename and current lower-division status context."
+          }
+        ],
+        "observedNames": [
+          {
+            "rawName": "Netherfield",
+            "normalizedName": "netherfield",
+            "firstSeenSeason": 1979,
+            "lastSeenSeason": 1982,
+            "seasonsSeen": [
+              1979,
+              1980,
+              1981,
+              1982
+            ],
+            "tiersSeen": [
+              "tier6"
+            ]
+          }
+        ],
+        "observedNamePeriods": [
+          {
+            "name": "Netherfield",
+            "startSeason": 1979,
+            "endSeason": 1982
+          }
+        ],
+        "firstSeenSeason": 1979,
+        "lastSeenSeason": 1982,
+        "seasonsSeen": [
+          1979,
+          1980,
+          1981,
+          1982
+        ],
+        "totalSeasonsSeen": 4,
+        "tiersSeen": [
+          "tier6"
+        ],
+        "tierSeasons": [
+          {
+            "tierKey": "tier6",
+            "seasons": [
+              1979,
+              1980,
+              1981,
+              1982
+            ]
+          }
+        ]
+      }
+    },
     "kettering town": {
       "clubId": "kettering-town",
       "canonicalName": "Kettering Town",
@@ -53694,12 +53813,19 @@
       "clubId": "minehead",
       "canonicalName": "Minehead",
       "status": {
-        "current": "unknown",
+        "current": "active",
         "trackedFromSeason": 1979,
         "trackedToSeason": 1981,
         "hasUnexplainedGaps": false,
-        "reason": "manual-review-required",
-        "reasonLabel": "Last observed before the latest supported season with no reviewed lifecycle or below-coverage status rule."
+        "reason": "not-in-tracked-leagues",
+        "reasonLabel": "Wikipedia lists the club in Somerset County League Division One, below current tracked coverage.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Minehead_A.F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
@@ -53720,6 +53846,13 @@
         "source": "football-data-output",
         "aliases": [
           "Minehead"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Minehead_A.F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
+          }
         ],
         "observedNames": [
           {
@@ -53771,12 +53904,19 @@
       "clubId": "molesey",
       "canonicalName": "Molesey",
       "status": {
-        "current": "unknown",
+        "current": "active",
         "trackedFromSeason": 1993,
         "trackedToSeason": 1995,
         "hasUnexplainedGaps": false,
-        "reason": "manual-review-required",
-        "reasonLabel": "Last observed before the latest supported season with no reviewed lifecycle or below-coverage status rule."
+        "reason": "not-in-tracked-leagues",
+        "reasonLabel": "Wikipedia lists the club in Combined Counties League Division One, below current tracked coverage.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Molesey_F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
@@ -53797,6 +53937,13 @@
         "source": "football-data-output",
         "aliases": [
           "Molesey"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Molesey_F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
+          }
         ],
         "observedNames": [
           {
@@ -54255,12 +54402,19 @@
       "clubId": "mossley",
       "canonicalName": "Mossley",
       "status": {
-        "current": "unknown",
+        "current": "active",
         "trackedFromSeason": 1979,
         "trackedToSeason": 1992,
         "hasUnexplainedGaps": false,
-        "reason": "manual-review-required",
-        "reasonLabel": "Last observed before the latest supported season with no reviewed lifecycle or below-coverage status rule."
+        "reason": "not-in-tracked-leagues",
+        "reasonLabel": "Wikipedia lists the club in the Northern Premier League Division One West, below current tracked coverage.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Mossley_A.F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
@@ -54281,6 +54435,13 @@
         "source": "football-data-output",
         "aliases": [
           "Mossley"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Mossley_A.F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
+          }
         ],
         "observedNames": [
           {
@@ -54561,86 +54722,6 @@
               1928,
               1929,
               1930
-            ]
-          }
-        ]
-      }
-    },
-    "netherfield": {
-      "clubId": "netherfield",
-      "canonicalName": "Netherfield",
-      "status": {
-        "current": "unknown",
-        "trackedFromSeason": 1979,
-        "trackedToSeason": 1982,
-        "hasUnexplainedGaps": false,
-        "reason": "manual-review-required",
-        "reasonLabel": "Last observed before the latest supported season with no reviewed lifecycle or below-coverage status rule."
-      },
-      "history": {
-        "nameHistory": [],
-        "lifecycleEvents": [],
-        "trackedMembership": [
-          {
-            "fromSeason": 1979,
-            "toSeason": 1982,
-            "tiers": [
-              "tier6"
-            ],
-            "basis": "observed"
-          }
-        ],
-        "absenceExplanations": []
-      },
-      "derived": {
-        "source": "football-data-output",
-        "aliases": [
-          "Netherfield"
-        ],
-        "observedNames": [
-          {
-            "rawName": "Netherfield",
-            "normalizedName": "netherfield",
-            "firstSeenSeason": 1979,
-            "lastSeenSeason": 1982,
-            "seasonsSeen": [
-              1979,
-              1980,
-              1981,
-              1982
-            ],
-            "tiersSeen": [
-              "tier6"
-            ]
-          }
-        ],
-        "observedNamePeriods": [
-          {
-            "name": "Netherfield",
-            "startSeason": 1979,
-            "endSeason": 1982
-          }
-        ],
-        "firstSeenSeason": 1979,
-        "lastSeenSeason": 1982,
-        "seasonsSeen": [
-          1979,
-          1980,
-          1981,
-          1982
-        ],
-        "totalSeasonsSeen": 4,
-        "tiersSeen": [
-          "tier6"
-        ],
-        "tierSeasons": [
-          {
-            "tierKey": "tier6",
-            "seasons": [
-              1979,
-              1980,
-              1981,
-              1982
             ]
           }
         ]
@@ -55452,80 +55533,6 @@
         ]
       }
     },
-    "newport": {
-      "clubId": "newport",
-      "canonicalName": "Newport",
-      "status": {
-        "current": "unknown",
-        "trackedFromSeason": 1995,
-        "trackedToSeason": 1996,
-        "hasUnexplainedGaps": false,
-        "reason": "manual-review-required",
-        "reasonLabel": "Last observed before the latest supported season with no reviewed lifecycle or below-coverage status rule."
-      },
-      "history": {
-        "nameHistory": [],
-        "lifecycleEvents": [],
-        "trackedMembership": [
-          {
-            "fromSeason": 1995,
-            "toSeason": 1996,
-            "tiers": [
-              "tier6"
-            ],
-            "basis": "observed"
-          }
-        ],
-        "absenceExplanations": []
-      },
-      "derived": {
-        "source": "football-data-output",
-        "aliases": [
-          "Newport"
-        ],
-        "observedNames": [
-          {
-            "rawName": "Newport",
-            "normalizedName": "newport",
-            "firstSeenSeason": 1995,
-            "lastSeenSeason": 1996,
-            "seasonsSeen": [
-              1995,
-              1996
-            ],
-            "tiersSeen": [
-              "tier6"
-            ]
-          }
-        ],
-        "observedNamePeriods": [
-          {
-            "name": "Newport",
-            "startSeason": 1995,
-            "endSeason": 1996
-          }
-        ],
-        "firstSeenSeason": 1995,
-        "lastSeenSeason": 1996,
-        "seasonsSeen": [
-          1995,
-          1996
-        ],
-        "totalSeasonsSeen": 2,
-        "tiersSeen": [
-          "tier6"
-        ],
-        "tierSeasons": [
-          {
-            "tierKey": "tier6",
-            "seasons": [
-              1995,
-              1996
-            ]
-          }
-        ]
-      }
-    },
     "newport county": {
       "clubId": "newport-county",
       "canonicalName": "Newport County",
@@ -55561,6 +55568,14 @@
             "basis": "observed"
           },
           {
+            "fromSeason": 1995,
+            "toSeason": 1996,
+            "tiers": [
+              "tier6"
+            ],
+            "basis": "observed"
+          },
+          {
             "fromSeason": 1999,
             "toSeason": null,
             "tiers": [
@@ -55576,6 +55591,7 @@
       "derived": {
         "source": "football-data-output",
         "aliases": [
+          "Newport",
           "Newport County"
         ],
         "identitySources": [
@@ -55642,6 +55658,19 @@
               "tier5",
               "tier6"
             ]
+          },
+          {
+            "rawName": "Newport",
+            "normalizedName": "newport",
+            "firstSeenSeason": 1995,
+            "lastSeenSeason": 1996,
+            "seasonsSeen": [
+              1995,
+              1996
+            ],
+            "tiersSeen": [
+              "tier6"
+            ]
           }
         ],
         "observedNamePeriods": [
@@ -55649,6 +55678,11 @@
             "name": "Newport County",
             "startSeason": 1988,
             "endSeason": 1988
+          },
+          {
+            "name": "Newport",
+            "startSeason": 1995,
+            "endSeason": 1996
           },
           {
             "name": "Newport County",
@@ -55660,6 +55694,8 @@
         "lastSeenSeason": 2025,
         "seasonsSeen": [
           1988,
+          1995,
+          1996,
           1999,
           2000,
           2001,
@@ -55688,7 +55724,7 @@
           2024,
           2025
         ],
-        "totalSeasonsSeen": 28,
+        "totalSeasonsSeen": 30,
         "tiersSeen": [
           "tier4",
           "tier5",
@@ -55725,6 +55761,8 @@
           {
             "tierKey": "tier6",
             "seasons": [
+              1995,
+              1996,
               1999,
               2000,
               2001,
@@ -55742,8 +55780,13 @@
         "coverageGaps": [
           {
             "startSeason": 1989,
+            "endSeason": 1994,
+            "length": 6
+          },
+          {
+            "startSeason": 1997,
             "endSeason": 1998,
-            "length": 10
+            "length": 2
           }
         ]
       }
@@ -56148,12 +56191,19 @@
       "clubId": "newport-isle-of-wight",
       "canonicalName": "Newport (Isle of Wight)",
       "status": {
-        "current": "unknown",
+        "current": "active",
         "trackedFromSeason": 2001,
         "trackedToSeason": 2001,
         "hasUnexplainedGaps": false,
-        "reason": "manual-review-required",
-        "reasonLabel": "Last observed before the latest supported season with no reviewed lifecycle or below-coverage status rule."
+        "reason": "not-in-tracked-leagues",
+        "reasonLabel": "Wikipedia lists Newport (Isle of Wight) in Wessex League Division One, below current tracked coverage.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Newport_(IOW)_F.C.",
+            "notes": "Used for Newport Isle of Wight Southern League history and current lower-division status context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
@@ -56174,6 +56224,13 @@
         "source": "football-data-output",
         "aliases": [
           "Newport (Isle of Wight)"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Newport_(IOW)_F.C.",
+            "notes": "Used for Newport Isle of Wight Southern League history and current lower-division status context."
+          }
         ],
         "observedNames": [
           {
@@ -56996,12 +57053,19 @@
       "clubId": "northwood",
       "canonicalName": "Northwood",
       "status": {
-        "current": "unknown",
+        "current": "active",
         "trackedFromSeason": 2003,
         "trackedToSeason": 2003,
         "hasUnexplainedGaps": false,
-        "reason": "manual-review-required",
-        "reasonLabel": "Last observed before the latest supported season with no reviewed lifecycle or below-coverage status rule."
+        "reason": "not-in-tracked-leagues",
+        "reasonLabel": "Wikipedia lists the club in Combined Counties League Premier Division North, below current tracked coverage.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Northwood_F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
@@ -57022,6 +57086,13 @@
         "source": "football-data-output",
         "aliases": [
           "Northwood"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Northwood_F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
+          }
         ],
         "observedNames": [
           {
@@ -59432,16 +59503,60 @@
       "clubId": "oswestry-town",
       "canonicalName": "Oswestry Town",
       "status": {
-        "current": "unknown",
+        "current": "merged",
         "trackedFromSeason": 1979,
         "trackedToSeason": 1987,
         "hasUnexplainedGaps": false,
-        "reason": "manual-review-required",
-        "reasonLabel": "Last observed before the latest supported season with no reviewed lifecycle or below-coverage status rule."
+        "reason": "merged",
+        "reasonLabel": "Mothballed in 1988, reactivated in 1993, and merged with Total Network Solutions in 2003.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Oswestry_Town_F.C.",
+            "notes": "Used for Oswestry Town abeyance and merger into Total Network Solutions context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
-        "lifecycleEvents": [],
+        "lifecycleEvents": [
+          {
+            "type": "abeyance",
+            "season": 1988,
+            "label": "The club was mothballed after the Victoria Road ground was sold.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Oswestry_Town_F.C.",
+                "notes": "Used for Oswestry Town abeyance and merger into Total Network Solutions context."
+              }
+            ]
+          },
+          {
+            "type": "reactivated",
+            "season": 1993,
+            "label": "Oswestry Town started playing again in the Welsh National League.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Oswestry_Town_F.C.",
+                "notes": "Used for Oswestry Town abeyance and merger into Total Network Solutions context."
+              }
+            ]
+          },
+          {
+            "type": "merged",
+            "season": 2003,
+            "label": "Merged with Total Network Solutions, later renamed The New Saints.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Oswestry_Town_F.C.",
+                "notes": "Used for Oswestry Town abeyance and merger into Total Network Solutions context."
+              }
+            ]
+          }
+        ],
         "trackedMembership": [
           {
             "fromSeason": 1979,
@@ -59458,6 +59573,13 @@
         "source": "football-data-output",
         "aliases": [
           "Oswestry Town"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Oswestry_Town_F.C.",
+            "notes": "Used for Oswestry Town abeyance and merger into Total Network Solutions context."
+          }
         ],
         "observedNames": [
           {
@@ -62383,101 +62505,6 @@
         ]
       }
     },
-    "purfleet": {
-      "clubId": "purfleet",
-      "canonicalName": "Purfleet",
-      "status": {
-        "current": "unknown",
-        "trackedFromSeason": 1994,
-        "trackedToSeason": 2002,
-        "hasUnexplainedGaps": false,
-        "reason": "manual-review-required",
-        "reasonLabel": "Last observed before the latest supported season with no reviewed lifecycle or below-coverage status rule."
-      },
-      "history": {
-        "nameHistory": [],
-        "lifecycleEvents": [],
-        "trackedMembership": [
-          {
-            "fromSeason": 1994,
-            "toSeason": 2002,
-            "tiers": [
-              "tier6"
-            ],
-            "basis": "observed"
-          }
-        ],
-        "absenceExplanations": []
-      },
-      "derived": {
-        "source": "football-data-output",
-        "aliases": [
-          "Purfleet"
-        ],
-        "observedNames": [
-          {
-            "rawName": "Purfleet",
-            "normalizedName": "purfleet",
-            "firstSeenSeason": 1994,
-            "lastSeenSeason": 2002,
-            "seasonsSeen": [
-              1994,
-              1995,
-              1996,
-              1997,
-              1998,
-              1999,
-              2000,
-              2001,
-              2002
-            ],
-            "tiersSeen": [
-              "tier6"
-            ]
-          }
-        ],
-        "observedNamePeriods": [
-          {
-            "name": "Purfleet",
-            "startSeason": 1994,
-            "endSeason": 2002
-          }
-        ],
-        "firstSeenSeason": 1994,
-        "lastSeenSeason": 2002,
-        "seasonsSeen": [
-          1994,
-          1995,
-          1996,
-          1997,
-          1998,
-          1999,
-          2000,
-          2001,
-          2002
-        ],
-        "totalSeasonsSeen": 9,
-        "tiersSeen": [
-          "tier6"
-        ],
-        "tierSeasons": [
-          {
-            "tierKey": "tier6",
-            "seasons": [
-              1994,
-              1995,
-              1996,
-              1997,
-              1998,
-              1999,
-              2000,
-              2001,
-              2002
-            ]
-          }
-        ]
-      }
-    },
     "queens park rangers": {
       "clubId": "queens-park-rangers",
       "canonicalName": "Queens Park Rangers",
@@ -62889,87 +62916,47 @@
       "canonicalName": "Radcliffe",
       "status": {
         "current": "active",
-        "trackedFromSeason": 2024,
+        "trackedFromSeason": 1997,
         "trackedToSeason": null,
-        "hasUnexplainedGaps": false
-      },
-      "history": {
-        "nameHistory": [],
-        "lifecycleEvents": [],
-        "trackedMembership": [
+        "hasUnexplainedGaps": false,
+        "reason": "possibly-missing-from-current-data",
+        "reasonLabel": "Wikipedia lists the club in National League North, a level 6 league inside tracked but sparse coverage.",
+        "sourceRefs": [
           {
-            "fromSeason": 2024,
-            "toSeason": null,
-            "tiers": [
-              "tier6"
-            ],
-            "basis": "observed"
-          }
-        ],
-        "absenceExplanations": []
-      },
-      "derived": {
-        "source": "football-data-output",
-        "aliases": [
-          "Radcliffe"
-        ],
-        "observedNames": [
-          {
-            "rawName": "Radcliffe",
-            "normalizedName": "radcliffe",
-            "firstSeenSeason": 2024,
-            "lastSeenSeason": 2025,
-            "seasonsSeen": [
-              2024,
-              2025
-            ],
-            "tiersSeen": [
-              "tier6"
-            ]
-          }
-        ],
-        "observedNamePeriods": [
-          {
-            "name": "Radcliffe",
-            "startSeason": 2024,
-            "endSeason": 2025
-          }
-        ],
-        "firstSeenSeason": 2024,
-        "lastSeenSeason": 2025,
-        "seasonsSeen": [
-          2024,
-          2025
-        ],
-        "totalSeasonsSeen": 2,
-        "tiersSeen": [
-          "tier6"
-        ],
-        "tierSeasons": [
-          {
-            "tierKey": "tier6",
-            "seasons": [
-              2024,
-              2025
-            ]
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Radcliffe_F.C.",
+            "notes": "Used for Radcliffe Borough rename and current National League North status context."
           }
         ]
-      }
-    },
-    "radcliffe borough": {
-      "clubId": "radcliffe-borough",
-      "canonicalName": "Radcliffe Borough",
-      "status": {
-        "current": "unknown",
-        "trackedFromSeason": 1997,
-        "trackedToSeason": 2003,
-        "hasUnexplainedGaps": false,
-        "reason": "manual-review-required",
-        "reasonLabel": "Last observed before the latest supported season with no reviewed lifecycle or below-coverage status rule."
       },
       "history": {
         "nameHistory": [],
-        "lifecycleEvents": [],
+        "lifecycleEvents": [
+          {
+            "type": "renamed",
+            "season": 2018,
+            "label": "Radcliffe Borough officially dropped Borough from the club name.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Radcliffe_F.C.",
+                "notes": "Used for Radcliffe Borough rename and current National League North status context."
+              }
+            ]
+          },
+          {
+            "type": "promoted",
+            "season": 2024,
+            "label": "Won the Northern Premier League Premier Division and earned promotion to National League North.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Radcliffe_F.C.",
+                "notes": "Used for Radcliffe Borough rename and current National League North status context."
+              }
+            ]
+          }
+        ],
         "trackedMembership": [
           {
             "fromSeason": 1997,
@@ -62986,6 +62973,14 @@
               "tier6"
             ],
             "basis": "observed"
+          },
+          {
+            "fromSeason": 2024,
+            "toSeason": null,
+            "tiers": [
+              "tier6"
+            ],
+            "basis": "observed"
           }
         ],
         "absenceExplanations": []
@@ -62993,7 +62988,15 @@
       "derived": {
         "source": "football-data-output",
         "aliases": [
+          "Radcliffe",
           "Radcliffe Borough"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Radcliffe_F.C.",
+            "notes": "Used for Radcliffe Borough rename and current National League North status context."
+          }
         ],
         "observedNames": [
           {
@@ -63004,6 +63007,19 @@
             "seasonsSeen": [
               1997,
               2003
+            ],
+            "tiersSeen": [
+              "tier6"
+            ]
+          },
+          {
+            "rawName": "Radcliffe",
+            "normalizedName": "radcliffe",
+            "firstSeenSeason": 2024,
+            "lastSeenSeason": 2025,
+            "seasonsSeen": [
+              2024,
+              2025
             ],
             "tiersSeen": [
               "tier6"
@@ -63020,15 +63036,22 @@
             "name": "Radcliffe Borough",
             "startSeason": 2003,
             "endSeason": 2003
+          },
+          {
+            "name": "Radcliffe",
+            "startSeason": 2024,
+            "endSeason": 2025
           }
         ],
         "firstSeenSeason": 1997,
-        "lastSeenSeason": 2003,
+        "lastSeenSeason": 2025,
         "seasonsSeen": [
           1997,
-          2003
+          2003,
+          2024,
+          2025
         ],
-        "totalSeasonsSeen": 2,
+        "totalSeasonsSeen": 4,
         "tiersSeen": [
           "tier6"
         ],
@@ -63037,7 +63060,9 @@
             "tierKey": "tier6",
             "seasons": [
               1997,
-              2003
+              2003,
+              2024,
+              2025
             ]
           }
         ],
@@ -63046,6 +63071,11 @@
             "startSeason": 1998,
             "endSeason": 2002,
             "length": 5
+          },
+          {
+            "startSeason": 2004,
+            "endSeason": 2023,
+            "length": 20
           }
         ]
       }
@@ -75870,7 +75900,7 @@
       "canonicalName": "Thurrock",
       "status": {
         "current": "defunct",
-        "trackedFromSeason": 2003,
+        "trackedFromSeason": 1994,
         "trackedToSeason": 2011,
         "hasUnexplainedGaps": false,
         "reason": "dissolved",
@@ -75886,6 +75916,30 @@
       "history": {
         "nameHistory": [],
         "lifecycleEvents": [
+          {
+            "type": "renamed",
+            "season": 1985,
+            "label": "Essex Sports was renamed Purfleet before entering senior football.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Thurrock_F.C.",
+                "notes": "Used for Thurrock resignation and dissolution context."
+              }
+            ]
+          },
+          {
+            "type": "renamed",
+            "season": 2003,
+            "label": "Purfleet adopted the Thurrock name.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Thurrock_F.C.",
+                "notes": "Used for Thurrock resignation and dissolution context."
+              }
+            ]
+          },
           {
             "type": "resigned",
             "season": 2017,
@@ -75915,7 +75969,7 @@
         ],
         "trackedMembership": [
           {
-            "fromSeason": 2003,
+            "fromSeason": 1994,
             "toSeason": 2011,
             "tiers": [
               "tier6"
@@ -75928,6 +75982,7 @@
       "derived": {
         "source": "football-data-output",
         "aliases": [
+          "Purfleet",
           "Thurrock"
         ],
         "identitySources": [
@@ -75938,6 +75993,26 @@
           }
         ],
         "observedNames": [
+          {
+            "rawName": "Purfleet",
+            "normalizedName": "purfleet",
+            "firstSeenSeason": 1994,
+            "lastSeenSeason": 2002,
+            "seasonsSeen": [
+              1994,
+              1995,
+              1996,
+              1997,
+              1998,
+              1999,
+              2000,
+              2001,
+              2002
+            ],
+            "tiersSeen": [
+              "tier6"
+            ]
+          },
           {
             "rawName": "Thurrock",
             "normalizedName": "thurrock",
@@ -75961,14 +76036,28 @@
         ],
         "observedNamePeriods": [
           {
+            "name": "Purfleet",
+            "startSeason": 1994,
+            "endSeason": 2002
+          },
+          {
             "name": "Thurrock",
             "startSeason": 2003,
             "endSeason": 2011
           }
         ],
-        "firstSeenSeason": 2003,
+        "firstSeenSeason": 1994,
         "lastSeenSeason": 2011,
         "seasonsSeen": [
+          1994,
+          1995,
+          1996,
+          1997,
+          1998,
+          1999,
+          2000,
+          2001,
+          2002,
           2003,
           2004,
           2005,
@@ -75979,7 +76068,7 @@
           2010,
           2011
         ],
-        "totalSeasonsSeen": 9,
+        "totalSeasonsSeen": 18,
         "tiersSeen": [
           "tier6"
         ],
@@ -75987,6 +76076,15 @@
           {
             "tierKey": "tier6",
             "seasons": [
+              1994,
+              1995,
+              1996,
+              1997,
+              1998,
+              1999,
+              2000,
+              2001,
+              2002,
               2003,
               2004,
               2005,

@@ -1679,6 +1679,8 @@ describe('buildClubMetadataSeed', () => {
       reason: 'dissolved',
     });
     expect(seed.thurrock.history.lifecycleEvents).toEqual([
+      expect.objectContaining({ type: 'renamed', season: 1985 }),
+      expect.objectContaining({ type: 'renamed', season: 2003 }),
       expect.objectContaining({ type: 'resigned', season: 2017 }),
       expect.objectContaining({ type: 'dissolved', season: 2018 }),
     ]);
