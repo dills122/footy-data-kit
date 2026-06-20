@@ -770,6 +770,194 @@ describe('buildClubMetadataSeed', () => {
     });
   });
 
+  test('applies reviewed manual lower-tier lifecycle corrections', () => {
+    const seed = buildClubMetadataSeed({
+      seasons: {
+        1979: {
+          tier5: {
+            table: [{ team: 'Gravesend & Northfleet' }, { team: 'Telford United' }],
+          },
+        },
+        1987: {
+          tier5: {
+            table: [{ team: 'Fisher Athletic' }],
+          },
+        },
+        1989: {
+          tier5: {
+            table: [{ team: 'Farnborough Town' }],
+          },
+        },
+        1991: {
+          tier5: {
+            table: [{ team: 'Redbridge Forest' }],
+          },
+        },
+        1994: {
+          tier5: {
+            table: [{ team: 'Stevenage Borough' }],
+          },
+        },
+        1996: {
+          tier5: {
+            table: [{ team: 'Hayes' }],
+          },
+        },
+        2004: {
+          tier5: {
+            table: [{ team: 'Canvey Island' }],
+          },
+          tier6: {
+            table: [{ team: 'Moor Green' }, { team: 'Vauxhall Motors' }],
+          },
+        },
+        2005: {
+          tier6: {
+            table: [{ team: 'Hyde United' }, { team: 'Yeading' }],
+          },
+        },
+        2008: {
+          tier6: {
+            table: [{ team: 'Team Bath' }],
+          },
+        },
+        2009: {
+          tier6: {
+            table: [{ team: 'Ilkeston Town' }],
+          },
+        },
+        2010: {
+          tier6: {
+            table: [{ team: 'Farnborough' }, { team: 'Hyde' }, { team: 'Stevenage' }],
+          },
+        },
+        2013: {
+          tier6: {
+            table: [{ team: 'Vauxhall Motors' }],
+          },
+        },
+        2016: {
+          tier6: {
+            table: [{ team: 'Worcester City' }],
+          },
+        },
+        2025: {
+          tier5: {
+            table: [
+              { team: 'AFC Telford United' },
+              { team: 'Dagenham & Redbridge' },
+              { team: 'Ebbsfleet United' },
+              { team: 'Farnborough' },
+              { team: 'Solihull Moors' },
+              { team: 'Stevenage' },
+            ],
+          },
+          tier6: {
+            table: [{ team: 'Hayes & Yeading United' }],
+          },
+        },
+      },
+    });
+
+    const review = buildClubMetadataReviewReport({ clubs: seed });
+    expect(review.issues.filter((issue) => issue.type === 'manual-status-review')).toEqual([]);
+
+    expect(seed['ebbsfleet united'].derived.aliases).toEqual([
+      'Ebbsfleet United',
+      'Gravesend & Northfleet',
+    ]);
+    expect(seed['ebbsfleet united'].history.lifecycleEvents).toEqual([
+      expect.objectContaining({ type: 'renamed', season: 2007 }),
+    ]);
+    expect(seed.stevenage.derived.aliases).toEqual(['Stevenage', 'Stevenage Borough']);
+    expect(seed['hyde united'].derived.aliases).toEqual(['Hyde', 'Hyde United']);
+    expect(seed['hyde united'].history.lifecycleEvents).toEqual([
+      expect.objectContaining({ type: 'renamed', season: 2010 }),
+      expect.objectContaining({ type: 'renamed', season: 2015 }),
+    ]);
+
+    expect(seed['canvey island'].status).toMatchObject({
+      current: 'active',
+      reason: 'not-in-tracked-leagues',
+    });
+    expect(seed['farnborough town'].status).toMatchObject({
+      current: 'historical',
+      reason: 'successor-active',
+    });
+    expect(seed['fisher athletic'].status).toMatchObject({
+      current: 'defunct',
+      reason: 'folded',
+    });
+    expect(seed.hayes.status).toMatchObject({ current: 'merged', reason: 'merged' });
+    expect(seed.yeading.status).toMatchObject({ current: 'merged', reason: 'merged' });
+    expect(seed['ilkeston town'].status).toMatchObject({
+      current: 'defunct',
+      reason: 'liquidated',
+    });
+    expect(seed['moor green'].status).toMatchObject({ current: 'merged', reason: 'merged' });
+    expect(seed['redbridge forest'].status).toMatchObject({
+      current: 'merged',
+      reason: 'merged',
+    });
+    expect(seed['team bath'].status).toMatchObject({
+      current: 'defunct',
+      reason: 'dissolved',
+    });
+    expect(seed['telford united'].status).toMatchObject({
+      current: 'defunct',
+      reason: 'folded',
+    });
+    expect(seed['vauxhall motors'].status).toMatchObject({
+      current: 'active',
+      reason: 'not-in-tracked-leagues',
+    });
+    expect(seed['worcester city'].status).toMatchObject({
+      current: 'active',
+      reason: 'possibly-missing-from-current-data',
+    });
+
+    expect(seed['farnborough town'].derived.relationships).toEqual([
+      expect.objectContaining({
+        clubKey: 'farnborough',
+        relationship: 'successor',
+        direction: 'successor',
+        season: 2007,
+      }),
+    ]);
+    expect(seed.hayes.derived.relationships).toEqual([
+      expect.objectContaining({
+        clubKey: 'hayes and yeading united',
+        relationship: 'merger',
+        direction: 'mergedInto',
+        season: 2007,
+      }),
+    ]);
+    expect(seed['moor green'].derived.relationships).toEqual([
+      expect.objectContaining({
+        clubKey: 'solihull moors',
+        relationship: 'merger',
+        direction: 'mergedInto',
+        season: 2007,
+      }),
+    ]);
+    expect(seed['redbridge forest'].derived.relationships).toEqual([
+      expect.objectContaining({
+        clubKey: 'dagenham and redbridge',
+        relationship: 'merger',
+        direction: 'mergedInto',
+        season: 1992,
+      }),
+    ]);
+    expect(seed['telford united'].derived.relationships).toEqual([
+      expect.objectContaining({
+        clubKey: 'afc telford united',
+        relationship: 'phoenix',
+        direction: 'successor',
+        season: 2004,
+      }),
+    ]);
+  });
+
   test('adds official pause explanations for wartime observed coverage gaps', () => {
     const seed = buildClubMetadataSeed({
       seasons: {

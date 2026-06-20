@@ -2,8 +2,8 @@
   "metadata": {
     "schemaVersion": 1,
     "generator": "club-metadata-seed",
-    "generatedAt": "2026-06-19T23:50:44.774Z",
-    "gitSha": "e3a2e07",
+    "generatedAt": "2026-06-20T00:15:18.533Z",
+    "gitSha": "1fbdd24",
     "sourceFiles": [
       "/Users/dsteele/repos/footy-data-kit/data-output/all-seasons.json"
     ],
@@ -1344,6 +1344,19 @@
         "nameHistory": [],
         "lifecycleEvents": [
           {
+            "type": "successorFormed",
+            "season": 2004,
+            "date": "2004-05-27",
+            "label": "Formed after the original Telford United folded.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/AFC_Telford_United",
+                "notes": "Used for AFC Telford United formation after Telford United folded."
+              }
+            ]
+          },
+          {
             "type": "relegated-outside-tracked-coverage",
             "season": 2022,
             "description": "Relegation to the Southern League Premier Division Central",
@@ -1397,6 +1410,29 @@
         "source": "football-data-output",
         "aliases": [
           "AFC Telford United"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/AFC_Telford_United",
+            "notes": "Used for AFC Telford United formation after Telford United folded."
+          }
+        ],
+        "relationships": [
+          {
+            "clubKey": "telford united",
+            "relationship": "phoenix",
+            "direction": "predecessor",
+            "season": 2004,
+            "label": "AFC Telford United was formed after Telford United was wound up.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/AFC_Telford_United",
+                "notes": "Used for AFC Telford United formation after Telford United folded."
+              }
+            ]
+          }
         ],
         "observedNames": [
           {
@@ -15010,12 +15046,19 @@
       "clubId": "canvey-island",
       "canonicalName": "Canvey Island",
       "status": {
-        "current": "unknown",
+        "current": "active",
         "trackedFromSeason": 2004,
         "trackedToSeason": 2005,
         "hasUnexplainedGaps": false,
-        "reason": "manual-review-required",
-        "reasonLabel": "Last observed before the latest supported season with no reviewed lifecycle or below-coverage status rule."
+        "reason": "not-in-tracked-leagues",
+        "reasonLabel": "Wikipedia lists the club in the Isthmian League North Division, below current tracked coverage.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Canvey_Island_F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
@@ -15036,6 +15079,13 @@
         "source": "football-data-output",
         "aliases": [
           "Canvey Island"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Canvey_Island_F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
+          }
         ],
         "observedNames": [
           {
@@ -21110,6 +21160,27 @@
         "aliases": [
           "Dagenham & Redbridge"
         ],
+        "relationships": [
+          {
+            "clubKey": "redbridge forest",
+            "relationship": "merger",
+            "direction": "formedFrom",
+            "season": 1992,
+            "label": "Redbridge Forest merged with Dagenham to form Dagenham & Redbridge.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Dagenham_%26_Redbridge_F.C.",
+                "notes": "Used for Dagenham & Redbridge formation from Dagenham and Redbridge Forest."
+              },
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Redbridge_Forest_F.C.",
+                "notes": "Used for Redbridge Forest merger into Dagenham & Redbridge."
+              }
+            ]
+          }
+        ],
         "observedNames": [
           {
             "rawName": "Dagenham & Redbridge",
@@ -24440,16 +24511,49 @@
       "canonicalName": "Ebbsfleet United",
       "status": {
         "current": "active",
-        "trackedFromSeason": 2007,
+        "trackedFromSeason": 1979,
         "trackedToSeason": null,
         "hasUnexplainedGaps": false
       },
       "history": {
         "nameHistory": [],
-        "lifecycleEvents": [],
+        "lifecycleEvents": [
+          {
+            "type": "relegated-outside-tracked-coverage",
+            "season": 1981,
+            "description": "Relegation to the Southern League Premier Division",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-season-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/1981–82_Alliance_Premier_League",
+                "notes": "Alliance Premier League table in 1981–82_Alliance_Premier_League"
+              }
+            ]
+          },
+          {
+            "type": "renamed",
+            "season": 2007,
+            "label": "Gravesend & Northfleet changed name to Ebbsfleet United in 2007.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Ebbsfleet_United_F.C.",
+                "notes": "Used for Gravesend & Northfleet name change to Ebbsfleet United."
+              }
+            ]
+          }
+        ],
         "trackedMembership": [
           {
-            "fromSeason": 2007,
+            "fromSeason": 1979,
+            "toSeason": 1981,
+            "tiers": [
+              "tier5"
+            ],
+            "basis": "observed"
+          },
+          {
+            "fromSeason": 2002,
             "toSeason": null,
             "tiers": [
               "tier5",
@@ -24458,14 +24562,57 @@
             "basis": "observed"
           }
         ],
-        "absenceExplanations": []
+        "absenceExplanations": [
+          {
+            "fromSeason": 1982,
+            "toSeason": 2001,
+            "reason": "outside-tracked-coverage",
+            "linkedEventType": "relegated-outside-tracked-coverage",
+            "basis": "table-note",
+            "notes": "Relegation to the Southern League Premier Division",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-season-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/1981–82_Alliance_Premier_League",
+                "notes": "Alliance Premier League table in 1981–82_Alliance_Premier_League"
+              }
+            ]
+          }
+        ]
       },
       "derived": {
         "source": "football-data-output",
         "aliases": [
-          "Ebbsfleet United"
+          "Ebbsfleet United",
+          "Gravesend & Northfleet"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Ebbsfleet_United_F.C.",
+            "notes": "Used for Gravesend & Northfleet name change to Ebbsfleet United."
+          }
         ],
         "observedNames": [
+          {
+            "rawName": "Gravesend & Northfleet",
+            "normalizedName": "gravesend and northfleet",
+            "firstSeenSeason": 1979,
+            "lastSeenSeason": 2006,
+            "seasonsSeen": [
+              1979,
+              1980,
+              1981,
+              2002,
+              2003,
+              2004,
+              2005,
+              2006
+            ],
+            "tiersSeen": [
+              "tier5"
+            ]
+          },
           {
             "rawName": "Ebbsfleet United",
             "normalizedName": "ebbsfleet united",
@@ -24500,14 +24647,32 @@
         ],
         "observedNamePeriods": [
           {
+            "name": "Gravesend & Northfleet",
+            "startSeason": 1979,
+            "endSeason": 1981
+          },
+          {
+            "name": "Gravesend & Northfleet",
+            "startSeason": 2002,
+            "endSeason": 2006
+          },
+          {
             "name": "Ebbsfleet United",
             "startSeason": 2007,
             "endSeason": 2025
           }
         ],
-        "firstSeenSeason": 2007,
+        "firstSeenSeason": 1979,
         "lastSeenSeason": 2025,
         "seasonsSeen": [
+          1979,
+          1980,
+          1981,
+          2002,
+          2003,
+          2004,
+          2005,
+          2006,
           2007,
           2008,
           2009,
@@ -24528,7 +24693,7 @@
           2024,
           2025
         ],
-        "totalSeasonsSeen": 19,
+        "totalSeasonsSeen": 27,
         "tiersSeen": [
           "tier5",
           "tier6"
@@ -24537,6 +24702,14 @@
           {
             "tierKey": "tier5",
             "seasons": [
+              1979,
+              1980,
+              1981,
+              2002,
+              2003,
+              2004,
+              2005,
+              2006,
               2007,
               2008,
               2009,
@@ -24562,6 +24735,13 @@
               2022,
               2025
             ]
+          }
+        ],
+        "coverageGaps": [
+          {
+            "startSeason": 1982,
+            "endSeason": 2001,
+            "length": 20
           }
         ]
       }
@@ -25719,6 +25899,22 @@
         "aliases": [
           "Farnborough"
         ],
+        "relationships": [
+          {
+            "clubKey": "farnborough town",
+            "relationship": "successor",
+            "direction": "predecessor",
+            "season": 2007,
+            "label": "Farnborough Football Club continued after Farnborough Town entered administration and was expelled from the Football Conference.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Farnborough_F.C.",
+                "notes": "Used for current Farnborough continuation after Farnborough Town."
+              }
+            ]
+          }
+        ],
         "observedNames": [
           {
             "rawName": "Farnborough",
@@ -25799,12 +25995,19 @@
       "clubId": "farnborough-town",
       "canonicalName": "Farnborough Town",
       "status": {
-        "current": "unknown",
+        "current": "historical",
         "trackedFromSeason": 1989,
         "trackedToSeason": 2006,
         "hasUnexplainedGaps": false,
-        "reason": "manual-review-required",
-        "reasonLabel": "Last observed before the latest supported season with no reviewed lifecycle or below-coverage status rule."
+        "reason": "successor-active",
+        "reasonLabel": "Farnborough Town entered administration, was expelled from the Football Conference, and reformed as Farnborough Football Club.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Farnborough_F.C.",
+            "notes": "Used for Farnborough Town administration/name-continuation and current Farnborough context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
@@ -25842,6 +26045,42 @@
                 "type": "wikipedia-season-page",
                 "sourceUrl": "https://en.wikipedia.org/wiki/1998–99_Football_Conference",
                 "notes": "Football Conference table in 1998–99_Football_Conference"
+              }
+            ]
+          },
+          {
+            "type": "administration",
+            "season": 2006,
+            "label": "Went into administration during the 2006-07 season.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Farnborough_F.C.",
+                "notes": "Used for Farnborough Town administration/name-continuation and current Farnborough context."
+              }
+            ]
+          },
+          {
+            "type": "expelled",
+            "season": 2006,
+            "label": "Expelled from the Football Conference in May 2007.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Farnborough_F.C.",
+                "notes": "Used for Farnborough Town administration/name-continuation and current Farnborough context."
+              }
+            ]
+          },
+          {
+            "type": "reformed",
+            "season": 2007,
+            "label": "Reformed as Farnborough Football Club.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Farnborough_F.C.",
+                "notes": "Used for Farnborough Town administration/name-continuation and current Farnborough context."
               }
             ]
           }
@@ -25933,6 +26172,29 @@
         "source": "football-data-output",
         "aliases": [
           "Farnborough Town"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Farnborough_F.C.",
+            "notes": "Used for Farnborough Town administration/name-continuation and current Farnborough context."
+          }
+        ],
+        "relationships": [
+          {
+            "clubKey": "farnborough",
+            "relationship": "successor",
+            "direction": "successor",
+            "season": 2007,
+            "label": "Farnborough Football Club continued after Farnborough Town entered administration and was expelled from the Football Conference.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Farnborough_F.C.",
+                "notes": "Used for current Farnborough continuation after Farnborough Town."
+              }
+            ]
+          }
         ],
         "observedNames": [
           {
@@ -26479,12 +26741,19 @@
       "clubId": "fisher-athletic",
       "canonicalName": "Fisher Athletic",
       "status": {
-        "current": "unknown",
+        "current": "defunct",
         "trackedFromSeason": 1987,
         "trackedToSeason": 2008,
         "hasUnexplainedGaps": false,
-        "reason": "manual-review-required",
-        "reasonLabel": "Last observed before the latest supported season with no reviewed lifecycle or below-coverage status rule."
+        "reason": "folded",
+        "reasonLabel": "Wound up by the High Court in May 2009; Fisher F.C. was formed soon after.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Fisher_Athletic_F.C.",
+            "notes": "Used for Fisher Athletic winding-up and Fisher F.C. successor context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
@@ -26498,6 +26767,32 @@
                 "type": "wikipedia-season-page",
                 "sourceUrl": "https://en.wikipedia.org/wiki/1990–91_Football_Conference",
                 "notes": "Football Conference table in 1990–91_Football_Conference"
+              }
+            ]
+          },
+          {
+            "type": "folded",
+            "season": 2008,
+            "date": "2009-05-13",
+            "label": "Wound up by the High Court after failing to repay debts.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Fisher_Athletic_F.C.",
+                "notes": "Used for Fisher Athletic winding-up and Fisher F.C. successor context."
+              }
+            ]
+          },
+          {
+            "type": "phoenixFormed",
+            "season": 2009,
+            "date": "2009-05-29",
+            "label": "Fisher F.C. was formed after Fisher Athletic folded.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Fisher_F.C.",
+                "notes": "Used for Fisher F.C. formation after Fisher Athletic folded."
               }
             ]
           }
@@ -26542,6 +26837,34 @@
         "source": "football-data-output",
         "aliases": [
           "Fisher Athletic"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Fisher_Athletic_F.C.",
+            "notes": "Used for Fisher Athletic winding-up and Fisher F.C. successor context."
+          },
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Fisher_F.C.",
+            "notes": "Used for Fisher F.C. formation after Fisher Athletic folded."
+          }
+        ],
+        "relationships": [
+          {
+            "clubKey": "fisher",
+            "relationship": "phoenix",
+            "direction": "successor",
+            "season": 2009,
+            "label": "Fisher F.C. was formed after Fisher Athletic was wound up.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Fisher_F.C.",
+                "notes": "Used for Fisher F.C. formation after Fisher Athletic folded."
+              }
+            ]
+          }
         ],
         "observedNames": [
           {
@@ -29103,147 +29426,6 @@
         ]
       }
     },
-    "gravesend and northfleet": {
-      "clubId": "gravesend-and-northfleet",
-      "canonicalName": "Gravesend & Northfleet",
-      "status": {
-        "current": "unknown",
-        "trackedFromSeason": 1979,
-        "trackedToSeason": 2006,
-        "hasUnexplainedGaps": false,
-        "reason": "manual-review-required",
-        "reasonLabel": "Last observed before the latest supported season with no reviewed lifecycle or below-coverage status rule."
-      },
-      "history": {
-        "nameHistory": [],
-        "lifecycleEvents": [
-          {
-            "type": "relegated-outside-tracked-coverage",
-            "season": 1981,
-            "description": "Relegation to the Southern League Premier Division",
-            "sourceRefs": [
-              {
-                "type": "wikipedia-season-page",
-                "sourceUrl": "https://en.wikipedia.org/wiki/1981–82_Alliance_Premier_League",
-                "notes": "Alliance Premier League table in 1981–82_Alliance_Premier_League"
-              }
-            ]
-          }
-        ],
-        "trackedMembership": [
-          {
-            "fromSeason": 1979,
-            "toSeason": 1981,
-            "tiers": [
-              "tier5"
-            ],
-            "basis": "observed"
-          },
-          {
-            "fromSeason": 2002,
-            "toSeason": 2006,
-            "tiers": [
-              "tier5"
-            ],
-            "basis": "observed"
-          }
-        ],
-        "absenceExplanations": [
-          {
-            "fromSeason": 1982,
-            "toSeason": 2001,
-            "reason": "outside-tracked-coverage",
-            "linkedEventType": "relegated-outside-tracked-coverage",
-            "basis": "table-note",
-            "notes": "Relegation to the Southern League Premier Division",
-            "sourceRefs": [
-              {
-                "type": "wikipedia-season-page",
-                "sourceUrl": "https://en.wikipedia.org/wiki/1981–82_Alliance_Premier_League",
-                "notes": "Alliance Premier League table in 1981–82_Alliance_Premier_League"
-              }
-            ]
-          }
-        ]
-      },
-      "derived": {
-        "source": "football-data-output",
-        "aliases": [
-          "Gravesend & Northfleet"
-        ],
-        "observedNames": [
-          {
-            "rawName": "Gravesend & Northfleet",
-            "normalizedName": "gravesend and northfleet",
-            "firstSeenSeason": 1979,
-            "lastSeenSeason": 2006,
-            "seasonsSeen": [
-              1979,
-              1980,
-              1981,
-              2002,
-              2003,
-              2004,
-              2005,
-              2006
-            ],
-            "tiersSeen": [
-              "tier5"
-            ]
-          }
-        ],
-        "observedNamePeriods": [
-          {
-            "name": "Gravesend & Northfleet",
-            "startSeason": 1979,
-            "endSeason": 1981
-          },
-          {
-            "name": "Gravesend & Northfleet",
-            "startSeason": 2002,
-            "endSeason": 2006
-          }
-        ],
-        "firstSeenSeason": 1979,
-        "lastSeenSeason": 2006,
-        "seasonsSeen": [
-          1979,
-          1980,
-          1981,
-          2002,
-          2003,
-          2004,
-          2005,
-          2006
-        ],
-        "totalSeasonsSeen": 8,
-        "tiersSeen": [
-          "tier5"
-        ],
-        "tierSeasons": [
-          {
-            "tierKey": "tier5",
-            "seasons": [
-              1979,
-              1980,
-              1981,
-              2002,
-              2003,
-              2004,
-              2005,
-              2006
-            ]
-          }
-        ],
-        "coverageGaps": [
-          {
-            "startSeason": 1982,
-            "endSeason": 2001,
-            "length": 20
-          }
-        ]
-      }
-    },
     "grays athletic": {
       "clubId": "grays-athletic",
       "canonicalName": "Grays Athletic",
@@ -31384,12 +31566,19 @@
       "clubId": "hayes",
       "canonicalName": "Hayes",
       "status": {
-        "current": "unknown",
+        "current": "merged",
         "trackedFromSeason": 1996,
         "trackedToSeason": 2006,
         "hasUnexplainedGaps": false,
-        "reason": "manual-review-required",
-        "reasonLabel": "Last observed before the latest supported season with no reviewed lifecycle or below-coverage status rule."
+        "reason": "merged",
+        "reasonLabel": "Merged with Yeading in 2007 to form Hayes & Yeading United.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Hayes_%26_Yeading_United_F.C.",
+            "notes": "Used for Hayes and Yeading merger into Hayes & Yeading United."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
@@ -31403,6 +31592,19 @@
                 "type": "wikipedia-season-page",
                 "sourceUrl": "https://en.wikipedia.org/wiki/2001–02_Football_Conference",
                 "notes": "Football Conference table in 2001–02_Football_Conference"
+              }
+            ]
+          },
+          {
+            "type": "merged",
+            "season": 2007,
+            "date": "2007-05-18",
+            "label": "Merged with Yeading to form Hayes & Yeading United.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Hayes_%26_Yeading_United_F.C.",
+                "notes": "Used for Hayes and Yeading merger into Hayes & Yeading United."
               }
             ]
           }
@@ -31447,6 +31649,29 @@
         "source": "football-data-output",
         "aliases": [
           "Hayes"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Hayes_%26_Yeading_United_F.C.",
+            "notes": "Used for Hayes and Yeading merger into Hayes & Yeading United."
+          }
+        ],
+        "relationships": [
+          {
+            "clubKey": "hayes and yeading united",
+            "relationship": "merger",
+            "direction": "mergedInto",
+            "season": 2007,
+            "label": "Hayes merged with Yeading to form Hayes & Yeading United.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Hayes_%26_Yeading_United_F.C.",
+                "notes": "Used for Hayes and Yeading merger into Hayes & Yeading United."
+              }
+            ]
+          }
         ],
         "observedNames": [
           {
@@ -31569,6 +31794,36 @@
         "source": "football-data-output",
         "aliases": [
           "Hayes & Yeading United"
+        ],
+        "relationships": [
+          {
+            "clubKey": "hayes",
+            "relationship": "merger",
+            "direction": "formedFrom",
+            "season": 2007,
+            "label": "Hayes merged with Yeading to form Hayes & Yeading United.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Hayes_%26_Yeading_United_F.C.",
+                "notes": "Used for Hayes and Yeading merger into Hayes & Yeading United."
+              }
+            ]
+          },
+          {
+            "clubKey": "yeading",
+            "relationship": "merger",
+            "direction": "formedFrom",
+            "season": 2007,
+            "label": "Yeading merged with Hayes to form Hayes & Yeading United.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Hayes_%26_Yeading_United_F.C.",
+                "notes": "Used for Hayes and Yeading merger into Hayes & Yeading United."
+              }
+            ]
+          }
         ],
         "observedNames": [
           {
@@ -33836,12 +34091,12 @@
         ]
       }
     },
-    "hyde": {
-      "clubId": "hyde",
-      "canonicalName": "Hyde",
+    "hyde united": {
+      "clubId": "hyde-united",
+      "canonicalName": "Hyde United",
       "status": {
         "current": "active",
-        "trackedFromSeason": 2010,
+        "trackedFromSeason": 2005,
         "trackedToSeason": 2014,
         "hasUnexplainedGaps": false,
         "reason": "possibly-missing-from-current-data",
@@ -33856,10 +34111,35 @@
       },
       "history": {
         "nameHistory": [],
-        "lifecycleEvents": [],
+        "lifecycleEvents": [
+          {
+            "type": "renamed",
+            "season": 2010,
+            "label": "Changed name to Hyde F.C. before the 2010-11 season.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Hyde_United_F.C.",
+                "notes": "Used for current lower-division status and tracked coverage context."
+              }
+            ]
+          },
+          {
+            "type": "renamed",
+            "season": 2015,
+            "label": "Changed name back to Hyde United in 2015.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Hyde_United_F.C.",
+                "notes": "Used for current lower-division status and tracked coverage context."
+              }
+            ]
+          }
+        ],
         "trackedMembership": [
           {
-            "fromSeason": 2010,
+            "fromSeason": 2005,
             "toSeason": 2014,
             "tiers": [
               "tier5",
@@ -33873,7 +34153,8 @@
       "derived": {
         "source": "football-data-output",
         "aliases": [
-          "Hyde"
+          "Hyde",
+          "Hyde United"
         ],
         "identitySources": [
           {
@@ -33883,6 +34164,22 @@
           }
         ],
         "observedNames": [
+          {
+            "rawName": "Hyde United",
+            "normalizedName": "hyde united",
+            "firstSeenSeason": 2005,
+            "lastSeenSeason": 2009,
+            "seasonsSeen": [
+              2005,
+              2006,
+              2007,
+              2008,
+              2009
+            ],
+            "tiersSeen": [
+              "tier6"
+            ]
+          },
           {
             "rawName": "Hyde",
             "normalizedName": "hyde",
@@ -33903,21 +34200,31 @@
         ],
         "observedNamePeriods": [
           {
+            "name": "Hyde United",
+            "startSeason": 2005,
+            "endSeason": 2009
+          },
+          {
             "name": "Hyde",
             "startSeason": 2010,
             "endSeason": 2014
           }
         ],
-        "firstSeenSeason": 2010,
+        "firstSeenSeason": 2005,
         "lastSeenSeason": 2014,
         "seasonsSeen": [
+          2005,
+          2006,
+          2007,
+          2008,
+          2009,
           2010,
           2011,
           2012,
           2013,
           2014
         ],
-        "totalSeasonsSeen": 5,
+        "totalSeasonsSeen": 10,
         "tiersSeen": [
           "tier5",
           "tier6"
@@ -33933,92 +34240,14 @@
           {
             "tierKey": "tier6",
             "seasons": [
+              2005,
+              2006,
+              2007,
+              2008,
+              2009,
               2010,
               2011,
               2014
-            ]
-          }
-        ]
-      }
-    },
-    "hyde united": {
-      "clubId": "hyde-united",
-      "canonicalName": "Hyde United",
-      "status": {
-        "current": "unknown",
-        "trackedFromSeason": 2005,
-        "trackedToSeason": 2009,
-        "hasUnexplainedGaps": false,
-        "reason": "manual-review-required",
-        "reasonLabel": "Last observed before the latest supported season with no reviewed lifecycle or below-coverage status rule."
-      },
-      "history": {
-        "nameHistory": [],
-        "lifecycleEvents": [],
-        "trackedMembership": [
-          {
-            "fromSeason": 2005,
-            "toSeason": 2009,
-            "tiers": [
-              "tier6"
-            ],
-            "basis": "observed"
-          }
-        ],
-        "absenceExplanations": []
-      },
-      "derived": {
-        "source": "football-data-output",
-        "aliases": [
-          "Hyde United"
-        ],
-        "observedNames": [
-          {
-            "rawName": "Hyde United",
-            "normalizedName": "hyde united",
-            "firstSeenSeason": 2005,
-            "lastSeenSeason": 2009,
-            "seasonsSeen": [
-              2005,
-              2006,
-              2007,
-              2008,
-              2009
-            ],
-            "tiersSeen": [
-              "tier6"
-            ]
-          }
-        ],
-        "observedNamePeriods": [
-          {
-            "name": "Hyde United",
-            "startSeason": 2005,
-            "endSeason": 2009
-          }
-        ],
-        "firstSeenSeason": 2005,
-        "lastSeenSeason": 2009,
-        "seasonsSeen": [
-          2005,
-          2006,
-          2007,
-          2008,
-          2009
-        ],
-        "totalSeasonsSeen": 5,
-        "tiersSeen": [
-          "tier6"
-        ],
-        "tierSeasons": [
-          {
-            "tierKey": "tier6",
-            "seasons": [
-              2005,
-              2006,
-              2007,
-              2008,
-              2009
             ]
           }
         ]
@@ -34028,16 +34257,61 @@
       "clubId": "ilkeston-town",
       "canonicalName": "Ilkeston Town",
       "status": {
-        "current": "unknown",
+        "current": "defunct",
         "trackedFromSeason": 2009,
         "trackedToSeason": 2010,
         "hasUnexplainedGaps": false,
-        "reason": "manual-review-required",
-        "reasonLabel": "Last observed before the latest supported season with no reviewed lifecycle or below-coverage status rule."
+        "reason": "liquidated",
+        "reasonLabel": "The 1945 Ilkeston Town club was liquidated in 2010; Ilkeston F.C. and the current Ilkeston Town are successor clubs.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Ilkeston_Town_F.C._(1945)",
+            "notes": "Used for 1945 Ilkeston Town liquidation and Ilkeston F.C. successor context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
-        "lifecycleEvents": [],
+        "lifecycleEvents": [
+          {
+            "type": "liquidated",
+            "season": 2010,
+            "date": "2010-09-08",
+            "label": "Liquidated after a winding-up order over unpaid tax.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Ilkeston_Town_F.C._(1945)",
+                "notes": "Used for 1945 Ilkeston Town liquidation and Ilkeston F.C. successor context."
+              }
+            ]
+          },
+          {
+            "type": "successorFormed",
+            "season": 2010,
+            "label": "Ilkeston F.C. was formed as successor club to Ilkeston Town.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Ilkeston_F.C.",
+                "notes": "Used for Ilkeston F.C. formation, winding-up, and current Ilkeston Town successor context."
+              }
+            ]
+          },
+          {
+            "type": "successorFormed",
+            "season": 2017,
+            "label": "The current Ilkeston Town was formed after Ilkeston F.C. folded.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Ilkeston_Town_F.C.",
+                "notes": "Used for current Ilkeston Town formation after Ilkeston F.C. folded."
+              }
+            ]
+          }
+        ],
         "trackedMembership": [
           {
             "fromSeason": 2009,
@@ -34054,6 +34328,53 @@
         "source": "football-data-output",
         "aliases": [
           "Ilkeston Town"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Ilkeston_F.C.",
+            "notes": "Used for Ilkeston F.C. formation, winding-up, and current Ilkeston Town successor context."
+          },
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Ilkeston_Town_F.C.",
+            "notes": "Used for current Ilkeston Town formation after Ilkeston F.C. folded."
+          },
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Ilkeston_Town_F.C._(1945)",
+            "notes": "Used for 1945 Ilkeston Town liquidation and Ilkeston F.C. successor context."
+          }
+        ],
+        "relationships": [
+          {
+            "clubKey": "ilkeston fc",
+            "relationship": "successor",
+            "direction": "successor",
+            "season": 2010,
+            "label": "Ilkeston F.C. was formed as successor club to the liquidated 1945 Ilkeston Town.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Ilkeston_F.C.",
+                "notes": "Used for Ilkeston F.C. formation, winding-up, and current Ilkeston Town successor context."
+              }
+            ]
+          },
+          {
+            "clubKey": "ilkeston town 2017",
+            "relationship": "successor",
+            "direction": "successor",
+            "season": 2017,
+            "label": "The current Ilkeston Town was formed after Ilkeston F.C. folded, continuing the town lineage after the 1945 club.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Ilkeston_Town_F.C.",
+                "notes": "Used for current Ilkeston Town formation after Ilkeston F.C. folded."
+              }
+            ]
+          }
         ],
         "observedNames": [
           {
@@ -43193,16 +43514,37 @@
       "clubId": "moor-green",
       "canonicalName": "Moor Green",
       "status": {
-        "current": "unknown",
+        "current": "merged",
         "trackedFromSeason": 2004,
         "trackedToSeason": 2006,
         "hasUnexplainedGaps": false,
-        "reason": "manual-review-required",
-        "reasonLabel": "Last observed before the latest supported season with no reviewed lifecycle or below-coverage status rule."
+        "reason": "merged",
+        "reasonLabel": "Merged with Solihull Borough in 2007 to form Solihull Moors.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Moor_Green_F.C.",
+            "notes": "Used for Moor Green merger into Solihull Moors."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
-        "lifecycleEvents": [],
+        "lifecycleEvents": [
+          {
+            "type": "merged",
+            "season": 2007,
+            "date": "2007-06-01",
+            "label": "Merged with Solihull Borough to form Solihull Moors.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Moor_Green_F.C.",
+                "notes": "Used for Moor Green merger into Solihull Moors."
+              }
+            ]
+          }
+        ],
         "trackedMembership": [
           {
             "fromSeason": 2004,
@@ -43219,6 +43561,34 @@
         "source": "football-data-output",
         "aliases": [
           "Moor Green"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Moor_Green_F.C.",
+            "notes": "Used for Moor Green merger into Solihull Moors."
+          }
+        ],
+        "relationships": [
+          {
+            "clubKey": "solihull moors",
+            "relationship": "merger",
+            "direction": "mergedInto",
+            "season": 2007,
+            "label": "Moor Green merged with Solihull Borough to form Solihull Moors.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Moor_Green_F.C.",
+                "notes": "Used for Moor Green merger into Solihull Moors."
+              },
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Solihull_Moors_F.C.",
+                "notes": "Used for Solihull Moors formation from Moor Green and Solihull Borough."
+              }
+            ]
+          }
         ],
         "observedNames": [
           {
@@ -51911,16 +52281,36 @@
       "clubId": "redbridge-forest",
       "canonicalName": "Redbridge Forest",
       "status": {
-        "current": "unknown",
+        "current": "merged",
         "trackedFromSeason": 1991,
         "trackedToSeason": 1991,
         "hasUnexplainedGaps": false,
-        "reason": "manual-review-required",
-        "reasonLabel": "Last observed before the latest supported season with no reviewed lifecycle or below-coverage status rule."
+        "reason": "merged",
+        "reasonLabel": "Merged with Dagenham in 1992 to form Dagenham & Redbridge.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Redbridge_Forest_F.C.",
+            "notes": "Used for Redbridge Forest merger into Dagenham & Redbridge."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
-        "lifecycleEvents": [],
+        "lifecycleEvents": [
+          {
+            "type": "merged",
+            "season": 1992,
+            "label": "Merged with Dagenham to form Dagenham & Redbridge.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Redbridge_Forest_F.C.",
+                "notes": "Used for Redbridge Forest merger into Dagenham & Redbridge."
+              }
+            ]
+          }
+        ],
         "trackedMembership": [
           {
             "fromSeason": 1991,
@@ -51937,6 +52327,34 @@
         "source": "football-data-output",
         "aliases": [
           "Redbridge Forest"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Redbridge_Forest_F.C.",
+            "notes": "Used for Redbridge Forest merger into Dagenham & Redbridge."
+          }
+        ],
+        "relationships": [
+          {
+            "clubKey": "dagenham and redbridge",
+            "relationship": "merger",
+            "direction": "mergedInto",
+            "season": 1992,
+            "label": "Redbridge Forest merged with Dagenham to form Dagenham & Redbridge.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Dagenham_%26_Redbridge_F.C.",
+                "notes": "Used for Dagenham & Redbridge formation from Dagenham and Redbridge Forest."
+              },
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Redbridge_Forest_F.C.",
+                "notes": "Used for Redbridge Forest merger into Dagenham & Redbridge."
+              }
+            ]
+          }
         ],
         "observedNames": [
           {
@@ -56337,6 +56755,27 @@
         "aliases": [
           "Solihull Moors"
         ],
+        "relationships": [
+          {
+            "clubKey": "moor green",
+            "relationship": "merger",
+            "direction": "formedFrom",
+            "season": 2007,
+            "label": "Moor Green merged with Solihull Borough to form Solihull Moors.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Moor_Green_F.C.",
+                "notes": "Used for Moor Green merger into Solihull Moors."
+              },
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Solihull_Moors_F.C.",
+                "notes": "Used for Solihull Moors formation from Moor Green and Solihull Borough."
+              }
+            ]
+          }
+        ],
         "observedNames": [
           {
             "rawName": "Solihull Moors",
@@ -58712,20 +59151,34 @@
       "canonicalName": "Stevenage",
       "status": {
         "current": "active",
-        "trackedFromSeason": 2010,
+        "trackedFromSeason": 1994,
         "trackedToSeason": null,
         "hasUnexplainedGaps": false
       },
       "history": {
         "nameHistory": [],
-        "lifecycleEvents": [],
+        "lifecycleEvents": [
+          {
+            "type": "renamed",
+            "season": 2010,
+            "label": "Dropped Borough from the club name after promotion to the Football League.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Stevenage_F.C.",
+                "notes": "Used for Stevenage Borough dropping Borough from the club name in June 2010."
+              }
+            ]
+          }
+        ],
         "trackedMembership": [
           {
-            "fromSeason": 2010,
+            "fromSeason": 1994,
             "toSeason": null,
             "tiers": [
               "tier3",
-              "tier4"
+              "tier4",
+              "tier5"
             ],
             "basis": "observed"
           }
@@ -58735,9 +59188,44 @@
       "derived": {
         "source": "football-data-output",
         "aliases": [
-          "Stevenage"
+          "Stevenage",
+          "Stevenage Borough"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Stevenage_F.C.",
+            "notes": "Used for Stevenage Borough dropping Borough from the club name in June 2010."
+          }
         ],
         "observedNames": [
+          {
+            "rawName": "Stevenage Borough",
+            "normalizedName": "stevenage borough",
+            "firstSeenSeason": 1994,
+            "lastSeenSeason": 2009,
+            "seasonsSeen": [
+              1994,
+              1995,
+              1996,
+              1997,
+              1998,
+              1999,
+              2000,
+              2001,
+              2002,
+              2003,
+              2004,
+              2005,
+              2006,
+              2007,
+              2008,
+              2009
+            ],
+            "tiersSeen": [
+              "tier5"
+            ]
+          },
           {
             "rawName": "Stevenage",
             "normalizedName": "stevenage",
@@ -58769,14 +59257,35 @@
         ],
         "observedNamePeriods": [
           {
+            "name": "Stevenage Borough",
+            "startSeason": 1994,
+            "endSeason": 2009
+          },
+          {
             "name": "Stevenage",
             "startSeason": 2010,
             "endSeason": 2025
           }
         ],
-        "firstSeenSeason": 2010,
+        "firstSeenSeason": 1994,
         "lastSeenSeason": 2025,
         "seasonsSeen": [
+          1994,
+          1995,
+          1996,
+          1997,
+          1998,
+          1999,
+          2000,
+          2001,
+          2002,
+          2003,
+          2004,
+          2005,
+          2006,
+          2007,
+          2008,
+          2009,
           2010,
           2011,
           2012,
@@ -58794,10 +59303,11 @@
           2024,
           2025
         ],
-        "totalSeasonsSeen": 16,
+        "totalSeasonsSeen": 32,
         "tiersSeen": [
           "tier3",
-          "tier4"
+          "tier4",
+          "tier5"
         ],
         "tierSeasons": [
           {
@@ -58825,102 +59335,7 @@
               2021,
               2022
             ]
-          }
-        ]
-      }
-    },
-    "stevenage borough": {
-      "clubId": "stevenage-borough",
-      "canonicalName": "Stevenage Borough",
-      "status": {
-        "current": "unknown",
-        "trackedFromSeason": 1994,
-        "trackedToSeason": 2009,
-        "hasUnexplainedGaps": false,
-        "reason": "manual-review-required",
-        "reasonLabel": "Last observed before the latest supported season with no reviewed lifecycle or below-coverage status rule."
-      },
-      "history": {
-        "nameHistory": [],
-        "lifecycleEvents": [],
-        "trackedMembership": [
-          {
-            "fromSeason": 1994,
-            "toSeason": 2009,
-            "tiers": [
-              "tier5"
-            ],
-            "basis": "observed"
-          }
-        ],
-        "absenceExplanations": []
-      },
-      "derived": {
-        "source": "football-data-output",
-        "aliases": [
-          "Stevenage Borough"
-        ],
-        "observedNames": [
-          {
-            "rawName": "Stevenage Borough",
-            "normalizedName": "stevenage borough",
-            "firstSeenSeason": 1994,
-            "lastSeenSeason": 2009,
-            "seasonsSeen": [
-              1994,
-              1995,
-              1996,
-              1997,
-              1998,
-              1999,
-              2000,
-              2001,
-              2002,
-              2003,
-              2004,
-              2005,
-              2006,
-              2007,
-              2008,
-              2009
-            ],
-            "tiersSeen": [
-              "tier5"
-            ]
-          }
-        ],
-        "observedNamePeriods": [
-          {
-            "name": "Stevenage Borough",
-            "startSeason": 1994,
-            "endSeason": 2009
-          }
-        ],
-        "firstSeenSeason": 1994,
-        "lastSeenSeason": 2009,
-        "seasonsSeen": [
-          1994,
-          1995,
-          1996,
-          1997,
-          1998,
-          1999,
-          2000,
-          2001,
-          2002,
-          2003,
-          2004,
-          2005,
-          2006,
-          2007,
-          2008,
-          2009
-        ],
-        "totalSeasonsSeen": 16,
-        "tiersSeen": [
-          "tier5"
-        ],
-        "tierSeasons": [
+          },
           {
             "tierKey": "tier5",
             "seasons": [
@@ -62051,16 +62466,36 @@
       "clubId": "team-bath",
       "canonicalName": "Team Bath",
       "status": {
-        "current": "unknown",
+        "current": "defunct",
         "trackedFromSeason": 2008,
         "trackedToSeason": 2008,
         "hasUnexplainedGaps": false,
-        "reason": "manual-review-required",
-        "reasonLabel": "Last observed before the latest supported season with no reviewed lifecycle or below-coverage status rule."
+        "reason": "dissolved",
+        "reasonLabel": "Disbanded at the end of the 2008-09 season after being disqualified from further promotion.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Team_Bath_F.C.",
+            "notes": "Used for Team Bath disbanding after promotion eligibility decision."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
-        "lifecycleEvents": [],
+        "lifecycleEvents": [
+          {
+            "type": "dissolved",
+            "season": 2008,
+            "label": "Disbanded at the end of the 2008-09 season.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Team_Bath_F.C.",
+                "notes": "Used for Team Bath disbanding after promotion eligibility decision."
+              }
+            ]
+          }
+        ],
         "trackedMembership": [
           {
             "fromSeason": 2008,
@@ -62077,6 +62512,13 @@
         "source": "football-data-output",
         "aliases": [
           "Team Bath"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Team_Bath_F.C.",
+            "notes": "Used for Team Bath disbanding after promotion eligibility decision."
+          }
         ],
         "observedNames": [
           {
@@ -62122,16 +62564,50 @@
       "clubId": "telford-united",
       "canonicalName": "Telford United",
       "status": {
-        "current": "unknown",
+        "current": "defunct",
         "trackedFromSeason": 1979,
         "trackedToSeason": 2003,
         "hasUnexplainedGaps": false,
-        "reason": "manual-review-required",
-        "reasonLabel": "Last observed before the latest supported season with no reviewed lifecycle or below-coverage status rule."
+        "reason": "folded",
+        "reasonLabel": "Wound up in 2004; AFC Telford United was formed as a successor club.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Telford_United_F.C.",
+            "notes": "Used for Telford United winding-up and AFC Telford United successor context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
-        "lifecycleEvents": [],
+        "lifecycleEvents": [
+          {
+            "type": "folded",
+            "season": 2003,
+            "date": "2004-05-27",
+            "label": "Liquidated after severe financial problems.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Telford_United_F.C.",
+                "notes": "Used for Telford United winding-up and AFC Telford United successor context."
+              }
+            ]
+          },
+          {
+            "type": "successorFormed",
+            "season": 2004,
+            "date": "2004-05-27",
+            "label": "AFC Telford United was formed after Telford United folded.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/AFC_Telford_United",
+                "notes": "Used for AFC Telford United formation after Telford United folded."
+              }
+            ]
+          }
+        ],
         "trackedMembership": [
           {
             "fromSeason": 1979,
@@ -62148,6 +62624,34 @@
         "source": "football-data-output",
         "aliases": [
           "Telford United"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/AFC_Telford_United",
+            "notes": "Used for AFC Telford United formation after Telford United folded."
+          },
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Telford_United_F.C.",
+            "notes": "Used for Telford United winding-up and AFC Telford United successor context."
+          }
+        ],
+        "relationships": [
+          {
+            "clubKey": "afc telford united",
+            "relationship": "phoenix",
+            "direction": "successor",
+            "season": 2004,
+            "label": "AFC Telford United was formed after Telford United was wound up.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/AFC_Telford_United",
+                "notes": "Used for AFC Telford United formation after Telford United folded."
+              }
+            ]
+          }
         ],
         "observedNames": [
           {
@@ -64142,12 +64646,19 @@
       "clubId": "vauxhall-motors",
       "canonicalName": "Vauxhall Motors",
       "status": {
-        "current": "unknown",
+        "current": "active",
         "trackedFromSeason": 2004,
         "trackedToSeason": 2013,
         "hasUnexplainedGaps": false,
-        "reason": "manual-review-required",
-        "reasonLabel": "Last observed before the latest supported season with no reviewed lifecycle or below-coverage status rule."
+        "reason": "not-in-tracked-leagues",
+        "reasonLabel": "Wikipedia lists the club in the Northern Premier League Division One West after resigning from the Football Conference.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Vauxhall_Motors_F.C.",
+            "notes": "Used for current lower-division status after resigning from the Conference."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
@@ -64168,6 +64679,13 @@
         "source": "football-data-output",
         "aliases": [
           "Vauxhall Motors"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Vauxhall_Motors_F.C.",
+            "notes": "Used for current lower-division status after resigning from the Conference."
+          }
         ],
         "observedNames": [
           {
@@ -68635,12 +69153,19 @@
       "clubId": "worcester-city",
       "canonicalName": "Worcester City",
       "status": {
-        "current": "unknown",
+        "current": "active",
         "trackedFromSeason": 1979,
         "trackedToSeason": 2016,
         "hasUnexplainedGaps": false,
-        "reason": "manual-review-required",
-        "reasonLabel": "Last observed before the latest supported season with no reviewed lifecycle or below-coverage status rule."
+        "reason": "possibly-missing-from-current-data",
+        "reasonLabel": "Wikipedia lists the club in the Southern League Premier Division Central, a level 7 league inside tracked but sparse coverage.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Worcester_City_F.C.",
+            "notes": "Used for current lower-division status and tracked coverage context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
@@ -68698,6 +69223,13 @@
         "source": "football-data-output",
         "aliases": [
           "Worcester City"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Worcester_City_F.C.",
+            "notes": "Used for current lower-division status and tracked coverage context."
+          }
         ],
         "observedNames": [
           {
@@ -69942,16 +70474,37 @@
       "clubId": "yeading",
       "canonicalName": "Yeading",
       "status": {
-        "current": "unknown",
+        "current": "merged",
         "trackedFromSeason": 2005,
         "trackedToSeason": 2006,
         "hasUnexplainedGaps": false,
-        "reason": "manual-review-required",
-        "reasonLabel": "Last observed before the latest supported season with no reviewed lifecycle or below-coverage status rule."
+        "reason": "merged",
+        "reasonLabel": "Merged with Hayes in 2007 to form Hayes & Yeading United.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Hayes_%26_Yeading_United_F.C.",
+            "notes": "Used for Hayes and Yeading merger into Hayes & Yeading United."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
-        "lifecycleEvents": [],
+        "lifecycleEvents": [
+          {
+            "type": "merged",
+            "season": 2007,
+            "date": "2007-05-18",
+            "label": "Merged with Hayes to form Hayes & Yeading United.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Hayes_%26_Yeading_United_F.C.",
+                "notes": "Used for Hayes and Yeading merger into Hayes & Yeading United."
+              }
+            ]
+          }
+        ],
         "trackedMembership": [
           {
             "fromSeason": 2005,
@@ -69968,6 +70521,29 @@
         "source": "football-data-output",
         "aliases": [
           "Yeading"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Hayes_%26_Yeading_United_F.C.",
+            "notes": "Used for Hayes and Yeading merger into Hayes & Yeading United."
+          }
+        ],
+        "relationships": [
+          {
+            "clubKey": "hayes and yeading united",
+            "relationship": "merger",
+            "direction": "mergedInto",
+            "season": 2007,
+            "label": "Yeading merged with Hayes to form Hayes & Yeading United.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Hayes_%26_Yeading_United_F.C.",
+                "notes": "Used for Hayes and Yeading merger into Hayes & Yeading United."
+              }
+            ]
+          }
         ],
         "observedNames": [
           {
