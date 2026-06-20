@@ -24,7 +24,7 @@ the checked-in generated output from source pages.
 | Phase 0 | Complete                  | Roadmap and next-work docs now point at the post-v1 baseline and this plan.                                                                                       |
 | Phase 1 | Complete for branch scope | Shared TypeScript contracts exist for Wikipedia tier/config/parser boundaries, with output metadata aligned to those contracts.                                   |
 | Phase 2 | Complete                  | Focused tests lock tier 1-4 boundaries, including 1921/1957 parallel level 3, 1958 true tier 4, 1992 renumbering, 2004 rebrand, and 2019 administrative outcomes. |
-| Phase 3 | Complete for branch scope | Lower-tier competition pages now backfill tier 5 from 1979-2025 and level 6 from 2004-2025; refreshed generated output verifies cleanly.                          |
+| Phase 3 | Complete for branch scope | Lower-tier competition pages now backfill tier 5 and level 6 from 1979-2025; refreshed generated output verifies cleanly.                                         |
 
 Checked-in `data-output/` is intentionally refreshed on this branch after the
 parser/config/test gates and lower-tier dry runs proved the backfill path.
@@ -136,7 +136,7 @@ validation.
 
 1. Backfill level 6 for `2012-2020`, because `tier5` already exists there.
 2. Backfill `tier5` and level 6 for `2004-2011`.
-3. Backfill `tier5` for `1979-2003`.
+3. Backfill `tier5` and pre-2004 feeder-league level 6 for `1979-2003`.
 4. Defer true level 7 until tier 5 and level 6 are vetted.
 
 **Acceptance criteria:**

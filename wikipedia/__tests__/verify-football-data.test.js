@@ -1447,4 +1447,173 @@ describe('verify-football-data', () => {
 
     expect(issues.map((issue) => issue.type)).toContain('administrative-outcome-mismatch');
   });
+
+  test('analyzeDataset accepts release lower-tier coverage across supported eras', () => {
+    const issues = analyzeDataset(
+      {
+        metadata: {
+          schemaVersion: 1,
+          generator: 'wikipedia-overview',
+          generatedAt: '2026-06-18T00:00:00.000Z',
+        },
+        seasons: {
+          1979: buildLowerTierSeasonFixture(1979, [
+            'northern-premier',
+            'southern-midland',
+            'southern-southern',
+            'isthmian-premier',
+          ]),
+          1982: buildLowerTierSeasonFixture(1982, [
+            'northern-premier',
+            'southern-premier',
+            'isthmian-premier',
+          ]),
+          2004: buildLowerTierSeasonFixture(2004, ['north', 'south'], {
+            parallelGroup: 'conference-north-south',
+          }),
+          2015: buildLowerTierSeasonFixture(2015, ['north', 'south'], {
+            parallelGroup: 'national-league-north-south',
+          }),
+        },
+      },
+      { enforceLowerTierCoverage: true }
+    );
+
+    expect(issues.filter((issue) => issue.type.startsWith('lower-tier'))).toEqual([]);
+    expect(issues.filter((issue) => issue.type.startsWith('missing-lower-tier'))).toEqual([]);
+  });
+
+  test('analyzeDataset reports malformed release lower-tier coverage', () => {
+    const malformedSeason = buildLowerTierSeasonFixture(1982, ['northern-premier', 'isthmian']);
+    malformedSeason.tier5.metadata.leagueLevel = 4;
+    malformedSeason.tier6.metadata.divisionCount = 3;
+    malformedSeason.tier6.divisions[0].table = buildRows(10, 'Short Division');
+
+    const issues = analyzeDataset(
+      {
+        metadata: {
+          schemaVersion: 1,
+          generator: 'wikipedia-overview',
+          generatedAt: '2026-06-18T00:00:00.000Z',
+        },
+        seasons: {
+          1979: {
+            seasonInfo: {
+              season: 1979,
+              table: [],
+              promoted: [],
+              relegated: [],
+            },
+            tier5: buildSingleTierFixture(1979, 'tier5', 5, 'Alliance Premier League'),
+          },
+          1982: malformedSeason,
+        },
+      },
+      { enforceLowerTierCoverage: true }
+    );
+
+    expect(issues.map((issue) => issue.type)).toEqual(
+      expect.arrayContaining([
+        'missing-lower-tier-coverage',
+        'lower-tier-level-mismatch',
+        'lower-tier-division-count-mismatch',
+        'lower-tier-division-key-mismatch',
+        'lower-tier-row-count-mismatch',
+      ])
+    );
+  });
 });
+
+function buildLowerTierSeasonFixture(season, divisionKeys, options = {}) {
+  const parallelGroup = options.parallelGroup || 'pre-2004-conference-feeders';
+  return {
+    seasonInfo: {
+      season,
+      table: [],
+      promoted: [],
+      relegated: [],
+    },
+    tier5: buildSingleTierFixture(season, 'tier5', 5, 'National League System Top Division'),
+    tier6: {
+      season,
+      promoted: [],
+      relegated: [],
+      metadata: {
+        source: 'wikipedia-overview',
+        seasonSlug: `${season}-lower-tier-fixture`,
+        sourceUrl: `https://example.com/${season}`,
+        tierKey: 'tier6',
+        title: 'Lower-tier parallel leagues',
+        leagueLevel: 6,
+        structure: 'parallel-leagues',
+        parallelGroup,
+        divisionCount: divisionKeys.length,
+        tableCount: divisionKeys.length,
+      },
+      divisions: divisionKeys.map((divisionKey) => ({
+        season,
+        table: buildRows(20, divisionKey),
+        promoted: [],
+        relegated: [],
+        metadata: {
+          source: 'wikipedia-overview',
+          seasonSlug: `${season}-lower-tier-fixture`,
+          sourceUrl: `https://example.com/${season}`,
+          tierKey: 'tier6',
+          title: divisionKey,
+          leagueId: divisionKey,
+          leagueLevel: 6,
+          structure: 'single-league',
+          parallelGroup,
+          divisionKey,
+          tableIndex: 0,
+          tableCount: 1,
+        },
+      })),
+    },
+  };
+}
+
+function buildSingleTierFixture(season, tierKey, leagueLevel, title) {
+  return {
+    season,
+    table: buildRows(20, title),
+    promoted: [],
+    relegated: [],
+    metadata: {
+      source: 'wikipedia-overview',
+      seasonSlug: `${season}-${tierKey}-fixture`,
+      sourceUrl: `https://example.com/${season}`,
+      tierKey,
+      title,
+      leagueId: title.replaceAll(' ', '_'),
+      leagueLevel,
+      tableIndex: 0,
+      tableCount: 1,
+      structure: 'single-league',
+    },
+  };
+}
+
+function buildRows(count, prefix) {
+  return Array.from({ length: count }, (_, index) => ({
+    pos: index + 1,
+    team: `${prefix} ${index + 1}`,
+    played: 38,
+    won: count - index,
+    drawn: 0,
+    lost: 38 - (count - index),
+    goalsFor: count * 2 - index,
+    goalsAgainst: index,
+    goalDifference: count * 2 - index * 2,
+    goalAverage: null,
+    points: (count - index) * 3,
+    notes: null,
+    wasRelegated: false,
+    wasPromoted: false,
+    isExpansionTeam: false,
+    wasReElected: false,
+    wasReprieved: false,
+    outcomeStatus: null,
+  }));
+}

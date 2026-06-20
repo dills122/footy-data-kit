@@ -8,18 +8,20 @@ release plan and source of truth.
 1. Finish review and release preparation for the completed phase 0 through
    phase 3 branch in
    [post-v1-phase-0-3-plan.md](/Users/dsteele/repos/footy-data-kit/docs/post-v1-phase-0-3-plan.md).
-2. Review the generated-output diff for the lower-tier backfill: tier 5 now
-   covers 1979-2025 and level 6 now covers 2004-2025.
+2. Review the generated-output diff for the lower-tier backfill: tier 5 and
+   level 6 now both cover 1979-2025.
 3. Continue TypeScript migration with the next implementation slice: convert
    shared config/season-rule boundaries or the parser/builder boundary before
    parser-heavy rewrites.
-4. Decide whether the next data expansion target is true level 7, or a cleanup
-   pass over tier 5/6 metadata and source-diff review.
-5. Work through `data/club-metadata-review.json` to convert lower-tier manual
-   review findings into curated lifecycle/status rules.
-6. Use
+4. Decide whether the next data expansion target is true level 7, or a source
+   spot-check pass over the now-complete tier 5/6 coverage.
+5. Confirm `data/club-metadata-review.json` remains clean after the next data
+   refresh, then convert any new lower-tier manual review findings into curated
+   lifecycle/status rules.
+6. Treat
    [pre-2004-tier6-source-spike.md](/Users/dsteele/repos/footy-data-kit/docs/pre-2004-tier6-source-spike.md)
-   as the source-availability input for the pre-2004 feeder-league backfill.
+   as the completed source-availability input for the pre-2004 feeder-league
+   backfill.
 7. Track confirmed or suspected upstream Wikipedia defects in
    [wikipedia-source-issues.md](/Users/dsteele/repos/footy-data-kit/docs/wikipedia-source-issues.md)
    before adding local workarounds.

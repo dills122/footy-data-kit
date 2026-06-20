@@ -3,6 +3,7 @@ import os from 'node:os';
 import path from 'node:path';
 import {
   assertReleaseDryRunCompleteness,
+  buildLowerTierDryRunRange,
   buildReleaseDryRunCompletenessSummary,
 } from '../../scripts/release-dry-run-data.js';
 
@@ -84,5 +85,11 @@ describe('release-dry-run-data completeness checks', () => {
         minClubCount: 1,
       })
     ).toThrow('Expected a non-negative integer, got many');
+  });
+
+  test('builds lower-tier dry-run range only for supported release seasons', () => {
+    expect(buildLowerTierDryRunRange('1888', '1978')).toBeNull();
+    expect(buildLowerTierDryRunRange('1888', '2025')).toEqual({ start: 1979, end: 2025 });
+    expect(buildLowerTierDryRunRange('2004', '2014')).toEqual({ start: 2004, end: 2014 });
   });
 });
