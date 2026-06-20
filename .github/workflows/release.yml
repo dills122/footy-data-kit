@@ -65,6 +65,7 @@ jobs:
           rm -rf data-output
           mkdir -p data-output
           pnpm wiki:build:overview
+          pnpm wiki:build:lower-tiers
           pnpm wiki:build:combined
           pnpm wiki:club-seed
           pnpm wiki:minify:combined

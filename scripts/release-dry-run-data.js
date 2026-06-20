@@ -12,6 +12,7 @@ import { fileURLToPath } from 'node:url';
 const ROOT_DIR = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const DEFAULT_OUTPUT_DIR = path.join(os.tmpdir(), 'footy-data-kit-release-dry-run');
 const DEFAULT_MIN_CLUB_COUNT = 1;
+const LOWER_TIER_START_SEASON = 1979;
 
 function readJson(filePath) {
   return JSON.parse(fs.readFileSync(filePath, 'utf8'));
@@ -81,6 +82,17 @@ export function assertReleaseDryRunCompleteness(options) {
   return summary;
 }
 
+export function buildLowerTierDryRunRange(start, end) {
+  const startSeason = parseInteger(start);
+  const endSeason = parseInteger(end);
+  if (endSeason == null || endSeason < LOWER_TIER_START_SEASON) return null;
+
+  return {
+    start: Math.max(startSeason ?? LOWER_TIER_START_SEASON, LOWER_TIER_START_SEASON),
+    end: endSeason,
+  };
+}
+
 function run(command, args, options = {}) {
   const display = [command, ...args].join(' ');
   console.log(`\n$ ${display}`);
@@ -105,6 +117,8 @@ export function runReleaseDryRun({
   const allSeasonsMinFile = path.join(outputDir, 'all-seasons.min.json');
   const overviewMinFile = path.join(outputDir, 'wiki_overview_tables_by_season.min.json');
   const clubMetadataFile = path.join(outputDir, 'club-metadata.json');
+  const clubMetadataReviewFile = path.join(outputDir, 'club-metadata-review.json');
+  const lowerTierRange = buildLowerTierDryRunRange(start, end);
 
   if (!skipClean) {
     fs.rmSync(outputDir, { recursive: true, force: true });
@@ -123,12 +137,29 @@ export function runReleaseDryRun({
     '--force-update',
     '--include-war-placeholders',
   ]);
+  if (lowerTierRange) {
+    run('node', [
+      'wikipedia/cli/index.js',
+      'lower-tiers',
+      '--start',
+      String(lowerTierRange.start),
+      '--end',
+      String(lowerTierRange.end),
+      '--output',
+      outputDir,
+      '--force-update',
+    ]);
+  } else {
+    console.log('\n⏭️ Skipping lower-tier supplements; dry-run range ends before 1979.');
+  }
   run('node', ['wikipedia/data/combine-output-files.js', '--output', allSeasonsFile, overviewFile]);
   run('node', [
     'wikipedia/data/generate-club-metadata-seed.js',
     allSeasonsFile,
     '--output',
     clubMetadataFile,
+    '--review-output',
+    clubMetadataReviewFile,
   ]);
   const completeness = assertReleaseDryRunCompleteness({
     allSeasonsFile,
@@ -204,6 +235,7 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
 
 export default {
   assertReleaseDryRunCompleteness,
+  buildLowerTierDryRunRange,
   buildReleaseDryRunCompletenessSummary,
   runReleaseDryRun,
   runCli,
