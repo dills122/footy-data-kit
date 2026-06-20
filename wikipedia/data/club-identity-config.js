@@ -68,6 +68,20 @@ export const CLUB_IDENTITY_RULES = Object.freeze([
     ]),
   }),
   Object.freeze({
+    clubKey: 'barry town united',
+    canonicalName: 'Barry Town United',
+    aliases: Object.freeze(['Barry Town', 'Barry Town United']),
+    relationship: 'rename',
+    sourceRefs: Object.freeze([
+      Object.freeze({
+        type: 'wikipedia-club-page',
+        sourceUrl: 'https://en.wikipedia.org/wiki/Barry_Town_United_F.C.',
+        notes:
+          'Club history records Barry AFC, later Barry Town, and the Barry Town United identity.',
+      }),
+    ]),
+  }),
+  Object.freeze({
     clubKey: 'birmingham city',
     canonicalName: 'Birmingham City',
     aliases: Object.freeze(['Birmingham City', 'Birmingham', 'Small Heath', 'Small Heath Alliance']),
@@ -89,6 +103,20 @@ export const CLUB_IDENTITY_RULES = Object.freeze([
         type: 'wikipedia-club-page',
         sourceUrl: 'https://en.wikipedia.org/wiki/Grantham_Town_F.C.',
         notes: 'Club history records Grantham being renamed Grantham Town in 1987.',
+      }),
+    ]),
+  }),
+  Object.freeze({
+    clubKey: 'dunstable town',
+    canonicalName: 'Dunstable Town',
+    aliases: Object.freeze(['Dunstable', 'Dunstable Town']),
+    relationship: 'rename',
+    sourceRefs: Object.freeze([
+      Object.freeze({
+        type: 'wikipedia-club-page',
+        sourceUrl: 'https://en.wikipedia.org/wiki/Dunstable_Town_F.C.',
+        notes:
+          'Club history records a Dunstable successor taking over fixtures and later Dunstable Town periods.',
       }),
     ]),
   }),
@@ -626,6 +654,66 @@ const CLUB_SOURCE_REFS = Object.freeze({
       'Used for Barking merger, re-establishment, and current lower-division status context.'
     ),
   ]),
+  barryTownUnited: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Barry_Town_United_F.C.',
+      'Used for Barry Town identity and current Welsh pyramid status context.'
+    ),
+  ]),
+  bashley: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Bashley_F.C.',
+      'Used for current lower-division status and below tracked coverage context.'
+    ),
+  ]),
+  bedworthUnited: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Bedworth_United_F.C.',
+      'Used for Bedworth Town fold/replacement and current lower-division status context.'
+    ),
+  ]),
+  bishopAuckland: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Bishop_Auckland_F.C.',
+      'Used for current lower-division status and below tracked coverage context.'
+    ),
+  ]),
+  bridgendTown: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Bridgend_Town_A.F.C.',
+      'Used for Bridgend Town merger into Pen-y-Bont context.'
+    ),
+  ]),
+  bridlingtonTown: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Bridlington_Town_A.F.C.',
+      'Used for current lower-division status and below tracked coverage context.'
+    ),
+  ]),
+  caernarfonTown: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Caernarfon_Town_F.C.',
+      'Used for current Welsh pyramid status and outside tracked English coverage context.'
+    ),
+  ]),
+  canterburyCity: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Canterbury_City_F.C.',
+      'Used for Canterbury City fold/reformation and current lower-division status context.'
+    ),
+  ]),
+  chertseyTown: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Chertsey_Town_F.C.',
+      'Used for current lower-division status and below tracked coverage context.'
+    ),
+  ]),
+  clevedonTown: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Clevedon_Town_F.C.',
+      'Used for current lower-division status and below tracked coverage context.'
+    ),
+  ]),
   chesterCity: Object.freeze([
     wikipediaClubSource(
       'https://en.wikipedia.org/wiki/Chester_City_F.C.',
@@ -873,9 +961,21 @@ const CLUB_SOURCE_REFS = Object.freeze({
       'Used for current Welsh pyramid status and outside tracked English coverage context.'
     ),
   ]),
+  colneDynamoes: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Colne_Dynamoes_F.C.',
+      'Used for Colne Dynamoes denied-promotion and dissolution context.'
+    ),
+  ]),
   corbyTown: Object.freeze([
     wikipediaClubSource(
       'https://en.wikipedia.org/wiki/Corby_Town_F.C.',
+      'Used for current lower-division status and below tracked coverage context.'
+    ),
+  ]),
+  croydon: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Croydon_F.C.',
       'Used for current lower-division status and below tracked coverage context.'
     ),
   ]),
@@ -889,6 +989,34 @@ const CLUB_SOURCE_REFS = Object.freeze({
     wikipediaClubSource(
       'https://en.wikipedia.org/wiki/Dorchester_Town_F.C.',
       'Used for current lower-division status and below tracked coverage context.'
+    ),
+  ]),
+  dorking: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Dorking_F.C.',
+      'Used for Dorking merger/collapse and later Dorking Town/Dorking F.C. context.'
+    ),
+  ]),
+  dover: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Dover_F.C.',
+      'Used for Dover F.C. 1983 dissolution and Dover Athletic successor context.'
+    ),
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Dover_Athletic_F.C.',
+      'Used for Dover Athletic formation after Dover F.C. folded.'
+    ),
+  ]),
+  dudleyTown: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Dudley_Town_F.C.',
+      'Used for Dudley Town closure/reformation and current lower-division status context.'
+    ),
+  ]),
+  dunstableTown: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Dunstable_Town_F.C.',
+      'Used for Dunstable fold/reformation and 2026 dissolution context.'
     ),
   ]),
   droylsden: Object.freeze([
@@ -2502,6 +2630,265 @@ export const CLUB_LIFECYCLE_RULES = Object.freeze([
         season: 1991,
         label: 'A committee took over the South Liverpool name after the limited company folded.',
         sourceRefs: CLUB_SOURCE_REFS.southLiverpool,
+      }),
+    ]),
+  }),
+  statusOnlyRule({
+    clubKey: 'barry town united',
+    current: 'active',
+    reason: 'not-in-tracked-leagues',
+    reasonLabel:
+      'Wikipedia lists the club in the Cymru Premier, outside current tracked English coverage.',
+    sourceRefs: CLUB_SOURCE_REFS.barryTownUnited,
+  }),
+  statusOnlyRule({
+    clubKey: 'bashley',
+    current: 'active',
+    reason: 'not-in-tracked-leagues',
+    reasonLabel:
+      'Wikipedia lists the club in the Wessex League Premier Division, below current tracked coverage.',
+    sourceRefs: CLUB_SOURCE_REFS.bashley,
+  }),
+  Object.freeze({
+    clubKey: 'bedworth united',
+    status: Object.freeze({
+      current: 'active',
+      reason: 'successor-active',
+      reasonLabel:
+        'A replacement Bedworth United club took over from Bedworth Town in 1968 and remains active below tracked coverage.',
+      sourceRefs: CLUB_SOURCE_REFS.bedworthUnited,
+    }),
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'folded',
+        season: 1968,
+        label: 'Bedworth Town folded in 1968.',
+        sourceRefs: CLUB_SOURCE_REFS.bedworthUnited,
+      }),
+      lifecycleEvent({
+        type: 'reformed',
+        season: 1968,
+        label: 'A replacement club was formed under the Bedworth United name.',
+        sourceRefs: CLUB_SOURCE_REFS.bedworthUnited,
+      }),
+    ]),
+  }),
+  statusOnlyRule({
+    clubKey: 'bishop auckland',
+    current: 'active',
+    reason: 'not-in-tracked-leagues',
+    reasonLabel:
+      'Wikipedia lists the club in Northern League Division One, below current tracked coverage.',
+    sourceRefs: CLUB_SOURCE_REFS.bishopAuckland,
+  }),
+  Object.freeze({
+    clubKey: 'bridgend town',
+    status: Object.freeze({
+      current: 'merged',
+      reason: 'merged',
+      reasonLabel: 'Merged with Bryntirion Athletic in 2013 to form Pen-y-Bont.',
+      sourceRefs: CLUB_SOURCE_REFS.bridgendTown,
+    }),
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'merged',
+        season: 2013,
+        label: 'Merged with Bryntirion Athletic to form Pen-y-Bont.',
+        sourceRefs: CLUB_SOURCE_REFS.bridgendTown,
+      }),
+    ]),
+  }),
+  statusOnlyRule({
+    clubKey: 'bridlington town',
+    current: 'active',
+    reason: 'not-in-tracked-leagues',
+    reasonLabel:
+      'Wikipedia lists the club in the Northern Premier League Division One East, below current tracked coverage.',
+    sourceRefs: CLUB_SOURCE_REFS.bridlingtonTown,
+  }),
+  statusOnlyRule({
+    clubKey: 'caernarfon town',
+    current: 'active',
+    reason: 'not-in-tracked-leagues',
+    reasonLabel:
+      'Wikipedia lists the club in the Cymru Premier, outside current tracked English coverage.',
+    sourceRefs: CLUB_SOURCE_REFS.caernarfonTown,
+  }),
+  Object.freeze({
+    clubKey: 'canterbury city',
+    status: Object.freeze({
+      current: 'active',
+      reason: 'successor-active',
+      reasonLabel:
+        'The 1947 Canterbury City folded in 2001 and the club was reformed in 2007.',
+      sourceRefs: CLUB_SOURCE_REFS.canterburyCity,
+    }),
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'folded',
+        season: 2001,
+        label: 'Folded after eviction from Kingsmead Stadium.',
+        sourceRefs: CLUB_SOURCE_REFS.canterburyCity,
+      }),
+      lifecycleEvent({
+        type: 'reformed',
+        season: 2007,
+        label: 'Reformed as a community interest company.',
+        sourceRefs: CLUB_SOURCE_REFS.canterburyCity,
+      }),
+    ]),
+  }),
+  statusOnlyRule({
+    clubKey: 'chertsey town',
+    current: 'active',
+    reason: 'not-in-tracked-leagues',
+    reasonLabel:
+      'Wikipedia lists the club in the Southern League Premier Division South, below current tracked coverage.',
+    sourceRefs: CLUB_SOURCE_REFS.chertseyTown,
+  }),
+  statusOnlyRule({
+    clubKey: 'clevedon town',
+    current: 'active',
+    reason: 'not-in-tracked-leagues',
+    reasonLabel:
+      'Wikipedia lists the club in the Western League Premier Division, below current tracked coverage.',
+    sourceRefs: CLUB_SOURCE_REFS.clevedonTown,
+  }),
+  Object.freeze({
+    clubKey: 'colne dynamoes',
+    status: Object.freeze({
+      current: 'defunct',
+      reason: 'dissolved',
+      reasonLabel:
+        'Denied promotion to the Football Conference on ground grading and dissolved in summer 1990.',
+      sourceRefs: CLUB_SOURCE_REFS.colneDynamoes,
+    }),
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'deniedPromotion',
+        season: 1989,
+        label: 'Denied promotion to the Football Conference after winning the Northern Premier League.',
+        sourceRefs: CLUB_SOURCE_REFS.colneDynamoes,
+      }),
+      lifecycleEvent({
+        type: 'dissolved',
+        season: 1990,
+        label: 'Dissolved in summer 1990.',
+        sourceRefs: CLUB_SOURCE_REFS.colneDynamoes,
+      }),
+    ]),
+  }),
+  statusOnlyRule({
+    clubKey: 'croydon',
+    current: 'active',
+    reason: 'not-in-tracked-leagues',
+    reasonLabel:
+      'Wikipedia lists the club in the Southern Counties East League Division One, below current tracked coverage.',
+    sourceRefs: CLUB_SOURCE_REFS.croydon,
+  }),
+  Object.freeze({
+    clubKey: 'dorking',
+    status: Object.freeze({
+      current: 'defunct',
+      reason: 'folded',
+      reasonLabel: 'Closed in 2017 after a period of ground and financial difficulties.',
+      sourceRefs: CLUB_SOURCE_REFS.dorking,
+    }),
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'folded',
+        season: 2016,
+        label: 'Announced closure in February 2017.',
+        sourceRefs: CLUB_SOURCE_REFS.dorking,
+      }),
+    ]),
+  }),
+  Object.freeze({
+    clubKey: 'dover',
+    status: Object.freeze({
+      current: 'defunct',
+      reason: 'folded',
+      reasonLabel: 'Dover F.C. folded in 1983 and Dover Athletic took its place in the Southern League.',
+      sourceRefs: CLUB_SOURCE_REFS.dover,
+    }),
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'folded',
+        season: 1983,
+        label: 'Dover F.C. folded due to debts.',
+        sourceRefs: CLUB_SOURCE_REFS.dover,
+      }),
+      lifecycleEvent({
+        type: 'successorFormed',
+        season: 1983,
+        label: "Dover Athletic was formed and took Dover F.C.'s Southern League place.",
+        sourceRefs: CLUB_SOURCE_REFS.dover,
+      }),
+    ]),
+  }),
+  Object.freeze({
+    clubKey: 'dudley town',
+    status: Object.freeze({
+      current: 'active',
+      reason: 'successor-active',
+      reasonLabel:
+        'Closed in 1997 during financial difficulties and was reformed later that year.',
+      sourceRefs: CLUB_SOURCE_REFS.dudleyTown,
+    }),
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'folded',
+        season: 1997,
+        label: 'Closed after resigning from the Southern League.',
+        sourceRefs: CLUB_SOURCE_REFS.dudleyTown,
+      }),
+      lifecycleEvent({
+        type: 'reformed',
+        season: 1997,
+        label: 'Reformed and accepted into the West Midlands (Regional) League.',
+        sourceRefs: CLUB_SOURCE_REFS.dudleyTown,
+      }),
+    ]),
+  }),
+  Object.freeze({
+    clubKey: 'dunstable town',
+    status: Object.freeze({
+      current: 'defunct',
+      reason: 'dissolved',
+      reasonLabel:
+        'Dunstable folded during 1975-76, was re-established after a 1994 fold, and dissolved in 2026.',
+      sourceRefs: CLUB_SOURCE_REFS.dunstableTown,
+    }),
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'folded',
+        season: 1975,
+        label: 'Huge debts caused Dunstable Town to fold midway through the 1975-76 season.',
+        sourceRefs: CLUB_SOURCE_REFS.dunstableTown,
+      }),
+      lifecycleEvent({
+        type: 'successorFormed',
+        season: 1975,
+        label: 'A new club under the Dunstable name took over the fixtures.',
+        sourceRefs: CLUB_SOURCE_REFS.dunstableTown,
+      }),
+      lifecycleEvent({
+        type: 'folded',
+        season: 1994,
+        label: 'Folded after the 1993-94 season.',
+        sourceRefs: CLUB_SOURCE_REFS.dunstableTown,
+      }),
+      lifecycleEvent({
+        type: 'reformed',
+        season: 1998,
+        label: 'Re-established in 1998.',
+        sourceRefs: CLUB_SOURCE_REFS.dunstableTown,
+      }),
+      lifecycleEvent({
+        type: 'dissolved',
+        season: 2025,
+        label: 'Dissolved in 2026.',
+        sourceRefs: CLUB_SOURCE_REFS.dunstableTown,
       }),
     ]),
   }),

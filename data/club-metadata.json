@@ -2,8 +2,8 @@
   "metadata": {
     "schemaVersion": 1,
     "generator": "club-metadata-seed",
-    "generatedAt": "2026-06-20T02:06:49.181Z",
-    "gitSha": "163aed7",
+    "generatedAt": "2026-06-20T02:18:25.847Z",
+    "gitSha": "2e78013",
     "sourceFiles": [
       "/Users/dsteele/repos/footy-data-kit/data-output/all-seasons.json"
     ],
@@ -6814,16 +6814,23 @@
         ]
       }
     },
-    "barry town": {
-      "clubId": "barry-town",
-      "canonicalName": "Barry Town",
+    "barry town united": {
+      "clubId": "barry-town-united",
+      "canonicalName": "Barry Town United",
       "status": {
-        "current": "unknown",
+        "current": "active",
         "trackedFromSeason": 1979,
         "trackedToSeason": 1981,
         "hasUnexplainedGaps": false,
-        "reason": "manual-review-required",
-        "reasonLabel": "Last observed before the latest supported season with no reviewed lifecycle or below-coverage status rule."
+        "reason": "not-in-tracked-leagues",
+        "reasonLabel": "Wikipedia lists the club in the Cymru Premier, outside current tracked English coverage.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Barry_Town_United_F.C.",
+            "notes": "Used for Barry Town identity and current Welsh pyramid status context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
@@ -6844,6 +6851,13 @@
         "source": "football-data-output",
         "aliases": [
           "Barry Town"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Barry_Town_United_F.C.",
+            "notes": "Used for Barry Town identity and current Welsh pyramid status context."
+          }
         ],
         "observedNames": [
           {
@@ -6895,12 +6909,19 @@
       "clubId": "bashley",
       "canonicalName": "Bashley",
       "status": {
-        "current": "unknown",
+        "current": "active",
         "trackedFromSeason": 1990,
         "trackedToSeason": 1993,
         "hasUnexplainedGaps": false,
-        "reason": "manual-review-required",
-        "reasonLabel": "Last observed before the latest supported season with no reviewed lifecycle or below-coverage status rule."
+        "reason": "not-in-tracked-leagues",
+        "reasonLabel": "Wikipedia lists the club in the Wessex League Premier Division, below current tracked coverage.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Bashley_F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
@@ -6921,6 +6942,13 @@
         "source": "football-data-output",
         "aliases": [
           "Bashley"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Bashley_F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
+          }
         ],
         "observedNames": [
           {
@@ -7605,16 +7633,48 @@
       "clubId": "bedworth-united",
       "canonicalName": "Bedworth United",
       "status": {
-        "current": "unknown",
+        "current": "active",
         "trackedFromSeason": 1979,
         "trackedToSeason": 1988,
         "hasUnexplainedGaps": false,
-        "reason": "manual-review-required",
-        "reasonLabel": "Last observed before the latest supported season with no reviewed lifecycle or below-coverage status rule."
+        "reason": "successor-active",
+        "reasonLabel": "A replacement Bedworth United club took over from Bedworth Town in 1968 and remains active below tracked coverage.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Bedworth_United_F.C.",
+            "notes": "Used for Bedworth Town fold/replacement and current lower-division status context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
-        "lifecycleEvents": [],
+        "lifecycleEvents": [
+          {
+            "type": "folded",
+            "season": 1968,
+            "label": "Bedworth Town folded in 1968.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Bedworth_United_F.C.",
+                "notes": "Used for Bedworth Town fold/replacement and current lower-division status context."
+              }
+            ]
+          },
+          {
+            "type": "reformed",
+            "season": 1968,
+            "label": "A replacement club was formed under the Bedworth United name.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Bedworth_United_F.C.",
+                "notes": "Used for Bedworth Town fold/replacement and current lower-division status context."
+              }
+            ]
+          }
+        ],
         "trackedMembership": [
           {
             "fromSeason": 1979,
@@ -7631,6 +7691,13 @@
         "source": "football-data-output",
         "aliases": [
           "Bedworth United"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Bedworth_United_F.C.",
+            "notes": "Used for Bedworth Town fold/replacement and current lower-division status context."
+          }
         ],
         "observedNames": [
           {
@@ -8566,12 +8633,19 @@
       "clubId": "bishop-auckland",
       "canonicalName": "Bishop Auckland",
       "status": {
-        "current": "unknown",
+        "current": "active",
         "trackedFromSeason": 1989,
         "trackedToSeason": 2001,
         "hasUnexplainedGaps": false,
-        "reason": "manual-review-required",
-        "reasonLabel": "Last observed before the latest supported season with no reviewed lifecycle or below-coverage status rule."
+        "reason": "not-in-tracked-leagues",
+        "reasonLabel": "Wikipedia lists the club in Northern League Division One, below current tracked coverage.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Bishop_Auckland_F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
@@ -8592,6 +8666,13 @@
         "source": "football-data-output",
         "aliases": [
           "Bishop Auckland"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Bishop_Auckland_F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
+          }
         ],
         "observedNames": [
           {
@@ -13247,16 +13328,36 @@
       "clubId": "bridgend-town",
       "canonicalName": "Bridgend Town",
       "status": {
-        "current": "unknown",
+        "current": "merged",
         "trackedFromSeason": 1979,
         "trackedToSeason": 1981,
         "hasUnexplainedGaps": false,
-        "reason": "manual-review-required",
-        "reasonLabel": "Last observed before the latest supported season with no reviewed lifecycle or below-coverage status rule."
+        "reason": "merged",
+        "reasonLabel": "Merged with Bryntirion Athletic in 2013 to form Pen-y-Bont.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Bridgend_Town_A.F.C.",
+            "notes": "Used for Bridgend Town merger into Pen-y-Bont context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
-        "lifecycleEvents": [],
+        "lifecycleEvents": [
+          {
+            "type": "merged",
+            "season": 2013,
+            "label": "Merged with Bryntirion Athletic to form Pen-y-Bont.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Bridgend_Town_A.F.C.",
+                "notes": "Used for Bridgend Town merger into Pen-y-Bont context."
+              }
+            ]
+          }
+        ],
         "trackedMembership": [
           {
             "fromSeason": 1979,
@@ -13273,6 +13374,13 @@
         "source": "football-data-output",
         "aliases": [
           "Bridgend Town"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Bridgend_Town_A.F.C.",
+            "notes": "Used for Bridgend Town merger into Pen-y-Bont context."
+          }
         ],
         "observedNames": [
           {
@@ -13324,12 +13432,19 @@
       "clubId": "bridlington-town",
       "canonicalName": "Bridlington Town",
       "status": {
-        "current": "unknown",
+        "current": "active",
         "trackedFromSeason": 1993,
         "trackedToSeason": 1993,
         "hasUnexplainedGaps": false,
-        "reason": "manual-review-required",
-        "reasonLabel": "Last observed before the latest supported season with no reviewed lifecycle or below-coverage status rule."
+        "reason": "not-in-tracked-leagues",
+        "reasonLabel": "Wikipedia lists the club in the Northern Premier League Division One East, below current tracked coverage.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Bridlington_Town_A.F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
@@ -13350,6 +13465,13 @@
         "source": "football-data-output",
         "aliases": [
           "Bridlington Town"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Bridlington_Town_A.F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
+          }
         ],
         "observedNames": [
           {
@@ -17185,12 +17307,19 @@
       "clubId": "caernarfon-town",
       "canonicalName": "Caernarfon Town",
       "status": {
-        "current": "unknown",
+        "current": "active",
         "trackedFromSeason": 1985,
         "trackedToSeason": 1989,
         "hasUnexplainedGaps": false,
-        "reason": "manual-review-required",
-        "reasonLabel": "Last observed before the latest supported season with no reviewed lifecycle or below-coverage status rule."
+        "reason": "not-in-tracked-leagues",
+        "reasonLabel": "Wikipedia lists the club in the Cymru Premier, outside current tracked English coverage.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Caernarfon_Town_F.C.",
+            "notes": "Used for current Welsh pyramid status and outside tracked English coverage context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
@@ -17211,6 +17340,13 @@
         "source": "football-data-output",
         "aliases": [
           "Caernarfon Town"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Caernarfon_Town_F.C.",
+            "notes": "Used for current Welsh pyramid status and outside tracked English coverage context."
+          }
         ],
         "observedNames": [
           {
@@ -17703,16 +17839,48 @@
       "clubId": "canterbury-city",
       "canonicalName": "Canterbury City",
       "status": {
-        "current": "unknown",
+        "current": "active",
         "trackedFromSeason": 1979,
         "trackedToSeason": 1981,
         "hasUnexplainedGaps": false,
-        "reason": "manual-review-required",
-        "reasonLabel": "Last observed before the latest supported season with no reviewed lifecycle or below-coverage status rule."
+        "reason": "successor-active",
+        "reasonLabel": "The 1947 Canterbury City folded in 2001 and the club was reformed in 2007.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Canterbury_City_F.C.",
+            "notes": "Used for Canterbury City fold/reformation and current lower-division status context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
-        "lifecycleEvents": [],
+        "lifecycleEvents": [
+          {
+            "type": "folded",
+            "season": 2001,
+            "label": "Folded after eviction from Kingsmead Stadium.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Canterbury_City_F.C.",
+                "notes": "Used for Canterbury City fold/reformation and current lower-division status context."
+              }
+            ]
+          },
+          {
+            "type": "reformed",
+            "season": 2007,
+            "label": "Reformed as a community interest company.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Canterbury_City_F.C.",
+                "notes": "Used for Canterbury City fold/reformation and current lower-division status context."
+              }
+            ]
+          }
+        ],
         "trackedMembership": [
           {
             "fromSeason": 1979,
@@ -17729,6 +17897,13 @@
         "source": "football-data-output",
         "aliases": [
           "Canterbury City"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Canterbury_City_F.C.",
+            "notes": "Used for Canterbury City fold/reformation and current lower-division status context."
+          }
         ],
         "observedNames": [
           {
@@ -20228,12 +20403,19 @@
       "clubId": "chertsey-town",
       "canonicalName": "Chertsey Town",
       "status": {
-        "current": "unknown",
+        "current": "active",
         "trackedFromSeason": 1995,
         "trackedToSeason": 1996,
         "hasUnexplainedGaps": false,
-        "reason": "manual-review-required",
-        "reasonLabel": "Last observed before the latest supported season with no reviewed lifecycle or below-coverage status rule."
+        "reason": "not-in-tracked-leagues",
+        "reasonLabel": "Wikipedia lists the club in the Southern League Premier Division South, below current tracked coverage.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Chertsey_Town_F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
@@ -20254,6 +20436,13 @@
         "source": "football-data-output",
         "aliases": [
           "Chertsey Town"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Chertsey_Town_F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
+          }
         ],
         "observedNames": [
           {
@@ -21959,12 +22148,19 @@
       "clubId": "clevedon-town",
       "canonicalName": "Clevedon Town",
       "status": {
-        "current": "unknown",
+        "current": "active",
         "trackedFromSeason": 1999,
         "trackedToSeason": 2000,
         "hasUnexplainedGaps": false,
-        "reason": "manual-review-required",
-        "reasonLabel": "Last observed before the latest supported season with no reviewed lifecycle or below-coverage status rule."
+        "reason": "not-in-tracked-leagues",
+        "reasonLabel": "Wikipedia lists the club in the Western League Premier Division, below current tracked coverage.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Clevedon_Town_F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
@@ -21985,6 +22181,13 @@
         "source": "football-data-output",
         "aliases": [
           "Clevedon Town"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Clevedon_Town_F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
+          }
         ],
         "observedNames": [
           {
@@ -22351,16 +22554,48 @@
       "clubId": "colne-dynamoes",
       "canonicalName": "Colne Dynamoes",
       "status": {
-        "current": "unknown",
+        "current": "defunct",
         "trackedFromSeason": 1989,
         "trackedToSeason": 1990,
         "hasUnexplainedGaps": false,
-        "reason": "manual-review-required",
-        "reasonLabel": "Last observed before the latest supported season with no reviewed lifecycle or below-coverage status rule."
+        "reason": "dissolved",
+        "reasonLabel": "Denied promotion to the Football Conference on ground grading and dissolved in summer 1990.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Colne_Dynamoes_F.C.",
+            "notes": "Used for Colne Dynamoes denied-promotion and dissolution context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
-        "lifecycleEvents": [],
+        "lifecycleEvents": [
+          {
+            "type": "deniedPromotion",
+            "season": 1989,
+            "label": "Denied promotion to the Football Conference after winning the Northern Premier League.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Colne_Dynamoes_F.C.",
+                "notes": "Used for Colne Dynamoes denied-promotion and dissolution context."
+              }
+            ]
+          },
+          {
+            "type": "dissolved",
+            "season": 1990,
+            "label": "Dissolved in summer 1990.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Colne_Dynamoes_F.C.",
+                "notes": "Used for Colne Dynamoes denied-promotion and dissolution context."
+              }
+            ]
+          }
+        ],
         "trackedMembership": [
           {
             "fromSeason": 1989,
@@ -22377,6 +22612,13 @@
         "source": "football-data-output",
         "aliases": [
           "Colne Dynamoes"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Colne_Dynamoes_F.C.",
+            "notes": "Used for Colne Dynamoes denied-promotion and dissolution context."
+          }
         ],
         "observedNames": [
           {
@@ -24041,12 +24283,19 @@
       "clubId": "croydon",
       "canonicalName": "Croydon",
       "status": {
-        "current": "unknown",
+        "current": "active",
         "trackedFromSeason": 1979,
         "trackedToSeason": 2001,
         "hasUnexplainedGaps": false,
-        "reason": "manual-review-required",
-        "reasonLabel": "Last observed before the latest supported season with no reviewed lifecycle or below-coverage status rule."
+        "reason": "not-in-tracked-leagues",
+        "reasonLabel": "Wikipedia lists the club in the Southern Counties East League Division One, below current tracked coverage.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Croydon_F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
@@ -24075,6 +24324,13 @@
         "source": "football-data-output",
         "aliases": [
           "Croydon"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Croydon_F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
+          }
         ],
         "observedNames": [
           {
@@ -27211,16 +27467,36 @@
       "clubId": "dorking",
       "canonicalName": "Dorking",
       "status": {
-        "current": "unknown",
+        "current": "defunct",
         "trackedFromSeason": 1993,
         "trackedToSeason": 1993,
         "hasUnexplainedGaps": false,
-        "reason": "manual-review-required",
-        "reasonLabel": "Last observed before the latest supported season with no reviewed lifecycle or below-coverage status rule."
+        "reason": "folded",
+        "reasonLabel": "Closed in 2017 after a period of ground and financial difficulties.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Dorking_F.C.",
+            "notes": "Used for Dorking merger/collapse and later Dorking Town/Dorking F.C. context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
-        "lifecycleEvents": [],
+        "lifecycleEvents": [
+          {
+            "type": "folded",
+            "season": 2016,
+            "label": "Announced closure in February 2017.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Dorking_F.C.",
+                "notes": "Used for Dorking merger/collapse and later Dorking Town/Dorking F.C. context."
+              }
+            ]
+          }
+        ],
         "trackedMembership": [
           {
             "fromSeason": 1993,
@@ -27237,6 +27513,13 @@
         "source": "football-data-output",
         "aliases": [
           "Dorking"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Dorking_F.C.",
+            "notes": "Used for Dorking merger/collapse and later Dorking Town/Dorking F.C. context."
+          }
         ],
         "observedNames": [
           {
@@ -27377,16 +27660,63 @@
       "clubId": "dover",
       "canonicalName": "Dover",
       "status": {
-        "current": "unknown",
+        "current": "defunct",
         "trackedFromSeason": 1979,
         "trackedToSeason": 1981,
         "hasUnexplainedGaps": false,
-        "reason": "manual-review-required",
-        "reasonLabel": "Last observed before the latest supported season with no reviewed lifecycle or below-coverage status rule."
+        "reason": "folded",
+        "reasonLabel": "Dover F.C. folded in 1983 and Dover Athletic took its place in the Southern League.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Dover_Athletic_F.C.",
+            "notes": "Used for Dover Athletic formation after Dover F.C. folded."
+          },
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Dover_F.C.",
+            "notes": "Used for Dover F.C. 1983 dissolution and Dover Athletic successor context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
-        "lifecycleEvents": [],
+        "lifecycleEvents": [
+          {
+            "type": "folded",
+            "season": 1983,
+            "label": "Dover F.C. folded due to debts.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Dover_Athletic_F.C.",
+                "notes": "Used for Dover Athletic formation after Dover F.C. folded."
+              },
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Dover_F.C.",
+                "notes": "Used for Dover F.C. 1983 dissolution and Dover Athletic successor context."
+              }
+            ]
+          },
+          {
+            "type": "successorFormed",
+            "season": 1983,
+            "label": "Dover Athletic was formed and took Dover F.C.'s Southern League place.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Dover_Athletic_F.C.",
+                "notes": "Used for Dover Athletic formation after Dover F.C. folded."
+              },
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Dover_F.C.",
+                "notes": "Used for Dover F.C. 1983 dissolution and Dover Athletic successor context."
+              }
+            ]
+          }
+        ],
         "trackedMembership": [
           {
             "fromSeason": 1979,
@@ -27403,6 +27733,18 @@
         "source": "football-data-output",
         "aliases": [
           "Dover"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Dover_Athletic_F.C.",
+            "notes": "Used for Dover Athletic formation after Dover F.C. folded."
+          },
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Dover_F.C.",
+            "notes": "Used for Dover F.C. 1983 dissolution and Dover Athletic successor context."
+          }
         ],
         "observedNames": [
           {
@@ -27901,16 +28243,48 @@
       "clubId": "dudley-town",
       "canonicalName": "Dudley Town",
       "status": {
-        "current": "unknown",
+        "current": "active",
         "trackedFromSeason": 1985,
         "trackedToSeason": 1986,
         "hasUnexplainedGaps": false,
-        "reason": "manual-review-required",
-        "reasonLabel": "Last observed before the latest supported season with no reviewed lifecycle or below-coverage status rule."
+        "reason": "successor-active",
+        "reasonLabel": "Closed in 1997 during financial difficulties and was reformed later that year.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Dudley_Town_F.C.",
+            "notes": "Used for Dudley Town closure/reformation and current lower-division status context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
-        "lifecycleEvents": [],
+        "lifecycleEvents": [
+          {
+            "type": "folded",
+            "season": 1997,
+            "label": "Closed after resigning from the Southern League.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Dudley_Town_F.C.",
+                "notes": "Used for Dudley Town closure/reformation and current lower-division status context."
+              }
+            ]
+          },
+          {
+            "type": "reformed",
+            "season": 1997,
+            "label": "Reformed and accepted into the West Midlands (Regional) League.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Dudley_Town_F.C.",
+                "notes": "Used for Dudley Town closure/reformation and current lower-division status context."
+              }
+            ]
+          }
+        ],
         "trackedMembership": [
           {
             "fromSeason": 1985,
@@ -27927,6 +28301,13 @@
         "source": "football-data-output",
         "aliases": [
           "Dudley Town"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Dudley_Town_F.C.",
+            "notes": "Used for Dudley Town closure/reformation and current lower-division status context."
+          }
         ],
         "observedNames": [
           {
@@ -28166,20 +28547,88 @@
         ]
       }
     },
-    "dunstable": {
-      "clubId": "dunstable",
-      "canonicalName": "Dunstable",
+    "dunstable town": {
+      "clubId": "dunstable-town",
+      "canonicalName": "Dunstable Town",
       "status": {
-        "current": "unknown",
+        "current": "defunct",
         "trackedFromSeason": 1979,
         "trackedToSeason": 1981,
         "hasUnexplainedGaps": false,
-        "reason": "manual-review-required",
-        "reasonLabel": "Last observed before the latest supported season with no reviewed lifecycle or below-coverage status rule."
+        "reason": "dissolved",
+        "reasonLabel": "Dunstable folded during 1975-76, was re-established after a 1994 fold, and dissolved in 2026.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Dunstable_Town_F.C.",
+            "notes": "Used for Dunstable fold/reformation and 2026 dissolution context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
-        "lifecycleEvents": [],
+        "lifecycleEvents": [
+          {
+            "type": "folded",
+            "season": 1975,
+            "label": "Huge debts caused Dunstable Town to fold midway through the 1975-76 season.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Dunstable_Town_F.C.",
+                "notes": "Used for Dunstable fold/reformation and 2026 dissolution context."
+              }
+            ]
+          },
+          {
+            "type": "successorFormed",
+            "season": 1975,
+            "label": "A new club under the Dunstable name took over the fixtures.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Dunstable_Town_F.C.",
+                "notes": "Used for Dunstable fold/reformation and 2026 dissolution context."
+              }
+            ]
+          },
+          {
+            "type": "folded",
+            "season": 1994,
+            "label": "Folded after the 1993-94 season.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Dunstable_Town_F.C.",
+                "notes": "Used for Dunstable fold/reformation and 2026 dissolution context."
+              }
+            ]
+          },
+          {
+            "type": "reformed",
+            "season": 1998,
+            "label": "Re-established in 1998.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Dunstable_Town_F.C.",
+                "notes": "Used for Dunstable fold/reformation and 2026 dissolution context."
+              }
+            ]
+          },
+          {
+            "type": "dissolved",
+            "season": 2025,
+            "label": "Dissolved in 2026.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Dunstable_Town_F.C.",
+                "notes": "Used for Dunstable fold/reformation and 2026 dissolution context."
+              }
+            ]
+          }
+        ],
         "trackedMembership": [
           {
             "fromSeason": 1979,
@@ -28196,6 +28645,13 @@
         "source": "football-data-output",
         "aliases": [
           "Dunstable"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Dunstable_Town_F.C.",
+            "notes": "Used for Dunstable fold/reformation and 2026 dissolution context."
+          }
         ],
         "observedNames": [
           {
