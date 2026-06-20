@@ -6,6 +6,7 @@ import {
   headingHasLeagueKeyword,
   inferOverviewTierNumber,
   isExcludedOverviewCompetitionLabel,
+  isGenericLeagueHeading,
   parseOverviewTablesForHeading,
 } from '../parser-core/wiki-overview-parser.js';
 
@@ -162,6 +163,10 @@ describe('wiki-overview-parser', () => {
   test('recognizes league heading keywords', () => {
     expect(headingHasLeagueKeyword('League table')).toBe(true);
     expect(headingHasLeagueKeyword('Something else')).toBe(false);
+  });
+
+  test('recognizes generic league headings with irregular whitespace', () => {
+    expect(isGenericLeagueHeading('Final  league table')).toBe(true);
   });
 
   test('recognizes excluded non-football-league competition labels', () => {

@@ -194,7 +194,7 @@
               <td><span class="schema-requirement is-required">required</span></td>
               <td>
                 Broad reason code such as official-competition-paused, outside-tracked-coverage,
-                club-inactive, club-dissolved, club-reformed, or unknown.
+                below-tracked-coverage, club-inactive, club-dissolved, club-reformed, or unknown.
               </td>
             </tr>
             <tr>
@@ -1069,8 +1069,9 @@
               <td><code>string</code></td>
               <td><span class="schema-requirement is-optional">optional</span></td>
               <td>
-                Small status label such as active, historical, defunct, merged, relocated, renamed,
-                phoenix, or unknown.
+                Small lifecycle/status label such as active, historical, defunct, merged, relocated,
+                renamed, phoenix, or unknown. Use status.reason for coverage context such as
+                below-tracked-coverage.
               </td>
             </tr>
             <tr>
@@ -1089,7 +1090,11 @@
               <th scope="row"><code>hasUnexplainedGaps</code></th>
               <td><code>boolean</code></td>
               <td><span class="schema-requirement is-optional">optional</span></td>
-              <td><span class="schema-muted">No description.</span></td>
+              <td>
+                True only when expected tracked membership has unexplained internal absences;
+                ordinary gaps between observed stints are represented separately in
+                derived.coverageGaps.
+              </td>
             </tr>
             <tr>
               <th scope="row"><code>reason</code></th>
@@ -1166,7 +1171,10 @@
           <span>type <code>object</code></span>
           <span>1 required</span><span>closed object</span>
         </div>
-
+        <p>
+          Observed stints inside the supported season dataset, not a claim of continuous real-world
+          club existence.
+        </p>
         <table class="schema-table">
           <thead>
             <tr>

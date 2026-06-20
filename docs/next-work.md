@@ -5,16 +5,18 @@ release plan and source of truth.
 
 ## Active Focus
 
-1. Run the v1 release-candidate gate on a clean branch: release dry-run data,
-   generated diff review, docs check, lint, typecheck, unit tests, integration
-   tests, and data verification.
-2. Keep integration coverage above the 30-40% v1 floor while adding only
-   targeted boundary depth for meaningful gaps found during release review.
-3. Treat the v1 metadata audit as the consumer contract for current club
-   metadata fields and document unresolved ambiguity instead of adding weak
-   assertions.
-4. Defer broad TypeScript migration until after v1 unless a typed contract or
-   verifier boundary is needed to protect the release.
+1. Finish review and release preparation for the completed phase 0 through
+   phase 3 branch in
+   [post-v1-phase-0-3-plan.md](/Users/dsteele/repos/footy-data-kit/docs/post-v1-phase-0-3-plan.md).
+2. Review the generated-output diff for the lower-tier backfill: tier 5 now
+   covers 1979-2025 and level 6 now covers 2004-2025.
+3. Continue TypeScript migration with the next implementation slice: convert
+   shared config/season-rule boundaries or the parser/builder boundary before
+   parser-heavy rewrites.
+4. Decide whether the next data expansion target is true level 7, or a cleanup
+   pass over tier 5/6 metadata and source-diff review.
+5. Work through `data/club-metadata-review.json` to convert lower-tier manual
+   review findings into curated lifecycle/status rules.
 
 ## Reference Notes
 
@@ -26,3 +28,4 @@ release plan and source of truth.
 - [historical-overview-parsing.md](/Users/dsteele/repos/footy-data-kit/docs/historical-overview-parsing.md)
 - [refactor-overview.md](/Users/dsteele/repos/footy-data-kit/docs/refactor-overview.md)
 - [cloudflare-r2-release-archive-plan.md](/Users/dsteele/repos/footy-data-kit/docs/cloudflare-r2-release-archive-plan.md)
+- [post-v1-phase-0-3-plan.md](/Users/dsteele/repos/footy-data-kit/docs/post-v1-phase-0-3-plan.md)

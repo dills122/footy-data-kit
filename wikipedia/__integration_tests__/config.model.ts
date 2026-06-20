@@ -31,4 +31,5 @@ export interface TableEntryTest {
 export interface TierMetadataEntryTest {
   tier: TierKey;
   data: Partial<TierMetadata>;
+  savedData?: Partial<TierMetadata>;
 }

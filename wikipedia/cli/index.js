@@ -3,6 +3,7 @@ import { Command } from 'commander';
 import { isWikipediaWarSuspensionYear, WIKIPEDIA_DATA_SOURCES } from '../config.js';
 import { loadFootballData } from '../data/generate-output-files.ts';
 import {
+  buildLowerTierSupplement,
   buildSeasonOverview,
   buildSeasonOverviewForSlug,
   buildSeasonOverviewSlug,
@@ -42,6 +43,17 @@ async function buildOverviewData(opts) {
   installInterruptHandler();
 
   await buildSeasonOverview(startYear, endYear, outputFile, buildCommonRunOptions(opts));
+  console.log(`\n📂 Final overview output written to ${outputFile}`);
+}
+
+async function buildLowerTierData(opts) {
+  const { startYear, endYear } = parseSeasonRange(opts, { start: '1979', end: '2025' });
+  const outputFile = buildDatasetOutput(WIKIPEDIA_DATA_SOURCES.overview.key, opts.output);
+
+  console.log(`🏁 Generating lower-tier supplements from ${startYear} to ${endYear}...`);
+  installInterruptHandler();
+
+  await buildLowerTierSupplement(startYear, endYear, outputFile, buildCommonRunOptions(opts));
   console.log(`\n📂 Final overview output written to ${outputFile}`);
 }
 
@@ -104,6 +116,12 @@ const overviewCommand = program
   .description('Build the primary maintained overview dataset between given start and end years');
 addYearOptions(overviewCommand, { start: '2008', end: '2008' });
 overviewCommand.action(buildOverviewData);
+
+const lowerTiersCommand = program
+  .command('lower-tiers')
+  .description('Build supplemental lower-tier data from configured competition source pages');
+addYearOptions(lowerTiersCommand, { start: '1979', end: '2025' });
+lowerTiersCommand.action(buildLowerTierData);
 
 const combinedCommand = program
   .command('combined')

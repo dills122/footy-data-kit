@@ -19,11 +19,15 @@ import { getTierKeys, getTierTable, sortSeasonKeys } from './season-rules.js';
 
 const DEFAULT_INPUT_FILE = './data-output/all-seasons.json';
 const DEFAULT_OUTPUT_FILE = './data/club-metadata.json';
+const DEFAULT_REVIEW_OUTPUT_FILE = './data/club-metadata-review.json';
 const DERIVED_SOURCE_ID = 'football-data-output';
+const BELOW_TRACKED_COVERAGE_REASON = 'below-tracked-coverage';
+const MANUAL_REVIEW_REQUIRED_REASON = 'manual-review-required';
 const OFFICIAL_COMPETITION_PAUSED_REASON = 'official-competition-paused';
 const OUTSIDE_TRACKED_COVERAGE_REASON = 'outside-tracked-coverage';
 const SEASON_METADATA_BASIS = 'season-metadata';
 const TABLE_NOTE_BASIS = 'table-note';
+const REVIEW_GENERATOR_ID = 'club-metadata-review';
 
 function parseSeasonKey(value) {
   const parsed = Number.parseInt(String(value), 10);
@@ -237,6 +241,48 @@ function buildCoverageGaps(seasonsSeen) {
   return gaps;
 }
 
+function buildObservedSeasonStints(seasonsSeen) {
+  const seasons = sortedNumbers(seasonsSeen);
+  const stints = [];
+  let startSeason = null;
+  let previousSeason = null;
+
+  for (const season of seasons) {
+    if (startSeason == null) {
+      startSeason = season;
+      previousSeason = season;
+      continue;
+    }
+
+    if (season === previousSeason + 1) {
+      previousSeason = season;
+      continue;
+    }
+
+    stints.push({ fromSeason: startSeason, toSeason: previousSeason });
+    startSeason = season;
+    previousSeason = season;
+  }
+
+  if (startSeason != null && previousSeason != null) {
+    stints.push({ fromSeason: startSeason, toSeason: previousSeason });
+  }
+
+  return stints;
+}
+
+function getTiersSeenInRange(tierSeasons, fromSeason, toSeason) {
+  const tiers = [];
+  for (const [tierKey, seasons] of tierSeasons.entries()) {
+    for (const season of seasons) {
+      if (season < fromSeason || season > toSeason) continue;
+      tiers.push(tierKey);
+      break;
+    }
+  }
+  return sortTierKeys(tiers);
+}
+
 export function classifyClubTableNoteForContinuity(note) {
   const noteText = normalizeNoteText(note);
   if (!noteText) return null;
@@ -344,35 +390,55 @@ function buildAutoAbsenceExplanations(coverageGaps, officialPausedSeasons, rowOb
   }).filter(Boolean);
 }
 
-function buildTrackedMembership(seasonsSeen, tiersSeen, latestSeason) {
+function buildTrackedMembership(seasonsSeen, tierSeasons, latestSeason) {
   if (!seasonsSeen.length) return [];
-  const firstSeenSeason = seasonsSeen[0];
-  const lastSeenSeason = seasonsSeen[seasonsSeen.length - 1];
-  return [
-    {
-      fromSeason: firstSeenSeason,
-      toSeason: lastSeenSeason === latestSeason ? null : lastSeenSeason,
-      tiers: sortTierKeys(tiersSeen),
-      basis: 'observed',
-    },
-  ];
+  return buildObservedSeasonStints(seasonsSeen).map((stint) => ({
+    fromSeason: stint.fromSeason,
+    toSeason: stint.toSeason === latestSeason ? null : stint.toSeason,
+    tiers: getTiersSeenInRange(tierSeasons, stint.fromSeason, stint.toSeason),
+    basis: 'observed',
+  }));
 }
 
-function buildClubStatus(seasonsSeen, coverageGaps, absenceExplanations, latestSeason) {
+function findLastObservation(rowObservations) {
+  return [...rowObservations].sort((a, b) => b.seasonNumber - a.seasonNumber)[0] || null;
+}
+
+function buildClubStatus(seasonsSeen, latestSeason, rowObservations) {
   const firstSeenSeason = seasonsSeen[0] ?? null;
   const lastSeenSeason = seasonsSeen[seasonsSeen.length - 1] ?? null;
-  const explainedGapKeys = new Set(
-    absenceExplanations.map((entry) => `${entry.fromSeason}:${entry.toSeason}`)
-  );
-  const hasUnexplainedGaps = coverageGaps.some(
-    (gap) => !explainedGapKeys.has(`${gap.startSeason}:${gap.endSeason}`)
-  );
 
-  return {
-    current: lastSeenSeason === latestSeason ? 'active' : 'historical',
+  const baseStatus = {
+    current: 'unknown',
     trackedFromSeason: firstSeenSeason,
     trackedToSeason: lastSeenSeason === latestSeason ? null : lastSeenSeason,
-    hasUnexplainedGaps,
+    hasUnexplainedGaps: false,
+  };
+
+  if (lastSeenSeason === latestSeason) {
+    return {
+      ...baseStatus,
+      current: 'active',
+    };
+  }
+
+  const lastObservation = findLastObservation(rowObservations);
+  const continuitySignal = classifyClubTableNoteForContinuity(lastObservation?.notes);
+  if (lastObservation && continuitySignal?.absenceReason === OUTSIDE_TRACKED_COVERAGE_REASON) {
+    return {
+      ...baseStatus,
+      current: 'active',
+      reason: BELOW_TRACKED_COVERAGE_REASON,
+      reasonLabel: `Last observed leaving supported league coverage after ${lastObservation.seasonNumber}.`,
+      sourceRefs: lastObservation.sourceRefs,
+    };
+  }
+
+  return {
+    ...baseStatus,
+    reason: MANUAL_REVIEW_REQUIRED_REASON,
+    reasonLabel:
+      'Last observed before the latest supported season with no reviewed lifecycle or below-coverage status rule.',
   };
 }
 
@@ -483,8 +549,8 @@ function buildClubMetadataRecord(accumulator, { latestSeason, officialPausedSeas
     buildTableNoteLifecycleEvents(coverageGaps, accumulator.rowObservations),
     lifecycleRule
   );
-  const trackedMembership = buildTrackedMembership(seasonsSeen, tiersSeen, latestSeason);
-  const autoStatus = buildClubStatus(seasonsSeen, coverageGaps, absenceExplanations, latestSeason);
+  const trackedMembership = buildTrackedMembership(seasonsSeen, accumulator.tierSeasons, latestSeason);
+  const autoStatus = buildClubStatus(seasonsSeen, latestSeason, accumulator.rowObservations);
 
   return {
     clubId: slugifyClubId(accumulator.clubKey),
@@ -511,6 +577,109 @@ function buildClubMetadataRecord(accumulator, { latestSeason, officialPausedSeas
       tierSeasons: buildTierSeasons(accumulator.tierSeasons),
       coverageGaps,
     },
+  };
+}
+
+function hasOwnProperty(value, key) {
+  return Object.prototype.hasOwnProperty.call(value || {}, key);
+}
+
+function getMissingMinimumMetadataFields(club) {
+  const missing = [];
+  if (!club?.clubId) missing.push('clubId');
+  if (!club?.canonicalName) missing.push('canonicalName');
+  if (!club?.status?.current) missing.push('status.current');
+  if (!hasOwnProperty(club?.status, 'trackedFromSeason')) missing.push('status.trackedFromSeason');
+  if (!hasOwnProperty(club?.status, 'trackedToSeason')) missing.push('status.trackedToSeason');
+  if (!Array.isArray(club?.history?.trackedMembership) || !club.history.trackedMembership.length) {
+    missing.push('history.trackedMembership');
+  }
+  if (!Array.isArray(club?.derived?.aliases) || !club.derived.aliases.length) {
+    missing.push('derived.aliases');
+  }
+  if (!Array.isArray(club?.derived?.seasonsSeen) || !club.derived.seasonsSeen.length) {
+    missing.push('derived.seasonsSeen');
+  }
+  if (!Array.isArray(club?.derived?.tiersSeen) || !club.derived.tiersSeen.length) {
+    missing.push('derived.tiersSeen');
+  }
+  return missing;
+}
+
+function buildReviewIssueBase(clubKey, club) {
+  return {
+    clubKey,
+    clubId: club?.clubId || null,
+    canonicalName: club?.canonicalName || clubKey,
+    status: club?.status?.current || null,
+    reason: club?.status?.reason || null,
+    trackedFromSeason: club?.status?.trackedFromSeason ?? null,
+    trackedToSeason: club?.status?.trackedToSeason ?? null,
+    seasonsSeen: club?.derived?.seasonsSeen || [],
+    tiersSeen: club?.derived?.tiersSeen || [],
+  };
+}
+
+function buildClubMetadataReviewIssues(clubs) {
+  const issues = [];
+
+  for (const [clubKey, club] of Object.entries(clubs || {})) {
+    const missingFields = getMissingMinimumMetadataFields(club);
+    if (missingFields.length) {
+      issues.push({
+        type: 'missing-minimum-fields',
+        ...buildReviewIssueBase(clubKey, club),
+        missingFields,
+        message: `${club?.canonicalName || clubKey} is missing required metadata fields`,
+      });
+    }
+
+    if (club?.status?.current === 'unknown' || club?.status?.reason === MANUAL_REVIEW_REQUIRED_REASON) {
+      issues.push({
+        type: 'manual-status-review',
+        ...buildReviewIssueBase(clubKey, club),
+        message: `${club?.canonicalName || clubKey} needs reviewed lower-tier status classification`,
+      });
+    }
+
+    if (club?.status?.reason === BELOW_TRACKED_COVERAGE_REASON) {
+      issues.push({
+        type: 'below-tracked-coverage-review',
+        ...buildReviewIssueBase(clubKey, club),
+        message: `${club?.canonicalName || clubKey} was auto-classified as active below tracked coverage`,
+      });
+    }
+  }
+
+  return issues.sort((a, b) => {
+    if (a.type !== b.type) return a.type.localeCompare(b.type);
+    return a.clubKey.localeCompare(b.clubKey);
+  });
+}
+
+export function buildClubMetadataReviewReport(seedDataset, options = {}) {
+  const clubs = seedDataset?.clubs || {};
+  const issues = buildClubMetadataReviewIssues(clubs);
+  const issueCounts = issues.reduce((counts, issue) => {
+    counts[issue.type] = (counts[issue.type] || 0) + 1;
+    return counts;
+  }, {});
+
+  return {
+    metadata: buildDatasetMetadata({
+      generator: REVIEW_GENERATOR_ID,
+      sourceFiles: options.sourceFiles || [],
+      buildOptions: {
+        input: options.input || null,
+        clubMetadata: options.clubMetadata || null,
+      },
+    }),
+    datasetPath: options.datasetPath || null,
+    clubMetadataPath: options.clubMetadataPath || null,
+    clubCount: Object.keys(clubs).length,
+    issueCount: issues.length,
+    issueCounts,
+    issues,
   };
 }
 
@@ -624,7 +793,13 @@ export function buildClubMetadataSeedDataset(inputFile, options = {}) {
   };
 }
 
-export function writeClubMetadataSeedFile({ input, output, compact = false, cwd = process.cwd() }) {
+export function writeClubMetadataSeedFile({
+  input,
+  output,
+  reviewOutput = null,
+  compact = false,
+  cwd = process.cwd(),
+}) {
   const resolvedInput = path.resolve(cwd, input);
   const resolvedOutput = path.resolve(cwd, output);
   const seedDataset = buildClubMetadataSeedDataset(resolvedInput, { cwd });
@@ -633,10 +808,27 @@ export function writeClubMetadataSeedFile({ input, output, compact = false, cwd 
   fs.mkdirSync(path.dirname(resolvedOutput), { recursive: true });
   fs.writeFileSync(resolvedOutput, JSON.stringify(seedDataset, null, spacing));
 
+  let reviewReport = null;
+  let reviewOutputPath = null;
+  if (reviewOutput) {
+    reviewOutputPath = path.resolve(cwd, reviewOutput);
+    reviewReport = buildClubMetadataReviewReport(seedDataset, {
+      input,
+      clubMetadata: output,
+      datasetPath: resolvedInput,
+      clubMetadataPath: resolvedOutput,
+      sourceFiles: [resolvedInput, resolvedOutput],
+    });
+    fs.mkdirSync(path.dirname(reviewOutputPath), { recursive: true });
+    fs.writeFileSync(reviewOutputPath, JSON.stringify(reviewReport, null, spacing));
+  }
+
   return {
     outputPath: resolvedOutput,
+    reviewOutputPath,
     clubCount: Object.keys(seedDataset.clubs).length,
     dataset: seedDataset,
+    reviewReport,
   };
 }
 
@@ -648,20 +840,31 @@ export function runCli(argv = process.argv) {
     .description('Generate derived club metadata from a FootballData JSON file.')
     .argument('[input]', 'FootballData JSON input file', DEFAULT_INPUT_FILE)
     .option('-o, --output <file>', 'Path to write the club metadata sidecar file', DEFAULT_OUTPUT_FILE)
+    .option(
+      '--review-output <file>',
+      'Path to write the lower-tier metadata review report',
+      DEFAULT_REVIEW_OUTPUT_FILE
+    )
     .option('--compact', 'Write the output without indentation', false);
 
   program.parse(argv);
 
   const input = program.args[0] || DEFAULT_INPUT_FILE;
-  const { output, compact } = program.opts();
+  const { output, reviewOutput, compact } = program.opts();
   const result = writeClubMetadataSeedFile({
     input,
     output,
+    reviewOutput,
     compact,
     cwd: process.cwd(),
   });
 
   console.log(`Generated ${result.clubCount} club metadata records -> ${result.outputPath}`);
+  if (result.reviewOutputPath) {
+    console.log(
+      `Generated ${result.reviewReport.issueCount} club metadata review issues -> ${result.reviewOutputPath}`
+    );
+  }
   return result;
 }
 
@@ -676,6 +879,7 @@ if (isDirectExecution) {
 export default {
   buildClubMetadataSeed,
   buildClubMetadataSeedDataset,
+  buildClubMetadataReviewReport,
   writeClubMetadataSeedFile,
   runCli,
 };

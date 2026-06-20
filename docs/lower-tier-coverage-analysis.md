@@ -16,23 +16,31 @@ Current coverage by level area:
 | Tier 2       | 1890-2025, excluding war gaps | Mature coverage                                                   |
 | Tier 3       | 1920-2025, excluding WWII gap | Good coverage; 1921-1957 uses `tier3.divisions[]` for North/South |
 | Tier 4       | 1958-2025, excluding WWII gap | True level 4 starts with the 1958 Fourth Division                 |
-| Tier 5       | 2012-2025 only                | Missing 1979-2011 Alliance/Conference/National tier               |
-| Level 6      | 2021-2025 only                | Missing 2004-2020 National League North/South                     |
+| Tier 5       | 1979-2025                     | Backfilled from Alliance/Conference/National League season pages  |
+| Level 6      | 2004-2025                     | Backfilled as `tier6.divisions[]` from North/South season pages   |
 | True level 7 | Not really parsed             | Configured but not currently emitted as a v1 coverage target      |
 
 Important modeling rule:
 
 - `tierN` represents the actual pyramid level.
 - From 1921-1957, Third Division North and Third Division South are stored under `tier3.divisions[]`.
-- From 2021-2025, National League North and National League South are stored under `tier6.divisions[]`.
+- From 2004-2025, Conference/National League North and South are stored under `tier6.divisions[]`.
 
-Recommended lower-tier slice order from the coverage snapshot:
+Recommended lower-tier slice order from the original coverage snapshot:
 
 1. Keep the parallel-league contract stable so parser, verifier, and downstream logic treat `tierN` as the actual level.
 2. Backfill level 6 for 2012-2020 after the modern parallel-league model is stable.
 3. Backfill tier 5 for 2004-2011, plus level 6 National League North/South for the same range.
 4. Backfill tier 5 for 1979-2003.
 5. Defer true level 7 until level 5 and level 6 are stable, because level 7 has multiple parallel feeder leagues.
+
+Post-v1 phase 0-3 branch scope:
+
+- Add tests and typed contracts for the slice order above before regenerating checked-in output.
+- Keep `data-output/` unchanged while parser and builder behavior is being locked.
+- Refresh generated output only after dry-run diffs are understood.
+- Use the phase plan in [post-v1-phase-0-3-plan.md](./post-v1-phase-0-3-plan.md) as the active branch checklist.
+- Distinguish parser readiness from source availability: representative dry runs show some yearly overview pages do not expose the missing lower-tier tables.
 
 Prep decision:
 
@@ -185,3 +193,106 @@ Current contract:
 - English Football League play-offs: https://en.wikipedia.org/wiki/English_Football_League_play-offs
 - 2019-20 EFL League One: https://en.wikipedia.org/wiki/2019%E2%80%9320_EFL_League_One
 - 2019-20 EFL League Two: https://en.wikipedia.org/wiki/2019%E2%80%9320_EFL_League_Two
+
+## Post-V1 Backfill Dry Runs
+
+Use temporary output directories before any checked-in data refresh.
+
+### Branch Result
+
+After parser/config/test gates passed, the branch generated lower-tier
+supplements from per-competition season pages and refreshed checked-in generated
+output.
+
+Final generated coverage:
+
+| Area   | Coverage  | Shape                                                                                                                   |
+| ------ | --------- | ----------------------------------------------------------------------------------------------------------------------- |
+| Tier 5 | 1979-2025 | Single `tier5.table` for Alliance Premier League, Football Conference, Conference National/Premier, and National League |
+| Tier 6 | 2004-2025 | Parallel `tier6.divisions[]` for Conference/National League North and South                                             |
+
+Dry-run and checked-in output checks confirmed no gaps in either range. The
+2014-15 Conference South table has 21 rows in source output; this is treated as
+an observed source shape rather than a parser failure.
+
+Club metadata sidecar expansion now follows the expanded `all-seasons.json`
+scope. Lower-tier membership is represented as observed stints, and
+`data/club-metadata-review.json` records the clubs that still need manual
+lower-tier status review or confirmation of `below-tracked-coverage` status.
+
+### Representative Findings
+
+The phase 0-3 branch tested representative yearly overview pages against the live Wikipedia source.
+
+| Season | Source page                   | Tables found | Generated depth | Finding                                                                             |
+| ------ | ----------------------------- | ------------ | --------------- | ----------------------------------------------------------------------------------- |
+| 1979   | `1979–80_in_English_football` | 4            | `tier1`-`tier4` | The yearly overview page does not expose the Alliance Premier League table.         |
+| 2004   | `2004–05_in_English_football` | 4            | `tier1`-`tier4` | The yearly overview page does not expose Conference National/North/South tables.    |
+| 2012   | `2012–13_in_English_football` | 5            | `tier1`-`tier5` | The yearly overview page exposes Conference Premier but not Conference North/South. |
+
+Conclusion:
+
+- The existing overview parser and builder can represent tier 5 and level 6 when parsed tables are present.
+- Missing historical tier 5 and level 6 coverage cannot be completed from these representative yearly overview pages alone.
+- The implemented backfill path uses per-competition season pages, then merges those parsed tables into the same `tierN` output contract.
+- The branch added source-slug helpers for these per-competition pages:
+  - `1979-1985`: `{season}_Alliance_Premier_League`
+  - `1986-2014`: `{season}_Football_Conference`
+  - `2015-present`: `{season}_National_League`
+- Lower-tier competition pages can contain non-table statistics such as top-scorer wikitables; the parser now excludes scorer headings from league-table extraction.
+- Competition pages may root the standings under headings such as `Final table`,
+  `Final league table`, or `Final_table`; these are recognized as generic
+  league-table headings so they map to the target lower-tier slot instead of
+  being mistaken for a source title.
+
+Supplemental source path now available in code:
+
+1. Use `getWikipediaLowerTierCompetitionSourceSlugs(year)` to select candidate lower-tier source pages.
+2. Use `buildSeasonOverviewTierRecordsForSlug(slug)` to build `tierN` records without `seasonInfo`.
+3. Use `createDatasetStore(...).writeTiers(seasonKey, tierRecords)` to merge those tiers without replacing existing upper-tier data.
+4. Use `node wikipedia/cli/index.js lower-tiers` or `pnpm wiki:build:lower-tiers` to run the supplement flow.
+
+Representative lower-tier supplement dry runs:
+
+| Season | Command source                    | Generated supplement                                                 |
+| ------ | --------------------------------- | -------------------------------------------------------------------- |
+| 1979   | `1979–80_Alliance_Premier_League` | `tier5` with 20 Alliance Premier League rows                         |
+| 2004   | `2004–05_Football_Conference`     | `tier5` Conference National plus `tier6.divisions[]` for North/South |
+| 2012   | `2012–13_Football_Conference`     | `tier5` Conference Premier plus `tier6.divisions[]` for North/South  |
+
+### Overview Dry-Run Commands
+
+These commands are still useful for checking what a yearly overview page contributes, but they should not be treated as complete backfill commands for missing lower tiers.
+
+Level 6 check where tier 5 already exists in generated data:
+
+```sh
+node wikipedia/cli/index.js overview --start 2012 --end 2020 --output /tmp/footy-lower-tier-phase3 --force-update --include-war-placeholders
+```
+
+Tier 5 plus level 6 source-availability check after the 2004 National League System restructure:
+
+```sh
+node wikipedia/cli/index.js overview --start 2004 --end 2011 --output /tmp/footy-lower-tier-phase3 --force-update --include-war-placeholders
+```
+
+Historical tier 5 source-availability check from the Alliance Premier League / Football Conference era:
+
+```sh
+node wikipedia/cli/index.js overview --start 1979 --end 2003 --output /tmp/footy-lower-tier-phase3 --force-update --include-war-placeholders
+```
+
+Dry-run review checklist:
+
+- Confirm `tier5` and `tier6` metadata uses actual pyramid levels.
+- Confirm `tier6` parent records use `metadata.structure: "parallel-leagues"` and `divisions[]`.
+- Confirm sibling non-target competitions are not numbered into `tierN`.
+- Compare row counts, `promoted`, `relegated`, source titles, league IDs, and table indexes against representative source pages.
+- Record whether the yearly overview page contains the target lower-tier tables or whether a competition-specific source page is required.
+- Run lower-tier supplement output to a temporary directory before touching checked-in data:
+
+```sh
+node wikipedia/cli/index.js lower-tiers --start 1979 --end 2025 --output /tmp/footy-lower-tier-supplement --force-update
+```
+
+- Regenerate checked-in `data-output/` only after parser/build diffs are understood.

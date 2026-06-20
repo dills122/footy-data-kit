@@ -171,6 +171,9 @@ export const WIKIPEDIA_OVERVIEW_SEASON_OUTCOME_OVERRIDES = Object.freeze({
   }),
 });
 
+/**
+ * @type {readonly import('./models/wikipedia.ts').WikipediaLeagueLevelRule[]}
+ */
 export const WIKIPEDIA_LEAGUE_LEVEL_RULES = Object.freeze([
   Object.freeze({
     level: 1,
@@ -471,6 +474,8 @@ export const WIKIPEDIA_OVERVIEW_CONFIG = Object.freeze({
     'league tables',
     'final table',
     'final tables',
+    'final league table',
+    'final league tables',
     'table',
     'tables',
     'league standings',
@@ -488,6 +493,8 @@ export const WIKIPEDIA_OVERVIEW_CONFIG = Object.freeze({
     "League_Competitions_(Men's)",
     'Final_standings',
     'Final_Standings',
+    'Final_table',
+    'Final_Table',
     "Men's_football",
     'Mens_football',
   ]),
@@ -515,8 +522,38 @@ export const WIKIPEDIA_OVERVIEW_CONFIG = Object.freeze({
     'western football league',
     'midland league',
     'midland football league',
+    'top scorer',
+    'topscorer',
+    'top goal scorer',
+    'goalscorer',
   ]),
 });
+
+export const WIKIPEDIA_LOWER_TIER_COMPETITION_SOURCES = Object.freeze([
+  Object.freeze({
+    key: 'alliance-premier-league',
+    title: 'Alliance Premier League',
+    startSeason: 1979,
+    endSeason: 1985,
+    competitionSlug: 'Alliance_Premier_League',
+    levels: Object.freeze([5]),
+  }),
+  Object.freeze({
+    key: 'football-conference',
+    title: 'Football Conference',
+    startSeason: 1986,
+    endSeason: 2014,
+    competitionSlug: 'Football_Conference',
+    levels: Object.freeze([5, 6]),
+  }),
+  Object.freeze({
+    key: 'national-league',
+    title: 'National League',
+    startSeason: 2015,
+    competitionSlug: 'National_League',
+    levels: Object.freeze([5, 6]),
+  }),
+]);
 
 export function buildWikipediaArticleUrl(slug) {
   return `${WIKIPEDIA_BASE_URL}/${slug}`;
@@ -554,10 +591,43 @@ export function buildPromotionSeasonSlug(year) {
 }
 
 export function buildOverviewSeasonSlug(year) {
+  return `${buildWikipediaSeasonRangePrefix(year)}_in_English_football`;
+}
+
+export function buildWikipediaSeasonRangePrefix(year) {
   const nextYear = year + 1;
   const nextYearPart =
     nextYear % 100 === 0 ? String(nextYear) : String(nextYear).slice(-2).padStart(2, '0');
-  return `${year}\u2013${nextYearPart}_in_English_football`;
+  return `${year}\u2013${nextYearPart}`;
+}
+
+export function buildWikipediaCompetitionSeasonSlug(year, competitionSlug) {
+  return `${buildWikipediaSeasonRangePrefix(year)}_${competitionSlug}`;
+}
+
+function sourceIsInSeasonRange(source, seasonNumber) {
+  if (!Number.isFinite(seasonNumber)) return false;
+  if (Number.isFinite(source.startSeason) && seasonNumber < source.startSeason) return false;
+  if (Number.isFinite(source.endSeason) && seasonNumber > source.endSeason) return false;
+  return true;
+}
+
+export function getWikipediaLowerTierCompetitionSourceSlugs(year) {
+  const seasonNumber = Number.parseInt(String(year), 10);
+  if (!Number.isFinite(seasonNumber)) return [];
+
+  return WIKIPEDIA_LOWER_TIER_COMPETITION_SOURCES.filter((source) =>
+    sourceIsInSeasonRange(source, seasonNumber)
+  ).map((source) => buildWikipediaCompetitionSeasonSlug(seasonNumber, source.competitionSlug));
+}
+
+export function getWikipediaLowerTierCompetitionSourceForSlug(slug) {
+  const text = String(slug || '');
+  return (
+    WIKIPEDIA_LOWER_TIER_COMPETITION_SOURCES.find((source) =>
+      text.endsWith(`_${source.competitionSlug}`)
+    ) || null
+  );
 }
 
 function normalizeLeagueLabel(value) {

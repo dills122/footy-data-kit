@@ -59,6 +59,8 @@ describe('report-integration-coverage', () => {
       'first-tag': ['1900'],
       'second-tag': ['1900'],
     });
+    expect(report.clubMetadata.fixtureClubCount).toBeGreaterThan(0);
+    expect(report.clubMetadata.assertionCounts.observedRows).toBeGreaterThan(0);
   });
 
   test('formats a readable CLI report', () => {
@@ -76,10 +78,24 @@ describe('report-integration-coverage', () => {
         seasonInfoFields: 0,
       },
       coverageTags: { 'first-tag': ['1900', '1901'] },
+      clubMetadata: {
+        fixtureClubCount: 2,
+        statusReasonCounts: { dissolved: 1, merged: 1 },
+        relationshipCounts: { merger: 1 },
+        assertionCounts: {
+          lifecycleEvents: 2,
+          relationships: 1,
+          observedRows: 2,
+        },
+        coverageTags: { defunct: ['example fc'], merged: ['merged fc'] },
+      },
     });
 
     expect(output).toContain('Season fixtures: 2/4 (50%)');
     expect(output).toContain('Source modes: overview: 2');
     expect(output).toContain('first-tag: 2 season(s) (1900, 1901)');
+    expect(output).toContain('Fixture clubs: 2');
+    expect(output).toContain('Status reasons: dissolved: 1, merged: 1');
+    expect(output).toContain('defunct: 1 club(s) (example fc)');
   });
 });

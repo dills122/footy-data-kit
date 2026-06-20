@@ -3,6 +3,7 @@ import {
   loadFootballData,
   saveFootballData,
   setSeasonRecord,
+  upsertSeasonTier,
 } from './generate-output-files.ts';
 
 function toFiniteNumber(value) {
@@ -77,10 +78,25 @@ export function createDatasetStore(filePath, { generator, buildOptions } = {}) {
     return save();
   }
 
+  function writeTier(seasonKey, tierKey, tierValue) {
+    upsertSeasonTier(dataset, seasonKey, tierKey, tierValue);
+    return save();
+  }
+
+  function writeTiers(seasonKey, tierRecords) {
+    for (const [tierKey, tierValue] of Object.entries(tierRecords || {})) {
+      if (!/^tier\d+$/.test(tierKey)) continue;
+      upsertSeasonTier(dataset, seasonKey, tierKey, tierValue);
+    }
+    return save();
+  }
+
   return {
     dataset,
     metadata,
     save,
+    writeTier,
+    writeTiers,
     writeSeason,
   };
 }

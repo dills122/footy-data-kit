@@ -216,6 +216,8 @@ describe('compare-football-data', () => {
   test('canonicalizeTeamName collapses historical aliases and punctuation variants', () => {
     expect(canonicalizeTeamName('The Wednesday')).toBe('sheffield wednesday');
     expect(canonicalizeTeamName('Glossop North End')).toBe('glossop');
+    expect(canonicalizeTeamName('AFC Hornchurch')).toBe('hornchurch');
+    expect(canonicalizeTeamName('AP Leamington')).toBe('leamington');
     expect(canonicalizeTeamName('Harrogate Town A.F.C.')).toBe('harrogate town');
     expect(canonicalizeTeamName('Dagenham & Redbridge')).toBe('dagenham and redbridge');
     expect(canonicalizeTeamName('Bradford (Park Avenue)')).toBe('bradford park avenue');
@@ -229,6 +231,9 @@ describe('compare-football-data', () => {
     expect(canonicalizeTeamName('Wrexham AFC')).toBe('wrexham');
     expect(canonicalizeTeamName('Bournemouth & Boscombe Athletic')).toBe('afc bournemouth');
     expect(canonicalizeTeamName('Burslem Port Vale')).toBe('port vale');
+    expect(canonicalizeTeamName('Gravesend & Northfleet')).toBe('ebbsfleet united');
+    expect(canonicalizeTeamName('Hyde')).toBe('hyde united');
+    expect(canonicalizeTeamName('Stevenage Borough')).toBe('stevenage');
     expect(canonicalizeTeamName('Swansea Town')).toBe('swansea city');
     expect(canonicalizeTeamName('Walsall Town Swifts')).toBe('walsall');
     expect(canonicalizeTeamName('AFC Wimbledon')).toBe('afc wimbledon');
