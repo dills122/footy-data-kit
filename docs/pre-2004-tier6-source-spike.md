@@ -65,24 +65,24 @@ Premier League was formed.
 
 Recommended target model:
 
-| Seasons   | `tier6.divisions[]` targets                                                                                                                                       |
-| --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 1979-1981 | Northern Premier League table; Southern Football League Midland Division; Southern Football League Southern Division; Isthmian League Premier Division             |
-| 1982-2003 | Northern Premier League top table / Premier Division; Southern Football League Premier Division; Isthmian League Premier Division                                  |
+| Seasons   | `tier6.divisions[]` targets                                                                                                                            |
+| --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| 1979-1981 | Northern Premier League table; Southern Football League Midland Division; Southern Football League Southern Division; Isthmian League Premier Division |
+| 1982-2003 | Northern Premier League top table / Premier Division; Southern Football League Premier Division; Isthmian League Premier Division                      |
 
 This means `tier6.divisions[]` should have four divisions for `1979-1981` and
 three divisions for `1982-2003`.
 
 ## Row Count Findings
 
-| Area                                      | Seasons   | Target table count | Row-count range |
-| ----------------------------------------- | --------- | ------------------ | --------------- |
-| Northern Premier League top table         | 1979-1986 | 8                  | 22              |
-| Northern Premier League Premier Division  | 1987-2003 | 17                 | 22-23           |
-| Southern Football League Midland Division | 1979-1981 | 3                  | 22              |
+| Area                                       | Seasons   | Target table count | Row-count range |
+| ------------------------------------------ | --------- | ------------------ | --------------- |
+| Northern Premier League top table          | 1979-1986 | 8                  | 22              |
+| Northern Premier League Premier Division   | 1987-2003 | 17                 | 22-23           |
+| Southern Football League Midland Division  | 1979-1981 | 3                  | 22              |
 | Southern Football League Southern Division | 1979-1981 | 3                  | 24              |
-| Southern Football League Premier Division | 1982-2003 | 22                 | 20-22           |
-| Isthmian League Premier Division          | 1979-2003 | 25                 | 22-24           |
+| Southern Football League Premier Division  | 1982-2003 | 22                 | 20-22           |
+| Isthmian League Premier Division           | 1979-2003 | 25                 | 22-24           |
 
 Season totals:
 
@@ -131,6 +131,7 @@ isthmian-premier
 Build the next slice in two commits:
 
 1. Config/tests/reporting
+
    - Add source profiles and target-table rules.
    - Add focused parser/builder tests for `1979`, `1981`, `1982`, `1986`, and
      `2003`.
