@@ -108,6 +108,52 @@ describe('club asset helpers', () => {
     expect(bundle.candidates.map((candidate) => candidate.priority)).toEqual([1, 2, 3]);
   });
 
+  test('does not mark free non-crest page images as usable', () => {
+    const candidate = classifyClubAssetCandidate(
+      {
+        assetId: 'wikipedia-pageimage-free:Example_FC_match.jpg',
+        kind: 'crest',
+        status: 'needs-review',
+        source: 'wikipedia-pageimage-free',
+        imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/example.jpg',
+        fileTitle: 'File:Example FC match.jpg',
+        license: {
+          shortName: 'CC BY-SA 4.0',
+          usageTerms: 'Creative Commons Attribution-Share Alike 4.0',
+          copyrighted: true,
+        },
+      },
+      exampleClub
+    );
+
+    expect(candidate.status).toBe('needs-review');
+    expect(candidate.verification.reviewReasons).toContain('non-crest-filename');
+  });
+
+  test('dedupes equivalent file candidates after ranking', () => {
+    const bundle = buildClubAssetBundle([
+      {
+        assetId: 'wikipedia-pageimage-free:Example_FC_crest.svg',
+        kind: 'crest',
+        status: 'usable',
+        source: 'wikipedia-pageimage-free',
+        imageUrl: 'https://upload.wikimedia.org/example.svg',
+        fileTitle: 'File:Example FC crest.svg',
+      },
+      {
+        assetId: 'wikipedia-pageimage-any:Example_FC_crest.svg',
+        kind: 'crest',
+        status: 'usable',
+        source: 'wikipedia-pageimage-any',
+        imageUrl: 'https://upload.wikimedia.org/example.svg',
+        fileTitle: 'File:Example FC crest.svg',
+      },
+    ]);
+
+    expect(bundle.candidates).toHaveLength(1);
+    expect(bundle.candidates[0].assetId).toBe('wikipedia-pageimage-free:Example_FC_crest.svg');
+  });
+
   test('builds manual review issues for missing and uncertain assets', () => {
     expect(buildClubAssetReviewIssues('example fc', exampleClub, { status: 'missing' })).toEqual([
       expect.objectContaining({

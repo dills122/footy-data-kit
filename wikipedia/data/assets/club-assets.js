@@ -191,7 +191,11 @@ export function classifyClubAssetCandidate(candidate, club, { checkedAt = null }
     status = 'failed';
   } else if (licenseCheck === 'restricted') {
     status = 'restricted';
-  } else if (licenseCheck === 'pass' && ['strong', 'possible'].includes(identityMatch)) {
+  } else if (
+    licenseCheck === 'pass' &&
+    ['strong', 'possible'].includes(identityMatch) &&
+    likelyCrestCandidate
+  ) {
     status = 'usable';
   }
 
@@ -226,16 +230,8 @@ function sourceRank(source) {
 }
 
 export function rankClubAssetCandidates(candidates, limit = 5) {
-  const seen = new Set();
-  const deduped = [];
-  for (const candidate of candidates || []) {
-    if (!candidate?.assetId) continue;
-    if (seen.has(candidate.assetId)) continue;
-    seen.add(candidate.assetId);
-    deduped.push(candidate);
-  }
-
-  return deduped
+  const sortedCandidates = (candidates || [])
+    .filter((candidate) => candidate?.assetId)
     .sort((left, right) => {
       const statusDelta = statusRank(left.status) - statusRank(right.status);
       if (statusDelta) return statusDelta;
@@ -245,7 +241,18 @@ export function rankClubAssetCandidates(candidates, limit = 5) {
       const rightCrest = hasCrestFileToken(right.fileTitle) ? 0 : 1;
       if (leftCrest !== rightCrest) return leftCrest - rightCrest;
       return String(left.assetId).localeCompare(String(right.assetId));
-    })
+    });
+  const seen = new Set();
+  const deduped = [];
+  for (const candidate of sortedCandidates) {
+    const dedupeKey =
+      candidate.imageUrl || normalizedFileTitleKey(candidate.fileTitle) || candidate.assetId;
+    if (seen.has(dedupeKey)) continue;
+    seen.add(dedupeKey);
+    deduped.push(candidate);
+  }
+
+  return deduped
     .slice(0, limit)
     .map((candidate, index) => ({ ...candidate, priority: index + 1 }));
 }
