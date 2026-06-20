@@ -9,6 +9,7 @@
     "wiki:build:lower-tiers": "node wikipedia/cli/index.js lower-tiers --start 1979 --end 2025 --output ./data-output --force-update",
     "wiki:build:combined": "node wikipedia/data/combine-output-files.js --output ./data-output/all-seasons.json ./data-output/wiki_overview_tables_by_season.json",
     "wiki:club-seed": "node wikipedia/data/generate-club-metadata-seed.js ./data-output/all-seasons.json --output ./data/club-metadata.json",
+    "wiki:club-assets": "node wikipedia/data/generate-club-assets.js ./data/club-metadata.json --output ./data/club-metadata.json",
     "wiki:club-historical-audit": "node wikipedia/data/verify-club-continuity.js --check-historical-reasons --suggest-historical-reasons-from-wikipedia --wikipedia-limit 1000 --output ./data/club-historical-reason-audit.json",
     "wiki:club-historical-audit:check": "node wikipedia/data/verify-club-continuity.js --check-historical-reasons --fail-on-issues",
     "wiki:club-verify": "node wikipedia/data/verify-club-continuity.js",

@@ -250,12 +250,63 @@ export interface ClubDerivedMetadata {
   coverageGaps?: ClubCoverageGap[];
 }
 
+export type AssetStatus = 'usable' | 'restricted' | 'needs-review' | 'missing' | 'failed' | string;
+
+export interface MetadataAssetLicense {
+  shortName?: string | null;
+  usageTerms?: string | null;
+  licenseUrl?: string | null;
+  copyrighted?: boolean | null;
+  attribution?: string | null;
+  credit?: string | null;
+  artist?: string | null;
+}
+
+export interface MetadataAssetVerification {
+  identityMatch?: 'strong' | 'possible' | 'weak' | 'none' | string | null;
+  licenseCheck?: 'pass' | 'restricted' | 'unknown' | 'fail' | string | null;
+  httpCheck?: 'pass' | 'unknown' | 'fail' | string | null;
+  needsManualReview?: boolean;
+  reviewReasons?: string[];
+  checkedAt?: string | null;
+}
+
+export interface MetadataAssetCandidate {
+  assetId: string;
+  kind: string;
+  status: AssetStatus;
+  priority?: number | null;
+  source: string;
+  sourceUrl?: string | null;
+  imageUrl?: string | null;
+  pageUrl?: string | null;
+  fileTitle?: string | null;
+  mimeType?: string | null;
+  width?: number | null;
+  height?: number | null;
+  license?: MetadataAssetLicense;
+  verification?: MetadataAssetVerification;
+  notes?: string | null;
+}
+
+export interface MetadataAssetBundle {
+  preferred?: string | null;
+  status: AssetStatus;
+  candidates?: MetadataAssetCandidate[];
+}
+
+export interface MetadataAssets {
+  crest?: MetadataAssetBundle;
+  [kind: string]: MetadataAssetBundle | undefined;
+}
+
 export interface ClubMetadata {
   clubId?: string;
   canonicalName: string;
   status?: ClubStatus;
   history?: ClubHistory;
   derived?: ClubDerivedMetadata;
+  assets?: MetadataAssets;
   founded?: string | null;
   dissolved?: string | null;
   nameHistory?: ClubNamePeriod[];

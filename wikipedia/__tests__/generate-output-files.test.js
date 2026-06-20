@@ -437,6 +437,94 @@ describe('createFootballData', () => {
       ],
     });
   });
+
+  test('normalises club asset metadata records', () => {
+    const dataset = createFootballData({
+      clubs: {
+        'example fc': {
+          canonicalName: 'Example FC',
+          assets: {
+            crest: {
+              preferred: 'wikimedia:Example_FC_crest.svg',
+              status: 'usable',
+              candidates: [
+                {
+                  assetId: 'wikimedia:Example_FC_crest.svg',
+                  kind: 'crest',
+                  status: 'usable',
+                  priority: '1',
+                  source: 'wikipedia-pageimage-free',
+                  sourceUrl: 'https://en.wikipedia.org/wiki/Example_F.C.',
+                  imageUrl: 'https://upload.wikimedia.org/example.svg',
+                  fileTitle: 'File:Example_FC_crest.svg',
+                  mimeType: 'image/svg+xml',
+                  width: '512',
+                  height: '512',
+                  license: {
+                    shortName: 'PD',
+                    usageTerms: 'Public domain',
+                    copyrighted: false,
+                    attribution: 'Example FC',
+                  },
+                  verification: {
+                    identityMatch: 'strong',
+                    licenseCheck: 'pass',
+                    httpCheck: 'pass',
+                    needsManualReview: false,
+                    reviewReasons: ['license-restricted', 'license-restricted'],
+                    checkedAt: '2026-06-20T00:00:00.000Z',
+                  },
+                },
+                {
+                  assetId: '',
+                  kind: 'crest',
+                  status: 'usable',
+                  source: 'wikipedia-pageimage-free',
+                },
+              ],
+            },
+          },
+        },
+      },
+      seasons: {},
+    });
+
+    expect(dataset.clubs['example fc'].assets).toEqual({
+      crest: {
+        preferred: 'wikimedia:Example_FC_crest.svg',
+        status: 'usable',
+        candidates: [
+          {
+            assetId: 'wikimedia:Example_FC_crest.svg',
+            kind: 'crest',
+            status: 'usable',
+            priority: 1,
+            source: 'wikipedia-pageimage-free',
+            sourceUrl: 'https://en.wikipedia.org/wiki/Example_F.C.',
+            imageUrl: 'https://upload.wikimedia.org/example.svg',
+            fileTitle: 'File:Example_FC_crest.svg',
+            mimeType: 'image/svg+xml',
+            width: 512,
+            height: 512,
+            license: {
+              shortName: 'PD',
+              usageTerms: 'Public domain',
+              copyrighted: false,
+              attribution: 'Example FC',
+            },
+            verification: {
+              identityMatch: 'strong',
+              licenseCheck: 'pass',
+              httpCheck: 'pass',
+              needsManualReview: false,
+              reviewReasons: ['license-restricted'],
+              checkedAt: '2026-06-20T00:00:00.000Z',
+            },
+          },
+        ],
+      },
+    });
+  });
 });
 
 describe('updateFootballDataFile', () => {
