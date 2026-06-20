@@ -2,8 +2,8 @@
   "metadata": {
     "schemaVersion": 1,
     "generator": "club-metadata-seed",
-    "generatedAt": "2026-06-20T02:18:25.847Z",
-    "gitSha": "2e78013",
+    "generatedAt": "2026-06-20T02:24:35.010Z",
+    "gitSha": "2f258b6",
     "sourceFiles": [
       "/Users/dsteele/repos/footy-data-kit/data-output/all-seasons.json"
     ],
@@ -29646,16 +29646,84 @@
       "clubId": "emley",
       "canonicalName": "Emley",
       "status": {
-        "current": "unknown",
+        "current": "active",
         "trackedFromSeason": 1991,
         "trackedToSeason": 2001,
         "hasUnexplainedGaps": false,
-        "reason": "manual-review-required",
-        "reasonLabel": "Last observed before the latest supported season with no reviewed lifecycle or below-coverage status rule."
+        "reason": "successor-active",
+        "reasonLabel": "The original Emley relocated and became Wakefield, which disbanded in 2014; AFC Emley was established in 2005 and later took the Emley name.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Emley_A.F.C.",
+            "notes": "Used for Emley relocation, Wakefield rename, AFC Emley re-establishment, and current lower-division status context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
-        "lifecycleEvents": [],
+        "lifecycleEvents": [
+          {
+            "type": "relocated",
+            "season": 2000,
+            "label": "The original Emley club relocated to Belle Vue in Wakefield.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Emley_A.F.C.",
+                "notes": "Used for Emley relocation, Wakefield rename, AFC Emley re-establishment, and current lower-division status context."
+              }
+            ]
+          },
+          {
+            "type": "renamed",
+            "season": 2002,
+            "label": "The relocated club was renamed Wakefield & Emley.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Emley_A.F.C.",
+                "notes": "Used for Emley relocation, Wakefield rename, AFC Emley re-establishment, and current lower-division status context."
+              }
+            ]
+          },
+          {
+            "type": "phoenixFormed",
+            "season": 2005,
+            "label": "Supporters established AFC Emley after the reserve team in Emley was disbanded.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Emley_A.F.C.",
+                "notes": "Used for Emley relocation, Wakefield rename, AFC Emley re-establishment, and current lower-division status context."
+              }
+            ]
+          },
+          {
+            "type": "dissolved",
+            "season": 2014,
+            "label": "Wakefield disbanded in 2014.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Emley_A.F.C.",
+                "notes": "Used for Emley relocation, Wakefield rename, AFC Emley re-establishment, and current lower-division status context."
+              }
+            ]
+          },
+          {
+            "type": "renamed",
+            "season": 2019,
+            "label": "AFC Emley was renamed Emley A.F.C. from the 2019-20 season.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Emley_A.F.C.",
+                "notes": "Used for Emley relocation, Wakefield rename, AFC Emley re-establishment, and current lower-division status context."
+              }
+            ]
+          }
+        ],
         "trackedMembership": [
           {
             "fromSeason": 1991,
@@ -29672,6 +29740,13 @@
         "source": "football-data-output",
         "aliases": [
           "Emley"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Emley_A.F.C.",
+            "notes": "Used for Emley relocation, Wakefield rename, AFC Emley re-establishment, and current lower-division status context."
+          }
         ],
         "observedNames": [
           {
@@ -29738,86 +29813,6 @@
               1999,
               2000,
               2001
-            ]
-          }
-        ]
-      }
-    },
-    "enderby town": {
-      "clubId": "enderby-town",
-      "canonicalName": "Enderby Town",
-      "status": {
-        "current": "unknown",
-        "trackedFromSeason": 1979,
-        "trackedToSeason": 1982,
-        "hasUnexplainedGaps": false,
-        "reason": "manual-review-required",
-        "reasonLabel": "Last observed before the latest supported season with no reviewed lifecycle or below-coverage status rule."
-      },
-      "history": {
-        "nameHistory": [],
-        "lifecycleEvents": [],
-        "trackedMembership": [
-          {
-            "fromSeason": 1979,
-            "toSeason": 1982,
-            "tiers": [
-              "tier6"
-            ],
-            "basis": "observed"
-          }
-        ],
-        "absenceExplanations": []
-      },
-      "derived": {
-        "source": "football-data-output",
-        "aliases": [
-          "Enderby Town"
-        ],
-        "observedNames": [
-          {
-            "rawName": "Enderby Town",
-            "normalizedName": "enderby town",
-            "firstSeenSeason": 1979,
-            "lastSeenSeason": 1982,
-            "seasonsSeen": [
-              1979,
-              1980,
-              1981,
-              1982
-            ],
-            "tiersSeen": [
-              "tier6"
-            ]
-          }
-        ],
-        "observedNamePeriods": [
-          {
-            "name": "Enderby Town",
-            "startSeason": 1979,
-            "endSeason": 1982
-          }
-        ],
-        "firstSeenSeason": 1979,
-        "lastSeenSeason": 1982,
-        "seasonsSeen": [
-          1979,
-          1980,
-          1981,
-          1982
-        ],
-        "totalSeasonsSeen": 4,
-        "tiersSeen": [
-          "tier6"
-        ],
-        "tierSeasons": [
-          {
-            "tierKey": "tier6",
-            "seasons": [
-              1979,
-              1980,
-              1981,
-              1982
             ]
           }
         ]
@@ -30147,12 +30142,19 @@
       "clubId": "epsom-and-ewell",
       "canonicalName": "Epsom & Ewell",
       "status": {
-        "current": "unknown",
+        "current": "active",
         "trackedFromSeason": 1984,
         "trackedToSeason": 1985,
         "hasUnexplainedGaps": false,
-        "reason": "manual-review-required",
-        "reasonLabel": "Last observed before the latest supported season with no reviewed lifecycle or below-coverage status rule."
+        "reason": "not-in-tracked-leagues",
+        "reasonLabel": "Wikipedia lists the club in the Combined Counties League Premier Division South, below current tracked coverage.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Epsom_%26_Ewell_F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
@@ -30173,6 +30175,13 @@
         "source": "football-data-output",
         "aliases": [
           "Epsom & Ewell"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Epsom_%26_Ewell_F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
+          }
         ],
         "observedNames": [
           {
@@ -31134,12 +31143,19 @@
       "clubId": "fareham-town",
       "canonicalName": "Fareham Town",
       "status": {
-        "current": "unknown",
+        "current": "active",
         "trackedFromSeason": 1979,
         "trackedToSeason": 1988,
         "hasUnexplainedGaps": false,
-        "reason": "manual-review-required",
-        "reasonLabel": "Last observed before the latest supported season with no reviewed lifecycle or below-coverage status rule."
+        "reason": "not-in-tracked-leagues",
+        "reasonLabel": "Wikipedia lists the club in the Wessex League Premier Division, below current tracked coverage.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Fareham_Town_F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
@@ -31160,6 +31176,13 @@
         "source": "football-data-output",
         "aliases": [
           "Fareham Town"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Fareham_Town_F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
+          }
         ],
         "observedNames": [
           {
@@ -32240,77 +32263,6 @@
         ]
       }
     },
-    "fleetwood": {
-      "clubId": "fleetwood",
-      "canonicalName": "Fleetwood",
-      "status": {
-        "current": "unknown",
-        "trackedFromSeason": 1993,
-        "trackedToSeason": 1993,
-        "hasUnexplainedGaps": false,
-        "reason": "manual-review-required",
-        "reasonLabel": "Last observed before the latest supported season with no reviewed lifecycle or below-coverage status rule."
-      },
-      "history": {
-        "nameHistory": [],
-        "lifecycleEvents": [],
-        "trackedMembership": [
-          {
-            "fromSeason": 1993,
-            "toSeason": 1993,
-            "tiers": [
-              "tier6"
-            ],
-            "basis": "observed"
-          }
-        ],
-        "absenceExplanations": []
-      },
-      "derived": {
-        "source": "football-data-output",
-        "aliases": [
-          "Fleetwood"
-        ],
-        "observedNames": [
-          {
-            "rawName": "Fleetwood",
-            "normalizedName": "fleetwood",
-            "firstSeenSeason": 1993,
-            "lastSeenSeason": 1993,
-            "seasonsSeen": [
-              1993
-            ],
-            "tiersSeen": [
-              "tier6"
-            ]
-          }
-        ],
-        "observedNamePeriods": [
-          {
-            "name": "Fleetwood",
-            "startSeason": 1993,
-            "endSeason": 1993
-          }
-        ],
-        "firstSeenSeason": 1993,
-        "lastSeenSeason": 1993,
-        "seasonsSeen": [
-          1993
-        ],
-        "totalSeasonsSeen": 1,
-        "tiersSeen": [
-          "tier6"
-        ],
-        "tierSeasons": [
-          {
-            "tierKey": "tier6",
-            "seasons": [
-              1993
-            ]
-          }
-        ]
-      }
-    },
     "fleetwood town": {
       "clubId": "fleetwood-town",
       "canonicalName": "Fleetwood Town",
@@ -32318,15 +32270,85 @@
         "current": "active",
         "trackedFromSeason": 1988,
         "trackedToSeason": null,
-        "hasUnexplainedGaps": false
+        "hasUnexplainedGaps": false,
+        "reason": "successor-active",
+        "reasonLabel": "Wikipedia treats the current Fleetwood Town as the 1997 reformation after the earlier Fleetwood Town folded.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Fleetwood_Town_F.C.",
+            "notes": "Used for Fleetwood fold/reformation/name history and current Football League status context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
-        "lifecycleEvents": [],
+        "lifecycleEvents": [
+          {
+            "type": "folded",
+            "season": 1976,
+            "label": "Fleetwood folded in 1976.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Fleetwood_Town_F.C.",
+                "notes": "Used for Fleetwood fold/reformation/name history and current Football League status context."
+              }
+            ]
+          },
+          {
+            "type": "reformed",
+            "season": 1977,
+            "label": "The club reformed as Fleetwood Town.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Fleetwood_Town_F.C.",
+                "notes": "Used for Fleetwood fold/reformation/name history and current Football League status context."
+              }
+            ]
+          },
+          {
+            "type": "folded",
+            "season": 1997,
+            "label": "That Fleetwood Town incarnation folded in 1997.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Fleetwood_Town_F.C.",
+                "notes": "Used for Fleetwood fold/reformation/name history and current Football League status context."
+              }
+            ]
+          },
+          {
+            "type": "reformed",
+            "season": 1997,
+            "label": "The current club came into existence as Fleetwood Wanderers.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Fleetwood_Town_F.C.",
+                "notes": "Used for Fleetwood fold/reformation/name history and current Football League status context."
+              }
+            ]
+          },
+          {
+            "type": "renamed",
+            "season": 2002,
+            "label": "Fleetwood Wanderers/Fleetwood Freeport changed name to Fleetwood Town.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Fleetwood_Town_F.C.",
+                "notes": "Used for Fleetwood fold/reformation/name history and current Football League status context."
+              }
+            ]
+          }
+        ],
         "trackedMembership": [
           {
             "fromSeason": 1988,
-            "toSeason": 1992,
+            "toSeason": 1993,
             "tiers": [
               "tier6"
             ],
@@ -32349,7 +32371,15 @@
       "derived": {
         "source": "football-data-output",
         "aliases": [
+          "Fleetwood",
           "Fleetwood Town"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Fleetwood_Town_F.C.",
+            "notes": "Used for Fleetwood fold/reformation/name history and current Football League status context."
+          }
         ],
         "observedNames": [
           {
@@ -32388,6 +32418,18 @@
               "tier5",
               "tier6"
             ]
+          },
+          {
+            "rawName": "Fleetwood",
+            "normalizedName": "fleetwood",
+            "firstSeenSeason": 1993,
+            "lastSeenSeason": 1993,
+            "seasonsSeen": [
+              1993
+            ],
+            "tiersSeen": [
+              "tier6"
+            ]
           }
         ],
         "observedNamePeriods": [
@@ -32395,6 +32437,11 @@
             "name": "Fleetwood Town",
             "startSeason": 1988,
             "endSeason": 1992
+          },
+          {
+            "name": "Fleetwood",
+            "startSeason": 1993,
+            "endSeason": 1993
           },
           {
             "name": "Fleetwood Town",
@@ -32410,6 +32457,7 @@
           1990,
           1991,
           1992,
+          1993,
           2008,
           2009,
           2010,
@@ -32429,7 +32477,7 @@
           2024,
           2025
         ],
-        "totalSeasonsSeen": 23,
+        "totalSeasonsSeen": 24,
         "tiersSeen": [
           "tier3",
           "tier4",
@@ -32476,6 +32524,7 @@
               1990,
               1991,
               1992,
+              1993,
               2008,
               2009
             ]
@@ -32483,9 +32532,9 @@
         ],
         "coverageGaps": [
           {
-            "startSeason": 1993,
+            "startSeason": 1994,
             "endSeason": 2007,
-            "length": 15
+            "length": 14
           }
         ]
       }
@@ -32494,19 +32543,80 @@
       "clubId": "folkestone",
       "canonicalName": "Folkestone",
       "status": {
-        "current": "unknown",
-        "trackedFromSeason": 1980,
+        "current": "defunct",
+        "trackedFromSeason": 1979,
         "trackedToSeason": 1986,
         "hasUnexplainedGaps": false,
-        "reason": "manual-review-required",
-        "reasonLabel": "Last observed before the latest supported season with no reviewed lifecycle or below-coverage status rule."
+        "reason": "folded",
+        "reasonLabel": "Folkestone/Folkestone & Shepway folded in 1990; Folkestone Invicta is a separate spiritual successor.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Folkestone_F.C.",
+            "notes": "Used for Folkestone/Folkestone & Shepway rename and 1990 fold context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
-        "lifecycleEvents": [],
+        "lifecycleEvents": [
+          {
+            "type": "renamed",
+            "season": 1974,
+            "label": "Folkestone changed name to Folkestone & Shepway.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Folkestone_F.C.",
+                "notes": "Used for Folkestone/Folkestone & Shepway rename and 1990 fold context."
+              }
+            ]
+          },
+          {
+            "type": "renamed",
+            "season": 1980,
+            "label": "The Shepway element was dropped from the club name.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Folkestone_F.C.",
+                "notes": "Used for Folkestone/Folkestone & Shepway rename and 1990 fold context."
+              }
+            ]
+          },
+          {
+            "type": "folded",
+            "season": 1990,
+            "label": "Folkestone folded in 1990.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Folkestone_F.C.",
+                "notes": "Used for Folkestone/Folkestone & Shepway rename and 1990 fold context."
+              }
+            ]
+          },
+          {
+            "type": "spiritualSuccessor",
+            "season": 1991,
+            "label": "Folkestone Invicta took over Cheriton Road and is described as the spiritual successor.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Folkestone_F.C.",
+                "notes": "Used for Folkestone/Folkestone & Shepway rename and 1990 fold context."
+              },
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Folkestone_Invicta_F.C.",
+                "notes": "Used for current Folkestone Invicta status and separate spiritual-successor context."
+              }
+            ]
+          }
+        ],
         "trackedMembership": [
           {
-            "fromSeason": 1980,
+            "fromSeason": 1979,
             "toSeason": 1981,
             "tiers": [
               "tier6"
@@ -32527,9 +32637,34 @@
       "derived": {
         "source": "football-data-output",
         "aliases": [
-          "Folkestone"
+          "Folkestone",
+          "Folkestone & Shepway"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Folkestone_F.C.",
+            "notes": "Used for Folkestone/Folkestone & Shepway rename and 1990 fold context."
+          },
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Folkestone_Invicta_F.C.",
+            "notes": "Used for current Folkestone Invicta status and separate spiritual-successor context."
+          }
         ],
         "observedNames": [
+          {
+            "rawName": "Folkestone & Shepway",
+            "normalizedName": "folkestone and shepway",
+            "firstSeenSeason": 1979,
+            "lastSeenSeason": 1979,
+            "seasonsSeen": [
+              1979
+            ],
+            "tiersSeen": [
+              "tier6"
+            ]
+          },
           {
             "rawName": "Folkestone",
             "normalizedName": "folkestone",
@@ -32550,6 +32685,11 @@
         ],
         "observedNamePeriods": [
           {
+            "name": "Folkestone & Shepway",
+            "startSeason": 1979,
+            "endSeason": 1979
+          },
+          {
             "name": "Folkestone",
             "startSeason": 1980,
             "endSeason": 1981
@@ -32560,9 +32700,10 @@
             "endSeason": 1986
           }
         ],
-        "firstSeenSeason": 1980,
+        "firstSeenSeason": 1979,
         "lastSeenSeason": 1986,
         "seasonsSeen": [
+          1979,
           1980,
           1981,
           1983,
@@ -32570,7 +32711,7 @@
           1985,
           1986
         ],
-        "totalSeasonsSeen": 6,
+        "totalSeasonsSeen": 7,
         "tiersSeen": [
           "tier6"
         ],
@@ -32578,6 +32719,7 @@
           {
             "tierKey": "tier6",
             "seasons": [
+              1979,
               1980,
               1981,
               1983,
@@ -32596,87 +32738,23 @@
         ]
       }
     },
-    "folkestone and shepway": {
-      "clubId": "folkestone-and-shepway",
-      "canonicalName": "Folkestone & Shepway",
-      "status": {
-        "current": "unknown",
-        "trackedFromSeason": 1979,
-        "trackedToSeason": 1979,
-        "hasUnexplainedGaps": false,
-        "reason": "manual-review-required",
-        "reasonLabel": "Last observed before the latest supported season with no reviewed lifecycle or below-coverage status rule."
-      },
-      "history": {
-        "nameHistory": [],
-        "lifecycleEvents": [],
-        "trackedMembership": [
-          {
-            "fromSeason": 1979,
-            "toSeason": 1979,
-            "tiers": [
-              "tier6"
-            ],
-            "basis": "observed"
-          }
-        ],
-        "absenceExplanations": []
-      },
-      "derived": {
-        "source": "football-data-output",
-        "aliases": [
-          "Folkestone & Shepway"
-        ],
-        "observedNames": [
-          {
-            "rawName": "Folkestone & Shepway",
-            "normalizedName": "folkestone and shepway",
-            "firstSeenSeason": 1979,
-            "lastSeenSeason": 1979,
-            "seasonsSeen": [
-              1979
-            ],
-            "tiersSeen": [
-              "tier6"
-            ]
-          }
-        ],
-        "observedNamePeriods": [
-          {
-            "name": "Folkestone & Shepway",
-            "startSeason": 1979,
-            "endSeason": 1979
-          }
-        ],
-        "firstSeenSeason": 1979,
-        "lastSeenSeason": 1979,
-        "seasonsSeen": [
-          1979
-        ],
-        "totalSeasonsSeen": 1,
-        "tiersSeen": [
-          "tier6"
-        ],
-        "tierSeasons": [
-          {
-            "tierKey": "tier6",
-            "seasons": [
-              1979
-            ]
-          }
-        ]
-      }
-    },
     "folkestone invicta": {
       "clubId": "folkestone-invicta",
       "canonicalName": "Folkestone Invicta",
       "status": {
-        "current": "unknown",
+        "current": "active",
         "trackedFromSeason": 2000,
         "trackedToSeason": 2002,
         "hasUnexplainedGaps": false,
-        "reason": "manual-review-required",
-        "reasonLabel": "Last observed before the latest supported season with no reviewed lifecycle or below-coverage status rule."
+        "reason": "possibly-missing-from-current-data",
+        "reasonLabel": "Wikipedia lists the club in National League South, a level 6 league inside tracked but sparse coverage.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Folkestone_Invicta_F.C.",
+            "notes": "Used for current Folkestone Invicta status and separate spiritual-successor context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
@@ -32697,6 +32775,13 @@
         "source": "football-data-output",
         "aliases": [
           "Folkestone Invicta"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Folkestone_Invicta_F.C.",
+            "notes": "Used for current Folkestone Invicta status and separate spiritual-successor context."
+          }
         ],
         "observedNames": [
           {
@@ -32739,80 +32824,6 @@
               2000,
               2001,
               2002
-            ]
-          }
-        ]
-      }
-    },
-    "ford united": {
-      "clubId": "ford-united",
-      "canonicalName": "Ford United",
-      "status": {
-        "current": "unknown",
-        "trackedFromSeason": 2002,
-        "trackedToSeason": 2003,
-        "hasUnexplainedGaps": false,
-        "reason": "manual-review-required",
-        "reasonLabel": "Last observed before the latest supported season with no reviewed lifecycle or below-coverage status rule."
-      },
-      "history": {
-        "nameHistory": [],
-        "lifecycleEvents": [],
-        "trackedMembership": [
-          {
-            "fromSeason": 2002,
-            "toSeason": 2003,
-            "tiers": [
-              "tier6"
-            ],
-            "basis": "observed"
-          }
-        ],
-        "absenceExplanations": []
-      },
-      "derived": {
-        "source": "football-data-output",
-        "aliases": [
-          "Ford United"
-        ],
-        "observedNames": [
-          {
-            "rawName": "Ford United",
-            "normalizedName": "ford united",
-            "firstSeenSeason": 2002,
-            "lastSeenSeason": 2003,
-            "seasonsSeen": [
-              2002,
-              2003
-            ],
-            "tiersSeen": [
-              "tier6"
-            ]
-          }
-        ],
-        "observedNamePeriods": [
-          {
-            "name": "Ford United",
-            "startSeason": 2002,
-            "endSeason": 2003
-          }
-        ],
-        "firstSeenSeason": 2002,
-        "lastSeenSeason": 2003,
-        "seasonsSeen": [
-          2002,
-          2003
-        ],
-        "totalSeasonsSeen": 2,
-        "tiersSeen": [
-          "tier6"
-        ],
-        "tierSeasons": [
-          {
-            "tierKey": "tier6",
-            "seasons": [
-              2002,
-              2003
             ]
           }
         ]
@@ -35239,16 +35250,48 @@
       "clubId": "goole-town",
       "canonicalName": "Goole Town",
       "status": {
-        "current": "unknown",
+        "current": "defunct",
         "trackedFromSeason": 1979,
         "trackedToSeason": 1992,
         "hasUnexplainedGaps": false,
-        "reason": "manual-review-required",
-        "reasonLabel": "Last observed before the latest supported season with no reviewed lifecycle or below-coverage status rule."
+        "reason": "folded",
+        "reasonLabel": "Folded in 1996 due to financial difficulties; Goole A.F.C. was formed in its place.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Goole_Town_F.C.",
+            "notes": "Used for Goole Town 1996 fold and Goole A.F.C. replacement context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
-        "lifecycleEvents": [],
+        "lifecycleEvents": [
+          {
+            "type": "folded",
+            "season": 1996,
+            "label": "Folded at the end of the 1995-96 season due to financial difficulties.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Goole_Town_F.C.",
+                "notes": "Used for Goole Town 1996 fold and Goole A.F.C. replacement context."
+              }
+            ]
+          },
+          {
+            "type": "successorFormed",
+            "season": 1997,
+            "label": "Goole A.F.C. was formed as a replacement for Goole Town.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Goole_A.F.C.",
+                "notes": "Used for Goole A.F.C. formation after Goole Town folded and current lower-division status context."
+              }
+            ]
+          }
+        ],
         "trackedMembership": [
           {
             "fromSeason": 1979,
@@ -35265,6 +35308,18 @@
         "source": "football-data-output",
         "aliases": [
           "Goole Town"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Goole_A.F.C.",
+            "notes": "Used for Goole A.F.C. formation after Goole Town folded and current lower-division status context."
+          },
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Goole_Town_F.C.",
+            "notes": "Used for Goole Town 1996 fold and Goole A.F.C. replacement context."
+          }
         ],
         "observedNames": [
           {
@@ -45666,17 +45721,69 @@
       "clubId": "leicester-united",
       "canonicalName": "Leicester United",
       "status": {
-        "current": "unknown",
-        "trackedFromSeason": 1987,
+        "current": "active",
+        "trackedFromSeason": 1979,
         "trackedToSeason": 1988,
         "hasUnexplainedGaps": false,
-        "reason": "manual-review-required",
-        "reasonLabel": "Last observed before the latest supported season with no reviewed lifecycle or below-coverage status rule."
+        "reason": "successor-active",
+        "reasonLabel": "Enderby Town became Leicester United, was wound up in 1996, and the Leicester United name was revived in 2023.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Leicester_United_F.C.",
+            "notes": "Used for Enderby Town rename, 1996 winding-up, and 2023 Leicester United reformation context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
-        "lifecycleEvents": [],
+        "lifecycleEvents": [
+          {
+            "type": "renamed",
+            "season": 1983,
+            "label": "Enderby Town became Leicester United.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Leicester_United_F.C.",
+                "notes": "Used for Enderby Town rename, 1996 winding-up, and 2023 Leicester United reformation context."
+              }
+            ]
+          },
+          {
+            "type": "dissolved",
+            "season": 1996,
+            "label": "Leicester United was wound up in 1996.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Leicester_United_F.C.",
+                "notes": "Used for Enderby Town rename, 1996 winding-up, and 2023 Leicester United reformation context."
+              }
+            ]
+          },
+          {
+            "type": "reformed",
+            "season": 2023,
+            "label": "Leicester United was revived in March 2023.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Leicester_United_F.C.",
+                "notes": "Used for Enderby Town rename, 1996 winding-up, and 2023 Leicester United reformation context."
+              }
+            ]
+          }
+        ],
         "trackedMembership": [
+          {
+            "fromSeason": 1979,
+            "toSeason": 1982,
+            "tiers": [
+              "tier6"
+            ],
+            "basis": "observed"
+          },
           {
             "fromSeason": 1987,
             "toSeason": 1988,
@@ -45691,9 +45798,32 @@
       "derived": {
         "source": "football-data-output",
         "aliases": [
+          "Enderby Town",
           "Leicester United"
         ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Leicester_United_F.C.",
+            "notes": "Used for Enderby Town rename, 1996 winding-up, and 2023 Leicester United reformation context."
+          }
+        ],
         "observedNames": [
+          {
+            "rawName": "Enderby Town",
+            "normalizedName": "enderby town",
+            "firstSeenSeason": 1979,
+            "lastSeenSeason": 1982,
+            "seasonsSeen": [
+              1979,
+              1980,
+              1981,
+              1982
+            ],
+            "tiersSeen": [
+              "tier6"
+            ]
+          },
           {
             "rawName": "Leicester United",
             "normalizedName": "leicester united",
@@ -45710,18 +45840,27 @@
         ],
         "observedNamePeriods": [
           {
+            "name": "Enderby Town",
+            "startSeason": 1979,
+            "endSeason": 1982
+          },
+          {
             "name": "Leicester United",
             "startSeason": 1987,
             "endSeason": 1988
           }
         ],
-        "firstSeenSeason": 1987,
+        "firstSeenSeason": 1979,
         "lastSeenSeason": 1988,
         "seasonsSeen": [
+          1979,
+          1980,
+          1981,
+          1982,
           1987,
           1988
         ],
-        "totalSeasonsSeen": 2,
+        "totalSeasonsSeen": 6,
         "tiersSeen": [
           "tier6"
         ],
@@ -45729,9 +45868,20 @@
           {
             "tierKey": "tier6",
             "seasons": [
+              1979,
+              1980,
+              1981,
+              1982,
               1987,
               1988
             ]
+          }
+        ],
+        "coverageGaps": [
+          {
+            "startSeason": 1983,
+            "endSeason": 1986,
+            "length": 4
           }
         ]
       }
@@ -62973,7 +63123,7 @@
       "canonicalName": "Redbridge",
       "status": {
         "current": "active",
-        "trackedFromSeason": 2004,
+        "trackedFromSeason": 2002,
         "trackedToSeason": 2004,
         "hasUnexplainedGaps": false,
         "reason": "not-in-tracked-leagues",
@@ -63004,7 +63154,7 @@
         ],
         "trackedMembership": [
           {
-            "fromSeason": 2004,
+            "fromSeason": 2002,
             "toSeason": 2004,
             "tiers": [
               "tier6"
@@ -63017,6 +63167,7 @@
       "derived": {
         "source": "football-data-output",
         "aliases": [
+          "Ford United",
           "Redbridge"
         ],
         "identitySources": [
@@ -63027,6 +63178,19 @@
           }
         ],
         "observedNames": [
+          {
+            "rawName": "Ford United",
+            "normalizedName": "ford united",
+            "firstSeenSeason": 2002,
+            "lastSeenSeason": 2003,
+            "seasonsSeen": [
+              2002,
+              2003
+            ],
+            "tiersSeen": [
+              "tier6"
+            ]
+          },
           {
             "rawName": "Redbridge",
             "normalizedName": "redbridge",
@@ -63042,17 +63206,24 @@
         ],
         "observedNamePeriods": [
           {
+            "name": "Ford United",
+            "startSeason": 2002,
+            "endSeason": 2003
+          },
+          {
             "name": "Redbridge",
             "startSeason": 2004,
             "endSeason": 2004
           }
         ],
-        "firstSeenSeason": 2004,
+        "firstSeenSeason": 2002,
         "lastSeenSeason": 2004,
         "seasonsSeen": [
+          2002,
+          2003,
           2004
         ],
-        "totalSeasonsSeen": 1,
+        "totalSeasonsSeen": 3,
         "tiersSeen": [
           "tier6"
         ],
@@ -63060,6 +63231,8 @@
           {
             "tierKey": "tier6",
             "seasons": [
+              2002,
+              2003,
               2004
             ]
           }

@@ -2,8 +2,8 @@
   "metadata": {
     "schemaVersion": 1,
     "generator": "club-metadata-review",
-    "generatedAt": "2026-06-20T02:18:25.879Z",
-    "gitSha": "2e78013",
+    "generatedAt": "2026-06-20T02:24:35.040Z",
+    "gitSha": "2f258b6",
     "sourceFiles": [
       "/Users/dsteele/repos/footy-data-kit/data-output/all-seasons.json",
       "/Users/dsteele/repos/footy-data-kit/data/club-metadata.json"
@@ -15,226 +15,12 @@
   },
   "datasetPath": "/Users/dsteele/repos/footy-data-kit/data-output/all-seasons.json",
   "clubMetadataPath": "/Users/dsteele/repos/footy-data-kit/data/club-metadata.json",
-  "clubCount": 389,
-  "issueCount": 73,
+  "clubCount": 385,
+  "issueCount": 62,
   "issueCounts": {
-    "manual-status-review": 73
+    "manual-status-review": 62
   },
   "issues": [
-    {
-      "type": "manual-status-review",
-      "clubKey": "emley",
-      "clubId": "emley",
-      "canonicalName": "Emley",
-      "status": "unknown",
-      "reason": "manual-review-required",
-      "trackedFromSeason": 1991,
-      "trackedToSeason": 2001,
-      "seasonsSeen": [
-        1991,
-        1992,
-        1993,
-        1994,
-        1995,
-        1996,
-        1997,
-        1998,
-        1999,
-        2000,
-        2001
-      ],
-      "tiersSeen": [
-        "tier6"
-      ],
-      "message": "Emley needs reviewed lower-tier status classification"
-    },
-    {
-      "type": "manual-status-review",
-      "clubKey": "enderby town",
-      "clubId": "enderby-town",
-      "canonicalName": "Enderby Town",
-      "status": "unknown",
-      "reason": "manual-review-required",
-      "trackedFromSeason": 1979,
-      "trackedToSeason": 1982,
-      "seasonsSeen": [
-        1979,
-        1980,
-        1981,
-        1982
-      ],
-      "tiersSeen": [
-        "tier6"
-      ],
-      "message": "Enderby Town needs reviewed lower-tier status classification"
-    },
-    {
-      "type": "manual-status-review",
-      "clubKey": "epsom and ewell",
-      "clubId": "epsom-and-ewell",
-      "canonicalName": "Epsom & Ewell",
-      "status": "unknown",
-      "reason": "manual-review-required",
-      "trackedFromSeason": 1984,
-      "trackedToSeason": 1985,
-      "seasonsSeen": [
-        1984,
-        1985
-      ],
-      "tiersSeen": [
-        "tier6"
-      ],
-      "message": "Epsom & Ewell needs reviewed lower-tier status classification"
-    },
-    {
-      "type": "manual-status-review",
-      "clubKey": "fareham town",
-      "clubId": "fareham-town",
-      "canonicalName": "Fareham Town",
-      "status": "unknown",
-      "reason": "manual-review-required",
-      "trackedFromSeason": 1979,
-      "trackedToSeason": 1988,
-      "seasonsSeen": [
-        1979,
-        1980,
-        1981,
-        1982,
-        1983,
-        1984,
-        1985,
-        1986,
-        1987,
-        1988
-      ],
-      "tiersSeen": [
-        "tier6"
-      ],
-      "message": "Fareham Town needs reviewed lower-tier status classification"
-    },
-    {
-      "type": "manual-status-review",
-      "clubKey": "fleetwood",
-      "clubId": "fleetwood",
-      "canonicalName": "Fleetwood",
-      "status": "unknown",
-      "reason": "manual-review-required",
-      "trackedFromSeason": 1993,
-      "trackedToSeason": 1993,
-      "seasonsSeen": [
-        1993
-      ],
-      "tiersSeen": [
-        "tier6"
-      ],
-      "message": "Fleetwood needs reviewed lower-tier status classification"
-    },
-    {
-      "type": "manual-status-review",
-      "clubKey": "folkestone",
-      "clubId": "folkestone",
-      "canonicalName": "Folkestone",
-      "status": "unknown",
-      "reason": "manual-review-required",
-      "trackedFromSeason": 1980,
-      "trackedToSeason": 1986,
-      "seasonsSeen": [
-        1980,
-        1981,
-        1983,
-        1984,
-        1985,
-        1986
-      ],
-      "tiersSeen": [
-        "tier6"
-      ],
-      "message": "Folkestone needs reviewed lower-tier status classification"
-    },
-    {
-      "type": "manual-status-review",
-      "clubKey": "folkestone and shepway",
-      "clubId": "folkestone-and-shepway",
-      "canonicalName": "Folkestone & Shepway",
-      "status": "unknown",
-      "reason": "manual-review-required",
-      "trackedFromSeason": 1979,
-      "trackedToSeason": 1979,
-      "seasonsSeen": [
-        1979
-      ],
-      "tiersSeen": [
-        "tier6"
-      ],
-      "message": "Folkestone & Shepway needs reviewed lower-tier status classification"
-    },
-    {
-      "type": "manual-status-review",
-      "clubKey": "folkestone invicta",
-      "clubId": "folkestone-invicta",
-      "canonicalName": "Folkestone Invicta",
-      "status": "unknown",
-      "reason": "manual-review-required",
-      "trackedFromSeason": 2000,
-      "trackedToSeason": 2002,
-      "seasonsSeen": [
-        2000,
-        2001,
-        2002
-      ],
-      "tiersSeen": [
-        "tier6"
-      ],
-      "message": "Folkestone Invicta needs reviewed lower-tier status classification"
-    },
-    {
-      "type": "manual-status-review",
-      "clubKey": "ford united",
-      "clubId": "ford-united",
-      "canonicalName": "Ford United",
-      "status": "unknown",
-      "reason": "manual-review-required",
-      "trackedFromSeason": 2002,
-      "trackedToSeason": 2003,
-      "seasonsSeen": [
-        2002,
-        2003
-      ],
-      "tiersSeen": [
-        "tier6"
-      ],
-      "message": "Ford United needs reviewed lower-tier status classification"
-    },
-    {
-      "type": "manual-status-review",
-      "clubKey": "goole town",
-      "clubId": "goole-town",
-      "canonicalName": "Goole Town",
-      "status": "unknown",
-      "reason": "manual-review-required",
-      "trackedFromSeason": 1979,
-      "trackedToSeason": 1992,
-      "seasonsSeen": [
-        1979,
-        1980,
-        1981,
-        1982,
-        1983,
-        1984,
-        1985,
-        1986,
-        1987,
-        1988,
-        1989,
-        1990,
-        1991,
-        1992
-      ],
-      "tiersSeen": [
-        "tier6"
-      ],
-      "message": "Goole Town needs reviewed lower-tier status classification"
-    },
     {
       "type": "manual-status-review",
       "clubKey": "gresley rovers",
@@ -607,24 +393,6 @@
         "tier6"
       ],
       "message": "Leatherhead needs reviewed lower-tier status classification"
-    },
-    {
-      "type": "manual-status-review",
-      "clubKey": "leicester united",
-      "clubId": "leicester-united",
-      "canonicalName": "Leicester United",
-      "status": "unknown",
-      "reason": "manual-review-required",
-      "trackedFromSeason": 1987,
-      "trackedToSeason": 1988,
-      "seasonsSeen": [
-        1987,
-        1988
-      ],
-      "tiersSeen": [
-        "tier6"
-      ],
-      "message": "Leicester United needs reviewed lower-tier status classification"
     },
     {
       "type": "manual-status-review",

@@ -146,6 +146,48 @@ export const CLUB_IDENTITY_RULES = Object.freeze([
     ]),
   }),
   Object.freeze({
+    clubKey: 'emley',
+    canonicalName: 'Emley',
+    aliases: Object.freeze(['AFC Emley', 'Emley', 'Emley A.F.C.']),
+    relationship: 'phoenix',
+    sourceRefs: Object.freeze([
+      Object.freeze({
+        type: 'wikipedia-club-page',
+        sourceUrl: 'https://en.wikipedia.org/wiki/Emley_A.F.C.',
+        notes:
+          'Club history records the original Emley relocation/rename chain and the AFC Emley re-establishment.',
+      }),
+    ]),
+  }),
+  Object.freeze({
+    clubKey: 'fleetwood town',
+    canonicalName: 'Fleetwood Town',
+    aliases: Object.freeze(['Fleetwood', 'Fleetwood Freeport', 'Fleetwood Town', 'Fleetwood Wanderers']),
+    relationship: 'phoenix',
+    sourceRefs: Object.freeze([
+      Object.freeze({
+        type: 'wikipedia-club-page',
+        sourceUrl: 'https://en.wikipedia.org/wiki/Fleetwood_Town_F.C.',
+        notes:
+          'Club history treats Fleetwood Town as the current incarnation after earlier Fleetwood clubs folded.',
+      }),
+    ]),
+  }),
+  Object.freeze({
+    clubKey: 'folkestone',
+    canonicalName: 'Folkestone',
+    aliases: Object.freeze(['Folkestone', 'Folkestone & Shepway', 'Folkestone Town']),
+    relationship: 'rename',
+    sourceRefs: Object.freeze([
+      Object.freeze({
+        type: 'wikipedia-club-page',
+        sourceUrl: 'https://en.wikipedia.org/wiki/Folkestone_F.C.',
+        notes:
+          'Club history records Folkestone Town, Folkestone, and Folkestone & Shepway as names of the same folded club.',
+      }),
+    ]),
+  }),
+  Object.freeze({
     clubKey: 'hartlepool united',
     canonicalName: 'Hartlepool United',
     aliases: Object.freeze(['Hartlepool United', 'Hartlepool', 'Hartlepools United']),
@@ -209,6 +251,19 @@ export const CLUB_IDENTITY_RULES = Object.freeze([
     ]),
   }),
   Object.freeze({
+    clubKey: 'leicester united',
+    canonicalName: 'Leicester United',
+    aliases: Object.freeze(['Enderby Town', 'Leicester United']),
+    relationship: 'rename',
+    sourceRefs: Object.freeze([
+      Object.freeze({
+        type: 'wikipedia-club-page',
+        sourceUrl: 'https://en.wikipedia.org/wiki/Leicester_United_F.C.',
+        notes: 'Club history records Leicester United being originally formed as Enderby Town.',
+      }),
+    ]),
+  }),
+  Object.freeze({
     clubKey: 'leigh genesis',
     canonicalName: 'Leigh Genesis',
     aliases: Object.freeze(['Leigh Genesis', 'Leigh RMI', 'Horwich RMI']),
@@ -267,6 +322,19 @@ export const CLUB_IDENTITY_RULES = Object.freeze([
       Object.freeze({
         type: 'wikipedia-club-page',
         sourceUrl: 'https://en.wikipedia.org/wiki/Port_Vale_F.C.',
+      }),
+    ]),
+  }),
+  Object.freeze({
+    clubKey: 'redbridge',
+    canonicalName: 'Redbridge',
+    aliases: Object.freeze(['Ford United', 'Redbridge']),
+    relationship: 'rename',
+    sourceRefs: Object.freeze([
+      Object.freeze({
+        type: 'wikipedia-club-page',
+        sourceUrl: 'https://en.wikipedia.org/wiki/Redbridge_F.C.',
+        notes: 'Club history records Ford United changing name to Redbridge in July 2004.',
       }),
     ]),
   }),
@@ -1017,6 +1085,60 @@ const CLUB_SOURCE_REFS = Object.freeze({
     wikipediaClubSource(
       'https://en.wikipedia.org/wiki/Dunstable_Town_F.C.',
       'Used for Dunstable fold/reformation and 2026 dissolution context.'
+    ),
+  ]),
+  emley: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Emley_A.F.C.',
+      'Used for Emley relocation, Wakefield rename, AFC Emley re-establishment, and current lower-division status context.'
+    ),
+  ]),
+  epsomAndEwell: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Epsom_%26_Ewell_F.C.',
+      'Used for current lower-division status and below tracked coverage context.'
+    ),
+  ]),
+  farehamTown: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Fareham_Town_F.C.',
+      'Used for current lower-division status and below tracked coverage context.'
+    ),
+  ]),
+  fleetwoodTown: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Fleetwood_Town_F.C.',
+      'Used for Fleetwood fold/reformation/name history and current Football League status context.'
+    ),
+  ]),
+  folkestone: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Folkestone_F.C.',
+      'Used for Folkestone/Folkestone & Shepway rename and 1990 fold context.'
+    ),
+  ]),
+  folkestoneInvicta: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Folkestone_Invicta_F.C.',
+      'Used for current Folkestone Invicta status and separate spiritual-successor context.'
+    ),
+  ]),
+  gooleTown: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Goole_Town_F.C.',
+      'Used for Goole Town 1996 fold and Goole A.F.C. replacement context.'
+    ),
+  ]),
+  gooleAfc: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Goole_A.F.C.',
+      'Used for Goole A.F.C. formation after Goole Town folded and current lower-division status context.'
+    ),
+  ]),
+  leicesterUnited: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Leicester_United_F.C.',
+      'Used for Enderby Town rename, 1996 winding-up, and 2023 Leicester United reformation context.'
     ),
   ]),
   droylsden: Object.freeze([
@@ -2889,6 +3011,203 @@ export const CLUB_LIFECYCLE_RULES = Object.freeze([
         season: 2025,
         label: 'Dissolved in 2026.',
         sourceRefs: CLUB_SOURCE_REFS.dunstableTown,
+      }),
+    ]),
+  }),
+  Object.freeze({
+    clubKey: 'emley',
+    status: Object.freeze({
+      current: 'active',
+      reason: 'successor-active',
+      reasonLabel:
+        'The original Emley relocated and became Wakefield, which disbanded in 2014; AFC Emley was established in 2005 and later took the Emley name.',
+      sourceRefs: CLUB_SOURCE_REFS.emley,
+    }),
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'relocated',
+        season: 2000,
+        label: 'The original Emley club relocated to Belle Vue in Wakefield.',
+        sourceRefs: CLUB_SOURCE_REFS.emley,
+      }),
+      lifecycleEvent({
+        type: 'renamed',
+        season: 2002,
+        label: 'The relocated club was renamed Wakefield & Emley.',
+        sourceRefs: CLUB_SOURCE_REFS.emley,
+      }),
+      lifecycleEvent({
+        type: 'phoenixFormed',
+        season: 2005,
+        label: 'Supporters established AFC Emley after the reserve team in Emley was disbanded.',
+        sourceRefs: CLUB_SOURCE_REFS.emley,
+      }),
+      lifecycleEvent({
+        type: 'dissolved',
+        season: 2014,
+        label: 'Wakefield disbanded in 2014.',
+        sourceRefs: CLUB_SOURCE_REFS.emley,
+      }),
+      lifecycleEvent({
+        type: 'renamed',
+        season: 2019,
+        label: 'AFC Emley was renamed Emley A.F.C. from the 2019-20 season.',
+        sourceRefs: CLUB_SOURCE_REFS.emley,
+      }),
+    ]),
+  }),
+  Object.freeze({
+    clubKey: 'leicester united',
+    status: Object.freeze({
+      current: 'active',
+      reason: 'successor-active',
+      reasonLabel:
+        'Enderby Town became Leicester United, was wound up in 1996, and the Leicester United name was revived in 2023.',
+      sourceRefs: CLUB_SOURCE_REFS.leicesterUnited,
+    }),
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'renamed',
+        season: 1983,
+        label: 'Enderby Town became Leicester United.',
+        sourceRefs: CLUB_SOURCE_REFS.leicesterUnited,
+      }),
+      lifecycleEvent({
+        type: 'dissolved',
+        season: 1996,
+        label: 'Leicester United was wound up in 1996.',
+        sourceRefs: CLUB_SOURCE_REFS.leicesterUnited,
+      }),
+      lifecycleEvent({
+        type: 'reformed',
+        season: 2023,
+        label: 'Leicester United was revived in March 2023.',
+        sourceRefs: CLUB_SOURCE_REFS.leicesterUnited,
+      }),
+    ]),
+  }),
+  statusOnlyRule({
+    clubKey: 'epsom and ewell',
+    current: 'active',
+    reason: 'not-in-tracked-leagues',
+    reasonLabel:
+      'Wikipedia lists the club in the Combined Counties League Premier Division South, below current tracked coverage.',
+    sourceRefs: CLUB_SOURCE_REFS.epsomAndEwell,
+  }),
+  statusOnlyRule({
+    clubKey: 'fareham town',
+    current: 'active',
+    reason: 'not-in-tracked-leagues',
+    reasonLabel:
+      'Wikipedia lists the club in the Wessex League Premier Division, below current tracked coverage.',
+    sourceRefs: CLUB_SOURCE_REFS.farehamTown,
+  }),
+  Object.freeze({
+    clubKey: 'fleetwood town',
+    status: Object.freeze({
+      current: 'active',
+      reason: 'successor-active',
+      reasonLabel:
+        'Wikipedia treats the current Fleetwood Town as the 1997 reformation after the earlier Fleetwood Town folded.',
+      sourceRefs: CLUB_SOURCE_REFS.fleetwoodTown,
+    }),
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'folded',
+        season: 1976,
+        label: 'Fleetwood folded in 1976.',
+        sourceRefs: CLUB_SOURCE_REFS.fleetwoodTown,
+      }),
+      lifecycleEvent({
+        type: 'reformed',
+        season: 1977,
+        label: 'The club reformed as Fleetwood Town.',
+        sourceRefs: CLUB_SOURCE_REFS.fleetwoodTown,
+      }),
+      lifecycleEvent({
+        type: 'folded',
+        season: 1997,
+        label: 'That Fleetwood Town incarnation folded in 1997.',
+        sourceRefs: CLUB_SOURCE_REFS.fleetwoodTown,
+      }),
+      lifecycleEvent({
+        type: 'reformed',
+        season: 1997,
+        label: 'The current club came into existence as Fleetwood Wanderers.',
+        sourceRefs: CLUB_SOURCE_REFS.fleetwoodTown,
+      }),
+      lifecycleEvent({
+        type: 'renamed',
+        season: 2002,
+        label: 'Fleetwood Wanderers/Fleetwood Freeport changed name to Fleetwood Town.',
+        sourceRefs: CLUB_SOURCE_REFS.fleetwoodTown,
+      }),
+    ]),
+  }),
+  Object.freeze({
+    clubKey: 'folkestone',
+    status: Object.freeze({
+      current: 'defunct',
+      reason: 'folded',
+      reasonLabel:
+        'Folkestone/Folkestone & Shepway folded in 1990; Folkestone Invicta is a separate spiritual successor.',
+      sourceRefs: CLUB_SOURCE_REFS.folkestone,
+    }),
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'renamed',
+        season: 1974,
+        label: 'Folkestone changed name to Folkestone & Shepway.',
+        sourceRefs: CLUB_SOURCE_REFS.folkestone,
+      }),
+      lifecycleEvent({
+        type: 'renamed',
+        season: 1980,
+        label: 'The Shepway element was dropped from the club name.',
+        sourceRefs: CLUB_SOURCE_REFS.folkestone,
+      }),
+      lifecycleEvent({
+        type: 'folded',
+        season: 1990,
+        label: 'Folkestone folded in 1990.',
+        sourceRefs: CLUB_SOURCE_REFS.folkestone,
+      }),
+      lifecycleEvent({
+        type: 'spiritualSuccessor',
+        season: 1991,
+        label: 'Folkestone Invicta took over Cheriton Road and is described as the spiritual successor.',
+        sourceRefs: Object.freeze([...CLUB_SOURCE_REFS.folkestone, ...CLUB_SOURCE_REFS.folkestoneInvicta]),
+      }),
+    ]),
+  }),
+  statusOnlyRule({
+    clubKey: 'folkestone invicta',
+    current: 'active',
+    reason: 'possibly-missing-from-current-data',
+    reasonLabel:
+      'Wikipedia lists the club in National League South, a level 6 league inside tracked but sparse coverage.',
+    sourceRefs: CLUB_SOURCE_REFS.folkestoneInvicta,
+  }),
+  Object.freeze({
+    clubKey: 'goole town',
+    status: Object.freeze({
+      current: 'defunct',
+      reason: 'folded',
+      reasonLabel: 'Folded in 1996 due to financial difficulties; Goole A.F.C. was formed in its place.',
+      sourceRefs: CLUB_SOURCE_REFS.gooleTown,
+    }),
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'folded',
+        season: 1996,
+        label: 'Folded at the end of the 1995-96 season due to financial difficulties.',
+        sourceRefs: CLUB_SOURCE_REFS.gooleTown,
+      }),
+      lifecycleEvent({
+        type: 'successorFormed',
+        season: 1997,
+        label: 'Goole A.F.C. was formed as a replacement for Goole Town.',
+        sourceRefs: CLUB_SOURCE_REFS.gooleAfc,
       }),
     ]),
   }),
