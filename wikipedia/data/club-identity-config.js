@@ -107,6 +107,20 @@ export const CLUB_IDENTITY_RULES = Object.freeze([
     ]),
   }),
   Object.freeze({
+    clubKey: 'gresley rovers',
+    canonicalName: 'Gresley Rovers',
+    aliases: Object.freeze(['Gresley', 'Gresley F.C.', 'Gresley Rovers']),
+    relationship: 'phoenix',
+    sourceRefs: Object.freeze([
+      Object.freeze({
+        type: 'wikipedia-club-page',
+        sourceUrl: 'https://en.wikipedia.org/wiki/Gresley_Rovers_F.C.',
+        notes:
+          'Club history records Gresley Rovers liquidating, reforming as Gresley F.C., and readopting the Gresley Rovers name.',
+      }),
+    ]),
+  }),
+  Object.freeze({
     clubKey: 'dunstable town',
     canonicalName: 'Dunstable Town',
     aliases: Object.freeze(['Dunstable', 'Dunstable Town']),
@@ -196,6 +210,34 @@ export const CLUB_IDENTITY_RULES = Object.freeze([
       Object.freeze({
         type: 'wikipedia-club-page',
         sourceUrl: 'https://en.wikipedia.org/wiki/Hartlepool_United_F.C.',
+      }),
+    ]),
+  }),
+  Object.freeze({
+    clubKey: 'hampton and richmond borough',
+    canonicalName: 'Hampton & Richmond Borough',
+    aliases: Object.freeze(['Hampton', 'Hampton & Richmond', 'Hampton & Richmond Borough']),
+    relationship: 'rename',
+    sourceRefs: Object.freeze([
+      Object.freeze({
+        type: 'wikipedia-club-page',
+        sourceUrl: 'https://en.wikipedia.org/wiki/Hampton_%26_Richmond_Borough_F.C.',
+        notes:
+          'Club history records the club being founded as Hampton and changing name in 1999.',
+      }),
+    ]),
+  }),
+  Object.freeze({
+    clubKey: 'hastings united',
+    canonicalName: 'Hastings United',
+    aliases: Object.freeze(['Hastings Town', 'Hastings United']),
+    relationship: 'rename',
+    sourceRefs: Object.freeze([
+      Object.freeze({
+        type: 'wikipedia-club-page',
+        sourceUrl: 'https://en.wikipedia.org/wiki/Hastings_United_F.C.',
+        notes:
+          'Current club history records Hastings Town changing name to Hastings United before the 2002-03 season.',
       }),
     ]),
   }),
@@ -498,6 +540,20 @@ export const TEMPORAL_CLUB_IDENTITY_RULES = Object.freeze([
     ]),
   }),
   Object.freeze({
+    name: 'Hastings United',
+    endSeason: 1984,
+    clubKey: 'hastings united 1948',
+    relationship: 'successor',
+    sourceRefs: Object.freeze([
+      Object.freeze({
+        type: 'wikipedia-club-page',
+        sourceUrl: 'https://en.wikipedia.org/wiki/Hastings_United_F.C._(1948)',
+        notes:
+          'The original Hastings United club formed in 1948 folded in 1985; later Hastings United rows belong to the renamed Hastings Town club.',
+      }),
+    ]),
+  }),
+  Object.freeze({
     name: 'Ilkeston Town',
     startSeason: 2017,
     clubKey: 'ilkeston town 2017',
@@ -559,6 +615,7 @@ export const CLUB_CANONICAL_NAME_OVERRIDES = Object.freeze({
   'accrington stanley 1891': 'Accrington Stanley (1891)',
   'darlington 1883': 'Darlington (1883)',
   'gateshead 1899': 'Gateshead (1899)',
+  'hastings united 1948': 'Hastings United (1948)',
   'ilkeston town 2017': 'Ilkeston Town (2017)',
   'maidstone united 1897': 'Maidstone United (1897)',
   'newport county 1912': 'Newport County (1912)',
@@ -1133,6 +1190,60 @@ const CLUB_SOURCE_REFS = Object.freeze({
     wikipediaClubSource(
       'https://en.wikipedia.org/wiki/Goole_A.F.C.',
       'Used for Goole A.F.C. formation after Goole Town folded and current lower-division status context.'
+    ),
+  ]),
+  gresleyRovers: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Gresley_Rovers_F.C.',
+      'Used for Gresley Rovers liquidation, Gresley F.C. reformation, name return, and current lower-division status context.'
+    ),
+  ]),
+  halesowenTown: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Halesowen_Town_F.C.',
+      'Used for current lower-division status and tracked sparse coverage context.'
+    ),
+  ]),
+  hamptonAndRichmondBorough: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Hampton_%26_Richmond_Borough_F.C.',
+      'Used for Hampton name change and current National League South status context.'
+    ),
+  ]),
+  harlowTown: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Harlow_Town_F.C.',
+      'Used for current lower-division status and below tracked coverage context.'
+    ),
+  ]),
+  harrowBorough: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Harrow_Borough_F.C.',
+      'Used for current lower-division status and below tracked coverage context.'
+    ),
+  ]),
+  hastingsUnited: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Hastings_United_F.C.',
+      'Used for Hastings Town rename to Hastings United and current lower-division status context.'
+    ),
+  ]),
+  hastingsUnited1948: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Hastings_United_F.C._(1948)',
+      'Used for the original Hastings United 1948 club fold context.'
+    ),
+  ]),
+  hendon: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Hendon_F.C.',
+      'Used for current lower-division status and below tracked coverage context.'
+    ),
+  ]),
+  heybridgeSwifts: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Heybridge_Swifts_F.C.',
+      'Used for current lower-division status and below tracked coverage context.'
     ),
   ]),
   leicesterUnited: Object.freeze([
@@ -3210,6 +3321,135 @@ export const CLUB_LIFECYCLE_RULES = Object.freeze([
         sourceRefs: CLUB_SOURCE_REFS.gooleAfc,
       }),
     ]),
+  }),
+  Object.freeze({
+    clubKey: 'gresley rovers',
+    status: Object.freeze({
+      current: 'active',
+      reason: 'successor-active',
+      reasonLabel:
+        'Gresley Rovers liquidated in 2009, reformed as Gresley F.C., and later readopted the Gresley Rovers name.',
+      sourceRefs: CLUB_SOURCE_REFS.gresleyRovers,
+    }),
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'liquidated',
+        season: 2009,
+        label: 'Gresley Rovers liquidated at the end of the 2008-09 season.',
+        sourceRefs: CLUB_SOURCE_REFS.gresleyRovers,
+      }),
+      lifecycleEvent({
+        type: 'reformed',
+        season: 2009,
+        label: 'The club reformed as Gresley F.C.',
+        sourceRefs: CLUB_SOURCE_REFS.gresleyRovers,
+      }),
+      lifecycleEvent({
+        type: 'renamed',
+        season: 2020,
+        label: 'Gresley F.C. readopted the Gresley Rovers name in July 2020.',
+        sourceRefs: CLUB_SOURCE_REFS.gresleyRovers,
+      }),
+    ]),
+  }),
+  statusOnlyRule({
+    clubKey: 'halesowen town',
+    current: 'active',
+    reason: 'possibly-missing-from-current-data',
+    reasonLabel:
+      'Wikipedia lists the club in the Southern League Premier Division Central, a level 7 league inside tracked but sparse coverage.',
+    sourceRefs: CLUB_SOURCE_REFS.halesowenTown,
+  }),
+  Object.freeze({
+    clubKey: 'hampton and richmond borough',
+    status: Object.freeze({
+      current: 'active',
+      reason: 'possibly-missing-from-current-data',
+      reasonLabel:
+        'Wikipedia lists the club in National League South, a level 6 league inside tracked but sparse coverage.',
+      sourceRefs: CLUB_SOURCE_REFS.hamptonAndRichmondBorough,
+    }),
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'renamed',
+        season: 1999,
+        label: 'Hampton changed name to Hampton & Richmond Borough.',
+        sourceRefs: CLUB_SOURCE_REFS.hamptonAndRichmondBorough,
+      }),
+    ]),
+  }),
+  statusOnlyRule({
+    clubKey: 'harlow town',
+    current: 'active',
+    reason: 'not-in-tracked-leagues',
+    reasonLabel:
+      'Wikipedia lists the club in the Spartan South Midlands League Premier Division, below current tracked coverage.',
+    sourceRefs: CLUB_SOURCE_REFS.harlowTown,
+  }),
+  statusOnlyRule({
+    clubKey: 'harrow borough',
+    current: 'active',
+    reason: 'not-in-tracked-leagues',
+    reasonLabel:
+      'Wikipedia lists the club in the Isthmian League South Central Division, below current tracked coverage.',
+    sourceRefs: CLUB_SOURCE_REFS.harrowBorough,
+  }),
+  Object.freeze({
+    clubKey: 'hastings united 1948',
+    status: Object.freeze({
+      current: 'defunct',
+      reason: 'folded',
+      reasonLabel: 'The original Hastings United club folded in 1985 due to financial problems.',
+      sourceRefs: CLUB_SOURCE_REFS.hastingsUnited1948,
+    }),
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'folded',
+        season: 1984,
+        label: 'Folded in 1985 due to financial problems.',
+        sourceRefs: CLUB_SOURCE_REFS.hastingsUnited1948,
+      }),
+    ]),
+  }),
+  Object.freeze({
+    clubKey: 'hastings united',
+    status: Object.freeze({
+      current: 'active',
+      reason: 'not-in-tracked-leagues',
+      reasonLabel:
+        'The current club changed from Hastings Town to Hastings United in 2002 and Wikipedia lists it in the Isthmian League South East Division, below current tracked coverage.',
+      sourceRefs: CLUB_SOURCE_REFS.hastingsUnited,
+    }),
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'renamed',
+        season: 1976,
+        label: 'Hastings changed name to Hastings Town.',
+        sourceRefs: CLUB_SOURCE_REFS.hastingsUnited,
+      }),
+      lifecycleEvent({
+        type: 'renamed',
+        season: 2002,
+        label: 'Hastings Town changed name to Hastings United before the 2002-03 season.',
+        sourceRefs: CLUB_SOURCE_REFS.hastingsUnited,
+      }),
+    ]),
+  }),
+  statusOnlyRule({
+    clubKey: 'hendon',
+    current: 'active',
+    reason: 'not-in-tracked-leagues',
+    reasonLabel:
+      'Wikipedia lists the club in the Isthmian League South Central Division, below current tracked coverage.',
+    sourceRefs: CLUB_SOURCE_REFS.hendon,
+  }),
+  statusOnlyRule({
+    clubKey: 'heybridge swifts',
+    current: 'active',
+    reason: 'not-in-tracked-leagues',
+    reasonLabel:
+      'Wikipedia lists the club in the Essex Senior League, below current tracked coverage.',
+    sourceRefs: CLUB_SOURCE_REFS.heybridgeSwifts,
   }),
   Object.freeze({
     clubKey: 'hornchurch',

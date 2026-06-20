@@ -2,8 +2,8 @@
   "metadata": {
     "schemaVersion": 1,
     "generator": "club-metadata-seed",
-    "generatedAt": "2026-06-20T02:24:35.010Z",
-    "gitSha": "2f258b6",
+    "generatedAt": "2026-06-20T02:36:11.997Z",
+    "gitSha": "aa37b79",
     "sourceFiles": [
       "/Users/dsteele/repos/footy-data-kit/data-output/all-seasons.json"
     ],
@@ -35936,16 +35936,60 @@
       "clubId": "gresley-rovers",
       "canonicalName": "Gresley Rovers",
       "status": {
-        "current": "unknown",
+        "current": "active",
         "trackedFromSeason": 1993,
         "trackedToSeason": 1998,
         "hasUnexplainedGaps": false,
-        "reason": "manual-review-required",
-        "reasonLabel": "Last observed before the latest supported season with no reviewed lifecycle or below-coverage status rule."
+        "reason": "successor-active",
+        "reasonLabel": "Gresley Rovers liquidated in 2009, reformed as Gresley F.C., and later readopted the Gresley Rovers name.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Gresley_Rovers_F.C.",
+            "notes": "Used for Gresley Rovers liquidation, Gresley F.C. reformation, name return, and current lower-division status context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
-        "lifecycleEvents": [],
+        "lifecycleEvents": [
+          {
+            "type": "liquidated",
+            "season": 2009,
+            "label": "Gresley Rovers liquidated at the end of the 2008-09 season.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Gresley_Rovers_F.C.",
+                "notes": "Used for Gresley Rovers liquidation, Gresley F.C. reformation, name return, and current lower-division status context."
+              }
+            ]
+          },
+          {
+            "type": "reformed",
+            "season": 2009,
+            "label": "The club reformed as Gresley F.C.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Gresley_Rovers_F.C.",
+                "notes": "Used for Gresley Rovers liquidation, Gresley F.C. reformation, name return, and current lower-division status context."
+              }
+            ]
+          },
+          {
+            "type": "renamed",
+            "season": 2020,
+            "label": "Gresley F.C. readopted the Gresley Rovers name in July 2020.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Gresley_Rovers_F.C.",
+                "notes": "Used for Gresley Rovers liquidation, Gresley F.C. reformation, name return, and current lower-division status context."
+              }
+            ]
+          }
+        ],
         "trackedMembership": [
           {
             "fromSeason": 1993,
@@ -35962,6 +36006,13 @@
         "source": "football-data-output",
         "aliases": [
           "Gresley Rovers"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Gresley_Rovers_F.C.",
+            "notes": "Used for Gresley Rovers liquidation, Gresley F.C. reformation, name return, and current lower-division status context."
+          }
         ],
         "observedNames": [
           {
@@ -36756,12 +36807,19 @@
       "clubId": "halesowen-town",
       "canonicalName": "Halesowen Town",
       "status": {
-        "current": "unknown",
+        "current": "active",
         "trackedFromSeason": 1990,
         "trackedToSeason": 2002,
         "hasUnexplainedGaps": false,
-        "reason": "manual-review-required",
-        "reasonLabel": "Last observed before the latest supported season with no reviewed lifecycle or below-coverage status rule."
+        "reason": "possibly-missing-from-current-data",
+        "reasonLabel": "Wikipedia lists the club in the Southern League Premier Division Central, a level 7 league inside tracked but sparse coverage.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Halesowen_Town_F.C.",
+            "notes": "Used for current lower-division status and tracked sparse coverage context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
@@ -36790,6 +36848,13 @@
         "source": "football-data-output",
         "aliases": [
           "Halesowen Town"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Halesowen_Town_F.C.",
+            "notes": "Used for current lower-division status and tracked sparse coverage context."
+          }
         ],
         "observedNames": [
           {
@@ -37256,169 +37321,39 @@
         ]
       }
     },
-    "hampton": {
-      "clubId": "hampton",
-      "canonicalName": "Hampton",
-      "status": {
-        "current": "unknown",
-        "trackedFromSeason": 1998,
-        "trackedToSeason": 1998,
-        "hasUnexplainedGaps": false,
-        "reason": "manual-review-required",
-        "reasonLabel": "Last observed before the latest supported season with no reviewed lifecycle or below-coverage status rule."
-      },
-      "history": {
-        "nameHistory": [],
-        "lifecycleEvents": [],
-        "trackedMembership": [
-          {
-            "fromSeason": 1998,
-            "toSeason": 1998,
-            "tiers": [
-              "tier6"
-            ],
-            "basis": "observed"
-          }
-        ],
-        "absenceExplanations": []
-      },
-      "derived": {
-        "source": "football-data-output",
-        "aliases": [
-          "Hampton"
-        ],
-        "observedNames": [
-          {
-            "rawName": "Hampton",
-            "normalizedName": "hampton",
-            "firstSeenSeason": 1998,
-            "lastSeenSeason": 1998,
-            "seasonsSeen": [
-              1998
-            ],
-            "tiersSeen": [
-              "tier6"
-            ]
-          }
-        ],
-        "observedNamePeriods": [
-          {
-            "name": "Hampton",
-            "startSeason": 1998,
-            "endSeason": 1998
-          }
-        ],
-        "firstSeenSeason": 1998,
-        "lastSeenSeason": 1998,
-        "seasonsSeen": [
-          1998
-        ],
-        "totalSeasonsSeen": 1,
-        "tiersSeen": [
-          "tier6"
-        ],
-        "tierSeasons": [
-          {
-            "tierKey": "tier6",
-            "seasons": [
-              1998
-            ]
-          }
-        ]
-      }
-    },
-    "hampton and richmond": {
-      "clubId": "hampton-and-richmond",
-      "canonicalName": "Hampton & Richmond",
-      "status": {
-        "current": "unknown",
-        "trackedFromSeason": 1999,
-        "trackedToSeason": 2002,
-        "hasUnexplainedGaps": false,
-        "reason": "manual-review-required",
-        "reasonLabel": "Last observed before the latest supported season with no reviewed lifecycle or below-coverage status rule."
-      },
-      "history": {
-        "nameHistory": [],
-        "lifecycleEvents": [],
-        "trackedMembership": [
-          {
-            "fromSeason": 1999,
-            "toSeason": 2002,
-            "tiers": [
-              "tier6"
-            ],
-            "basis": "observed"
-          }
-        ],
-        "absenceExplanations": []
-      },
-      "derived": {
-        "source": "football-data-output",
-        "aliases": [
-          "Hampton & Richmond"
-        ],
-        "observedNames": [
-          {
-            "rawName": "Hampton & Richmond",
-            "normalizedName": "hampton and richmond",
-            "firstSeenSeason": 1999,
-            "lastSeenSeason": 2002,
-            "seasonsSeen": [
-              1999,
-              2000,
-              2001,
-              2002
-            ],
-            "tiersSeen": [
-              "tier6"
-            ]
-          }
-        ],
-        "observedNamePeriods": [
-          {
-            "name": "Hampton & Richmond",
-            "startSeason": 1999,
-            "endSeason": 2002
-          }
-        ],
-        "firstSeenSeason": 1999,
-        "lastSeenSeason": 2002,
-        "seasonsSeen": [
-          1999,
-          2000,
-          2001,
-          2002
-        ],
-        "totalSeasonsSeen": 4,
-        "tiersSeen": [
-          "tier6"
-        ],
-        "tierSeasons": [
-          {
-            "tierKey": "tier6",
-            "seasons": [
-              1999,
-              2000,
-              2001,
-              2002
-            ]
-          }
-        ]
-      }
-    },
     "hampton and richmond borough": {
       "clubId": "hampton-and-richmond-borough",
       "canonicalName": "Hampton & Richmond Borough",
       "status": {
         "current": "active",
-        "trackedFromSeason": 2007,
+        "trackedFromSeason": 1998,
         "trackedToSeason": null,
-        "hasUnexplainedGaps": false
+        "hasUnexplainedGaps": false,
+        "reason": "possibly-missing-from-current-data",
+        "reasonLabel": "Wikipedia lists the club in National League South, a level 6 league inside tracked but sparse coverage.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Hampton_%26_Richmond_Borough_F.C.",
+            "notes": "Used for Hampton name change and current National League South status context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
         "lifecycleEvents": [
+          {
+            "type": "renamed",
+            "season": 1999,
+            "label": "Hampton changed name to Hampton & Richmond Borough.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Hampton_%26_Richmond_Borough_F.C.",
+                "notes": "Used for Hampton name change and current National League South status context."
+              }
+            ]
+          },
           {
             "type": "relegated-outside-tracked-coverage",
             "season": 2011,
@@ -37433,6 +37368,14 @@
           }
         ],
         "trackedMembership": [
+          {
+            "fromSeason": 1998,
+            "toSeason": 2002,
+            "tiers": [
+              "tier6"
+            ],
+            "basis": "observed"
+          },
           {
             "fromSeason": 2007,
             "toSeason": 2011,
@@ -37471,9 +37414,45 @@
       "derived": {
         "source": "football-data-output",
         "aliases": [
+          "Hampton",
+          "Hampton & Richmond",
           "Hampton & Richmond Borough"
         ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Hampton_%26_Richmond_Borough_F.C.",
+            "notes": "Used for Hampton name change and current National League South status context."
+          }
+        ],
         "observedNames": [
+          {
+            "rawName": "Hampton",
+            "normalizedName": "hampton",
+            "firstSeenSeason": 1998,
+            "lastSeenSeason": 1998,
+            "seasonsSeen": [
+              1998
+            ],
+            "tiersSeen": [
+              "tier6"
+            ]
+          },
+          {
+            "rawName": "Hampton & Richmond",
+            "normalizedName": "hampton and richmond",
+            "firstSeenSeason": 1999,
+            "lastSeenSeason": 2002,
+            "seasonsSeen": [
+              1999,
+              2000,
+              2001,
+              2002
+            ],
+            "tiersSeen": [
+              "tier6"
+            ]
+          },
           {
             "rawName": "Hampton & Richmond Borough",
             "normalizedName": "hampton and richmond borough",
@@ -37503,6 +37482,16 @@
         ],
         "observedNamePeriods": [
           {
+            "name": "Hampton",
+            "startSeason": 1998,
+            "endSeason": 1998
+          },
+          {
+            "name": "Hampton & Richmond",
+            "startSeason": 1999,
+            "endSeason": 2002
+          },
+          {
             "name": "Hampton & Richmond Borough",
             "startSeason": 2007,
             "endSeason": 2011
@@ -37513,9 +37502,14 @@
             "endSeason": 2025
           }
         ],
-        "firstSeenSeason": 2007,
+        "firstSeenSeason": 1998,
         "lastSeenSeason": 2025,
         "seasonsSeen": [
+          1998,
+          1999,
+          2000,
+          2001,
+          2002,
           2007,
           2008,
           2009,
@@ -37532,7 +37526,7 @@
           2024,
           2025
         ],
-        "totalSeasonsSeen": 15,
+        "totalSeasonsSeen": 20,
         "tiersSeen": [
           "tier6"
         ],
@@ -37540,6 +37534,11 @@
           {
             "tierKey": "tier6",
             "seasons": [
+              1998,
+              1999,
+              2000,
+              2001,
+              2002,
               2007,
               2008,
               2009,
@@ -37560,6 +37559,11 @@
         ],
         "coverageGaps": [
           {
+            "startSeason": 2003,
+            "endSeason": 2006,
+            "length": 4
+          },
+          {
             "startSeason": 2012,
             "endSeason": 2015,
             "length": 4
@@ -37571,12 +37575,19 @@
       "clubId": "harlow-town",
       "canonicalName": "Harlow Town",
       "status": {
-        "current": "unknown",
+        "current": "active",
         "trackedFromSeason": 1979,
         "trackedToSeason": 1984,
         "hasUnexplainedGaps": false,
-        "reason": "manual-review-required",
-        "reasonLabel": "Last observed before the latest supported season with no reviewed lifecycle or below-coverage status rule."
+        "reason": "not-in-tracked-leagues",
+        "reasonLabel": "Wikipedia lists the club in the Spartan South Midlands League Premier Division, below current tracked coverage.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Harlow_Town_F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
@@ -37605,6 +37616,13 @@
         "source": "football-data-output",
         "aliases": [
           "Harlow Town"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Harlow_Town_F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
+          }
         ],
         "observedNames": [
           {
@@ -37828,12 +37846,19 @@
       "clubId": "harrow-borough",
       "canonicalName": "Harrow Borough",
       "status": {
-        "current": "unknown",
+        "current": "active",
         "trackedFromSeason": 1979,
         "trackedToSeason": 2003,
         "hasUnexplainedGaps": false,
-        "reason": "manual-review-required",
-        "reasonLabel": "Last observed before the latest supported season with no reviewed lifecycle or below-coverage status rule."
+        "reason": "not-in-tracked-leagues",
+        "reasonLabel": "Wikipedia lists the club in the Isthmian League South Central Division, below current tracked coverage.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Harrow_Borough_F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
@@ -37854,6 +37879,13 @@
         "source": "football-data-output",
         "aliases": [
           "Harrow Borough"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Harrow_Borough_F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
+          }
         ],
         "observedNames": [
           {
@@ -38422,113 +38454,56 @@
         ]
       }
     },
-    "hastings town": {
-      "clubId": "hastings-town",
-      "canonicalName": "Hastings Town",
-      "status": {
-        "current": "unknown",
-        "trackedFromSeason": 1992,
-        "trackedToSeason": 1998,
-        "hasUnexplainedGaps": false,
-        "reason": "manual-review-required",
-        "reasonLabel": "Last observed before the latest supported season with no reviewed lifecycle or below-coverage status rule."
-      },
-      "history": {
-        "nameHistory": [],
-        "lifecycleEvents": [],
-        "trackedMembership": [
-          {
-            "fromSeason": 1992,
-            "toSeason": 1998,
-            "tiers": [
-              "tier6"
-            ],
-            "basis": "observed"
-          }
-        ],
-        "absenceExplanations": []
-      },
-      "derived": {
-        "source": "football-data-output",
-        "aliases": [
-          "Hastings Town"
-        ],
-        "observedNames": [
-          {
-            "rawName": "Hastings Town",
-            "normalizedName": "hastings town",
-            "firstSeenSeason": 1992,
-            "lastSeenSeason": 1998,
-            "seasonsSeen": [
-              1992,
-              1993,
-              1994,
-              1995,
-              1996,
-              1997,
-              1998
-            ],
-            "tiersSeen": [
-              "tier6"
-            ]
-          }
-        ],
-        "observedNamePeriods": [
-          {
-            "name": "Hastings Town",
-            "startSeason": 1992,
-            "endSeason": 1998
-          }
-        ],
-        "firstSeenSeason": 1992,
-        "lastSeenSeason": 1998,
-        "seasonsSeen": [
-          1992,
-          1993,
-          1994,
-          1995,
-          1996,
-          1997,
-          1998
-        ],
-        "totalSeasonsSeen": 7,
-        "tiersSeen": [
-          "tier6"
-        ],
-        "tierSeasons": [
-          {
-            "tierKey": "tier6",
-            "seasons": [
-              1992,
-              1993,
-              1994,
-              1995,
-              1996,
-              1997,
-              1998
-            ]
-          }
-        ]
-      }
-    },
     "hastings united": {
       "clubId": "hastings-united",
       "canonicalName": "Hastings United",
       "status": {
-        "current": "unknown",
-        "trackedFromSeason": 1979,
+        "current": "active",
+        "trackedFromSeason": 1992,
         "trackedToSeason": 2002,
         "hasUnexplainedGaps": false,
-        "reason": "manual-review-required",
-        "reasonLabel": "Last observed before the latest supported season with no reviewed lifecycle or below-coverage status rule."
+        "reason": "not-in-tracked-leagues",
+        "reasonLabel": "The current club changed from Hastings Town to Hastings United in 2002 and Wikipedia lists it in the Isthmian League South East Division, below current tracked coverage.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Hastings_United_F.C.",
+            "notes": "Used for Hastings Town rename to Hastings United and current lower-division status context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
-        "lifecycleEvents": [],
+        "lifecycleEvents": [
+          {
+            "type": "renamed",
+            "season": 1976,
+            "label": "Hastings changed name to Hastings Town.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Hastings_United_F.C.",
+                "notes": "Used for Hastings Town rename to Hastings United and current lower-division status context."
+              }
+            ]
+          },
+          {
+            "type": "renamed",
+            "season": 2002,
+            "label": "Hastings Town changed name to Hastings United before the 2002-03 season.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Hastings_United_F.C.",
+                "notes": "Used for Hastings Town rename to Hastings United and current lower-division status context."
+              }
+            ]
+          }
+        ],
         "trackedMembership": [
           {
-            "fromSeason": 1979,
-            "toSeason": 1984,
+            "fromSeason": 1992,
+            "toSeason": 1998,
             "tiers": [
               "tier6"
             ],
@@ -38548,22 +38523,171 @@
       "derived": {
         "source": "football-data-output",
         "aliases": [
+          "Hastings Town",
           "Hastings United"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Hastings_United_F.C.",
+            "notes": "Used for Hastings Town rename to Hastings United and current lower-division status context."
+          }
+        ],
+        "observedNames": [
+          {
+            "rawName": "Hastings Town",
+            "normalizedName": "hastings town",
+            "firstSeenSeason": 1992,
+            "lastSeenSeason": 1998,
+            "seasonsSeen": [
+              1992,
+              1993,
+              1994,
+              1995,
+              1996,
+              1997,
+              1998
+            ],
+            "tiersSeen": [
+              "tier6"
+            ]
+          },
+          {
+            "rawName": "Hastings United",
+            "normalizedName": "hastings united",
+            "firstSeenSeason": 2002,
+            "lastSeenSeason": 2002,
+            "seasonsSeen": [
+              2002
+            ],
+            "tiersSeen": [
+              "tier6"
+            ]
+          }
+        ],
+        "observedNamePeriods": [
+          {
+            "name": "Hastings Town",
+            "startSeason": 1992,
+            "endSeason": 1998
+          },
+          {
+            "name": "Hastings United",
+            "startSeason": 2002,
+            "endSeason": 2002
+          }
+        ],
+        "firstSeenSeason": 1992,
+        "lastSeenSeason": 2002,
+        "seasonsSeen": [
+          1992,
+          1993,
+          1994,
+          1995,
+          1996,
+          1997,
+          1998,
+          2002
+        ],
+        "totalSeasonsSeen": 8,
+        "tiersSeen": [
+          "tier6"
+        ],
+        "tierSeasons": [
+          {
+            "tierKey": "tier6",
+            "seasons": [
+              1992,
+              1993,
+              1994,
+              1995,
+              1996,
+              1997,
+              1998,
+              2002
+            ]
+          }
+        ],
+        "coverageGaps": [
+          {
+            "startSeason": 1999,
+            "endSeason": 2001,
+            "length": 3
+          }
+        ]
+      }
+    },
+    "hastings united 1948": {
+      "clubId": "hastings-united-1948",
+      "canonicalName": "Hastings United (1948)",
+      "status": {
+        "current": "defunct",
+        "trackedFromSeason": 1979,
+        "trackedToSeason": 1984,
+        "hasUnexplainedGaps": false,
+        "reason": "folded",
+        "reasonLabel": "The original Hastings United club folded in 1985 due to financial problems.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Hastings_United_F.C._(1948)",
+            "notes": "Used for the original Hastings United 1948 club fold context."
+          }
+        ]
+      },
+      "history": {
+        "nameHistory": [],
+        "lifecycleEvents": [
+          {
+            "type": "folded",
+            "season": 1984,
+            "label": "Folded in 1985 due to financial problems.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Hastings_United_F.C._(1948)",
+                "notes": "Used for the original Hastings United 1948 club fold context."
+              }
+            ]
+          }
+        ],
+        "trackedMembership": [
+          {
+            "fromSeason": 1979,
+            "toSeason": 1984,
+            "tiers": [
+              "tier6"
+            ],
+            "basis": "observed"
+          }
+        ],
+        "absenceExplanations": []
+      },
+      "derived": {
+        "source": "football-data-output",
+        "aliases": [
+          "Hastings United"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Hastings_United_F.C._(1948)",
+            "notes": "Used for the original Hastings United 1948 club fold context."
+          }
         ],
         "observedNames": [
           {
             "rawName": "Hastings United",
             "normalizedName": "hastings united",
             "firstSeenSeason": 1979,
-            "lastSeenSeason": 2002,
+            "lastSeenSeason": 1984,
             "seasonsSeen": [
               1979,
               1980,
               1981,
               1982,
               1983,
-              1984,
-              2002
+              1984
             ],
             "tiersSeen": [
               "tier6"
@@ -38575,25 +38699,19 @@
             "name": "Hastings United",
             "startSeason": 1979,
             "endSeason": 1984
-          },
-          {
-            "name": "Hastings United",
-            "startSeason": 2002,
-            "endSeason": 2002
           }
         ],
         "firstSeenSeason": 1979,
-        "lastSeenSeason": 2002,
+        "lastSeenSeason": 1984,
         "seasonsSeen": [
           1979,
           1980,
           1981,
           1982,
           1983,
-          1984,
-          2002
+          1984
         ],
-        "totalSeasonsSeen": 7,
+        "totalSeasonsSeen": 6,
         "tiersSeen": [
           "tier6"
         ],
@@ -38606,16 +38724,8 @@
               1981,
               1982,
               1983,
-              1984,
-              2002
+              1984
             ]
-          }
-        ],
-        "coverageGaps": [
-          {
-            "startSeason": 1985,
-            "endSeason": 2001,
-            "length": 17
           }
         ]
       }
@@ -39493,12 +39603,19 @@
       "clubId": "hendon",
       "canonicalName": "Hendon",
       "status": {
-        "current": "unknown",
+        "current": "active",
         "trackedFromSeason": 1979,
         "trackedToSeason": 2003,
         "hasUnexplainedGaps": false,
-        "reason": "manual-review-required",
-        "reasonLabel": "Last observed before the latest supported season with no reviewed lifecycle or below-coverage status rule."
+        "reason": "not-in-tracked-leagues",
+        "reasonLabel": "Wikipedia lists the club in the Isthmian League South Central Division, below current tracked coverage.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Hendon_F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
@@ -39519,6 +39636,13 @@
         "source": "football-data-output",
         "aliases": [
           "Hendon"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Hendon_F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
+          }
         ],
         "observedNames": [
           {
@@ -40025,12 +40149,19 @@
       "clubId": "heybridge-swifts",
       "canonicalName": "Heybridge Swifts",
       "status": {
-        "current": "unknown",
+        "current": "active",
         "trackedFromSeason": 1996,
         "trackedToSeason": 2003,
         "hasUnexplainedGaps": false,
-        "reason": "manual-review-required",
-        "reasonLabel": "Last observed before the latest supported season with no reviewed lifecycle or below-coverage status rule."
+        "reason": "not-in-tracked-leagues",
+        "reasonLabel": "Wikipedia lists the club in the Essex Senior League, below current tracked coverage.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Heybridge_Swifts_F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
@@ -40051,6 +40182,13 @@
         "source": "football-data-output",
         "aliases": [
           "Heybridge Swifts"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Heybridge_Swifts_F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
+          }
         ],
         "observedNames": [
           {
