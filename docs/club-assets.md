@@ -63,8 +63,7 @@ Wikidata `P154` and `P94` candidates are treated as crest-like when they match
 the club identity. Generic `P18` image candidates still need filename or other
 crest evidence, because they often point to squads, grounds, or match photos.
 
-Generated placeholders are SVG data URLs. They use `source:
-generated-placeholder`, `status: placeholder`, `placeholder: true`, and CC0
+Generated placeholders are SVG data URLs. They use `source: generated-placeholder`, `status: placeholder`, `placeholder: true`, and CC0
 license metadata so consumers can render or filter them independently from
 official/source-discovered crest candidates.
 
