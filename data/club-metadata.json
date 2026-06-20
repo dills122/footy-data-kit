@@ -2,8 +2,8 @@
   "metadata": {
     "schemaVersion": 1,
     "generator": "club-metadata-seed",
-    "generatedAt": "2026-06-20T00:36:10.844Z",
-    "gitSha": "d1b4642",
+    "generatedAt": "2026-06-20T00:38:46.343Z",
+    "gitSha": "fa9e59c",
     "sourceFiles": [
       "/Users/dsteele/repos/footy-data-kit/data-output/all-seasons.json"
     ],
@@ -53438,13 +53438,13 @@
         "trackedFromSeason": 1979,
         "trackedToSeason": 2010,
         "hasUnexplainedGaps": false,
-        "reason": "below-tracked-coverage",
-        "reasonLabel": "Last observed leaving supported league coverage after 2010.",
+        "reason": "possibly-missing-from-current-data",
+        "reasonLabel": "Wikipedia lists the club in the Southern League Premier Division Central, a level 7 league inside tracked but sparse coverage.",
         "sourceRefs": [
           {
-            "type": "wikipedia-season-page",
-            "sourceUrl": "https://en.wikipedia.org/wiki/2010–11_Football_Conference",
-            "notes": "tier6 table in 2010–11_Football_Conference"
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Redditch_United_F.C.",
+            "notes": "Used for current lower-division status and tracked coverage context."
           }
         ]
       },
@@ -53504,6 +53504,13 @@
         "source": "football-data-output",
         "aliases": [
           "Redditch United"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Redditch_United_F.C.",
+            "notes": "Used for current lower-division status and tracked coverage context."
+          }
         ],
         "observedNames": [
           {
@@ -54661,27 +54668,76 @@
         ]
       }
     },
-    "runcorn": {
-      "clubId": "runcorn",
-      "canonicalName": "Runcorn",
+    "runcorn fc halton": {
+      "clubId": "runcorn-fc-halton",
+      "canonicalName": "Runcorn FC Halton",
       "status": {
-        "current": "active",
+        "current": "defunct",
         "trackedFromSeason": 1981,
-        "trackedToSeason": 1995,
+        "trackedToSeason": 2004,
         "hasUnexplainedGaps": false,
-        "reason": "below-tracked-coverage",
-        "reasonLabel": "Last observed leaving supported league coverage after 1995.",
+        "reason": "dissolved",
+        "reasonLabel": "Runcorn FC Halton resigned from the Northern Premier League and ceased activity in 2006; supporters formed Runcorn Linnets.",
         "sourceRefs": [
           {
-            "type": "wikipedia-season-page",
-            "sourceUrl": "https://en.wikipedia.org/wiki/1995–96_Football_Conference",
-            "notes": "Football Conference table in 1995–96_Football_Conference"
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Runcorn_F.C._Halton",
+            "notes": "Used for Runcorn/Runcorn FC Halton dissolution and Runcorn Linnets context."
           }
         ]
       },
       "history": {
         "nameHistory": [],
-        "lifecycleEvents": [],
+        "lifecycleEvents": [
+          {
+            "type": "relegated-outside-tracked-coverage",
+            "season": 1995,
+            "description": "Relegation to the Northern Premier League Premier Division",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-season-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/1995–96_Football_Conference",
+                "notes": "Football Conference table in 1995–96_Football_Conference"
+              }
+            ]
+          },
+          {
+            "type": "renamed",
+            "season": 2000,
+            "label": "Runcorn F.C. changed name to Runcorn FC Halton after moving to Halton Stadium.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Runcorn_F.C._Halton",
+                "notes": "Used for Runcorn/Runcorn FC Halton dissolution and Runcorn Linnets context."
+              }
+            ]
+          },
+          {
+            "type": "dissolved",
+            "season": 2006,
+            "label": "Resigned from the Northern Premier League and ceased activity.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Runcorn_F.C._Halton",
+                "notes": "Used for Runcorn/Runcorn FC Halton dissolution and Runcorn Linnets context."
+              }
+            ]
+          },
+          {
+            "type": "supporterPhoenixFormed",
+            "season": 2006,
+            "label": "Supporters formed Runcorn Linnets as a replacement club.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Runcorn_Linnets_F.C.",
+                "notes": "Used for Runcorn Linnets supporter-owned phoenix club context."
+              }
+            ]
+          }
+        ],
         "trackedMembership": [
           {
             "fromSeason": 1981,
@@ -54690,14 +54746,67 @@
               "tier5"
             ],
             "basis": "observed"
+          },
+          {
+            "fromSeason": 2004,
+            "toSeason": 2004,
+            "tiers": [
+              "tier6"
+            ],
+            "basis": "observed"
           }
         ],
-        "absenceExplanations": []
+        "absenceExplanations": [
+          {
+            "fromSeason": 1996,
+            "toSeason": 2003,
+            "reason": "outside-tracked-coverage",
+            "linkedEventType": "relegated-outside-tracked-coverage",
+            "basis": "table-note",
+            "notes": "Relegation to the Northern Premier League Premier Division",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-season-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/1995–96_Football_Conference",
+                "notes": "Football Conference table in 1995–96_Football_Conference"
+              }
+            ]
+          }
+        ]
       },
       "derived": {
         "source": "football-data-output",
         "aliases": [
-          "Runcorn"
+          "Runcorn",
+          "Runcorn FC Halton"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Runcorn_F.C._Halton",
+            "notes": "Used for Runcorn/Runcorn FC Halton dissolution and Runcorn Linnets context."
+          },
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Runcorn_Linnets_F.C.",
+            "notes": "Used for Runcorn Linnets supporter-owned phoenix club context."
+          }
+        ],
+        "relationships": [
+          {
+            "clubKey": "runcorn linnets",
+            "relationship": "supporterPhoenix",
+            "direction": "supporterFounded",
+            "season": 2006,
+            "label": "Runcorn Linnets was formed by supporters after Runcorn FC Halton resigned and ceased activity.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Runcorn_Linnets_F.C.",
+                "notes": "Used for Runcorn Linnets supporter-owned phoenix club context."
+              }
+            ]
+          }
         ],
         "observedNames": [
           {
@@ -54725,6 +54834,18 @@
             "tiersSeen": [
               "tier5"
             ]
+          },
+          {
+            "rawName": "Runcorn FC Halton",
+            "normalizedName": "runcorn fc halton",
+            "firstSeenSeason": 2004,
+            "lastSeenSeason": 2004,
+            "seasonsSeen": [
+              2004
+            ],
+            "tiersSeen": [
+              "tier6"
+            ]
           }
         ],
         "observedNamePeriods": [
@@ -54732,10 +54853,15 @@
             "name": "Runcorn",
             "startSeason": 1981,
             "endSeason": 1995
+          },
+          {
+            "name": "Runcorn FC Halton",
+            "startSeason": 2004,
+            "endSeason": 2004
           }
         ],
         "firstSeenSeason": 1981,
-        "lastSeenSeason": 1995,
+        "lastSeenSeason": 2004,
         "seasonsSeen": [
           1981,
           1982,
@@ -54751,11 +54877,13 @@
           1992,
           1993,
           1994,
-          1995
+          1995,
+          2004
         ],
-        "totalSeasonsSeen": 15,
+        "totalSeasonsSeen": 16,
         "tiersSeen": [
-          "tier5"
+          "tier5",
+          "tier6"
         ],
         "tierSeasons": [
           {
@@ -54777,84 +54905,19 @@
               1994,
               1995
             ]
-          }
-        ]
-      }
-    },
-    "runcorn fc halton": {
-      "clubId": "runcorn-fc-halton",
-      "canonicalName": "Runcorn FC Halton",
-      "status": {
-        "current": "active",
-        "trackedFromSeason": 2004,
-        "trackedToSeason": 2004,
-        "hasUnexplainedGaps": false,
-        "reason": "below-tracked-coverage",
-        "reasonLabel": "Last observed leaving supported league coverage after 2004.",
-        "sourceRefs": [
-          {
-            "type": "wikipedia-season-page",
-            "sourceUrl": "https://en.wikipedia.org/wiki/2004–05_Football_Conference",
-            "notes": "tier6 table in 2004–05_Football_Conference"
-          }
-        ]
-      },
-      "history": {
-        "nameHistory": [],
-        "lifecycleEvents": [],
-        "trackedMembership": [
-          {
-            "fromSeason": 2004,
-            "toSeason": 2004,
-            "tiers": [
-              "tier6"
-            ],
-            "basis": "observed"
-          }
-        ],
-        "absenceExplanations": []
-      },
-      "derived": {
-        "source": "football-data-output",
-        "aliases": [
-          "Runcorn FC Halton"
-        ],
-        "observedNames": [
-          {
-            "rawName": "Runcorn FC Halton",
-            "normalizedName": "runcorn fc halton",
-            "firstSeenSeason": 2004,
-            "lastSeenSeason": 2004,
-            "seasonsSeen": [
-              2004
-            ],
-            "tiersSeen": [
-              "tier6"
-            ]
-          }
-        ],
-        "observedNamePeriods": [
-          {
-            "name": "Runcorn FC Halton",
-            "startSeason": 2004,
-            "endSeason": 2004
-          }
-        ],
-        "firstSeenSeason": 2004,
-        "lastSeenSeason": 2004,
-        "seasonsSeen": [
-          2004
-        ],
-        "totalSeasonsSeen": 1,
-        "tiersSeen": [
-          "tier6"
-        ],
-        "tierSeasons": [
+          },
           {
             "tierKey": "tier6",
             "seasons": [
               2004
             ]
+          }
+        ],
+        "coverageGaps": [
+          {
+            "startSeason": 1996,
+            "endSeason": 2003,
+            "length": 8
           }
         ]
       }
@@ -59554,13 +59617,13 @@
         "trackedFromSeason": 1979,
         "trackedToSeason": 2010,
         "hasUnexplainedGaps": false,
-        "reason": "below-tracked-coverage",
-        "reasonLabel": "Last observed leaving supported league coverage after 2010.",
+        "reason": "not-in-tracked-leagues",
+        "reasonLabel": "Wikipedia lists the club in the Northern Premier League Division One West, below current tracked coverage.",
         "sourceRefs": [
           {
-            "type": "wikipedia-season-page",
-            "sourceUrl": "https://en.wikipedia.org/wiki/2010–11_Football_Conference",
-            "notes": "tier6 table in 2010–11_Football_Conference"
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Stafford_Rangers_F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
           }
         ]
       },
@@ -59656,6 +59719,13 @@
         "source": "football-data-output",
         "aliases": [
           "Stafford Rangers"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Stafford_Rangers_F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
+          }
         ],
         "observedNames": [
           {
@@ -59790,23 +59860,49 @@
       "clubId": "staines-town",
       "canonicalName": "Staines Town",
       "status": {
-        "current": "active",
+        "current": "defunct",
         "trackedFromSeason": 2009,
         "trackedToSeason": 2014,
         "hasUnexplainedGaps": false,
-        "reason": "below-tracked-coverage",
-        "reasonLabel": "Last observed leaving supported league coverage after 2014.",
+        "reason": "dissolved",
+        "reasonLabel": "Suspended operations in March 2022 and its league place was taken by another club in July 2022.",
         "sourceRefs": [
           {
-            "type": "wikipedia-season-page",
-            "sourceUrl": "https://en.wikipedia.org/wiki/2014–15_Football_Conference",
-            "notes": "tier6 table in 2014–15_Football_Conference"
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Staines_Town_F.C.",
+            "notes": "Used for Staines Town dissolution context."
           }
         ]
       },
       "history": {
         "nameHistory": [],
-        "lifecycleEvents": [],
+        "lifecycleEvents": [
+          {
+            "type": "suspended-operations",
+            "season": 2021,
+            "date": "2022-03-29",
+            "label": "Suspended operations during a dispute with its landlord.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Staines_Town_F.C.",
+                "notes": "Used for Staines Town dissolution context."
+              }
+            ]
+          },
+          {
+            "type": "dissolved",
+            "season": 2022,
+            "label": "Its Combined Counties League place was taken by Hilltop, effectively ending the club.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Staines_Town_F.C.",
+                "notes": "Used for Staines Town dissolution context."
+              }
+            ]
+          }
+        ],
         "trackedMembership": [
           {
             "fromSeason": 2009,
@@ -59823,6 +59919,13 @@
         "source": "football-data-output",
         "aliases": [
           "Staines Town"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Staines_Town_F.C.",
+            "notes": "Used for Staines Town dissolution context."
+          }
         ],
         "observedNames": [
           {
@@ -63904,23 +64007,50 @@
       "clubId": "thurrock",
       "canonicalName": "Thurrock",
       "status": {
-        "current": "active",
+        "current": "defunct",
         "trackedFromSeason": 2004,
         "trackedToSeason": 2011,
         "hasUnexplainedGaps": false,
-        "reason": "below-tracked-coverage",
-        "reasonLabel": "Last observed leaving supported league coverage after 2011.",
+        "reason": "dissolved",
+        "reasonLabel": "Resigned from the Isthmian League in March 2018 and played its final fixture in April 2018.",
         "sourceRefs": [
           {
-            "type": "wikipedia-season-page",
-            "sourceUrl": "https://en.wikipedia.org/wiki/2011–12_Football_Conference",
-            "notes": "tier6 table in 2011–12_Football_Conference"
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Thurrock_F.C.",
+            "notes": "Used for Thurrock resignation and dissolution context."
           }
         ]
       },
       "history": {
         "nameHistory": [],
-        "lifecycleEvents": [],
+        "lifecycleEvents": [
+          {
+            "type": "resigned",
+            "season": 2017,
+            "date": "2018-03-31",
+            "label": "Formally resigned from the Isthmian League.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Thurrock_F.C.",
+                "notes": "Used for Thurrock resignation and dissolution context."
+              }
+            ]
+          },
+          {
+            "type": "dissolved",
+            "season": 2018,
+            "date": "2018-04-28",
+            "label": "Played its final competitive fixture.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Thurrock_F.C.",
+                "notes": "Used for Thurrock resignation and dissolution context."
+              }
+            ]
+          }
+        ],
         "trackedMembership": [
           {
             "fromSeason": 2004,
@@ -63937,6 +64067,13 @@
         "source": "football-data-output",
         "aliases": [
           "Thurrock"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Thurrock_F.C.",
+            "notes": "Used for Thurrock resignation and dissolution context."
+          }
         ],
         "observedNames": [
           {
@@ -65405,13 +65542,13 @@
         "trackedFromSeason": 1981,
         "trackedToSeason": 1983,
         "hasUnexplainedGaps": false,
-        "reason": "below-tracked-coverage",
-        "reasonLabel": "Last observed leaving supported league coverage after 1983.",
+        "reason": "not-in-tracked-leagues",
+        "reasonLabel": "Wikipedia lists the reformed club at Step 7 of the National League System, below current tracked coverage.",
         "sourceRefs": [
           {
-            "type": "wikipedia-season-page",
-            "sourceUrl": "https://en.wikipedia.org/wiki/1983–84_Alliance_Premier_League",
-            "notes": "Alliance Premier League table in 1983–84_Alliance_Premier_League"
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Trowbridge_Town_F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
           }
         ]
       },
@@ -65434,6 +65571,13 @@
         "source": "football-data-output",
         "aliases": [
           "Trowbridge Town"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Trowbridge_Town_F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
+          }
         ],
         "observedNames": [
           {
@@ -68651,13 +68795,13 @@
         "trackedFromSeason": 2013,
         "trackedToSeason": 2017,
         "hasUnexplainedGaps": false,
-        "reason": "below-tracked-coverage",
-        "reasonLabel": "Last observed leaving supported league coverage after 2017.",
+        "reason": "possibly-missing-from-current-data",
+        "reasonLabel": "Wikipedia lists the club in the Isthmian League Premier Division, a level 7 league inside tracked but sparse coverage.",
         "sourceRefs": [
           {
-            "type": "wikipedia-season-page",
-            "sourceUrl": "https://en.wikipedia.org/wiki/2017–18_National_League",
-            "notes": "tier6 table in 2017–18_National_League"
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Whitehawk_F.C.",
+            "notes": "Used for current lower-division status and tracked coverage context."
           }
         ]
       },
@@ -68680,6 +68824,13 @@
         "source": "football-data-output",
         "aliases": [
           "Whitehawk"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Whitehawk_F.C.",
+            "notes": "Used for current lower-division status and tracked coverage context."
+          }
         ],
         "observedNames": [
           {
@@ -69406,13 +69557,13 @@
         "trackedFromSeason": 1991,
         "trackedToSeason": 1993,
         "hasUnexplainedGaps": false,
-        "reason": "below-tracked-coverage",
-        "reasonLabel": "Last observed leaving supported league coverage after 1993.",
+        "reason": "not-in-tracked-leagues",
+        "reasonLabel": "Wikipedia lists the club in the Northern Premier League Division One West, below current tracked coverage.",
         "sourceRefs": [
           {
-            "type": "wikipedia-season-page",
-            "sourceUrl": "https://en.wikipedia.org/wiki/1993–94_Football_Conference",
-            "notes": "Football Conference table in 1993–94_Football_Conference"
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Witton_Albion_F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
           }
         ]
       },
@@ -69435,6 +69586,13 @@
         "source": "football-data-output",
         "aliases": [
           "Witton Albion"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Witton_Albion_F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
+          }
         ],
         "observedNames": [
           {

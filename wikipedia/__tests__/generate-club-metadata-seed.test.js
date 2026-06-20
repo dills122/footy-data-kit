@@ -1565,6 +1565,125 @@ describe('buildClubMetadataSeed', () => {
     ]);
   });
 
+  test('applies reviewed lower-tier final coverage batch decisions', () => {
+    const seed = buildClubMetadataSeed({
+      seasons: {
+        1979: {
+          tier5: {
+            table: [{ team: 'Redditch United' }, { team: 'Stafford Rangers' }],
+          },
+        },
+        1981: {
+          tier5: {
+            table: [{ team: 'Runcorn' }, { team: 'Trowbridge Town' }],
+          },
+        },
+        1991: {
+          tier5: {
+            table: [{ team: 'Witton Albion' }],
+          },
+        },
+        2004: {
+          tier6: {
+            table: [{ team: 'Runcorn FC Halton' }, { team: 'Thurrock' }],
+          },
+        },
+        2009: {
+          tier6: {
+            table: [{ team: 'Staines Town' }],
+          },
+        },
+        2013: {
+          tier6: {
+            table: [{ team: 'Whitehawk' }],
+          },
+        },
+        2025: {
+          tier5: {
+            table: [{ team: 'Current Example' }],
+          },
+        },
+      },
+    });
+
+    const review = buildClubMetadataReviewReport({ clubs: seed });
+    const reviewedClubKeys = new Set([
+      'redditch united',
+      'runcorn fc halton',
+      'stafford rangers',
+      'staines town',
+      'thurrock',
+      'trowbridge town',
+      'whitehawk',
+      'witton albion',
+    ]);
+    expect(
+      review.issues.filter(
+        (issue) => reviewedClubKeys.has(issue.clubKey) && issue.type.endsWith('-review')
+      )
+    ).toEqual([]);
+
+    expect(seed['redditch united'].status).toMatchObject({
+      current: 'active',
+      reason: 'possibly-missing-from-current-data',
+    });
+    expect(seed['stafford rangers'].status).toMatchObject({
+      current: 'active',
+      reason: 'not-in-tracked-leagues',
+    });
+    expect(seed['trowbridge town'].status).toMatchObject({
+      current: 'active',
+      reason: 'not-in-tracked-leagues',
+    });
+    expect(seed.whitehawk.status).toMatchObject({
+      current: 'active',
+      reason: 'possibly-missing-from-current-data',
+    });
+    expect(seed['witton albion'].status).toMatchObject({
+      current: 'active',
+      reason: 'not-in-tracked-leagues',
+    });
+
+    expect(seed['runcorn fc halton']).toBeDefined();
+    expect(seed.runcorn).toBeUndefined();
+    expect(seed['runcorn fc halton'].derived.aliases).toEqual(['Runcorn', 'Runcorn FC Halton']);
+    expect(seed['runcorn fc halton'].status).toMatchObject({
+      current: 'defunct',
+      reason: 'dissolved',
+    });
+    expect(seed['runcorn fc halton'].history.lifecycleEvents).toEqual([
+      expect.objectContaining({ type: 'renamed', season: 2000 }),
+      expect.objectContaining({ type: 'dissolved', season: 2006 }),
+      expect.objectContaining({ type: 'supporterPhoenixFormed', season: 2006 }),
+    ]);
+    expect(seed['runcorn fc halton'].derived.relationships).toEqual([
+      expect.objectContaining({
+        clubKey: 'runcorn linnets',
+        relationship: 'supporterPhoenix',
+        direction: 'supporterFounded',
+        season: 2006,
+      }),
+    ]);
+
+    expect(seed['staines town'].status).toMatchObject({
+      current: 'defunct',
+      reason: 'dissolved',
+    });
+    expect(seed['staines town'].history.lifecycleEvents).toEqual([
+      expect.objectContaining({ type: 'suspended-operations', season: 2021 }),
+      expect.objectContaining({ type: 'dissolved', season: 2022 }),
+    ]);
+
+    expect(seed.thurrock.status).toMatchObject({
+      current: 'defunct',
+      reason: 'dissolved',
+    });
+    expect(seed.thurrock.history.lifecycleEvents).toEqual([
+      expect.objectContaining({ type: 'resigned', season: 2017 }),
+      expect.objectContaining({ type: 'dissolved', season: 2018 }),
+    ]);
+  });
+
   test('adds official pause explanations for wartime observed coverage gaps', () => {
     const seed = buildClubMetadataSeed({
       seasons: {

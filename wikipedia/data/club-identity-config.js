@@ -188,6 +188,19 @@ export const CLUB_IDENTITY_RULES = Object.freeze([
     ]),
   }),
   Object.freeze({
+    clubKey: 'runcorn fc halton',
+    canonicalName: 'Runcorn FC Halton',
+    aliases: Object.freeze(['Runcorn FC Halton', 'Runcorn']),
+    relationship: 'rename',
+    sourceRefs: Object.freeze([
+      Object.freeze({
+        type: 'wikipedia-club-page',
+        sourceUrl: 'https://en.wikipedia.org/wiki/Runcorn_F.C._Halton',
+        notes: 'Club history records Runcorn F.C. renaming to Runcorn FC Halton before folding in 2006.',
+      }),
+    ]),
+  }),
+  Object.freeze({
     clubKey: 'scunthorpe united',
     canonicalName: 'Scunthorpe United',
     aliases: Object.freeze(['Scunthorpe United', 'Scunthorpe & Lindsey United']),
@@ -935,6 +948,60 @@ const CLUB_SOURCE_REFS = Object.freeze({
     wikipediaClubSource(
       'https://en.wikipedia.org/wiki/Redbridge_F.C.',
       'Used for Ford United name change and current lower-division status context.'
+    ),
+  ]),
+  redditchUnited: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Redditch_United_F.C.',
+      'Used for current lower-division status and tracked coverage context.'
+    ),
+  ]),
+  runcornFcHalton: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Runcorn_F.C._Halton',
+      'Used for Runcorn/Runcorn FC Halton dissolution and Runcorn Linnets context.'
+    ),
+  ]),
+  runcornLinnets: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Runcorn_Linnets_F.C.',
+      'Used for Runcorn Linnets supporter-owned phoenix club context.'
+    ),
+  ]),
+  staffordRangers: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Stafford_Rangers_F.C.',
+      'Used for current lower-division status and below tracked coverage context.'
+    ),
+  ]),
+  stainesTown: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Staines_Town_F.C.',
+      'Used for Staines Town dissolution context.'
+    ),
+  ]),
+  thurrock: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Thurrock_F.C.',
+      'Used for Thurrock resignation and dissolution context.'
+    ),
+  ]),
+  trowbridgeTown: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Trowbridge_Town_F.C.',
+      'Used for current lower-division status and below tracked coverage context.'
+    ),
+  ]),
+  whitehawk: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Whitehawk_F.C.',
+      'Used for current lower-division status and tracked coverage context.'
+    ),
+  ]),
+  wittonAlbion: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Witton_Albion_F.C.',
+      'Used for current lower-division status and below tracked coverage context.'
     ),
   ]),
   gainsboroughTrinity: Object.freeze([
@@ -2727,6 +2794,125 @@ export const CLUB_LIFECYCLE_RULES = Object.freeze([
     ]),
   }),
   statusOnlyRule({
+    clubKey: 'redditch united',
+    current: 'active',
+    reason: 'possibly-missing-from-current-data',
+    reasonLabel:
+      'Wikipedia lists the club in the Southern League Premier Division Central, a level 7 league inside tracked but sparse coverage.',
+    sourceRefs: CLUB_SOURCE_REFS.redditchUnited,
+  }),
+  Object.freeze({
+    clubKey: 'runcorn fc halton',
+    status: Object.freeze({
+      current: 'defunct',
+      reason: 'dissolved',
+      reasonLabel:
+        'Runcorn FC Halton resigned from the Northern Premier League and ceased activity in 2006; supporters formed Runcorn Linnets.',
+      sourceRefs: CLUB_SOURCE_REFS.runcornFcHalton,
+    }),
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'renamed',
+        season: 2000,
+        label: 'Runcorn F.C. changed name to Runcorn FC Halton after moving to Halton Stadium.',
+        sourceRefs: CLUB_SOURCE_REFS.runcornFcHalton,
+      }),
+      lifecycleEvent({
+        type: 'dissolved',
+        season: 2006,
+        label: 'Resigned from the Northern Premier League and ceased activity.',
+        sourceRefs: CLUB_SOURCE_REFS.runcornFcHalton,
+      }),
+      lifecycleEvent({
+        type: 'supporterPhoenixFormed',
+        season: 2006,
+        label: 'Supporters formed Runcorn Linnets as a replacement club.',
+        sourceRefs: CLUB_SOURCE_REFS.runcornLinnets,
+      }),
+    ]),
+  }),
+  statusOnlyRule({
+    clubKey: 'stafford rangers',
+    current: 'active',
+    reason: 'not-in-tracked-leagues',
+    reasonLabel:
+      'Wikipedia lists the club in the Northern Premier League Division One West, below current tracked coverage.',
+    sourceRefs: CLUB_SOURCE_REFS.staffordRangers,
+  }),
+  Object.freeze({
+    clubKey: 'staines town',
+    status: Object.freeze({
+      current: 'defunct',
+      reason: 'dissolved',
+      reasonLabel: 'Suspended operations in March 2022 and its league place was taken by another club in July 2022.',
+      sourceRefs: CLUB_SOURCE_REFS.stainesTown,
+    }),
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'suspended-operations',
+        season: 2021,
+        date: '2022-03-29',
+        label: 'Suspended operations during a dispute with its landlord.',
+        sourceRefs: CLUB_SOURCE_REFS.stainesTown,
+      }),
+      lifecycleEvent({
+        type: 'dissolved',
+        season: 2022,
+        label: 'Its Combined Counties League place was taken by Hilltop, effectively ending the club.',
+        sourceRefs: CLUB_SOURCE_REFS.stainesTown,
+      }),
+    ]),
+  }),
+  Object.freeze({
+    clubKey: 'thurrock',
+    status: Object.freeze({
+      current: 'defunct',
+      reason: 'dissolved',
+      reasonLabel: 'Resigned from the Isthmian League in March 2018 and played its final fixture in April 2018.',
+      sourceRefs: CLUB_SOURCE_REFS.thurrock,
+    }),
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'resigned',
+        season: 2017,
+        date: '2018-03-31',
+        label: 'Formally resigned from the Isthmian League.',
+        sourceRefs: CLUB_SOURCE_REFS.thurrock,
+      }),
+      lifecycleEvent({
+        type: 'dissolved',
+        season: 2018,
+        date: '2018-04-28',
+        label: 'Played its final competitive fixture.',
+        sourceRefs: CLUB_SOURCE_REFS.thurrock,
+      }),
+    ]),
+  }),
+  statusOnlyRule({
+    clubKey: 'trowbridge town',
+    current: 'active',
+    reason: 'not-in-tracked-leagues',
+    reasonLabel:
+      'Wikipedia lists the reformed club at Step 7 of the National League System, below current tracked coverage.',
+    sourceRefs: CLUB_SOURCE_REFS.trowbridgeTown,
+  }),
+  statusOnlyRule({
+    clubKey: 'whitehawk',
+    current: 'active',
+    reason: 'possibly-missing-from-current-data',
+    reasonLabel:
+      'Wikipedia lists the club in the Isthmian League Premier Division, a level 7 league inside tracked but sparse coverage.',
+    sourceRefs: CLUB_SOURCE_REFS.whitehawk,
+  }),
+  statusOnlyRule({
+    clubKey: 'witton albion',
+    current: 'active',
+    reason: 'not-in-tracked-leagues',
+    reasonLabel:
+      'Wikipedia lists the club in the Northern Premier League Division One West, below current tracked coverage.',
+    sourceRefs: CLUB_SOURCE_REFS.wittonAlbion,
+  }),
+  statusOnlyRule({
     clubKey: 'gainsborough trinity',
     current: 'active',
     reason: 'possibly-missing-from-current-data',
@@ -3668,6 +3854,14 @@ export const CLUB_RELATIONSHIP_RULES = Object.freeze([
       ...CLUB_SOURCE_REFS.rotherhamCounty,
       ...CLUB_SOURCE_REFS.rotherhamTown1899,
     ]),
+  }),
+  Object.freeze({
+    fromClubKey: 'runcorn fc halton',
+    toClubKey: 'runcorn linnets',
+    relationship: 'supporterPhoenix',
+    season: 2006,
+    label: 'Runcorn Linnets was formed by supporters after Runcorn FC Halton resigned and ceased activity.',
+    sourceRefs: CLUB_SOURCE_REFS.runcornLinnets,
   }),
   Object.freeze({
     fromClubKey: 'redbridge forest',
