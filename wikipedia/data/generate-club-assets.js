@@ -6,7 +6,9 @@ import * as fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import {
+  buildClubAssetBundle,
   buildClubAssetReviewIssues,
+  classifyClubAssetCandidate,
   discoverClubCrestBundle,
 } from './assets/club-assets.js';
 import { buildDatasetMetadata, normaliseClubsMap } from './generate-output-files.ts';
@@ -58,6 +60,16 @@ function writeAssetCache(cachePath, clubs, spacing) {
     },
     spacing
   );
+}
+
+function reclassifyCachedCrestBundle(club, cachedCrest, limit) {
+  if (!cachedCrest?.candidates?.length) return cachedCrest;
+  const candidates = cachedCrest.candidates.map((candidate) =>
+    classifyClubAssetCandidate(candidate, club, {
+      checkedAt: candidate.verification?.checkedAt || null,
+    })
+  );
+  return buildClubAssetBundle(candidates, { limit });
 }
 
 function buildReviewReport(clubs, { sourceFiles, input, output }) {
@@ -113,7 +125,9 @@ export async function generateClubAssets({
   for (const [index, [clubKey, club]] of selectedEntries.entries()) {
     const cachedCrest = cachedAssets[clubKey]?.crest;
     const crest =
-      cachedCrest && !refreshAssets ? cachedCrest : await discoverClubCrestBundle(club, { limit });
+      cachedCrest && !refreshAssets
+        ? reclassifyCachedCrestBundle(club, cachedCrest, limit)
+        : await discoverClubCrestBundle(club, { limit });
     enrichedClubs[clubKey] = {
       ...club,
       assets: {
