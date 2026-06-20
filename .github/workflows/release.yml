@@ -93,14 +93,6 @@ jobs:
           cp data/club-metadata.json release-assets/club-metadata.json
           zip -r "release-assets/footy-data-kit-${{ steps.release_meta.outputs.tag }}-data.zip" data-output data/club-metadata.json
 
-      - name: Upload docs site data
-        uses: actions/upload-artifact@v4
-        with:
-          name: docs-site-data
-          path: |
-            data-output
-            data/club-metadata.json
-
       - name: Create GitHub release
         uses: softprops/action-gh-release@v1
         with:
@@ -120,13 +112,52 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-  deploy-docs:
+  jsonhero-release:
     needs: release
-    uses: ./.github/workflows/docs-site.yml
+    runs-on: ubuntu-latest
     permissions:
+      contents: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+
+      - name: Create JSON Hero release metadata
+        run: |
+          node scripts/create-jsonhero-release-links.js \
+            --tag "${{ needs.release.outputs.tag }}" \
+            --output release-assets/explorer-links.json \
+            --allow-fallback
+
+      - name: Upload explorer links to GitHub release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ needs.release.outputs.tag }}
+          files: release-assets/explorer-links.json
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  dispatch-docs:
+    needs:
+      - release
+      - jsonhero-release
+    runs-on: ubuntu-latest
+    permissions:
+      actions: write
       contents: read
-      pages: write
-      id-token: write
-    with:
-      release_tag: ${{ needs.release.outputs.tag }}
-      data_artifact_name: docs-site-data
+
+    steps:
+      - name: Dispatch docs deployment from main
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RELEASE_TAG: ${{ needs.release.outputs.tag }}
+        run: |
+          gh workflow run docs-site.yml \
+            --repo "${GITHUB_REPOSITORY}" \
+            --ref main \
+            --field release_tag="${RELEASE_TAG}"

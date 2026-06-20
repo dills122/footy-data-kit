@@ -21,6 +21,12 @@ module.exports = {
       },
     },
     {
+      files: ['docs/explorer-prototype.js'],
+      env: {
+        browser: true,
+      },
+    },
+    {
       files: ['**/*.ts'],
       parser: '@typescript-eslint/parser',
       plugins: ['@typescript-eslint'],

@@ -16,20 +16,48 @@
     { "value": "375", "label": "club metadata records" },
     { "value": "6 tiers", "label": "latest season depth" }
   ],
-  "links": [
-    { "label": "GitHub repo", "url": "https://github.com/dills122/footy-data-kit" },
-    { "label": "Releases", "url": "https://github.com/dills122/footy-data-kit/releases" },
-    { "label": "Release notes", "url": "./releases/" },
+  "linkGroups": [
     {
-      "label": "Roadmap",
-      "url": "https://github.com/dills122/footy-data-kit/blob/main/docs/roadmap.md"
+      "label": "Site",
+      "links": [
+        { "label": "Data explorer", "url": "./explorer-prototype.html" },
+        { "label": "Release notes", "url": "./releases/" },
+        { "label": "Schema docs", "url": "./schema/" }
+      ]
     },
-    { "label": "Schema docs", "url": "./schema/" },
-    { "label": "README", "url": "https://github.com/dills122/footy-data-kit/blob/main/readme.md" },
     {
-      "label": "Pipeline code",
-      "url": "https://github.com/dills122/footy-data-kit/tree/main/wikipedia"
+      "label": "GitHub",
+      "links": [
+        { "label": "Repo", "url": "https://github.com/dills122/footy-data-kit" },
+        { "label": "Releases", "url": "https://github.com/dills122/footy-data-kit/releases" },
+        {
+          "label": "Roadmap",
+          "url": "https://github.com/dills122/footy-data-kit/blob/main/docs/roadmap.md"
+        },
+        {
+          "label": "README",
+          "url": "https://github.com/dills122/footy-data-kit/blob/main/readme.md"
+        },
+        {
+          "label": "Pipeline code",
+          "url": "https://github.com/dills122/footy-data-kit/tree/main/wikipedia"
+        }
+      ]
     }
+  ],
+  "primaryActions": [
+    {
+      "label": "Explore data",
+      "url": "./explorer-prototype.html",
+      "className": "button-link--primary"
+    },
+    {
+      "label": "Download JSON",
+      "url": "https://github.com/dills122/footy-data-kit/releases/latest/download/all-seasons.min.json",
+      "className": "button-link--secondary"
+    },
+    { "label": "Schemas", "url": "./schema/", "className": "button-link--secondary" },
+    { "label": "Release notes", "url": "./releases/", "className": "button-link--secondary" }
   ],
   "schemaDocs": [
     {

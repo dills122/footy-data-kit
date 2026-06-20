@@ -21,6 +21,24 @@
         </p>
       </header>
 
+      <section class="panel action-panel" aria-labelledby="start-heading">
+        <div class="section-heading">
+          <h2 id="start-heading">Start here</h2>
+        </div>
+        <nav class="button-row" aria-label="primary actions">
+          <a class="button-link button-link--primary" href="./explorer-prototype.html"
+            >Explore data</a
+          >
+          <a
+            class="button-link button-link--secondary"
+            href="https://github.com/dills122/footy-data-kit/releases/latest/download/all-seasons.min.json"
+            >Download JSON</a
+          >
+          <a class="button-link button-link--secondary" href="./schema/">Schemas</a>
+          <a class="button-link button-link--secondary" href="./releases/">Release notes</a>
+        </nav>
+      </section>
+
       <section class="panel stats" aria-label="dataset summary">
         <div>
           <strong>1888-2025</strong>
@@ -53,16 +71,31 @@
       </section>
 
       <section class="panel">
-        <h2>Links</h2>
-        <nav class="link-grid" aria-label="project links">
-          <a href="https://github.com/dills122/footy-data-kit">GitHub repo</a>
-          <a href="https://github.com/dills122/footy-data-kit/releases">Releases</a>
-          <a href="./releases/">Release notes</a>
-          <a href="https://github.com/dills122/footy-data-kit/blob/main/docs/roadmap.md">Roadmap</a>
-          <a href="./schema/">Schema docs</a>
-          <a href="https://github.com/dills122/footy-data-kit/blob/main/readme.md">README</a>
-          <a href="https://github.com/dills122/footy-data-kit/tree/main/wikipedia">Pipeline code</a>
-        </nav>
+        <h2>Navigation</h2>
+        <div class="link-groups">
+          <nav class="link-group" aria-label="Site">
+            <span class="link-group-label">Site</span>
+            <div class="link-grid">
+              <a href="./explorer-prototype.html">Data explorer</a>
+              <a href="./releases/">Release notes</a>
+              <a href="./schema/">Schema docs</a>
+            </div>
+          </nav>
+          <nav class="link-group" aria-label="GitHub">
+            <span class="link-group-label">GitHub</span>
+            <div class="link-grid">
+              <a href="https://github.com/dills122/footy-data-kit">Repo</a>
+              <a href="https://github.com/dills122/footy-data-kit/releases">Releases</a>
+              <a href="https://github.com/dills122/footy-data-kit/blob/main/docs/roadmap.md"
+                >Roadmap</a
+              >
+              <a href="https://github.com/dills122/footy-data-kit/blob/main/readme.md">README</a>
+              <a href="https://github.com/dills122/footy-data-kit/tree/main/wikipedia"
+                >Pipeline code</a
+              >
+            </div>
+          </nav>
+        </div>
       </section>
 
       <section class="panel">
@@ -73,8 +106,13 @@
           <strong>v1.0.0</strong>
           <span>1888-2025. 138 seasons. 375 club metadata records.</span>
           <span class="release-actions">
-            <a href="https://github.com/dills122/footy-data-kit/releases/latest">notes</a>
             <a
+              class="compact-link"
+              href="https://github.com/dills122/footy-data-kit/releases/latest"
+              >notes</a
+            >
+            <a
+              class="compact-link"
               href="https://github.com/dills122/footy-data-kit/releases/latest/download/footy-data-kit-v1.0.0-data.zip"
               >data zip</a
             >
@@ -86,8 +124,13 @@
             <span>v0.9.1</span>
             <span>previous data release</span>
             <span class="release-actions">
-              <a href="https://github.com/dills122/footy-data-kit/releases/tag/v0.9.1">notes</a>
               <a
+                class="compact-link"
+                href="https://github.com/dills122/footy-data-kit/releases/tag/v0.9.1"
+                >notes</a
+              >
+              <a
+                class="compact-link"
                 href="https://github.com/dills122/footy-data-kit/releases/download/v0.9.1/footy-data-kit-v0.9.1-data.zip"
                 >data zip</a
               >
@@ -97,8 +140,13 @@
             <span>v0.9.0</span>
             <span>previous data release</span>
             <span class="release-actions">
-              <a href="https://github.com/dills122/footy-data-kit/releases/tag/v0.9.0">notes</a>
               <a
+                class="compact-link"
+                href="https://github.com/dills122/footy-data-kit/releases/tag/v0.9.0"
+                >notes</a
+              >
+              <a
+                class="compact-link"
                 href="https://github.com/dills122/footy-data-kit/releases/download/v0.9.0/footy-data-kit-v0.9.0-data.zip"
                 >data zip</a
               >
@@ -108,8 +156,13 @@
             <span>v0.8.2</span>
             <span>previous data release</span>
             <span class="release-actions">
-              <a href="https://github.com/dills122/footy-data-kit/releases/tag/v0.8.2">notes</a>
               <a
+                class="compact-link"
+                href="https://github.com/dills122/footy-data-kit/releases/tag/v0.8.2"
+                >notes</a
+              >
+              <a
+                class="compact-link"
                 href="https://github.com/dills122/footy-data-kit/releases/download/v0.8.2/footy-data-kit-v0.8.2-data.zip"
                 >data zip</a
               >
@@ -119,8 +172,13 @@
             <span>v0.8.1</span>
             <span>previous data release</span>
             <span class="release-actions">
-              <a href="https://github.com/dills122/footy-data-kit/releases/tag/v0.8.1">notes</a>
               <a
+                class="compact-link"
+                href="https://github.com/dills122/footy-data-kit/releases/tag/v0.8.1"
+                >notes</a
+              >
+              <a
+                class="compact-link"
                 href="https://github.com/dills122/footy-data-kit/releases/download/v0.8.1/footy-data-kit-v0.8.1-data.zip"
                 >data zip</a
               >
@@ -130,8 +188,13 @@
             <span>v0.8.0</span>
             <span>previous data release</span>
             <span class="release-actions">
-              <a href="https://github.com/dills122/footy-data-kit/releases/tag/v0.8.0">notes</a>
               <a
+                class="compact-link"
+                href="https://github.com/dills122/footy-data-kit/releases/tag/v0.8.0"
+                >notes</a
+              >
+              <a
+                class="compact-link"
                 href="https://github.com/dills122/footy-data-kit/releases/download/v0.8.0/footy-data-kit-v0.8.0-data.zip"
                 >data zip</a
               >
@@ -141,8 +204,13 @@
             <span>v0.7.0</span>
             <span>previous data release</span>
             <span class="release-actions">
-              <a href="https://github.com/dills122/footy-data-kit/releases/tag/v0.7.0">notes</a>
               <a
+                class="compact-link"
+                href="https://github.com/dills122/footy-data-kit/releases/tag/v0.7.0"
+                >notes</a
+              >
+              <a
+                class="compact-link"
                 href="https://github.com/dills122/footy-data-kit/releases/download/v0.7.0/footy-data-kit-v0.7.0-data.zip"
                 >data zip</a
               >
@@ -152,8 +220,13 @@
             <span>v0.6.1</span>
             <span>previous data release</span>
             <span class="release-actions">
-              <a href="https://github.com/dills122/footy-data-kit/releases/tag/v0.6.1">notes</a>
               <a
+                class="compact-link"
+                href="https://github.com/dills122/footy-data-kit/releases/tag/v0.6.1"
+                >notes</a
+              >
+              <a
+                class="compact-link"
                 href="https://github.com/dills122/footy-data-kit/releases/download/v0.6.1/footy-data-kit-v0.6.1-data.zip"
                 >data zip</a
               >
@@ -163,8 +236,13 @@
             <span>v0.6.0</span>
             <span>previous data release</span>
             <span class="release-actions">
-              <a href="https://github.com/dills122/footy-data-kit/releases/tag/v0.6.0">notes</a>
               <a
+                class="compact-link"
+                href="https://github.com/dills122/footy-data-kit/releases/tag/v0.6.0"
+                >notes</a
+              >
+              <a
+                class="compact-link"
                 href="https://github.com/dills122/footy-data-kit/releases/download/v0.6.0/footy-data-kit-v0.6.0-data.zip"
                 >data zip</a
               >
@@ -174,8 +252,13 @@
             <span>v0.5.0</span>
             <span>previous data release</span>
             <span class="release-actions">
-              <a href="https://github.com/dills122/footy-data-kit/releases/tag/v0.5.0">notes</a>
               <a
+                class="compact-link"
+                href="https://github.com/dills122/footy-data-kit/releases/tag/v0.5.0"
+                >notes</a
+              >
+              <a
+                class="compact-link"
                 href="https://github.com/dills122/footy-data-kit/releases/download/v0.5.0/footy-data-kit-v0.5.0-data.zip"
                 >data zip</a
               >
@@ -198,10 +281,12 @@
             <code>all-seasons.json</code>
             <span>Full merged season dataset. 8.6M.</span>
             <a
+              class="compact-link"
               href="https://github.com/dills122/footy-data-kit/releases/latest/download/all-seasons.json"
               >json</a
             >
             <a
+              class="compact-link"
               href="https://raw.githubusercontent.com/dills122/footy-data-kit/main/data-output/all-seasons.json"
               >raw</a
             >
@@ -210,10 +295,12 @@
             <code>all-seasons.min.json</code>
             <span>Minified full merged season dataset. 4.4M.</span>
             <a
+              class="compact-link"
               href="https://github.com/dills122/footy-data-kit/releases/latest/download/all-seasons.min.json"
               >min</a
             >
             <a
+              class="compact-link"
               href="https://raw.githubusercontent.com/dills122/footy-data-kit/main/data-output/all-seasons.min.json"
               >raw</a
             >
@@ -222,10 +309,12 @@
             <code>wiki_overview_tables_by_season.json</code>
             <span>Maintained Wikipedia overview export. 8.6M.</span>
             <a
+              class="compact-link"
               href="https://github.com/dills122/footy-data-kit/releases/latest/download/wiki_overview_tables_by_season.json"
               >json</a
             >
             <a
+              class="compact-link"
               href="https://raw.githubusercontent.com/dills122/footy-data-kit/main/data-output/wiki_overview_tables_by_season.json"
               >raw</a
             >
@@ -234,10 +323,12 @@
             <code>wiki_overview_tables_by_season.min.json</code>
             <span>Minified Wikipedia overview export. 4.4M.</span>
             <a
+              class="compact-link"
               href="https://github.com/dills122/footy-data-kit/releases/latest/download/wiki_overview_tables_by_season.min.json"
               >min</a
             >
             <a
+              class="compact-link"
               href="https://raw.githubusercontent.com/dills122/footy-data-kit/main/data-output/wiki_overview_tables_by_season.min.json"
               >raw</a
             >
@@ -246,10 +337,12 @@
             <code>club-metadata.json</code>
             <span>Club identity sidecar metadata. 1.9M.</span>
             <a
+              class="compact-link"
               href="https://github.com/dills122/footy-data-kit/releases/latest/download/club-metadata.json"
               >json</a
             >
             <a
+              class="compact-link"
               href="https://raw.githubusercontent.com/dills122/footy-data-kit/main/data/club-metadata.json"
               >raw</a
             >
@@ -271,8 +364,9 @@
               >Sidecar club identity metadata keyed by clubId. Records combine source-backed history
               with generated observations from the season tables.</span
             >
-            <a href="./schema/club-metadata.html">view</a>
+            <a class="compact-link" href="./schema/club-metadata.html">view</a>
             <a
+              class="compact-link"
               href="https://raw.githubusercontent.com/dills122/footy-data-kit/main/schemas/club-metadata.schema.json"
               >raw</a
             >
@@ -283,8 +377,9 @@
               >Merged English football season dataset. Season records contain a seasonInfo summary
               and zero or more tierN league-table records.</span
             >
-            <a href="./schema/football-data.html">view</a>
+            <a class="compact-link" href="./schema/football-data.html">view</a>
             <a
+              class="compact-link"
               href="https://raw.githubusercontent.com/dills122/footy-data-kit/main/schemas/football-data.schema.json"
               >raw</a
             >

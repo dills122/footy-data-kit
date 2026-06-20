@@ -71,6 +71,33 @@ jobs:
           name: ${{ inputs.data_artifact_name }}
           path: .
 
+      - name: Download published release data
+        if: ${{ inputs.release_tag && !inputs.data_artifact_name }}
+        env:
+          RELEASE_TAG: ${{ inputs.release_tag }}
+        run: |
+          set -euo pipefail
+          mkdir -p data-output data docs
+          RELEASE_BASE="https://github.com/${GITHUB_REPOSITORY}/releases/download/${RELEASE_TAG}"
+          curl --fail --location --show-error --silent \
+            "${RELEASE_BASE}/all-seasons.json" \
+            --output data-output/all-seasons.json
+          curl --fail --location --show-error --silent \
+            "${RELEASE_BASE}/all-seasons.min.json" \
+            --output data-output/all-seasons.min.json
+          curl --fail --location --show-error --silent \
+            "${RELEASE_BASE}/wiki_overview_tables_by_season.json" \
+            --output data-output/wiki_overview_tables_by_season.json
+          curl --fail --location --show-error --silent \
+            "${RELEASE_BASE}/wiki_overview_tables_by_season.min.json" \
+            --output data-output/wiki_overview_tables_by_season.min.json
+          curl --fail --location --show-error --silent \
+            "${RELEASE_BASE}/club-metadata.json" \
+            --output data/club-metadata.json
+          curl --fail --location --show-error --silent \
+            "${RELEASE_BASE}/explorer-links.json" \
+            --output docs/explorer-links.json || rm -f docs/explorer-links.json
+
       - name: Build docs site
         env:
           DOCS_RELEASE_TAG: ${{ inputs.release_tag }}
