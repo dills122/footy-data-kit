@@ -303,6 +303,44 @@ export const WIKIPEDIA_LEAGUE_LEVEL_RULES = Object.freeze([
   }),
   Object.freeze({
     level: 6,
+    startSeason: 1979,
+    endSeason: 1986,
+    parallelGroup: 'pre-2004-conference-feeders',
+    labels: Object.freeze(['Northern Premier League']),
+  }),
+  Object.freeze({
+    level: 6,
+    startSeason: 1987,
+    endSeason: 2003,
+    parallelGroup: 'pre-2004-conference-feeders',
+    labels: Object.freeze(['Northern Premier League Premier Division']),
+  }),
+  Object.freeze({
+    level: 6,
+    startSeason: 1979,
+    endSeason: 1981,
+    parallelGroup: 'pre-2004-conference-feeders',
+    labels: Object.freeze([
+      'Southern Football League Midland Division',
+      'Southern Football League Southern Division',
+    ]),
+  }),
+  Object.freeze({
+    level: 6,
+    startSeason: 1982,
+    endSeason: 2003,
+    parallelGroup: 'pre-2004-conference-feeders',
+    labels: Object.freeze(['Southern Football League Premier Division']),
+  }),
+  Object.freeze({
+    level: 6,
+    startSeason: 1979,
+    endSeason: 2003,
+    parallelGroup: 'pre-2004-conference-feeders',
+    labels: Object.freeze(['Isthmian League Premier Division']),
+  }),
+  Object.freeze({
+    level: 6,
     startSeason: 2004,
     endSeason: 2014,
     parallelGroup: 'conference-north-south',
@@ -539,6 +577,81 @@ export const WIKIPEDIA_LOWER_TIER_COMPETITION_SOURCES = Object.freeze([
     levels: Object.freeze([5]),
   }),
   Object.freeze({
+    key: 'northern-premier-league-feeder',
+    title: 'Northern Premier League',
+    startSeason: 1979,
+    endSeason: 2003,
+    competitionSlug: 'Northern_Premier_League',
+    levels: Object.freeze([6]),
+    parallelGroup: 'pre-2004-conference-feeders',
+    targetTables: Object.freeze([
+      Object.freeze({
+        startSeason: 1979,
+        endSeason: 1986,
+        title: 'League table',
+        outputTitle: 'Northern Premier League',
+        divisionKey: 'northern-premier',
+      }),
+      Object.freeze({
+        startSeason: 1987,
+        endSeason: 2003,
+        title: 'Premier Division',
+        outputTitle: 'Northern Premier League Premier Division',
+        divisionKey: 'northern-premier',
+      }),
+    ]),
+  }),
+  Object.freeze({
+    key: 'southern-football-league-feeder',
+    title: 'Southern Football League',
+    startSeason: 1979,
+    endSeason: 2003,
+    competitionSlug: 'Southern_Football_League',
+    levels: Object.freeze([6]),
+    parallelGroup: 'pre-2004-conference-feeders',
+    targetTables: Object.freeze([
+      Object.freeze({
+        startSeason: 1979,
+        endSeason: 1981,
+        title: 'Midland Division',
+        outputTitle: 'Southern Football League Midland Division',
+        divisionKey: 'southern-midland',
+      }),
+      Object.freeze({
+        startSeason: 1979,
+        endSeason: 1981,
+        title: 'Southern Division',
+        outputTitle: 'Southern Football League Southern Division',
+        divisionKey: 'southern-southern',
+      }),
+      Object.freeze({
+        startSeason: 1982,
+        endSeason: 2003,
+        title: 'Premier Division',
+        outputTitle: 'Southern Football League Premier Division',
+        divisionKey: 'southern-premier',
+      }),
+    ]),
+  }),
+  Object.freeze({
+    key: 'isthmian-league-feeder',
+    title: 'Isthmian League',
+    startSeason: 1979,
+    endSeason: 2003,
+    competitionSlug: 'Isthmian_League',
+    levels: Object.freeze([6]),
+    parallelGroup: 'pre-2004-conference-feeders',
+    targetTables: Object.freeze([
+      Object.freeze({
+        startSeason: 1979,
+        endSeason: 2003,
+        title: 'Premier Division',
+        outputTitle: 'Isthmian League Premier Division',
+        divisionKey: 'isthmian-premier',
+      }),
+    ]),
+  }),
+  Object.freeze({
     key: 'football-conference',
     title: 'Football Conference',
     startSeason: 1986,
@@ -628,6 +741,44 @@ export function getWikipediaLowerTierCompetitionSourceForSlug(slug) {
       text.endsWith(`_${source.competitionSlug}`)
     ) || null
   );
+}
+
+function tableTitleMatchesRule(table, rule) {
+  if (!rule?.title) return true;
+  return normalizeLeagueLabel(table?.title) === normalizeLeagueLabel(rule.title);
+}
+
+export function getWikipediaLowerTierSourceTableProfile(source, table, seasonNumber) {
+  if (!source || !table) return null;
+  const targetTables = source.targetTables || null;
+  if (!targetTables) return null;
+
+  const targetRule = targetTables.find(
+    (rule) => seasonIsInRuleRange(rule, seasonNumber) && tableTitleMatchesRule(table, rule)
+  );
+  if (!targetRule) return null;
+
+  return {
+    level: source.levels?.[0] || null,
+    parallelGroup: source.parallelGroup || null,
+    divisionKey: targetRule.divisionKey || null,
+    title: targetRule.outputTitle || table.title || source.title,
+  };
+}
+
+export function filterWikipediaLowerTierSourceTables(source, tables, seasonNumber) {
+  if (!source?.targetTables) return tables;
+  return tables
+    .map((table) => {
+      const profile = getWikipediaLowerTierSourceTableProfile(source, table, seasonNumber);
+      if (!profile) return null;
+      return {
+        ...table,
+        title: profile.title,
+        lowerTierSourceProfile: profile,
+      };
+    })
+    .filter(Boolean);
 }
 
 function normalizeLeagueLabel(value) {

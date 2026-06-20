@@ -459,21 +459,18 @@ describe('buildClubMetadataSeed', () => {
       },
     ]);
     expect(seed['rushden and diamonds'].derived.relationships).toEqual([
-      {
+      expect.objectContaining({
         clubKey: 'afc rushden and diamonds',
         relationship: 'supporterPhoenix',
         direction: 'supporterFounded',
         season: 2011,
-        label:
-          'AFC Rushden & Diamonds was formed by supporters after Rushden & Diamonds was expelled and dissolved.',
-        sourceRefs: [
-          {
-            type: 'wikipedia-club-page',
-            sourceUrl: 'https://en.wikipedia.org/wiki/AFC_Rushden_%26_Diamonds',
-            notes: 'Used for supporter phoenix formation context.',
-          },
-        ],
-      },
+      }),
+      expect.objectContaining({
+        clubKey: 'rushden town',
+        relationship: 'merger',
+        direction: 'formedFrom',
+        season: 1992,
+      }),
     ]);
   });
 
@@ -946,6 +943,12 @@ describe('buildClubMetadataSeed', () => {
         relationship: 'merger',
         direction: 'mergedInto',
         season: 1992,
+      }),
+      expect.objectContaining({
+        clubKey: 'walthamstow avenue',
+        relationship: 'merger',
+        direction: 'formedFrom',
+        season: 1988,
       }),
     ]);
     expect(seed['telford united'].derived.relationships).toEqual([
@@ -1679,9 +1682,313 @@ describe('buildClubMetadataSeed', () => {
       reason: 'dissolved',
     });
     expect(seed.thurrock.history.lifecycleEvents).toEqual([
+      expect.objectContaining({ type: 'renamed', season: 1985 }),
+      expect.objectContaining({ type: 'renamed', season: 2003 }),
       expect.objectContaining({ type: 'resigned', season: 2017 }),
       expect.objectContaining({ type: 'dissolved', season: 2018 }),
     ]);
+  });
+
+  test('applies reviewed lower-tier sixth batch lineage decisions', () => {
+    const seed = buildClubMetadataSeed({
+      seasons: {
+        1983: {
+          tier6: {
+            table: [{ team: 'Rhyl' }, { team: 'Shepshed Charterhouse' }],
+          },
+        },
+        1984: {
+          tier6: {
+            table: [{ team: 'Road-Sea Southampton' }],
+          },
+        },
+        1985: {
+          tier6: {
+            table: [{ team: 'RS Southampton' }],
+          },
+        },
+        1990: {
+          tier6: {
+            table: [{ team: 'Rushden Town' }],
+          },
+        },
+        1992: {
+          tier6: {
+            table: [{ team: 'Solihull Borough' }],
+          },
+        },
+        1994: {
+          tier6: {
+            table: [{ team: 'Rushden & Diamonds' }, { team: 'Spennymoor United' }],
+          },
+        },
+        1997: {
+          tier6: {
+            table: [
+              { team: 'Rothwell Town' },
+              { team: 'Sittingbourne' },
+              { team: 'St. Leonards Stamcroft' },
+            ],
+          },
+        },
+        2007: {
+          tier6: {
+            table: [{ team: 'Solihull Moors' }],
+          },
+        },
+        2017: {
+          tier6: {
+            table: [{ team: 'Spennymoor Town' }],
+          },
+        },
+        2025: {
+          tier5: {
+            table: [{ team: 'Current Example' }],
+          },
+        },
+      },
+    });
+
+    const review = buildClubMetadataReviewReport({ clubs: seed });
+    const reviewedClubKeys = new Set([
+      'rhyl',
+      'road-sea southampton',
+      'rothwell town',
+      'rushden town',
+      'shepshed dynamo',
+      'sittingbourne',
+      'solihull borough',
+      'spennymoor united',
+      'st leonards',
+    ]);
+    expect(
+      review.issues.filter(
+        (issue) => reviewedClubKeys.has(issue.clubKey) && issue.type.endsWith('-review')
+      )
+    ).toEqual([]);
+
+    expect(seed['road-sea southampton']).toBeDefined();
+    expect(seed['rs southampton']).toBeUndefined();
+    expect(seed['road-sea southampton'].derived.aliases).toEqual([
+      'Road-Sea Southampton',
+      'RS Southampton',
+    ]);
+    expect(seed['road-sea southampton'].status).toMatchObject({
+      current: 'defunct',
+      reason: 'dissolved',
+    });
+
+    expect(seed['shepshed dynamo']).toBeDefined();
+    expect(seed['shepshed charterhouse']).toBeUndefined();
+    expect(seed['shepshed dynamo'].status).toMatchObject({
+      current: 'active',
+      reason: 'not-in-tracked-leagues',
+    });
+    expect(seed['shepshed dynamo'].history.lifecycleEvents).toEqual([
+      expect.objectContaining({ type: 'renamed', season: 1975 }),
+      expect.objectContaining({ type: 'renamed', season: 1992 }),
+      expect.objectContaining({ type: 'phoenixFormed', season: 1994 }),
+    ]);
+
+    expect(seed.rhyl.status).toMatchObject({
+      current: 'defunct',
+      reason: 'dissolved',
+    });
+    expect(seed['rothwell town'].status).toMatchObject({
+      current: 'defunct',
+      reason: 'dissolved',
+    });
+    expect(seed.sittingbourne.status).toMatchObject({
+      current: 'active',
+      reason: 'not-in-tracked-leagues',
+    });
+    expect(seed['st leonards']).toBeDefined();
+    expect(seed['st leonards stamcroft']).toBeUndefined();
+    expect(seed['st leonards'].status).toMatchObject({
+      current: 'defunct',
+      reason: 'folded',
+    });
+
+    expect(seed['rushden town'].status).toMatchObject({
+      current: 'merged',
+      reason: 'merged',
+    });
+    expect(seed['rushden town'].derived.relationships).toEqual([
+      expect.objectContaining({
+        clubKey: 'rushden and diamonds',
+        relationship: 'merger',
+        direction: 'mergedInto',
+        season: 1992,
+      }),
+    ]);
+    expect(seed['solihull borough'].derived.relationships).toEqual([
+      expect.objectContaining({
+        clubKey: 'solihull moors',
+        relationship: 'merger',
+        direction: 'mergedInto',
+        season: 2007,
+      }),
+    ]);
+    expect(seed['spennymoor united'].derived.relationships).toEqual([
+      expect.objectContaining({
+        clubKey: 'spennymoor town',
+        relationship: 'merger',
+        direction: 'mergedInto',
+        season: 2005,
+      }),
+    ]);
+  });
+
+  test('applies reviewed lower-tier final review-log decisions', () => {
+    const seed = buildClubMetadataSeed({
+      seasons: {
+        1979: {
+          tier6: {
+            table: [
+              { team: 'Stourbridge' },
+              { team: 'Tilbury' },
+              { team: 'Tooting & Mitcham United' },
+              { team: 'Walthamstow Avenue' },
+              { team: 'Waterlooville' },
+              { team: 'Wellingborough Town' },
+              { team: 'Witney Town' },
+            ],
+          },
+        },
+        1981: {
+          tier6: {
+            table: [{ team: 'Thanet United' }, { team: 'Tonbridge' }],
+          },
+        },
+        1983: {
+          tier6: {
+            table: [{ team: 'Sutton Coldfield Town' }],
+          },
+        },
+        1984: {
+          tier6: {
+            table: [{ team: 'Willenhall Town' }, { team: 'Windsor & Eton' }],
+          },
+        },
+        1987: {
+          tier6: {
+            table: [{ team: 'VS Rugby' }],
+          },
+        },
+        1990: {
+          tier6: {
+            table: [{ team: 'Wivenhoe Town' }],
+          },
+        },
+        1992: {
+          tier6: {
+            table: [{ team: 'Winsford United' }],
+          },
+        },
+        1994: {
+          tier6: {
+            table: [
+              { team: 'Sudbury Town' },
+              { team: 'Walton & Hersham' },
+              { team: 'Whitley Bay' },
+              { team: 'Wokingham Town' },
+            ],
+          },
+        },
+        1998: {
+          tier6: {
+            table: [{ team: 'Whitby Town' }],
+          },
+        },
+        2001: {
+          tier6: {
+            table: [{ team: 'Tiverton Town' }],
+          },
+        },
+        2002: {
+          tier6: {
+            table: [{ team: 'Wakefield & Emley' }, { team: 'Havant & Waterlooville' }],
+          },
+        },
+        2004: {
+          tier6: {
+            table: [{ team: 'Tonbridge Angels' }],
+          },
+        },
+        2025: {
+          tier5: {
+            table: [{ team: 'Current Example' }],
+          },
+        },
+      },
+    });
+
+    const review = buildClubMetadataReviewReport({ clubs: seed });
+    expect(review.issues.filter((issue) => issue.type.endsWith('-review'))).toEqual([]);
+
+    expect(seed.margate).toBeDefined();
+    expect(seed['thanet united']).toBeUndefined();
+    expect(seed.margate.history.lifecycleEvents).toEqual([
+      expect.objectContaining({ type: 'renamed', season: 1981 }),
+      expect.objectContaining({ type: 'renamed', season: 1989 }),
+    ]);
+
+    expect(seed['tonbridge angels']).toBeDefined();
+    expect(seed.tonbridge).toBeUndefined();
+    expect(seed['rugby town']).toBeDefined();
+    expect(seed['vs rugby']).toBeUndefined();
+    expect(seed.emley).toBeDefined();
+    expect(seed['wakefield and emley']).toBeUndefined();
+    expect(seed['wokingham town']).toBeDefined();
+    expect(seed['wokingham town'].history.lifecycleEvents).toEqual([
+      expect.objectContaining({ type: 'merged', season: 2004 }),
+      expect.objectContaining({ type: 'renamed', season: 2024 }),
+    ]);
+
+    expect(seed['sudbury town'].status).toMatchObject({
+      current: 'merged',
+      reason: 'merged',
+    });
+    expect(seed['walthamstow avenue'].derived.relationships).toEqual([
+      expect.objectContaining({
+        clubKey: 'redbridge forest',
+        relationship: 'merger',
+        direction: 'mergedInto',
+        season: 1988,
+      }),
+    ]);
+    expect(seed.waterlooville.derived.relationships).toEqual([
+      expect.objectContaining({
+        clubKey: 'havant and waterlooville',
+        relationship: 'merger',
+        direction: 'mergedInto',
+        season: 1998,
+      }),
+    ]);
+    expect(seed['windsor and eton'].status).toMatchObject({
+      current: 'defunct',
+      reason: 'wound-up',
+    });
+    expect(seed['wellingborough town'].status).toMatchObject({
+      current: 'active',
+      reason: 'successor-active',
+    });
+    expect(seed['witney town'].status).toMatchObject({
+      current: 'active',
+      reason: 'successor-active',
+    });
+
+    expect(seed.stourbridge.status.reason).toBe('possibly-missing-from-current-data');
+    expect(seed['tiverton town'].status.reason).toBe('possibly-missing-from-current-data');
+    expect(seed['walton and hersham'].status.reason).toBe('possibly-missing-from-current-data');
+    expect(seed['whitby town'].status.reason).toBe('possibly-missing-from-current-data');
+    expect(seed['sutton coldfield town'].status.reason).toBe('not-in-tracked-leagues');
+    expect(seed.tilbury.status.reason).toBe('not-in-tracked-leagues');
+    expect(seed['tooting and mitcham united'].status.reason).toBe('not-in-tracked-leagues');
+    expect(seed['whitley bay'].status.reason).toBe('not-in-tracked-leagues');
+    expect(seed['willenhall town'].status.reason).toBe('not-in-tracked-leagues');
+    expect(seed['winsford united'].status.reason).toBe('not-in-tracked-leagues');
+    expect(seed['wivenhoe town'].status.reason).toBe('not-in-tracked-leagues');
   });
 
   test('adds official pause explanations for wartime observed coverage gaps', () => {

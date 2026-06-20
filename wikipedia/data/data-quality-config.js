@@ -31,6 +31,7 @@ export function normalizeTeamNameText(value) {
     .trim()
     .toLowerCase()
     .replace(/&/g, ' and ')
+    .replace(/\//g, ' and ')
     .replace(/[.'"]/g, '')
     .replace(/[()]/g, ' ')
     .replace(/\s+/g, ' ')

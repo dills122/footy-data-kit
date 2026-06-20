@@ -2,8 +2,8 @@
   "metadata": {
     "schemaVersion": 1,
     "generator": "club-metadata-review",
-    "generatedAt": "2026-06-20T00:38:46.373Z",
-    "gitSha": "fa9e59c",
+    "generatedAt": "2026-06-20T03:17:26.323Z",
+    "gitSha": "fcf1637",
     "sourceFiles": [
       "/Users/dsteele/repos/footy-data-kit/data-output/all-seasons.json",
       "/Users/dsteele/repos/footy-data-kit/data/club-metadata.json"
@@ -15,7 +15,7 @@
   },
   "datasetPath": "/Users/dsteele/repos/footy-data-kit/data-output/all-seasons.json",
   "clubMetadataPath": "/Users/dsteele/repos/footy-data-kit/data/club-metadata.json",
-  "clubCount": 290,
+  "clubCount": 375,
   "issueCount": 0,
   "issueCounts": {},
   "issues": []
