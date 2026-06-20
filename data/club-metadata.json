@@ -2,8 +2,8 @@
   "metadata": {
     "schemaVersion": 1,
     "generator": "club-metadata-seed",
-    "generatedAt": "2026-06-20T03:06:49.278Z",
-    "gitSha": "63e9906",
+    "generatedAt": "2026-06-20T03:17:26.293Z",
+    "gitSha": "fcf1637",
     "sourceFiles": [
       "/Users/dsteele/repos/footy-data-kit/data-output/all-seasons.json"
     ],
@@ -29648,7 +29648,7 @@
       "status": {
         "current": "active",
         "trackedFromSeason": 1991,
-        "trackedToSeason": 2001,
+        "trackedToSeason": 2003,
         "hasUnexplainedGaps": false,
         "reason": "successor-active",
         "reasonLabel": "The original Emley relocated and became Wakefield, which disbanded in 2014; AFC Emley was established in 2005 and later took the Emley name.",
@@ -29727,7 +29727,7 @@
         "trackedMembership": [
           {
             "fromSeason": 1991,
-            "toSeason": 2001,
+            "toSeason": 2003,
             "tiers": [
               "tier6"
             ],
@@ -29739,7 +29739,8 @@
       "derived": {
         "source": "football-data-output",
         "aliases": [
-          "Emley"
+          "Emley",
+          "Wakefield & Emley"
         ],
         "identitySources": [
           {
@@ -29770,6 +29771,19 @@
             "tiersSeen": [
               "tier6"
             ]
+          },
+          {
+            "rawName": "Wakefield & Emley",
+            "normalizedName": "wakefield and emley",
+            "firstSeenSeason": 2002,
+            "lastSeenSeason": 2003,
+            "seasonsSeen": [
+              2002,
+              2003
+            ],
+            "tiersSeen": [
+              "tier6"
+            ]
           }
         ],
         "observedNamePeriods": [
@@ -29777,10 +29791,15 @@
             "name": "Emley",
             "startSeason": 1991,
             "endSeason": 2001
+          },
+          {
+            "name": "Wakefield & Emley",
+            "startSeason": 2002,
+            "endSeason": 2003
           }
         ],
         "firstSeenSeason": 1991,
-        "lastSeenSeason": 2001,
+        "lastSeenSeason": 2003,
         "seasonsSeen": [
           1991,
           1992,
@@ -29792,9 +29811,11 @@
           1998,
           1999,
           2000,
-          2001
+          2001,
+          2002,
+          2003
         ],
-        "totalSeasonsSeen": 11,
+        "totalSeasonsSeen": 13,
         "tiersSeen": [
           "tier6"
         ],
@@ -29812,7 +29833,9 @@
               1998,
               1999,
               2000,
-              2001
+              2001,
+              2002,
+              2003
             ]
           }
         ]
@@ -38811,6 +38834,27 @@
             "type": "wikipedia-club-page",
             "sourceUrl": "https://en.wikipedia.org/wiki/Havant_%26_Waterlooville_F.C.",
             "notes": "Used for current lower-division status and tracked coverage context."
+          }
+        ],
+        "relationships": [
+          {
+            "clubKey": "waterlooville",
+            "relationship": "merger",
+            "direction": "formedFrom",
+            "season": 1998,
+            "label": "Waterlooville merged with Havant Town to form Havant & Waterlooville.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Havant_%26_Waterlooville_F.C.",
+                "notes": "Used for current lower-division status and tracked coverage context."
+              },
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Waterlooville_F.C.",
+                "notes": "Used for Waterlooville merger into Havant & Waterlooville context."
+              }
+            ]
           }
         ],
         "observedNames": [
@@ -51417,13 +51461,37 @@
           {
             "type": "wikipedia-club-page",
             "sourceUrl": "https://en.wikipedia.org/wiki/Margate_F.C.",
-            "notes": "Used for current lower-division status and below tracked coverage context."
+            "notes": "Used for Thanet United rename period, current lower-division status, and below tracked coverage context."
           }
         ]
       },
       "history": {
         "nameHistory": [],
         "lifecycleEvents": [
+          {
+            "type": "renamed",
+            "season": 1981,
+            "label": "Margate changed name to Thanet United.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Margate_F.C.",
+                "notes": "Used for Thanet United rename period, current lower-division status, and below tracked coverage context."
+              }
+            ]
+          },
+          {
+            "type": "renamed",
+            "season": 1989,
+            "label": "Thanet United reverted to the Margate name.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Margate_F.C.",
+                "notes": "Used for Thanet United rename period, current lower-division status, and below tracked coverage context."
+              }
+            ]
+          },
           {
             "type": "relegated-outside-tracked-coverage",
             "season": 2004,
@@ -51440,7 +51508,7 @@
         "trackedMembership": [
           {
             "fromSeason": 1979,
-            "toSeason": 1980,
+            "toSeason": 1981,
             "tiers": [
               "tier6"
             ],
@@ -51485,13 +51553,14 @@
       "derived": {
         "source": "football-data-output",
         "aliases": [
-          "Margate"
+          "Margate",
+          "Thanet United"
         ],
         "identitySources": [
           {
             "type": "wikipedia-club-page",
             "sourceUrl": "https://en.wikipedia.org/wiki/Margate_F.C.",
-            "notes": "Used for current lower-division status and below tracked coverage context."
+            "notes": "Used for Thanet United rename period, current lower-division status, and below tracked coverage context."
           }
         ],
         "observedNames": [
@@ -51516,6 +51585,18 @@
               "tier5",
               "tier6"
             ]
+          },
+          {
+            "rawName": "Thanet United",
+            "normalizedName": "thanet united",
+            "firstSeenSeason": 1981,
+            "lastSeenSeason": 1981,
+            "seasonsSeen": [
+              1981
+            ],
+            "tiersSeen": [
+              "tier6"
+            ]
           }
         ],
         "observedNamePeriods": [
@@ -51523,6 +51604,11 @@
             "name": "Margate",
             "startSeason": 1979,
             "endSeason": 1980
+          },
+          {
+            "name": "Thanet United",
+            "startSeason": 1981,
+            "endSeason": 1981
           },
           {
             "name": "Margate",
@@ -51540,6 +51626,7 @@
         "seasonsSeen": [
           1979,
           1980,
+          1981,
           1999,
           2000,
           2001,
@@ -51549,7 +51636,7 @@
           2015,
           2016
         ],
-        "totalSeasonsSeen": 10,
+        "totalSeasonsSeen": 11,
         "tiersSeen": [
           "tier5",
           "tier6"
@@ -51568,6 +51655,7 @@
             "seasons": [
               1979,
               1980,
+              1981,
               1999,
               2000,
               2004,
@@ -51578,9 +51666,9 @@
         ],
         "coverageGaps": [
           {
-            "startSeason": 1981,
+            "startSeason": 1982,
             "endSeason": 1998,
-            "length": 18
+            "length": 17
           },
           {
             "startSeason": 2005,
@@ -63728,6 +63816,25 @@
                 "notes": "Used for Redbridge Forest merger into Dagenham & Redbridge."
               }
             ]
+          },
+          {
+            "clubKey": "walthamstow avenue",
+            "relationship": "merger",
+            "direction": "formedFrom",
+            "season": 1988,
+            "label": "Walthamstow Avenue merged into Leytonstone/Ilford, later renamed Redbridge Forest.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Redbridge_Forest_F.C.",
+                "notes": "Used for Redbridge Forest merger into Dagenham & Redbridge."
+              },
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Walthamstow_Avenue_F.C.",
+                "notes": "Used for Walthamstow Avenue merger into Leytonstone/Ilford context."
+              }
+            ]
           }
         ],
         "observedNames": [
@@ -65462,6 +65569,157 @@
               1998,
               1999
             ]
+          }
+        ]
+      }
+    },
+    "rugby town": {
+      "clubId": "rugby-town",
+      "canonicalName": "Rugby Town",
+      "status": {
+        "current": "active",
+        "trackedFromSeason": 1987,
+        "trackedToSeason": 1995,
+        "hasUnexplainedGaps": false,
+        "reason": "not-in-tracked-leagues",
+        "reasonLabel": "Formerly VS Rugby and Rugby United, the club is currently active below tracked coverage.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Rugby_Town_F.C.",
+            "notes": "Used for VS Rugby rename sequence and current lower-division status context."
+          }
+        ]
+      },
+      "history": {
+        "nameHistory": [],
+        "lifecycleEvents": [
+          {
+            "type": "renamed",
+            "season": 2000,
+            "label": "VS Rugby changed name to Rugby United.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Rugby_Town_F.C.",
+                "notes": "Used for VS Rugby rename sequence and current lower-division status context."
+              }
+            ]
+          },
+          {
+            "type": "renamed",
+            "season": 2005,
+            "label": "Rugby United changed name to Rugby Town.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Rugby_Town_F.C.",
+                "notes": "Used for VS Rugby rename sequence and current lower-division status context."
+              }
+            ]
+          }
+        ],
+        "trackedMembership": [
+          {
+            "fromSeason": 1987,
+            "toSeason": 1992,
+            "tiers": [
+              "tier6"
+            ],
+            "basis": "observed"
+          },
+          {
+            "fromSeason": 1994,
+            "toSeason": 1995,
+            "tiers": [
+              "tier6"
+            ],
+            "basis": "observed"
+          }
+        ],
+        "absenceExplanations": []
+      },
+      "derived": {
+        "source": "football-data-output",
+        "aliases": [
+          "VS Rugby"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Rugby_Town_F.C.",
+            "notes": "Used for VS Rugby rename sequence and current lower-division status context."
+          }
+        ],
+        "observedNames": [
+          {
+            "rawName": "VS Rugby",
+            "normalizedName": "vs rugby",
+            "firstSeenSeason": 1987,
+            "lastSeenSeason": 1995,
+            "seasonsSeen": [
+              1987,
+              1988,
+              1989,
+              1990,
+              1991,
+              1992,
+              1994,
+              1995
+            ],
+            "tiersSeen": [
+              "tier6"
+            ]
+          }
+        ],
+        "observedNamePeriods": [
+          {
+            "name": "VS Rugby",
+            "startSeason": 1987,
+            "endSeason": 1992
+          },
+          {
+            "name": "VS Rugby",
+            "startSeason": 1994,
+            "endSeason": 1995
+          }
+        ],
+        "firstSeenSeason": 1987,
+        "lastSeenSeason": 1995,
+        "seasonsSeen": [
+          1987,
+          1988,
+          1989,
+          1990,
+          1991,
+          1992,
+          1994,
+          1995
+        ],
+        "totalSeasonsSeen": 8,
+        "tiersSeen": [
+          "tier6"
+        ],
+        "tierSeasons": [
+          {
+            "tierKey": "tier6",
+            "seasons": [
+              1987,
+              1988,
+              1989,
+              1990,
+              1991,
+              1992,
+              1994,
+              1995
+            ]
+          }
+        ],
+        "coverageGaps": [
+          {
+            "startSeason": 1993,
+            "endSeason": 1993,
+            "length": 1
           }
         ]
       }
@@ -73520,12 +73778,19 @@
       "clubId": "stourbridge",
       "canonicalName": "Stourbridge",
       "status": {
-        "current": "unknown",
+        "current": "active",
         "trackedFromSeason": 1979,
         "trackedToSeason": 1983,
         "hasUnexplainedGaps": false,
-        "reason": "manual-review-required",
-        "reasonLabel": "Last observed before the latest supported season with no reviewed lifecycle or below-coverage status rule."
+        "reason": "possibly-missing-from-current-data",
+        "reasonLabel": "Wikipedia lists the club in the Southern League Premier Division Central, a level 7 league inside tracked but sparse coverage.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Stourbridge_F.C.",
+            "notes": "Used for current lower-division status and tracked sparse coverage context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
@@ -73546,6 +73811,13 @@
         "source": "football-data-output",
         "aliases": [
           "Stourbridge"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Stourbridge_F.C.",
+            "notes": "Used for current lower-division status and tracked sparse coverage context."
+          }
         ],
         "observedNames": [
           {
@@ -73603,16 +73875,41 @@
       "clubId": "sudbury-town",
       "canonicalName": "Sudbury Town",
       "status": {
-        "current": "unknown",
+        "current": "merged",
         "trackedFromSeason": 1994,
         "trackedToSeason": 1996,
         "hasUnexplainedGaps": false,
-        "reason": "manual-review-required",
-        "reasonLabel": "Last observed before the latest supported season with no reviewed lifecycle or below-coverage status rule."
+        "reason": "merged",
+        "reasonLabel": "Merged with Sudbury Wanderers in 1999 to form A.F.C. Sudbury.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Sudbury_Town_F.C.",
+            "notes": "Used for Sudbury Town merger into A.F.C. Sudbury context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
-        "lifecycleEvents": [],
+        "lifecycleEvents": [
+          {
+            "type": "merged",
+            "season": 1999,
+            "label": "Merged with Sudbury Wanderers to form A.F.C. Sudbury.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/A.F.C._Sudbury",
+                "notes": "Used for A.F.C. Sudbury formation from Sudbury Town and Sudbury Wanderers."
+              },
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Sudbury_Town_F.C.",
+                "notes": "Used for Sudbury Town merger into A.F.C. Sudbury context."
+              }
+            ]
+          }
+        ],
         "trackedMembership": [
           {
             "fromSeason": 1994,
@@ -73629,6 +73926,18 @@
         "source": "football-data-output",
         "aliases": [
           "Sudbury Town"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/A.F.C._Sudbury",
+            "notes": "Used for A.F.C. Sudbury formation from Sudbury Town and Sudbury Wanderers."
+          },
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Sudbury_Town_F.C.",
+            "notes": "Used for Sudbury Town merger into A.F.C. Sudbury context."
+          }
         ],
         "observedNames": [
           {
@@ -74286,12 +74595,19 @@
       "clubId": "sutton-coldfield-town",
       "canonicalName": "Sutton Coldfield Town",
       "status": {
-        "current": "unknown",
+        "current": "active",
         "trackedFromSeason": 1983,
         "trackedToSeason": 1983,
         "hasUnexplainedGaps": false,
-        "reason": "manual-review-required",
-        "reasonLabel": "Last observed before the latest supported season with no reviewed lifecycle or below-coverage status rule."
+        "reason": "not-in-tracked-leagues",
+        "reasonLabel": "Wikipedia lists the club below current tracked coverage after relegation from the Southern League Premier Division.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Sutton_Coldfield_Town_F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
@@ -74312,6 +74628,13 @@
         "source": "football-data-output",
         "aliases": [
           "Sutton Coldfield Town"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Sutton_Coldfield_Town_F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
+          }
         ],
         "observedNames": [
           {
@@ -76245,77 +76568,6 @@
         ]
       }
     },
-    "thanet united": {
-      "clubId": "thanet-united",
-      "canonicalName": "Thanet United",
-      "status": {
-        "current": "unknown",
-        "trackedFromSeason": 1981,
-        "trackedToSeason": 1981,
-        "hasUnexplainedGaps": false,
-        "reason": "manual-review-required",
-        "reasonLabel": "Last observed before the latest supported season with no reviewed lifecycle or below-coverage status rule."
-      },
-      "history": {
-        "nameHistory": [],
-        "lifecycleEvents": [],
-        "trackedMembership": [
-          {
-            "fromSeason": 1981,
-            "toSeason": 1981,
-            "tiers": [
-              "tier6"
-            ],
-            "basis": "observed"
-          }
-        ],
-        "absenceExplanations": []
-      },
-      "derived": {
-        "source": "football-data-output",
-        "aliases": [
-          "Thanet United"
-        ],
-        "observedNames": [
-          {
-            "rawName": "Thanet United",
-            "normalizedName": "thanet united",
-            "firstSeenSeason": 1981,
-            "lastSeenSeason": 1981,
-            "seasonsSeen": [
-              1981
-            ],
-            "tiersSeen": [
-              "tier6"
-            ]
-          }
-        ],
-        "observedNamePeriods": [
-          {
-            "name": "Thanet United",
-            "startSeason": 1981,
-            "endSeason": 1981
-          }
-        ],
-        "firstSeenSeason": 1981,
-        "lastSeenSeason": 1981,
-        "seasonsSeen": [
-          1981
-        ],
-        "totalSeasonsSeen": 1,
-        "tiersSeen": [
-          "tier6"
-        ],
-        "tierSeasons": [
-          {
-            "tierKey": "tier6",
-            "seasons": [
-              1981
-            ]
-          }
-        ]
-      }
-    },
     "thurrock": {
       "clubId": "thurrock",
       "canonicalName": "Thurrock",
@@ -76524,12 +76776,19 @@
       "clubId": "tilbury",
       "canonicalName": "Tilbury",
       "status": {
-        "current": "unknown",
+        "current": "active",
         "trackedFromSeason": 1979,
         "trackedToSeason": 1979,
         "hasUnexplainedGaps": false,
-        "reason": "manual-review-required",
-        "reasonLabel": "Last observed before the latest supported season with no reviewed lifecycle or below-coverage status rule."
+        "reason": "not-in-tracked-leagues",
+        "reasonLabel": "Wikipedia lists the club as active below current tracked coverage after its historical Southern League spell.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Tilbury_F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
@@ -76550,6 +76809,13 @@
         "source": "football-data-output",
         "aliases": [
           "Tilbury"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Tilbury_F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
+          }
         ],
         "observedNames": [
           {
@@ -76595,12 +76861,19 @@
       "clubId": "tiverton-town",
       "canonicalName": "Tiverton Town",
       "status": {
-        "current": "unknown",
+        "current": "active",
         "trackedFromSeason": 2001,
         "trackedToSeason": 2003,
         "hasUnexplainedGaps": false,
-        "reason": "manual-review-required",
-        "reasonLabel": "Last observed before the latest supported season with no reviewed lifecycle or below-coverage status rule."
+        "reason": "possibly-missing-from-current-data",
+        "reasonLabel": "Wikipedia lists the club in Southern League Premier Division South, a level 7 league inside tracked but sparse coverage.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Tiverton_Town_F.C.",
+            "notes": "Used for current lower-division status and tracked sparse coverage context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
@@ -76621,6 +76894,13 @@
         "source": "football-data-output",
         "aliases": [
           "Tiverton Town"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Tiverton_Town_F.C.",
+            "notes": "Used for current lower-division status and tracked sparse coverage context."
+          }
         ],
         "observedNames": [
           {
@@ -76668,77 +76948,6 @@
         ]
       }
     },
-    "tonbridge": {
-      "clubId": "tonbridge",
-      "canonicalName": "Tonbridge",
-      "status": {
-        "current": "unknown",
-        "trackedFromSeason": 1981,
-        "trackedToSeason": 1981,
-        "hasUnexplainedGaps": false,
-        "reason": "manual-review-required",
-        "reasonLabel": "Last observed before the latest supported season with no reviewed lifecycle or below-coverage status rule."
-      },
-      "history": {
-        "nameHistory": [],
-        "lifecycleEvents": [],
-        "trackedMembership": [
-          {
-            "fromSeason": 1981,
-            "toSeason": 1981,
-            "tiers": [
-              "tier6"
-            ],
-            "basis": "observed"
-          }
-        ],
-        "absenceExplanations": []
-      },
-      "derived": {
-        "source": "football-data-output",
-        "aliases": [
-          "Tonbridge"
-        ],
-        "observedNames": [
-          {
-            "rawName": "Tonbridge",
-            "normalizedName": "tonbridge",
-            "firstSeenSeason": 1981,
-            "lastSeenSeason": 1981,
-            "seasonsSeen": [
-              1981
-            ],
-            "tiersSeen": [
-              "tier6"
-            ]
-          }
-        ],
-        "observedNamePeriods": [
-          {
-            "name": "Tonbridge",
-            "startSeason": 1981,
-            "endSeason": 1981
-          }
-        ],
-        "firstSeenSeason": 1981,
-        "lastSeenSeason": 1981,
-        "seasonsSeen": [
-          1981
-        ],
-        "totalSeasonsSeen": 1,
-        "tiersSeen": [
-          "tier6"
-        ],
-        "tierSeasons": [
-          {
-            "tierKey": "tier6",
-            "seasons": [
-              1981
-            ]
-          }
-        ]
-      }
-    },
     "tonbridge angels": {
       "clubId": "tonbridge-angels",
       "canonicalName": "Tonbridge Angels",
@@ -76746,7 +76955,16 @@
         "current": "active",
         "trackedFromSeason": 1979,
         "trackedToSeason": null,
-        "hasUnexplainedGaps": false
+        "hasUnexplainedGaps": false,
+        "reason": "possibly-missing-from-current-data",
+        "reasonLabel": "Wikipedia lists the club in National League South, a level 6 league inside tracked but sparse coverage.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Tonbridge_Angels_F.C.",
+            "notes": "Used for Tonbridge name continuity and current National League South status context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
@@ -76767,7 +76985,7 @@
         "trackedMembership": [
           {
             "fromSeason": 1979,
-            "toSeason": 1980,
+            "toSeason": 1981,
             "tiers": [
               "tier6"
             ],
@@ -76811,7 +77029,15 @@
       "derived": {
         "source": "football-data-output",
         "aliases": [
+          "Tonbridge",
           "Tonbridge Angels"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Tonbridge_Angels_F.C.",
+            "notes": "Used for Tonbridge name continuity and current National League South status context."
+          }
         ],
         "observedNames": [
           {
@@ -76836,6 +77062,18 @@
             "tiersSeen": [
               "tier6"
             ]
+          },
+          {
+            "rawName": "Tonbridge",
+            "normalizedName": "tonbridge",
+            "firstSeenSeason": 1981,
+            "lastSeenSeason": 1981,
+            "seasonsSeen": [
+              1981
+            ],
+            "tiersSeen": [
+              "tier6"
+            ]
           }
         ],
         "observedNamePeriods": [
@@ -76843,6 +77081,11 @@
             "name": "Tonbridge Angels",
             "startSeason": 1979,
             "endSeason": 1980
+          },
+          {
+            "name": "Tonbridge",
+            "startSeason": 1981,
+            "endSeason": 1981
           },
           {
             "name": "Tonbridge Angels",
@@ -76860,6 +77103,7 @@
         "seasonsSeen": [
           1979,
           1980,
+          1981,
           2011,
           2012,
           2013,
@@ -76871,7 +77115,7 @@
           2024,
           2025
         ],
-        "totalSeasonsSeen": 12,
+        "totalSeasonsSeen": 13,
         "tiersSeen": [
           "tier6"
         ],
@@ -76881,6 +77125,7 @@
             "seasons": [
               1979,
               1980,
+              1981,
               2011,
               2012,
               2013,
@@ -76896,9 +77141,9 @@
         ],
         "coverageGaps": [
           {
-            "startSeason": 1981,
+            "startSeason": 1982,
             "endSeason": 2010,
-            "length": 30
+            "length": 29
           },
           {
             "startSeason": 2014,
@@ -76912,12 +77157,19 @@
       "clubId": "tooting-and-mitcham-united",
       "canonicalName": "Tooting & Mitcham United",
       "status": {
-        "current": "unknown",
+        "current": "active",
         "trackedFromSeason": 1979,
         "trackedToSeason": 1988,
         "hasUnexplainedGaps": false,
-        "reason": "manual-review-required",
-        "reasonLabel": "Last observed before the latest supported season with no reviewed lifecycle or below-coverage status rule."
+        "reason": "not-in-tracked-leagues",
+        "reasonLabel": "Wikipedia lists the club as active below current tracked coverage after its Isthmian League history.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Tooting_%26_Mitcham_United_F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
@@ -76938,6 +77190,13 @@
         "source": "football-data-output",
         "aliases": [
           "Tooting & Mitcham United"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Tooting_%26_Mitcham_United_F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
+          }
         ],
         "observedNames": [
           {
@@ -78715,192 +78974,6 @@
         ]
       }
     },
-    "vs rugby": {
-      "clubId": "vs-rugby",
-      "canonicalName": "VS Rugby",
-      "status": {
-        "current": "unknown",
-        "trackedFromSeason": 1987,
-        "trackedToSeason": 1995,
-        "hasUnexplainedGaps": false,
-        "reason": "manual-review-required",
-        "reasonLabel": "Last observed before the latest supported season with no reviewed lifecycle or below-coverage status rule."
-      },
-      "history": {
-        "nameHistory": [],
-        "lifecycleEvents": [],
-        "trackedMembership": [
-          {
-            "fromSeason": 1987,
-            "toSeason": 1992,
-            "tiers": [
-              "tier6"
-            ],
-            "basis": "observed"
-          },
-          {
-            "fromSeason": 1994,
-            "toSeason": 1995,
-            "tiers": [
-              "tier6"
-            ],
-            "basis": "observed"
-          }
-        ],
-        "absenceExplanations": []
-      },
-      "derived": {
-        "source": "football-data-output",
-        "aliases": [
-          "VS Rugby"
-        ],
-        "observedNames": [
-          {
-            "rawName": "VS Rugby",
-            "normalizedName": "vs rugby",
-            "firstSeenSeason": 1987,
-            "lastSeenSeason": 1995,
-            "seasonsSeen": [
-              1987,
-              1988,
-              1989,
-              1990,
-              1991,
-              1992,
-              1994,
-              1995
-            ],
-            "tiersSeen": [
-              "tier6"
-            ]
-          }
-        ],
-        "observedNamePeriods": [
-          {
-            "name": "VS Rugby",
-            "startSeason": 1987,
-            "endSeason": 1992
-          },
-          {
-            "name": "VS Rugby",
-            "startSeason": 1994,
-            "endSeason": 1995
-          }
-        ],
-        "firstSeenSeason": 1987,
-        "lastSeenSeason": 1995,
-        "seasonsSeen": [
-          1987,
-          1988,
-          1989,
-          1990,
-          1991,
-          1992,
-          1994,
-          1995
-        ],
-        "totalSeasonsSeen": 8,
-        "tiersSeen": [
-          "tier6"
-        ],
-        "tierSeasons": [
-          {
-            "tierKey": "tier6",
-            "seasons": [
-              1987,
-              1988,
-              1989,
-              1990,
-              1991,
-              1992,
-              1994,
-              1995
-            ]
-          }
-        ],
-        "coverageGaps": [
-          {
-            "startSeason": 1993,
-            "endSeason": 1993,
-            "length": 1
-          }
-        ]
-      }
-    },
-    "wakefield and emley": {
-      "clubId": "wakefield-and-emley",
-      "canonicalName": "Wakefield & Emley",
-      "status": {
-        "current": "unknown",
-        "trackedFromSeason": 2002,
-        "trackedToSeason": 2003,
-        "hasUnexplainedGaps": false,
-        "reason": "manual-review-required",
-        "reasonLabel": "Last observed before the latest supported season with no reviewed lifecycle or below-coverage status rule."
-      },
-      "history": {
-        "nameHistory": [],
-        "lifecycleEvents": [],
-        "trackedMembership": [
-          {
-            "fromSeason": 2002,
-            "toSeason": 2003,
-            "tiers": [
-              "tier6"
-            ],
-            "basis": "observed"
-          }
-        ],
-        "absenceExplanations": []
-      },
-      "derived": {
-        "source": "football-data-output",
-        "aliases": [
-          "Wakefield & Emley"
-        ],
-        "observedNames": [
-          {
-            "rawName": "Wakefield & Emley",
-            "normalizedName": "wakefield and emley",
-            "firstSeenSeason": 2002,
-            "lastSeenSeason": 2003,
-            "seasonsSeen": [
-              2002,
-              2003
-            ],
-            "tiersSeen": [
-              "tier6"
-            ]
-          }
-        ],
-        "observedNamePeriods": [
-          {
-            "name": "Wakefield & Emley",
-            "startSeason": 2002,
-            "endSeason": 2003
-          }
-        ],
-        "firstSeenSeason": 2002,
-        "lastSeenSeason": 2003,
-        "seasonsSeen": [
-          2002,
-          2003
-        ],
-        "totalSeasonsSeen": 2,
-        "tiersSeen": [
-          "tier6"
-        ],
-        "tierSeasons": [
-          {
-            "tierKey": "tier6",
-            "seasons": [
-              2002,
-              2003
-            ]
-          }
-        ]
-      }
-    },
     "walsall": {
       "clubId": "walsall",
       "canonicalName": "Walsall",
@@ -79448,16 +79521,36 @@
       "clubId": "walthamstow-avenue",
       "canonicalName": "Walthamstow Avenue",
       "status": {
-        "current": "unknown",
+        "current": "merged",
         "trackedFromSeason": 1979,
         "trackedToSeason": 1986,
         "hasUnexplainedGaps": false,
-        "reason": "manual-review-required",
-        "reasonLabel": "Last observed before the latest supported season with no reviewed lifecycle or below-coverage status rule."
+        "reason": "merged",
+        "reasonLabel": "Merged into Leytonstone/Ilford in 1988; that club later became Redbridge Forest.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Walthamstow_Avenue_F.C.",
+            "notes": "Used for Walthamstow Avenue merger into Leytonstone/Ilford context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
-        "lifecycleEvents": [],
+        "lifecycleEvents": [
+          {
+            "type": "merged",
+            "season": 1988,
+            "label": "Merged with Leytonstone/Ilford, later renamed Redbridge Forest.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Walthamstow_Avenue_F.C.",
+                "notes": "Used for Walthamstow Avenue merger into Leytonstone/Ilford context."
+              }
+            ]
+          }
+        ],
         "trackedMembership": [
           {
             "fromSeason": 1979,
@@ -79474,6 +79567,34 @@
         "source": "football-data-output",
         "aliases": [
           "Walthamstow Avenue"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Walthamstow_Avenue_F.C.",
+            "notes": "Used for Walthamstow Avenue merger into Leytonstone/Ilford context."
+          }
+        ],
+        "relationships": [
+          {
+            "clubKey": "redbridge forest",
+            "relationship": "merger",
+            "direction": "mergedInto",
+            "season": 1988,
+            "label": "Walthamstow Avenue merged into Leytonstone/Ilford, later renamed Redbridge Forest.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Redbridge_Forest_F.C.",
+                "notes": "Used for Redbridge Forest merger into Dagenham & Redbridge."
+              },
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Walthamstow_Avenue_F.C.",
+                "notes": "Used for Walthamstow Avenue merger into Leytonstone/Ilford context."
+              }
+            ]
+          }
         ],
         "observedNames": [
           {
@@ -79540,12 +79661,19 @@
       "clubId": "walton-and-hersham",
       "canonicalName": "Walton & Hersham",
       "status": {
-        "current": "unknown",
+        "current": "active",
         "trackedFromSeason": 1994,
         "trackedToSeason": 1999,
         "hasUnexplainedGaps": false,
-        "reason": "manual-review-required",
-        "reasonLabel": "Last observed before the latest supported season with no reviewed lifecycle or below-coverage status rule."
+        "reason": "possibly-missing-from-current-data",
+        "reasonLabel": "Wikipedia lists the club as promoted from Southern League Premier Division South toward National League South status.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Walton_%26_Hersham_F.C.",
+            "notes": "Used for current lower-division status and tracked sparse coverage context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
@@ -79574,6 +79702,13 @@
         "source": "football-data-output",
         "aliases": [
           "Walton & Hersham"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Walton_%26_Hersham_F.C.",
+            "notes": "Used for current lower-division status and tracked sparse coverage context."
+          }
         ],
         "observedNames": [
           {
@@ -79731,16 +79866,41 @@
       "clubId": "waterlooville",
       "canonicalName": "Waterlooville",
       "status": {
-        "current": "unknown",
+        "current": "merged",
         "trackedFromSeason": 1979,
         "trackedToSeason": 1993,
         "hasUnexplainedGaps": false,
-        "reason": "manual-review-required",
-        "reasonLabel": "Last observed before the latest supported season with no reviewed lifecycle or below-coverage status rule."
+        "reason": "merged",
+        "reasonLabel": "Merged with Havant Town in 1998 to form Havant & Waterlooville.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Waterlooville_F.C.",
+            "notes": "Used for Waterlooville merger into Havant & Waterlooville context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
-        "lifecycleEvents": [],
+        "lifecycleEvents": [
+          {
+            "type": "merged",
+            "season": 1998,
+            "label": "Merged with Havant Town to form Havant & Waterlooville.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Havant_%26_Waterlooville_F.C.",
+                "notes": "Used for current lower-division status and tracked coverage context."
+              },
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Waterlooville_F.C.",
+                "notes": "Used for Waterlooville merger into Havant & Waterlooville context."
+              }
+            ]
+          }
+        ],
         "trackedMembership": [
           {
             "fromSeason": 1979,
@@ -79765,6 +79925,39 @@
         "source": "football-data-output",
         "aliases": [
           "Waterlooville"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Havant_%26_Waterlooville_F.C.",
+            "notes": "Used for current lower-division status and tracked coverage context."
+          },
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Waterlooville_F.C.",
+            "notes": "Used for Waterlooville merger into Havant & Waterlooville context."
+          }
+        ],
+        "relationships": [
+          {
+            "clubKey": "havant and waterlooville",
+            "relationship": "merger",
+            "direction": "mergedInto",
+            "season": 1998,
+            "label": "Waterlooville merged with Havant Town to form Havant & Waterlooville.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Havant_%26_Waterlooville_F.C.",
+                "notes": "Used for current lower-division status and tracked coverage context."
+              },
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Waterlooville_F.C.",
+                "notes": "Used for Waterlooville merger into Havant & Waterlooville context."
+              }
+            ]
+          }
         ],
         "observedNames": [
           {
@@ -80655,16 +80848,48 @@
       "clubId": "wellingborough-town",
       "canonicalName": "Wellingborough Town",
       "status": {
-        "current": "unknown",
+        "current": "active",
         "trackedFromSeason": 1979,
         "trackedToSeason": 1981,
         "hasUnexplainedGaps": false,
-        "reason": "manual-review-required",
-        "reasonLabel": "Last observed before the latest supported season with no reviewed lifecycle or below-coverage status rule."
+        "reason": "successor-active",
+        "reasonLabel": "The earlier club folded after 2001-02; the current Wellingborough Town was re-founded in 2004 and plays below tracked coverage.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Wellingborough_Town_F.C.",
+            "notes": "Used for Wellingborough Town fold, refounding, and current lower-division status context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
-        "lifecycleEvents": [],
+        "lifecycleEvents": [
+          {
+            "type": "folded",
+            "season": 2002,
+            "label": "The previous Wellingborough Town club folded after the 2001-02 season.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Wellingborough_Town_F.C.",
+                "notes": "Used for Wellingborough Town fold, refounding, and current lower-division status context."
+              }
+            ]
+          },
+          {
+            "type": "reformed",
+            "season": 2004,
+            "label": "Wellingborough Town was re-founded in 2004.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Wellingborough_Town_F.C.",
+                "notes": "Used for Wellingborough Town fold, refounding, and current lower-division status context."
+              }
+            ]
+          }
+        ],
         "trackedMembership": [
           {
             "fromSeason": 1979,
@@ -80681,6 +80906,13 @@
         "source": "football-data-output",
         "aliases": [
           "Wellingborough Town"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Wellingborough_Town_F.C.",
+            "notes": "Used for Wellingborough Town fold, refounding, and current lower-division status context."
+          }
         ],
         "observedNames": [
           {
@@ -82092,12 +82324,19 @@
       "clubId": "whitby-town",
       "canonicalName": "Whitby Town",
       "status": {
-        "current": "unknown",
+        "current": "active",
         "trackedFromSeason": 1998,
         "trackedToSeason": 2003,
         "hasUnexplainedGaps": false,
-        "reason": "manual-review-required",
-        "reasonLabel": "Last observed before the latest supported season with no reviewed lifecycle or below-coverage status rule."
+        "reason": "possibly-missing-from-current-data",
+        "reasonLabel": "Wikipedia lists the club in the Northern Premier League, a level 7 league inside tracked but sparse coverage.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Whitby_Town_F.C.",
+            "notes": "Used for current lower-division status and tracked sparse coverage context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
@@ -82118,6 +82357,13 @@
         "source": "football-data-output",
         "aliases": [
           "Whitby Town"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Whitby_Town_F.C.",
+            "notes": "Used for current lower-division status and tracked sparse coverage context."
+          }
         ],
         "observedNames": [
           {
@@ -82275,12 +82521,19 @@
       "clubId": "whitley-bay",
       "canonicalName": "Whitley Bay",
       "status": {
-        "current": "unknown",
+        "current": "active",
         "trackedFromSeason": 1991,
         "trackedToSeason": 1994,
         "hasUnexplainedGaps": false,
-        "reason": "manual-review-required",
-        "reasonLabel": "Last observed before the latest supported season with no reviewed lifecycle or below-coverage status rule."
+        "reason": "not-in-tracked-leagues",
+        "reasonLabel": "Wikipedia lists the club in Northern League Division One, below current tracked coverage.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Whitley_Bay_F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
@@ -82301,6 +82554,13 @@
         "source": "football-data-output",
         "aliases": [
           "Whitley Bay"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Whitley_Bay_F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
+          }
         ],
         "observedNames": [
           {
@@ -82755,12 +83015,19 @@
       "clubId": "willenhall-town",
       "canonicalName": "Willenhall Town",
       "status": {
-        "current": "unknown",
+        "current": "active",
         "trackedFromSeason": 1984,
         "trackedToSeason": 1987,
         "hasUnexplainedGaps": false,
-        "reason": "manual-review-required",
-        "reasonLabel": "Last observed before the latest supported season with no reviewed lifecycle or below-coverage status rule."
+        "reason": "not-in-tracked-leagues",
+        "reasonLabel": "Wikipedia lists the club as last playing in the West Midlands (Regional) League, below current tracked coverage.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Willenhall_Town_F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
@@ -82781,6 +83048,13 @@
         "source": "football-data-output",
         "aliases": [
           "Willenhall Town"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Willenhall_Town_F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
+          }
         ],
         "observedNames": [
           {
@@ -83100,16 +83374,61 @@
       "clubId": "windsor-and-eton",
       "canonicalName": "Windsor & Eton",
       "status": {
-        "current": "unknown",
+        "current": "defunct",
         "trackedFromSeason": 1984,
         "trackedToSeason": 1992,
         "hasUnexplainedGaps": false,
-        "reason": "manual-review-required",
-        "reasonLabel": "Last observed before the latest supported season with no reviewed lifecycle or below-coverage status rule."
+        "reason": "wound-up",
+        "reasonLabel": "The original Windsor & Eton club was wound up on 2 February 2011; later Windsor clubs are separate successor/same-name clubs.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Windsor_%26_Eton_F.C._(1892)",
+            "notes": "Used for original Windsor & Eton winding-up and successor club context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
-        "lifecycleEvents": [],
+        "lifecycleEvents": [
+          {
+            "type": "folded",
+            "season": 2010,
+            "date": "2011-02-02",
+            "label": "Wound up due to large debts during the 2010-11 season.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Windsor_%26_Eton_F.C._(1892)",
+                "notes": "Used for original Windsor & Eton winding-up and successor club context."
+              }
+            ]
+          },
+          {
+            "type": "successorFormed",
+            "season": 2011,
+            "label": "Windsor F.C. was formed after the original Windsor & Eton folded.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Windsor_%26_Eton_F.C._(1892)",
+                "notes": "Used for original Windsor & Eton winding-up and successor club context."
+              }
+            ]
+          },
+          {
+            "type": "sameNameClubFormed",
+            "season": 2023,
+            "label": "A new Windsor & Eton club was formed in 2023.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Windsor_%26_Eton_F.C._(1892)",
+                "notes": "Used for original Windsor & Eton winding-up and successor club context."
+              }
+            ]
+          }
+        ],
         "trackedMembership": [
           {
             "fromSeason": 1984,
@@ -83126,6 +83445,13 @@
         "source": "football-data-output",
         "aliases": [
           "Windsor & Eton"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Windsor_%26_Eton_F.C._(1892)",
+            "notes": "Used for original Windsor & Eton winding-up and successor club context."
+          }
         ],
         "observedNames": [
           {
@@ -83195,12 +83521,19 @@
       "clubId": "winsford-united",
       "canonicalName": "Winsford United",
       "status": {
-        "current": "unknown",
+        "current": "active",
         "trackedFromSeason": 1992,
         "trackedToSeason": 1999,
         "hasUnexplainedGaps": false,
-        "reason": "manual-review-required",
-        "reasonLabel": "Last observed before the latest supported season with no reviewed lifecycle or below-coverage status rule."
+        "reason": "not-in-tracked-leagues",
+        "reasonLabel": "Wikipedia lists the club as active below current tracked coverage after its historical Northern Premier League spell.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Winsford_United_F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
@@ -83221,6 +83554,13 @@
         "source": "football-data-output",
         "aliases": [
           "Winsford United"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Winsford_United_F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
+          }
         ],
         "observedNames": [
           {
@@ -83287,16 +83627,84 @@
       "clubId": "witney-town",
       "canonicalName": "Witney Town",
       "status": {
-        "current": "unknown",
+        "current": "active",
         "trackedFromSeason": 1979,
         "trackedToSeason": 1987,
         "hasUnexplainedGaps": false,
-        "reason": "manual-review-required",
-        "reasonLabel": "Last observed before the latest supported season with no reviewed lifecycle or below-coverage status rule."
+        "reason": "successor-active",
+        "reasonLabel": "The historical club folded in 2001, successor versions later folded, and Witney Town re-formed for 2024-25 below tracked coverage.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Witney_Town_F.C.",
+            "notes": "Used for Witney Town fold/reformation sequence and current lower-division status context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
-        "lifecycleEvents": [],
+        "lifecycleEvents": [
+          {
+            "type": "folded",
+            "season": 2001,
+            "label": "The historical Witney Town folded in the 2001 close season.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Witney_Town_F.C.",
+                "notes": "Used for Witney Town fold/reformation sequence and current lower-division status context."
+              }
+            ]
+          },
+          {
+            "type": "phoenixFormed",
+            "season": 2002,
+            "label": "A phoenix club was formed as Witney United.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Witney_Town_F.C.",
+                "notes": "Used for Witney Town fold/reformation sequence and current lower-division status context."
+              }
+            ]
+          },
+          {
+            "type": "renamed",
+            "season": 2011,
+            "label": "Witney United readopted the Witney Town name.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Witney_Town_F.C.",
+                "notes": "Used for Witney Town fold/reformation sequence and current lower-division status context."
+              }
+            ]
+          },
+          {
+            "type": "dissolved",
+            "season": 2012,
+            "label": "Witney Town dissolved during the 2012-13 season.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Witney_Town_F.C.",
+                "notes": "Used for Witney Town fold/reformation sequence and current lower-division status context."
+              }
+            ]
+          },
+          {
+            "type": "reformed",
+            "season": 2024,
+            "label": "Witney Town re-formed for the 2024-25 season.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Witney_Town_F.C.",
+                "notes": "Used for Witney Town fold/reformation sequence and current lower-division status context."
+              }
+            ]
+          }
+        ],
         "trackedMembership": [
           {
             "fromSeason": 1979,
@@ -83313,6 +83721,13 @@
         "source": "football-data-output",
         "aliases": [
           "Witney Town"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Witney_Town_F.C.",
+            "notes": "Used for Witney Town fold/reformation sequence and current lower-division status context."
+          }
         ],
         "observedNames": [
           {
@@ -83526,12 +83941,19 @@
       "clubId": "wivenhoe-town",
       "canonicalName": "Wivenhoe Town",
       "status": {
-        "current": "unknown",
+        "current": "active",
         "trackedFromSeason": 1990,
         "trackedToSeason": 1993,
         "hasUnexplainedGaps": false,
-        "reason": "manual-review-required",
-        "reasonLabel": "Last observed before the latest supported season with no reviewed lifecycle or below-coverage status rule."
+        "reason": "not-in-tracked-leagues",
+        "reasonLabel": "Wikipedia lists the club as active below current tracked coverage after relegation from the Eastern Counties League Premier Division.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Wivenhoe_Town_F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
@@ -83552,6 +83974,13 @@
         "source": "football-data-output",
         "aliases": [
           "Wivenhoe Town"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Wivenhoe_Town_F.C.",
+            "notes": "Used for current lower-division status and below tracked coverage context."
+          }
         ],
         "observedNames": [
           {
@@ -83820,16 +84249,48 @@
       "clubId": "wokingham-town",
       "canonicalName": "Wokingham Town",
       "status": {
-        "current": "unknown",
+        "current": "active",
         "trackedFromSeason": 1982,
         "trackedToSeason": 1994,
         "hasUnexplainedGaps": false,
-        "reason": "manual-review-required",
-        "reasonLabel": "Last observed before the latest supported season with no reviewed lifecycle or below-coverage status rule."
+        "reason": "not-in-tracked-leagues",
+        "reasonLabel": "Merged with Emmbrook Sports in 2004 as Wokingham & Emmbrook, returned to the Wokingham Town name in 2024, and remains below tracked coverage.",
+        "sourceRefs": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Wokingham_Town_F.C.",
+            "notes": "Used for Wokingham Town merger, Wokingham & Emmbrook period, and current lower-division status context."
+          }
+        ]
       },
       "history": {
         "nameHistory": [],
-        "lifecycleEvents": [],
+        "lifecycleEvents": [
+          {
+            "type": "merged",
+            "season": 2004,
+            "label": "Merged with Emmbrook Sports to form Wokingham & Emmbrook.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Wokingham_Town_F.C.",
+                "notes": "Used for Wokingham Town merger, Wokingham & Emmbrook period, and current lower-division status context."
+              }
+            ]
+          },
+          {
+            "type": "renamed",
+            "season": 2024,
+            "label": "Wokingham & Emmbrook was renamed Wokingham Town.",
+            "sourceRefs": [
+              {
+                "type": "wikipedia-club-page",
+                "sourceUrl": "https://en.wikipedia.org/wiki/Wokingham_Town_F.C.",
+                "notes": "Used for Wokingham Town merger, Wokingham & Emmbrook period, and current lower-division status context."
+              }
+            ]
+          }
+        ],
         "trackedMembership": [
           {
             "fromSeason": 1982,
@@ -83846,6 +84307,13 @@
         "source": "football-data-output",
         "aliases": [
           "Wokingham Town"
+        ],
+        "identitySources": [
+          {
+            "type": "wikipedia-club-page",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Wokingham_Town_F.C.",
+            "notes": "Used for Wokingham Town merger, Wokingham & Emmbrook period, and current lower-division status context."
+          }
         ],
         "observedNames": [
           {

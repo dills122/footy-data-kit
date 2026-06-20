@@ -162,7 +162,13 @@ export const CLUB_IDENTITY_RULES = Object.freeze([
   Object.freeze({
     clubKey: 'emley',
     canonicalName: 'Emley',
-    aliases: Object.freeze(['AFC Emley', 'Emley', 'Emley A.F.C.']),
+    aliases: Object.freeze([
+      'AFC Emley',
+      'Emley',
+      'Emley A.F.C.',
+      'Wakefield & Emley',
+      'Wakefield-Emley',
+    ]),
     relationship: 'phoenix',
     sourceRefs: Object.freeze([
       Object.freeze({
@@ -332,6 +338,20 @@ export const CLUB_IDENTITY_RULES = Object.freeze([
         type: 'wikipedia-club-page',
         sourceUrl: 'https://en.wikipedia.org/wiki/Leamington_F.C.',
         notes: 'Club history records AP Leamington dropping the AP name and later reactivation as Leamington.',
+      }),
+    ]),
+  }),
+  Object.freeze({
+    clubKey: 'margate',
+    canonicalName: 'Margate',
+    aliases: Object.freeze(['Margate', 'Thanet United']),
+    relationship: 'rename',
+    sourceRefs: Object.freeze([
+      Object.freeze({
+        type: 'wikipedia-club-page',
+        sourceUrl: 'https://en.wikipedia.org/wiki/Margate_F.C.',
+        notes:
+          'Club history records the Margate club taking the Thanet United name in 1981 and reverting to Margate in 1989.',
       }),
     ]),
   }),
@@ -620,6 +640,19 @@ export const CLUB_IDENTITY_RULES = Object.freeze([
     ]),
   }),
   Object.freeze({
+    clubKey: 'tonbridge angels',
+    canonicalName: 'Tonbridge Angels',
+    aliases: Object.freeze(['Tonbridge', 'Tonbridge Angels']),
+    relationship: 'rename',
+    sourceRefs: Object.freeze([
+      Object.freeze({
+        type: 'wikipedia-club-page',
+        sourceUrl: 'https://en.wikipedia.org/wiki/Tonbridge_Angels_F.C.',
+        notes: 'Club history records Tonbridge Football Club becoming known as the Angels.',
+      }),
+    ]),
+  }),
+  Object.freeze({
     clubKey: 'walsall',
     canonicalName: 'Walsall',
     aliases: Object.freeze(['Walsall', 'Walsall Town Swifts']),
@@ -629,6 +662,34 @@ export const CLUB_IDENTITY_RULES = Object.freeze([
         type: 'football-club-history-database',
         sourceUrl: 'https://www.fchd.info/WALSALL.HTM',
         notes: 'FCHD records Walsall as Walsall Town Swifts changed name in 1895-96.',
+      }),
+    ]),
+  }),
+  Object.freeze({
+    clubKey: 'rugby town',
+    canonicalName: 'Rugby Town',
+    aliases: Object.freeze(['VS Rugby', 'Rugby United', 'Rugby Town']),
+    relationship: 'rename',
+    sourceRefs: Object.freeze([
+      Object.freeze({
+        type: 'wikipedia-club-page',
+        sourceUrl: 'https://en.wikipedia.org/wiki/Rugby_Town_F.C.',
+        notes:
+          'Club history records VS Rugby becoming Rugby United in 2000 and Rugby Town in 2005.',
+      }),
+    ]),
+  }),
+  Object.freeze({
+    clubKey: 'wokingham town',
+    canonicalName: 'Wokingham Town',
+    aliases: Object.freeze(['Wokingham Town', 'Wokingham & Emmbrook']),
+    relationship: 'rename',
+    sourceRefs: Object.freeze([
+      Object.freeze({
+        type: 'wikipedia-club-page',
+        sourceUrl: 'https://en.wikipedia.org/wiki/Wokingham_Town_F.C.',
+        notes:
+          'Club history records Wokingham Town merging into Wokingham & Emmbrook in 2004 and the club returning to the Wokingham Town name in 2024.',
       }),
     ]),
   }),
@@ -1615,7 +1676,7 @@ const CLUB_SOURCE_REFS = Object.freeze({
   margate: Object.freeze([
     wikipediaClubSource(
       'https://en.wikipedia.org/wiki/Margate_F.C.',
-      'Used for current lower-division status and below tracked coverage context.'
+      'Used for Thanet United rename period, current lower-division status, and below tracked coverage context.'
     ),
   ]),
   marlow: Object.freeze([
@@ -1732,6 +1793,60 @@ const CLUB_SOURCE_REFS = Object.freeze({
       'Used for STAMCO/St. Leonards Stamcroft naming and folding context.'
     ),
   ]),
+  stourbridge: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Stourbridge_F.C.',
+      'Used for current lower-division status and tracked sparse coverage context.'
+    ),
+  ]),
+  sudburyTown: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Sudbury_Town_F.C.',
+      'Used for Sudbury Town merger into A.F.C. Sudbury context.'
+    ),
+  ]),
+  afcSudbury: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/A.F.C._Sudbury',
+      'Used for A.F.C. Sudbury formation from Sudbury Town and Sudbury Wanderers.'
+    ),
+  ]),
+  suttonColdfieldTown: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Sutton_Coldfield_Town_F.C.',
+      'Used for current lower-division status and below tracked coverage context.'
+    ),
+  ]),
+  tilbury: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Tilbury_F.C.',
+      'Used for current lower-division status and below tracked coverage context.'
+    ),
+  ]),
+  tivertonTown: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Tiverton_Town_F.C.',
+      'Used for current lower-division status and tracked sparse coverage context.'
+    ),
+  ]),
+  tonbridgeAngels: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Tonbridge_Angels_F.C.',
+      'Used for Tonbridge name continuity and current National League South status context.'
+    ),
+  ]),
+  tootingAndMitchamUnited: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Tooting_%26_Mitcham_United_F.C.',
+      'Used for current lower-division status and below tracked coverage context.'
+    ),
+  ]),
+  rugbyTown: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Rugby_Town_F.C.',
+      'Used for VS Rugby rename sequence and current lower-division status context.'
+    ),
+  ]),
   nuneatonBorough: Object.freeze([
     wikipediaClubSource(
       'https://en.wikipedia.org/wiki/Nuneaton_Town_F.C.',
@@ -1778,6 +1893,78 @@ const CLUB_SOURCE_REFS = Object.freeze({
     wikipediaClubSource(
       'https://en.wikipedia.org/wiki/Runcorn_Linnets_F.C.',
       'Used for Runcorn Linnets supporter-owned phoenix club context.'
+    ),
+  ]),
+  walthamstowAvenue: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Walthamstow_Avenue_F.C.',
+      'Used for Walthamstow Avenue merger into Leytonstone/Ilford context.'
+    ),
+  ]),
+  waltonAndHersham: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Walton_%26_Hersham_F.C.',
+      'Used for current lower-division status and tracked sparse coverage context.'
+    ),
+  ]),
+  waterlooville: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Waterlooville_F.C.',
+      'Used for Waterlooville merger into Havant & Waterlooville context.'
+    ),
+  ]),
+  wellingboroughTown: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Wellingborough_Town_F.C.',
+      'Used for Wellingborough Town fold, refounding, and current lower-division status context.'
+    ),
+  ]),
+  whitbyTown: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Whitby_Town_F.C.',
+      'Used for current lower-division status and tracked sparse coverage context.'
+    ),
+  ]),
+  whitleyBay: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Whitley_Bay_F.C.',
+      'Used for current lower-division status and below tracked coverage context.'
+    ),
+  ]),
+  willenhallTown: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Willenhall_Town_F.C.',
+      'Used for current lower-division status and below tracked coverage context.'
+    ),
+  ]),
+  windsorAndEton: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Windsor_%26_Eton_F.C._(1892)',
+      'Used for original Windsor & Eton winding-up and successor club context.'
+    ),
+  ]),
+  winsfordUnited: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Winsford_United_F.C.',
+      'Used for current lower-division status and below tracked coverage context.'
+    ),
+  ]),
+  witneyTown: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Witney_Town_F.C.',
+      'Used for Witney Town fold/reformation sequence and current lower-division status context.'
+    ),
+  ]),
+  wivenhoeTown: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Wivenhoe_Town_F.C.',
+      'Used for current lower-division status and below tracked coverage context.'
+    ),
+  ]),
+  wokinghamTown: Object.freeze([
+    wikipediaClubSource(
+      'https://en.wikipedia.org/wiki/Wokingham_Town_F.C.',
+      'Used for Wokingham Town merger, Wokingham & Emmbrook period, and current lower-division status context.'
     ),
   ]),
   staffordRangers: Object.freeze([
@@ -4472,13 +4659,29 @@ export const CLUB_LIFECYCLE_RULES = Object.freeze([
       'Wikipedia lists the club in the Isthmian League North Division, below current tracked coverage.',
     sourceRefs: CLUB_SOURCE_REFS.lowestoftTown,
   }),
-  statusOnlyRule({
+  Object.freeze({
     clubKey: 'margate',
-    current: 'active',
-    reason: 'not-in-tracked-leagues',
-    reasonLabel:
-      'Wikipedia lists the club in the Isthmian League South East Division, below current tracked coverage.',
-    sourceRefs: CLUB_SOURCE_REFS.margate,
+    status: Object.freeze({
+      current: 'active',
+      reason: 'not-in-tracked-leagues',
+      reasonLabel:
+        'Wikipedia lists the club in the Isthmian League South East Division, below current tracked coverage.',
+      sourceRefs: CLUB_SOURCE_REFS.margate,
+    }),
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'renamed',
+        season: 1981,
+        label: 'Margate changed name to Thanet United.',
+        sourceRefs: CLUB_SOURCE_REFS.margate,
+      }),
+      lifecycleEvent({
+        type: 'renamed',
+        season: 1989,
+        label: 'Thanet United reverted to the Margate name.',
+        sourceRefs: CLUB_SOURCE_REFS.margate,
+      }),
+    ]),
   }),
   statusOnlyRule({
     clubKey: 'marlow',
@@ -4818,6 +5021,302 @@ export const CLUB_LIFECYCLE_RULES = Object.freeze([
         season: 2003,
         label: 'Folded during the 2003-04 season after returning to the Sussex County League.',
         sourceRefs: CLUB_SOURCE_REFS.stLeonards,
+      }),
+    ]),
+  }),
+  statusOnlyRule({
+    clubKey: 'stourbridge',
+    current: 'active',
+    reason: 'possibly-missing-from-current-data',
+    reasonLabel:
+      'Wikipedia lists the club in the Southern League Premier Division Central, a level 7 league inside tracked but sparse coverage.',
+    sourceRefs: CLUB_SOURCE_REFS.stourbridge,
+  }),
+  Object.freeze({
+    clubKey: 'sudbury town',
+    status: Object.freeze({
+      current: 'merged',
+      reason: 'merged',
+      reasonLabel: 'Merged with Sudbury Wanderers in 1999 to form A.F.C. Sudbury.',
+      sourceRefs: CLUB_SOURCE_REFS.sudburyTown,
+    }),
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'merged',
+        season: 1999,
+        label: 'Merged with Sudbury Wanderers to form A.F.C. Sudbury.',
+        sourceRefs: Object.freeze([...CLUB_SOURCE_REFS.sudburyTown, ...CLUB_SOURCE_REFS.afcSudbury]),
+      }),
+    ]),
+  }),
+  statusOnlyRule({
+    clubKey: 'sutton coldfield town',
+    current: 'active',
+    reason: 'not-in-tracked-leagues',
+    reasonLabel:
+      'Wikipedia lists the club below current tracked coverage after relegation from the Southern League Premier Division.',
+    sourceRefs: CLUB_SOURCE_REFS.suttonColdfieldTown,
+  }),
+  statusOnlyRule({
+    clubKey: 'tilbury',
+    current: 'active',
+    reason: 'not-in-tracked-leagues',
+    reasonLabel:
+      'Wikipedia lists the club as active below current tracked coverage after its historical Southern League spell.',
+    sourceRefs: CLUB_SOURCE_REFS.tilbury,
+  }),
+  statusOnlyRule({
+    clubKey: 'tiverton town',
+    current: 'active',
+    reason: 'possibly-missing-from-current-data',
+    reasonLabel:
+      'Wikipedia lists the club in Southern League Premier Division South, a level 7 league inside tracked but sparse coverage.',
+    sourceRefs: CLUB_SOURCE_REFS.tivertonTown,
+  }),
+  statusOnlyRule({
+    clubKey: 'tooting and mitcham united',
+    current: 'active',
+    reason: 'not-in-tracked-leagues',
+    reasonLabel:
+      'Wikipedia lists the club as active below current tracked coverage after its Isthmian League history.',
+    sourceRefs: CLUB_SOURCE_REFS.tootingAndMitchamUnited,
+  }),
+  statusOnlyRule({
+    clubKey: 'tonbridge angels',
+    current: 'active',
+    reason: 'possibly-missing-from-current-data',
+    reasonLabel:
+      'Wikipedia lists the club in National League South, a level 6 league inside tracked but sparse coverage.',
+    sourceRefs: CLUB_SOURCE_REFS.tonbridgeAngels,
+  }),
+  Object.freeze({
+    clubKey: 'rugby town',
+    status: Object.freeze({
+      current: 'active',
+      reason: 'not-in-tracked-leagues',
+      reasonLabel:
+        'Formerly VS Rugby and Rugby United, the club is currently active below tracked coverage.',
+      sourceRefs: CLUB_SOURCE_REFS.rugbyTown,
+    }),
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'renamed',
+        season: 2000,
+        label: 'VS Rugby changed name to Rugby United.',
+        sourceRefs: CLUB_SOURCE_REFS.rugbyTown,
+      }),
+      lifecycleEvent({
+        type: 'renamed',
+        season: 2005,
+        label: 'Rugby United changed name to Rugby Town.',
+        sourceRefs: CLUB_SOURCE_REFS.rugbyTown,
+      }),
+    ]),
+  }),
+  Object.freeze({
+    clubKey: 'walthamstow avenue',
+    status: Object.freeze({
+      current: 'merged',
+      reason: 'merged',
+      reasonLabel:
+        'Merged into Leytonstone/Ilford in 1988; that club later became Redbridge Forest.',
+      sourceRefs: CLUB_SOURCE_REFS.walthamstowAvenue,
+    }),
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'merged',
+        season: 1988,
+        label: 'Merged with Leytonstone/Ilford, later renamed Redbridge Forest.',
+        sourceRefs: CLUB_SOURCE_REFS.walthamstowAvenue,
+      }),
+    ]),
+  }),
+  statusOnlyRule({
+    clubKey: 'walton and hersham',
+    current: 'active',
+    reason: 'possibly-missing-from-current-data',
+    reasonLabel:
+      'Wikipedia lists the club as promoted from Southern League Premier Division South toward National League South status.',
+    sourceRefs: CLUB_SOURCE_REFS.waltonAndHersham,
+  }),
+  Object.freeze({
+    clubKey: 'waterlooville',
+    status: Object.freeze({
+      current: 'merged',
+      reason: 'merged',
+      reasonLabel: 'Merged with Havant Town in 1998 to form Havant & Waterlooville.',
+      sourceRefs: CLUB_SOURCE_REFS.waterlooville,
+    }),
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'merged',
+        season: 1998,
+        label: 'Merged with Havant Town to form Havant & Waterlooville.',
+        sourceRefs: Object.freeze([
+          ...CLUB_SOURCE_REFS.waterlooville,
+          ...CLUB_SOURCE_REFS.havantAndWaterlooville,
+        ]),
+      }),
+    ]),
+  }),
+  Object.freeze({
+    clubKey: 'wellingborough town',
+    status: Object.freeze({
+      current: 'active',
+      reason: 'successor-active',
+      reasonLabel:
+        'The earlier club folded after 2001-02; the current Wellingborough Town was re-founded in 2004 and plays below tracked coverage.',
+      sourceRefs: CLUB_SOURCE_REFS.wellingboroughTown,
+    }),
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'folded',
+        season: 2002,
+        label: 'The previous Wellingborough Town club folded after the 2001-02 season.',
+        sourceRefs: CLUB_SOURCE_REFS.wellingboroughTown,
+      }),
+      lifecycleEvent({
+        type: 'reformed',
+        season: 2004,
+        label: 'Wellingborough Town was re-founded in 2004.',
+        sourceRefs: CLUB_SOURCE_REFS.wellingboroughTown,
+      }),
+    ]),
+  }),
+  statusOnlyRule({
+    clubKey: 'whitby town',
+    current: 'active',
+    reason: 'possibly-missing-from-current-data',
+    reasonLabel:
+      'Wikipedia lists the club in the Northern Premier League, a level 7 league inside tracked but sparse coverage.',
+    sourceRefs: CLUB_SOURCE_REFS.whitbyTown,
+  }),
+  statusOnlyRule({
+    clubKey: 'whitley bay',
+    current: 'active',
+    reason: 'not-in-tracked-leagues',
+    reasonLabel:
+      'Wikipedia lists the club in Northern League Division One, below current tracked coverage.',
+    sourceRefs: CLUB_SOURCE_REFS.whitleyBay,
+  }),
+  statusOnlyRule({
+    clubKey: 'willenhall town',
+    current: 'active',
+    reason: 'not-in-tracked-leagues',
+    reasonLabel:
+      'Wikipedia lists the club as last playing in the West Midlands (Regional) League, below current tracked coverage.',
+    sourceRefs: CLUB_SOURCE_REFS.willenhallTown,
+  }),
+  Object.freeze({
+    clubKey: 'windsor and eton',
+    status: Object.freeze({
+      current: 'defunct',
+      reason: 'wound-up',
+      reasonLabel:
+        'The original Windsor & Eton club was wound up on 2 February 2011; later Windsor clubs are separate successor/same-name clubs.',
+      sourceRefs: CLUB_SOURCE_REFS.windsorAndEton,
+    }),
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'folded',
+        season: 2010,
+        date: '2011-02-02',
+        label: 'Wound up due to large debts during the 2010-11 season.',
+        sourceRefs: CLUB_SOURCE_REFS.windsorAndEton,
+      }),
+      lifecycleEvent({
+        type: 'successorFormed',
+        season: 2011,
+        label: 'Windsor F.C. was formed after the original Windsor & Eton folded.',
+        sourceRefs: CLUB_SOURCE_REFS.windsorAndEton,
+      }),
+      lifecycleEvent({
+        type: 'sameNameClubFormed',
+        season: 2023,
+        label: 'A new Windsor & Eton club was formed in 2023.',
+        sourceRefs: CLUB_SOURCE_REFS.windsorAndEton,
+      }),
+    ]),
+  }),
+  statusOnlyRule({
+    clubKey: 'winsford united',
+    current: 'active',
+    reason: 'not-in-tracked-leagues',
+    reasonLabel:
+      'Wikipedia lists the club as active below current tracked coverage after its historical Northern Premier League spell.',
+    sourceRefs: CLUB_SOURCE_REFS.winsfordUnited,
+  }),
+  Object.freeze({
+    clubKey: 'witney town',
+    status: Object.freeze({
+      current: 'active',
+      reason: 'successor-active',
+      reasonLabel:
+        'The historical club folded in 2001, successor versions later folded, and Witney Town re-formed for 2024-25 below tracked coverage.',
+      sourceRefs: CLUB_SOURCE_REFS.witneyTown,
+    }),
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'folded',
+        season: 2001,
+        label: 'The historical Witney Town folded in the 2001 close season.',
+        sourceRefs: CLUB_SOURCE_REFS.witneyTown,
+      }),
+      lifecycleEvent({
+        type: 'phoenixFormed',
+        season: 2002,
+        label: 'A phoenix club was formed as Witney United.',
+        sourceRefs: CLUB_SOURCE_REFS.witneyTown,
+      }),
+      lifecycleEvent({
+        type: 'renamed',
+        season: 2011,
+        label: 'Witney United readopted the Witney Town name.',
+        sourceRefs: CLUB_SOURCE_REFS.witneyTown,
+      }),
+      lifecycleEvent({
+        type: 'dissolved',
+        season: 2012,
+        label: 'Witney Town dissolved during the 2012-13 season.',
+        sourceRefs: CLUB_SOURCE_REFS.witneyTown,
+      }),
+      lifecycleEvent({
+        type: 'reformed',
+        season: 2024,
+        label: 'Witney Town re-formed for the 2024-25 season.',
+        sourceRefs: CLUB_SOURCE_REFS.witneyTown,
+      }),
+    ]),
+  }),
+  statusOnlyRule({
+    clubKey: 'wivenhoe town',
+    current: 'active',
+    reason: 'not-in-tracked-leagues',
+    reasonLabel:
+      'Wikipedia lists the club as active below current tracked coverage after relegation from the Eastern Counties League Premier Division.',
+    sourceRefs: CLUB_SOURCE_REFS.wivenhoeTown,
+  }),
+  Object.freeze({
+    clubKey: 'wokingham town',
+    status: Object.freeze({
+      current: 'active',
+      reason: 'not-in-tracked-leagues',
+      reasonLabel:
+        'Merged with Emmbrook Sports in 2004 as Wokingham & Emmbrook, returned to the Wokingham Town name in 2024, and remains below tracked coverage.',
+      sourceRefs: CLUB_SOURCE_REFS.wokinghamTown,
+    }),
+    lifecycleEvents: Object.freeze([
+      lifecycleEvent({
+        type: 'merged',
+        season: 2004,
+        label: 'Merged with Emmbrook Sports to form Wokingham & Emmbrook.',
+        sourceRefs: CLUB_SOURCE_REFS.wokinghamTown,
+      }),
+      lifecycleEvent({
+        type: 'renamed',
+        season: 2024,
+        label: 'Wokingham & Emmbrook was renamed Wokingham Town.',
+        sourceRefs: CLUB_SOURCE_REFS.wokinghamTown,
       }),
     ]),
   }),
@@ -6040,6 +6539,28 @@ export const CLUB_RELATIONSHIP_RULES = Object.freeze([
     sourceRefs: Object.freeze([
       ...CLUB_SOURCE_REFS.rushdenTown,
       ...CLUB_SOURCE_REFS.rushdenAndDiamonds,
+    ]),
+  }),
+  Object.freeze({
+    fromClubKey: 'walthamstow avenue',
+    toClubKey: 'redbridge forest',
+    relationship: 'merger',
+    season: 1988,
+    label: 'Walthamstow Avenue merged into Leytonstone/Ilford, later renamed Redbridge Forest.',
+    sourceRefs: Object.freeze([
+      ...CLUB_SOURCE_REFS.walthamstowAvenue,
+      ...CLUB_SOURCE_REFS.redbridgeForest,
+    ]),
+  }),
+  Object.freeze({
+    fromClubKey: 'waterlooville',
+    toClubKey: 'havant and waterlooville',
+    relationship: 'merger',
+    season: 1998,
+    label: 'Waterlooville merged with Havant Town to form Havant & Waterlooville.',
+    sourceRefs: Object.freeze([
+      ...CLUB_SOURCE_REFS.waterlooville,
+      ...CLUB_SOURCE_REFS.havantAndWaterlooville,
     ]),
   }),
   Object.freeze({
