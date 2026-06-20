@@ -142,6 +142,14 @@ function normalizeSourceUrl(value) {
   }
 }
 
+function isSupplementalOverviewTierMetadata(page, expectedSourceId, expectedTierKey, metadata) {
+  const tierLevel = Number(String(expectedTierKey).replace('tier', ''));
+  if (expectedSourceId !== WIKIPEDIA_DATA_SOURCES.overview.sourceId) return false;
+  if (!Number.isInteger(tierLevel) || tierLevel < 5) return false;
+  if (!metadata?.sourceUrl || !metadata?.seasonSlug) return false;
+  return normalizeSourceUrl(metadata.sourceUrl) !== normalizeSourceUrl(page.url);
+}
+
 function assertSavedMetadataIntegrity(page, sourceKey, seasonRecord) {
   const config = DATA_SOURCES[sourceKey];
   const seasonInfo = getSeasonInfoFromRecord(seasonRecord);
@@ -238,6 +246,13 @@ function assertSavedMetadataIntegrity(page, sourceKey, seasonRecord) {
 }
 
 function assertCommonTierMetadata(page, tierLabel, expectedTierKey, metadata, expectedSourceId) {
+  const isSupplementalMetadata = isSupplementalOverviewTierMetadata(
+    page,
+    expectedSourceId,
+    expectedTierKey,
+    metadata
+  );
+
   if (metadata.source !== expectedSourceId) {
     throw new Error(
       `Tier metadata source mismatch for ${page.season} ${tierLabel}: expected ${expectedSourceId}, got ${metadata.source}`
@@ -246,16 +261,23 @@ function assertCommonTierMetadata(page, tierLabel, expectedTierKey, metadata, ex
 
   if (
     metadata.sourceUrl &&
-    normalizeSourceUrl(metadata.sourceUrl) !== normalizeSourceUrl(page.url)
+    normalizeSourceUrl(metadata.sourceUrl) !== normalizeSourceUrl(page.url) &&
+    !isSupplementalMetadata
   ) {
     throw new Error(
       `Tier metadata sourceUrl mismatch for ${page.season} ${tierLabel}: expected ${page.url}, got ${metadata.sourceUrl}`
     );
   }
 
-  if (metadata.seasonSlug !== page.slug) {
+  if (!isSupplementalMetadata && metadata.seasonSlug !== page.slug) {
     throw new Error(
       `Tier metadata seasonSlug mismatch for ${page.season} ${tierLabel}: expected ${page.slug}, got ${metadata.seasonSlug}`
+    );
+  }
+
+  if (isSupplementalMetadata && typeof metadata.seasonSlug !== 'string') {
+    throw new Error(
+      `Supplemental tier metadata seasonSlug must be a string for ${page.season} ${tierLabel}`
     );
   }
 
@@ -603,9 +625,11 @@ function verifyTierMetadataEntries(page, expectations = [], results, savedSeason
   if (!Array.isArray(expectations) || expectations.length === 0) return;
 
   for (const expectation of expectations) {
-    const { tier, data } = expectation;
+    const { tier, data, savedData } = expectation;
     const liveMetadata = results?.[tier]?.metadata;
     const savedMetadata = savedSeasonRecord?.[tier]?.metadata;
+    const expectedLiveData = data || {};
+    const expectedSavedData = savedData || expectedLiveData;
 
     if (!liveMetadata) {
       throw new Error(
@@ -618,12 +642,15 @@ function verifyTierMetadataEntries(page, expectations = [], results, savedSeason
       );
     }
 
-    for (const [key, expectedValue] of Object.entries(data || {})) {
+    for (const [key, expectedValue] of Object.entries(expectedLiveData)) {
       if (liveMetadata[key] !== expectedValue) {
         throw new Error(
           `Live metadata mismatch for ${page.season} ${tier}.${key}: expected ${expectedValue}, got ${liveMetadata[key]}`
         );
       }
+    }
+
+    for (const [key, expectedValue] of Object.entries(expectedSavedData)) {
       if (savedMetadata[key] !== expectedValue) {
         throw new Error(
           `Saved metadata mismatch for ${page.season} ${tier}.${key}: expected ${expectedValue}, got ${savedMetadata[key]}`

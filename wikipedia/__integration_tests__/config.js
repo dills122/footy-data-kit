@@ -1375,6 +1375,11 @@ export const testPages = /** @type {TestPages} */ ([
             leagueId: 'National_League_Top_Division',
             leagueLevel: 5,
           },
+          savedData: {
+            title: 'National League',
+            leagueId: 'League_table',
+            leagueLevel: 5,
+          },
         },
       ],
     },
@@ -1442,6 +1447,11 @@ export const testPages = /** @type {TestPages} */ ([
           data: {
             title: 'National League Top Division',
             leagueId: 'National_League_Top_Division',
+            leagueLevel: 5,
+          },
+          savedData: {
+            title: 'National League',
+            leagueId: 'League_table',
             leagueLevel: 5,
           },
         },
