@@ -6,6 +6,7 @@ import {
   buildWikipediaArticleTitles,
   classifyAssetLicense,
   classifyClubAssetCandidate,
+  isRejectedClubAssetCandidate,
 } from '../data/assets/club-assets.js';
 
 const exampleClub = {
@@ -142,6 +143,39 @@ describe('club asset helpers', () => {
     expect(candidate.verification.reviewReasons || []).not.toContain('non-crest-filename');
   });
 
+  test('accepts the curated Leeds City historical arms crest candidate', () => {
+    const candidate = classifyClubAssetCandidate(
+      {
+        assetId: 'wikipedia-pageimage-free:Leeds_old_arms.png',
+        kind: 'crest',
+        status: 'needs-review',
+        source: 'wikipedia-pageimage-free',
+        imageUrl: 'https://upload.wikimedia.org/wikipedia/en/9/9b/Leeds_old_arms.png',
+        fileTitle: 'File:Leeds old arms.png',
+        license: {
+          shortName: 'PD',
+          usageTerms: 'Public domain',
+          copyrighted: false,
+        },
+      },
+      {
+        clubId: 'leeds-city',
+        canonicalName: 'Leeds City',
+        derived: {
+          aliases: ['Leeds City F.C.'],
+        },
+      }
+    );
+
+    expect(candidate.status).toBe('usable');
+    expect(candidate.notes).toContain('Leeds City historical crest/arms');
+    expect(candidate.verification).toMatchObject({
+      identityMatch: 'curated',
+      needsManualReview: false,
+    });
+    expect(candidate.verification.reviewReasons || []).toEqual([]);
+  });
+
   test('does not trust generic Wikidata images without crest signals', () => {
     const candidate = classifyClubAssetCandidate(
       {
@@ -162,6 +196,19 @@ describe('club asset helpers', () => {
 
     expect(candidate.status).toBe('needs-review');
     expect(candidate.verification.reviewReasons).toContain('non-crest-filename');
+  });
+
+  test('recognizes curated rejected non-crest image candidates', () => {
+    expect(
+      isRejectedClubAssetCandidate({
+        assetId: 'wikipedia-pageimage-free:Crown_Ground_sign-geograph-1761360.jpg',
+      })
+    ).toBe(true);
+    expect(
+      isRejectedClubAssetCandidate({
+        assetId: 'wikipedia-pageimage-free:Example_FC_crest.svg',
+      })
+    ).toBe(false);
   });
 
   test('does not trust Wikidata logo properties without crest filename evidence', () => {
@@ -230,13 +277,34 @@ describe('club asset helpers', () => {
     expect(candidate.imageUrl).toMatch(/^data:image\/svg\+xml,/);
   });
 
+  test('preserves generated placeholder status during reclassification', () => {
+    const candidate = buildGeneratedPlaceholderCrestCandidate(
+      {
+        clubId: 'sunderland-albion',
+        canonicalName: 'Sunderland Albion',
+      },
+      { checkedAt: '2026-06-20T00:00:00.000Z' }
+    );
+
+    const reclassified = classifyClubAssetCandidate(candidate, {
+      clubId: 'sunderland-albion',
+      canonicalName: 'Sunderland Albion',
+    });
+
+    expect(reclassified.status).toBe('placeholder');
+    expect(reclassified.verification).toMatchObject({
+      identityMatch: 'generated-placeholder',
+      needsManualReview: false,
+    });
+  });
+
   test('uses generated placeholders only when no discovered candidates exist', () => {
     const placeholderBundle = addGeneratedPlaceholderFallback(
       {
         clubId: 'sunderland-albion',
         canonicalName: 'Sunderland Albion',
       },
-      { status: 'missing' }
+      { status: 'needs-more-research' }
     );
 
     expect(placeholderBundle).toMatchObject({
@@ -348,10 +416,12 @@ describe('club asset helpers', () => {
     expect(bundle.candidates[0].assetId).toBe('wikipedia-pageimage-free:Example_FC_crest.svg');
   });
 
-  test('builds manual review issues for missing and uncertain assets', () => {
-    expect(buildClubAssetReviewIssues('example fc', exampleClub, { status: 'missing' })).toEqual([
+  test('builds manual review issues for unresolved and uncertain assets', () => {
+    expect(
+      buildClubAssetReviewIssues('example fc', exampleClub, { status: 'needs-more-research' })
+    ).toEqual([
       expect.objectContaining({
-        type: 'club-asset-missing',
+        type: 'club-asset-needs-more-research',
         clubKey: 'example fc',
       }),
     ]);

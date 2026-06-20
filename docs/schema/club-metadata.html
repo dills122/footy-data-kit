@@ -99,6 +99,24 @@
           ><a href="#integer-list">
             <span>Integer List</span>
             <code>IntegerList</code> </a
+          ><a href="#metadata-asset-bundle">
+            <span>Metadata Asset Bundle</span>
+            <code>MetadataAssetBundle</code> </a
+          ><a href="#metadata-asset-candidate">
+            <span>Metadata Asset Candidate</span>
+            <code>MetadataAssetCandidate</code> </a
+          ><a href="#metadata-asset-color">
+            <span>Metadata Asset Color</span>
+            <code>MetadataAssetColor</code> </a
+          ><a href="#metadata-asset-license">
+            <span>Metadata Asset License</span>
+            <code>MetadataAssetLicense</code> </a
+          ><a href="#metadata-assets">
+            <span>Metadata Assets</span>
+            <code>MetadataAssets</code> </a
+          ><a href="#metadata-asset-verification">
+            <span>Metadata Asset Verification</span>
+            <code>MetadataAssetVerification</code> </a
           ><a href="#source-refs">
             <span>Source Refs</span>
             <code>SourceRefs</code> </a
@@ -688,6 +706,14 @@
               <th scope="row"><code>derived</code></th>
               <td>
                 <a href="#club-derived-metadata"><code>ClubDerivedMetadata</code></a>
+              </td>
+              <td><span class="schema-requirement is-optional">optional</span></td>
+              <td><span class="schema-muted">No description.</span></td>
+            </tr>
+            <tr>
+              <th scope="row"><code>assets</code></th>
+              <td>
+                <a href="#metadata-assets"><code>MetadataAssets</code></a>
               </td>
               <td><span class="schema-requirement is-optional">optional</span></td>
               <td><span class="schema-muted">No description.</span></td>
@@ -1306,6 +1332,396 @@
         </div>
 
         <p class="schema-muted">No named properties.</p>
+      </section>
+      <section class="panel schema-definition" id="metadata-asset-bundle">
+        <div class="section-heading">
+          <div>
+            <h2>Metadata Asset Bundle</h2>
+            <code class="schema-symbol">MetadataAssetBundle</code>
+          </div>
+          <a href="#metadata-asset-bundle">anchor</a>
+        </div>
+        <div class="schema-summary">
+          <span>type <code>object</code></span>
+          <span>1 required</span><span>closed object</span>
+        </div>
+
+        <table class="schema-table">
+          <thead>
+            <tr>
+              <th scope="col">Property key</th>
+              <th scope="col">Type</th>
+              <th scope="col">Use</th>
+              <th scope="col">Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row"><code>preferred</code></th>
+              <td><code>string</code> | <code>null</code></td>
+              <td><span class="schema-requirement is-optional">optional</span></td>
+              <td>
+                assetId for the preferred candidate, or null when no candidate is safe to prefer.
+              </td>
+            </tr>
+            <tr>
+              <th scope="row"><code>status</code></th>
+              <td><code>string</code></td>
+              <td><span class="schema-requirement is-required">required</span></td>
+              <td>
+                Overall bundle status such as usable, placeholder, restricted, needs-review,
+                needs-more-research, or failed.
+              </td>
+            </tr>
+            <tr>
+              <th scope="row"><code>candidates</code></th>
+              <td><code>array</code></td>
+              <td><span class="schema-requirement is-optional">optional</span></td>
+              <td><span class="schema-muted">No description.</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+      <section class="panel schema-definition" id="metadata-asset-candidate">
+        <div class="section-heading">
+          <div>
+            <h2>Metadata Asset Candidate</h2>
+            <code class="schema-symbol">MetadataAssetCandidate</code>
+          </div>
+          <a href="#metadata-asset-candidate">anchor</a>
+        </div>
+        <div class="schema-summary">
+          <span>type <code>object</code></span>
+          <span>4 required</span><span>closed object</span>
+        </div>
+
+        <table class="schema-table">
+          <thead>
+            <tr>
+              <th scope="col">Property key</th>
+              <th scope="col">Type</th>
+              <th scope="col">Use</th>
+              <th scope="col">Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row"><code>assetId</code></th>
+              <td><code>string</code></td>
+              <td><span class="schema-requirement is-required">required</span></td>
+              <td><span class="schema-muted">No description.</span></td>
+            </tr>
+            <tr>
+              <th scope="row"><code>kind</code></th>
+              <td><code>string</code></td>
+              <td><span class="schema-requirement is-required">required</span></td>
+              <td><span class="schema-muted">No description.</span></td>
+            </tr>
+            <tr>
+              <th scope="row"><code>status</code></th>
+              <td><code>string</code></td>
+              <td><span class="schema-requirement is-required">required</span></td>
+              <td><span class="schema-muted">No description.</span></td>
+            </tr>
+            <tr>
+              <th scope="row"><code>priority</code></th>
+              <td><code>integer</code> | <code>null</code></td>
+              <td><span class="schema-requirement is-optional">optional</span></td>
+              <td><span class="schema-muted">No description.</span></td>
+            </tr>
+            <tr>
+              <th scope="row"><code>source</code></th>
+              <td><code>string</code></td>
+              <td><span class="schema-requirement is-required">required</span></td>
+              <td><span class="schema-muted">No description.</span></td>
+            </tr>
+            <tr>
+              <th scope="row"><code>sourceUrl</code></th>
+              <td><code>string</code> | <code>null</code></td>
+              <td><span class="schema-requirement is-optional">optional</span></td>
+              <td><span class="schema-muted">No description.</span></td>
+            </tr>
+            <tr>
+              <th scope="row"><code>imageUrl</code></th>
+              <td><code>string</code> | <code>null</code></td>
+              <td><span class="schema-requirement is-optional">optional</span></td>
+              <td><span class="schema-muted">No description.</span></td>
+            </tr>
+            <tr>
+              <th scope="row"><code>pageUrl</code></th>
+              <td><code>string</code> | <code>null</code></td>
+              <td><span class="schema-requirement is-optional">optional</span></td>
+              <td><span class="schema-muted">No description.</span></td>
+            </tr>
+            <tr>
+              <th scope="row"><code>fileTitle</code></th>
+              <td><code>string</code> | <code>null</code></td>
+              <td><span class="schema-requirement is-optional">optional</span></td>
+              <td><span class="schema-muted">No description.</span></td>
+            </tr>
+            <tr>
+              <th scope="row"><code>mimeType</code></th>
+              <td><code>string</code> | <code>null</code></td>
+              <td><span class="schema-requirement is-optional">optional</span></td>
+              <td><span class="schema-muted">No description.</span></td>
+            </tr>
+            <tr>
+              <th scope="row"><code>width</code></th>
+              <td><code>integer</code> | <code>null</code></td>
+              <td><span class="schema-requirement is-optional">optional</span></td>
+              <td><span class="schema-muted">No description.</span></td>
+            </tr>
+            <tr>
+              <th scope="row"><code>height</code></th>
+              <td><code>integer</code> | <code>null</code></td>
+              <td><span class="schema-requirement is-optional">optional</span></td>
+              <td><span class="schema-muted">No description.</span></td>
+            </tr>
+            <tr>
+              <th scope="row"><code>license</code></th>
+              <td>
+                <a href="#metadata-asset-license"><code>MetadataAssetLicense</code></a>
+              </td>
+              <td><span class="schema-requirement is-optional">optional</span></td>
+              <td><span class="schema-muted">No description.</span></td>
+            </tr>
+            <tr>
+              <th scope="row"><code>colors</code></th>
+              <td><code>array</code></td>
+              <td><span class="schema-requirement is-optional">optional</span></td>
+              <td>Structured color hints used by generated placeholders or asset consumers.</td>
+            </tr>
+            <tr>
+              <th scope="row"><code>placeholder</code></th>
+              <td><code>boolean</code></td>
+              <td><span class="schema-requirement is-optional">optional</span></td>
+              <td>
+                True when the candidate is a generated placeholder rather than an official or
+                source-discovered asset.
+              </td>
+            </tr>
+            <tr>
+              <th scope="row"><code>verification</code></th>
+              <td>
+                <a href="#metadata-asset-verification"><code>MetadataAssetVerification</code></a>
+              </td>
+              <td><span class="schema-requirement is-optional">optional</span></td>
+              <td><span class="schema-muted">No description.</span></td>
+            </tr>
+            <tr>
+              <th scope="row"><code>notes</code></th>
+              <td><code>string</code> | <code>null</code></td>
+              <td><span class="schema-requirement is-optional">optional</span></td>
+              <td><span class="schema-muted">No description.</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+      <section class="panel schema-definition" id="metadata-asset-color">
+        <div class="section-heading">
+          <div>
+            <h2>Metadata Asset Color</h2>
+            <code class="schema-symbol">MetadataAssetColor</code>
+          </div>
+          <a href="#metadata-asset-color">anchor</a>
+        </div>
+        <div class="schema-summary">
+          <span>type <code>object</code></span>
+          <span>2 required</span><span>closed object</span>
+        </div>
+
+        <table class="schema-table">
+          <thead>
+            <tr>
+              <th scope="col">Property key</th>
+              <th scope="col">Type</th>
+              <th scope="col">Use</th>
+              <th scope="col">Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row"><code>role</code></th>
+              <td><code>string</code></td>
+              <td><span class="schema-requirement is-required">required</span></td>
+              <td><span class="schema-muted">No description.</span></td>
+            </tr>
+            <tr>
+              <th scope="row"><code>hex</code></th>
+              <td><code>string</code></td>
+              <td><span class="schema-requirement is-required">required</span></td>
+              <td><span class="schema-muted">No description.</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+      <section class="panel schema-definition" id="metadata-asset-license">
+        <div class="section-heading">
+          <div>
+            <h2>Metadata Asset License</h2>
+            <code class="schema-symbol">MetadataAssetLicense</code>
+          </div>
+          <a href="#metadata-asset-license">anchor</a>
+        </div>
+        <div class="schema-summary">
+          <span>type <code>object</code></span>
+          <span>closed object</span>
+        </div>
+
+        <table class="schema-table">
+          <thead>
+            <tr>
+              <th scope="col">Property key</th>
+              <th scope="col">Type</th>
+              <th scope="col">Use</th>
+              <th scope="col">Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row"><code>shortName</code></th>
+              <td><code>string</code> | <code>null</code></td>
+              <td><span class="schema-requirement is-optional">optional</span></td>
+              <td><span class="schema-muted">No description.</span></td>
+            </tr>
+            <tr>
+              <th scope="row"><code>usageTerms</code></th>
+              <td><code>string</code> | <code>null</code></td>
+              <td><span class="schema-requirement is-optional">optional</span></td>
+              <td><span class="schema-muted">No description.</span></td>
+            </tr>
+            <tr>
+              <th scope="row"><code>licenseUrl</code></th>
+              <td><code>string</code> | <code>null</code></td>
+              <td><span class="schema-requirement is-optional">optional</span></td>
+              <td><span class="schema-muted">No description.</span></td>
+            </tr>
+            <tr>
+              <th scope="row"><code>copyrighted</code></th>
+              <td><code>boolean</code> | <code>null</code></td>
+              <td><span class="schema-requirement is-optional">optional</span></td>
+              <td><span class="schema-muted">No description.</span></td>
+            </tr>
+            <tr>
+              <th scope="row"><code>attribution</code></th>
+              <td><code>string</code> | <code>null</code></td>
+              <td><span class="schema-requirement is-optional">optional</span></td>
+              <td><span class="schema-muted">No description.</span></td>
+            </tr>
+            <tr>
+              <th scope="row"><code>credit</code></th>
+              <td><code>string</code> | <code>null</code></td>
+              <td><span class="schema-requirement is-optional">optional</span></td>
+              <td><span class="schema-muted">No description.</span></td>
+            </tr>
+            <tr>
+              <th scope="row"><code>artist</code></th>
+              <td><code>string</code> | <code>null</code></td>
+              <td><span class="schema-requirement is-optional">optional</span></td>
+              <td><span class="schema-muted">No description.</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+      <section class="panel schema-definition" id="metadata-assets">
+        <div class="section-heading">
+          <div>
+            <h2>Metadata Assets</h2>
+            <code class="schema-symbol">MetadataAssets</code>
+          </div>
+          <a href="#metadata-assets">anchor</a>
+        </div>
+        <div class="schema-summary">
+          <span>type <code>object</code></span>
+        </div>
+        <p>
+          Visual and media asset candidates for this metadata identity. v1 populates club crest
+          candidates only.
+        </p>
+        <table class="schema-table">
+          <thead>
+            <tr>
+              <th scope="col">Property key</th>
+              <th scope="col">Type</th>
+              <th scope="col">Use</th>
+              <th scope="col">Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row"><code>crest</code></th>
+              <td>
+                <a href="#metadata-asset-bundle"><code>MetadataAssetBundle</code></a>
+              </td>
+              <td><span class="schema-requirement is-optional">optional</span></td>
+              <td><span class="schema-muted">No description.</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+      <section class="panel schema-definition" id="metadata-asset-verification">
+        <div class="section-heading">
+          <div>
+            <h2>Metadata Asset Verification</h2>
+            <code class="schema-symbol">MetadataAssetVerification</code>
+          </div>
+          <a href="#metadata-asset-verification">anchor</a>
+        </div>
+        <div class="schema-summary">
+          <span>type <code>object</code></span>
+          <span>closed object</span>
+        </div>
+
+        <table class="schema-table">
+          <thead>
+            <tr>
+              <th scope="col">Property key</th>
+              <th scope="col">Type</th>
+              <th scope="col">Use</th>
+              <th scope="col">Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row"><code>identityMatch</code></th>
+              <td><code>string</code> | <code>null</code></td>
+              <td><span class="schema-requirement is-optional">optional</span></td>
+              <td><span class="schema-muted">No description.</span></td>
+            </tr>
+            <tr>
+              <th scope="row"><code>licenseCheck</code></th>
+              <td><code>string</code> | <code>null</code></td>
+              <td><span class="schema-requirement is-optional">optional</span></td>
+              <td><span class="schema-muted">No description.</span></td>
+            </tr>
+            <tr>
+              <th scope="row"><code>httpCheck</code></th>
+              <td><code>string</code> | <code>null</code></td>
+              <td><span class="schema-requirement is-optional">optional</span></td>
+              <td><span class="schema-muted">No description.</span></td>
+            </tr>
+            <tr>
+              <th scope="row"><code>needsManualReview</code></th>
+              <td><code>boolean</code></td>
+              <td><span class="schema-requirement is-optional">optional</span></td>
+              <td><span class="schema-muted">No description.</span></td>
+            </tr>
+            <tr>
+              <th scope="row"><code>reviewReasons</code></th>
+              <td>
+                <a href="#string-list"><code>StringList</code></a>
+              </td>
+              <td><span class="schema-requirement is-optional">optional</span></td>
+              <td><span class="schema-muted">No description.</span></td>
+            </tr>
+            <tr>
+              <th scope="row"><code>checkedAt</code></th>
+              <td><code>string</code> | <code>null</code></td>
+              <td><span class="schema-requirement is-optional">optional</span></td>
+              <td><span class="schema-muted">No description.</span></td>
+            </tr>
+          </tbody>
+        </table>
       </section>
       <section class="panel schema-definition" id="source-refs">
         <div class="section-heading">

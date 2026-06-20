@@ -35,6 +35,61 @@ const WIKIDATA_MEDIA_PROPERTIES = Object.freeze([
   { property: 'P18', source: CLUB_ASSET_SOURCE_IDS.wikidataImage },
 ]);
 const TRUSTED_WIKIDATA_CREST_SOURCES = Object.freeze([CLUB_ASSET_SOURCE_IDS.wikidataCoatOfArms]);
+const REJECTED_ASSET_IDS = Object.freeze(
+  new Set([
+    'wikidata-image:Andover-2008-Squad.jpg',
+    'wikidata-image:DovervStaines.jpg',
+    'wikidata-image:Shepshed Ground 001 Small.jpg',
+    'wikidata-image:Trowbridge Town F.C..jpg',
+    'wikipedia-pageimage-any:Epsom_and_Ewell_UK_locator_map.svg',
+    'wikipedia-pageimage-any:Folkestone_Harbour_with_Viaduct_and_Swing_Bridge.png',
+    'wikipedia-pageimage-free:Altrincham_Town_Square_-_2024.jpg',
+    'wikipedia-pageimage-free:Angel_of_the_North,_Gateshead,_United_Kingdom.jpg',
+    'wikipedia-pageimage-free:Atherstone_Town_FC_2009.jpg',
+    'wikipedia-pageimage-free:Beam_valley_park_and_turbine_1.jpg',
+    'wikipedia-pageimage-free:Bishop_Auckland_Town_Hall.jpg',
+    'wikipedia-pageimage-free:Bootle_Town_Hall_2020-1.jpg',
+    'wikipedia-pageimage-free:BroadLaneWivenhoeTown21Jan2017.jpg',
+    'wikipedia-pageimage-free:Bromley_-_geograph.org.uk_-_4623007.jpg',
+    'wikipedia-pageimage-free:Bromley_FC_League_Performance.svg',
+    'wikipedia-pageimage-free:Centre_of_Hereford_-_geograph.org.uk_-_4306743.jpg',
+    'wikipedia-pageimage-free:Chester_-_Shops_in_city_centre_-_2005-10-09.jpg',
+    'wikipedia-pageimage-free:Citadel-1.jpg',
+    'wikipedia-pageimage-free:Clevedon_Town_2007.jpg',
+    'wikipedia-pageimage-free:Crown_Ground_sign-geograph-1761360.jpg',
+    'wikipedia-pageimage-free:Darlington_clock_tower_and_market_hall_(geograph_6299652).jpg',
+    'wikipedia-pageimage-free:DrippingPan.jpg',
+    'wikipedia-pageimage-free:Exeter_City_match.JPG',
+    'wikipedia-pageimage-free:Glossop_-_geograph.org.uk_-_7292918.jpg',
+    'wikipedia-pageimage-free:Hendon_Town_Hall_in_December_2011.JPG',
+    'wikipedia-pageimage-free:Hereford_United_League_Performance.svg',
+    'wikipedia-pageimage-free:High_Street_Dunstable_-_geograph.org.uk_-_6524692.jpg',
+    'wikipedia-pageimage-free:Hounslow_High_Street.1.JPG',
+    'wikipedia-pageimage-free:H\u00F4tel_ville_South_Shields_South_Tyneside_28.jpg',
+    'wikipedia-pageimage-free:Lewes-udsigt.jpg',
+    'wikipedia-pageimage-free:LeytonCentre.JPG',
+    'wikipedia-pageimage-free:London_Thames_Sunset_panorama_-_Feb_2008.jpg',
+    'wikipedia-pageimage-free:Maidenhead_v_Barnet_022.jpg',
+    'wikipedia-pageimage-free:Middlesborough_Town_Hall_image_by_Robert_Eva.jpg',
+    'wikipedia-pageimage-free:New_Brighton_Tower.jpg',
+    'wikipedia-pageimage-free:New_North_Bank.jpg',
+    'wikipedia-pageimage-free:Old_Town_Hall_Eastleigh.JPG',
+    'wikipedia-pageimage-free:Peterborough_Sports_vs_Guiseley_FC_-_FA_Cup_3rd_qualifying_round_2019.jpg',
+    'wikipedia-pageimage-free:Ryan_Valentine_scores.jpg',
+    'wikipedia-pageimage-free:Silver_Jubilee_Bridge,_Runcorn,_night,_2024.jpg',
+    'wikipedia-pageimage-free:St_Paul,_Addlestone_-_geograph.org.uk_-_1517212.jpg',
+    'wikipedia-pageimage-free:The_Main_Stand_at_Court_Place_Farm_-_geograph.org.uk_-_1245335.jpg',
+    'wikipedia-pageimage-free:Town_Hall_-_Market_Place_(geograph_2938168).jpg',
+  ])
+);
+const CURATED_ASSET_DECISIONS = Object.freeze({
+  'wikipedia-pageimage-free:Leeds_old_arms.png': {
+    clubIds: ['leeds-city'],
+    status: 'usable',
+    identityMatch: 'curated',
+    notes: 'Curated as an acceptable Leeds City historical crest/arms candidate.',
+  },
+});
 const GENERATED_PLACEHOLDER_LICENSE = Object.freeze({
   shortName: 'CC0-1.0',
   usageTerms: 'Creative Commons Zero v1.0 Universal',
@@ -81,13 +136,6 @@ const HISTORICAL_PLACEHOLDER_CRESTS = Object.freeze({
     colors: [
       { role: 'primary', hex: '#0000FF' },
       { role: 'secondary', hex: '#FFFFFF' },
-    ],
-  },
-  'redbridge-forest': {
-    colors: [
-      { role: 'primary', hex: '#FF0000' },
-      { role: 'secondary', hex: '#0000FF' },
-      { role: 'accent', hex: '#FFFFFF' },
     ],
   },
   'rotherham-town': {
@@ -330,10 +378,43 @@ function isLikelyCrestCandidate(candidate, identityMatch) {
   );
 }
 
+function curatedAssetDecision(candidate, club) {
+  const decision = CURATED_ASSET_DECISIONS[candidate.assetId];
+  if (!decision) return null;
+  const clubId = slugify(club?.clubId || club?.canonicalName || '');
+  if (decision.clubIds && !decision.clubIds.includes(clubId)) return null;
+  return decision;
+}
+
+export function isRejectedClubAssetCandidate(candidate) {
+  return REJECTED_ASSET_IDS.has(candidate?.assetId);
+}
+
 export function classifyClubAssetCandidate(candidate, club, { checkedAt = null } = {}) {
   const licenseCheck = classifyAssetLicense(candidate.license || {});
+  const isGeneratedPlaceholder =
+    candidate.placeholder || candidate.source === CLUB_ASSET_SOURCE_IDS.generatedPlaceholder;
+  if (isGeneratedPlaceholder) {
+    const reviewReasons = candidate.imageUrl ? [] : ['image-url-missing'];
+    const status = candidate.imageUrl ? 'placeholder' : 'failed';
+    return {
+      ...candidate,
+      status,
+      verification: compactObject({
+        ...(candidate.verification || {}),
+        identityMatch: 'generated-placeholder',
+        licenseCheck,
+        httpCheck: candidate.imageUrl ? 'pass' : 'fail',
+        needsManualReview: status !== 'placeholder',
+        reviewReasons,
+        checkedAt,
+      }),
+    };
+  }
+
   const identityMatch = classifyAssetIdentity(candidate, club);
   const likelyCrestCandidate = isLikelyCrestCandidate(candidate, identityMatch);
+  const curatedDecision = curatedAssetDecision(candidate, club);
   const reviewReasons = [];
 
   if (licenseCheck === 'restricted') reviewReasons.push('license-restricted');
@@ -354,13 +435,18 @@ export function classifyClubAssetCandidate(candidate, club, { checkedAt = null }
   ) {
     status = 'usable';
   }
+  if (curatedDecision?.status === 'usable' && licenseCheck === 'pass' && candidate.imageUrl) {
+    status = 'usable';
+    reviewReasons.length = 0;
+  }
 
   return {
     ...candidate,
     status,
+    notes: candidate.notes || curatedDecision?.notes,
     verification: compactObject({
       ...(candidate.verification || {}),
-      identityMatch,
+      identityMatch: curatedDecision?.identityMatch || identityMatch,
       licenseCheck,
       httpCheck: candidate.imageUrl ? 'pass' : 'fail',
       needsManualReview: status !== 'usable',
@@ -422,7 +508,7 @@ export function buildClubAssetBundle(candidates, { limit = 5 } = {}) {
   const preferredCandidate =
     rankedCandidates.find((candidate) => candidate.status === 'usable') ||
     rankedCandidates.find((candidate) => candidate.status === 'placeholder');
-  const status = preferredCandidate?.status || rankedCandidates[0]?.status || 'missing';
+  const status = preferredCandidate?.status || rankedCandidates[0]?.status || 'needs-more-research';
 
   return compactObject({
     preferred: preferredCandidate?.assetId || null,
@@ -488,9 +574,9 @@ export function buildClubAssetReviewIssues(clubKey, club, bundle) {
 
   if (!candidates.length) {
     issues.push({
-      type: 'club-asset-missing',
+      type: 'club-asset-needs-more-research',
       ...baseIssue,
-      message: `${baseIssue.canonicalName} has no crest asset candidates`,
+      message: `${baseIssue.canonicalName} needs more crest asset research`,
     });
     return issues;
   }
@@ -815,7 +901,10 @@ export async function discoverClubCrestBundle(club, options = {}) {
   } catch (error) {
     if (options.throwOnSourceError) throw error;
   }
-  const classifiedCandidates = enrichedCandidates.map((candidate) =>
+  const filteredCandidates = enrichedCandidates.filter(
+    (candidate) => !isRejectedClubAssetCandidate(candidate)
+  );
+  const classifiedCandidates = filteredCandidates.map((candidate) =>
     classifyClubAssetCandidate(candidate, club, { checkedAt })
   );
   return buildClubAssetBundle(classifiedCandidates, { limit: options.limit || 5 });

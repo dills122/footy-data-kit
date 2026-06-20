@@ -635,12 +635,13 @@ function normaliseAssetBundle(value: any, kind: string): AnyRecord | undefined {
   const candidates = normaliseAssetCandidates(value.candidates, kind);
   const bundle = {
     preferred: toStringValue(value.preferred),
-    status: toStringValue(value.status) || (candidates.length ? 'needs-review' : 'missing'),
+    status:
+      toStringValue(value.status) || (candidates.length ? 'needs-review' : 'needs-more-research'),
     candidates,
   };
   const cleaned = Object.fromEntries(
     Object.entries(bundle).filter(([key, entry]) => {
-      if (key === 'preferred') return entry != null || bundle.status === 'missing';
+      if (key === 'preferred') return entry != null || bundle.status === 'needs-more-research';
       if (Array.isArray(entry)) return entry.length > 0;
       return entry != null;
     })

@@ -692,6 +692,7 @@ function buildSiteData() {
         label: 'Site',
         links: [
           { label: 'Data explorer', url: './explorer-prototype.html' },
+          { label: 'Club asset review', url: './club-assets-review.html' },
           { label: 'Release notes', url: './releases/' },
           { label: 'Schema docs', url: './schema/' },
         ],
@@ -712,6 +713,11 @@ function buildSiteData() {
         label: 'Explore data',
         url: './explorer-prototype.html',
         className: 'button-link--primary',
+      },
+      {
+        label: 'Review club assets',
+        url: './club-assets-review.html',
+        className: 'button-link--secondary',
       },
       {
         label: 'Download JSON',

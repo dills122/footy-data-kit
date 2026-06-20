@@ -118,7 +118,7 @@ describe('generateClubAssets', () => {
         clubs: {
           'example fc': {
             crest: {
-              status: 'missing',
+              status: 'needs-more-research',
             },
           },
         },
@@ -138,7 +138,7 @@ describe('generateClubAssets', () => {
     const review = JSON.parse(fs.readFileSync(reviewOutputFile, 'utf8'));
 
     expect(result.processedClubCount).toBe(1);
-    expect(output.clubs['example fc'].assets.crest.status).toBe('missing');
+    expect(output.clubs['example fc'].assets.crest.status).toBe('needs-more-research');
     expect(output.clubs['other fc'].assets).toBeUndefined();
     expect(review.clubCount).toBe(1);
   });
@@ -168,7 +168,7 @@ describe('generateClubAssets', () => {
         clubs: {
           'sunderland albion': {
             crest: {
-              status: 'missing',
+              status: 'needs-more-research',
             },
           },
         },
@@ -202,6 +202,148 @@ describe('generateClubAssets', () => {
       ],
     });
     expect(review.issueCount).toBe(0);
+  });
+
+  test('drops stale cached generated placeholders for non-curated clubs', async () => {
+    const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'club-assets-test-'));
+    tmpDirs.push(tmpDir);
+    const inputFile = path.join(tmpDir, 'club-metadata.json');
+    const outputFile = path.join(tmpDir, 'club-metadata-output.json');
+    const reviewOutputFile = path.join(tmpDir, 'club-assets-review.json');
+    const cacheFile = path.join(tmpDir, 'club-assets-cache.json');
+
+    fs.writeFileSync(
+      inputFile,
+      JSON.stringify({
+        clubs: {
+          'redbridge forest': {
+            clubId: 'redbridge-forest',
+            canonicalName: 'Redbridge Forest',
+          },
+        },
+      })
+    );
+    fs.writeFileSync(
+      cacheFile,
+      JSON.stringify({
+        clubs: {
+          'redbridge forest': {
+            crest: {
+              preferred: 'generated-placeholder:Generated:redbridge-forest-placeholder-crest.svg',
+              status: 'placeholder',
+              candidates: [
+                {
+                  assetId: 'generated-placeholder:Generated:redbridge-forest-placeholder-crest.svg',
+                  kind: 'crest',
+                  status: 'placeholder',
+                  source: 'generated-placeholder',
+                  placeholder: true,
+                  imageUrl: 'data:image/svg+xml,%3Csvg%3E%3C%2Fsvg%3E',
+                  fileTitle: 'Generated:redbridge-forest-placeholder-crest.svg',
+                  license: {
+                    shortName: 'CC0-1.0',
+                    usageTerms: 'Creative Commons Zero v1.0 Universal',
+                    copyrighted: false,
+                  },
+                },
+              ],
+            },
+          },
+        },
+      })
+    );
+
+    await generateClubAssets({
+      input: inputFile,
+      output: outputFile,
+      reviewOutput: reviewOutputFile,
+      cache: cacheFile,
+      requestDelayMs: 0,
+      cwd: process.cwd(),
+    });
+
+    const output = JSON.parse(fs.readFileSync(outputFile, 'utf8'));
+    const review = JSON.parse(fs.readFileSync(reviewOutputFile, 'utf8'));
+
+    expect(output.clubs['redbridge forest'].assets.crest).toEqual({
+      status: 'needs-more-research',
+    });
+    expect(review.issues).toEqual([
+      expect.objectContaining({
+        type: 'club-asset-needs-more-research',
+        clubKey: 'redbridge forest',
+      }),
+    ]);
+  });
+
+  test('filters rejected cached candidates and marks unresolved clubs for more research', async () => {
+    const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'club-assets-test-'));
+    tmpDirs.push(tmpDir);
+    const inputFile = path.join(tmpDir, 'club-metadata.json');
+    const outputFile = path.join(tmpDir, 'club-metadata-output.json');
+    const reviewOutputFile = path.join(tmpDir, 'club-assets-review.json');
+    const cacheFile = path.join(tmpDir, 'club-assets-cache.json');
+
+    fs.writeFileSync(
+      inputFile,
+      JSON.stringify({
+        clubs: {
+          accrington: {
+            clubId: 'accrington',
+            canonicalName: 'Accrington',
+          },
+        },
+      })
+    );
+    fs.writeFileSync(
+      cacheFile,
+      JSON.stringify({
+        clubs: {
+          accrington: {
+            crest: {
+              preferred: 'wikipedia-pageimage-free:Crown_Ground_sign-geograph-1761360.jpg',
+              status: 'needs-review',
+              candidates: [
+                {
+                  assetId: 'wikipedia-pageimage-free:Crown_Ground_sign-geograph-1761360.jpg',
+                  kind: 'crest',
+                  status: 'needs-review',
+                  source: 'wikipedia-pageimage-free',
+                  imageUrl:
+                    'https://upload.wikimedia.org/wikipedia/commons/9/9a/Crown_Ground_sign-geograph-1761360.jpg',
+                  fileTitle: 'File:Crown Ground sign-geograph-1761360.jpg',
+                  license: {
+                    shortName: 'CC BY-SA 2.0',
+                    usageTerms: 'Creative Commons Attribution-Share Alike 2.0',
+                    copyrighted: true,
+                  },
+                },
+              ],
+            },
+          },
+        },
+      })
+    );
+
+    await generateClubAssets({
+      input: inputFile,
+      output: outputFile,
+      reviewOutput: reviewOutputFile,
+      cache: cacheFile,
+      requestDelayMs: 0,
+      cwd: process.cwd(),
+    });
+
+    const output = JSON.parse(fs.readFileSync(outputFile, 'utf8'));
+    const review = JSON.parse(fs.readFileSync(reviewOutputFile, 'utf8'));
+
+    expect(output.clubs.accrington.assets.crest).toEqual({ status: 'needs-more-research' });
+    expect(review.issues).toEqual([
+      expect.objectContaining({
+        type: 'club-asset-needs-more-research',
+        clubKey: 'accrington',
+      }),
+    ]);
   });
 
   test('reclassifies cached crest bundles with current verification rules', async () => {

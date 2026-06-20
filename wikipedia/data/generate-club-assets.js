@@ -8,9 +8,11 @@ import { fileURLToPath } from 'node:url';
 import {
   addGeneratedPlaceholderFallback,
   buildClubAssetBundle,
+  buildGeneratedPlaceholderCrestCandidate,
   buildClubAssetReviewIssues,
   classifyClubAssetCandidate,
   discoverClubCrestBundle,
+  isRejectedClubAssetCandidate,
 } from './assets/club-assets.js';
 import { buildDatasetMetadata, normaliseClubsMap } from './generate-output-files.ts';
 
@@ -68,12 +70,19 @@ function writeAssetCache(cachePath, clubs, spacing) {
 }
 
 function reclassifyCachedCrestBundle(club, cachedCrest, limit) {
-  if (!cachedCrest?.candidates?.length) return cachedCrest;
-  const candidates = cachedCrest.candidates.map((candidate) =>
-    classifyClubAssetCandidate(candidate, club, {
-      checkedAt: candidate.verification?.checkedAt || null,
+  if (!cachedCrest?.candidates?.length) return buildClubAssetBundle([], { limit });
+  const generatedPlaceholder = buildGeneratedPlaceholderCrestCandidate(club);
+  const candidates = cachedCrest.candidates
+    .filter((candidate) => {
+      if (isRejectedClubAssetCandidate(candidate)) return false;
+      if (!candidate.placeholder && candidate.source !== 'generated-placeholder') return true;
+      return candidate.assetId === generatedPlaceholder?.assetId;
     })
-  );
+    .map((candidate) =>
+      classifyClubAssetCandidate(candidate, club, {
+        checkedAt: candidate.verification?.checkedAt || null,
+      })
+    );
   return buildClubAssetBundle(candidates, { limit });
 }
 

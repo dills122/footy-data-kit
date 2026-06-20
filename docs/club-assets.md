@@ -34,7 +34,8 @@ Each club can expose:
   restricted, commonly Wikipedia fair use.
 - `needs-review` means candidates exist but identity, license, or crest
   confidence is unclear.
-- `missing` means no candidate was discovered.
+- `needs-more-research` means no acceptable candidate is available yet. These
+  clubs need color/source research before a generated placeholder can be added.
 - `failed` means a candidate could not be resolved.
 
 Each candidate includes source fields such as `source`, `sourceUrl`, `imageUrl`,
@@ -113,7 +114,7 @@ node wikipedia/data/generate-club-assets.js ./data/club-metadata.json \
 
 The review output reports issue types:
 
-- `club-asset-missing`
+- `club-asset-needs-more-research`
 - `club-asset-license-restricted`
 - `club-asset-identity-uncertain`
 - `club-asset-non-crest-candidate`
@@ -129,7 +130,7 @@ Expected high-volume findings:
   `needs-review` unless they clearly represent a crest/badge/logo.
 - Some Victorian or folded clubs may need a future curated
   `no-known-crest`/historical status. Do not infer that automatically from a
-  missing automated result.
+  `needs-more-research` automated result.
 - Generated placeholders should only be added from curated colors and should
   remain visibly simple. They are a fallback for consumers, not evidence that an
   official crest existed.

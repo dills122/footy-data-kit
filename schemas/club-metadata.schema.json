@@ -257,7 +257,7 @@
         },
         "status": {
           "type": "string",
-          "description": "Overall bundle status such as usable, restricted, needs-review, missing, or failed."
+          "description": "Overall bundle status such as usable, placeholder, restricted, needs-review, needs-more-research, or failed."
         },
         "candidates": {
           "type": "array",

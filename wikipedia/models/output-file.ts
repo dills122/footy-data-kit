@@ -250,7 +250,14 @@ export interface ClubDerivedMetadata {
   coverageGaps?: ClubCoverageGap[];
 }
 
-export type AssetStatus = 'usable' | 'restricted' | 'needs-review' | 'missing' | 'failed' | string;
+export type AssetStatus =
+  | 'usable'
+  | 'placeholder'
+  | 'restricted'
+  | 'needs-review'
+  | 'needs-more-research'
+  | 'failed'
+  | string;
 
 export interface MetadataAssetLicense {
   shortName?: string | null;
