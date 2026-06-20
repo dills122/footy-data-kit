@@ -20,6 +20,7 @@
 .control-grid span,
 .muted-label,
 .path-list dt,
+.action-note,
 .status-message {
   color: var(--muted);
 }
@@ -79,8 +80,29 @@ select:focus {
   margin-top: 16px;
 }
 
+.explorer-handoff p,
+.action-note {
+  max-width: 82ch;
+}
+
+.explorer-handoff p {
+  margin-bottom: 12px;
+}
+
+.action-note {
+  margin: 12px 0 0;
+  font-size: 0.92rem;
+}
+
+.footer-links {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: flex-end;
+}
+
 .status-message {
-  margin-top: 12px;
+  margin-top: 8px;
   margin-bottom: 0;
 }
 

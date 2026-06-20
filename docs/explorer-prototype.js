@@ -329,7 +329,7 @@ function renderLinks() {
   if (state.selectedTarget === 'dataset') {
     elements.jsonHeroSelectedLink.removeAttribute('href');
     elements.jsonHeroSelectedLink.setAttribute('aria-disabled', 'true');
-    elements.jsonHeroSelectedLink.textContent = 'Use full dataset link';
+    elements.jsonHeroSelectedLink.textContent = 'Use full dataset in JSON Hero';
   } else if (selectedJsonHero.byteLength > 750_000) {
     elements.jsonHeroSelectedLink.removeAttribute('href');
     elements.jsonHeroSelectedLink.setAttribute('aria-disabled', 'true');
@@ -337,7 +337,7 @@ function renderLinks() {
   } else {
     elements.jsonHeroSelectedLink.href = selectedJsonHero.href;
     elements.jsonHeroSelectedLink.removeAttribute('aria-disabled');
-    elements.jsonHeroSelectedLink.textContent = 'Open selected JSON';
+    elements.jsonHeroSelectedLink.textContent = 'Open selected in JSON Hero';
   }
 }
 

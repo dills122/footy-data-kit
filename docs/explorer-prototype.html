@@ -22,6 +22,35 @@
         </p>
       </header>
 
+      <section class="panel explorer-handoff" aria-labelledby="handoff-heading">
+        <div class="section-heading">
+          <h2 id="handoff-heading">Viewer handoff</h2>
+          <span class="muted-label">JSON Hero</span>
+        </div>
+        <p>
+          Viewer buttons open JSON Hero in a new tab. Selected JSON sends only the focused
+          season/tier/table payload; full dataset opens the release file and can take longer to
+          index.
+        </p>
+        <nav class="button-row" aria-label="related explorer links">
+          <a
+            class="button-link button-link--primary"
+            href="https://footy.dsteele.dev"
+            target="_blank"
+            rel="noreferrer"
+            >Open full web app</a
+          >
+          <a
+            class="button-link button-link--secondary"
+            href="https://jsonhero.io/"
+            target="_blank"
+            rel="noreferrer"
+            >JSON Hero</a
+          >
+          <a class="button-link button-link--secondary" href="./index.html">Docs home</a>
+        </nav>
+      </section>
+
       <section class="panel explorer-controls" aria-labelledby="source-heading">
         <div class="section-heading">
           <h2 id="source-heading">Source</h2>
@@ -66,7 +95,7 @@
             target="_blank"
             rel="noreferrer"
           >
-            Open selected JSON
+            Open selected in JSON Hero
           </a>
           <a
             id="jsonhero-full-link"
@@ -75,7 +104,7 @@
             target="_blank"
             rel="noreferrer"
           >
-            full dataset
+            Full dataset in JSON Hero
           </a>
           <a id="raw-link" class="compact-link" href="#" target="_blank" rel="noreferrer"
             >raw json</a
@@ -83,6 +112,10 @@
           <button id="copy-path-button" class="compact-link" type="button">copy path</button>
         </div>
 
+        <p class="action-note">
+          Use selected JSON for fast focused checks. Use raw JSON for direct file inspection or
+          scripts.
+        </p>
         <p id="status-message" class="status-message" role="status">Loading local dataset...</p>
       </section>
 
@@ -166,7 +199,10 @@
 
       <footer>
         <span>prototype only</span>
-        <a href="https://jsonhero.io/" target="_blank" rel="noreferrer">JSON Hero</a>
+        <span class="footer-links">
+          <a href="https://footy.dsteele.dev" target="_blank" rel="noreferrer">footy.dsteele.dev</a>
+          <a href="https://jsonhero.io/" target="_blank" rel="noreferrer">JSON Hero</a>
+        </span>
       </footer>
     </main>
 
