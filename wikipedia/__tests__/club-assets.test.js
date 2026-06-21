@@ -303,6 +303,35 @@ describe('club asset helpers', () => {
     });
   });
 
+  test('uses curated identity for real crest files with compact filenames', () => {
+    const classified = classifyClubAssetCandidate(
+      {
+        assetId: 'wikipedia-pageimage-any:EpsomEwellBadge.png',
+        kind: 'crest',
+        status: 'needs-review',
+        source: 'wikipedia-pageimage-any',
+        imageUrl: 'https://upload.wikimedia.org/wikipedia/en/0/09/EpsomEwellBadge.png',
+        fileTitle: 'File:EpsomEwellBadge.png',
+        license: {
+          shortName: 'Fair use',
+          usageTerms: 'Fair use of copyrighted material',
+          copyrighted: true,
+        },
+      },
+      {
+        clubId: 'epsom-and-ewell',
+        canonicalName: 'Epsom & Ewell',
+      }
+    );
+
+    expect(classified.status).toBe('restricted');
+    expect(classified.notes).toContain('Epsom & Ewell badge');
+    expect(classified.verification).toMatchObject({
+      identityMatch: 'curated',
+      reviewReasons: ['license-restricted'],
+    });
+  });
+
   test('builds and classifies exact TheSportsDB badge candidates as restricted backups', () => {
     const [badgeCandidate, logoCandidate] = buildTheSportsDbAssetCandidates({
       idTeam: '133627',
@@ -411,6 +440,28 @@ describe('club asset helpers', () => {
       isRejectedClubAssetCandidate({
         assetId: 'wikipedia-pageimage-free:Example_FC_crest.svg',
       })
+    ).toBe(false);
+    expect(
+      isRejectedClubAssetCandidate(
+        {
+          assetId: 'thesportsdb-badge:136153',
+        },
+        {
+          clubId: 'telford-united',
+          canonicalName: 'Telford United',
+        }
+      )
+    ).toBe(true);
+    expect(
+      isRejectedClubAssetCandidate(
+        {
+          assetId: 'thesportsdb-badge:136153',
+        },
+        {
+          clubId: 'afc-telford-united',
+          canonicalName: 'AFC Telford United',
+        }
+      )
     ).toBe(false);
   });
 
@@ -671,6 +722,35 @@ describe('club asset helpers', () => {
     });
 
     expect(singleCandidateIssues.map((issue) => issue.type)).toEqual([
+      'club-asset-license-restricted',
+    ]);
+
+    const restrictedOnlyIssues = buildClubAssetReviewIssues('example fc', exampleClub, {
+      status: 'restricted',
+      candidates: [
+        {
+          assetId: 'candidate',
+          kind: 'crest',
+          status: 'restricted',
+          source: 'wikipedia-pageimage-any',
+          verification: {
+            reviewReasons: ['license-restricted'],
+          },
+        },
+        {
+          assetId: 'candidate-2',
+          kind: 'crest',
+          status: 'restricted',
+          source: 'thesportsdb-badge',
+          verification: {
+            reviewReasons: ['license-restricted'],
+          },
+        },
+      ],
+    });
+
+    expect(restrictedOnlyIssues.map((issue) => issue.type)).toEqual([
+      'club-asset-license-restricted',
       'club-asset-license-restricted',
     ]);
 

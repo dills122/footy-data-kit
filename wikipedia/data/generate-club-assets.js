@@ -78,7 +78,7 @@ function reclassifyCachedCrestBundle(club, cachedCrest, limit) {
     ...buildCuratedAssetCandidates(club),
   ]
     .filter((candidate) => {
-      if (isRejectedClubAssetCandidate(candidate)) return false;
+      if (isRejectedClubAssetCandidate(candidate, club)) return false;
       if (!candidate.placeholder && candidate.source !== 'generated-placeholder') return true;
       return candidate.assetId === generatedPlaceholder?.assetId;
     })

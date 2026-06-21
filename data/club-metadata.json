@@ -2,8 +2,8 @@
   "metadata": {
     "schemaVersion": 1,
     "generator": "club-assets",
-    "generatedAt": "2026-06-20T23:48:15.151Z",
-    "gitSha": "944ae0c",
+    "generatedAt": "2026-06-21T00:21:51.802Z",
+    "gitSha": "66329c3",
     "sourceFiles": [
       "/Users/dsteele/repos/footy-data-kit/data-output/all-seasons.json",
       "/Users/dsteele/repos/footy-data-kit-club-assets/data/club-metadata.json",
@@ -1993,39 +1993,6 @@
                 "checkedAt": "2026-06-20T22:49:50.519Z"
               },
               "priority": 1
-            },
-            {
-              "assetId": "wikipedia-pageimage-any:AFC_Telford_United_logo.svg",
-              "kind": "crest",
-              "status": "restricted",
-              "source": "wikipedia-pageimage-any",
-              "sourceUrl": "https://en.wikipedia.org/wiki/AFC_Telford_United",
-              "imageUrl": "https://upload.wikimedia.org/wikipedia/en/e/e9/AFC_Telford_United_logo.svg",
-              "pageUrl": "https://en.wikipedia.org/wiki/File:AFC_Telford_United_logo.svg",
-              "fileTitle": "File:AFC Telford United logo.svg",
-              "mimeType": "image/svg+xml",
-              "width": 203,
-              "height": 493,
-              "license": {
-                "shortName": "Fair use",
-                "usageTerms": "Fair use of copyrighted material in the context of AFC Telford United",
-                "licenseUrl": "https://en.wikipedia.org/wiki/File:AFC_Telford_United_logo.svg",
-                "copyrighted": true,
-                "credit": "https://football-logos.cc/england/afc-telford-united/"
-              },
-              "notes": "Manual audit flagged this crest candidate for poor readability, image quality, or transparent-background visibility.",
-              "verification": {
-                "identityMatch": "strong",
-                "licenseCheck": "restricted",
-                "httpCheck": "pass",
-                "needsManualReview": true,
-                "reviewReasons": [
-                  "license-restricted",
-                  "image-quality-review"
-                ],
-                "checkedAt": "2026-06-20T22:49:50.519Z"
-              },
-              "priority": 2
             }
           ]
         }
@@ -3765,36 +3732,49 @@
       },
       "assets": {
         "crest": {
-          "status": "restricted",
+          "preferred": "generated-placeholder:Generated:andover-placeholder-crest.svg",
+          "status": "placeholder",
           "candidates": [
             {
-              "assetId": "thesportsdb-badge:148734",
+              "assetId": "generated-placeholder:Generated:andover-placeholder-crest.svg",
               "kind": "crest",
-              "status": "restricted",
-              "source": "thesportsdb-badge",
-              "sourceUrl": "https://www.thesportsdb.com/api/v1/json/3/lookupteam.php?id=148734",
-              "imageUrl": "https://r2.thesportsdb.com/images/media/team/badge/ovq9vd1720681061.png",
-              "pageUrl": "https://www.thesportsdb.com/team/148734",
-              "fileTitle": "TheSportsDB:Andover New Street badge",
+              "status": "placeholder",
+              "source": "generated-placeholder",
+              "placeholder": true,
+              "sourceUrl": "https://en.wikipedia.org/wiki/Andover_F.C.",
+              "imageUrl": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20256%20256%22%20role%3D%22img%22%3E%3Ctitle%3EAndover%20generated%20placeholder%20crest%3C%2Ftitle%3E%3Cpath%20d%3D%22M128%2014%20220%2048v68c0%2058-36%20103-92%20126-56-23-92-68-92-126V48l92-34Z%22%20fill%3D%22%23FF0000%22%20stroke%3D%22%23F1EF00%22%20stroke-width%3D%2210%22%2F%3E%3Cpath%20d%3D%22M128%2026%20210%2056v58c0%2049-30%2088-82%20110V26Z%22%20fill%3D%22%23000000%22%20opacity%3D%220.92%22%2F%3E%3Cpath%20d%3D%22M50%2084h156v30H50z%22%20fill%3D%22%23F1EF00%22%20opacity%3D%220.9%22%2F%3E%3Ctext%20x%3D%22128%22%20y%3D%22154%22%20text-anchor%3D%22middle%22%20font-family%3D%22Arial%2C%20Helvetica%2C%20sans-serif%22%20font-size%3D%2258%22%20font-weight%3D%22700%22%20fill%3D%22%23FFFFFF%22%20stroke%3D%22%23111111%22%20stroke-width%3D%223%22%20paint-order%3D%22stroke%22%3EA%3C%2Ftext%3E%3C%2Fsvg%3E",
+              "fileTitle": "Generated:andover-placeholder-crest.svg",
+              "mimeType": "image/svg+xml",
+              "width": 256,
+              "height": 256,
+              "colors": [
+                {
+                  "role": "primary",
+                  "hex": "#FF0000"
+                },
+                {
+                  "role": "secondary",
+                  "hex": "#000000"
+                },
+                {
+                  "role": "accent",
+                  "hex": "#F1EF00"
+                }
+              ],
               "license": {
-                "shortName": "TheSportsDB API artwork",
-                "usageTerms": "Artwork URL returned by TheSportsDB API; club marks may be trademarked or copyright restricted.",
-                "licenseUrl": "https://www.thesportsdb.com/docs_terms_of_use.php",
-                "copyrighted": true,
-                "attribution": "TheSportsDB"
+                "shortName": "CC0-1.0",
+                "usageTerms": "Creative Commons Zero v1.0 Universal",
+                "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+                "copyrighted": false,
+                "attribution": "footy-data-kit generated placeholder"
               },
-              "notes": "TheSportsDB team: Andover New Street.",
               "verification": {
-                "identityMatch": "none",
-                "licenseCheck": "restricted",
+                "identityMatch": "generated-placeholder",
+                "licenseCheck": "pass",
                 "httpCheck": "pass",
-                "needsManualReview": true,
-                "reviewReasons": [
-                  "license-restricted",
-                  "identity-uncertain"
-                ],
-                "checkedAt": "2026-06-20T22:49:51.679Z"
+                "needsManualReview": false
               },
+              "notes": "researchStatus: researched-no-source. Generated placeholder shield from source-backed club colours after targeted research found no usable crest source; not an official or historical club crest.",
               "priority": 1
             }
           ]
@@ -29103,46 +29083,45 @@
       },
       "assets": {
         "crest": {
-          "status": "restricted",
+          "preferred": "generated-placeholder:Generated:dagenham-placeholder-crest.svg",
+          "status": "placeholder",
           "candidates": [
             {
-              "assetId": "thesportsdb-badge:134356",
+              "assetId": "generated-placeholder:Generated:dagenham-placeholder-crest.svg",
               "kind": "crest",
-              "status": "restricted",
-              "source": "thesportsdb-badge",
-              "sourceUrl": "https://www.thesportsdb.com/api/v1/json/3/lookupteam.php?id=134356",
-              "imageUrl": "https://r2.thesportsdb.com/images/media/team/badge/4jp63p1675955495.png",
-              "pageUrl": "https://www.thesportsdb.com/team/134356",
-              "fileTitle": "TheSportsDB:Dagenham and Redbridge badge",
+              "status": "placeholder",
+              "source": "generated-placeholder",
+              "placeholder": true,
+              "sourceUrl": "https://en.wikipedia.org/wiki/Dagenham_F.C.",
+              "imageUrl": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20256%20256%22%20role%3D%22img%22%3E%3Ctitle%3EDagenham%20generated%20placeholder%20crest%3C%2Ftitle%3E%3Cpath%20d%3D%22M128%2014%20220%2048v68c0%2058-36%20103-92%20126-56-23-92-68-92-126V48l92-34Z%22%20fill%3D%22%23FF0000%22%20stroke%3D%22%23FFFFFF%22%20stroke-width%3D%2210%22%2F%3E%3Cpath%20d%3D%22M128%2026%20210%2056v58c0%2049-30%2088-82%20110V26Z%22%20fill%3D%22%23FFFFFF%22%20opacity%3D%220.92%22%2F%3E%3Cpath%20d%3D%22M50%2084h156v30H50z%22%20fill%3D%22%23FFFFFF%22%20opacity%3D%220.9%22%2F%3E%3Ctext%20x%3D%22128%22%20y%3D%22154%22%20text-anchor%3D%22middle%22%20font-family%3D%22Arial%2C%20Helvetica%2C%20sans-serif%22%20font-size%3D%2258%22%20font-weight%3D%22700%22%20fill%3D%22%23FFFFFF%22%20stroke%3D%22%23111111%22%20stroke-width%3D%223%22%20paint-order%3D%22stroke%22%3ED%3C%2Ftext%3E%3C%2Fsvg%3E",
+              "fileTitle": "Generated:dagenham-placeholder-crest.svg",
+              "mimeType": "image/svg+xml",
+              "width": 256,
+              "height": 256,
               "colors": [
                 {
                   "role": "primary",
-                  "hex": "#ED251B"
+                  "hex": "#FF0000"
                 },
                 {
                   "role": "secondary",
-                  "hex": "#111D6E"
+                  "hex": "#FFFFFF"
                 }
               ],
               "license": {
-                "shortName": "TheSportsDB API artwork",
-                "usageTerms": "Artwork URL returned by TheSportsDB API; club marks may be trademarked or copyright restricted.",
-                "licenseUrl": "https://www.thesportsdb.com/docs_terms_of_use.php",
-                "copyrighted": true,
-                "attribution": "TheSportsDB"
+                "shortName": "CC0-1.0",
+                "usageTerms": "Creative Commons Zero v1.0 Universal",
+                "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+                "copyrighted": false,
+                "attribution": "footy-data-kit generated placeholder"
               },
-              "notes": "TheSportsDB team: Dagenham and Redbridge. Also known as Dagenham & Redbridge.",
               "verification": {
-                "identityMatch": "none",
-                "licenseCheck": "restricted",
+                "identityMatch": "generated-placeholder",
+                "licenseCheck": "pass",
                 "httpCheck": "pass",
-                "needsManualReview": true,
-                "reviewReasons": [
-                  "license-restricted",
-                  "identity-uncertain"
-                ],
-                "checkedAt": "2026-06-20T22:49:55.678Z"
+                "needsManualReview": false
               },
+              "notes": "researchStatus: researched-no-source. Generated placeholder shield from source-backed club colours after targeted research found no usable crest source; not an official or historical club crest.",
               "priority": 1
             }
           ]
@@ -31052,39 +31031,6 @@
                 "checkedAt": "2026-06-20T22:49:56.696Z"
               },
               "priority": 2
-            },
-            {
-              "assetId": "wikipedia-pageimage-any:Derby_County_crest.svg",
-              "kind": "crest",
-              "status": "restricted",
-              "source": "wikipedia-pageimage-any",
-              "sourceUrl": "https://en.wikipedia.org/wiki/Derby_County_F.C.",
-              "imageUrl": "https://upload.wikimedia.org/wikipedia/en/4/4a/Derby_County_crest.svg",
-              "pageUrl": "https://en.wikipedia.org/wiki/File:Derby_County_crest.svg",
-              "fileTitle": "File:Derby County crest.svg",
-              "mimeType": "image/svg+xml",
-              "width": 386,
-              "height": 259,
-              "license": {
-                "shortName": "Fair use",
-                "usageTerms": "Fair use of copyrighted material in the context of Derby County F.C.",
-                "licenseUrl": "https://en.wikipedia.org/wiki/File:Derby_County_crest.svg",
-                "copyrighted": true,
-                "credit": "The logo may be obtained from Derby County F.C.."
-              },
-              "notes": "Manual audit flagged this crest candidate for poor readability, image quality, or transparent-background visibility.",
-              "verification": {
-                "identityMatch": "strong",
-                "licenseCheck": "restricted",
-                "httpCheck": "pass",
-                "needsManualReview": true,
-                "reviewReasons": [
-                  "license-restricted",
-                  "image-quality-review"
-                ],
-                "checkedAt": "2026-06-20T22:49:56.696Z"
-              },
-              "priority": 3
             }
           ]
         }
@@ -33406,16 +33352,16 @@
                 "credit": "official club website"
               },
               "verification": {
-                "identityMatch": "none",
+                "identityMatch": "curated",
                 "licenseCheck": "restricted",
                 "httpCheck": "pass",
                 "needsManualReview": true,
                 "reviewReasons": [
-                  "license-restricted",
-                  "identity-uncertain"
+                  "license-restricted"
                 ],
                 "checkedAt": "2026-06-20T19:25:31.633Z"
-              }
+              },
+              "notes": "Curated as the Dunstable Town badge despite abbreviated filename."
             },
             {
               "assetId": "wikipedia-pageimage-any:Dunstable_FC.png",
@@ -35368,16 +35314,16 @@
                 "credit": "https://www.epsomandewellfc.biz"
               },
               "verification": {
-                "identityMatch": "none",
+                "identityMatch": "curated",
                 "licenseCheck": "restricted",
                 "httpCheck": "pass",
                 "needsManualReview": true,
                 "reviewReasons": [
-                  "license-restricted",
-                  "identity-uncertain"
+                  "license-restricted"
                 ],
                 "checkedAt": "2026-06-20T19:25:58.717Z"
-              }
+              },
+              "notes": "Curated as the Epsom & Ewell badge despite compact filename."
             }
           ]
         }
@@ -39697,38 +39643,6 @@
                 ],
                 "checkedAt": "2026-06-20T19:26:09.958Z"
               }
-            },
-            {
-              "assetId": "wikipedia-pageimage-free:Gainsborough_Trinity_1966–67.jpg",
-              "kind": "crest",
-              "status": "needs-review",
-              "priority": 2,
-              "source": "wikipedia-pageimage-free",
-              "sourceUrl": "https://en.wikipedia.org/wiki/Gainsborough_Trinity_F.C.",
-              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/2/27/Gainsborough_Trinity_1966%E2%80%9367.jpg",
-              "pageUrl": "https://commons.wikimedia.org/wiki/File:Gainsborough_Trinity_1966%E2%80%9367.jpg",
-              "fileTitle": "File:Gainsborough Trinity 1966–67.jpg",
-              "mimeType": "image/jpeg",
-              "width": 2595,
-              "height": 2099,
-              "license": {
-                "shortName": "CC BY 2.0",
-                "usageTerms": "Creative Commons Attribution 2.0",
-                "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
-                "copyrighted": true,
-                "credit": "Gainsborough Trinity 1966-67",
-                "artist": "John Spooner"
-              },
-              "verification": {
-                "identityMatch": "possible",
-                "licenseCheck": "pass",
-                "httpCheck": "pass",
-                "needsManualReview": true,
-                "reviewReasons": [
-                  "non-crest-filename"
-                ],
-                "checkedAt": "2026-06-20T19:26:09.958Z"
-              }
             }
           ]
         }
@@ -40993,39 +40907,7 @@
                 "credit": "The logo is from the following website: http://www.glossopnorthendafc.co.uk http://www.glossopnorthendafc.co.uk"
               },
               "verification": {
-                "identityMatch": "none",
-                "licenseCheck": "restricted",
-                "httpCheck": "pass",
-                "needsManualReview": true,
-                "reviewReasons": [
-                  "license-restricted",
-                  "identity-uncertain"
-                ],
-                "checkedAt": "2026-06-20T19:26:14.645Z"
-              }
-            },
-            {
-              "assetId": "wikipedia-pageimage-any:North_West_Counties_Football_League_logo.png",
-              "kind": "crest",
-              "status": "restricted",
-              "priority": 2,
-              "source": "wikipedia-pageimage-any",
-              "sourceUrl": "https://en.wikipedia.org/wiki/North_West_Counties_Football_League",
-              "imageUrl": "https://upload.wikimedia.org/wikipedia/en/8/83/North_West_Counties_Football_League_logo.png",
-              "pageUrl": "https://en.wikipedia.org/wiki/File:North_West_Counties_Football_League_logo.png",
-              "fileTitle": "File:North West Counties Football League logo.png",
-              "mimeType": "image/png",
-              "width": 316,
-              "height": 316,
-              "license": {
-                "shortName": "Fair use",
-                "usageTerms": "Fair use of copyrighted material in the context of North West Counties Football League",
-                "licenseUrl": "https://en.wikipedia.org/wiki/File:North_West_Counties_Football_League_logo.png",
-                "copyrighted": true,
-                "credit": "The logo is from the following website: www.nwcfl.com www.nwcfl.com"
-              },
-              "verification": {
-                "identityMatch": "strong",
+                "identityMatch": "curated",
                 "licenseCheck": "restricted",
                 "httpCheck": "pass",
                 "needsManualReview": true,
@@ -41033,7 +40915,8 @@
                   "license-restricted"
                 ],
                 "checkedAt": "2026-06-20T19:26:14.645Z"
-              }
+              },
+              "notes": "Curated as the Glossop North End badge despite abbreviated filename."
             }
           ]
         }
@@ -46653,38 +46536,6 @@
                 ],
                 "checkedAt": "2026-06-20T19:26:32.611Z"
               }
-            },
-            {
-              "assetId": "wikipedia-pageimage-free:HampsteadTownFC1919.jpg",
-              "kind": "crest",
-              "status": "needs-review",
-              "priority": 2,
-              "source": "wikipedia-pageimage-free",
-              "sourceUrl": "https://en.wikipedia.org/wiki/Hendon_F.C.",
-              "imageUrl": "https://upload.wikimedia.org/wikipedia/en/f/fd/HampsteadTownFC1919.jpg",
-              "pageUrl": "https://en.wikipedia.org/wiki/File:HampsteadTownFC1919.jpg",
-              "fileTitle": "File:HampsteadTownFC1919.jpg",
-              "mimeType": "image/jpeg",
-              "width": 500,
-              "height": 357,
-              "license": {
-                "shortName": "Public domain",
-                "usageTerms": "Public domain in the United States",
-                "copyrighted": true,
-                "credit": "[1]",
-                "artist": "Unknown"
-              },
-              "verification": {
-                "identityMatch": "none",
-                "licenseCheck": "pass",
-                "httpCheck": "pass",
-                "needsManualReview": true,
-                "reviewReasons": [
-                  "identity-uncertain",
-                  "non-crest-filename"
-                ],
-                "checkedAt": "2026-06-20T19:26:32.611Z"
-              }
             }
           ]
         }
@@ -46847,39 +46698,6 @@
                 "needsManualReview": true,
                 "reviewReasons": [
                   "license-restricted"
-                ],
-                "checkedAt": "2026-06-20T19:31:03.304Z"
-              }
-            },
-            {
-              "assetId": "wikidata-logo:Forever United, Edgar Street, Hereford - geograph.org.uk - 5596516.jpg",
-              "kind": "crest",
-              "status": "needs-review",
-              "priority": 2,
-              "source": "wikidata-logo",
-              "sourceUrl": "https://www.wikidata.org/wiki/Q18711379",
-              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/a/a5/Forever_United%2C_Edgar_Street%2C_Hereford_-_geograph.org.uk_-_5596516.jpg",
-              "pageUrl": "https://commons.wikimedia.org/wiki/File:Forever_United,_Edgar_Street,_Hereford_-_geograph.org.uk_-_5596516.jpg",
-              "fileTitle": "File:Forever United, Edgar Street, Hereford - geograph.org.uk - 5596516.jpg",
-              "mimeType": "image/jpeg",
-              "width": 779,
-              "height": 735,
-              "license": {
-                "shortName": "CC BY-SA 2.0",
-                "usageTerms": "Creative Commons Attribution-Share Alike 2.0",
-                "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
-                "copyrighted": true,
-                "attribution": "Forever United, Edgar Street, Hereford by Jaggery",
-                "credit": "Geograph Britain and Ireland",
-                "artist": "Jaggery"
-              },
-              "verification": {
-                "identityMatch": "possible",
-                "licenseCheck": "pass",
-                "httpCheck": "pass",
-                "needsManualReview": true,
-                "reviewReasons": [
-                  "non-crest-filename"
                 ],
                 "checkedAt": "2026-06-20T19:31:03.304Z"
               }
@@ -52235,16 +52053,16 @@
                 "artist": "D. Cookson c/o- Knowsley United FC"
               },
               "verification": {
-                "identityMatch": "possible",
+                "identityMatch": "curated",
                 "licenseCheck": "restricted",
                 "httpCheck": "pass",
                 "needsManualReview": true,
                 "reviewReasons": [
-                  "license-restricted",
-                  "non-crest-filename"
+                  "license-restricted"
                 ],
                 "checkedAt": "2026-06-20T19:27:04.474Z"
-              }
+              },
+              "notes": "Curated as the Knowsley United badge despite compact filename."
             }
           ]
         }
@@ -60763,39 +60581,6 @@
                 "checkedAt": "2026-06-20T22:50:11.080Z"
               },
               "priority": 2
-            },
-            {
-              "assetId": "wikipedia-pageimage-any:Marine_AFC_crest.svg",
-              "kind": "crest",
-              "status": "restricted",
-              "source": "wikipedia-pageimage-any",
-              "sourceUrl": "https://en.wikipedia.org/wiki/Marine_A.F.C.",
-              "imageUrl": "https://upload.wikimedia.org/wikipedia/en/7/7f/Marine_AFC_crest.svg",
-              "pageUrl": "https://en.wikipedia.org/wiki/File:Marine_AFC_crest.svg",
-              "fileTitle": "File:Marine AFC crest.svg",
-              "mimeType": "image/svg+xml",
-              "width": 302,
-              "height": 331,
-              "license": {
-                "shortName": "Fair use",
-                "usageTerms": "Fair use of copyrighted material in the context of Marine A.F.C.",
-                "licenseUrl": "https://en.wikipedia.org/wiki/File:Marine_AFC_crest.svg",
-                "copyrighted": true,
-                "credit": "https://seeklogo.com/vector-logo/547230/marine-afc"
-              },
-              "notes": "Manual audit flagged this crest candidate for poor readability, image quality, or transparent-background visibility.",
-              "verification": {
-                "identityMatch": "strong",
-                "licenseCheck": "restricted",
-                "httpCheck": "pass",
-                "needsManualReview": true,
-                "reviewReasons": [
-                  "license-restricted",
-                  "image-quality-review"
-                ],
-                "checkedAt": "2026-06-20T22:50:11.080Z"
-              },
-              "priority": 3
             }
           ]
         }
@@ -60934,37 +60719,6 @@
                 "needsManualReview": true,
                 "reviewReasons": [
                   "license-restricted"
-                ],
-                "checkedAt": "2026-06-20T19:27:23.031Z"
-              }
-            },
-            {
-              "assetId": "wikipedia-pageimage-free:Marlow1894.jpg",
-              "kind": "crest",
-              "status": "needs-review",
-              "priority": 2,
-              "source": "wikipedia-pageimage-free",
-              "sourceUrl": "https://en.wikipedia.org/wiki/Marlow_F.C.",
-              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/3/36/Marlow1894.jpg",
-              "pageUrl": "https://commons.wikimedia.org/wiki/File:Marlow1894.jpg",
-              "fileTitle": "File:Marlow1894.jpg",
-              "mimeType": "image/jpeg",
-              "width": 600,
-              "height": 549,
-              "license": {
-                "shortName": "Public domain",
-                "usageTerms": "Public domain",
-                "copyrighted": false,
-                "credit": "https://www.historicalkits.co.uk/_images/marlow-fc-1894.jpg",
-                "artist": "Unknown author Unknown author"
-              },
-              "verification": {
-                "identityMatch": "possible",
-                "licenseCheck": "pass",
-                "httpCheck": "pass",
-                "needsManualReview": true,
-                "reviewReasons": [
-                  "non-crest-filename"
                 ],
                 "checkedAt": "2026-06-20T19:27:23.031Z"
               }
@@ -62241,38 +61995,6 @@
                 "needsManualReview": true,
                 "reviewReasons": [
                   "license-restricted"
-                ],
-                "checkedAt": "2026-06-20T19:31:09.938Z"
-              }
-            },
-            {
-              "assetId": "wikidata-logo:Middlesbrough Walk (27470064759).jpg",
-              "kind": "crest",
-              "status": "needs-review",
-              "priority": 2,
-              "source": "wikidata-logo",
-              "sourceUrl": "https://www.wikidata.org/wiki/Q18661",
-              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b5/Middlesbrough_Walk_%2827470064759%29.jpg",
-              "pageUrl": "https://commons.wikimedia.org/wiki/File:Middlesbrough_Walk_(27470064759).jpg",
-              "fileTitle": "File:Middlesbrough Walk (27470064759).jpg",
-              "mimeType": "image/jpeg",
-              "width": 2048,
-              "height": 1368,
-              "license": {
-                "shortName": "CC BY 2.0",
-                "usageTerms": "Creative Commons Attribution 2.0",
-                "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
-                "copyrighted": true,
-                "credit": "Middlesbrough Walk",
-                "artist": "Paul Hudson from United Kingdom"
-              },
-              "verification": {
-                "identityMatch": "possible",
-                "licenseCheck": "pass",
-                "httpCheck": "pass",
-                "needsManualReview": true,
-                "reviewReasons": [
-                  "non-crest-filename"
                 ],
                 "checkedAt": "2026-06-20T19:31:09.938Z"
               }
@@ -73640,39 +73362,6 @@
                 "needsManualReview": false,
                 "checkedAt": "2026-06-20T19:28:13.920Z"
               }
-            },
-            {
-              "assetId": "wikidata-logo:QPr.jpg",
-              "kind": "crest",
-              "status": "needs-review",
-              "priority": 2,
-              "source": "wikidata-logo",
-              "sourceUrl": "https://www.wikidata.org/wiki/Q18723",
-              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/3/32/QPr.jpg",
-              "pageUrl": "https://commons.wikimedia.org/wiki/File:QPr.jpg",
-              "fileTitle": "File:QPr.jpg",
-              "mimeType": "image/jpeg",
-              "width": 960,
-              "height": 960,
-              "license": {
-                "shortName": "CC BY-SA 4.0",
-                "usageTerms": "Creative Commons Attribution-Share Alike 4.0",
-                "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-                "copyrighted": true,
-                "credit": "Own work",
-                "artist": "Martin1994ramos"
-              },
-              "verification": {
-                "identityMatch": "none",
-                "licenseCheck": "pass",
-                "httpCheck": "pass",
-                "needsManualReview": true,
-                "reviewReasons": [
-                  "identity-uncertain",
-                  "non-crest-filename"
-                ],
-                "checkedAt": "2026-06-20T19:28:13.920Z"
-              }
             }
           ]
         }
@@ -75337,16 +75026,16 @@
                 "artist": "Peter Price"
               },
               "verification": {
-                "identityMatch": "possible",
+                "identityMatch": "curated",
                 "licenseCheck": "restricted",
                 "httpCheck": "pass",
                 "needsManualReview": true,
                 "reviewReasons": [
-                  "license-restricted",
-                  "non-crest-filename"
+                  "license-restricted"
                 ],
                 "checkedAt": "2026-06-20T19:28:18.244Z"
-              }
+              },
+              "notes": "Curated as the Road-Sea Southampton badge despite non-standard filename."
             }
           ]
         }
@@ -81306,13 +80995,12 @@
               },
               "notes": "Manual audit flagged this crest candidate for poor readability, image quality, or transparent-background visibility.",
               "verification": {
-                "identityMatch": "possible",
+                "identityMatch": "curated",
                 "licenseCheck": "restricted",
                 "httpCheck": "pass",
                 "needsManualReview": true,
                 "reviewReasons": [
                   "license-restricted",
-                  "non-crest-filename",
                   "image-quality-review"
                 ],
                 "checkedAt": "2026-06-20T22:50:28.949Z"
@@ -84262,17 +83950,16 @@
                 "credit": "The logo is from the following website: http://www.staffordrangersfc.co.uk/"
               },
               "verification": {
-                "identityMatch": "weak",
+                "identityMatch": "curated",
                 "licenseCheck": "restricted",
                 "httpCheck": "pass",
                 "needsManualReview": true,
                 "reviewReasons": [
-                  "license-restricted",
-                  "identity-uncertain",
-                  "non-crest-filename"
+                  "license-restricted"
                 ],
                 "checkedAt": "2026-06-20T19:29:07.051Z"
-              }
+              },
+              "notes": "Curated as the Stafford Rangers badge despite abbreviated filename."
             }
           ]
         }
@@ -88133,39 +87820,6 @@
                 "checkedAt": "2026-06-20T22:50:30.798Z"
               },
               "priority": 2
-            },
-            {
-              "assetId": "wikipedia-pageimage-any:Swansea_City_AFC_logo.svg",
-              "kind": "crest",
-              "status": "restricted",
-              "source": "wikipedia-pageimage-any",
-              "sourceUrl": "https://en.wikipedia.org/wiki/Swansea_City_A.F.C.",
-              "imageUrl": "https://upload.wikimedia.org/wikipedia/en/f/f9/Swansea_City_AFC_logo.svg",
-              "pageUrl": "https://en.wikipedia.org/wiki/File:Swansea_City_AFC_logo.svg",
-              "fileTitle": "File:Swansea City AFC logo.svg",
-              "mimeType": "image/svg+xml",
-              "width": 310,
-              "height": 284,
-              "license": {
-                "shortName": "Fair use",
-                "usageTerms": "Fair use of copyrighted material in the context of Swansea City A.F.C.",
-                "licenseUrl": "https://en.wikipedia.org/wiki/File:Swansea_City_AFC_logo.svg",
-                "copyrighted": true,
-                "credit": "https://www.swanseacity.com/"
-              },
-              "notes": "Manual audit flagged this crest candidate for poor readability, image quality, or transparent-background visibility.",
-              "verification": {
-                "identityMatch": "strong",
-                "licenseCheck": "restricted",
-                "httpCheck": "pass",
-                "needsManualReview": true,
-                "reviewReasons": [
-                  "license-restricted",
-                  "image-quality-review"
-                ],
-                "checkedAt": "2026-06-20T22:50:30.798Z"
-              },
-              "priority": 3
             }
           ]
         }
@@ -89419,36 +89073,45 @@
       },
       "assets": {
         "crest": {
-          "status": "restricted",
+          "preferred": "generated-placeholder:Generated:telford-united-placeholder-crest.svg",
+          "status": "placeholder",
           "candidates": [
             {
-              "assetId": "thesportsdb-badge:136153",
+              "assetId": "generated-placeholder:Generated:telford-united-placeholder-crest.svg",
               "kind": "crest",
-              "status": "restricted",
-              "source": "thesportsdb-badge",
-              "sourceUrl": "https://www.thesportsdb.com/api/v1/json/3/lookupteam.php?id=136153",
-              "imageUrl": "https://r2.thesportsdb.com/images/media/team/badge/fo4nes1685771177.png",
-              "pageUrl": "https://www.thesportsdb.com/team/136153",
-              "fileTitle": "TheSportsDB:AFC Telford United badge",
+              "status": "placeholder",
+              "source": "generated-placeholder",
+              "placeholder": true,
+              "sourceUrl": "https://en.wikipedia.org/wiki/AFC_Telford_United",
+              "imageUrl": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20256%20256%22%20role%3D%22img%22%3E%3Ctitle%3ETelford%20United%20generated%20placeholder%20crest%3C%2Ftitle%3E%3Cpath%20d%3D%22M128%2014%20220%2048v68c0%2058-36%20103-92%20126-56-23-92-68-92-126V48l92-34Z%22%20fill%3D%22%23FFFFFF%22%20stroke%3D%22%23000000%22%20stroke-width%3D%2210%22%2F%3E%3Cpath%20d%3D%22M128%2026%20210%2056v58c0%2049-30%2088-82%20110V26Z%22%20fill%3D%22%23000000%22%20opacity%3D%220.92%22%2F%3E%3Cpath%20d%3D%22M50%2084h156v30H50z%22%20fill%3D%22%23000000%22%20opacity%3D%220.9%22%2F%3E%3Ctext%20x%3D%22128%22%20y%3D%22154%22%20text-anchor%3D%22middle%22%20font-family%3D%22Arial%2C%20Helvetica%2C%20sans-serif%22%20font-size%3D%2258%22%20font-weight%3D%22700%22%20fill%3D%22%23111111%22%20stroke%3D%22%23FFFFFF%22%20stroke-width%3D%223%22%20paint-order%3D%22stroke%22%3ETU%3C%2Ftext%3E%3C%2Fsvg%3E",
+              "fileTitle": "Generated:telford-united-placeholder-crest.svg",
+              "mimeType": "image/svg+xml",
+              "width": 256,
+              "height": 256,
+              "colors": [
+                {
+                  "role": "primary",
+                  "hex": "#FFFFFF"
+                },
+                {
+                  "role": "secondary",
+                  "hex": "#000000"
+                }
+              ],
               "license": {
-                "shortName": "TheSportsDB API artwork",
-                "usageTerms": "Artwork URL returned by TheSportsDB API; club marks may be trademarked or copyright restricted.",
-                "licenseUrl": "https://www.thesportsdb.com/docs_terms_of_use.php",
-                "copyrighted": true,
-                "attribution": "TheSportsDB"
+                "shortName": "CC0-1.0",
+                "usageTerms": "Creative Commons Zero v1.0 Universal",
+                "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+                "copyrighted": false,
+                "attribution": "footy-data-kit generated placeholder"
               },
-              "notes": "TheSportsDB team: AFC Telford United. Also known as Telford United.",
               "verification": {
-                "identityMatch": "none",
-                "licenseCheck": "restricted",
+                "identityMatch": "generated-placeholder",
+                "licenseCheck": "pass",
                 "httpCheck": "pass",
-                "needsManualReview": true,
-                "reviewReasons": [
-                  "license-restricted",
-                  "identity-uncertain"
-                ],
-                "checkedAt": "2026-06-20T22:50:39.962Z"
+                "needsManualReview": false
               },
+              "notes": "researchStatus: researched-no-source. Generated placeholder shield from source-backed club colours after targeted research found no usable crest source; not an official or historical club crest.",
               "priority": 1
             }
           ]
@@ -89557,36 +89220,49 @@
       },
       "assets": {
         "crest": {
-          "status": "restricted",
+          "preferred": "generated-placeholder:Generated:thames-placeholder-crest.svg",
+          "status": "placeholder",
           "candidates": [
             {
-              "assetId": "thesportsdb-badge:139952",
+              "assetId": "generated-placeholder:Generated:thames-placeholder-crest.svg",
               "kind": "crest",
-              "status": "restricted",
-              "source": "thesportsdb-badge",
-              "sourceUrl": "https://www.thesportsdb.com/api/v1/json/3/lookupteam.php?id=139952",
-              "imageUrl": "https://r2.thesportsdb.com/images/media/team/badge/68ob3g1623622459.png",
-              "pageUrl": "https://www.thesportsdb.com/team/139952",
-              "fileTitle": "TheSportsDB:Thames AFC badge",
+              "status": "placeholder",
+              "source": "generated-placeholder",
+              "placeholder": true,
+              "sourceUrl": "https://en.wikipedia.org/wiki/Thames_F.C.",
+              "imageUrl": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20256%20256%22%20role%3D%22img%22%3E%3Ctitle%3EThames%20generated%20placeholder%20crest%3C%2Ftitle%3E%3Cpath%20d%3D%22M128%2014%20220%2048v68c0%2058-36%20103-92%20126-56-23-92-68-92-126V48l92-34Z%22%20fill%3D%22%23FF0000%22%20stroke%3D%22%23FFFFFF%22%20stroke-width%3D%2210%22%2F%3E%3Cpath%20d%3D%22M128%2026%20210%2056v58c0%2049-30%2088-82%20110V26Z%22%20fill%3D%22%230000FF%22%20opacity%3D%220.92%22%2F%3E%3Cpath%20d%3D%22M50%2084h156v30H50z%22%20fill%3D%22%23FFFFFF%22%20opacity%3D%220.9%22%2F%3E%3Ctext%20x%3D%22128%22%20y%3D%22154%22%20text-anchor%3D%22middle%22%20font-family%3D%22Arial%2C%20Helvetica%2C%20sans-serif%22%20font-size%3D%2258%22%20font-weight%3D%22700%22%20fill%3D%22%23FFFFFF%22%20stroke%3D%22%23111111%22%20stroke-width%3D%223%22%20paint-order%3D%22stroke%22%3ET%3C%2Ftext%3E%3C%2Fsvg%3E",
+              "fileTitle": "Generated:thames-placeholder-crest.svg",
+              "mimeType": "image/svg+xml",
+              "width": 256,
+              "height": 256,
+              "colors": [
+                {
+                  "role": "primary",
+                  "hex": "#FF0000"
+                },
+                {
+                  "role": "secondary",
+                  "hex": "#0000FF"
+                },
+                {
+                  "role": "accent",
+                  "hex": "#FFFFFF"
+                }
+              ],
               "license": {
-                "shortName": "TheSportsDB API artwork",
-                "usageTerms": "Artwork URL returned by TheSportsDB API; club marks may be trademarked or copyright restricted.",
-                "licenseUrl": "https://www.thesportsdb.com/docs_terms_of_use.php",
-                "copyrighted": true,
-                "attribution": "TheSportsDB"
+                "shortName": "CC0-1.0",
+                "usageTerms": "Creative Commons Zero v1.0 Universal",
+                "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+                "copyrighted": false,
+                "attribution": "footy-data-kit generated placeholder"
               },
-              "notes": "TheSportsDB team: Thames AFC. Also known as Thames.",
               "verification": {
-                "identityMatch": "none",
-                "licenseCheck": "restricted",
+                "identityMatch": "generated-placeholder",
+                "licenseCheck": "pass",
                 "httpCheck": "pass",
-                "needsManualReview": true,
-                "reviewReasons": [
-                  "license-restricted",
-                  "identity-uncertain"
-                ],
-                "checkedAt": "2026-06-20T22:51:02.096Z"
+                "needsManualReview": false
               },
+              "notes": "researchStatus: researched-no-source. Generated placeholder shield from source-backed club colours after targeted research found no usable crest source; not an official or historical club crest.",
               "priority": 1
             }
           ]
@@ -91439,71 +91115,6 @@
                 "checkedAt": "2026-06-20T22:51:03.307Z"
               },
               "priority": 2
-            },
-            {
-              "assetId": "wikipedia-pageimage-any:Tottenham_Hotspur.svg",
-              "kind": "crest",
-              "status": "restricted",
-              "source": "wikipedia-pageimage-any",
-              "sourceUrl": "https://en.wikipedia.org/wiki/Tottenham_Hotspur_F.C.",
-              "imageUrl": "https://upload.wikimedia.org/wikipedia/en/b/b4/Tottenham_Hotspur.svg",
-              "pageUrl": "https://en.wikipedia.org/wiki/File:Tottenham_Hotspur.svg",
-              "fileTitle": "File:Tottenham Hotspur.svg",
-              "mimeType": "image/svg+xml",
-              "width": 115,
-              "height": 236,
-              "license": {
-                "shortName": "Fair use",
-                "usageTerms": "Fair use of copyrighted material in the context of Tottenham Hotspur F.C.",
-                "licenseUrl": "https://en.wikipedia.org/wiki/File:Tottenham_Hotspur.svg",
-                "copyrighted": true,
-                "credit": "Tottenham Hotspur Brand Identity and Style Guide"
-              },
-              "notes": "Manual audit flagged this crest candidate for poor readability, image quality, or transparent-background visibility.",
-              "verification": {
-                "identityMatch": "possible",
-                "licenseCheck": "restricted",
-                "httpCheck": "pass",
-                "needsManualReview": true,
-                "reviewReasons": [
-                  "license-restricted",
-                  "image-quality-review"
-                ],
-                "checkedAt": "2026-06-20T22:51:03.307Z"
-              },
-              "priority": 3
-            },
-            {
-              "assetId": "wikidata-image:Tottenham Hotspurs tegen Atletico Madrid 5-1 Nr 14 en 15 Elftal Tottenham Hots, Bestanddeelnr 915-1586.jpg",
-              "kind": "crest",
-              "status": "needs-review",
-              "source": "wikidata-image",
-              "sourceUrl": "https://www.wikidata.org/wiki/Q18741",
-              "pageUrl": "https://commons.wikimedia.org/wiki/File:Tottenham_Hotspurs_tegen_Atletico_Madrid_5-1_Nr_14_en_15_Elftal_Tottenham_Hots,_Bestanddeelnr_915-1586.jpg",
-              "fileTitle": "File:Tottenham Hotspurs tegen Atletico Madrid 5-1 Nr 14 en 15 Elftal Tottenham Hots, Bestanddeelnr 915-1586.jpg",
-              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b4/Tottenham_Hotspurs_tegen_Atletico_Madrid_5-1_Nr_14_en_15_Elftal_Tottenham_Hots%2C_Bestanddeelnr_915-1586.jpg",
-              "mimeType": "image/jpeg",
-              "width": 3648,
-              "height": 2406,
-              "license": {
-                "shortName": "CC0",
-                "usageTerms": "Creative Commons Zero, Public Domain Dedication",
-                "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
-                "copyrighted": true,
-                "credit": "http://proxy.handle.net/10648/aa36b930-d0b4-102d-bcf8-003048976d84",
-                "artist": "Harry Pot for Anefo"
-              },
-              "verification": {
-                "identityMatch": "possible",
-                "licenseCheck": "pass",
-                "httpCheck": "pass",
-                "needsManualReview": true,
-                "reviewReasons": [
-                  "non-crest-filename"
-                ],
-                "checkedAt": "2026-06-20T22:51:03.307Z"
-              },
-              "priority": 4
             }
           ]
         }
@@ -97901,16 +97512,16 @@
                 "credit": "http://www.wefc.co.uk/images/badges/windsor_eton.jpg"
               },
               "verification": {
-                "identityMatch": "possible",
+                "identityMatch": "curated",
                 "licenseCheck": "restricted",
                 "httpCheck": "pass",
                 "needsManualReview": true,
                 "reviewReasons": [
-                  "license-restricted",
-                  "non-crest-filename"
+                  "license-restricted"
                 ],
                 "checkedAt": "2026-06-20T19:29:21.411Z"
-              }
+              },
+              "notes": "Curated as the Windsor & Eton badge despite compact filename."
             }
           ]
         }
@@ -98441,39 +98052,6 @@
                 "checkedAt": "2026-06-20T22:51:08.214Z"
               },
               "priority": 1
-            },
-            {
-              "assetId": "wikipedia-pageimage-any:Wittonalbionfc.png",
-              "kind": "crest",
-              "status": "restricted",
-              "source": "wikipedia-pageimage-any",
-              "sourceUrl": "https://en.wikipedia.org/wiki/Witton_Albion_F.C.",
-              "imageUrl": "https://upload.wikimedia.org/wikipedia/en/8/84/Wittonalbionfc.png",
-              "pageUrl": "https://en.wikipedia.org/wiki/File:Wittonalbionfc.png",
-              "fileTitle": "File:Wittonalbionfc.png",
-              "mimeType": "image/png",
-              "width": 198,
-              "height": 241,
-              "license": {
-                "shortName": "Fair use",
-                "usageTerms": "Fair use of copyrighted material in the context of Witton Albion F.C.",
-                "licenseUrl": "https://en.wikipedia.org/wiki/File:Wittonalbionfc.png",
-                "copyrighted": true,
-                "credit": "The logo is from the following website: http://www.wittonalbion.co.uk/ http://www.wittonalbion.co.uk/"
-              },
-              "notes": "Manual audit flagged this crest candidate for poor readability, image quality, or transparent-background visibility.",
-              "verification": {
-                "identityMatch": "possible",
-                "licenseCheck": "restricted",
-                "httpCheck": "pass",
-                "needsManualReview": true,
-                "reviewReasons": [
-                  "license-restricted",
-                  "image-quality-review"
-                ],
-                "checkedAt": "2026-06-20T22:51:08.214Z"
-              },
-              "priority": 2
             }
           ]
         }
