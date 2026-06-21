@@ -67,6 +67,11 @@ Current state:
 - Club metadata now regenerates across the expanded season scope, using observed
   membership stints and `data/club-metadata-review.json` for lower-tier status
   findings that need curated rules.
+- The crest asset metadata branch adds `assets.crest` bundles to the club
+  metadata sidecar. The model stores image URLs and provenance only, preserves
+  license-restricted club marks as backups, adds generated placeholders for
+  researched clubs without usable crest sources, and keeps non-license review
+  issues intentionally small before release.
 
 ## V0.9.1: Data Label Correctness And V1 Prep
 

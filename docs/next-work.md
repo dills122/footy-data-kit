@@ -5,24 +5,30 @@ release plan and source of truth.
 
 ## Active Focus
 
-1. Finish review and release preparation for the completed phase 0 through
-   phase 3 branch in
-   [post-v1-phase-0-3-plan.md](/Users/dsteele/repos/footy-data-kit/docs/post-v1-phase-0-3-plan.md).
-2. Review the generated-output diff for the lower-tier backfill: tier 5 and
-   level 6 now both cover 1979-2025.
-3. Continue TypeScript migration with the next implementation slice: convert
+1. Finish review and release preparation for the crest asset metadata branch.
+   The sidecar now includes crest candidate bundles, restricted-license backups,
+   curated official/Wikimedia candidates, and generated placeholders for
+   researched clubs with no usable crest source.
+2. Treat the current club asset review baseline as expected unless new source
+   evidence appears: one true `needs-more-research` club (`Hounslow`), three
+   quality-review candidates (`Bridgend Town`, `Bromsgrove Rovers`,
+   `Solihull Borough`), and high-volume restricted-license club marks.
+3. Push/open the crest asset branch PR, run full CI-equivalent checks, and
+   include the asset metadata/consumer-filtering notes in the next release
+   notes.
+4. Continue TypeScript migration with the next implementation slice: convert
    shared config/season-rule boundaries or the parser/builder boundary before
    parser-heavy rewrites.
-4. Decide whether the next data expansion target is true level 7, or a source
+5. Decide whether the next data expansion target is true level 7, or a source
    spot-check pass over the now-complete tier 5/6 coverage.
-5. Confirm `data/club-metadata-review.json` remains clean after the next data
+6. Confirm `data/club-metadata-review.json` remains clean after the next data
    refresh, then convert any new lower-tier manual review findings into curated
    lifecycle/status rules.
-6. Treat
+7. Treat
    [pre-2004-tier6-source-spike.md](/Users/dsteele/repos/footy-data-kit/docs/pre-2004-tier6-source-spike.md)
    as the completed source-availability input for the pre-2004 feeder-league
    backfill.
-7. Track confirmed or suspected upstream Wikipedia defects in
+8. Track confirmed or suspected upstream Wikipedia defects in
    [wikipedia-source-issues.md](/Users/dsteele/repos/footy-data-kit/docs/wikipedia-source-issues.md)
    before adding local workarounds.
 

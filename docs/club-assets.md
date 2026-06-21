@@ -45,6 +45,18 @@ Each candidate includes source fields such as `source`, `sourceUrl`, `imageUrl`,
 `colors`, a `placeholder` flag for generated shields, and a `verification`
 object with review reasons.
 
+Recommended consumer filters:
+
+- Use `status: usable` when you only want source-discovered assets with a
+  passing license check.
+- Include `status: placeholder` when generated fallback crests are acceptable.
+  These are intentionally simple shields, not claims about official artwork.
+- Include `status: restricted` only when your app or service can handle club
+  mark licensing and trademark restrictions. These records are retained as
+  useful links and mirrors, not as blanket permission to redistribute artwork.
+- Treat `needs-review`, `needs-more-research`, and `failed` as non-display
+  states unless your product has its own manual review flow.
+
 ## Sources
 
 The current discovery order is:
@@ -67,6 +79,19 @@ The current discovery order is:
 Restricted candidates are preserved as backups but should not be selected as
 `preferred` while a usable candidate exists.
 
+Current source identifiers:
+
+- `wikipedia-pageimage-free`
+- `wikidata-logo`
+- `wikidata-coat-of-arms`
+- `wikidata-image`
+- `thesportsdb-badge`
+- `thesportsdb-logo`
+- `wikipedia-pageimage-any`
+- `official-site-logo`
+- `curated-wikimedia-logo`
+- `generated-placeholder`
+
 Wikidata `P154` and `P94` candidates are treated as crest-like when they match
 the club identity. Generic `P18` image candidates still need filename or other
 crest evidence, because they often point to squads, grounds, or match photos.
@@ -80,6 +105,11 @@ Curated official-site candidates are also kept as restricted backup artwork.
 They are useful for consumers that can handle club-mark licensing themselves,
 but they are not selected as preferred while a usable or generated placeholder
 candidate exists.
+
+Curated Wikimedia candidates are used when targeted review finds a reliable
+Wikimedia file that automated PageImages/Wikidata discovery missed. They still
+carry source and license metadata and flow through the same ranking and review
+model as other candidates.
 
 Generated placeholders are SVG data URLs. They use `source: generated-placeholder`, `status: placeholder`, `placeholder: true`, and CC0
 license metadata so consumers can render or filter them independently from
@@ -162,3 +192,26 @@ Expected high-volume findings:
 Reviewers should promote a candidate only when both identity and license are
 clear. Do not hand-edit generated output without moving the rule into generator
 logic or a future curated override file.
+
+As of the current crest-audit branch, the expected non-license review baseline
+is intentionally small:
+
+- `Hounslow` remains the only `club-asset-needs-more-research` club.
+- `Bridgend Town`, `Bromsgrove Rovers`, and `Solihull Borough` remain
+  `club-asset-quality-review` because the known candidates look club-related
+  but need better-quality replacements.
+- `club-asset-identity-uncertain`, `club-asset-non-crest-candidate`, and
+  `club-asset-multiple-review-candidates` should be zero. If they reappear,
+  either reject the bad candidate, add a scoped rejection for a successor-club
+  mismatch, or curate the identity in generator logic.
+
+## Release Checklist
+
+Before merging or tagging an asset refresh:
+
+1. Regenerate assets through `wikipedia/data/generate-club-assets.js`; do not
+   patch `data/club-metadata.json` or `data/club-assets-review.json` directly.
+2. Review the non-license issue buckets in `data/club-assets-review.json`.
+3. Confirm restricted-license volume is expected for club marks.
+4. Run focused asset tests plus schema, formatting, docs, and lint checks.
+5. Mention any remaining non-license review items in release notes.
