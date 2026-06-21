@@ -29,7 +29,9 @@ Each club can expose:
   looks like a crest, badge, logo, shield, or emblem.
 - `placeholder` means the preferred candidate is a generated shield based on
   curated/source-backed club colours. It is safe to render, but is not an
-  official or historical club crest.
+  official or historical club crest. Placeholder candidate notes may include
+  `researchStatus: researched-no-source`, meaning targeted research found
+  colors or identity context but no usable crest source.
 - `restricted` means candidates exist but the best available candidate is
   restricted, commonly Wikipedia fair use.
 - `needs-review` means candidates exist but identity, license, or crest
@@ -57,7 +59,9 @@ The current discovery order is:
    - `strLogo`
    - `strColour1`/`strColour2`/`strColour3` when valid hex values are present
 4. Wikipedia PageImages with `pilicense=any`.
-5. Generated placeholder shields for curated historical missing clubs with
+5. Curated candidates from official club sites or Wikimedia files when targeted
+   review finds a reliable image that automated discovery missed.
+6. Generated placeholder shields for curated missing clubs with
    source-backed colours.
 
 Restricted candidates are preserved as backups but should not be selected as
@@ -72,9 +76,16 @@ may be copyrighted or trademarked. Matching is intentionally strict: exact
 team-name/alias matches can become crest candidates, while successor or
 current-club partial matches remain under identity review.
 
+Curated official-site candidates are also kept as restricted backup artwork.
+They are useful for consumers that can handle club-mark licensing themselves,
+but they are not selected as preferred while a usable or generated placeholder
+candidate exists.
+
 Generated placeholders are SVG data URLs. They use `source: generated-placeholder`, `status: placeholder`, `placeholder: true`, and CC0
 license metadata so consumers can render or filter them independently from
-official/source-discovered crest candidates.
+official/source-discovered crest candidates. The `researched-no-source` note is
+the curated label for clubs where we looked for a real crest source and found
+only enough source-backed colour information to build a placeholder.
 
 ## Running Discovery
 
@@ -141,9 +152,9 @@ Expected high-volume findings:
   quality or transparent-background visibility. These stay available as
   candidates, but receive `club-asset-quality-review` so a better source can be
   found.
-- Some Victorian or folded clubs may need a future curated
-  `no-known-crest`/historical status. Do not infer that automatically from a
-  `needs-more-research` automated result.
+- Some Victorian or folded clubs may be curated as `researched-no-source` after
+  targeted review finds source-backed colours but no usable crest source. Do
+  not infer that automatically from a `needs-more-research` automated result.
 - Generated placeholders should only be added from curated colors and should
   remain visibly simple. They are a fallback for consumers, not evidence that an
   official crest existed.

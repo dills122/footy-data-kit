@@ -2,8 +2,8 @@
   "metadata": {
     "schemaVersion": 1,
     "generator": "club-assets",
-    "generatedAt": "2026-06-20T22:59:40.582Z",
-    "gitSha": "c035534",
+    "generatedAt": "2026-06-20T23:48:15.151Z",
+    "gitSha": "944ae0c",
     "sourceFiles": [
       "/Users/dsteele/repos/footy-data-kit/data-output/all-seasons.json",
       "/Users/dsteele/repos/footy-data-kit-club-assets/data/club-metadata.json",
@@ -1059,7 +1059,48 @@
       },
       "assets": {
         "crest": {
-          "status": "needs-more-research"
+          "preferred": "generated-placeholder:Generated:addlestone-and-weybridge-town-placeholder-crest.svg",
+          "status": "placeholder",
+          "candidates": [
+            {
+              "assetId": "generated-placeholder:Generated:addlestone-and-weybridge-town-placeholder-crest.svg",
+              "kind": "crest",
+              "status": "placeholder",
+              "source": "generated-placeholder",
+              "placeholder": true,
+              "sourceUrl": "https://en.wikipedia.org/wiki/Addlestone_%26_Weybridge_Town_F.C.",
+              "imageUrl": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20256%20256%22%20role%3D%22img%22%3E%3Ctitle%3EAddlestone%20%26amp%3B%20Weybridge%20Town%20generated%20placeholder%20crest%3C%2Ftitle%3E%3Cpath%20d%3D%22M128%2014%20220%2048v68c0%2058-36%20103-92%20126-56-23-92-68-92-126V48l92-34Z%22%20fill%3D%22%23FF0000%22%20stroke%3D%22%23FFFFFF%22%20stroke-width%3D%2210%22%2F%3E%3Cpath%20d%3D%22M128%2026%20210%2056v58c0%2049-30%2088-82%20110V26Z%22%20fill%3D%22%23FFFFFF%22%20opacity%3D%220.92%22%2F%3E%3Cpath%20d%3D%22M50%2084h156v30H50z%22%20fill%3D%22%23FFFFFF%22%20opacity%3D%220.9%22%2F%3E%3Ctext%20x%3D%22128%22%20y%3D%22154%22%20text-anchor%3D%22middle%22%20font-family%3D%22Arial%2C%20Helvetica%2C%20sans-serif%22%20font-size%3D%2258%22%20font-weight%3D%22700%22%20fill%3D%22%23FFFFFF%22%20stroke%3D%22%23111111%22%20stroke-width%3D%223%22%20paint-order%3D%22stroke%22%3EAWT%3C%2Ftext%3E%3C%2Fsvg%3E",
+              "fileTitle": "Generated:addlestone-and-weybridge-town-placeholder-crest.svg",
+              "mimeType": "image/svg+xml",
+              "width": 256,
+              "height": 256,
+              "colors": [
+                {
+                  "role": "primary",
+                  "hex": "#FF0000"
+                },
+                {
+                  "role": "secondary",
+                  "hex": "#FFFFFF"
+                }
+              ],
+              "license": {
+                "shortName": "CC0-1.0",
+                "usageTerms": "Creative Commons Zero v1.0 Universal",
+                "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+                "copyrighted": false,
+                "attribution": "footy-data-kit generated placeholder"
+              },
+              "verification": {
+                "identityMatch": "generated-placeholder",
+                "licenseCheck": "pass",
+                "httpCheck": "pass",
+                "needsManualReview": false
+              },
+              "notes": "researchStatus: researched-no-source. Generated placeholder shield from source-backed club colours after targeted research found no usable crest source; not an official or historical club crest.",
+              "priority": 1
+            }
+          ]
         }
       }
     },
@@ -54394,7 +54435,52 @@
       },
       "assets": {
         "crest": {
-          "status": "needs-more-research"
+          "status": "restricted",
+          "candidates": [
+            {
+              "assetId": "official-site-logo:OfficialSite:Leicester United logo",
+              "kind": "crest",
+              "status": "restricted",
+              "source": "official-site-logo",
+              "sourceUrl": "http://leicesterunitedfc.com/",
+              "imageUrl": "https://img-res.pitchero.com/?url=images.pitchero.com%2Fclub_logos%2F87225%2Fiuf0otXOSVqpBYVxxuFl_Untitled%20drawing%20(4).png&w=192&h=192&t=square",
+              "pageUrl": "http://leicesterunitedfc.com/",
+              "fileTitle": "OfficialSite:Leicester United logo",
+              "width": 192,
+              "height": 192,
+              "license": {
+                "shortName": "Official club website artwork",
+                "usageTerms": "Logo URL published by the official club website; club marks may be trademarked or copyright restricted.",
+                "copyrighted": true,
+                "attribution": "Official club website"
+              },
+              "colors": [
+                {
+                  "role": "primary",
+                  "hex": "#FFFFFF"
+                },
+                {
+                  "role": "secondary",
+                  "hex": "#FF0000"
+                },
+                {
+                  "role": "accent",
+                  "hex": "#000066"
+                }
+              ],
+              "notes": "Curated from the official Leicester United Pitchero website logo.",
+              "verification": {
+                "identityMatch": "strong",
+                "licenseCheck": "restricted",
+                "httpCheck": "pass",
+                "needsManualReview": true,
+                "reviewReasons": [
+                  "license-restricted"
+                ]
+              },
+              "priority": 1
+            }
+          ]
         }
       }
     },
@@ -62910,7 +62996,48 @@
       },
       "assets": {
         "crest": {
-          "status": "needs-more-research"
+          "preferred": "generated-placeholder:Generated:milton-keynes-city-placeholder-crest.svg",
+          "status": "placeholder",
+          "candidates": [
+            {
+              "assetId": "generated-placeholder:Generated:milton-keynes-city-placeholder-crest.svg",
+              "kind": "crest",
+              "status": "placeholder",
+              "source": "generated-placeholder",
+              "placeholder": true,
+              "sourceUrl": "https://en.wikipedia.org/wiki/Milton_Keynes_City_F.C.",
+              "imageUrl": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20256%20256%22%20role%3D%22img%22%3E%3Ctitle%3EMilton%20Keynes%20City%20generated%20placeholder%20crest%3C%2Ftitle%3E%3Cpath%20d%3D%22M128%2014%20220%2048v68c0%2058-36%20103-92%20126-56-23-92-68-92-126V48l92-34Z%22%20fill%3D%22%23F28500%22%20stroke%3D%22%23000000%22%20stroke-width%3D%2210%22%2F%3E%3Cpath%20d%3D%22M128%2026%20210%2056v58c0%2049-30%2088-82%20110V26Z%22%20fill%3D%22%23000000%22%20opacity%3D%220.92%22%2F%3E%3Cpath%20d%3D%22M50%2084h156v30H50z%22%20fill%3D%22%23000000%22%20opacity%3D%220.9%22%2F%3E%3Ctext%20x%3D%22128%22%20y%3D%22154%22%20text-anchor%3D%22middle%22%20font-family%3D%22Arial%2C%20Helvetica%2C%20sans-serif%22%20font-size%3D%2258%22%20font-weight%3D%22700%22%20fill%3D%22%23FFFFFF%22%20stroke%3D%22%23111111%22%20stroke-width%3D%223%22%20paint-order%3D%22stroke%22%3EMKC%3C%2Ftext%3E%3C%2Fsvg%3E",
+              "fileTitle": "Generated:milton-keynes-city-placeholder-crest.svg",
+              "mimeType": "image/svg+xml",
+              "width": 256,
+              "height": 256,
+              "colors": [
+                {
+                  "role": "primary",
+                  "hex": "#F28500"
+                },
+                {
+                  "role": "secondary",
+                  "hex": "#000000"
+                }
+              ],
+              "license": {
+                "shortName": "CC0-1.0",
+                "usageTerms": "Creative Commons Zero v1.0 Universal",
+                "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+                "copyrighted": false,
+                "attribution": "footy-data-kit generated placeholder"
+              },
+              "verification": {
+                "identityMatch": "generated-placeholder",
+                "licenseCheck": "pass",
+                "httpCheck": "pass",
+                "needsManualReview": false
+              },
+              "notes": "researchStatus: researched-no-source. Generated placeholder shield from source-backed club colours after targeted research found no usable crest source; not an official or historical club crest.",
+              "priority": 1
+            }
+          ]
         }
       }
     },
@@ -74622,7 +74749,52 @@
       },
       "assets": {
         "crest": {
-          "status": "needs-more-research"
+          "preferred": "generated-placeholder:Generated:redbridge-forest-placeholder-crest.svg",
+          "status": "placeholder",
+          "candidates": [
+            {
+              "assetId": "generated-placeholder:Generated:redbridge-forest-placeholder-crest.svg",
+              "kind": "crest",
+              "status": "placeholder",
+              "source": "generated-placeholder",
+              "placeholder": true,
+              "sourceUrl": "https://en.wikipedia.org/wiki/Redbridge_Forest_F.C.",
+              "imageUrl": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20256%20256%22%20role%3D%22img%22%3E%3Ctitle%3ERedbridge%20Forest%20generated%20placeholder%20crest%3C%2Ftitle%3E%3Cpath%20d%3D%22M128%2014%20220%2048v68c0%2058-36%20103-92%20126-56-23-92-68-92-126V48l92-34Z%22%20fill%3D%22%23FF0000%22%20stroke%3D%22%23FFFFFF%22%20stroke-width%3D%2210%22%2F%3E%3Cpath%20d%3D%22M128%2026%20210%2056v58c0%2049-30%2088-82%20110V26Z%22%20fill%3D%22%230000FF%22%20opacity%3D%220.92%22%2F%3E%3Cpath%20d%3D%22M50%2084h156v30H50z%22%20fill%3D%22%23FFFFFF%22%20opacity%3D%220.9%22%2F%3E%3Ctext%20x%3D%22128%22%20y%3D%22154%22%20text-anchor%3D%22middle%22%20font-family%3D%22Arial%2C%20Helvetica%2C%20sans-serif%22%20font-size%3D%2258%22%20font-weight%3D%22700%22%20fill%3D%22%23FFFFFF%22%20stroke%3D%22%23111111%22%20stroke-width%3D%223%22%20paint-order%3D%22stroke%22%3ERF%3C%2Ftext%3E%3C%2Fsvg%3E",
+              "fileTitle": "Generated:redbridge-forest-placeholder-crest.svg",
+              "mimeType": "image/svg+xml",
+              "width": 256,
+              "height": 256,
+              "colors": [
+                {
+                  "role": "primary",
+                  "hex": "#FF0000"
+                },
+                {
+                  "role": "secondary",
+                  "hex": "#0000FF"
+                },
+                {
+                  "role": "accent",
+                  "hex": "#FFFFFF"
+                }
+              ],
+              "license": {
+                "shortName": "CC0-1.0",
+                "usageTerms": "Creative Commons Zero v1.0 Universal",
+                "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+                "copyrighted": false,
+                "attribution": "footy-data-kit generated placeholder"
+              },
+              "verification": {
+                "identityMatch": "generated-placeholder",
+                "licenseCheck": "pass",
+                "httpCheck": "pass",
+                "needsManualReview": false
+              },
+              "notes": "researchStatus: researched-no-source. Generated placeholder shield from source-backed club colours after targeted research found no usable crest source; not an official or historical club crest.",
+              "priority": 1
+            }
+          ]
         }
       }
     },
@@ -76510,7 +76682,52 @@
       },
       "assets": {
         "crest": {
-          "status": "needs-more-research"
+          "preferred": "generated-placeholder:Generated:rothwell-town-placeholder-crest.svg",
+          "status": "placeholder",
+          "candidates": [
+            {
+              "assetId": "generated-placeholder:Generated:rothwell-town-placeholder-crest.svg",
+              "kind": "crest",
+              "status": "placeholder",
+              "source": "generated-placeholder",
+              "placeholder": true,
+              "sourceUrl": "https://en.wikipedia.org/wiki/Rothwell_Town_F.C.",
+              "imageUrl": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20256%20256%22%20role%3D%22img%22%3E%3Ctitle%3ERothwell%20Town%20generated%20placeholder%20crest%3C%2Ftitle%3E%3Cpath%20d%3D%22M128%2014%20220%2048v68c0%2058-36%20103-92%20126-56-23-92-68-92-126V48l92-34Z%22%20fill%3D%22%230000FF%22%20stroke%3D%22%23FFDF00%22%20stroke-width%3D%2210%22%2F%3E%3Cpath%20d%3D%22M128%2026%20210%2056v58c0%2049-30%2088-82%20110V26Z%22%20fill%3D%22%23FFFFFF%22%20opacity%3D%220.92%22%2F%3E%3Cpath%20d%3D%22M50%2084h156v30H50z%22%20fill%3D%22%23FFDF00%22%20opacity%3D%220.9%22%2F%3E%3Ctext%20x%3D%22128%22%20y%3D%22154%22%20text-anchor%3D%22middle%22%20font-family%3D%22Arial%2C%20Helvetica%2C%20sans-serif%22%20font-size%3D%2258%22%20font-weight%3D%22700%22%20fill%3D%22%23FFFFFF%22%20stroke%3D%22%23111111%22%20stroke-width%3D%223%22%20paint-order%3D%22stroke%22%3ERT%3C%2Ftext%3E%3C%2Fsvg%3E",
+              "fileTitle": "Generated:rothwell-town-placeholder-crest.svg",
+              "mimeType": "image/svg+xml",
+              "width": 256,
+              "height": 256,
+              "colors": [
+                {
+                  "role": "primary",
+                  "hex": "#0000FF"
+                },
+                {
+                  "role": "secondary",
+                  "hex": "#FFFFFF"
+                },
+                {
+                  "role": "accent",
+                  "hex": "#FFDF00"
+                }
+              ],
+              "license": {
+                "shortName": "CC0-1.0",
+                "usageTerms": "Creative Commons Zero v1.0 Universal",
+                "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+                "copyrighted": false,
+                "attribution": "footy-data-kit generated placeholder"
+              },
+              "verification": {
+                "identityMatch": "generated-placeholder",
+                "licenseCheck": "pass",
+                "httpCheck": "pass",
+                "needsManualReview": false
+              },
+              "notes": "researchStatus: researched-no-source. Generated placeholder shield from source-backed club colours after targeted research found no usable crest source; not an official or historical club crest.",
+              "priority": 1
+            }
+          ]
         }
       }
     },
@@ -88951,7 +89168,48 @@
       },
       "assets": {
         "crest": {
-          "status": "needs-more-research"
+          "preferred": "curated-wikimedia-logo:TeamBath.gif",
+          "status": "usable",
+          "candidates": [
+            {
+              "assetId": "curated-wikimedia-logo:TeamBath.gif",
+              "kind": "crest",
+              "status": "usable",
+              "source": "curated-wikimedia-logo",
+              "sourceUrl": "https://en.wikipedia.org/wiki/Team_Bath_F.C.",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/1/1e/TeamBath.gif",
+              "pageUrl": "https://en.wikipedia.org/wiki/File:TeamBath.gif",
+              "fileTitle": "File:TeamBath.gif",
+              "mimeType": "image/gif",
+              "width": 249,
+              "height": 77,
+              "license": {
+                "shortName": "Public domain",
+                "usageTerms": "Public domain",
+                "licenseUrl": "https://en.wikipedia.org/wiki/File:TeamBath.gif",
+                "copyrighted": false,
+                "attribution": "Team Bath"
+              },
+              "colors": [
+                {
+                  "role": "primary",
+                  "hex": "#0000FF"
+                },
+                {
+                  "role": "secondary",
+                  "hex": "#F1EF00"
+                }
+              ],
+              "notes": "Curated from the Team Bath F.C. Wikipedia infobox logo file.",
+              "verification": {
+                "identityMatch": "curated",
+                "licenseCheck": "pass",
+                "httpCheck": "pass",
+                "needsManualReview": false
+              },
+              "priority": 1
+            }
+          ]
         }
       }
     },
@@ -91842,7 +92100,48 @@
       },
       "assets": {
         "crest": {
-          "status": "needs-more-research"
+          "status": "restricted",
+          "candidates": [
+            {
+              "assetId": "official-site-logo:OfficialSite:Trowbridge Town logo",
+              "kind": "crest",
+              "status": "restricted",
+              "source": "official-site-logo",
+              "sourceUrl": "https://trowbridgetownfootballclub.co.uk/",
+              "imageUrl": "https://trowbridgetownfootballclub.co.uk/wp-content/uploads/2018/08/ttfc-logo.png",
+              "pageUrl": "https://trowbridgetownfootballclub.co.uk/",
+              "fileTitle": "OfficialSite:Trowbridge Town logo",
+              "width": 362,
+              "height": 581,
+              "license": {
+                "shortName": "Official club website artwork",
+                "usageTerms": "Logo URL published by the official club website; club marks may be trademarked or copyright restricted.",
+                "copyrighted": true,
+                "attribution": "Official club website"
+              },
+              "colors": [
+                {
+                  "role": "primary",
+                  "hex": "#FFFF00"
+                },
+                {
+                  "role": "secondary",
+                  "hex": "#000000"
+                }
+              ],
+              "notes": "Curated from the official Trowbridge Town website logo.",
+              "verification": {
+                "identityMatch": "strong",
+                "licenseCheck": "restricted",
+                "httpCheck": "pass",
+                "needsManualReview": true,
+                "reviewReasons": [
+                  "license-restricted"
+                ]
+              },
+              "priority": 1
+            }
+          ]
         }
       }
     },
@@ -92960,7 +93259,48 @@
       },
       "assets": {
         "crest": {
-          "status": "needs-more-research"
+          "preferred": "generated-placeholder:Generated:walthamstow-avenue-placeholder-crest.svg",
+          "status": "placeholder",
+          "candidates": [
+            {
+              "assetId": "generated-placeholder:Generated:walthamstow-avenue-placeholder-crest.svg",
+              "kind": "crest",
+              "status": "placeholder",
+              "source": "generated-placeholder",
+              "placeholder": true,
+              "sourceUrl": "https://en.wikipedia.org/wiki/Walthamstow_Avenue_F.C.",
+              "imageUrl": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20256%20256%22%20role%3D%22img%22%3E%3Ctitle%3EWalthamstow%20Avenue%20generated%20placeholder%20crest%3C%2Ftitle%3E%3Cpath%20d%3D%22M128%2014%20220%2048v68c0%2058-36%20103-92%20126-56-23-92-68-92-126V48l92-34Z%22%20fill%3D%22%2399CCFE%22%20stroke%3D%22%23000066%22%20stroke-width%3D%2210%22%2F%3E%3Cpath%20d%3D%22M128%2026%20210%2056v58c0%2049-30%2088-82%20110V26Z%22%20fill%3D%22%23000066%22%20opacity%3D%220.92%22%2F%3E%3Cpath%20d%3D%22M50%2084h156v30H50z%22%20fill%3D%22%23000066%22%20opacity%3D%220.9%22%2F%3E%3Ctext%20x%3D%22128%22%20y%3D%22154%22%20text-anchor%3D%22middle%22%20font-family%3D%22Arial%2C%20Helvetica%2C%20sans-serif%22%20font-size%3D%2258%22%20font-weight%3D%22700%22%20fill%3D%22%23111111%22%20stroke%3D%22%23FFFFFF%22%20stroke-width%3D%223%22%20paint-order%3D%22stroke%22%3EWA%3C%2Ftext%3E%3C%2Fsvg%3E",
+              "fileTitle": "Generated:walthamstow-avenue-placeholder-crest.svg",
+              "mimeType": "image/svg+xml",
+              "width": 256,
+              "height": 256,
+              "colors": [
+                {
+                  "role": "primary",
+                  "hex": "#99CCFE"
+                },
+                {
+                  "role": "secondary",
+                  "hex": "#000066"
+                }
+              ],
+              "license": {
+                "shortName": "CC0-1.0",
+                "usageTerms": "Creative Commons Zero v1.0 Universal",
+                "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+                "copyrighted": false,
+                "attribution": "footy-data-kit generated placeholder"
+              },
+              "verification": {
+                "identityMatch": "generated-placeholder",
+                "licenseCheck": "pass",
+                "httpCheck": "pass",
+                "needsManualReview": false
+              },
+              "notes": "researchStatus: researched-no-source. Generated placeholder shield from source-backed club colours after targeted research found no usable crest source; not an official or historical club crest.",
+              "priority": 1
+            }
+          ]
         }
       }
     },
@@ -97891,7 +98231,38 @@
       },
       "assets": {
         "crest": {
-          "status": "needs-more-research"
+          "status": "restricted",
+          "candidates": [
+            {
+              "assetId": "official-site-logo:OfficialSite:Witney Town FC logo",
+              "kind": "crest",
+              "status": "restricted",
+              "source": "official-site-logo",
+              "sourceUrl": "https://witneytownfc.co.uk/",
+              "imageUrl": "https://witneytownfc.co.uk/wp-content/uploads/2025/05/Witney-Town-FC-logo.png",
+              "pageUrl": "https://witneytownfc.co.uk/",
+              "fileTitle": "OfficialSite:Witney Town FC logo",
+              "width": 254,
+              "height": 300,
+              "license": {
+                "shortName": "Official club website artwork",
+                "usageTerms": "Logo URL published by the official club website; club marks may be trademarked or copyright restricted.",
+                "copyrighted": true,
+                "attribution": "Official club website"
+              },
+              "notes": "Curated from the official Witney Town website logo.",
+              "verification": {
+                "identityMatch": "strong",
+                "licenseCheck": "restricted",
+                "httpCheck": "pass",
+                "needsManualReview": true,
+                "reviewReasons": [
+                  "license-restricted"
+                ]
+              },
+              "priority": 1
+            }
+          ]
         }
       }
     },

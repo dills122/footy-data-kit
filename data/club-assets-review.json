@@ -2,8 +2,8 @@
   "metadata": {
     "schemaVersion": 1,
     "generator": "club-assets-review",
-    "generatedAt": "2026-06-20T22:59:40.592Z",
-    "gitSha": "c035534",
+    "generatedAt": "2026-06-20T23:48:15.161Z",
+    "gitSha": "944ae0c",
     "sourceFiles": [
       "/Users/dsteele/repos/footy-data-kit/data/club-metadata.json"
     ],
@@ -13,12 +13,12 @@
     }
   },
   "clubCount": 375,
-  "issueCount": 416,
+  "issueCount": 410,
   "issueCounts": {
     "club-asset-identity-uncertain": 10,
-    "club-asset-license-restricted": 358,
+    "club-asset-license-restricted": 361,
     "club-asset-multiple-review-candidates": 17,
-    "club-asset-needs-more-research": 10,
+    "club-asset-needs-more-research": 1,
     "club-asset-non-crest-candidate": 12,
     "club-asset-quality-review": 9
   },
@@ -2095,6 +2095,16 @@
     },
     {
       "type": "club-asset-license-restricted",
+      "clubKey": "leicester united",
+      "clubId": "leicester-united",
+      "canonicalName": "Leicester United",
+      "assetKind": "crest",
+      "assetId": "official-site-logo:OfficialSite:Leicester United logo",
+      "source": "official-site-logo",
+      "message": "Leicester United crest candidate is license restricted"
+    },
+    {
+      "type": "club-asset-license-restricted",
       "clubKey": "leigh genesis",
       "clubId": "leigh-genesis",
       "canonicalName": "Leigh Genesis",
@@ -3315,6 +3325,16 @@
     },
     {
       "type": "club-asset-license-restricted",
+      "clubKey": "trowbridge town",
+      "clubId": "trowbridge-town",
+      "canonicalName": "Trowbridge Town",
+      "assetKind": "crest",
+      "assetId": "official-site-logo:OfficialSite:Trowbridge Town logo",
+      "source": "official-site-logo",
+      "message": "Trowbridge Town crest candidate is license restricted"
+    },
+    {
+      "type": "club-asset-license-restricted",
       "clubKey": "truro city",
       "clubId": "truro-city",
       "canonicalName": "Truro City",
@@ -3552,6 +3572,16 @@
       "assetId": "wikipedia-pageimage-any:Winsford_United_Crest.png",
       "source": "wikipedia-pageimage-any",
       "message": "Winsford United crest candidate is license restricted"
+    },
+    {
+      "type": "club-asset-license-restricted",
+      "clubKey": "witney town",
+      "clubId": "witney-town",
+      "canonicalName": "Witney Town",
+      "assetKind": "crest",
+      "assetId": "official-site-logo:OfficialSite:Witney Town FC logo",
+      "source": "official-site-logo",
+      "message": "Witney Town crest candidate is license restricted"
     },
     {
       "type": "club-asset-license-restricted",
@@ -3858,83 +3888,11 @@
     },
     {
       "type": "club-asset-needs-more-research",
-      "clubKey": "addlestone and weybridge town",
-      "clubId": "addlestone-and-weybridge-town",
-      "canonicalName": "Addlestone & Weybridge Town",
-      "assetKind": "crest",
-      "message": "Addlestone & Weybridge Town needs more crest asset research"
-    },
-    {
-      "type": "club-asset-needs-more-research",
       "clubKey": "hounslow",
       "clubId": "hounslow",
       "canonicalName": "Hounslow",
       "assetKind": "crest",
       "message": "Hounslow needs more crest asset research"
-    },
-    {
-      "type": "club-asset-needs-more-research",
-      "clubKey": "leicester united",
-      "clubId": "leicester-united",
-      "canonicalName": "Leicester United",
-      "assetKind": "crest",
-      "message": "Leicester United needs more crest asset research"
-    },
-    {
-      "type": "club-asset-needs-more-research",
-      "clubKey": "milton keynes city",
-      "clubId": "milton-keynes-city",
-      "canonicalName": "Milton Keynes City",
-      "assetKind": "crest",
-      "message": "Milton Keynes City needs more crest asset research"
-    },
-    {
-      "type": "club-asset-needs-more-research",
-      "clubKey": "redbridge forest",
-      "clubId": "redbridge-forest",
-      "canonicalName": "Redbridge Forest",
-      "assetKind": "crest",
-      "message": "Redbridge Forest needs more crest asset research"
-    },
-    {
-      "type": "club-asset-needs-more-research",
-      "clubKey": "rothwell town",
-      "clubId": "rothwell-town",
-      "canonicalName": "Rothwell Town",
-      "assetKind": "crest",
-      "message": "Rothwell Town needs more crest asset research"
-    },
-    {
-      "type": "club-asset-needs-more-research",
-      "clubKey": "team bath",
-      "clubId": "team-bath",
-      "canonicalName": "Team Bath",
-      "assetKind": "crest",
-      "message": "Team Bath needs more crest asset research"
-    },
-    {
-      "type": "club-asset-needs-more-research",
-      "clubKey": "trowbridge town",
-      "clubId": "trowbridge-town",
-      "canonicalName": "Trowbridge Town",
-      "assetKind": "crest",
-      "message": "Trowbridge Town needs more crest asset research"
-    },
-    {
-      "type": "club-asset-needs-more-research",
-      "clubKey": "walthamstow avenue",
-      "clubId": "walthamstow-avenue",
-      "canonicalName": "Walthamstow Avenue",
-      "assetKind": "crest",
-      "message": "Walthamstow Avenue needs more crest asset research"
-    },
-    {
-      "type": "club-asset-needs-more-research",
-      "clubKey": "witney town",
-      "clubId": "witney-town",
-      "canonicalName": "Witney Town",
-      "assetKind": "crest",
-      "message": "Witney Town needs more crest asset research"
     },
     {
       "type": "club-asset-non-crest-candidate",

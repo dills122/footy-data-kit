@@ -3,6 +3,8 @@
 import https from 'node:https';
 
 export const CLUB_ASSET_SOURCE_IDS = Object.freeze({
+  officialSiteLogo: 'official-site-logo',
+  curatedWikimediaLogo: 'curated-wikimedia-logo',
   generatedPlaceholder: 'generated-placeholder',
   theSportsDbBadge: 'thesportsdb-badge',
   theSportsDbLogo: 'thesportsdb-logo',
@@ -40,6 +42,13 @@ const WIKIDATA_MEDIA_PROPERTIES = Object.freeze([
 const TRUSTED_WIKIDATA_CREST_SOURCES = Object.freeze([CLUB_ASSET_SOURCE_IDS.wikidataCoatOfArms]);
 const QUALITY_REVIEW_NOTES =
   'Manual audit flagged this crest candidate for poor readability, image quality, or transparent-background visibility.';
+const OFFICIAL_SITE_ARTWORK_LICENSE = Object.freeze({
+  shortName: 'Official club website artwork',
+  usageTerms:
+    'Logo URL published by the official club website; club marks may be trademarked or copyright restricted.',
+  copyrighted: true,
+  attribution: 'Official club website',
+});
 const REJECTED_ASSET_IDS = Object.freeze(
   new Set([
     'wikidata-image:Andover-2008-Squad.jpg',
@@ -106,6 +115,12 @@ const REJECTED_ASSET_IDS = Object.freeze(
   ])
 );
 const CURATED_ASSET_DECISIONS = Object.freeze({
+  'curated-wikimedia-logo:TeamBath.gif': {
+    clubIds: ['team-bath'],
+    status: 'usable',
+    identityMatch: 'curated',
+    notes: 'Curated from the Team Bath F.C. Wikipedia infobox logo file.',
+  },
   'wikipedia-pageimage-free:Leeds_old_arms.png': {
     clubIds: ['leeds-city'],
     status: 'usable',
@@ -175,7 +190,94 @@ const THESPORTSDB_ARTWORK_LICENSE = Object.freeze({
   copyrighted: true,
   attribution: 'TheSportsDB',
 });
-const HISTORICAL_PLACEHOLDER_CRESTS = Object.freeze({
+const CURATED_ASSET_CANDIDATES = Object.freeze({
+  'leicester-united': [
+    {
+      source: CLUB_ASSET_SOURCE_IDS.officialSiteLogo,
+      sourceUrl: 'http://leicesterunitedfc.com/',
+      imageUrl:
+        'https://img-res.pitchero.com/?url=images.pitchero.com%2Fclub_logos%2F87225%2Fiuf0otXOSVqpBYVxxuFl_Untitled%20drawing%20(4).png&w=192&h=192&t=square',
+      pageUrl: 'http://leicesterunitedfc.com/',
+      fileTitle: 'OfficialSite:Leicester United logo',
+      width: 192,
+      height: 192,
+      license: OFFICIAL_SITE_ARTWORK_LICENSE,
+      colors: [
+        { role: 'primary', hex: '#FFFFFF' },
+        { role: 'secondary', hex: '#FF0000' },
+        { role: 'accent', hex: '#000066' },
+      ],
+      notes: 'Curated from the official Leicester United Pitchero website logo.',
+    },
+  ],
+  'team-bath': [
+    {
+      source: CLUB_ASSET_SOURCE_IDS.curatedWikimediaLogo,
+      sourceUrl: 'https://en.wikipedia.org/wiki/Team_Bath_F.C.',
+      imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/1/1e/TeamBath.gif',
+      pageUrl: 'https://en.wikipedia.org/wiki/File:TeamBath.gif',
+      fileTitle: 'File:TeamBath.gif',
+      mimeType: 'image/gif',
+      width: 249,
+      height: 77,
+      license: {
+        shortName: 'Public domain',
+        usageTerms: 'Public domain',
+        licenseUrl: 'https://en.wikipedia.org/wiki/File:TeamBath.gif',
+        copyrighted: false,
+        attribution: 'Team Bath',
+      },
+      colors: [
+        { role: 'primary', hex: '#0000FF' },
+        { role: 'secondary', hex: '#F1EF00' },
+      ],
+      notes: 'Curated from the Team Bath F.C. Wikipedia infobox logo file.',
+    },
+  ],
+  'trowbridge-town': [
+    {
+      source: CLUB_ASSET_SOURCE_IDS.officialSiteLogo,
+      sourceUrl: 'https://trowbridgetownfootballclub.co.uk/',
+      imageUrl: 'https://trowbridgetownfootballclub.co.uk/wp-content/uploads/2018/08/ttfc-logo.png',
+      pageUrl: 'https://trowbridgetownfootballclub.co.uk/',
+      fileTitle: 'OfficialSite:Trowbridge Town logo',
+      width: 362,
+      height: 581,
+      license: OFFICIAL_SITE_ARTWORK_LICENSE,
+      colors: [
+        { role: 'primary', hex: '#FFFF00' },
+        { role: 'secondary', hex: '#000000' },
+      ],
+      notes: 'Curated from the official Trowbridge Town website logo.',
+    },
+  ],
+  'witney-town': [
+    {
+      source: CLUB_ASSET_SOURCE_IDS.officialSiteLogo,
+      sourceUrl: 'https://witneytownfc.co.uk/',
+      imageUrl: 'https://witneytownfc.co.uk/wp-content/uploads/2025/05/Witney-Town-FC-logo.png',
+      pageUrl: 'https://witneytownfc.co.uk/',
+      fileTitle: 'OfficialSite:Witney Town FC logo',
+      width: 254,
+      height: 300,
+      license: OFFICIAL_SITE_ARTWORK_LICENSE,
+      notes: 'Curated from the official Witney Town website logo.',
+    },
+  ],
+});
+const PLACEHOLDER_RESEARCH_NOTES = Object.freeze({
+  'researched-no-source':
+    'researchStatus: researched-no-source. Generated placeholder shield from source-backed club colours after targeted research found no usable crest source; not an official or historical club crest.',
+});
+const DEFAULT_PLACEHOLDER_RESEARCH_STATUS = 'researched-no-source';
+const CURATED_PLACEHOLDER_CRESTS = Object.freeze({
+  'addlestone-and-weybridge-town': {
+    researchStatus: 'researched-no-source',
+    colors: [
+      { role: 'primary', hex: '#FF0000' },
+      { role: 'secondary', hex: '#FFFFFF' },
+    ],
+  },
   'birmingham-st-georges': {
     colors: [
       { role: 'primary', hex: '#FFFFFF' },
@@ -210,10 +312,25 @@ const HISTORICAL_PLACEHOLDER_CRESTS = Object.freeze({
       { role: 'accent', hex: '#FFFFFF' },
     ],
   },
+  'milton-keynes-city': {
+    researchStatus: 'researched-no-source',
+    colors: [
+      { role: 'primary', hex: '#F28500' },
+      { role: 'secondary', hex: '#000000' },
+    ],
+  },
   'oswestry-town': {
     colors: [
       { role: 'primary', hex: '#0000FF' },
       { role: 'secondary', hex: '#FFFFFF' },
+    ],
+  },
+  'redbridge-forest': {
+    researchStatus: 'researched-no-source',
+    colors: [
+      { role: 'primary', hex: '#FF0000' },
+      { role: 'secondary', hex: '#0000FF' },
+      { role: 'accent', hex: '#FFFFFF' },
     ],
   },
   'rotherham-town': {
@@ -222,10 +339,25 @@ const HISTORICAL_PLACEHOLDER_CRESTS = Object.freeze({
       { role: 'secondary', hex: '#1C1271' },
     ],
   },
+  'rothwell-town': {
+    researchStatus: 'researched-no-source',
+    colors: [
+      { role: 'primary', hex: '#0000FF' },
+      { role: 'secondary', hex: '#FFFFFF' },
+      { role: 'accent', hex: '#FFDF00' },
+    ],
+  },
   'sunderland-albion': {
     colors: [
       { role: 'primary', hex: '#000066' },
       { role: 'secondary', hex: '#FFFFFF' },
+    ],
+  },
+  'walthamstow-avenue': {
+    researchStatus: 'researched-no-source',
+    colors: [
+      { role: 'primary', hex: '#99CCFE' },
+      { role: 'secondary', hex: '#000066' },
     ],
   },
 });
@@ -595,15 +727,17 @@ function statusRank(status) {
 }
 
 function sourceRank(source) {
+  if (source === CLUB_ASSET_SOURCE_IDS.curatedWikimediaLogo) return 0;
   if (source === CLUB_ASSET_SOURCE_IDS.generatedPlaceholder) return 0;
   if (source === CLUB_ASSET_SOURCE_IDS.wikidataLogo) return 0;
   if (source === CLUB_ASSET_SOURCE_IDS.wikidataCoatOfArms) return 1;
   if (source === CLUB_ASSET_SOURCE_IDS.wikipediaPageImageFree) return 2;
-  if (source === CLUB_ASSET_SOURCE_IDS.theSportsDbBadge) return 3;
-  if (source === CLUB_ASSET_SOURCE_IDS.theSportsDbLogo) return 4;
-  if (source === CLUB_ASSET_SOURCE_IDS.wikidataImage) return 5;
-  if (source === CLUB_ASSET_SOURCE_IDS.wikipediaPageImageAny) return 6;
-  return 7;
+  if (source === CLUB_ASSET_SOURCE_IDS.officialSiteLogo) return 3;
+  if (source === CLUB_ASSET_SOURCE_IDS.theSportsDbBadge) return 4;
+  if (source === CLUB_ASSET_SOURCE_IDS.theSportsDbLogo) return 5;
+  if (source === CLUB_ASSET_SOURCE_IDS.wikidataImage) return 6;
+  if (source === CLUB_ASSET_SOURCE_IDS.wikipediaPageImageAny) return 7;
+  return 8;
 }
 
 export function rankClubAssetCandidates(candidates, limit = 5) {
@@ -649,7 +783,7 @@ export function buildClubAssetBundle(candidates, { limit = 5 } = {}) {
 }
 
 export function buildGeneratedPlaceholderCrestCandidate(club, { checkedAt = null } = {}) {
-  const placeholderConfig = HISTORICAL_PLACEHOLDER_CRESTS[club?.clubId];
+  const placeholderConfig = CURATED_PLACEHOLDER_CRESTS[club?.clubId];
   if (!placeholderConfig) return null;
 
   const slug = slugify(club?.clubId || club?.canonicalName || 'club');
@@ -682,7 +816,9 @@ export function buildGeneratedPlaceholderCrestCandidate(club, { checkedAt = null
       checkedAt,
     }),
     notes:
-      'Generated placeholder shield from source-backed club colours; not an official or historical club crest.',
+      PLACEHOLDER_RESEARCH_NOTES[
+        placeholderConfig.researchStatus || DEFAULT_PLACEHOLDER_RESEARCH_STATUS
+      ] || PLACEHOLDER_RESEARCH_NOTES[DEFAULT_PLACEHOLDER_RESEARCH_STATUS],
   });
 }
 
@@ -986,6 +1122,17 @@ export function buildTheSportsDbAssetCandidates(team) {
   ].filter(Boolean);
 }
 
+export function buildCuratedAssetCandidates(club) {
+  return (CURATED_ASSET_CANDIDATES[club?.clubId] || []).map((candidate) =>
+    compactObject({
+      assetId: buildAssetId(candidate.source, candidate.fileTitle, candidate.imageUrl),
+      kind: 'crest',
+      status: 'needs-review',
+      ...candidate,
+    })
+  );
+}
+
 function candidateFromPageImage(page, source) {
   if (!page?.pageimage && !page?.original?.source) return null;
   const fileTitle = page.pageimage ? `File:${page.pageimage}` : null;
@@ -1129,6 +1276,7 @@ export async function discoverClubCrestBundle(club, options = {}) {
   } catch (error) {
     if (options.throwOnSourceError) throw error;
   }
+  rawCandidates.push(...buildCuratedAssetCandidates(club));
 
   let enrichedCandidates = rawCandidates;
   try {

@@ -1,6 +1,7 @@
 import {
   addGeneratedPlaceholderFallback,
   buildClubAssetBundle,
+  buildCuratedAssetCandidates,
   buildGeneratedPlaceholderCrestCandidate,
   buildClubAssetReviewIssues,
   buildTheSportsDbAssetCandidates,
@@ -238,6 +239,70 @@ describe('club asset helpers', () => {
     expect(afcCandidate.verification.reviewReasons).toContain('image-quality-review');
   });
 
+  test('builds curated official-site logo candidates as restricted backups', () => {
+    const [candidate] = buildCuratedAssetCandidates({
+      clubId: 'trowbridge-town',
+      canonicalName: 'Trowbridge Town',
+    });
+
+    expect(candidate).toMatchObject({
+      assetId: 'official-site-logo:OfficialSite:Trowbridge Town logo',
+      source: 'official-site-logo',
+      sourceUrl: 'https://trowbridgetownfootballclub.co.uk/',
+      imageUrl: 'https://trowbridgetownfootballclub.co.uk/wp-content/uploads/2018/08/ttfc-logo.png',
+      fileTitle: 'OfficialSite:Trowbridge Town logo',
+      colors: [
+        { role: 'primary', hex: '#FFFF00' },
+        { role: 'secondary', hex: '#000000' },
+      ],
+    });
+
+    const classified = classifyClubAssetCandidate(candidate, {
+      clubId: 'trowbridge-town',
+      canonicalName: 'Trowbridge Town',
+    });
+
+    expect(classified.status).toBe('restricted');
+    expect(classified.verification).toMatchObject({
+      identityMatch: 'strong',
+      licenseCheck: 'restricted',
+      needsManualReview: true,
+    });
+  });
+
+  test('curates the Team Bath Wikimedia logo file after image metadata enrichment', () => {
+    const [candidate] = buildCuratedAssetCandidates({
+      clubId: 'team-bath',
+      canonicalName: 'Team Bath',
+    });
+
+    const classified = classifyClubAssetCandidate(
+      {
+        ...candidate,
+        imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/1/1e/TeamBath.gif',
+        mimeType: 'image/gif',
+        width: 249,
+        height: 77,
+        license: {
+          shortName: 'Public domain',
+          usageTerms: 'Public domain',
+          copyrighted: false,
+        },
+      },
+      {
+        clubId: 'team-bath',
+        canonicalName: 'Team Bath',
+      }
+    );
+
+    expect(classified.status).toBe('usable');
+    expect(classified.notes).toContain('Team Bath F.C. Wikipedia infobox logo');
+    expect(classified.verification).toMatchObject({
+      identityMatch: 'curated',
+      needsManualReview: false,
+    });
+  });
+
   test('builds and classifies exact TheSportsDB badge candidates as restricted backups', () => {
     const [badgeCandidate, logoCandidate] = buildTheSportsDbAssetCandidates({
       idTeam: '133627',
@@ -371,7 +436,7 @@ describe('club asset helpers', () => {
     expect(candidate.verification.reviewReasons).toContain('non-crest-filename');
   });
 
-  test('builds generated placeholder crest candidates for curated historical clubs', () => {
+  test('builds generated placeholder crest candidates for curated researched-no-source clubs', () => {
     const candidate = buildGeneratedPlaceholderCrestCandidate(
       {
         clubId: 'sunderland-albion',
@@ -413,6 +478,8 @@ describe('club asset helpers', () => {
       },
     });
     expect(candidate.imageUrl).toMatch(/^data:image\/svg\+xml,/);
+    expect(candidate.notes).toContain('researchStatus: researched-no-source');
+    expect(candidate.notes).toContain('not an official or historical club crest');
   });
 
   test('preserves generated placeholder status during reclassification', () => {

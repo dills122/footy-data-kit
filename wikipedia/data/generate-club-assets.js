@@ -8,6 +8,7 @@ import { fileURLToPath } from 'node:url';
 import {
   addGeneratedPlaceholderFallback,
   buildClubAssetBundle,
+  buildCuratedAssetCandidates,
   buildGeneratedPlaceholderCrestCandidate,
   buildClubAssetReviewIssues,
   classifyClubAssetCandidate,
@@ -70,9 +71,12 @@ function writeAssetCache(cachePath, clubs, spacing) {
 }
 
 function reclassifyCachedCrestBundle(club, cachedCrest, limit) {
-  if (!cachedCrest?.candidates?.length) return buildClubAssetBundle([], { limit });
   const generatedPlaceholder = buildGeneratedPlaceholderCrestCandidate(club);
-  const candidates = cachedCrest.candidates
+  const cachedCandidates = cachedCrest?.candidates?.length ? cachedCrest.candidates : [];
+  const candidates = [
+    ...cachedCandidates,
+    ...buildCuratedAssetCandidates(club),
+  ]
     .filter((candidate) => {
       if (isRejectedClubAssetCandidate(candidate)) return false;
       if (!candidate.placeholder && candidate.source !== 'generated-placeholder') return true;
