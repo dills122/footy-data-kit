@@ -3,7 +3,11 @@
 import https from 'node:https';
 
 export const CLUB_ASSET_SOURCE_IDS = Object.freeze({
+  officialSiteLogo: 'official-site-logo',
+  curatedWikimediaLogo: 'curated-wikimedia-logo',
   generatedPlaceholder: 'generated-placeholder',
+  theSportsDbBadge: 'thesportsdb-badge',
+  theSportsDbLogo: 'thesportsdb-logo',
   wikidataLogo: 'wikidata-logo',
   wikidataCoatOfArms: 'wikidata-coat-of-arms',
   wikidataImage: 'wikidata-image',
@@ -12,6 +16,7 @@ export const CLUB_ASSET_SOURCE_IDS = Object.freeze({
 });
 
 const USER_AGENT = 'footy-data-kit/club-assets (https://github.com/dills122/footy-data-kit)';
+const THESPORTSDB_API_BASE_URL = 'https://www.thesportsdb.com/api/v1/json/3';
 const CREST_FILE_TOKENS = Object.freeze(['badge', 'crest', 'logo', 'emblem', 'seal']);
 const FREE_LICENSE_TOKENS = Object.freeze([
   'cc by',
@@ -35,14 +40,52 @@ const WIKIDATA_MEDIA_PROPERTIES = Object.freeze([
   { property: 'P18', source: CLUB_ASSET_SOURCE_IDS.wikidataImage },
 ]);
 const TRUSTED_WIKIDATA_CREST_SOURCES = Object.freeze([CLUB_ASSET_SOURCE_IDS.wikidataCoatOfArms]);
+const QUALITY_REVIEW_NOTES =
+  'Manual audit flagged this crest candidate for poor readability, image quality, or transparent-background visibility.';
+const OFFICIAL_SITE_ARTWORK_LICENSE = Object.freeze({
+  shortName: 'Official club website artwork',
+  usageTerms:
+    'Logo URL published by the official club website; club marks may be trademarked or copyright restricted.',
+  copyrighted: true,
+  attribution: 'Official club website',
+});
 const REJECTED_ASSET_IDS = Object.freeze(
   new Set([
+    'wikidata-image:Tottenham Hotspurs tegen Atletico Madrid 5-1 Nr 14 en 15 Elftal Tottenham Hots, Bestanddeelnr 915-1586.jpg',
+    'wikidata-logo:Forever United, Edgar Street, Hereford - geograph.org.uk - 5596516.jpg',
+    'wikidata-logo:Middlesbrough Walk (27470064759).jpg',
+    'wikidata-logo:QPr.jpg',
     'wikidata-image:Andover-2008-Squad.jpg',
+    'wikidata-image:Bishop Auckland Town Hall.jpg',
+    'wikidata-image:Bromsgrove Rovers 2003-04 1.jpg',
+    'wikidata-image:Dagenham village.jpg',
     'wikidata-image:DovervStaines.jpg',
+    'wikidata-image:Hounslow High Street.1.JPG',
+    'wikidata-image:Loughborough Town Hall - geograph.org.uk - 3932.jpg',
+    'wikidata-image:Man united vs derby.jpg',
+    'wikidata-image:Marine F.C..jpg',
+    'wikidata-image:New Brighton Tower RHE.jpg',
+    'wikidata-image:PPS-EastStand01.JPG',
+    'wikidata-image:River thames oxford.jpg',
     'wikidata-image:Shepshed Ground 001 Small.jpg',
+    'wikidata-image:St Paul, Addlestone - geograph.org.uk - 1517212.jpg',
+    'wikidata-image:Swansea City AFC Championship Play Off Winners 2011.jpg',
+    'wikidata-image:Town Hall. - geograph.org.uk - 525051.jpg',
     'wikidata-image:Trowbridge Town F.C..jpg',
+    'wikipedia-pageimage-any:Beam_valley_park_and_turbine_1.jpg',
+    'wikipedia-pageimage-any:AFC_Telford_United_logo.svg',
+    'wikipedia-pageimage-any:Derby_County_crest.svg',
+    'wikipedia-pageimage-any:Marine_AFC_crest.svg',
+    'wikipedia-pageimage-any:Crown_Ground_sign-geograph-1761360.jpg',
     'wikipedia-pageimage-any:Epsom_and_Ewell_UK_locator_map.svg',
     'wikipedia-pageimage-any:Folkestone_Harbour_with_Viaduct_and_Swing_Bridge.png',
+    'wikipedia-pageimage-any:London_Thames_Sunset_panorama_-_Feb_2008.jpg',
+    'wikipedia-pageimage-any:New_Brighton_Tower.jpg',
+    'wikipedia-pageimage-any:North_West_Counties_Football_League_logo.png',
+    'wikipedia-pageimage-any:Swansea_City_AFC_logo.svg',
+    'wikipedia-pageimage-any:Tottenham_Hotspur.svg',
+    'wikipedia-pageimage-any:Town_Hall_-_Market_Place_(geograph_2938168).jpg',
+    'wikipedia-pageimage-any:Wittonalbionfc.png',
     'wikipedia-pageimage-free:Altrincham_Town_Square_-_2024.jpg',
     'wikipedia-pageimage-free:Angel_of_the_North,_Gateshead,_United_Kingdom.jpg',
     'wikipedia-pageimage-free:Atherstone_Town_FC_2009.jpg',
@@ -61,6 +104,8 @@ const REJECTED_ASSET_IDS = Object.freeze(
     'wikipedia-pageimage-free:DrippingPan.jpg',
     'wikipedia-pageimage-free:Exeter_City_match.JPG',
     'wikipedia-pageimage-free:Glossop_-_geograph.org.uk_-_7292918.jpg',
+    'wikipedia-pageimage-free:Gainsborough_Trinity_1966–67.jpg',
+    'wikipedia-pageimage-free:HampsteadTownFC1919.jpg',
     'wikipedia-pageimage-free:Hendon_Town_Hall_in_December_2011.JPG',
     'wikipedia-pageimage-free:Hereford_United_League_Performance.svg',
     'wikipedia-pageimage-free:High_Street_Dunstable_-_geograph.org.uk_-_6524692.jpg',
@@ -70,6 +115,7 @@ const REJECTED_ASSET_IDS = Object.freeze(
     'wikipedia-pageimage-free:LeytonCentre.JPG',
     'wikipedia-pageimage-free:London_Thames_Sunset_panorama_-_Feb_2008.jpg',
     'wikipedia-pageimage-free:Maidenhead_v_Barnet_022.jpg',
+    'wikipedia-pageimage-free:Marlow1894.jpg',
     'wikipedia-pageimage-free:Middlesborough_Town_Hall_image_by_Robert_Eva.jpg',
     'wikipedia-pageimage-free:New_Brighton_Tower.jpg',
     'wikipedia-pageimage-free:New_North_Bank.jpg',
@@ -82,12 +128,123 @@ const REJECTED_ASSET_IDS = Object.freeze(
     'wikipedia-pageimage-free:Town_Hall_-_Market_Place_(geograph_2938168).jpg',
   ])
 );
+const SCOPED_REJECTED_ASSET_DECISIONS = Object.freeze({
+  'thesportsdb-badge:134356': {
+    clubIds: ['dagenham'],
+    notes: 'Dagenham & Redbridge artwork should not be reused for historical Dagenham.',
+  },
+  'thesportsdb-badge:136153': {
+    clubIds: ['telford-united'],
+    notes: 'AFC Telford United artwork should not be reused for historical Telford United.',
+  },
+  'thesportsdb-badge:139952': {
+    clubIds: ['thames'],
+    notes: 'Thames AFC artwork should not be reused for historical Thames.',
+  },
+  'thesportsdb-badge:148734': {
+    clubIds: ['andover'],
+    notes: 'Andover New Street artwork should not be reused for historical Andover.',
+  },
+});
 const CURATED_ASSET_DECISIONS = Object.freeze({
+  'curated-wikimedia-logo:TeamBath.gif': {
+    clubIds: ['team-bath'],
+    status: 'usable',
+    identityMatch: 'curated',
+    notes: 'Curated from the Team Bath F.C. Wikipedia infobox logo file.',
+  },
+  'wikipedia-pageimage-any:Dtfc-badge.png': {
+    clubIds: ['dunstable-town'],
+    identityMatch: 'curated',
+    notes: 'Curated as the Dunstable Town badge despite abbreviated filename.',
+  },
+  'wikipedia-pageimage-any:EpsomEwellBadge.png': {
+    clubIds: ['epsom-and-ewell'],
+    identityMatch: 'curated',
+    notes: 'Curated as the Epsom & Ewell badge despite compact filename.',
+  },
+  'wikipedia-pageimage-any:GNE_afc_badge.png': {
+    clubIds: ['glossop'],
+    identityMatch: 'curated',
+    notes: 'Curated as the Glossop North End badge despite abbreviated filename.',
+  },
+  'wikipedia-pageimage-any:Solihullboroughafc.jpg': {
+    clubIds: ['solihull-borough'],
+    identityMatch: 'curated',
+    notes: 'Curated as the Solihull Borough badge despite compact filename.',
+  },
+  'wikipedia-pageimage-any:Staffordfc.png': {
+    clubIds: ['stafford-rangers'],
+    identityMatch: 'curated',
+    notes: 'Curated as the Stafford Rangers badge despite abbreviated filename.',
+  },
+  'wikipedia-pageimage-any:Windsorandetonfc.jpg': {
+    clubIds: ['windsor-and-eton'],
+    identityMatch: 'curated',
+    notes: 'Curated as the Windsor & Eton badge despite compact filename.',
+  },
+  'wikipedia-pageimage-free:Knowsley-united.png': {
+    clubIds: ['knowsley-united'],
+    identityMatch: 'curated',
+    notes: 'Curated as the Knowsley United badge despite compact filename.',
+  },
+  'wikipedia-pageimage-any:Road-Sea_Southampton_F.C.jpg': {
+    clubIds: ['road-sea-southampton'],
+    identityMatch: 'curated',
+    notes: 'Curated as the Road-Sea Southampton badge despite non-standard filename.',
+  },
   'wikipedia-pageimage-free:Leeds_old_arms.png': {
     clubIds: ['leeds-city'],
     status: 'usable',
     identityMatch: 'curated',
     notes: 'Curated as an acceptable Leeds City historical crest/arms candidate.',
+  },
+});
+const QUALITY_REVIEW_ASSET_DECISIONS = Object.freeze({
+  'wikipedia-pageimage-any:AFC_Telford_United_logo.svg': {
+    clubIds: ['afc-telford-united', 'telford-united'],
+    reviewReasons: ['image-quality-review'],
+    notes: QUALITY_REVIEW_NOTES,
+  },
+  'wikipedia-pageimage-any:Bridgendtown.png': {
+    clubIds: ['bridgend-town'],
+    reviewReasons: ['image-quality-review'],
+    notes: QUALITY_REVIEW_NOTES,
+  },
+  'wikipedia-pageimage-any:Bromsgrove_Rovers_Badge.jpg': {
+    clubIds: ['bromsgrove-rovers'],
+    reviewReasons: ['image-quality-review'],
+    notes: QUALITY_REVIEW_NOTES,
+  },
+  'wikipedia-pageimage-any:Derby_County_crest.svg': {
+    clubIds: ['derby-county'],
+    reviewReasons: ['image-quality-review'],
+    notes: QUALITY_REVIEW_NOTES,
+  },
+  'wikipedia-pageimage-any:Marine_AFC_crest.svg': {
+    clubIds: ['marine'],
+    reviewReasons: ['image-quality-review'],
+    notes: QUALITY_REVIEW_NOTES,
+  },
+  'wikipedia-pageimage-any:Solihullboroughafc.jpg': {
+    clubIds: ['solihull-borough'],
+    reviewReasons: ['image-quality-review'],
+    notes: QUALITY_REVIEW_NOTES,
+  },
+  'wikipedia-pageimage-any:Swansea_City_AFC_logo.svg': {
+    clubIds: ['swansea-city'],
+    reviewReasons: ['image-quality-review'],
+    notes: QUALITY_REVIEW_NOTES,
+  },
+  'wikipedia-pageimage-any:Tottenham_Hotspur.svg': {
+    clubIds: ['tottenham-hotspur'],
+    reviewReasons: ['image-quality-review'],
+    notes: QUALITY_REVIEW_NOTES,
+  },
+  'wikipedia-pageimage-any:Wittonalbionfc.png': {
+    clubIds: ['witton-albion'],
+    reviewReasons: ['image-quality-review'],
+    notes: QUALITY_REVIEW_NOTES,
   },
 });
 const GENERATED_PLACEHOLDER_LICENSE = Object.freeze({
@@ -97,7 +254,110 @@ const GENERATED_PLACEHOLDER_LICENSE = Object.freeze({
   copyrighted: false,
   attribution: 'footy-data-kit generated placeholder',
 });
-const HISTORICAL_PLACEHOLDER_CRESTS = Object.freeze({
+const THESPORTSDB_ARTWORK_LICENSE = Object.freeze({
+  shortName: 'TheSportsDB API artwork',
+  usageTerms:
+    'Artwork URL returned by TheSportsDB API; club marks may be trademarked or copyright restricted.',
+  licenseUrl: 'https://www.thesportsdb.com/docs_terms_of_use.php',
+  copyrighted: true,
+  attribution: 'TheSportsDB',
+});
+const CURATED_ASSET_CANDIDATES = Object.freeze({
+  'leicester-united': [
+    {
+      source: CLUB_ASSET_SOURCE_IDS.officialSiteLogo,
+      sourceUrl: 'http://leicesterunitedfc.com/',
+      imageUrl:
+        'https://img-res.pitchero.com/?url=images.pitchero.com%2Fclub_logos%2F87225%2Fiuf0otXOSVqpBYVxxuFl_Untitled%20drawing%20(4).png&w=192&h=192&t=square',
+      pageUrl: 'http://leicesterunitedfc.com/',
+      fileTitle: 'OfficialSite:Leicester United logo',
+      width: 192,
+      height: 192,
+      license: OFFICIAL_SITE_ARTWORK_LICENSE,
+      colors: [
+        { role: 'primary', hex: '#FFFFFF' },
+        { role: 'secondary', hex: '#FF0000' },
+        { role: 'accent', hex: '#000066' },
+      ],
+      notes: 'Curated from the official Leicester United Pitchero website logo.',
+    },
+  ],
+  'team-bath': [
+    {
+      source: CLUB_ASSET_SOURCE_IDS.curatedWikimediaLogo,
+      sourceUrl: 'https://en.wikipedia.org/wiki/Team_Bath_F.C.',
+      imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/1/1e/TeamBath.gif',
+      pageUrl: 'https://en.wikipedia.org/wiki/File:TeamBath.gif',
+      fileTitle: 'File:TeamBath.gif',
+      mimeType: 'image/gif',
+      width: 249,
+      height: 77,
+      license: {
+        shortName: 'Public domain',
+        usageTerms: 'Public domain',
+        licenseUrl: 'https://en.wikipedia.org/wiki/File:TeamBath.gif',
+        copyrighted: false,
+        attribution: 'Team Bath',
+      },
+      colors: [
+        { role: 'primary', hex: '#0000FF' },
+        { role: 'secondary', hex: '#F1EF00' },
+      ],
+      notes: 'Curated from the Team Bath F.C. Wikipedia infobox logo file.',
+    },
+  ],
+  'trowbridge-town': [
+    {
+      source: CLUB_ASSET_SOURCE_IDS.officialSiteLogo,
+      sourceUrl: 'https://trowbridgetownfootballclub.co.uk/',
+      imageUrl: 'https://trowbridgetownfootballclub.co.uk/wp-content/uploads/2018/08/ttfc-logo.png',
+      pageUrl: 'https://trowbridgetownfootballclub.co.uk/',
+      fileTitle: 'OfficialSite:Trowbridge Town logo',
+      width: 362,
+      height: 581,
+      license: OFFICIAL_SITE_ARTWORK_LICENSE,
+      colors: [
+        { role: 'primary', hex: '#FFFF00' },
+        { role: 'secondary', hex: '#000000' },
+      ],
+      notes: 'Curated from the official Trowbridge Town website logo.',
+    },
+  ],
+  'witney-town': [
+    {
+      source: CLUB_ASSET_SOURCE_IDS.officialSiteLogo,
+      sourceUrl: 'https://witneytownfc.co.uk/',
+      imageUrl: 'https://witneytownfc.co.uk/wp-content/uploads/2025/05/Witney-Town-FC-logo.png',
+      pageUrl: 'https://witneytownfc.co.uk/',
+      fileTitle: 'OfficialSite:Witney Town FC logo',
+      width: 254,
+      height: 300,
+      license: OFFICIAL_SITE_ARTWORK_LICENSE,
+      notes: 'Curated from the official Witney Town website logo.',
+    },
+  ],
+});
+const PLACEHOLDER_RESEARCH_NOTES = Object.freeze({
+  'researched-no-source':
+    'researchStatus: researched-no-source. Generated placeholder shield from source-backed club colours after targeted research found no usable crest source; not an official or historical club crest.',
+});
+const DEFAULT_PLACEHOLDER_RESEARCH_STATUS = 'researched-no-source';
+const CURATED_PLACEHOLDER_CRESTS = Object.freeze({
+  'addlestone-and-weybridge-town': {
+    researchStatus: 'researched-no-source',
+    colors: [
+      { role: 'primary', hex: '#FF0000' },
+      { role: 'secondary', hex: '#FFFFFF' },
+    ],
+  },
+  andover: {
+    researchStatus: 'researched-no-source',
+    colors: [
+      { role: 'primary', hex: '#FF0000' },
+      { role: 'secondary', hex: '#000000' },
+      { role: 'accent', hex: '#F1EF00' },
+    ],
+  },
   'birmingham-st-georges': {
     colors: [
       { role: 'primary', hex: '#FFFFFF' },
@@ -125,11 +385,25 @@ const HISTORICAL_PLACEHOLDER_CRESTS = Object.freeze({
       { role: 'accent', hex: '#333333' },
     ],
   },
+  dagenham: {
+    researchStatus: 'researched-no-source',
+    colors: [
+      { role: 'primary', hex: '#FF0000' },
+      { role: 'secondary', hex: '#FFFFFF' },
+    ],
+  },
   'middlesbrough-ironopolis': {
     colors: [
       { role: 'primary', hex: '#CC0033' },
       { role: 'secondary', hex: '#000000' },
       { role: 'accent', hex: '#FFFFFF' },
+    ],
+  },
+  'milton-keynes-city': {
+    researchStatus: 'researched-no-source',
+    colors: [
+      { role: 'primary', hex: '#F28500' },
+      { role: 'secondary', hex: '#000000' },
     ],
   },
   'oswestry-town': {
@@ -138,16 +412,54 @@ const HISTORICAL_PLACEHOLDER_CRESTS = Object.freeze({
       { role: 'secondary', hex: '#FFFFFF' },
     ],
   },
+  'redbridge-forest': {
+    researchStatus: 'researched-no-source',
+    colors: [
+      { role: 'primary', hex: '#FF0000' },
+      { role: 'secondary', hex: '#0000FF' },
+      { role: 'accent', hex: '#FFFFFF' },
+    ],
+  },
   'rotherham-town': {
     colors: [
       { role: 'primary', hex: '#FF0000' },
       { role: 'secondary', hex: '#1C1271' },
     ],
   },
+  'rothwell-town': {
+    researchStatus: 'researched-no-source',
+    colors: [
+      { role: 'primary', hex: '#0000FF' },
+      { role: 'secondary', hex: '#FFFFFF' },
+      { role: 'accent', hex: '#FFDF00' },
+    ],
+  },
   'sunderland-albion': {
     colors: [
       { role: 'primary', hex: '#000066' },
       { role: 'secondary', hex: '#FFFFFF' },
+    ],
+  },
+  'telford-united': {
+    researchStatus: 'researched-no-source',
+    colors: [
+      { role: 'primary', hex: '#FFFFFF' },
+      { role: 'secondary', hex: '#000000' },
+    ],
+  },
+  thames: {
+    researchStatus: 'researched-no-source',
+    colors: [
+      { role: 'primary', hex: '#FF0000' },
+      { role: 'secondary', hex: '#0000FF' },
+      { role: 'accent', hex: '#FFFFFF' },
+    ],
+  },
+  'walthamstow-avenue': {
+    researchStatus: 'researched-no-source',
+    colors: [
+      { role: 'primary', hex: '#99CCFE' },
+      { role: 'secondary', hex: '#000066' },
     ],
   },
 });
@@ -256,6 +568,13 @@ function normalizeHexColor(value, fallback) {
   return /^#[0-9a-f]{6}$/i.test(normalized) ? normalized.toUpperCase() : fallback;
 }
 
+function normalizeOptionalHexColor(value) {
+  const text = String(value || '').trim();
+  if (!text) return null;
+  const normalized = text.startsWith('#') ? text : `#${text}`;
+  return /^#[0-9a-f]{6}$/i.test(normalized) ? normalized.toUpperCase() : null;
+}
+
 function hexColorChannels(value) {
   const normalized = normalizeHexColor(value, '#000000').slice(1);
   return {
@@ -324,6 +643,34 @@ function imagePageUrl(fileTitle) {
   return `https://en.wikipedia.org/wiki/${encodeURIComponent(normalizedTitle).replace(/%20/g, '_')}`;
 }
 
+function isTheSportsDbSource(source) {
+  return (
+    source === CLUB_ASSET_SOURCE_IDS.theSportsDbBadge ||
+    source === CLUB_ASSET_SOURCE_IDS.theSportsDbLogo
+  );
+}
+
+function theSportsDbTeamNameFromCandidate(candidate) {
+  const text = String(candidate?.fileTitle || '').replace(/^TheSportsDB:/, '');
+  return text.replace(/\s+(badge|logo)$/i, '').trim();
+}
+
+function theSportsDbTeamNamesFromCandidate(candidate) {
+  return [theSportsDbTeamNameFromCandidate(candidate)].map(toText).filter(Boolean);
+}
+
+function classifyTheSportsDbAssetIdentity(candidate, club) {
+  const candidateNames = theSportsDbTeamNamesFromCandidate(candidate)
+    .map(normalizedCompactText)
+    .filter(Boolean);
+  const clubNames = [club?.canonicalName, club?.clubId, ...(club?.derived?.aliases || [])]
+    .map(normalizedCompactText)
+    .filter(Boolean);
+
+  if (candidateNames.some((candidateName) => clubNames.includes(candidateName))) return 'strong';
+  return candidateNames.length && clubNames.length ? 'none' : 'weak';
+}
+
 export function classifyAssetLicense(license = {}) {
   const shortName = normalizeTokenText(license.shortName);
   const usageTerms = normalizeTokenText(license.usageTerms);
@@ -337,6 +684,10 @@ export function classifyAssetLicense(license = {}) {
 }
 
 export function classifyAssetIdentity(candidate, club) {
+  if (isTheSportsDbSource(candidate.source)) {
+    return classifyTheSportsDbAssetIdentity(candidate, club);
+  }
+
   const fileTokens = significantTokens(candidate.fileTitle || candidate.imageUrl || '');
   const clubTokens = significantTokens(club?.canonicalName || club?.clubId || '');
   const aliasTokens = (club?.derived?.aliases || []).flatMap(significantTokens);
@@ -381,13 +732,29 @@ function isLikelyCrestCandidate(candidate, identityMatch) {
 function curatedAssetDecision(candidate, club) {
   const decision = CURATED_ASSET_DECISIONS[candidate.assetId];
   if (!decision) return null;
-  const clubId = slugify(club?.clubId || club?.canonicalName || '');
+  const clubId = club?.clubId || slugify(club?.canonicalName || '');
   if (decision.clubIds && !decision.clubIds.includes(clubId)) return null;
   return decision;
 }
 
-export function isRejectedClubAssetCandidate(candidate) {
-  return REJECTED_ASSET_IDS.has(candidate?.assetId);
+function qualityReviewAssetDecision(candidate, club) {
+  const decision = QUALITY_REVIEW_ASSET_DECISIONS[candidate.assetId];
+  if (!decision) return null;
+  const clubId = club?.clubId || slugify(club?.canonicalName || '');
+  if (decision.clubIds && !decision.clubIds.includes(clubId)) return null;
+  return decision;
+}
+
+export function isRejectedClubAssetCandidate(candidate, club = null) {
+  return isRejectedClubAssetCandidateForClub(candidate, club);
+}
+
+function isRejectedClubAssetCandidateForClub(candidate, club = null) {
+  if (REJECTED_ASSET_IDS.has(candidate?.assetId)) return true;
+  const decision = SCOPED_REJECTED_ASSET_DECISIONS[candidate?.assetId];
+  if (!decision) return false;
+  const clubId = club?.clubId || slugify(club?.canonicalName || '');
+  return decision.clubIds?.includes(clubId);
 }
 
 export function classifyClubAssetCandidate(candidate, club, { checkedAt = null } = {}) {
@@ -415,12 +782,15 @@ export function classifyClubAssetCandidate(candidate, club, { checkedAt = null }
   const identityMatch = classifyAssetIdentity(candidate, club);
   const likelyCrestCandidate = isLikelyCrestCandidate(candidate, identityMatch);
   const curatedDecision = curatedAssetDecision(candidate, club);
+  const qualityReviewDecision = qualityReviewAssetDecision(candidate, club);
   const reviewReasons = [];
 
   if (licenseCheck === 'restricted') reviewReasons.push('license-restricted');
   if (licenseCheck === 'unknown') reviewReasons.push('license-unknown');
-  if (!['strong', 'possible'].includes(identityMatch)) reviewReasons.push('identity-uncertain');
-  if (!likelyCrestCandidate) reviewReasons.push('non-crest-filename');
+  if (!curatedDecision && !['strong', 'possible'].includes(identityMatch)) {
+    reviewReasons.push('identity-uncertain');
+  }
+  if (!curatedDecision && !likelyCrestCandidate) reviewReasons.push('non-crest-filename');
   if (!candidate.imageUrl) reviewReasons.push('image-url-missing');
 
   let status = 'needs-review';
@@ -439,17 +809,20 @@ export function classifyClubAssetCandidate(candidate, club, { checkedAt = null }
     status = 'usable';
     reviewReasons.length = 0;
   }
+  if (qualityReviewDecision) {
+    reviewReasons.push(...qualityReviewDecision.reviewReasons);
+  }
 
   return {
     ...candidate,
     status,
-    notes: candidate.notes || curatedDecision?.notes,
+    notes: candidate.notes || curatedDecision?.notes || qualityReviewDecision?.notes,
     verification: compactObject({
       ...(candidate.verification || {}),
       identityMatch: curatedDecision?.identityMatch || identityMatch,
       licenseCheck,
       httpCheck: candidate.imageUrl ? 'pass' : 'fail',
-      needsManualReview: status !== 'usable',
+      needsManualReview: status !== 'usable' || reviewReasons.length > 0,
       reviewReasons,
       checkedAt,
     }),
@@ -466,13 +839,17 @@ function statusRank(status) {
 }
 
 function sourceRank(source) {
+  if (source === CLUB_ASSET_SOURCE_IDS.curatedWikimediaLogo) return 0;
   if (source === CLUB_ASSET_SOURCE_IDS.generatedPlaceholder) return 0;
   if (source === CLUB_ASSET_SOURCE_IDS.wikidataLogo) return 0;
   if (source === CLUB_ASSET_SOURCE_IDS.wikidataCoatOfArms) return 1;
   if (source === CLUB_ASSET_SOURCE_IDS.wikipediaPageImageFree) return 2;
-  if (source === CLUB_ASSET_SOURCE_IDS.wikidataImage) return 3;
-  if (source === CLUB_ASSET_SOURCE_IDS.wikipediaPageImageAny) return 4;
-  return 5;
+  if (source === CLUB_ASSET_SOURCE_IDS.officialSiteLogo) return 3;
+  if (source === CLUB_ASSET_SOURCE_IDS.theSportsDbBadge) return 4;
+  if (source === CLUB_ASSET_SOURCE_IDS.theSportsDbLogo) return 5;
+  if (source === CLUB_ASSET_SOURCE_IDS.wikidataImage) return 6;
+  if (source === CLUB_ASSET_SOURCE_IDS.wikipediaPageImageAny) return 7;
+  return 8;
 }
 
 export function rankClubAssetCandidates(candidates, limit = 5) {
@@ -518,7 +895,7 @@ export function buildClubAssetBundle(candidates, { limit = 5 } = {}) {
 }
 
 export function buildGeneratedPlaceholderCrestCandidate(club, { checkedAt = null } = {}) {
-  const placeholderConfig = HISTORICAL_PLACEHOLDER_CRESTS[club?.clubId];
+  const placeholderConfig = CURATED_PLACEHOLDER_CRESTS[club?.clubId];
   if (!placeholderConfig) return null;
 
   const slug = slugify(club?.clubId || club?.canonicalName || 'club');
@@ -551,7 +928,9 @@ export function buildGeneratedPlaceholderCrestCandidate(club, { checkedAt = null
       checkedAt,
     }),
     notes:
-      'Generated placeholder shield from source-backed club colours; not an official or historical club crest.',
+      PLACEHOLDER_RESEARCH_NOTES[
+        placeholderConfig.researchStatus || DEFAULT_PLACEHOLDER_RESEARCH_STATUS
+      ] || PLACEHOLDER_RESEARCH_NOTES[DEFAULT_PLACEHOLDER_RESEARCH_STATUS],
   });
 }
 
@@ -618,12 +997,25 @@ export function buildClubAssetReviewIssues(clubKey, club, bundle) {
         message: `${baseIssue.canonicalName} crest candidate does not look like a crest/logo filename`,
       });
     }
+    if (candidate.verification?.reviewReasons?.includes('image-quality-review')) {
+      issues.push({
+        type: 'club-asset-quality-review',
+        ...baseIssue,
+        assetId: candidate.assetId,
+        source: candidate.source,
+        message: `${baseIssue.canonicalName} crest candidate needs a better quality or more readable image`,
+      });
+    }
   }
 
   if (
     !bundle?.preferred &&
     candidates.length > 1 &&
-    candidates.some((candidate) => candidate.status !== 'failed')
+    candidates.some(
+      (candidate) =>
+        candidate.status !== 'failed' &&
+        candidate.verification?.reviewReasons?.some((reason) => reason !== 'license-restricted')
+    )
   ) {
     issues.push({
       type: 'club-asset-multiple-review-candidates',
@@ -771,6 +1163,92 @@ function wikidataEntitiesApiUrl(ids) {
   return `https://www.wikidata.org/w/api.php?${params.toString()}`;
 }
 
+function theSportsDbSearchApiUrl(teamName) {
+  const params = new URLSearchParams({ t: teamName });
+  return `${THESPORTSDB_API_BASE_URL}/searchteams.php?${params.toString()}`;
+}
+
+function theSportsDbLookupApiUrl(teamId) {
+  const params = new URLSearchParams({ id: teamId });
+  return `${THESPORTSDB_API_BASE_URL}/lookupteam.php?${params.toString()}`;
+}
+
+function theSportsDbColorHints(team) {
+  return [
+    { role: 'primary', hex: normalizeOptionalHexColor(team?.strColour1) },
+    { role: 'secondary', hex: normalizeOptionalHexColor(team?.strColour2) },
+    { role: 'accent', hex: normalizeOptionalHexColor(team?.strColour3) },
+  ].filter((color) => color.hex);
+}
+
+function theSportsDbCandidateNotes(team) {
+  const alternateNames = String(team?.strTeamAlternate || '')
+    .split(/[;,/]/)
+    .map(toText)
+    .filter(Boolean);
+  const notes = [`TheSportsDB team: ${team?.strTeam || 'unknown'}.`];
+  if (alternateNames.length) notes.push(`Also known as ${alternateNames.join(', ')}.`);
+  return notes.join(' ');
+}
+
+function theSportsDbCandidateFromTeam(team, { source, imageUrl, label }) {
+  const teamId = toText(team?.idTeam);
+  const teamName = toText(team?.strTeam);
+  if (!teamId || !teamName || !imageUrl) return null;
+
+  return compactObject({
+    assetId: `${source}:${teamId}`,
+    kind: 'crest',
+    status: 'needs-review',
+    source,
+    sourceUrl: theSportsDbLookupApiUrl(teamId),
+    imageUrl: normalizeUrl(imageUrl),
+    pageUrl: `https://www.thesportsdb.com/team/${teamId}`,
+    fileTitle: `TheSportsDB:${teamName} ${label}`,
+    colors: theSportsDbColorHints(team),
+    license: THESPORTSDB_ARTWORK_LICENSE,
+    notes: theSportsDbCandidateNotes(team),
+  });
+}
+
+export function buildTheSportsDbSearchNames(club) {
+  const names = [];
+  for (const name of [club?.canonicalName, ...(club?.derived?.aliases || [])]) {
+    const normalizedName = toText(name);
+    if (!normalizedName) continue;
+    const dedupeKey = normalizedName.toLowerCase();
+    if (!names.some((entry) => entry.toLowerCase() === dedupeKey)) names.push(normalizedName);
+  }
+  return names.slice(0, 6);
+}
+
+export function buildTheSportsDbAssetCandidates(team) {
+  if (String(team?.strSport || '').toLowerCase() !== 'soccer') return [];
+  return [
+    theSportsDbCandidateFromTeam(team, {
+      source: CLUB_ASSET_SOURCE_IDS.theSportsDbBadge,
+      imageUrl: team?.strBadge,
+      label: 'badge',
+    }),
+    theSportsDbCandidateFromTeam(team, {
+      source: CLUB_ASSET_SOURCE_IDS.theSportsDbLogo,
+      imageUrl: team?.strLogo,
+      label: 'logo',
+    }),
+  ].filter(Boolean);
+}
+
+export function buildCuratedAssetCandidates(club) {
+  return (CURATED_ASSET_CANDIDATES[club?.clubId] || []).map((candidate) =>
+    compactObject({
+      assetId: buildAssetId(candidate.source, candidate.fileTitle, candidate.imageUrl),
+      kind: 'crest',
+      status: 'needs-review',
+      ...candidate,
+    })
+  );
+}
+
 function candidateFromPageImage(page, source) {
   if (!page?.pageimage && !page?.original?.source) return null;
   const fileTitle = page.pageimage ? `File:${page.pageimage}` : null;
@@ -822,13 +1300,16 @@ function mergeImageInfo(candidate, imageInfoPage) {
 }
 
 async function enrichCandidatesWithImageInfo(candidates) {
-  const fileTitles = candidates.map((candidate) => candidate.fileTitle).filter(Boolean);
+  const fileTitles = candidates
+    .map((candidate) => candidate.fileTitle)
+    .filter((fileTitle) => String(fileTitle || '').startsWith('File:'));
   if (!fileTitles.length) return candidates;
   const response = await fetchJson(imageInfoApiUrl(fileTitles));
   const pages = Object.values(response?.query?.pages || {});
   const byTitle = new Map(pages.map((page) => [normalizedFileTitleKey(page.title), page]));
 
   return candidates.map((candidate) => {
+    if (!String(candidate.fileTitle || '').startsWith('File:')) return candidate;
     return mergeImageInfo(candidate, byTitle.get(normalizedFileTitleKey(candidate.fileTitle)));
   });
 }
@@ -873,10 +1354,22 @@ async function discoverWikidataMediaCandidates(articleTitle) {
   return candidates;
 }
 
+async function discoverTheSportsDbCandidates(club) {
+  const teamsById = new Map();
+  for (const searchName of buildTheSportsDbSearchNames(club)) {
+    const response = await fetchJson(theSportsDbSearchApiUrl(searchName));
+    for (const team of response?.teams || []) {
+      if (!team?.idTeam || String(team.strSport || '').toLowerCase() !== 'soccer') continue;
+      if (teamsById.has(team.idTeam)) continue;
+      teamsById.set(team.idTeam, team);
+    }
+  }
+
+  return [...teamsById.values()].flatMap((team) => buildTheSportsDbAssetCandidates(team));
+}
+
 export async function discoverClubCrestBundle(club, options = {}) {
   const articleTitles = buildWikipediaArticleTitles(club);
-  if (!articleTitles.length) return buildClubAssetBundle([]);
-
   const checkedAt = options.checkedAt || new Date().toISOString();
   const rawCandidates = [];
   for (const articleTitle of articleTitles) {
@@ -894,6 +1387,12 @@ export async function discoverClubCrestBundle(club, options = {}) {
       }
     }
   }
+  try {
+    rawCandidates.push(...(await discoverTheSportsDbCandidates(club)));
+  } catch (error) {
+    if (options.throwOnSourceError) throw error;
+  }
+  rawCandidates.push(...buildCuratedAssetCandidates(club));
 
   let enrichedCandidates = rawCandidates;
   try {
@@ -902,7 +1401,7 @@ export async function discoverClubCrestBundle(club, options = {}) {
     if (options.throwOnSourceError) throw error;
   }
   const filteredCandidates = enrichedCandidates.filter(
-    (candidate) => !isRejectedClubAssetCandidate(candidate)
+    (candidate) => !isRejectedClubAssetCandidateForClub(candidate, club)
   );
   const classifiedCandidates = filteredCandidates.map((candidate) =>
     classifyClubAssetCandidate(candidate, club, { checkedAt })

@@ -19,6 +19,10 @@ const STATUS_LABELS = {
   'needs-review': 'needs review',
   'needs-more-research': 'needs more research',
 };
+const FLAG_REASONS = {
+  'bad-quality': 'Bad quality / hard to read',
+  'transparent-background': 'Transparent / hard to see',
+};
 
 const state = {
   clubs: [],
@@ -30,6 +34,7 @@ const state = {
   source: 'all',
   search: '',
   flaggedOnly: false,
+  flagReason: 'bad-quality',
   selectedClubKey: null,
 };
 
@@ -39,6 +44,7 @@ const elements = {
   sourceSelect: document.querySelector('#source-select'),
   resetButton: document.querySelector('#reset-button'),
   flaggedOnlyInput: document.querySelector('#flagged-only-input'),
+  flagReasonSelect: document.querySelector('#flag-reason-select'),
   exportFlagsButton: document.querySelector('#export-flags-button'),
   clearFlagsButton: document.querySelector('#clear-flags-button'),
   flagCount: document.querySelector('#flag-count'),
@@ -160,6 +166,12 @@ function isFlagged(record, candidate) {
   return Boolean(state.flags[flagKeyFor(record, candidate)]);
 }
 
+function getPrimaryCandidate(record) {
+  const candidates = getCandidates(record.club);
+  const preferredAssetId = getCrest(record.club).preferred;
+  return candidates.find((candidate) => candidate.assetId === preferredAssetId) || candidates[0];
+}
+
 function recordHasFlag(record) {
   return getCandidates(record.club).some((candidate) => isFlagged(record, candidate));
 }
@@ -181,6 +193,8 @@ function buildFlagRecord(record, candidate) {
     license: candidate.license || null,
     verification: candidate.verification || null,
     reviewIssues: record.issues.filter((issue) => issue.assetId === candidate.assetId),
+    flagReason: state.flagReason,
+    flagReasonLabel: FLAG_REASONS[state.flagReason] || state.flagReason,
     flaggedAt: new Date().toISOString(),
   };
 }
@@ -204,6 +218,42 @@ function toggleFlag(flagKey) {
   }
   writeStoredFlags();
   render();
+}
+
+function toggleSelectedClubPrimaryFlag() {
+  const record = getVisibleRecords().find((entry) => entry.clubKey === state.selectedClubKey);
+  const candidate = record ? getPrimaryCandidate(record) : null;
+  if (!record || !candidate) return;
+  toggleFlag(flagKeyFor(record, candidate));
+}
+
+function moveSelectedClub(delta) {
+  const records = getVisibleRecords();
+  if (!records.length) return;
+  const currentIndex = Math.max(
+    0,
+    records.findIndex((record) => record.clubKey === state.selectedClubKey)
+  );
+  const nextIndex = Math.min(records.length - 1, Math.max(0, currentIndex + delta));
+  state.selectedClubKey = records[nextIndex].clubKey;
+  render();
+  focusClubList();
+}
+
+function selectClubAtIndex(index) {
+  const records = getVisibleRecords();
+  if (!records.length) return;
+  const nextIndex = Math.min(records.length - 1, Math.max(0, index));
+  state.selectedClubKey = records[nextIndex].clubKey;
+  render();
+  focusClubList();
+}
+
+function focusClubList() {
+  elements.clubList.focus({ preventScroll: true });
+  elements.clubList.querySelector('.club-row.is-selected')?.scrollIntoView({
+    block: 'nearest',
+  });
 }
 
 function exportFlags() {
@@ -366,6 +416,7 @@ function renderSourceRefs(record) {
 function renderClubList(records) {
   if (!records.length) {
     elements.clubList.innerHTML = '<p class="empty-state">No clubs match the current filters.</p>';
+    elements.clubList.removeAttribute('aria-activedescendant');
     state.selectedClubKey = null;
     return;
   }
@@ -377,13 +428,16 @@ function renderClubList(records) {
     state.selectedClubKey = records[0].clubKey;
   }
 
+  elements.clubList.setAttribute('aria-activedescendant', `club-row-${state.selectedClubKey}`);
   elements.clubList.innerHTML = records
     .map((record) => {
       const crest = getCrest(record.club);
       const selectedClass = record.clubKey === state.selectedClubKey ? ' is-selected' : '';
-      return `<button class="club-row${selectedClass}" type="button" data-club-key="${escapeHtml(
+      return `<div id="club-row-${escapeHtml(
         record.clubKey
-      )}">
+      )}" class="club-row${selectedClass}" role="option" aria-selected="${
+        record.clubKey === state.selectedClubKey
+      }" data-club-key="${escapeHtml(record.clubKey)}">
         <span class="club-row-main">
           <strong>${escapeHtml(record.club.canonicalName)}</strong>
           <span class="status-chip" data-status="${escapeHtml(crest.status)}">${escapeHtml(
@@ -396,7 +450,7 @@ function renderClubList(records) {
           <span>${escapeHtml(getCandidateSources(record.club).join(', ') || 'no source')}</span>
           <span>${issueCountFor(record)} issues</span>
         </span>
-      </button>`;
+      </div>`;
     })
     .join('');
 }
@@ -490,6 +544,7 @@ function renderCandidate(candidate, record) {
         )}" aria-pressed="${flagged}">
           ${flagged ? 'Unflag' : 'Flag image'}
         </button>
+        <span class="keyboard-hint">F flags selected club primary image with selected reason</span>
       </div>
       ${renderCandidateLinks(candidate)}
     </div>
@@ -651,6 +706,9 @@ function wireEvents() {
     state.selectedClubKey = null;
     render();
   });
+  elements.flagReasonSelect.addEventListener('change', (event) => {
+    state.flagReason = event.target.value;
+  });
   elements.exportFlagsButton.addEventListener('click', () => {
     exportFlags();
   });
@@ -682,10 +740,38 @@ function wireEvents() {
     render();
   });
   elements.clubList.addEventListener('click', (event) => {
-    const row = event.target.closest('button[data-club-key]');
+    const row = event.target.closest('[data-club-key]');
     if (!row) return;
     state.selectedClubKey = row.dataset.clubKey;
     render();
+    focusClubList();
+  });
+  elements.clubList.addEventListener('keydown', (event) => {
+    if (event.key === 'ArrowDown') {
+      event.preventDefault();
+      moveSelectedClub(1);
+      return;
+    }
+    if (event.key === 'ArrowUp') {
+      event.preventDefault();
+      moveSelectedClub(-1);
+      return;
+    }
+    if (event.key === 'Home') {
+      event.preventDefault();
+      selectClubAtIndex(0);
+      return;
+    }
+    if (event.key === 'End') {
+      event.preventDefault();
+      selectClubAtIndex(Number.MAX_SAFE_INTEGER);
+      return;
+    }
+    if (event.key.toLowerCase() === 'f' && !event.metaKey && !event.ctrlKey && !event.altKey) {
+      event.preventDefault();
+      toggleSelectedClubPrimaryFlag();
+      focusClubList();
+    }
   });
   document.addEventListener('click', (event) => {
     const flagButton = event.target.closest('button[data-flag-key]');

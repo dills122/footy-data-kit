@@ -111,6 +111,32 @@
   border-radius: 4px;
 }
 
+.flag-reason {
+  display: inline-grid;
+  gap: 4px;
+}
+
+.flag-reason span {
+  color: var(--muted);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.flag-reason select {
+  min-height: 34px;
+  border: 1px solid var(--rule-strong);
+  border-radius: 4px;
+  background: var(--bg);
+  color: var(--ink);
+  font: inherit;
+}
+
+.flag-reason select:focus {
+  border-color: var(--accent);
+  outline: 2px solid transparent;
+}
+
 .flag-filter input {
   margin: 0;
 }
@@ -193,6 +219,11 @@
   max-height: 72vh;
   overflow: auto;
   border-top: 1px solid var(--rule);
+}
+
+.club-list:focus-visible {
+  outline: 2px solid var(--accent-hover);
+  outline-offset: 4px;
 }
 
 .club-row {
@@ -372,7 +403,16 @@
 }
 
 .flag-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
   margin: 10px 0;
+}
+
+.keyboard-hint {
+  color: var(--muted);
+  font-size: 0.78rem;
 }
 
 .candidate-meta {

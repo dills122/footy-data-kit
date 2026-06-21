@@ -143,7 +143,69 @@ describe('generateClubAssets', () => {
     expect(review.clubCount).toBe(1);
   });
 
-  test('adds generated placeholders for curated historical missing crests', async () => {
+  test('adds curated candidates while reclassifying cached unresolved clubs', async () => {
+    const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'club-assets-test-'));
+    tmpDirs.push(tmpDir);
+    const inputFile = path.join(tmpDir, 'club-metadata.json');
+    const outputFile = path.join(tmpDir, 'club-metadata-output.json');
+    const reviewOutputFile = path.join(tmpDir, 'club-assets-review.json');
+    const cacheFile = path.join(tmpDir, 'club-assets-cache.json');
+
+    fs.writeFileSync(
+      inputFile,
+      JSON.stringify({
+        clubs: {
+          'trowbridge town': {
+            clubId: 'trowbridge-town',
+            canonicalName: 'Trowbridge Town',
+          },
+        },
+      })
+    );
+    fs.writeFileSync(
+      cacheFile,
+      JSON.stringify({
+        clubs: {
+          'trowbridge town': {
+            crest: {
+              status: 'needs-more-research',
+            },
+          },
+        },
+      })
+    );
+
+    await generateClubAssets({
+      input: inputFile,
+      output: outputFile,
+      reviewOutput: reviewOutputFile,
+      cache: cacheFile,
+      requestDelayMs: 0,
+      cwd: process.cwd(),
+    });
+
+    const output = JSON.parse(fs.readFileSync(outputFile, 'utf8'));
+    const review = JSON.parse(fs.readFileSync(reviewOutputFile, 'utf8'));
+    const crest = output.clubs['trowbridge town'].assets.crest;
+
+    expect(crest).toMatchObject({
+      status: 'restricted',
+      candidates: [
+        expect.objectContaining({
+          assetId: 'official-site-logo:OfficialSite:Trowbridge Town logo',
+          source: 'official-site-logo',
+        }),
+      ],
+    });
+    expect(review.issues).toEqual([
+      expect.objectContaining({
+        type: 'club-asset-license-restricted',
+        clubKey: 'trowbridge town',
+      }),
+    ]);
+  });
+
+  test('adds generated placeholders for curated researched-no-source crests', async () => {
     const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'club-assets-test-'));
     tmpDirs.push(tmpDir);
     const inputFile = path.join(tmpDir, 'club-metadata.json');
@@ -216,9 +278,9 @@ describe('generateClubAssets', () => {
       inputFile,
       JSON.stringify({
         clubs: {
-          'redbridge forest': {
-            clubId: 'redbridge-forest',
-            canonicalName: 'Redbridge Forest',
+          'uncurated fc': {
+            clubId: 'uncurated-fc',
+            canonicalName: 'Uncurated FC',
           },
         },
       })
@@ -227,19 +289,19 @@ describe('generateClubAssets', () => {
       cacheFile,
       JSON.stringify({
         clubs: {
-          'redbridge forest': {
+          'uncurated fc': {
             crest: {
-              preferred: 'generated-placeholder:Generated:redbridge-forest-placeholder-crest.svg',
+              preferred: 'generated-placeholder:Generated:uncurated-fc-placeholder-crest.svg',
               status: 'placeholder',
               candidates: [
                 {
-                  assetId: 'generated-placeholder:Generated:redbridge-forest-placeholder-crest.svg',
+                  assetId: 'generated-placeholder:Generated:uncurated-fc-placeholder-crest.svg',
                   kind: 'crest',
                   status: 'placeholder',
                   source: 'generated-placeholder',
                   placeholder: true,
                   imageUrl: 'data:image/svg+xml,%3Csvg%3E%3C%2Fsvg%3E',
-                  fileTitle: 'Generated:redbridge-forest-placeholder-crest.svg',
+                  fileTitle: 'Generated:uncurated-fc-placeholder-crest.svg',
                   license: {
                     shortName: 'CC0-1.0',
                     usageTerms: 'Creative Commons Zero v1.0 Universal',
@@ -265,13 +327,13 @@ describe('generateClubAssets', () => {
     const output = JSON.parse(fs.readFileSync(outputFile, 'utf8'));
     const review = JSON.parse(fs.readFileSync(reviewOutputFile, 'utf8'));
 
-    expect(output.clubs['redbridge forest'].assets.crest).toEqual({
+    expect(output.clubs['uncurated fc'].assets.crest).toEqual({
       status: 'needs-more-research',
     });
     expect(review.issues).toEqual([
       expect.objectContaining({
         type: 'club-asset-needs-more-research',
-        clubKey: 'redbridge forest',
+        clubKey: 'uncurated fc',
       }),
     ]);
   });

@@ -2,10 +2,10 @@
   "metadata": {
     "schemaVersion": 1,
     "generator": "club-assets-review",
-    "generatedAt": "2026-06-20T21:13:53.189Z",
-    "gitSha": "4f08010",
+    "generatedAt": "2026-06-21T00:21:51.812Z",
+    "gitSha": "66329c3",
     "sourceFiles": [
-      "/Users/dsteele/repos/footy-data-kit-club-assets/data/club-metadata.json"
+      "/Users/dsteele/repos/footy-data-kit/data/club-metadata.json"
     ],
     "buildOptions": {
       "input": "./data/club-metadata.json",
@@ -13,74 +13,22 @@
     }
   },
   "clubCount": 375,
-  "issueCount": 386,
+  "issueCount": 354,
   "issueCounts": {
-    "club-asset-identity-uncertain": 6,
-    "club-asset-license-restricted": 338,
-    "club-asset-multiple-review-candidates": 11,
-    "club-asset-needs-more-research": 20,
-    "club-asset-non-crest-candidate": 11
+    "club-asset-license-restricted": 350,
+    "club-asset-needs-more-research": 1,
+    "club-asset-quality-review": 3
   },
   "issues": [
     {
-      "type": "club-asset-identity-uncertain",
-      "clubKey": "dunstable town",
-      "clubId": "dunstable-town",
-      "canonicalName": "Dunstable Town",
+      "type": "club-asset-license-restricted",
+      "clubKey": "accrington",
+      "clubId": "accrington",
+      "canonicalName": "Accrington",
       "assetKind": "crest",
-      "assetId": "wikipedia-pageimage-any:Dtfc-badge.png",
-      "source": "wikipedia-pageimage-any",
-      "message": "Dunstable Town crest candidate identity is uncertain"
-    },
-    {
-      "type": "club-asset-identity-uncertain",
-      "clubKey": "epsom and ewell",
-      "clubId": "epsom-and-ewell",
-      "canonicalName": "Epsom & Ewell",
-      "assetKind": "crest",
-      "assetId": "wikipedia-pageimage-any:EpsomEwellBadge.png",
-      "source": "wikipedia-pageimage-any",
-      "message": "Epsom & Ewell crest candidate identity is uncertain"
-    },
-    {
-      "type": "club-asset-identity-uncertain",
-      "clubKey": "glossop",
-      "clubId": "glossop",
-      "canonicalName": "Glossop",
-      "assetKind": "crest",
-      "assetId": "wikipedia-pageimage-any:GNE_afc_badge.png",
-      "source": "wikipedia-pageimage-any",
-      "message": "Glossop crest candidate identity is uncertain"
-    },
-    {
-      "type": "club-asset-identity-uncertain",
-      "clubKey": "hendon",
-      "clubId": "hendon",
-      "canonicalName": "Hendon",
-      "assetKind": "crest",
-      "assetId": "wikipedia-pageimage-free:HampsteadTownFC1919.jpg",
-      "source": "wikipedia-pageimage-free",
-      "message": "Hendon crest candidate identity is uncertain"
-    },
-    {
-      "type": "club-asset-identity-uncertain",
-      "clubKey": "queens park rangers",
-      "clubId": "queens-park-rangers",
-      "canonicalName": "Queens Park Rangers",
-      "assetKind": "crest",
-      "assetId": "wikidata-logo:QPr.jpg",
-      "source": "wikidata-logo",
-      "message": "Queens Park Rangers crest candidate identity is uncertain"
-    },
-    {
-      "type": "club-asset-identity-uncertain",
-      "clubKey": "stafford rangers",
-      "clubId": "stafford-rangers",
-      "canonicalName": "Stafford Rangers",
-      "assetKind": "crest",
-      "assetId": "wikipedia-pageimage-any:Staffordfc.png",
-      "source": "wikipedia-pageimage-any",
-      "message": "Stafford Rangers crest candidate identity is uncertain"
+      "assetId": "thesportsdb-badge:139931",
+      "source": "thesportsdb-badge",
+      "message": "Accrington crest candidate is license restricted"
     },
     {
       "type": "club-asset-license-restricted",
@@ -128,8 +76,8 @@
       "clubId": "afc-telford-united",
       "canonicalName": "AFC Telford United",
       "assetKind": "crest",
-      "assetId": "wikipedia-pageimage-any:AFC_Telford_United_logo.svg",
-      "source": "wikipedia-pageimage-any",
+      "assetId": "thesportsdb-badge:136153",
+      "source": "thesportsdb-badge",
       "message": "AFC Telford United crest candidate is license restricted"
     },
     {
@@ -431,6 +379,16 @@
       "assetId": "wikipedia-pageimage-any:Birmingham_City_FC_logo.svg",
       "source": "wikipedia-pageimage-any",
       "message": "Birmingham City crest candidate is license restricted"
+    },
+    {
+      "type": "club-asset-license-restricted",
+      "clubKey": "bishop auckland",
+      "clubId": "bishop-auckland",
+      "canonicalName": "Bishop Auckland",
+      "assetKind": "crest",
+      "assetId": "thesportsdb-badge:148753",
+      "source": "thesportsdb-badge",
+      "message": "Bishop Auckland crest candidate is license restricted"
     },
     {
       "type": "club-asset-license-restricted",
@@ -1058,8 +1016,18 @@
       "clubId": "derby-county",
       "canonicalName": "Derby County",
       "assetKind": "crest",
-      "assetId": "wikipedia-pageimage-any:Derby_County_crest.svg",
-      "source": "wikipedia-pageimage-any",
+      "assetId": "thesportsdb-badge:133627",
+      "source": "thesportsdb-badge",
+      "message": "Derby County crest candidate is license restricted"
+    },
+    {
+      "type": "club-asset-license-restricted",
+      "clubKey": "derby county",
+      "clubId": "derby-county",
+      "canonicalName": "Derby County",
+      "assetKind": "crest",
+      "assetId": "thesportsdb-logo:133627",
+      "source": "thesportsdb-logo",
       "message": "Derby County crest candidate is license restricted"
     },
     {
@@ -1459,16 +1427,6 @@
       "canonicalName": "Glossop",
       "assetKind": "crest",
       "assetId": "wikipedia-pageimage-any:GNE_afc_badge.png",
-      "source": "wikipedia-pageimage-any",
-      "message": "Glossop crest candidate is license restricted"
-    },
-    {
-      "type": "club-asset-license-restricted",
-      "clubKey": "glossop",
-      "clubId": "glossop",
-      "canonicalName": "Glossop",
-      "assetKind": "crest",
-      "assetId": "wikipedia-pageimage-any:North_West_Counties_Football_League_logo.png",
       "source": "wikipedia-pageimage-any",
       "message": "Glossop crest candidate is license restricted"
     },
@@ -1984,6 +1942,16 @@
     },
     {
       "type": "club-asset-license-restricted",
+      "clubKey": "leicester united",
+      "clubId": "leicester-united",
+      "canonicalName": "Leicester United",
+      "assetKind": "crest",
+      "assetId": "official-site-logo:OfficialSite:Leicester United logo",
+      "source": "official-site-logo",
+      "message": "Leicester United crest candidate is license restricted"
+    },
+    {
+      "type": "club-asset-license-restricted",
       "clubKey": "leigh genesis",
       "clubId": "leigh-genesis",
       "canonicalName": "Leigh Genesis",
@@ -2041,6 +2009,16 @@
       "assetId": "wikipedia-pageimage-any:Liverpool_FC.svg",
       "source": "wikipedia-pageimage-any",
       "message": "Liverpool crest candidate is license restricted"
+    },
+    {
+      "type": "club-asset-license-restricted",
+      "clubKey": "loughborough",
+      "clubId": "loughborough",
+      "canonicalName": "Loughborough",
+      "assetKind": "crest",
+      "assetId": "thesportsdb-badge:139940",
+      "source": "thesportsdb-badge",
+      "message": "Loughborough crest candidate is license restricted"
     },
     {
       "type": "club-asset-license-restricted",
@@ -2168,8 +2146,18 @@
       "clubId": "marine",
       "canonicalName": "Marine",
       "assetKind": "crest",
-      "assetId": "wikipedia-pageimage-any:Marine_AFC_crest.svg",
-      "source": "wikipedia-pageimage-any",
+      "assetId": "thesportsdb-badge:140385",
+      "source": "thesportsdb-badge",
+      "message": "Marine crest candidate is license restricted"
+    },
+    {
+      "type": "club-asset-license-restricted",
+      "clubKey": "marine",
+      "clubId": "marine",
+      "canonicalName": "Marine",
+      "assetKind": "crest",
+      "assetId": "thesportsdb-logo:140385",
+      "source": "thesportsdb-logo",
       "message": "Marine crest candidate is license restricted"
     },
     {
@@ -2311,6 +2299,16 @@
       "assetId": "wikipedia-pageimage-any:New_Brighton_AFC_crest.jpg",
       "source": "wikipedia-pageimage-any",
       "message": "New Brighton crest candidate is license restricted"
+    },
+    {
+      "type": "club-asset-license-restricted",
+      "clubKey": "new brighton tower",
+      "clubId": "new-brighton-tower",
+      "canonicalName": "New Brighton Tower",
+      "assetKind": "crest",
+      "assetId": "thesportsdb-badge:139942",
+      "source": "thesportsdb-badge",
+      "message": "New Brighton Tower crest candidate is license restricted"
     },
     {
       "type": "club-asset-license-restricted",
@@ -2734,6 +2732,16 @@
     },
     {
       "type": "club-asset-license-restricted",
+      "clubKey": "shepshed dynamo",
+      "clubId": "shepshed-dynamo",
+      "canonicalName": "Shepshed Dynamo",
+      "assetKind": "crest",
+      "assetId": "thesportsdb-badge:145239",
+      "source": "thesportsdb-badge",
+      "message": "Shepshed Dynamo crest candidate is license restricted"
+    },
+    {
+      "type": "club-asset-license-restricted",
       "clubKey": "shrewsbury town",
       "clubId": "shrewsbury-town",
       "canonicalName": "Shrewsbury Town",
@@ -2884,6 +2892,16 @@
     },
     {
       "type": "club-asset-license-restricted",
+      "clubKey": "staines town",
+      "clubId": "staines-town",
+      "canonicalName": "Staines Town",
+      "assetKind": "crest",
+      "assetId": "thesportsdb-badge:135976",
+      "source": "thesportsdb-badge",
+      "message": "Staines Town crest candidate is license restricted"
+    },
+    {
+      "type": "club-asset-license-restricted",
       "clubKey": "stalybridge celtic",
       "clubId": "stalybridge-celtic",
       "canonicalName": "Stalybridge Celtic",
@@ -2968,8 +2986,18 @@
       "clubId": "swansea-city",
       "canonicalName": "Swansea City",
       "assetKind": "crest",
-      "assetId": "wikipedia-pageimage-any:Swansea_City_AFC_logo.svg",
-      "source": "wikipedia-pageimage-any",
+      "assetId": "thesportsdb-badge:133614",
+      "source": "thesportsdb-badge",
+      "message": "Swansea City crest candidate is license restricted"
+    },
+    {
+      "type": "club-asset-license-restricted",
+      "clubKey": "swansea city",
+      "clubId": "swansea-city",
+      "canonicalName": "Swansea City",
+      "assetKind": "crest",
+      "assetId": "thesportsdb-logo:133614",
+      "source": "thesportsdb-logo",
       "message": "Swansea City crest candidate is license restricted"
     },
     {
@@ -3001,16 +3029,6 @@
       "assetId": "wikipedia-pageimage-any:Taunton_Town_logo.png",
       "source": "wikipedia-pageimage-any",
       "message": "Taunton Town crest candidate is license restricted"
-    },
-    {
-      "type": "club-asset-license-restricted",
-      "clubKey": "telford united",
-      "clubId": "telford-united",
-      "canonicalName": "Telford United",
-      "assetKind": "crest",
-      "assetId": "wikipedia-pageimage-any:AFC_Telford_United_logo.svg",
-      "source": "wikipedia-pageimage-any",
-      "message": "Telford United crest candidate is license restricted"
     },
     {
       "type": "club-asset-license-restricted",
@@ -3078,8 +3096,18 @@
       "clubId": "tottenham-hotspur",
       "canonicalName": "Tottenham Hotspur",
       "assetKind": "crest",
-      "assetId": "wikipedia-pageimage-any:Tottenham_Hotspur.svg",
-      "source": "wikipedia-pageimage-any",
+      "assetId": "thesportsdb-badge:133616",
+      "source": "thesportsdb-badge",
+      "message": "Tottenham Hotspur crest candidate is license restricted"
+    },
+    {
+      "type": "club-asset-license-restricted",
+      "clubKey": "tottenham hotspur",
+      "clubId": "tottenham-hotspur",
+      "canonicalName": "Tottenham Hotspur",
+      "assetKind": "crest",
+      "assetId": "thesportsdb-logo:133616",
+      "source": "thesportsdb-logo",
       "message": "Tottenham Hotspur crest candidate is license restricted"
     },
     {
@@ -3091,6 +3119,16 @@
       "assetId": "wikipedia-pageimage-any:Tranmere_Rovers_FC_crest.svg",
       "source": "wikipedia-pageimage-any",
       "message": "Tranmere Rovers crest candidate is license restricted"
+    },
+    {
+      "type": "club-asset-license-restricted",
+      "clubKey": "trowbridge town",
+      "clubId": "trowbridge-town",
+      "canonicalName": "Trowbridge Town",
+      "assetKind": "crest",
+      "assetId": "official-site-logo:OfficialSite:Trowbridge Town logo",
+      "source": "official-site-logo",
+      "message": "Trowbridge Town crest candidate is license restricted"
     },
     {
       "type": "club-asset-license-restricted",
@@ -3234,6 +3272,16 @@
     },
     {
       "type": "club-asset-license-restricted",
+      "clubKey": "whitby town",
+      "clubId": "whitby-town",
+      "canonicalName": "Whitby Town",
+      "assetKind": "crest",
+      "assetId": "thesportsdb-badge:137890",
+      "source": "thesportsdb-badge",
+      "message": "Whitby Town crest candidate is license restricted"
+    },
+    {
+      "type": "club-asset-license-restricted",
       "clubKey": "whitehawk",
       "clubId": "whitehawk",
       "canonicalName": "Whitehawk",
@@ -3324,12 +3372,22 @@
     },
     {
       "type": "club-asset-license-restricted",
+      "clubKey": "witney town",
+      "clubId": "witney-town",
+      "canonicalName": "Witney Town",
+      "assetKind": "crest",
+      "assetId": "official-site-logo:OfficialSite:Witney Town FC logo",
+      "source": "official-site-logo",
+      "message": "Witney Town crest candidate is license restricted"
+    },
+    {
+      "type": "club-asset-license-restricted",
       "clubKey": "witton albion",
       "clubId": "witton-albion",
       "canonicalName": "Witton Albion",
       "assetKind": "crest",
-      "assetId": "wikipedia-pageimage-any:Wittonalbionfc.png",
-      "source": "wikipedia-pageimage-any",
+      "assetId": "thesportsdb-badge:134411",
+      "source": "thesportsdb-badge",
       "message": "Witton Albion crest candidate is license restricted"
     },
     {
@@ -3463,145 +3521,6 @@
       "message": "York City crest candidate is license restricted"
     },
     {
-      "type": "club-asset-multiple-review-candidates",
-      "clubKey": "chester city",
-      "clubId": "chester-city",
-      "canonicalName": "Chester City",
-      "assetKind": "crest",
-      "candidateCount": 2,
-      "message": "Chester City has crest candidates but no usable preferred asset"
-    },
-    {
-      "type": "club-asset-multiple-review-candidates",
-      "clubKey": "dunstable town",
-      "clubId": "dunstable-town",
-      "canonicalName": "Dunstable Town",
-      "assetKind": "crest",
-      "candidateCount": 2,
-      "message": "Dunstable Town has crest candidates but no usable preferred asset"
-    },
-    {
-      "type": "club-asset-multiple-review-candidates",
-      "clubKey": "gainsborough trinity",
-      "clubId": "gainsborough-trinity",
-      "canonicalName": "Gainsborough Trinity",
-      "assetKind": "crest",
-      "candidateCount": 2,
-      "message": "Gainsborough Trinity has crest candidates but no usable preferred asset"
-    },
-    {
-      "type": "club-asset-multiple-review-candidates",
-      "clubKey": "gateshead 1899",
-      "clubId": "gateshead-1899",
-      "canonicalName": "Gateshead (1899)",
-      "assetKind": "crest",
-      "candidateCount": 2,
-      "message": "Gateshead (1899) has crest candidates but no usable preferred asset"
-    },
-    {
-      "type": "club-asset-multiple-review-candidates",
-      "clubKey": "glossop",
-      "clubId": "glossop",
-      "canonicalName": "Glossop",
-      "assetKind": "crest",
-      "candidateCount": 2,
-      "message": "Glossop has crest candidates but no usable preferred asset"
-    },
-    {
-      "type": "club-asset-multiple-review-candidates",
-      "clubKey": "hendon",
-      "clubId": "hendon",
-      "canonicalName": "Hendon",
-      "assetKind": "crest",
-      "candidateCount": 2,
-      "message": "Hendon has crest candidates but no usable preferred asset"
-    },
-    {
-      "type": "club-asset-multiple-review-candidates",
-      "clubKey": "hereford",
-      "clubId": "hereford",
-      "canonicalName": "Hereford",
-      "assetKind": "crest",
-      "candidateCount": 2,
-      "message": "Hereford has crest candidates but no usable preferred asset"
-    },
-    {
-      "type": "club-asset-multiple-review-candidates",
-      "clubKey": "maidstone united 1897",
-      "clubId": "maidstone-united-1897",
-      "canonicalName": "Maidstone United (1897)",
-      "assetKind": "crest",
-      "candidateCount": 2,
-      "message": "Maidstone United (1897) has crest candidates but no usable preferred asset"
-    },
-    {
-      "type": "club-asset-multiple-review-candidates",
-      "clubKey": "marlow",
-      "clubId": "marlow",
-      "canonicalName": "Marlow",
-      "assetKind": "crest",
-      "candidateCount": 2,
-      "message": "Marlow has crest candidates but no usable preferred asset"
-    },
-    {
-      "type": "club-asset-multiple-review-candidates",
-      "clubKey": "middlesbrough",
-      "clubId": "middlesbrough",
-      "canonicalName": "Middlesbrough",
-      "assetKind": "crest",
-      "candidateCount": 2,
-      "message": "Middlesbrough has crest candidates but no usable preferred asset"
-    },
-    {
-      "type": "club-asset-multiple-review-candidates",
-      "clubKey": "windsor and eton",
-      "clubId": "windsor-and-eton",
-      "canonicalName": "Windsor & Eton",
-      "assetKind": "crest",
-      "candidateCount": 2,
-      "message": "Windsor & Eton has crest candidates but no usable preferred asset"
-    },
-    {
-      "type": "club-asset-needs-more-research",
-      "clubKey": "accrington",
-      "clubId": "accrington",
-      "canonicalName": "Accrington",
-      "assetKind": "crest",
-      "message": "Accrington needs more crest asset research"
-    },
-    {
-      "type": "club-asset-needs-more-research",
-      "clubKey": "addlestone and weybridge town",
-      "clubId": "addlestone-and-weybridge-town",
-      "canonicalName": "Addlestone & Weybridge Town",
-      "assetKind": "crest",
-      "message": "Addlestone & Weybridge Town needs more crest asset research"
-    },
-    {
-      "type": "club-asset-needs-more-research",
-      "clubKey": "andover",
-      "clubId": "andover",
-      "canonicalName": "Andover",
-      "assetKind": "crest",
-      "message": "Andover needs more crest asset research"
-    },
-    {
-      "type": "club-asset-needs-more-research",
-      "clubKey": "bishop auckland",
-      "clubId": "bishop-auckland",
-      "canonicalName": "Bishop Auckland",
-      "assetKind": "crest",
-      "message": "Bishop Auckland needs more crest asset research"
-    },
-    {
-      "type": "club-asset-needs-more-research",
-      "clubKey": "dagenham",
-      "clubId": "dagenham",
-      "canonicalName": "Dagenham",
-      "assetKind": "crest",
-      "message": "Dagenham needs more crest asset research"
-    },
-    {
       "type": "club-asset-needs-more-research",
       "clubKey": "hounslow",
       "clubId": "hounslow",
@@ -3610,226 +3529,34 @@
       "message": "Hounslow needs more crest asset research"
     },
     {
-      "type": "club-asset-needs-more-research",
-      "clubKey": "leicester united",
-      "clubId": "leicester-united",
-      "canonicalName": "Leicester United",
+      "type": "club-asset-quality-review",
+      "clubKey": "bridgend town",
+      "clubId": "bridgend-town",
+      "canonicalName": "Bridgend Town",
       "assetKind": "crest",
-      "message": "Leicester United needs more crest asset research"
-    },
-    {
-      "type": "club-asset-needs-more-research",
-      "clubKey": "loughborough",
-      "clubId": "loughborough",
-      "canonicalName": "Loughborough",
-      "assetKind": "crest",
-      "message": "Loughborough needs more crest asset research"
-    },
-    {
-      "type": "club-asset-needs-more-research",
-      "clubKey": "milton keynes city",
-      "clubId": "milton-keynes-city",
-      "canonicalName": "Milton Keynes City",
-      "assetKind": "crest",
-      "message": "Milton Keynes City needs more crest asset research"
-    },
-    {
-      "type": "club-asset-needs-more-research",
-      "clubKey": "new brighton tower",
-      "clubId": "new-brighton-tower",
-      "canonicalName": "New Brighton Tower",
-      "assetKind": "crest",
-      "message": "New Brighton Tower needs more crest asset research"
-    },
-    {
-      "type": "club-asset-needs-more-research",
-      "clubKey": "redbridge forest",
-      "clubId": "redbridge-forest",
-      "canonicalName": "Redbridge Forest",
-      "assetKind": "crest",
-      "message": "Redbridge Forest needs more crest asset research"
-    },
-    {
-      "type": "club-asset-needs-more-research",
-      "clubKey": "rothwell town",
-      "clubId": "rothwell-town",
-      "canonicalName": "Rothwell Town",
-      "assetKind": "crest",
-      "message": "Rothwell Town needs more crest asset research"
-    },
-    {
-      "type": "club-asset-needs-more-research",
-      "clubKey": "shepshed dynamo",
-      "clubId": "shepshed-dynamo",
-      "canonicalName": "Shepshed Dynamo",
-      "assetKind": "crest",
-      "message": "Shepshed Dynamo needs more crest asset research"
-    },
-    {
-      "type": "club-asset-needs-more-research",
-      "clubKey": "staines town",
-      "clubId": "staines-town",
-      "canonicalName": "Staines Town",
-      "assetKind": "crest",
-      "message": "Staines Town needs more crest asset research"
-    },
-    {
-      "type": "club-asset-needs-more-research",
-      "clubKey": "team bath",
-      "clubId": "team-bath",
-      "canonicalName": "Team Bath",
-      "assetKind": "crest",
-      "message": "Team Bath needs more crest asset research"
-    },
-    {
-      "type": "club-asset-needs-more-research",
-      "clubKey": "thames",
-      "clubId": "thames",
-      "canonicalName": "Thames",
-      "assetKind": "crest",
-      "message": "Thames needs more crest asset research"
-    },
-    {
-      "type": "club-asset-needs-more-research",
-      "clubKey": "trowbridge town",
-      "clubId": "trowbridge-town",
-      "canonicalName": "Trowbridge Town",
-      "assetKind": "crest",
-      "message": "Trowbridge Town needs more crest asset research"
-    },
-    {
-      "type": "club-asset-needs-more-research",
-      "clubKey": "walthamstow avenue",
-      "clubId": "walthamstow-avenue",
-      "canonicalName": "Walthamstow Avenue",
-      "assetKind": "crest",
-      "message": "Walthamstow Avenue needs more crest asset research"
-    },
-    {
-      "type": "club-asset-needs-more-research",
-      "clubKey": "whitby town",
-      "clubId": "whitby-town",
-      "canonicalName": "Whitby Town",
-      "assetKind": "crest",
-      "message": "Whitby Town needs more crest asset research"
-    },
-    {
-      "type": "club-asset-needs-more-research",
-      "clubKey": "witney town",
-      "clubId": "witney-town",
-      "canonicalName": "Witney Town",
-      "assetKind": "crest",
-      "message": "Witney Town needs more crest asset research"
-    },
-    {
-      "type": "club-asset-non-crest-candidate",
-      "clubKey": "gainsborough trinity",
-      "clubId": "gainsborough-trinity",
-      "canonicalName": "Gainsborough Trinity",
-      "assetKind": "crest",
-      "assetId": "wikipedia-pageimage-free:Gainsborough_Trinity_1966–67.jpg",
-      "source": "wikipedia-pageimage-free",
-      "message": "Gainsborough Trinity crest candidate does not look like a crest/logo filename"
-    },
-    {
-      "type": "club-asset-non-crest-candidate",
-      "clubKey": "hendon",
-      "clubId": "hendon",
-      "canonicalName": "Hendon",
-      "assetKind": "crest",
-      "assetId": "wikipedia-pageimage-free:HampsteadTownFC1919.jpg",
-      "source": "wikipedia-pageimage-free",
-      "message": "Hendon crest candidate does not look like a crest/logo filename"
-    },
-    {
-      "type": "club-asset-non-crest-candidate",
-      "clubKey": "hereford",
-      "clubId": "hereford",
-      "canonicalName": "Hereford",
-      "assetKind": "crest",
-      "assetId": "wikidata-logo:Forever United, Edgar Street, Hereford - geograph.org.uk - 5596516.jpg",
-      "source": "wikidata-logo",
-      "message": "Hereford crest candidate does not look like a crest/logo filename"
-    },
-    {
-      "type": "club-asset-non-crest-candidate",
-      "clubKey": "knowsley united",
-      "clubId": "knowsley-united",
-      "canonicalName": "Knowsley United",
-      "assetKind": "crest",
-      "assetId": "wikipedia-pageimage-free:Knowsley-united.png",
-      "source": "wikipedia-pageimage-free",
-      "message": "Knowsley United crest candidate does not look like a crest/logo filename"
-    },
-    {
-      "type": "club-asset-non-crest-candidate",
-      "clubKey": "marlow",
-      "clubId": "marlow",
-      "canonicalName": "Marlow",
-      "assetKind": "crest",
-      "assetId": "wikipedia-pageimage-free:Marlow1894.jpg",
-      "source": "wikipedia-pageimage-free",
-      "message": "Marlow crest candidate does not look like a crest/logo filename"
-    },
-    {
-      "type": "club-asset-non-crest-candidate",
-      "clubKey": "middlesbrough",
-      "clubId": "middlesbrough",
-      "canonicalName": "Middlesbrough",
-      "assetKind": "crest",
-      "assetId": "wikidata-logo:Middlesbrough Walk (27470064759).jpg",
-      "source": "wikidata-logo",
-      "message": "Middlesbrough crest candidate does not look like a crest/logo filename"
-    },
-    {
-      "type": "club-asset-non-crest-candidate",
-      "clubKey": "queens park rangers",
-      "clubId": "queens-park-rangers",
-      "canonicalName": "Queens Park Rangers",
-      "assetKind": "crest",
-      "assetId": "wikidata-logo:QPr.jpg",
-      "source": "wikidata-logo",
-      "message": "Queens Park Rangers crest candidate does not look like a crest/logo filename"
-    },
-    {
-      "type": "club-asset-non-crest-candidate",
-      "clubKey": "road-sea southampton",
-      "clubId": "road-sea-southampton",
-      "canonicalName": "Road-Sea Southampton",
-      "assetKind": "crest",
-      "assetId": "wikipedia-pageimage-any:Road-Sea_Southampton_F.C.jpg",
+      "assetId": "wikipedia-pageimage-any:Bridgendtown.png",
       "source": "wikipedia-pageimage-any",
-      "message": "Road-Sea Southampton crest candidate does not look like a crest/logo filename"
+      "message": "Bridgend Town crest candidate needs a better quality or more readable image"
     },
     {
-      "type": "club-asset-non-crest-candidate",
+      "type": "club-asset-quality-review",
+      "clubKey": "bromsgrove rovers",
+      "clubId": "bromsgrove-rovers",
+      "canonicalName": "Bromsgrove Rovers",
+      "assetKind": "crest",
+      "assetId": "wikipedia-pageimage-any:Bromsgrove_Rovers_Badge.jpg",
+      "source": "wikipedia-pageimage-any",
+      "message": "Bromsgrove Rovers crest candidate needs a better quality or more readable image"
+    },
+    {
+      "type": "club-asset-quality-review",
       "clubKey": "solihull borough",
       "clubId": "solihull-borough",
       "canonicalName": "Solihull Borough",
       "assetKind": "crest",
       "assetId": "wikipedia-pageimage-any:Solihullboroughafc.jpg",
       "source": "wikipedia-pageimage-any",
-      "message": "Solihull Borough crest candidate does not look like a crest/logo filename"
-    },
-    {
-      "type": "club-asset-non-crest-candidate",
-      "clubKey": "stafford rangers",
-      "clubId": "stafford-rangers",
-      "canonicalName": "Stafford Rangers",
-      "assetKind": "crest",
-      "assetId": "wikipedia-pageimage-any:Staffordfc.png",
-      "source": "wikipedia-pageimage-any",
-      "message": "Stafford Rangers crest candidate does not look like a crest/logo filename"
-    },
-    {
-      "type": "club-asset-non-crest-candidate",
-      "clubKey": "windsor and eton",
-      "clubId": "windsor-and-eton",
-      "canonicalName": "Windsor & Eton",
-      "assetKind": "crest",
-      "assetId": "wikipedia-pageimage-any:Windsorandetonfc.jpg",
-      "source": "wikipedia-pageimage-any",
-      "message": "Windsor & Eton crest candidate does not look like a crest/logo filename"
+      "message": "Solihull Borough crest candidate needs a better quality or more readable image"
     }
   ]
 }

@@ -1,8 +1,11 @@
 import {
   addGeneratedPlaceholderFallback,
   buildClubAssetBundle,
+  buildCuratedAssetCandidates,
   buildGeneratedPlaceholderCrestCandidate,
   buildClubAssetReviewIssues,
+  buildTheSportsDbAssetCandidates,
+  buildTheSportsDbSearchNames,
   buildWikipediaArticleTitles,
   classifyAssetLicense,
   classifyClubAssetCandidate,
@@ -54,6 +57,15 @@ describe('club asset helpers', () => {
         derived: { aliases: ['Tranmere Rovers'] },
       })
     ).toContain('Tranmere Rovers F.C.');
+  });
+
+  test('builds TheSportsDB search names from canonical name and aliases', () => {
+    expect(
+      buildTheSportsDbSearchNames({
+        canonicalName: 'Derby County',
+        derived: { aliases: ['Derby County F.C.', 'Derby County'] },
+      })
+    ).toEqual(['Derby County', 'Derby County F.C.']);
   });
 
   test('classifies public-domain crest candidates as usable', () => {
@@ -176,6 +188,221 @@ describe('club asset helpers', () => {
     expect(candidate.verification.reviewReasons || []).toEqual([]);
   });
 
+  test('preserves manually quality-flagged crest candidates for replacement review', () => {
+    const candidate = classifyClubAssetCandidate(
+      {
+        assetId: 'wikipedia-pageimage-any:Derby_County_crest.svg',
+        kind: 'crest',
+        status: 'needs-review',
+        source: 'wikipedia-pageimage-any',
+        imageUrl: 'https://upload.wikimedia.org/wikipedia/en/example.svg',
+        fileTitle: 'File:Derby County crest.svg',
+        license: {
+          shortName: 'Fair use',
+          usageTerms: 'Fair use of copyrighted material',
+          copyrighted: true,
+        },
+      },
+      {
+        clubId: 'derby-county',
+        canonicalName: 'Derby County',
+      }
+    );
+
+    expect(candidate.status).toBe('restricted');
+    expect(candidate.notes).toContain('poor readability');
+    expect(candidate.verification.needsManualReview).toBe(true);
+    expect(candidate.verification.reviewReasons).toEqual(
+      expect.arrayContaining(['license-restricted', 'image-quality-review'])
+    );
+
+    const afcCandidate = classifyClubAssetCandidate(
+      {
+        assetId: 'wikipedia-pageimage-any:AFC_Telford_United_logo.svg',
+        kind: 'crest',
+        status: 'needs-review',
+        source: 'wikipedia-pageimage-any',
+        imageUrl: 'https://upload.wikimedia.org/wikipedia/en/example.svg',
+        fileTitle: 'File:AFC Telford United logo.svg',
+        license: {
+          shortName: 'Fair use',
+          usageTerms: 'Fair use of copyrighted material',
+          copyrighted: true,
+        },
+      },
+      {
+        clubId: 'afc-telford-united',
+        canonicalName: 'AFC Telford United',
+      }
+    );
+
+    expect(afcCandidate.verification.reviewReasons).toContain('image-quality-review');
+  });
+
+  test('builds curated official-site logo candidates as restricted backups', () => {
+    const [candidate] = buildCuratedAssetCandidates({
+      clubId: 'trowbridge-town',
+      canonicalName: 'Trowbridge Town',
+    });
+
+    expect(candidate).toMatchObject({
+      assetId: 'official-site-logo:OfficialSite:Trowbridge Town logo',
+      source: 'official-site-logo',
+      sourceUrl: 'https://trowbridgetownfootballclub.co.uk/',
+      imageUrl: 'https://trowbridgetownfootballclub.co.uk/wp-content/uploads/2018/08/ttfc-logo.png',
+      fileTitle: 'OfficialSite:Trowbridge Town logo',
+      colors: [
+        { role: 'primary', hex: '#FFFF00' },
+        { role: 'secondary', hex: '#000000' },
+      ],
+    });
+
+    const classified = classifyClubAssetCandidate(candidate, {
+      clubId: 'trowbridge-town',
+      canonicalName: 'Trowbridge Town',
+    });
+
+    expect(classified.status).toBe('restricted');
+    expect(classified.verification).toMatchObject({
+      identityMatch: 'strong',
+      licenseCheck: 'restricted',
+      needsManualReview: true,
+    });
+  });
+
+  test('curates the Team Bath Wikimedia logo file after image metadata enrichment', () => {
+    const [candidate] = buildCuratedAssetCandidates({
+      clubId: 'team-bath',
+      canonicalName: 'Team Bath',
+    });
+
+    const classified = classifyClubAssetCandidate(
+      {
+        ...candidate,
+        imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/1/1e/TeamBath.gif',
+        mimeType: 'image/gif',
+        width: 249,
+        height: 77,
+        license: {
+          shortName: 'Public domain',
+          usageTerms: 'Public domain',
+          copyrighted: false,
+        },
+      },
+      {
+        clubId: 'team-bath',
+        canonicalName: 'Team Bath',
+      }
+    );
+
+    expect(classified.status).toBe('usable');
+    expect(classified.notes).toContain('Team Bath F.C. Wikipedia infobox logo');
+    expect(classified.verification).toMatchObject({
+      identityMatch: 'curated',
+      needsManualReview: false,
+    });
+  });
+
+  test('uses curated identity for real crest files with compact filenames', () => {
+    const classified = classifyClubAssetCandidate(
+      {
+        assetId: 'wikipedia-pageimage-any:EpsomEwellBadge.png',
+        kind: 'crest',
+        status: 'needs-review',
+        source: 'wikipedia-pageimage-any',
+        imageUrl: 'https://upload.wikimedia.org/wikipedia/en/0/09/EpsomEwellBadge.png',
+        fileTitle: 'File:EpsomEwellBadge.png',
+        license: {
+          shortName: 'Fair use',
+          usageTerms: 'Fair use of copyrighted material',
+          copyrighted: true,
+        },
+      },
+      {
+        clubId: 'epsom-and-ewell',
+        canonicalName: 'Epsom & Ewell',
+      }
+    );
+
+    expect(classified.status).toBe('restricted');
+    expect(classified.notes).toContain('Epsom & Ewell badge');
+    expect(classified.verification).toMatchObject({
+      identityMatch: 'curated',
+      reviewReasons: ['license-restricted'],
+    });
+  });
+
+  test('builds and classifies exact TheSportsDB badge candidates as restricted backups', () => {
+    const [badgeCandidate, logoCandidate] = buildTheSportsDbAssetCandidates({
+      idTeam: '133627',
+      strTeam: 'Derby County',
+      strTeamAlternate: 'Derby County Football Club',
+      strSport: 'Soccer',
+      strBadge: 'https://r2.thesportsdb.com/images/media/team/badge/example.png',
+      strLogo: 'https://r2.thesportsdb.com/images/media/team/logo/example.png',
+      strColour1: '#FFFFFF',
+      strColour2: '#000000',
+    });
+
+    expect(badgeCandidate).toMatchObject({
+      assetId: 'thesportsdb-badge:133627',
+      kind: 'crest',
+      source: 'thesportsdb-badge',
+      fileTitle: 'TheSportsDB:Derby County badge',
+      colors: [
+        { role: 'primary', hex: '#FFFFFF' },
+        { role: 'secondary', hex: '#000000' },
+      ],
+    });
+    expect(logoCandidate.source).toBe('thesportsdb-logo');
+
+    const classified = classifyClubAssetCandidate(badgeCandidate, {
+      clubId: 'derby-county',
+      canonicalName: 'Derby County',
+      derived: { aliases: ['Derby County F.C.'] },
+    });
+
+    expect(classified.status).toBe('restricted');
+    expect(classified.verification).toMatchObject({
+      identityMatch: 'strong',
+      licenseCheck: 'restricted',
+      httpCheck: 'pass',
+      needsManualReview: true,
+    });
+    expect(classified.verification.reviewReasons).toEqual(['license-restricted']);
+  });
+
+  test('keeps successor-style TheSportsDB matches under identity review', () => {
+    const [candidate] = buildTheSportsDbAssetCandidates({
+      idTeam: '134356',
+      strTeam: 'Dagenham and Redbridge',
+      strSport: 'Soccer',
+      strBadge: 'https://r2.thesportsdb.com/images/media/team/badge/example.png',
+    });
+
+    const classified = classifyClubAssetCandidate(candidate, {
+      clubId: 'dagenham',
+      canonicalName: 'Dagenham',
+    });
+
+    expect(classified.status).toBe('restricted');
+    expect(classified.verification.identityMatch).toBe('none');
+    expect(classified.verification.reviewReasons).toEqual(
+      expect.arrayContaining(['license-restricted', 'identity-uncertain'])
+    );
+  });
+
+  test('ignores non-soccer TheSportsDB teams', () => {
+    expect(
+      buildTheSportsDbAssetCandidates({
+        idTeam: '136592',
+        strTeam: 'Team Bath',
+        strSport: 'Netball',
+        strBadge: 'https://r2.thesportsdb.com/images/media/team/badge/example.png',
+      })
+    ).toEqual([]);
+  });
+
   test('does not trust generic Wikidata images without crest signals', () => {
     const candidate = classifyClubAssetCandidate(
       {
@@ -206,8 +433,35 @@ describe('club asset helpers', () => {
     ).toBe(true);
     expect(
       isRejectedClubAssetCandidate({
+        assetId: 'wikidata-image:Man united vs derby.jpg',
+      })
+    ).toBe(true);
+    expect(
+      isRejectedClubAssetCandidate({
         assetId: 'wikipedia-pageimage-free:Example_FC_crest.svg',
       })
+    ).toBe(false);
+    expect(
+      isRejectedClubAssetCandidate(
+        {
+          assetId: 'thesportsdb-badge:136153',
+        },
+        {
+          clubId: 'telford-united',
+          canonicalName: 'Telford United',
+        }
+      )
+    ).toBe(true);
+    expect(
+      isRejectedClubAssetCandidate(
+        {
+          assetId: 'thesportsdb-badge:136153',
+        },
+        {
+          clubId: 'afc-telford-united',
+          canonicalName: 'AFC Telford United',
+        }
+      )
     ).toBe(false);
   });
 
@@ -233,7 +487,7 @@ describe('club asset helpers', () => {
     expect(candidate.verification.reviewReasons).toContain('non-crest-filename');
   });
 
-  test('builds generated placeholder crest candidates for curated historical clubs', () => {
+  test('builds generated placeholder crest candidates for curated researched-no-source clubs', () => {
     const candidate = buildGeneratedPlaceholderCrestCandidate(
       {
         clubId: 'sunderland-albion',
@@ -275,6 +529,8 @@ describe('club asset helpers', () => {
       },
     });
     expect(candidate.imageUrl).toMatch(/^data:image\/svg\+xml,/);
+    expect(candidate.notes).toContain('researchStatus: researched-no-source');
+    expect(candidate.notes).toContain('not an official or historical club crest');
   });
 
   test('preserves generated placeholder status during reclassification', () => {
@@ -370,6 +626,30 @@ describe('club asset helpers', () => {
     expect(bundle.candidates.map((candidate) => candidate.priority)).toEqual([1, 2, 3]);
   });
 
+  test('ranks TheSportsDB badges before Wikipedia fair-use page images', () => {
+    const bundle = buildClubAssetBundle([
+      {
+        assetId: 'wikipedia-pageimage-any:Example_FC_logo.svg',
+        kind: 'crest',
+        status: 'restricted',
+        source: 'wikipedia-pageimage-any',
+        fileTitle: 'File:Example FC logo.svg',
+      },
+      {
+        assetId: 'thesportsdb-badge:123',
+        kind: 'crest',
+        status: 'restricted',
+        source: 'thesportsdb-badge',
+        fileTitle: 'TheSportsDB:Example FC badge',
+      },
+    ]);
+
+    expect(bundle.candidates.map((candidate) => candidate.assetId)).toEqual([
+      'thesportsdb-badge:123',
+      'wikipedia-pageimage-any:Example_FC_logo.svg',
+    ]);
+  });
+
   test('does not mark free non-crest page images as usable', () => {
     const candidate = classifyClubAssetCandidate(
       {
@@ -445,6 +725,35 @@ describe('club asset helpers', () => {
       'club-asset-license-restricted',
     ]);
 
+    const restrictedOnlyIssues = buildClubAssetReviewIssues('example fc', exampleClub, {
+      status: 'restricted',
+      candidates: [
+        {
+          assetId: 'candidate',
+          kind: 'crest',
+          status: 'restricted',
+          source: 'wikipedia-pageimage-any',
+          verification: {
+            reviewReasons: ['license-restricted'],
+          },
+        },
+        {
+          assetId: 'candidate-2',
+          kind: 'crest',
+          status: 'restricted',
+          source: 'thesportsdb-badge',
+          verification: {
+            reviewReasons: ['license-restricted'],
+          },
+        },
+      ],
+    });
+
+    expect(restrictedOnlyIssues.map((issue) => issue.type)).toEqual([
+      'club-asset-license-restricted',
+      'club-asset-license-restricted',
+    ]);
+
     const issues = buildClubAssetReviewIssues('example fc', exampleClub, {
       status: 'restricted',
       candidates: [
@@ -466,15 +775,26 @@ describe('club asset helpers', () => {
             reviewReasons: ['non-crest-filename'],
           },
         },
+        {
+          assetId: 'candidate-3',
+          kind: 'crest',
+          status: 'restricted',
+          source: 'wikipedia-pageimage-any',
+          verification: {
+            reviewReasons: ['license-restricted', 'image-quality-review'],
+          },
+        },
       ],
     });
 
     expect(issues.map((issue) => issue.type).sort()).toEqual([
       'club-asset-identity-uncertain',
       'club-asset-license-restricted',
+      'club-asset-license-restricted',
       'club-asset-multiple-review-candidates',
       'club-asset-non-crest-candidate',
       'club-asset-non-crest-candidate',
+      'club-asset-quality-review',
     ]);
   });
 });
