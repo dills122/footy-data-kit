@@ -5,17 +5,17 @@ release plan and source of truth.
 
 ## Active Focus
 
-1. Finish review and release preparation for the crest asset metadata branch.
-   The sidecar now includes crest candidate bundles, restricted-license backups,
-   curated official/Wikimedia candidates, and generated placeholders for
-   researched clubs with no usable crest source.
+1. Open and merge the `v1.1.0` pre-release branch after CI passes. The sidecar
+   now includes crest candidate bundles, restricted-license backups, curated
+   official/Wikimedia candidates, and generated placeholders for researched
+   clubs with no usable crest source.
 2. Treat the current club asset review baseline as expected unless new source
    evidence appears: one true `needs-more-research` club (`Hounslow`), three
    quality-review candidates (`Bridgend Town`, `Bromsgrove Rovers`,
    `Solihull Borough`), and high-volume restricted-license club marks.
-3. Push/open the crest asset branch PR, run full CI-equivalent checks, and
-   include the asset metadata/consumer-filtering notes in the next release
-   notes.
+3. Use the completed release-readiness pass in
+   [next-release-data-review.md](/Users/dsteele/repos/footy-data-kit/docs/next-release-data-review.md)
+   as the current release-note source pass.
 4. Continue TypeScript migration with the next implementation slice: convert
    shared config/season-rule boundaries or the parser/builder boundary before
    parser-heavy rewrites.
@@ -46,3 +46,4 @@ release plan and source of truth.
 - [cloudflare-r2-release-archive-plan.md](/Users/dsteele/repos/footy-data-kit/docs/cloudflare-r2-release-archive-plan.md)
 - [jsonhero-release-links.md](/Users/dsteele/repos/footy-data-kit/docs/jsonhero-release-links.md)
 - [post-v1-phase-0-3-plan.md](/Users/dsteele/repos/footy-data-kit/docs/post-v1-phase-0-3-plan.md)
+- [next-release-data-review.md](/Users/dsteele/repos/footy-data-kit/docs/next-release-data-review.md)

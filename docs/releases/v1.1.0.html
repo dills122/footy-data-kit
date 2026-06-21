@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>v1.1.0 release notes | footy-data-kit</title>
+    <meta
+      name="description"
+      content="Expands generated tier 5 and level 6 coverage from 1979 through 2025, grows club metadata to 375 records, and adds crest asset candidate metadata with provenance, license status, placeholders, and review guidance."
+    />
+    <link rel="stylesheet" href="../styles.css" />
+  </head>
+  <body>
+    <main class="page-shell">
+      <header class="site-header">
+        <p class="eyebrow">release notes</p>
+        <h1>v1.1.0</h1>
+        <p class="lede">
+          Expands generated tier 5 and level 6 coverage from 1979 through 2025, grows club metadata
+          to 375 records, and adds crest asset candidate metadata with provenance, license status,
+          placeholders, and review guidance.
+        </p>
+      </header>
+
+      <section class="panel">
+        <h2>Release</h2>
+        <ul class="release-meta">
+          <li><span>title</span><strong>Lower-tier expansion and club crest metadata</strong></li>
+          <li><span>date</span><strong>2026-06-21</strong></li>
+          <li><span>type</span><strong>data</strong></li>
+          <li><span>schema</span><strong>compatible</strong></li>
+        </ul>
+      </section>
+
+      <section class="panel release-notes-body">
+        <h2>Summary</h2>
+        <ul>
+          <li>
+            Expands generated lower-tier data while preserving the top-four-tier contract: tier 5
+            and level 6 now cover the modern 1979-2025 lower-tier slice where source pages expose
+            usable tables.
+          </li>
+          <li>
+            Grows generated club metadata from 232 to 375 records, reflecting the broader maintained
+            dataset scope.
+          </li>
+          <li>
+            Adds club crest asset metadata with candidate provenance, license classification,
+            generated placeholders, and review flags so consumers can choose an asset policy that
+            matches their rights model.
+          </li>
+        </ul>
+        <h2>Breaking Changes</h2>
+        <p>None.</p>
+        <h2>Data Changes</h2>
+        <ul>
+          <li>
+            Keeps <code>tier1</code> through <code>tier4</code> season coverage unchanged from
+            <code>v1.0.0</code>.
+          </li>
+          <li>Expands generated <code>tier5</code> coverage from 14 to 47 seasons.</li>
+          <li>
+            Expands generated level-six coverage from 5 to 47 seasons, using
+            <code>tier6.divisions[]</code> for parallel divisions.
+          </li>
+          <li>
+            Adds <code>assets.crest</code> bundles to <code>data/club-metadata.json</code>. The
+            package stores URLs and provenance only; it does not download or redistribute image
+            binaries.
+          </li>
+          <li>
+            Classifies crest records as <code>usable</code>, <code>restricted</code>,
+            <code>placeholder</code>, or <code>needs-more-research</code>, with review issues
+            captured in <code>data/club-assets-review.json</code>.
+          </li>
+          <li>
+            Leaves <code>Hounslow</code> as the only true
+            <code>needs-more-research</code> crest/color case, with <code>Bridgend Town</code>,
+            <code>Bromsgrove Rovers</code>, and <code>Solihull Borough</code> still marked for
+            quality review.
+          </li>
+        </ul>
+        <h2>Validation</h2>
+        <ul>
+          <li>
+            Full local release-readiness checks passed before the pre-release branch:
+            <code>pnpm test</code>, <code>pnpm test:integration</code>, <code>pnpm typecheck</code>,
+            <code>pnpm -s verify:data</code>, <code>pnpm -s schema:verify</code>,
+            <code>pnpm format:check</code>, <code>pnpm -s docs:check</code>,
+            <code>pnpm -s lint</code>, and <code>pnpm -s release:dry-run-data</code>.
+          </li>
+          <li>
+            The release dry-run rebuilt the full 1888-2025 generated range into a temporary
+            directory, produced 138 season records and 375 club metadata records, and passed data
+            verification, club-continuity verification, and JSON Schema verification.
+          </li>
+          <li>
+            <code>data/club-metadata-review.json</code> is clean with <code>issueCount: 0</code>.
+          </li>
+          <li>
+            Known club asset review issues are limited to expected restricted-license club marks,
+            one missing research case, and three quality-review candidates.
+          </li>
+        </ul>
+        <h2>Consumer Notes</h2>
+        <ul>
+          <li>
+            <code>trackedFromSeason</code> and <code>trackedToSeason</code> remain observed
+            generated-data bounds, not founded or dissolved dates.
+          </li>
+          <li>
+            <code>status.current</code> remains a current high-level metadata status, not a
+            season-row outcome.
+          </li>
+          <li>
+            Consumers should use <code>usable</code> crest assets by default, include
+            <code>placeholder</code> only when generated fallback shields are acceptable, and
+            include <code>restricted</code> only when their product can handle club mark licensing
+            and trademark restrictions.
+          </li>
+          <li>
+            Treat <code>needs-review</code>, <code>needs-more-research</code>, and
+            <code>failed</code> crest states as non-display states unless the consuming app has its
+            own review workflow.
+          </li>
+        </ul>
+        <h2>Known Limitations</h2>
+        <ul>
+          <li>
+            The lower-tier expansion substantially broadens generated coverage, but it is still
+            constrained by Wikipedia source page availability and structure.
+          </li>
+          <li>
+            Most discovered club marks are license or trademark restricted, so the new crest
+            metadata is a provenance and filtering layer rather than a blanket permission grant.
+          </li>
+          <li>
+            The remaining non-license asset review items are intentionally carried forward rather
+            than filled with weak assertions.
+          </li>
+        </ul>
+      </section>
+
+      <section class="panel">
+        <h2>Links</h2>
+        <nav class="link-grid" aria-label="release links">
+          <a class="button-link button-link--secondary" href="./index.html">release history</a>
+          <a class="button-link button-link--secondary" href="../index.html">docs home</a>
+          <a
+            class="button-link button-link--secondary"
+            href="https://github.com/dills122/footy-data-kit/releases/tag/v1.1.0"
+            >github release</a
+          >
+          <a
+            class="button-link button-link--primary"
+            href="https://github.com/dills122/footy-data-kit/releases/download/v1.1.0/footy-data-kit-v1.1.0-data.zip"
+            >data zip</a
+          >
+        </nav>
+      </section>
+
+      <footer>
+        <span>v1.1.0</span>
+        <a href="./index.html">release history</a>
+      </footer>
+    </main>
+  </body>
+</html>

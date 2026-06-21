@@ -1,5 +1,13 @@
 [
   {
+    "tag": "v1.1.0",
+    "title": "Lower-tier expansion and club crest metadata",
+    "date": "2026-06-21",
+    "type": "data",
+    "schemaCompatibility": "compatible",
+    "summary": "Expands generated tier 5 and level 6 coverage from 1979 through 2025, grows club metadata to 375 records, and adds crest asset candidate metadata with provenance, license status, placeholders, and review guidance."
+  },
+  {
     "tag": "v1.0.0",
     "title": "Source-of-truth readiness",
     "date": "2026-06-19",
