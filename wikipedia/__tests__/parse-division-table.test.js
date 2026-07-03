@@ -123,6 +123,38 @@ describe('parseDivisionTable', () => {
     });
   });
 
+  test('finds division tables inside Wikipedia section wrappers', () => {
+    const html = `
+      <section aria-labelledby="First_Division">
+        <div class="mw-heading mw-heading2"><h2 id="First_Division">First Division</h2></div>
+        <table class="wikitable">
+          <tr>
+            <th>Pos</th>
+            <th>Club</th>
+            <th>Pld</th>
+            <th>Pts</th>
+            <th>Notes</th>
+          </tr>
+          <tr>
+            <td>21</td>
+            <th scope="row"><a>Manchester City</a></th>
+            <td>42</td>
+            <td>39</td>
+            <td>Relegated to Second Division</td>
+          </tr>
+        </table>
+      </section>
+    `;
+
+    const rows = parseDivisionTable(html, 'first');
+    expect(rows).toHaveLength(1);
+    expect(rows[0]).toMatchObject({
+      team: 'Manchester City',
+      wasRelegated: true,
+      notes: 'Relegated to Second Division',
+    });
+  });
+
   test('returns empty array when no league table header can be found', () => {
     const html = '<div><p>No table here</p></div>';
     expect(parseDivisionTable(html, 'second')).toEqual([]);

@@ -93,6 +93,12 @@ export function getHeadingLevel($el) {
   }
   const classes = String($el.attr('class') || '');
   const match = classes.match(/mw-heading(\d)/);
+  if (!match && tagName === 'section') {
+    const sectionHeading = $el.children('.mw-heading, h2, h3, h4, h5').first();
+    if (sectionHeading.length) {
+      return getHeadingLevel(sectionHeading);
+    }
+  }
   if (!match) return null;
   const level = Number.parseInt(match[1], 10);
   return Number.isFinite(level) ? level : null;
@@ -132,6 +138,8 @@ export function parseOverviewTablesForHeading(
     : headingWrapper.find(headingTag).first();
   if (!headingEl.length) return [];
 
+  const headingContainer = headingEl.closest('.mw-heading');
+  const searchRoot = headingWrapper.is('section') ? headingWrapper : null;
   const headingId = headingEl.attr('id') || leagueId || null;
   const headingTitle = headingEl.text().trim();
   let tableTitle = headingTitle || leagueTitle || headingId || 'Unknown league';
@@ -147,12 +155,30 @@ export function parseOverviewTablesForHeading(
 
   const suppressPromotionFlags = shouldTreatAsTopFlight(tableTitle, context);
   const tables = [];
-  let searchNode = headingWrapper.next();
+  const nestedEntries = [];
+  let searchNode = searchRoot
+    ? headingContainer.length
+      ? headingContainer.next()
+      : headingEl.next()
+    : headingWrapper.next();
 
   while (searchNode.length) {
     const searchLevel = getHeadingLevel(searchNode);
     if (searchLevel) {
       if (searchLevel <= level) break;
+      if (searchRoot) {
+        nestedEntries.push(
+          ...parseOverviewTablesForHeading(
+            $,
+            searchNode,
+            {
+              leagueTitle: tableTitle,
+              leagueId: headingId,
+            },
+            context
+          )
+        );
+      }
       searchNode = skipSection($, searchNode, searchLevel);
       continue;
     }
@@ -180,6 +206,7 @@ export function parseOverviewTablesForHeading(
   }
 
   const overviewEntries = [];
+  overviewEntries.push(...nestedEntries);
   tables.forEach((table, index) => {
     const rows = parseLeagueTableRows($, table.element, {
       suppressPromotionFlags,

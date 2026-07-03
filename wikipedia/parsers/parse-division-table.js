@@ -19,7 +19,10 @@ export function parseDivisionTable(html, division) {
   }
 
   // Step 2: From that header, traverse forward to the first .wikitable
-  const table = header.closest('div').nextAll('.wikitable').first();
+  const sectionTable = header.closest('section').find('table.wikitable, .wikitable').first();
+  const table = sectionTable.length
+    ? sectionTable
+    : header.closest('div').nextAll('.wikitable').first();
   if (!table.length) {
     console.warn('⚠️ No league table element found after division header');
     return [];
