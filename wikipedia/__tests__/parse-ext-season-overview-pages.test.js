@@ -234,6 +234,79 @@ describe('parseOverviewLeagueTables', () => {
     expect(rows[2].wasRelegated).toBe(true);
   });
 
+  test('preserves child section titles when Wikipedia wraps league headings in sections', () => {
+    const html = `
+      <div class="mw-heading mw-heading2"><h2 id="Men's_football">Men's football</h2></div>
+      <table class="wikitable">
+        <tr><th>League Division</th><th>Promoted to league</th><th>Relegated from league</th></tr>
+        <tr><td>Premier League</td><td>Example Town</td><td>Sample City</td></tr>
+      </table>
+      <section aria-labelledby="Premier_League">
+        <div class="mw-heading mw-heading3"><h3 id="Premier_League">Premier League</h3></div>
+        <table class="wikitable">
+          <tr>
+            <th>Pos</th><th>Team</th><th>Pld</th><th>Pts</th><th>Promotion, qualification or relegation</th>
+          </tr>
+          <tr>
+            <td>1</td><th scope="row"><a>Liverpool</a> <span>(C)</span></th><td>38</td><td>84</td><td>Qualification for Champions League</td>
+          </tr>
+          <tr>
+            <td>18</td><th scope="row"><a>Leicester City</a> <span>(R)</span></th><td>38</td><td>25</td><td>Relegation to Championship</td>
+          </tr>
+        </table>
+      </section>
+      <section aria-labelledby="Championship">
+        <div class="mw-heading mw-heading3"><h3 id="Championship">Championship</h3></div>
+        <table class="wikitable">
+          <tr>
+            <th>Pos</th><th>Team</th><th>Pld</th><th>Pts</th><th>Promotion, qualification or relegation</th>
+          </tr>
+          <tr>
+            <td>1</td><th scope="row"><a>Leeds United</a> <span>(C, P)</span></th><td>46</td><td>100</td><td>Promotion to the Premier League</td>
+          </tr>
+          <tr>
+            <td>2</td><th scope="row"><a>Burnley</a> <span>(P)</span></th><td>46</td><td>100</td><td>Promotion to the Premier League</td>
+          </tr>
+        </table>
+      </section>
+      <section aria-labelledby="National_League">
+        <div class="mw-heading mw-heading3"><h3 id="National_League">National League</h3></div>
+        <p>National League System summary.</p>
+        <section aria-labelledby="National_League_table">
+          <div class="mw-heading mw-heading4"><h4 id="National_League_table">National League</h4></div>
+          <table class="wikitable">
+            <tr>
+              <th>Pos</th><th>Team</th><th>Pld</th><th>Pts</th><th>Promotion, qualification or relegation</th>
+            </tr>
+            <tr>
+              <td>1</td><th scope="row"><a>Barnet</a> <span>(C, P)</span></th><td>46</td><td>102</td><td>Promotion to EFL League Two</td>
+            </tr>
+          </table>
+        </section>
+      </section>
+    `;
+
+    const result = parseOverviewLeagueTables(html);
+    expect(result.map((entry) => entry.title)).toEqual([
+      'Premier League',
+      'Championship',
+      'National League',
+    ]);
+
+    const seasonRecord = buildSeasonOverviewSeasonRecord({
+      seasonKey: '2024',
+      seasonYear: 2024,
+      seasonSlug: '2024-25_in_English_football',
+      tables: result,
+    });
+    expect(seasonRecord.seasonInfo.promoted).toEqual(['Leeds United', 'Burnley']);
+    expect(seasonRecord.seasonInfo.relegated).toEqual(['Leicester City']);
+    expect(seasonRecord.tier5.table[0]).toMatchObject({
+      team: 'Barnet',
+      wasPromoted: true,
+    });
+  });
+
   test('parses competition pages that use Final table as the league-table root', () => {
     const html = `
       <div class="mw-heading mw-heading2"><h2 id="New_teams_in_the_league_this_season">New teams in the league this season</h2></div>
