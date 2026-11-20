@@ -1,7 +1,19 @@
+import { spawnSync } from 'node:child_process';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { createSchemaValidator, validateSchemaTargets } from '../data/verify-json-schemas.js';
+
+const CLI_PATH = fileURLToPath(new URL('../data/verify-json-schemas.js', import.meta.url));
+
+function verifyExplicitTarget(dataFile, ...options) {
+  return spawnSync(
+    process.execPath,
+    [CLI_PATH, '--target', `football-data.schema.json:${dataFile}`, ...options],
+    { encoding: 'utf8' }
+  );
+}
 
 function clone(value) {
   return JSON.parse(JSON.stringify(value));
@@ -148,6 +160,12 @@ function buildClubMetadataFixture() {
 describe('verify-json-schemas', () => {
   const tmpDirs = [];
 
+  function makeTempDir() {
+    const directory = fs.mkdtempSync(path.join(os.tmpdir(), 'footy-schema-verify-'));
+    tmpDirs.push(directory);
+    return directory;
+  }
+
   afterEach(() => {
     while (tmpDirs.length) {
       fs.rmSync(tmpDirs.pop(), { recursive: true, force: true });
@@ -182,8 +200,7 @@ describe('verify-json-schemas', () => {
   });
 
   test('validateSchemaTargets validates explicit data files', () => {
-    const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'footy-schema-verify-'));
-    tmpDirs.push(tmpDir);
+    const tmpDir = makeTempDir();
 
     const dataDir = path.join(tmpDir, 'data-output');
     const sidecarDir = path.join(tmpDir, 'data');
@@ -216,5 +233,74 @@ describe('verify-json-schemas', () => {
     });
 
     expect(results.map((result) => result.valid)).toEqual([true, true]);
+  });
+
+  test('the CLI fails when the requested data file is missing', () => {
+    const dataFile = path.join(makeTempDir(), 'missing.json');
+    const result = verifyExplicitTarget(dataFile, '--json');
+
+    expect(result.status).toBe(1);
+    expect(result.stdout).toBe('');
+    expect(result.stderr).toContain('ENOENT');
+    expect(result.stderr).toContain(dataFile);
+  });
+
+  test('the CLI fails when the requested data file contains malformed JSON', () => {
+    const dataFile = path.join(makeTempDir(), 'malformed.json');
+    fs.writeFileSync(dataFile, '{"seasons":');
+
+    const result = verifyExplicitTarget(dataFile, '--json');
+
+    expect(result.status).toBe(1);
+    expect(result.stdout).toBe('');
+    expect(result.stderr).toContain('SyntaxError');
+  });
+
+  test('the CLI reports schema failures in JSON and text and exits unsuccessfully', () => {
+    const dataFile = path.join(makeTempDir(), 'bad-points.json');
+    const data = buildFootballDataFixture();
+    data.seasons[1900].tier1.table[0].points = '83';
+    fs.writeFileSync(dataFile, JSON.stringify(data));
+
+    const json = verifyExplicitTarget(dataFile, '--json');
+    expect(json.status).toBe(1);
+    expect(json.stderr).toBe('');
+    expect(JSON.parse(json.stdout)).toEqual([
+      {
+        dataFile,
+        schemaFile: 'football-data.schema.json',
+        valid: false,
+        errors: [
+          expect.objectContaining({
+            keyword: 'type',
+            instancePath: '/seasons/1900/tier1/table/0/points',
+            params: { type: 'integer' },
+          }),
+        ],
+      },
+    ]);
+
+    const text = verifyExplicitTarget(dataFile);
+    expect(text.status).toBe(1);
+    expect(text.stderr).toBe('');
+    expect(text.stdout).toContain('Issues found: 1');
+    expect(text.stdout).toContain('/seasons/1900/tier1/table/0/points must be integer');
+  });
+
+  test('the CLI works without native TypeScript stripping', () => {
+    const dataFile = path.join(makeTempDir(), 'valid.json');
+    fs.writeFileSync(dataFile, JSON.stringify(buildFootballDataFixture()));
+    const nodeOptions = process.features.typescript ? ['--no-experimental-strip-types'] : [];
+
+    const result = spawnSync(
+      process.execPath,
+      [...nodeOptions, CLI_PATH, '--target', `football-data.schema.json:${dataFile}`, '--json'],
+      { encoding: 'utf8' }
+    );
+
+    expect(result.status).toBe(0);
+    expect(JSON.parse(result.stdout)).toEqual([
+      { dataFile, schemaFile: 'football-data.schema.json', valid: true, errors: [] },
+    ]);
   });
 });
