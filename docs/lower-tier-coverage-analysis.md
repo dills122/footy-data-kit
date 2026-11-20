@@ -127,17 +127,24 @@ Current contract:
 - `1957.tier3.relegated` and the division-level `relegated` arrays exclude Fourth Division placement rows.
 - `seasonInfo.leagueStructureSpecialCases` carries the `restructure-placement` annotation across the 1957-58 to 1958-59 boundary.
 
-### 1986-1987 playoff and Conference boundary
+### 1986–87 and 1987–88 playoff and Conference boundary
 
-The late 1980s introduce two important level-4 changes:
+The 1986–87 season introduced Football League playoffs and automatic movement
+between the Fourth Division and Football Conference. Conference champions
+Scarborough replaced Lincoln City. Lincoln won the Conference the following
+season and returned to the Fourth Division as Newport County went down.
+[1986–87 Football Conference](https://en.wikipedia.org/wiki/1986%E2%80%9387_Football_Conference)
+· [1987–88 Football Conference](https://en.wikipedia.org/wiki/1987%E2%80%9388_Football_Conference)
 
-- Football League play-offs start in 1987.
-- Automatic relegation from the Fourth Division to the Football Conference starts in the same period.
-
-Target seasons:
-
-- 1986: last pre-playoff style season.
-- 1987: first playoff season and early automatic Conference relegation boundary.
+The audit matched 176 standings rows across the eight Conference and feeder
+tables to the saved names, positions, and numeric stats. The fixtures also
+check each division's movement lists. They cover Nuneaton Borough's 1986–87
+demotion, Burton Albion and Shepshed Charterhouse's same-level transfers,
+and Oswestry Town folding in 1987–88. The Northern Premier League introduced
+Division One in 1987–88, and the fixtures check that level six uses its Premier
+Division table. [1986–87 Northern Premier League](https://en.wikipedia.org/wiki/1986%E2%80%9387_Northern_Premier_League)
+· [1987–88 Northern Premier League](https://en.wikipedia.org/wiki/1987%E2%80%9388_Northern_Premier_League)
+· [1987–88 Southern Football League](https://en.wikipedia.org/wiki/1987%E2%80%9388_Southern_Football_League)
 
 ### 1991-1994 reduced fourth-tier sizes
 

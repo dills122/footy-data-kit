@@ -59,9 +59,9 @@ function expectLowerTierSeason(season, fixture) {
     }
   }
 
-  for (const [key, rowCount, champion, points, bottom] of tables) {
+  for (const [key, rowCount, champion, points, bottom, metadata] of tables) {
     const table = divisions.get(key);
-    expect(table.metadata.leagueLevel).toBe(key === 'national' ? 5 : 6);
+    expect(table.metadata).toMatchObject({ leagueLevel: key === 'national' ? 5 : 6, ...metadata });
     expect(table.table).toHaveLength(rowCount);
     expect(table.table[0]).toMatchObject({ pos: 1, team: champion, points });
     expect(table.table.at(-1).team).toBe(bottom);

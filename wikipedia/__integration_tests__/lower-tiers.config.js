@@ -1,5 +1,5 @@
-// Tuples record the division key, row count, champion, points and bottom club
-// from the competition tables. "national" identifies the single tier-five table.
+// Tuples record the division key, row count, champion, points, bottom club and
+// optional metadata. "national" identifies the single tier-five table.
 export const lowerTierFixtures = [
   {
     year: 1979,
@@ -48,6 +48,115 @@ export const lowerTierFixtures = [
     ],
     promoted: { 'southern-premier': ['Kidderminster Harriers'] },
     rows: [['southern-premier', { team: 'AP Leamington', wasPromoted: false }]],
+  },
+  {
+    year: 1986,
+    tables: [
+      [
+        'national',
+        22,
+        'Scarborough',
+        91,
+        'Gateshead',
+        { title: 'Football Conference', seasonSlug: '1986–87_Football_Conference' },
+      ],
+      [
+        'northern-premier',
+        22,
+        'Macclesfield Town',
+        88,
+        'Horwich RMI',
+        { title: 'Northern Premier League', seasonSlug: '1986–87_Northern_Premier_League' },
+      ],
+      ['southern-premier', 22, 'Fisher Athletic', 86, 'Folkestone'],
+      ['isthmian-premier', 22, 'Wycombe Wanderers', 101, 'Walthamstow Avenue'],
+    ],
+    promoted: {
+      national: ['Scarborough'],
+      'northern-premier': ['Macclesfield Town'],
+      'southern-premier': ['Fisher Athletic'],
+      'isthmian-premier': ['Wycombe Wanderers'],
+    },
+    relegated: {
+      national: ['Nuneaton Borough', 'Frickley Athletic', 'Gateshead'],
+      'northern-premier': [],
+      'southern-premier': ['Salisbury', "King's Lynn", 'Dudley Town', 'Folkestone'],
+      'isthmian-premier': ['Worthing', 'Walthamstow Avenue'],
+    },
+    rows: [
+      [
+        'national',
+        {
+          team: 'Scarborough',
+          wasPromoted: true,
+          notes: 'Promotion to the Football League Fourth Division',
+        },
+      ],
+      [
+        'national',
+        { team: 'Nuneaton Borough', pos: 18, wasRelegated: true, outcomeStatus: 'demoted' },
+      ],
+      ['northern-premier', { team: 'Burton Albion', wasPromoted: false, wasRelegated: false }],
+    ],
+  },
+  {
+    year: 1987,
+    tables: [
+      [
+        'national',
+        22,
+        'Lincoln City',
+        82,
+        'Dagenham',
+        { title: 'Football Conference', seasonSlug: '1987–88_Football_Conference' },
+      ],
+      [
+        'northern-premier',
+        22,
+        'Chorley',
+        88,
+        'Workington',
+        {
+          title: 'Northern Premier League Premier Division',
+          seasonSlug: '1987–88_Northern_Premier_League',
+        },
+      ],
+      ['southern-premier', 22, 'Aylesbury United', 89, 'Witney Town'],
+      ['isthmian-premier', 22, 'Yeovil Town', 81, 'Basingstoke Town'],
+    ],
+    promoted: {
+      national: ['Lincoln City'],
+      'northern-premier': ['Chorley'],
+      'southern-premier': ['Aylesbury United'],
+      'isthmian-premier': ['Yeovil Town'],
+    },
+    relegated: {
+      national: ['Bath City', 'Wealdstone', 'Dagenham'],
+      'northern-premier': ['Workington'],
+      'southern-premier': ['Chelmsford City', 'Willenhall Town', 'Nuneaton Borough', 'Witney Town'],
+      'isthmian-premier': ['Hitchin Town', 'Basingstoke Town'],
+    },
+    rows: [
+      [
+        'national',
+        {
+          team: 'Lincoln City',
+          wasPromoted: true,
+          notes: 'Promotion to the Football League Fourth Division',
+        },
+      ],
+      ['national', { team: 'Macclesfield Town' }],
+      ['national', { team: 'Fisher Athletic' }],
+      ['national', { team: 'Wycombe Wanderers' }],
+      [
+        'northern-premier',
+        { team: 'Oswestry Town', pos: 21, wasRelegated: false, outcomeStatus: 'folded' },
+      ],
+      [
+        'southern-premier',
+        { team: 'Shepshed Charterhouse', wasPromoted: false, wasRelegated: false },
+      ],
+    ],
   },
   {
     year: 2003,
