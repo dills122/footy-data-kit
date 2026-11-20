@@ -5,32 +5,37 @@ release plan and source of truth.
 
 ## Active Focus
 
-1. Open and merge the `v1.1.0` pre-release branch after CI passes. The sidecar
-   now includes crest candidate bundles, restricted-license backups, curated
-   official/Wikimedia candidates, and generated placeholders for researched
-   clubs with no usable crest source.
-2. Treat the current club asset review baseline as expected unless new source
-   evidence appears: one true `needs-more-research` club (`Hounslow`), three
-   quality-review candidates (`Bridgend Town`, `Bromsgrove Rovers`,
-   `Solihull Borough`), and high-volume restricted-license club marks.
-3. Use the completed release-readiness pass in
-   [next-release-data-review.md](/Users/dsteele/repos/footy-data-kit/docs/next-release-data-review.md)
-   as the current release-note source pass.
-4. Continue TypeScript migration with the next implementation slice: convert
-   shared config/season-rule boundaries or the parser/builder boundary before
-   parser-heavy rewrites.
-5. Decide whether the next data expansion target is true level 7, or a source
-   spot-check pass over the now-complete tier 5/6 coverage.
-6. Confirm `data/club-metadata-review.json` remains clean after the next data
+1. Review the production dependency advisories on the Wikipedia ingestion path
+   and test compatible updates. See [issue #67](https://github.com/dills122/footy-data-kit/issues/67).
+2. Vet generated tier 5 and level 6 tables against their competition pages.
+   Start with the 1979–82 Southern League split, the 2004 pyramid restructure,
+   and the latest covered season. Add assertions for gaps found in that pass.
+3. Continue TypeScript migration at the shared config/season-rule or
+   parser/builder boundary. Use the coverage baseline below to pick focused
+   regression cases.
+4. Confirm `data/club-metadata-review.json` remains clean after the next data
    refresh, then convert any new lower-tier manual review findings into curated
    lifecycle/status rules.
-7. Treat
-   [pre-2004-tier6-source-spike.md](/Users/dsteele/repos/footy-data-kit/docs/pre-2004-tier6-source-spike.md)
-   as the completed source-availability input for the pre-2004 feeder-league
-   backfill.
-8. Track confirmed or suspected upstream Wikipedia defects in
+5. Track confirmed or suspected upstream Wikipedia defects in
    [wikipedia-source-issues.md](/Users/dsteele/repos/footy-data-kit/docs/wikipedia-source-issues.md)
    before adding local workarounds.
+
+## Coverage Baseline
+
+On the November 19, 2026 readiness pass, `pnpm test:coverage --runInBand`
+passed 247 tests across 26 suites. The current Jest configuration measured
+61.75% statements, 55.35% branches, 68.76% functions, and 63.54% lines.
+This includes scripts and CLI files covered by the Jest collection rules.
+
+| Maintained module                               | Statements | Branches |
+| ----------------------------------------------- | ---------: | -------: |
+| `wikipedia/data/verify-json-schemas.js`         |      38.7% |    17.1% |
+| `wikipedia/data/verify-club-continuity.js`      |      79.7% |    56.4% |
+| `wikipedia/parser-core/wiki-overview-parser.js` |      74.0% |    67.3% |
+| `wikipedia/data/season-rules.js`                |      77.1% |    71.3% |
+
+`pnpm integration:coverage` reports 49 of 138 configured season fixtures
+(35.5%) and 10 club metadata fixtures. It measures fixture scope.
 
 ## Reference Notes
 

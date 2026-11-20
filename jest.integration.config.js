@@ -8,6 +8,7 @@ const config = {
   },
   extensionsToTreatAsEsm: ['.ts'],
   moduleFileExtensions: ['js', 'ts', 'json'],
+  modulePathIgnorePatterns: ['<rootDir>/.claude/worktrees/'],
   setupFiles: ['<rootDir>/wikipedia/__tests__/test-setup.js'],
   testMatch: ['<rootDir>/wikipedia/__integration_tests__/**/*.test.js'],
 };

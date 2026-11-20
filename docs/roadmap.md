@@ -35,7 +35,7 @@ Operating principles:
 
 Current release:
 
-- `v1.0.0`
+- [`v1.1.0`](./release-notes/v1.1.0.md)
 
 Current state:
 
@@ -47,8 +47,9 @@ Current state:
   historical club-reason coverage.
 - Release dry-run automation now fails closed when regenerated season or club
   metadata output is incomplete.
-- Integration coverage reached the v1 floor at 43 of 138 season records, or
-  31.2%, and now needs targeted boundary depth for post-v1 lower-tier work.
+- The integration matrix covers 49 of 138 season records (35.5%). The
+  [next-work notes](./next-work.md#coverage-baseline) record the current
+  Jest coverage baseline.
 - Row-level administrative outcomes are represented with `outcomeStatus` for
   reviewed expulsion, failed re-election, resignation, liquidation, merger, and
   abandonment cases.
@@ -58,7 +59,7 @@ Current state:
 - Club metadata has a documented v1 contract and audit boundary, including which
   fields are generated observations, curated/source-backed history, derived
   relationships, or intentionally incomplete.
-- The active post-v1 branch completed phase 0 through phase 3 from
+- The v1.1 release work completed phases 0 through 3 from
   [post-v1-phase-0-3-plan.md](./post-v1-phase-0-3-plan.md): reset the planning
   baseline, advance TypeScript contracts, lock tier 1-4 semantics, and backfill
   generated tier 5 and level 6 output from per-competition source pages.
@@ -67,11 +68,10 @@ Current state:
 - Club metadata now regenerates across the expanded season scope, using observed
   membership stints and `data/club-metadata-review.json` for lower-tier status
   findings that need curated rules.
-- The crest asset metadata branch adds `assets.crest` bundles to the club
-  metadata sidecar. The model stores image URLs and provenance only, preserves
-  license-restricted club marks as backups, adds generated placeholders for
-  researched clubs without usable crest sources, and keeps non-license review
-  issues intentionally small before release.
+- The club metadata sidecar includes `assets.crest` bundles with image URLs
+  and provenance. It preserves license-restricted marks as backups and adds
+  generated placeholders for researched clubs without usable crest sources.
+  The asset review inventory tracks outstanding review issues.
 
 ## V0.9.1: Data Label Correctness And V1 Prep
 
@@ -206,6 +206,10 @@ TypeScript:
 - No generated data diff is released without human review.
 
 ## V1.1: Tier 4 Hardening And TypeScript Progress
+
+Released as [`v1.1.0`](./release-notes/v1.1.0.md). The original scope below
+also led to generated tier 5 and level 6 backfills across 47 seasons and
+375 club metadata records. V1.2 carries forward lower-tier vetting.
 
 Purpose:
 

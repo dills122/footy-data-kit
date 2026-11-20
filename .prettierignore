@@ -4,7 +4,10 @@ data-output
 coverage
 data
 tmp
+.claude/worktrees/
+.serena/
 .codex/skills
 .codex/steering/frontend-design-steering.md
 .codex/steering/javascript-esm-steering.md
+.codex/steering/javascript-typescript-steering.md
 .codex/steering/testing-quality-gates-steering.md
