@@ -1,3 +1,5 @@
+import { execFileSync } from 'node:child_process';
+import { fileURLToPath } from 'node:url';
 import {
   buildIntegrationCoverageReport,
   formatIntegrationCoverageReport,
@@ -97,5 +99,49 @@ describe('report-integration-coverage', () => {
     expect(output).toContain('Fixture clubs: 2');
     expect(output).toContain('Status reasons: dissolved: 1, merged: 1');
     expect(output).toContain('defunct: 1 club(s) (example fc)');
+  });
+
+  test('adds lower-tier fixtures while counting shared season keys only once', () => {
+    const report = buildIntegrationCoverageReport({
+      dataset: { seasons: { 1979: {}, 1980: {}, 1981: {}, 1982: {} } },
+      pages: [{ season: '1979', source: 'overview' }],
+      lowerTierFixtures: [
+        {
+          year: 1979,
+          tables: [
+            ['national', 20, 'Example FC', 56, 'Bottom FC'],
+            ['southern-midland', 22, 'Midland FC', 62, 'Last FC'],
+          ],
+        },
+        { year: 1980, tables: [['south', 24, 'South FC', 66, 'Another FC']] },
+        { year: 1980, tables: [['north', 22, 'North FC', 71, 'Northern FC']] },
+      ],
+    });
+
+    expect(report.coveredSeasons).toEqual(['1979', '1980']);
+    expect(report.coveredSeasonCount).toBe(2);
+    expect(report.seasonCoveragePercent).toBe(50);
+    expect(report.fixturePageCount).toBe(1);
+    expect(report.lowerTier).toEqual({
+      fixtureCount: 3,
+      coveredSeasons: ['1979', '1980'],
+      tableCounts: { tier5: 1, tier6: 3 },
+    });
+    expect(formatIntegrationCoverageReport(report)).toContain('Lower-tier fixtures: 3');
+  });
+
+  test('the CLI includes the lower-tier suite in the JSON report', () => {
+    const script = fileURLToPath(
+      new URL('../../scripts/report-integration-coverage.js', import.meta.url)
+    );
+    const stdout = execFileSync(process.execPath, [script, '--json'], { encoding: 'utf8' });
+    const report = JSON.parse(stdout);
+
+    expect(report.lowerTier.coveredSeasons).toEqual(
+      expect.arrayContaining(['1979', '2014', '2015', '2025'])
+    );
+    expect(report.coveredSeasons).toEqual(expect.arrayContaining(['2014', '2015', '2025']));
+    expect(report.coveredSeasons.filter((year) => year === '1979')).toHaveLength(1);
+    expect(report.coveredSeasonCount).toBe(new Set(report.coveredSeasons).size);
   });
 });

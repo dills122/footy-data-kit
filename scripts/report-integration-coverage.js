@@ -3,6 +3,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { clubMetadataFixtures } from '../wikipedia/__integration_tests__/club-metadata.config.js';
 import testPages from '../wikipedia/__integration_tests__/config.js';
+import { lowerTierFixtures } from '../wikipedia/__integration_tests__/lower-tiers.config.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -29,7 +30,7 @@ function buildPercentage(value, total) {
   return Number(((value / total) * 100).toFixed(1));
 }
 
-export function buildIntegrationCoverageReport({ pages, dataset }) {
+export function buildIntegrationCoverageReport({ pages, dataset, lowerTierFixtures = [] }) {
   const seasonKeys = sortNumericStrings(Object.keys(dataset?.seasons || {}));
   const coveredSeasons = new Set();
   const sourceCounts = new Map();
@@ -70,6 +71,18 @@ export function buildIntegrationCoverageReport({ pages, dataset }) {
     }
   }
 
+  const lowerTierSeasons = new Set();
+  const lowerTierTableCounts = new Map();
+  for (const fixture of lowerTierFixtures) {
+    const season = String(fixture.year);
+    coveredSeasons.add(season);
+    lowerTierSeasons.add(season);
+
+    for (const [divisionKey] of fixture.tables) {
+      increment(lowerTierTableCounts, divisionKey === 'national' ? 'tier5' : 'tier6');
+    }
+  }
+
   const coveredSeasonKeys = sortNumericStrings(coveredSeasons);
   const totalSeasonCount = seasonKeys.length;
   const coveredSeasonCount = coveredSeasonKeys.length;
@@ -96,6 +109,11 @@ export function buildIntegrationCoverageReport({ pages, dataset }) {
       seasonInfoFields: seasonInfoAssertionCount,
     },
     coverageTags,
+    lowerTier: {
+      fixtureCount: lowerTierFixtures.length,
+      coveredSeasons: sortNumericStrings(lowerTierSeasons),
+      tableCounts: mapToSortedObject(lowerTierTableCounts),
+    },
     clubMetadata: metadataCoverage,
   };
 }
@@ -146,6 +164,10 @@ function buildClubMetadataCoverageReport(fixtures = []) {
 }
 
 export function formatIntegrationCoverageReport(report) {
+  const lowerTier = report.lowerTier;
+  const lowerTierTables = Object.entries(lowerTier?.tableCounts || {})
+    .map(([tier, count]) => `${tier} (${count})`)
+    .join(', ');
   const assertedTiers = Object.entries(report.assertedTierCounts)
     .map(([tier, count]) => `${tier} (${count})`)
     .join(', ');
@@ -176,6 +198,8 @@ export function formatIntegrationCoverageReport(report) {
     'Integration Coverage',
     `- Season fixtures: ${report.coveredSeasonCount}/${report.totalSeasonCount} (${report.seasonCoveragePercent}%)`,
     `- Fixture pages: ${report.fixturePageCount}`,
+    `- Lower-tier fixtures: ${lowerTier?.fixtureCount ?? 0}`,
+    `- Lower-tier tables: ${lowerTierTables || 'none'}`,
     `- Source modes: ${sourceSummary || 'none'}`,
     `- Asserted tiers: ${assertedTiers || 'none'}`,
     `- Assertion counts: ${assertionSummary}`,
@@ -224,7 +248,7 @@ function parseArgs(argv) {
 export function runIntegrationCoverageReport(argv = process.argv.slice(2)) {
   const args = parseArgs(argv);
   const dataset = readJson(args.datasetPath);
-  const report = buildIntegrationCoverageReport({ pages: testPages, dataset });
+  const report = buildIntegrationCoverageReport({ pages: testPages, dataset, lowerTierFixtures });
 
   if (args.json) {
     console.log(JSON.stringify(report, null, 2));
