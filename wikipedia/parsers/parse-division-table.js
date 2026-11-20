@@ -2,6 +2,25 @@ import * as cheerio from 'cheerio';
 import { isFirstDivision } from '../../shared/utils.js';
 import { findDivisionHeader } from '../parser-core/wiki-division-header-finder.js';
 import { extractLegendForTable, parseLeagueTableRows } from '../parser-core/league-table-parser.js';
+import { getHeadingLevel } from '../parser-core/wiki-overview-parser.js';
+
+function findTableInSection($, header, section) {
+  const heading = header.closest('h2, h3, h4, h5, .mw-heading');
+  const level = getHeadingLevel(heading);
+
+  for (let anchor = header; !anchor.is(section); anchor = anchor.parent()) {
+    for (let sibling = anchor.next(); sibling.length; sibling = sibling.next()) {
+      const siblingLevel = getHeadingLevel(sibling);
+      if (siblingLevel && (level === null || siblingLevel <= level)) return $();
+
+      if (sibling.is('.wikitable')) return sibling;
+      const nestedTable = sibling.find('.wikitable').first();
+      if (nestedTable.length) return nestedTable;
+    }
+  }
+
+  return $();
+}
 
 /**
  * Parse a league division table from a Football League Wikipedia page.
@@ -18,10 +37,9 @@ export function parseDivisionTable(html, division) {
     return [];
   }
 
-  // Step 2: From that header, traverse forward to the first .wikitable
-  const sectionTable = header.closest('section').find('table.wikitable, .wikitable').first();
-  const table = sectionTable.length
-    ? sectionTable
+  const section = header.closest('section');
+  const table = section.length
+    ? findTableInSection($, header, section)
     : header.closest('div').nextAll('.wikitable').first();
   if (!table.length) {
     console.warn('⚠️ No league table element found after division header');

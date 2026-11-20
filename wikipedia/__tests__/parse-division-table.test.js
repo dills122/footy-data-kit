@@ -155,6 +155,47 @@ describe('parseDivisionTable', () => {
     });
   });
 
+  test('finds the table for each division when the headings share a section', () => {
+    const standings = (team) => `
+      <table class="wikitable">
+        <tr><th>Pos</th><th>Club</th><th>Pld</th><th>Pts</th></tr>
+        <tr><td>1</td><th scope="row"><a>${team}</a></th><td>42</td><td>75</td></tr>
+      </table>
+    `;
+    const html = `
+      <section>
+        <h2>League tables</h2>
+        <div class="mw-heading mw-heading3"><h3 id="First_Division">First Division</h3></div>
+        ${standings('First Division Club')}
+        <div class="mw-heading mw-heading3"><h3 id="Second_Division">Second Division</h3></div>
+        ${standings('Second Division Club')}
+      </section>
+    `;
+
+    expect(parseDivisionTable(html, 'first').map(({ team }) => team)).toEqual([
+      'First Division Club',
+    ]);
+    expect(parseDivisionTable(html, 'second').map(({ team }) => team)).toEqual([
+      'Second Division Club',
+    ]);
+  });
+
+  test('does not return a later division table when the requested division has none', () => {
+    const html = `
+      <section>
+        <h3 id="First_Division">First Division</h3>
+        <p>No standings available.</p>
+        <h3 id="Second_Division">Second Division</h3>
+        <table class="wikitable">
+          <tr><th>Pos</th><th>Club</th><th>Pld</th><th>Pts</th></tr>
+          <tr><td>1</td><th scope="row"><a>Second Division Club</a></th><td>42</td><td>75</td></tr>
+        </table>
+      </section>
+    `;
+
+    expect(parseDivisionTable(html, 'first')).toEqual([]);
+  });
+
   test('returns empty array when no league table header can be found', () => {
     const html = '<div><p>No table here</p></div>';
     expect(parseDivisionTable(html, 'second')).toEqual([]);
