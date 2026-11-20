@@ -22,7 +22,7 @@ import {
   getHistoricalSeasonStatus,
   isWarSuspensionSeason,
   seasonHasTierData,
-} from '../data/season-rules.js';
+} from '../data/season-rules.ts';
 import { fetchWikipediaSeasonPage } from '../parser-core/page-fetcher.js';
 import {
   deriveMajorTierIndexes,

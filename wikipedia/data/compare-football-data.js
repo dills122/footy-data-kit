@@ -5,7 +5,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { loadFootballData } from './generate-output-files.ts';
 import { canonicalizeTeamName } from './data-quality-config.js';
-import { getTierKeys as getTierKeysFromRules, sortSeasonKeys } from './season-rules.js';
+import { getTierKeys as getTierKeysFromRules, sortSeasonKeys } from './season-rules.ts';
 
 const ROW_COMPARE_FIELDS = [
   'pos',

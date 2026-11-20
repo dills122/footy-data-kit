@@ -13,7 +13,7 @@ import {
   isWarSuspensionSeason,
   reconcileSeasonInfoContinuity,
   seasonHasTierData,
-} from '../data/season-rules.js';
+} from '../data/season-rules.ts';
 
 export async function fetchSeasonTeams(seasonSlug) {
   const fetchedPage = await fetchWikipediaSeasonPage(seasonSlug);

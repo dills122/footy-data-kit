@@ -1,4 +1,4 @@
-import type { LeagueTableEntry } from './output-file.ts';
+import type { LeagueTableEntry, SeasonInfo } from './output-file.ts';
 
 export type WikipediaDataSourceKey = 'promotion' | 'overview';
 
@@ -10,6 +10,47 @@ export type WikipediaDataSourceId =
 
 export type TierNumber = 1 | 2 | 3 | 4 | 5 | 6 | 7;
 export type TierKey = `tier${TierNumber}`;
+
+export type WikipediaHistoricalPlaceholderStatus =
+  | 'wartime-special'
+  | 'abandoned-season'
+  | 'regional-bridge-season';
+
+export type WikipediaHistoricalSeasonFlags = Readonly<
+  Pick<
+    SeasonInfo,
+    | 'officialLeagueTables'
+    | 'officialCompetitionsSuspended'
+    | 'officialCompetitionsAbandoned'
+    | 'regionalBridgeSeason'
+    | 'promotionRelegationApplies'
+  >
+>;
+
+export interface WikipediaHistoricalPlaceholderSeason extends WikipediaHistoricalSeasonFlags {
+  readonly competitionStatus: WikipediaHistoricalPlaceholderStatus;
+  readonly warSuspensionLabel?: string;
+  readonly specialCompetitions?: readonly string[];
+  readonly notes?: string;
+}
+
+interface WikipediaSeasonOutcomeLists {
+  readonly promoted?: readonly string[];
+  readonly relegated?: readonly string[];
+}
+
+type WikipediaRowOutcomeOverride = Readonly<
+  Partial<Pick<LeagueTableEntry, 'wasPromoted' | 'wasRelegated' | 'outcomeStatus'>>
+>;
+
+interface WikipediaTierOutcomeOverride extends WikipediaSeasonOutcomeLists {
+  readonly rowFlagOverrides?: Readonly<Record<string, WikipediaRowOutcomeOverride>>;
+}
+
+export interface WikipediaSeasonOutcomeOverride {
+  readonly seasonInfo?: WikipediaSeasonOutcomeLists;
+  readonly tiers?: Readonly<Partial<Record<TierKey, WikipediaTierOutcomeOverride>>>;
+}
 
 export type TierStructure = 'single-league' | 'parallel-leagues';
 

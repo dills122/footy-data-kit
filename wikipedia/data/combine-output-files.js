@@ -21,7 +21,7 @@ import {
   isWarSuspensionSeason,
   seasonHasData,
   mergeSeasonRecords,
-} from './season-rules.js';
+} from './season-rules.ts';
 
 export function combineFootballDataFiles({
   inputs,

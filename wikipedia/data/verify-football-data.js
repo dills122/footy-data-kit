@@ -21,7 +21,7 @@ import {
   isTierKey,
   shouldIgnoreMissingSeasonData,
   shouldSkipContinuityForSeason,
-} from './season-rules.js';
+} from './season-rules.ts';
 
 const LEGACY_TIER_METADATA_FIELDS = ['seasonSlug', 'sourceUrl', 'tier', 'title', 'seasonMetadata'];
 const REQUIRED_TIER_METADATA_FIELDS = ['source', 'seasonSlug', 'tierKey'];
