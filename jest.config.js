@@ -17,6 +17,7 @@ const config = {
   collectCoverageFrom: [
     'wikipedia/**/*.js',
     'wikipedia/data/season-rules.ts',
+    'wikipedia/data/verify-json-schemas.ts',
     'scripts/**/*.js',
     '!**/__tests__/**',
   ],
