@@ -1,8 +1,8 @@
 # Next Release Data Review
 
-This note summarizes the data-facing work completed after `v1.0.0` and before
-the next release. Use it as release-note source material and as a checklist for
-the final merge/release review.
+This is the historical release-readiness review for
+[`v1.1.0`](./release-notes/v1.1.0.md). See [Next Work](./next-work.md) for
+the active backlog.
 
 ## Since `v1.0.0`
 
