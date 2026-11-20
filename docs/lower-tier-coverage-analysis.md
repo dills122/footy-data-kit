@@ -262,6 +262,21 @@ Redditch United, Lewes, and Margate. [Northern Premier League](https://en.wikipe
 · [Isthmian League](https://en.wikipedia.org/wiki/2003%E2%80%9304_Isthmian_League)
 · [2004–05 Football Conference](https://en.wikipedia.org/wiki/2004%E2%80%9305_Football_Conference)
 
+### Football Conference Rebrand
+
+All 135 rows across the six tables match the saved standings on club names,
+positions, match and goal totals, points, and promotion and relegation
+markers. The fixtures check the competition source and division names on both
+sides of the 2015 rebrand, with the national division at level five and North
+and South at level six.
+
+The 2014–15 Conference South table contains 21 clubs after Salisbury City's
+expulsion. Each club played 40 matches. Farnborough and Staines Town were
+relegated, and Bromley and playoff winner Boreham Wood both appear in the next
+season's National League. The 2015–16 National League South table returned to
+22 clubs and 42 matches per club. [2014–15 Football Conference](https://en.wikipedia.org/wiki/2014%E2%80%9315_Football_Conference)
+· [2015–16 National League](https://en.wikipedia.org/wiki/2015%E2%80%9316_National_League)
+
 ### Representative Findings
 
 The phase 0-3 branch tested representative yearly overview pages against the live Wikipedia source.
