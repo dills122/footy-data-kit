@@ -224,6 +224,34 @@ scope. Lower-tier membership is represented as observed stints, and
 `data/club-metadata-review.json` records the clubs that still need manual
 lower-tier status review or confirmation of `below-tracked-coverage` status.
 
+### Boundary Fixture Review
+
+The November 2026 review compared 647 standings rows across 29 tables from 22
+Wikipedia competition pages. Club names, positions, games, goals, and points
+matched the checked-in overview and combined data for the seven seasons below.
+The [lower-tier integration suite](../wikipedia/__integration_tests__/lower-tiers.integration.test.js)
+now tests live competition pages and the saved overview dataset.
+
+| Seasons                 | Verified boundary                                                                                                                                                                               |
+| ----------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1979–80 through 1981–82 | Tier 5 Alliance Premier League and four level-six feeder tables. The Southern Midland and Southern divisions have 22 and 24 clubs respectively.                                                 |
+| 1982–83                 | The 20-club Southern Premier Division replaces both Southern regional tables at level six.                                                                                                      |
+| 2003–04 and 2004–05     | Three feeder divisions give way to Conference North and South, with 22 clubs in each new division below Conference National. Crawley Town and Canvey Island enter Conference National directly. |
+| 2025–26                 | National League, North and South each have 24 clubs, two promotions, and four relegations.                                                                                                      |
+
+The 2004–05 source distinguishes winning the South playoff from winning the
+promotion final. The generator now leaves Eastbourne Borough out of the
+promotion list and records Forest Green Rovers' reprieve from the table
+footnote. [2004–05 Football Conference](https://en.wikipedia.org/wiki/2004%E2%80%9305_Football_Conference)
+
+The 2003–04 feeder pages use different labels for entry to the new level-six
+divisions. The Northern Premier League calls it promotion, while the Southern
+and Isthmian pages call it qualification. Standardizing those entries requires
+a decision about how to represent same-level restructure placements across
+the three feeders. [Northern Premier League](https://en.wikipedia.org/wiki/2003%E2%80%9304_Northern_Premier_League)
+· [Southern Football League](https://en.wikipedia.org/wiki/2003%E2%80%9304_Southern_Football_League)
+· [Isthmian League](https://en.wikipedia.org/wiki/2003%E2%80%9304_Isthmian_League)
+
 ### Representative Findings
 
 The phase 0-3 branch tested representative yearly overview pages against the live Wikipedia source.

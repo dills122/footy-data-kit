@@ -514,10 +514,17 @@ export async function buildSeasonOverviewTierRecordsForSlug(seasonSlug, options 
     ? filterWikipediaLowerTierSourceTables(lowerTierSource, tables, seasonYear)
     : tables;
   const sourceAwareTables = lowerTierSource
-    ? lowerTierTables.map((table) => ({
-        ...table,
-        title: isGenericLeagueHeading(table.title) ? lowerTierSource.title : table.title,
-      }))
+    ? lowerTierTables.map((table) => {
+        const title = isGenericLeagueHeading(table.title) ? lowerTierSource.title : table.title;
+        const overrides = lowerTierSource.rowFlagOverrides?.[seasonYear]?.[title];
+        return {
+          ...table,
+          title,
+          rows: overrides
+            ? table.rows.map((row) => ({ ...row, ...overrides[row.team] }))
+            : table.rows,
+        };
+      })
     : tables;
   if (!sourceAwareTables.length) {
     return { seasonKey, tierRecords: null };

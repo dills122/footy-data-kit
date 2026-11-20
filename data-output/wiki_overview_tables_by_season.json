@@ -2,8 +2,8 @@
   "metadata": {
     "schemaVersion": 1,
     "generator": "wikipedia-overview",
-    "generatedAt": "2026-06-20T01:49:17.194Z",
-    "gitSha": "946d05d",
+    "generatedAt": "2026-11-20T02:26:52.482Z",
+    "gitSha": "ae18e87",
     "buildOptions": {
       "startYear": 1888,
       "endYear": 2025,
@@ -222396,8 +222396,8 @@
             "wasPromoted": false,
             "isExpansionTeam": false,
             "wasReElected": false,
-            "wasReprieved": false,
-            "outcomeStatus": null
+            "wasReprieved": true,
+            "outcomeStatus": "reprieved"
           },
           {
             "pos": 21,
@@ -222476,8 +222476,7 @@
         "promoted": [
           "Southport",
           "Altrincham",
-          "Grays Athletic",
-          "Eastbourne Borough"
+          "Grays Athletic"
         ],
         "metadata": {
           "source": "wikipedia-overview",
@@ -223056,7 +223055,7 @@
                 "points": 64,
                 "notes": "Qualification for the Conference North/South play-offs",
                 "wasRelegated": false,
-                "wasPromoted": true,
+                "wasPromoted": false,
                 "isExpansionTeam": false,
                 "wasReElected": false,
                 "wasReprieved": false,
@@ -223409,8 +223408,7 @@
               "Redbridge"
             ],
             "promoted": [
-              "Grays Athletic",
-              "Eastbourne Borough"
+              "Grays Athletic"
             ],
             "metadata": {
               "source": "wikipedia-overview",
