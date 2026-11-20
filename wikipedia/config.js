@@ -567,6 +567,28 @@ export const WIKIPEDIA_OVERVIEW_CONFIG = Object.freeze({
   ]),
 });
 
+const CONFERENCE_FEEDER_PREMIER_TITLES = Object.freeze({
+  northern: 'Northern Premier League Premier Division',
+  southern: 'Southern Football League Premier Division',
+  isthmian: 'Isthmian League Premier Division',
+});
+
+const CONFERENCE_RESTRUCTURE_PLACEMENT = Object.freeze({
+  wasPromoted: false,
+  wasRelegated: false,
+  outcomeStatus: 'restructure-placement',
+});
+
+function conferenceRestructureOverrides(league, clubs) {
+  return Object.freeze({
+    2003: Object.freeze({
+      [CONFERENCE_FEEDER_PREMIER_TITLES[league]]: Object.freeze(
+        Object.fromEntries(clubs.map((club) => [club, CONFERENCE_RESTRUCTURE_PLACEMENT]))
+      ),
+    }),
+  });
+}
+
 export const WIKIPEDIA_LOWER_TIER_COMPETITION_SOURCES = Object.freeze([
   Object.freeze({
     key: 'alliance-premier-league',
@@ -584,6 +606,24 @@ export const WIKIPEDIA_LOWER_TIER_COMPETITION_SOURCES = Object.freeze([
     competitionSlug: 'Northern_Premier_League',
     levels: Object.freeze([6]),
     parallelGroup: 'pre-2004-conference-feeders',
+    // Club names are from the feeder rows. Placements are verified against the 2004–05 tables.
+    rowFlagOverrides: conferenceRestructureOverrides('northern', [
+      'Hucknall Town',
+      'Droylsden',
+      'Barrow',
+      'Alfreton Town',
+      'Harrogate Town',
+      'Southport',
+      'Worksop Town',
+      'Lancaster City',
+      'Vauxhall Motors',
+      'Gainsborough Trinity',
+      'Stalybridge Celtic',
+      'Altrincham',
+      'Runcorn F.C. Halton',
+      'Ashton United',
+      'Bradford Park Avenue',
+    ]),
     targetTables: Object.freeze([
       Object.freeze({
         startSeason: 1979,
@@ -596,7 +636,7 @@ export const WIKIPEDIA_LOWER_TIER_COMPETITION_SOURCES = Object.freeze([
         startSeason: 1987,
         endSeason: 2003,
         title: 'Premier Division',
-        outputTitle: 'Northern Premier League Premier Division',
+        outputTitle: CONFERENCE_FEEDER_PREMIER_TITLES.northern,
         divisionKey: 'northern-premier',
       }),
     ]),
@@ -609,6 +649,21 @@ export const WIKIPEDIA_LOWER_TIER_COMPETITION_SOURCES = Object.freeze([
     competitionSlug: 'Southern_Football_League',
     levels: Object.freeze([6]),
     parallelGroup: 'pre-2004-conference-feeders',
+    rowFlagOverrides: conferenceRestructureOverrides('southern', [
+      'Weymouth',
+      'Stafford Rangers',
+      'Nuneaton Borough',
+      'Worcester City',
+      'Hinckley United',
+      'Newport County',
+      'Cambridge City',
+      'Welling United',
+      'Weston-super-Mare',
+      'Eastbourne Borough',
+      'Havant & Waterlooville',
+      'Moor Green',
+      'Dorchester Town',
+    ]),
     targetTables: Object.freeze([
       Object.freeze({
         startSeason: 1979,
@@ -628,7 +683,7 @@ export const WIKIPEDIA_LOWER_TIER_COMPETITION_SOURCES = Object.freeze([
         startSeason: 1982,
         endSeason: 2003,
         title: 'Premier Division',
-        outputTitle: 'Southern Football League Premier Division',
+        outputTitle: CONFERENCE_FEEDER_PREMIER_TITLES.southern,
         divisionKey: 'southern-premier',
       }),
     ]),
@@ -641,12 +696,27 @@ export const WIKIPEDIA_LOWER_TIER_COMPETITION_SOURCES = Object.freeze([
     competitionSlug: 'Isthmian_League',
     levels: Object.freeze([6]),
     parallelGroup: 'pre-2004-conference-feeders',
+    rowFlagOverrides: conferenceRestructureOverrides('isthmian', [
+      'Sutton United',
+      'Thurrock',
+      'Hornchurch',
+      'Grays Athletic',
+      'Carshalton Athletic',
+      'Hayes',
+      'Kettering Town',
+      'Bognor Regis Town',
+      "Bishop's Stortford",
+      'Maidenhead United',
+      'Ford United',
+      'Basingstoke Town',
+      'St Albans City',
+    ]),
     targetTables: Object.freeze([
       Object.freeze({
         startSeason: 1979,
         endSeason: 2003,
         title: 'Premier Division',
-        outputTitle: 'Isthmian League Premier Division',
+        outputTitle: CONFERENCE_FEEDER_PREMIER_TITLES.isthmian,
         divisionKey: 'isthmian-premier',
       }),
     ]),

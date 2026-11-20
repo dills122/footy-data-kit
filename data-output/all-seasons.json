@@ -218499,21 +218499,6 @@
         "table": [],
         "relegated": [],
         "promoted": [
-          "Hucknall Town",
-          "Droylsden",
-          "Barrow",
-          "Alfreton Town",
-          "Harrogate Town",
-          "Southport",
-          "Worksop Town",
-          "Lancaster City",
-          "Vauxhall Motors",
-          "Gainsborough Trinity",
-          "Stalybridge Celtic",
-          "Altrincham",
-          "Runcorn F.C. Halton",
-          "Ashton United",
-          "Bradford Park Avenue",
           "Crawley Town",
           "Canvey Island"
         ],
@@ -218547,11 +218532,11 @@
                 "points": 95,
                 "notes": "Promotion to Conference North",
                 "wasRelegated": false,
-                "wasPromoted": true,
+                "wasPromoted": false,
                 "isExpansionTeam": false,
                 "wasReElected": false,
                 "wasReprieved": false,
-                "outcomeStatus": null
+                "outcomeStatus": "restructure-placement"
               },
               {
                 "pos": 2,
@@ -218567,11 +218552,11 @@
                 "points": 86,
                 "notes": "Promotion to Conference North",
                 "wasRelegated": false,
-                "wasPromoted": true,
+                "wasPromoted": false,
                 "isExpansionTeam": false,
                 "wasReElected": false,
                 "wasReprieved": false,
-                "outcomeStatus": null
+                "outcomeStatus": "restructure-placement"
               },
               {
                 "pos": 3,
@@ -218587,11 +218572,11 @@
                 "points": 80,
                 "notes": "Promotion to Conference North",
                 "wasRelegated": false,
-                "wasPromoted": true,
+                "wasPromoted": false,
                 "isExpansionTeam": false,
                 "wasReElected": false,
                 "wasReprieved": false,
-                "outcomeStatus": null
+                "outcomeStatus": "restructure-placement"
               },
               {
                 "pos": 4,
@@ -218607,11 +218592,11 @@
                 "points": 78,
                 "notes": "Promotion to Conference North",
                 "wasRelegated": false,
-                "wasPromoted": true,
+                "wasPromoted": false,
                 "isExpansionTeam": false,
                 "wasReElected": false,
                 "wasReprieved": false,
-                "outcomeStatus": null
+                "outcomeStatus": "restructure-placement"
               },
               {
                 "pos": 5,
@@ -218627,11 +218612,11 @@
                 "points": 77,
                 "notes": "Promotion to Conference North",
                 "wasRelegated": false,
-                "wasPromoted": true,
+                "wasPromoted": false,
                 "isExpansionTeam": false,
                 "wasReElected": false,
                 "wasReprieved": false,
-                "outcomeStatus": null
+                "outcomeStatus": "restructure-placement"
               },
               {
                 "pos": 6,
@@ -218647,11 +218632,11 @@
                 "points": 70,
                 "notes": "Promotion to Conference North",
                 "wasRelegated": false,
-                "wasPromoted": true,
+                "wasPromoted": false,
                 "isExpansionTeam": false,
                 "wasReElected": false,
                 "wasReprieved": false,
-                "outcomeStatus": null
+                "outcomeStatus": "restructure-placement"
               },
               {
                 "pos": 7,
@@ -218667,11 +218652,11 @@
                 "points": 70,
                 "notes": "Promotion to Conference North",
                 "wasRelegated": false,
-                "wasPromoted": true,
+                "wasPromoted": false,
                 "isExpansionTeam": false,
                 "wasReElected": false,
                 "wasReprieved": false,
-                "outcomeStatus": null
+                "outcomeStatus": "restructure-placement"
               },
               {
                 "pos": 8,
@@ -218687,11 +218672,11 @@
                 "points": 69,
                 "notes": "Promotion to Conference North",
                 "wasRelegated": false,
-                "wasPromoted": true,
+                "wasPromoted": false,
                 "isExpansionTeam": false,
                 "wasReElected": false,
                 "wasReprieved": false,
-                "outcomeStatus": null
+                "outcomeStatus": "restructure-placement"
               },
               {
                 "pos": 9,
@@ -218707,11 +218692,11 @@
                 "points": 67,
                 "notes": "Promotion to Conference North",
                 "wasRelegated": false,
-                "wasPromoted": true,
+                "wasPromoted": false,
                 "isExpansionTeam": false,
                 "wasReElected": false,
                 "wasReprieved": false,
-                "outcomeStatus": null
+                "outcomeStatus": "restructure-placement"
               },
               {
                 "pos": 10,
@@ -218727,11 +218712,11 @@
                 "points": 64,
                 "notes": "Promotion to Conference North",
                 "wasRelegated": false,
-                "wasPromoted": true,
+                "wasPromoted": false,
                 "isExpansionTeam": false,
                 "wasReElected": false,
                 "wasReprieved": false,
-                "outcomeStatus": null
+                "outcomeStatus": "restructure-placement"
               },
               {
                 "pos": 11,
@@ -218747,11 +218732,11 @@
                 "points": 64,
                 "notes": "Promotion to Conference North",
                 "wasRelegated": false,
-                "wasPromoted": true,
+                "wasPromoted": false,
                 "isExpansionTeam": false,
                 "wasReElected": false,
                 "wasReprieved": false,
-                "outcomeStatus": null
+                "outcomeStatus": "restructure-placement"
               },
               {
                 "pos": 12,
@@ -218767,11 +218752,11 @@
                 "points": 63,
                 "notes": "Promotion to Conference North",
                 "wasRelegated": false,
-                "wasPromoted": true,
+                "wasPromoted": false,
                 "isExpansionTeam": false,
                 "wasReElected": false,
                 "wasReprieved": false,
-                "outcomeStatus": null
+                "outcomeStatus": "restructure-placement"
               },
               {
                 "pos": 13,
@@ -218787,11 +218772,11 @@
                 "points": 61,
                 "notes": "Promotion to Conference North",
                 "wasRelegated": false,
-                "wasPromoted": true,
+                "wasPromoted": false,
                 "isExpansionTeam": false,
                 "wasReElected": false,
                 "wasReprieved": false,
-                "outcomeStatus": null
+                "outcomeStatus": "restructure-placement"
               },
               {
                 "pos": 14,
@@ -218807,11 +218792,11 @@
                 "points": 59,
                 "notes": "Qualification for Playoffs",
                 "wasRelegated": false,
-                "wasPromoted": true,
+                "wasPromoted": false,
                 "isExpansionTeam": false,
                 "wasReElected": false,
                 "wasReprieved": false,
-                "outcomeStatus": null
+                "outcomeStatus": "restructure-placement"
               },
               {
                 "pos": 15,
@@ -218867,11 +218852,11 @@
                 "points": 50,
                 "notes": "Qualification for Playoffs",
                 "wasRelegated": false,
-                "wasPromoted": true,
+                "wasPromoted": false,
                 "isExpansionTeam": false,
                 "wasReElected": false,
                 "wasReprieved": false,
-                "outcomeStatus": null
+                "outcomeStatus": "restructure-placement"
               },
               {
                 "pos": 18,
@@ -218995,23 +218980,7 @@
               }
             ],
             "relegated": [],
-            "promoted": [
-              "Hucknall Town",
-              "Droylsden",
-              "Barrow",
-              "Alfreton Town",
-              "Harrogate Town",
-              "Southport",
-              "Worksop Town",
-              "Lancaster City",
-              "Vauxhall Motors",
-              "Gainsborough Trinity",
-              "Stalybridge Celtic",
-              "Altrincham",
-              "Runcorn F.C. Halton",
-              "Ashton United",
-              "Bradford Park Avenue"
-            ],
+            "promoted": [],
             "metadata": {
               "source": "wikipedia-overview",
               "sourceUrl": "https://en.wikipedia.org/wiki/2003–04_Northern_Premier_League",
@@ -219068,7 +219037,7 @@
                 "isExpansionTeam": false,
                 "wasReElected": false,
                 "wasReprieved": false,
-                "outcomeStatus": null
+                "outcomeStatus": "restructure-placement"
               },
               {
                 "pos": 3,
@@ -219088,7 +219057,7 @@
                 "isExpansionTeam": false,
                 "wasReElected": false,
                 "wasReprieved": false,
-                "outcomeStatus": null
+                "outcomeStatus": "restructure-placement"
               },
               {
                 "pos": 4,
@@ -219108,7 +219077,7 @@
                 "isExpansionTeam": false,
                 "wasReElected": false,
                 "wasReprieved": false,
-                "outcomeStatus": null
+                "outcomeStatus": "restructure-placement"
               },
               {
                 "pos": 5,
@@ -219128,7 +219097,7 @@
                 "isExpansionTeam": false,
                 "wasReElected": false,
                 "wasReprieved": false,
-                "outcomeStatus": null
+                "outcomeStatus": "restructure-placement"
               },
               {
                 "pos": 6,
@@ -219148,7 +219117,7 @@
                 "isExpansionTeam": false,
                 "wasReElected": false,
                 "wasReprieved": false,
-                "outcomeStatus": null
+                "outcomeStatus": "restructure-placement"
               },
               {
                 "pos": 7,
@@ -219168,7 +219137,7 @@
                 "isExpansionTeam": false,
                 "wasReElected": false,
                 "wasReprieved": false,
-                "outcomeStatus": null
+                "outcomeStatus": "restructure-placement"
               },
               {
                 "pos": 8,
@@ -219188,7 +219157,7 @@
                 "isExpansionTeam": false,
                 "wasReElected": false,
                 "wasReprieved": false,
-                "outcomeStatus": null
+                "outcomeStatus": "restructure-placement"
               },
               {
                 "pos": 9,
@@ -219208,7 +219177,7 @@
                 "isExpansionTeam": false,
                 "wasReElected": false,
                 "wasReprieved": false,
-                "outcomeStatus": null
+                "outcomeStatus": "restructure-placement"
               },
               {
                 "pos": 10,
@@ -219228,7 +219197,7 @@
                 "isExpansionTeam": false,
                 "wasReElected": false,
                 "wasReprieved": false,
-                "outcomeStatus": null
+                "outcomeStatus": "restructure-placement"
               },
               {
                 "pos": 11,
@@ -219248,7 +219217,7 @@
                 "isExpansionTeam": false,
                 "wasReElected": false,
                 "wasReprieved": false,
-                "outcomeStatus": null
+                "outcomeStatus": "restructure-placement"
               },
               {
                 "pos": 12,
@@ -219268,7 +219237,7 @@
                 "isExpansionTeam": false,
                 "wasReElected": false,
                 "wasReprieved": false,
-                "outcomeStatus": null
+                "outcomeStatus": "restructure-placement"
               },
               {
                 "pos": 13,
@@ -219288,7 +219257,7 @@
                 "isExpansionTeam": false,
                 "wasReElected": false,
                 "wasReprieved": false,
-                "outcomeStatus": null
+                "outcomeStatus": "restructure-placement"
               },
               {
                 "pos": 14,
@@ -219368,7 +219337,7 @@
                 "isExpansionTeam": false,
                 "wasReElected": false,
                 "wasReprieved": false,
-                "outcomeStatus": null
+                "outcomeStatus": "restructure-placement"
               },
               {
                 "pos": 18,
@@ -219531,7 +219500,7 @@
                 "isExpansionTeam": false,
                 "wasReElected": false,
                 "wasReprieved": false,
-                "outcomeStatus": null
+                "outcomeStatus": "restructure-placement"
               },
               {
                 "pos": 3,
@@ -219551,7 +219520,7 @@
                 "isExpansionTeam": false,
                 "wasReElected": false,
                 "wasReprieved": false,
-                "outcomeStatus": null
+                "outcomeStatus": "restructure-placement"
               },
               {
                 "pos": 4,
@@ -219591,7 +219560,7 @@
                 "isExpansionTeam": false,
                 "wasReElected": false,
                 "wasReprieved": false,
-                "outcomeStatus": null
+                "outcomeStatus": "restructure-placement"
               },
               {
                 "pos": 6,
@@ -219611,7 +219580,7 @@
                 "isExpansionTeam": false,
                 "wasReElected": false,
                 "wasReprieved": false,
-                "outcomeStatus": null
+                "outcomeStatus": "restructure-placement"
               },
               {
                 "pos": 7,
@@ -219631,7 +219600,7 @@
                 "isExpansionTeam": false,
                 "wasReElected": false,
                 "wasReprieved": false,
-                "outcomeStatus": null
+                "outcomeStatus": "restructure-placement"
               },
               {
                 "pos": 8,
@@ -219651,7 +219620,7 @@
                 "isExpansionTeam": false,
                 "wasReElected": false,
                 "wasReprieved": false,
-                "outcomeStatus": null
+                "outcomeStatus": "restructure-placement"
               },
               {
                 "pos": 9,
@@ -219671,7 +219640,7 @@
                 "isExpansionTeam": false,
                 "wasReElected": false,
                 "wasReprieved": false,
-                "outcomeStatus": null
+                "outcomeStatus": "restructure-placement"
               },
               {
                 "pos": 10,
@@ -219691,7 +219660,7 @@
                 "isExpansionTeam": false,
                 "wasReElected": false,
                 "wasReprieved": false,
-                "outcomeStatus": null
+                "outcomeStatus": "restructure-placement"
               },
               {
                 "pos": 11,
@@ -219711,7 +219680,7 @@
                 "isExpansionTeam": false,
                 "wasReElected": false,
                 "wasReprieved": false,
-                "outcomeStatus": null
+                "outcomeStatus": "restructure-placement"
               },
               {
                 "pos": 12,
@@ -219731,7 +219700,7 @@
                 "isExpansionTeam": false,
                 "wasReElected": false,
                 "wasReprieved": false,
-                "outcomeStatus": null
+                "outcomeStatus": "restructure-placement"
               },
               {
                 "pos": 13,
@@ -219751,7 +219720,7 @@
                 "isExpansionTeam": false,
                 "wasReElected": false,
                 "wasReprieved": false,
-                "outcomeStatus": null
+                "outcomeStatus": "restructure-placement"
               },
               {
                 "pos": 14,
@@ -219771,7 +219740,7 @@
                 "isExpansionTeam": false,
                 "wasReElected": false,
                 "wasReprieved": false,
-                "outcomeStatus": null
+                "outcomeStatus": "restructure-placement"
               },
               {
                 "pos": 15,
@@ -219871,7 +219840,7 @@
                 "isExpansionTeam": false,
                 "wasReElected": false,
                 "wasReprieved": false,
-                "outcomeStatus": null
+                "outcomeStatus": "restructure-placement"
               },
               {
                 "pos": 20,
@@ -296024,8 +295993,8 @@
   "metadata": {
     "schemaVersion": 1,
     "generator": "wikipedia-combined",
-    "generatedAt": "2026-11-20T02:26:54.233Z",
-    "gitSha": "ae18e87",
+    "generatedAt": "2026-11-20T02:48:47.783Z",
+    "gitSha": "ad3d930",
     "sourceFiles": [
       "/Users/dsteele/repos/footy-data-kit/data-output/wiki_overview_tables_by_season.json"
     ],

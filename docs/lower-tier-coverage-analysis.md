@@ -246,11 +246,21 @@ footnote. [2004–05 Football Conference](https://en.wikipedia.org/wiki/2004%E2%
 
 The 2003–04 feeder pages use different labels for entry to the new level-six
 divisions. The Northern Premier League calls it promotion, while the Southern
-and Isthmian pages call it qualification. Standardizing those entries requires
-a decision about how to represent same-level restructure placements across
-the three feeders. [Northern Premier League](https://en.wikipedia.org/wiki/2003%E2%80%9304_Northern_Premier_League)
+and Isthmian pages call it qualification. The 2004–05 Conference tables confirm
+41 same-level placements from the tracked feeder divisions: 15 Northern
+Premier, 13 Southern Premier, and 13 Isthmian Premier. These rows use
+`outcomeStatus: "restructure-placement"`, retain the source notes, and are
+excluded from ordinary promotion and relegation lists.
+
+The 41 include playoff qualifiers who secured places, such as Ashton United,
+Dorchester Town, and Basingstoke Town. Hendon declined its place and has no
+placement status. Crawley Town and Canvey Island moved up to Conference
+National and remain the only promotions from those three tables. The other
+three North and South entrants came from outside the tracked feeder divisions:
+Redditch United, Lewes, and Margate. [Northern Premier League](https://en.wikipedia.org/wiki/2003%E2%80%9304_Northern_Premier_League)
 · [Southern Football League](https://en.wikipedia.org/wiki/2003%E2%80%9304_Southern_Football_League)
 · [Isthmian League](https://en.wikipedia.org/wiki/2003%E2%80%9304_Isthmian_League)
+· [2004–05 Football Conference](https://en.wikipedia.org/wiki/2004%E2%80%9305_Football_Conference)
 
 ### Representative Findings
 
