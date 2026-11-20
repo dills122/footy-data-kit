@@ -105,6 +105,58 @@ const fixtures = [
     ],
   },
   {
+    year: 2014,
+    sourceSlug: '2014–15_Football_Conference',
+    titles: ['Conference Premier', 'Conference North', 'Conference South'],
+    tables: [
+      ['national', 24, 'Barnet', 92, 'Nuneaton Town'],
+      ['north', 22, 'Barrow', 87, 'Hyde'],
+      ['south', 21, 'Bromley', 77, 'Staines Town'],
+    ],
+    promoted: {
+      national: ['Barnet', 'Bristol Rovers'],
+      north: ['Barrow', 'Guiseley'],
+      south: ['Bromley', 'Boreham Wood'],
+    },
+    relegated: {
+      national: ['Alfreton Town', 'Dartford', 'AFC Telford United', 'Nuneaton Town'],
+      north: ['Colwyn Bay', 'Leamington', 'Hyde'],
+      south: ['Farnborough', 'Staines Town'],
+    },
+    rows: [
+      ['south', { team: 'Boreham Wood', pos: 2, points: 75, wasPromoted: true }],
+      ['south', { team: 'Hayes & Yeading United', pos: 19, wasRelegated: false }],
+      ['south', { team: 'Staines Town', pos: 21, points: 25, wasRelegated: true }],
+    ],
+    southSchedule: { played: 40, absentClub: 'Salisbury City' },
+  },
+  {
+    year: 2015,
+    sourceSlug: '2015–16_National_League',
+    titles: ['National League', 'National League North', 'National League South'],
+    tables: [
+      ['national', 24, 'Cheltenham Town', 101, 'Welling United'],
+      ['north', 22, 'Solihull Moors', 85, 'Corby Town'],
+      ['south', 22, 'Sutton United', 90, 'Basingstoke Town'],
+    ],
+    promoted: {
+      national: ['Cheltenham Town', 'Grimsby Town'],
+      north: ['Solihull Moors', 'North Ferriby United'],
+      south: ['Sutton United', 'Maidstone United'],
+    },
+    relegated: {
+      national: ['FC Halifax Town', 'Altrincham', 'Kidderminster Harriers', 'Welling United'],
+      north: ['Lowestoft Town', 'Hednesford Town', 'Corby Town'],
+      south: ['Havant & Waterlooville', 'Hayes & Yeading United', 'Basingstoke Town'],
+    },
+    rows: [
+      ['national', { team: 'Bromley' }],
+      ['national', { team: 'Boreham Wood' }],
+      ['south', { team: 'Basingstoke Town', pos: 22, points: 38, wasRelegated: true }],
+    ],
+    southSchedule: { played: 42 },
+  },
+  {
     year: 2025,
     tables: [
       ['national', 24, 'York City', 108, 'Truro City'],
@@ -125,7 +177,16 @@ const fixtures = [
 ];
 
 function expectLowerTierSeason(season, fixture) {
-  const { year, tables, promoted = {}, relegated = {}, rows = [] } = fixture;
+  const {
+    year,
+    tables,
+    promoted = {},
+    relegated = {},
+    rows = [],
+    sourceSlug,
+    titles,
+    southSchedule,
+  } = fixture;
   const parallelGroup =
     year < 2004
       ? 'pre-2004-conference-feeders'
@@ -147,6 +208,22 @@ function expectLowerTierSeason(season, fixture) {
     ['national', season.tier5],
     ...season.tier6.divisions.map((division) => [division.metadata.divisionKey, division]),
   ]);
+
+  if (sourceSlug) {
+    expect(season.tier6.metadata.seasonSlug).toBe(sourceSlug);
+    expect(
+      [...divisions.values()].map(({ metadata: { seasonSlug, title } }) => ({ seasonSlug, title }))
+    ).toEqual(titles.map((title) => ({ seasonSlug: sourceSlug, title })));
+  }
+  if (southSchedule) {
+    const southTable = divisions.get('south').table;
+    expect(new Set(southTable.map(({ played }) => played))).toEqual(
+      new Set([southSchedule.played])
+    );
+    if (southSchedule.absentClub) {
+      expect(southTable.map(({ team }) => team)).not.toContain(southSchedule.absentClub);
+    }
+  }
 
   for (const [key, rowCount, champion, points, bottom] of tables) {
     const table = divisions.get(key);
