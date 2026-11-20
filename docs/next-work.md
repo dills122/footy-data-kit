@@ -34,8 +34,10 @@ This includes scripts and CLI files covered by the Jest collection rules.
 | `wikipedia/parser-core/wiki-overview-parser.js` |      74.0% |    67.3% |
 | `wikipedia/data/season-rules.js`                |      77.1% |    71.3% |
 
-`pnpm integration:coverage` reports 49 of 138 configured season fixtures
-(35.5%) and 10 club metadata fixtures. It measures fixture scope.
+`pnpm integration:coverage` reports 55 of 138 seasons (39.9%) across the
+overview, promotion, and lower-tier suites. The nine lower-tier fixtures cover
+35 tables and add six unique seasons. The report also tracks 10 club metadata
+fixtures.
 
 ## Reference Notes
 

@@ -47,7 +47,8 @@ Current state:
   historical club-reason coverage.
 - Release dry-run automation now fails closed when regenerated season or club
   metadata output is incomplete.
-- The integration matrix covers 49 of 138 season records (35.5%). The
+- The integration matrix covers 55 of 138 season records (39.9%), including
+  competition-page fixtures for the lower tiers. The
   [next-work notes](./next-work.md#coverage-baseline) record the current
   Jest coverage baseline.
 - Row-level administrative outcomes are represented with `outcomeStatus` for
