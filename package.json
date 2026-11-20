@@ -67,6 +67,12 @@
   },
   "license": "MIT",
   "packageManager": "pnpm@10.13.1",
+  "pnpm": {
+    "overrides": {
+      "wikipedia>axios": "1.20.0",
+      "cheerio>undici": "7.30.1"
+    }
+  },
   "dependencies": {
     "cheerio": "^1.1.2",
     "commander": "^14.0.2",
