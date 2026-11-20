@@ -7,7 +7,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { loadFootballData } from './generate-output-files.ts';
 import { CLUB_LINEAGE_AUDIT_RULES } from './club-identity-config.js';
-import { isHistoricalPlaceholderSeason, parseSeasonNumber, sortSeasonKeys } from './season-rules.js';
+import { isHistoricalPlaceholderSeason, parseSeasonNumber, sortSeasonKeys } from './season-rules.ts';
 import { addWikipediaStatusReasonSuggestions } from './suggest-club-status-reasons.js';
 
 const DEFAULT_DATASET_FILE = './data-output/all-seasons.json';

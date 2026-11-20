@@ -766,11 +766,13 @@ export function resolveWikipediaDatasetPath(sourceKey, outputDir = WIKIPEDIA_DEF
   return path.join(path.resolve(outputDir), fileName);
 }
 
+/** @param {number} year */
 export function isWikipediaWarSuspensionYear(year) {
   if (!Number.isFinite(year)) return false;
   return WIKIPEDIA_WAR_SUSPENSION_RANGES.some(({ start, end }) => year >= start && year <= end);
 }
 
+/** @param {number} year */
 export function getWikipediaWarSuspensionLabel(year) {
   if (!Number.isFinite(year)) return null;
   const range = WIKIPEDIA_WAR_SUSPENSION_RANGES.find(
@@ -914,6 +916,10 @@ export function getWikipediaLeagueStructureSpecialCases(seasonNumber) {
   return specialCases ? [...specialCases] : [];
 }
 
+/**
+ * @param {string} label
+ * @param {number | null | undefined} [seasonNumber]
+ */
 export function inferEnglishLeagueTier(label, seasonNumber) {
   const text = String(label || '').toLowerCase();
   if (!text.trim()) return null;

@@ -15,7 +15,7 @@ import {
 } from './club-identity-config.js';
 import { canonicalizeTeamName, normalizeTeamNameText } from './data-quality-config.js';
 import { buildDatasetMetadata, loadFootballData, normaliseClubsMap } from './generate-output-files.ts';
-import { getTierKeys, getTierTable, sortSeasonKeys } from './season-rules.js';
+import { getTierKeys, getTierTable, sortSeasonKeys } from './season-rules.ts';
 
 const DEFAULT_INPUT_FILE = './data-output/all-seasons.json';
 const DEFAULT_OUTPUT_FILE = './data/club-metadata.json';

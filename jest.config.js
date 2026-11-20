@@ -14,7 +14,12 @@ const config = {
     '<rootDir>/wikipedia/__tests__/**/*.test.js',
     '<rootDir>/wikipedia/__tests__/**/*.spec.js',
   ],
-  collectCoverageFrom: ['wikipedia/**/*.js', 'scripts/**/*.js', '!**/__tests__/**'],
+  collectCoverageFrom: [
+    'wikipedia/**/*.js',
+    'wikipedia/data/season-rules.ts',
+    'scripts/**/*.js',
+    '!**/__tests__/**',
+  ],
 };
 
 export default config;

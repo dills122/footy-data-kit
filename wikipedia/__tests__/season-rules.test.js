@@ -1,4 +1,4 @@
-import { normaliseGoalDifference } from '../data/season-rules.js';
+import { normaliseGoalDifference } from '../data/season-rules.ts';
 import {
   buildHistoricalPlaceholderSeasonInfo,
   mergeSeasonRecords,
@@ -17,7 +17,7 @@ import {
   getTierKeys,
   compareSeasonKeys,
   sortSeasonKeys,
-} from '../data/season-rules.js';
+} from '../data/season-rules.ts';
 
 describe('season-rules', () => {
   test('parses numeric season keys and flags war years', () => {
