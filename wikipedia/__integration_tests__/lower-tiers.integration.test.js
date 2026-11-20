@@ -4,6 +4,7 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { buildLowerTierSupplement } from '../builders/parse-ext-season-overview-pages.js';
 import { resolveWikipediaDatasetPath } from '../config.js';
+import { canonicalizeTeamName } from '../data/data-quality-config.js';
 import { parseRequestedSources } from './source-selection.js';
 
 jest.setTimeout(120_000);
@@ -61,6 +62,7 @@ const fixtures = [
   },
   {
     year: 2003,
+    compareConferenceIntake: true,
     tables: [
       ['national', 22, 'Chester City', 92, 'Northwich Victoria'],
       ['northern-premier', 23, 'Hucknall Town', 95, 'Wakefield & Emley'],
@@ -69,12 +71,15 @@ const fixtures = [
     ],
     promoted: {
       national: ['Chester City', 'Shrewsbury Town'],
+      'northern-premier': [],
       'southern-premier': ['Crawley Town'],
       'isthmian-premier': ['Canvey Island'],
     },
     rows: [
       ['national', { team: 'Northwich Victoria', wasReprieved: true, outcomeStatus: 'reprieved' }],
+      ['northern-premier', { team: 'Hucknall Town', notes: 'Promotion to Conference North' }],
       ['southern-premier', { team: 'Weymouth', notes: 'Qualified for the Conference South' }],
+      ['isthmian-premier', { team: 'Hendon', wasPromoted: false, outcomeStatus: null }],
     ],
   },
   {
@@ -165,6 +170,35 @@ function expectLowerTierSeason(season, fixture) {
   ]);
 }
 
+function expectConferenceRestructure(feederSeason, conferenceSeason) {
+  const regionalIntake = new Set(
+    conferenceSeason.tier6.divisions.flatMap((division) =>
+      division.table.map((row) => canonicalizeTeamName(row.team))
+    )
+  );
+  const nationalIntake = new Set(
+    conferenceSeason.tier5.table.map((row) => canonicalizeTeamName(row.team))
+  );
+  const placementCounts = [];
+  for (const feeder of feederSeason.tier6.divisions) {
+    const placed = feeder.table.filter((row) => regionalIntake.has(canonicalizeTeamName(row.team)));
+    const promoted = feeder.table.filter((row) =>
+      nationalIntake.has(canonicalizeTeamName(row.team))
+    );
+    placementCounts.push(placed.length);
+    expect(feeder.table.filter((row) => row.outcomeStatus === 'restructure-placement')).toEqual(
+      placed
+    );
+    expect(placed.every((row) => !row.wasPromoted && !row.wasRelegated)).toBe(true);
+    expect(feeder.table.filter((row) => row.wasPromoted)).toEqual(promoted);
+    expect(feeder.promoted).toEqual(promoted.map((row) => row.team));
+    expect(feeder.relegated).toEqual([]);
+  }
+  // Three of the 44 regional entrants came from outside these feeder tables.
+  expect(placementCounts).toEqual([15, 13, 13]);
+  expect(feederSeason.tier6.promoted).toEqual(['Crawley Town', 'Canvey Island']);
+}
+
 const requestedSources = parseRequestedSources(process.env.WIKI_TEST_SOURCE);
 const describeOverview =
   !requestedSources || requestedSources.has('overview') ? describe : describe.skip;
@@ -180,14 +214,18 @@ describeOverview('Wikipedia lower-tier competition pages', () => {
   test.each(fixtures)('$year live and saved tier-five and level-six standings', async (fixture) => {
     const directory = await mkdtemp(join(tmpdir(), 'footy-lower-tier-integration-'));
     try {
-      const { year } = fixture;
+      const { year, compareConferenceIntake } = fixture;
       const live = await buildLowerTierSupplement(
         year,
-        year,
+        compareConferenceIntake ? year + 1 : year,
         resolveWikipediaDatasetPath('overview', directory)
       );
       expectLowerTierSeason(live.seasons[year], fixture);
       expectLowerTierSeason(savedSeasons[year], fixture);
+      if (compareConferenceIntake) {
+        expectConferenceRestructure(live.seasons[year], live.seasons[year + 1]);
+        expectConferenceRestructure(savedSeasons[year], savedSeasons[year + 1]);
+      }
     } finally {
       await rm(directory, { recursive: true, force: true });
     }
