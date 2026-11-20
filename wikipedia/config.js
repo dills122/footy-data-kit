@@ -658,6 +658,18 @@ export const WIKIPEDIA_LOWER_TIER_COMPETITION_SOURCES = Object.freeze([
     endSeason: 2014,
     competitionSlug: 'Football_Conference',
     levels: Object.freeze([5, 6]),
+    rowFlagOverrides: Object.freeze({
+      2004: Object.freeze({
+        'Conference National': Object.freeze({
+          // The reprieve is in the league table footnotes.
+          'Forest Green Rovers': Object.freeze({ wasReprieved: true, outcomeStatus: 'reprieved' }),
+        }),
+        'Conference South': Object.freeze({
+          // Eastbourne won the South playoff. Altrincham won the promotion final.
+          'Eastbourne Borough': Object.freeze({ wasPromoted: false }),
+        }),
+      }),
+    }),
   }),
   Object.freeze({
     key: 'national-league',
